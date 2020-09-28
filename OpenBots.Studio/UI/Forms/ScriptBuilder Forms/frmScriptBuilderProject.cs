@@ -11,6 +11,7 @@ using OpenBots.UI.CustomControls.CustomUIControls;
 using OpenBots.UI.Forms.Supplement_Forms;
 using OpenBots.Utilities;
 using VBFileSystem = Microsoft.VisualBasic.FileIO.FileSystem;
+using Newtonsoft.Json;
 
 namespace OpenBots.UI.Forms.ScriptBuilder_Forms
 {
@@ -49,9 +50,10 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
                     return;
               
                 uiScriptTabControl.TabPages.Clear();
-                _scriptProjectPath = projectBuilder.NewProjectPath;
+                ScriptProjectPath = projectBuilder.NewProjectPath;
 
-                string mainScriptPath = Path.Combine(_scriptProjectPath, "Main.json");
+                string configPath = Path.Combine(ScriptProjectPath, "project.config");
+                string mainScriptPath = Path.Combine(ScriptProjectPath, "Main.json");
                 string mainScriptName = Path.GetFileNameWithoutExtension(mainScriptPath);
                 UIListView mainScriptActions = NewLstScriptActions(mainScriptName);
                 List<ScriptVariable> mainScriptVariables = new List<ScriptVariable>();
@@ -65,20 +67,20 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
                 ClearSelectedListViewItems();
 
                 try
-                {
+                {                    
                     //Serialize main script
                     var mainScript = Script.SerializeScript(mainScriptActions.Items, mainScriptVariables, mainScriptElements,
-                                                            mainScriptPath, projectBuilder.NewProjectName);                  
+                                                            mainScriptPath);
                     //Create new project
-                    Project proj = new Project(projectBuilder.NewProjectName);
-                    _mainFileName = proj.Main;
-                    //Save new project
-                    proj.SaveProject(mainScriptPath, mainScript, _mainFileName);
-                    //Open new project
-                    ScriptProject = Project.OpenProject(mainScriptPath);
-                    //Open main script
+                    ScriptProject = new Project(projectBuilder.NewProjectName);
+                    _mainFileName = ScriptProject.Main;
+
+                    //create config file
+                    File.WriteAllText(configPath, JsonConvert.SerializeObject(ScriptProject));
+
                     OpenFile(mainScriptPath);
                     ScriptFilePath = mainScriptPath;
+
                     //Show success dialog
                     Notify("Project has been created successfully!");
                 }
@@ -98,16 +100,18 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
                 try
                 {
                     //Open project
-                    ScriptProject = Project.OpenProject(projectBuilder.ExistingMainPath);
+                    ScriptProject = Project.OpenProject(projectBuilder.ExistingConfigPath);
                     _mainFileName = ScriptProject.Main;
 
-                    if (Path.GetFileName(projectBuilder.ExistingMainPath) != _mainFileName)
-                        throw new Exception("Attempted to open project from a script that isn't Main");
+                    string mainFilePath = Directory.GetFiles(projectBuilder.ExistingProjectPath, _mainFileName, SearchOption.AllDirectories).FirstOrDefault();
+                    if (mainFilePath == null)
+                        throw new Exception("Main script not found");
 
-                    _scriptProjectPath = Path.GetDirectoryName(projectBuilder.ExistingMainPath);
+                    ScriptProjectPath = projectBuilder.ExistingProjectPath;
                     uiScriptTabControl.TabPages.Clear();
+
                     //Open Main
-                    OpenFile(projectBuilder.ExistingMainPath);
+                    OpenFile(mainFilePath);
                     //show success dialog
                     Notify("Project has been opened successfully!");
                 }
@@ -121,7 +125,7 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
                 }
             }
 
-            DirectoryInfo projectDirectoryInfo = new DirectoryInfo(_scriptProjectPath);
+            DirectoryInfo projectDirectoryInfo = new DirectoryInfo(ScriptProjectPath);
             TreeNode projectNode = new TreeNode(projectDirectoryInfo.Name);
             projectNode.Text = projectDirectoryInfo.Name;
             projectNode.Tag = projectDirectoryInfo.FullName;
@@ -178,7 +182,7 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
                 fileNode.Text = childFileInfo.Name;
                 fileNode.Tag = childFileInfo.FullName;
                 
-                if (fileNode.Name != _mainFileName && fileNode.Name != "project.config")
+                if (fileNode.Name != "project.config")
                     fileNode.ContextMenuStrip = cmsProjectFileActions;
 
                 if (fileNode.Tag.ToString().ToLower().Contains(".json"))
@@ -388,7 +392,7 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
                     if (Directory.Exists(Path.Combine(selectedNodePath, copiedNodeDirectoryInfo.Name)))
                         throw new Exception("A directory with this name already exists in this location");
 
-                    else if (copiedNodePath == _scriptProjectPath)
+                    else if (copiedNodePath == ScriptProjectPath)
                         throw new Exception("The project directory cannot be copied or moved");
 
                     else
@@ -404,7 +408,7 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
                     if (File.Exists(Path.Combine(selectedNodePath, copiedNodeFileInfo.Name)))
                         throw new Exception("A file with this name already exists in this location");
 
-                    else if (copiedNodeFileInfo.Name == _mainFileName || copiedNodeFileInfo.Name == "project.config")
+                    else if (copiedNodeFileInfo.Name == "project.config")
                         throw new Exception("This file cannot be copied or moved");
 
                     else
@@ -428,7 +432,7 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
             try
             {
                 string selectedNodePath = tvProject.SelectedNode.Tag.ToString();
-                if (selectedNodePath != _scriptProjectPath)
+                if (selectedNodePath != ScriptProjectPath)
                 {
                     DirectoryInfo selectedNodeDirectoryInfo = new DirectoryInfo(selectedNodePath);
 
@@ -491,7 +495,7 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
 
                 if (!File.Exists(newFilePath))
                 {
-                    Script.SerializeScript(newScriptActions.Items, newScripVariables, newScriptElements, newFilePath, ScriptProject.ProjectName);
+                    Script.SerializeScript(newScriptActions.Items, newScripVariables, newScriptElements, newFilePath);
                     NewNode(tvProject.SelectedNode, newFilePath, "file");
                     OpenFile(newFilePath);
                 }
@@ -506,7 +510,7 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
                         newerFilePath = Path.Combine(newDirectoryPath, $"{newFileNameWithoutExtension} ({count}).json");
                         count += 1;
                     }
-                    Script.SerializeScript(newScriptActions.Items, newScripVariables, newScriptElements, newerFilePath, ScriptProject.ProjectName);
+                    Script.SerializeScript(newScriptActions.Items, newScripVariables, newScriptElements, newerFilePath);
                     NewNode(tvProject.SelectedNode, newerFilePath, "file");
                     OpenFile(newerFilePath);
                 }
@@ -531,7 +535,7 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
             {
                 string selectedNodePath = tvProject.SelectedNode.Tag.ToString();
                 string selectedNodeName = tvProject.SelectedNode.Text.ToString();
-                if (selectedNodeName != _mainFileName && selectedNodeName != "project.config")
+                if (selectedNodeName != "project.config")
                 {
                     var result = MessageBox.Show($"Are you sure you would like to delete {selectedNodeName}?",
                                              $"Delete {selectedNodeName}", MessageBoxButtons.YesNo);
@@ -571,7 +575,7 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
                 string selectedNodeNameWithoutExtension = Path.GetFileNameWithoutExtension(selectedNodeName);
                 string selectedNodeFileExtension = Path.GetExtension(selectedNodePath);
 
-                if (selectedNodeName != _mainFileName && selectedNodeName != "project.config")
+                if (selectedNodeName != "project.config")
                 {
                     FileInfo selectedNodeDirectoryInfo = new FileInfo(selectedNodePath);
 
@@ -608,9 +612,18 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
                     }
 
                     FileSystem.Rename(selectedNodePath, newPath);
+
+                    if (selectedNodeName == _mainFileName)
+                    {
+                        string newMainName = Path.GetFileName(newPath);
+                        _mainFileName = newMainName;
+                        ScriptProject.Main = newMainName;
+                        ScriptProject.SaveProject(newPath);
+                    }
+
                     tvProject.SelectedNode.Name = newName;
                     tvProject.SelectedNode.Text = newName;
-                    tvProject.SelectedNode.Tag = newPath;
+                    tvProject.SelectedNode.Tag = newPath;                   
                 }
             }
             catch (Exception ex)
@@ -623,7 +636,8 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
         #region Project Pane Buttons
         private void uiBtnRefresh_Click(object sender, EventArgs e)
         {
-            tvProject.Refresh();
+            tvProject.CollapseAll();
+            tvProject.TopNode.Expand();
         }
 
         private void uiBtnExpand_Click(object sender, EventArgs e)
@@ -638,7 +652,7 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
 
         private void uiBtnOpenDirectory_Click(object sender, EventArgs e)
         {
-            Process.Start(_scriptProjectPath);
+            Process.Start(ScriptProjectPath);
         }
         #endregion
     }

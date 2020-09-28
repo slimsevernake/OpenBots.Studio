@@ -19,12 +19,12 @@ using System.IO;
 using System.Windows.Forms;
 using OpenBots.Core.Command;
 using Formatting = Newtonsoft.Json.Formatting;
+using System.Linq;
 
 namespace OpenBots.Core.Script
 {
     public class Script
     {
-        public string ProjectName { get; set; }
         /// <summary>
         /// Contains user-defined variables
         /// </summary>
@@ -62,15 +62,12 @@ namespace OpenBots.Core.Script
             ListView.ListViewItemCollection scriptCommands,
             List<ScriptVariable> scriptVariables,
             List<ScriptElement> scriptElements,
-            string scriptFilePath = "",
-            string projectName = ""
+            string scriptFilePath = ""
             )
         {
             var script = new Script();
 
-            script.FileName = System.IO.Path.GetFileName(scriptFilePath);
-
-            script.ProjectName = projectName;
+            script.FileName = Path.GetFileName(scriptFilePath);
 
             //save variables to file
             script.Variables = scriptVariables;
@@ -171,6 +168,18 @@ namespace OpenBots.Core.Script
 
                 JsonSerializer serializer = JsonSerializer.Create(serializerSettings);
                 Script deserializedData = (Script)serializer.Deserialize(file, typeof(Script));
+
+                //update ProjectPath variable
+                var projectPathVariable = deserializedData.Variables.Where(v => v.VariableName == "ProjectPath").SingleOrDefault();
+                if (projectPathVariable == null)
+                {
+                    projectPathVariable = new ScriptVariable
+                    {
+                        VariableName = "ProjectPath",
+                        VariableValue = "Value Provided at Runtime"
+                    };
+                    deserializedData.Variables.Add(projectPathVariable);
+                }
 
                 return deserializedData;
             }

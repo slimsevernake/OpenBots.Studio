@@ -43,7 +43,7 @@ namespace OpenBots.UI.Forms
         #region Form Variables
         private EngineSettings _engineSettings;
         public string FilePath { get; set; }
-        public string ProjectName { get; set; }
+        public string ProjectPath { get; set; }
         public string JsonData { get; set; }
         public bool ServerExecution { get; set; }
         public IfrmScriptBuilder CallBackForm { get; set; }
@@ -67,7 +67,7 @@ namespace OpenBots.UI.Forms
 
         //events and methods
         #region Form Events/Methods
-        public frmScriptEngine(string pathToFile, string projectName, frmScriptBuilder builderForm, Logger engineLogger, List<ScriptVariable> variables = null, 
+        public frmScriptEngine(string pathToFile, string projectPath, frmScriptBuilder builderForm, Logger engineLogger, List<ScriptVariable> variables = null, 
             List<ScriptElement> elements = null, Dictionary<string, object> appInstances = null, bool blnCloseWhenDone = false, bool isDebugMode = false)
         {
             InitializeComponent();
@@ -93,7 +93,7 @@ namespace OpenBots.UI.Forms
             //set file
             FilePath = pathToFile;
 
-            ProjectName = projectName;
+            ProjectPath = projectPath;
 
             //get engine settings
             _engineSettings = new ApplicationSettings().GetOrCreateApplicationSettings().EngineSettings;
@@ -134,14 +134,13 @@ namespace OpenBots.UI.Forms
             GlobalHook.HookStopped += new EventHandler(OnHookStopped);
             GlobalHook.StartEngineCancellationHook(_engineSettings.CancellationKey);
         }
+
         public frmScriptEngine()
         {
             InitializeComponent();
 
             //set file
             FilePath = null;
-
-            ProjectName = "";
 
             //get engine settings
             _engineSettings = new ApplicationSettings().GetOrCreateApplicationSettings().EngineSettings;
@@ -157,13 +156,13 @@ namespace OpenBots.UI.Forms
                         _engineSettings.MinLogLevel);
                     break;
                 case SinkType.HTTP:
-                    ScriptEngineLogger = new Logging().CreateHTTPLogger(ProjectName, _engineSettings.LoggingValue1, _engineSettings.MinLogLevel);
+                    ScriptEngineLogger = new Logging().CreateHTTPLogger("", _engineSettings.LoggingValue1, _engineSettings.MinLogLevel);
                     break;
                 case SinkType.SignalR:
                     string[] groupNames = _engineSettings.LoggingValue3.Split(',').Select(x => x.Trim()).ToArray();
                     string[] userIDs = _engineSettings.LoggingValue4.Split(',').Select(x => x.Trim()).ToArray();
 
-                    ScriptEngineLogger = new Logging().CreateSignalRLogger(ProjectName, _engineSettings.LoggingValue1, _engineSettings.LoggingValue2,
+                    ScriptEngineLogger = new Logging().CreateSignalRLogger("", _engineSettings.LoggingValue1, _engineSettings.LoggingValue2,
                         groupNames, userIDs, _engineSettings.MinLogLevel);
                     break;
             }
@@ -235,11 +234,11 @@ namespace OpenBots.UI.Forms
 
             if (JsonData == null)
             {
-                EngineInstance.ExecuteScriptAsync(this, FilePath, _scriptVariableList, _scriptElementList, _scriptAppInstanceDict);
+                EngineInstance.ExecuteScriptAsync(this, FilePath, ProjectPath, _scriptVariableList, _scriptElementList, _scriptAppInstanceDict);
             }
             else
             {
-                EngineInstance.ExecuteScriptJson(JsonData);
+                EngineInstance.ExecuteScriptJson(JsonData, ProjectPath);
             }
         }
 

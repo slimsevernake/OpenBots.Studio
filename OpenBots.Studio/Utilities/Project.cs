@@ -1,9 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using OpenBots.Core.Script;
 
 namespace OpenBots.Utilities
 {
@@ -12,7 +9,6 @@ namespace OpenBots.Utilities
         public Guid ProjectID { get; set; }
         public string ProjectName { get; set; }
         public string Main { get; set; }
-        public List<string> ScriptPaths { get; set; }
 
         public Project()
         {
@@ -24,73 +20,43 @@ namespace OpenBots.Utilities
             ProjectID = Guid.NewGuid();
             ProjectName = projectName;
             Main = "Main.json";
-            ScriptPaths = new List<string>();
         }
 
-        public void SaveProject(string scriptPath, Script script, string mainName)
+        public void SaveProject(string scriptPath)
         {
             //Looks through sequential parent directories to find one that matches the script's ProjectName and contains a Main
             string projectPath;
             string dirName;
-            string mainScriptPath;
-            do
-            {
-                projectPath = Path.GetDirectoryName(scriptPath);
-                DirectoryInfo dirInfo = new DirectoryInfo(projectPath);
-                dirName = dirInfo.Name;
-                mainScriptPath = Path.Combine(projectPath, mainName);
-                scriptPath = projectPath;
-            } while (dirName != script.ProjectName || !File.Exists(mainScriptPath));
+            string configPath;
 
-            //If requirements are met, a project.config is created/updated
-            if (dirName == script.ProjectName && File.Exists(mainScriptPath))
+            try
             {
-                List<string> updatedScriptPaths = new List<string>();
-                List<string> scriptFullPaths = Directory.GetFiles(projectPath, ".", SearchOption.AllDirectories).ToList();
-                foreach (string scriptFullPath in scriptFullPaths)
+                do
                 {
-                    string relativeScriptPath = scriptFullPath.Replace(projectPath, "");
-                    if (relativeScriptPath.Contains(".json"))
-                        updatedScriptPaths.Add(relativeScriptPath);
-                }
-                ScriptPaths = updatedScriptPaths;
+                    projectPath = Path.GetDirectoryName(scriptPath);
+                    DirectoryInfo dirInfo = new DirectoryInfo(projectPath);
+                    dirName = dirInfo.Name;
+                    configPath = Path.Combine(projectPath, "project.config");
+                    scriptPath = projectPath;
+                } while (dirName != ProjectName || !File.Exists(configPath));
 
-                string projectJSONFilePath = Path.Combine(projectPath, "project.config");
-                File.WriteAllText(projectJSONFilePath, JsonConvert.SerializeObject(this));
+                //If requirements are met, a project.config is created/updated
+                if (dirName == ProjectName && File.Exists(configPath))
+                    File.WriteAllText(configPath, JsonConvert.SerializeObject(this));
             }
-            else
+            catch (Exception)
             {
-                throw new Exception("Project Directory Not Found");
-            }
+                throw new Exception("Project Directory Not Found. File Saved Externally");
+            }                       
         }
 
-        public static Project OpenProject(string mainFilePath)
+        public static Project OpenProject(string configFilePath)
         {
-            //Gets project path and project.config from main script
-            string projectPath = Path.GetDirectoryName(mainFilePath);
-            string projectJSONPath = Path.Combine(projectPath, "project.config");
-
             //Loads project from project.config
-            Project openProject = new Project();
-            if (File.Exists(projectJSONPath))
+            if (File.Exists(configFilePath))
             {
-                string projectJSONString = File.ReadAllText(projectJSONPath);
-                openProject = JsonConvert.DeserializeObject<Project>(projectJSONString);
-
-                //checks if any scripts have been deleted
-                List<string> updatedScriptPaths = new List<string>();
-                List<string> scriptFullPaths = Directory.GetFiles(projectPath, ".", SearchOption.AllDirectories).ToList();
-                foreach (string scriptFullPath in scriptFullPaths)
-                {
-                    string relativeScriptPath = scriptFullPath.Replace(projectPath, "");
-                    if (relativeScriptPath.Contains(".json") && !relativeScriptPath.Contains("project.json"))
-                        updatedScriptPaths.Add(relativeScriptPath);
-                }
-                openProject.ScriptPaths = updatedScriptPaths;
-
-                //updates project.config
-                File.WriteAllText(projectJSONPath, JsonConvert.SerializeObject(openProject));
-                return openProject;
+                string projectJSONString = File.ReadAllText(configFilePath);
+                return JsonConvert.DeserializeObject<Project>(projectJSONString);
             }
             else
             {

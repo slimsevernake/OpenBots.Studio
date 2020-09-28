@@ -68,6 +68,7 @@
             this.txtNewProjectName.Name = "txtNewProjectName";
             this.txtNewProjectName.Size = new System.Drawing.Size(280, 32);
             this.txtNewProjectName.TabIndex = 16;
+            this.txtNewProjectName.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtNewProjectName_KeyDown);
             // 
             // lblProjectName
             // 
@@ -91,7 +92,7 @@
             this.lblOpenProjectDescription.Name = "lblOpenProjectDescription";
             this.lblOpenProjectDescription.Size = new System.Drawing.Size(355, 28);
             this.lblOpenProjectDescription.TabIndex = 20;
-            this.lblOpenProjectDescription.Text = "Open the Main of an existing Project";
+            this.lblOpenProjectDescription.Text = "Open project.config of Existing Project";
             // 
             // txtExistingProjectLocation
             // 
@@ -102,6 +103,7 @@
             this.txtExistingProjectLocation.Name = "txtExistingProjectLocation";
             this.txtExistingProjectLocation.Size = new System.Drawing.Size(280, 32);
             this.txtExistingProjectLocation.TabIndex = 19;
+            this.txtExistingProjectLocation.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtExistingProjectLocation_KeyDown);
             // 
             // lblOpenProject
             // 
@@ -125,6 +127,7 @@
             this.txtNewProjectLocation.Name = "txtNewProjectLocation";
             this.txtNewProjectLocation.Size = new System.Drawing.Size(280, 32);
             this.txtNewProjectLocation.TabIndex = 24;
+            this.txtNewProjectLocation.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtNewProjectLocation_KeyDown);
             // 
             // btnFileManager
             // 
@@ -199,7 +202,7 @@
             this.lblError.BackColor = System.Drawing.Color.Transparent;
             this.lblError.Font = new System.Drawing.Font("Segoe UI Light", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblError.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.lblError.Location = new System.Drawing.Point(12, 273);
+            this.lblError.Location = new System.Drawing.Point(6, 274);
             this.lblError.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblError.Name = "lblError";
             this.lblError.Size = new System.Drawing.Size(688, 28);
@@ -211,7 +214,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoValidate = System.Windows.Forms.AutoValidate.EnablePreventFocusChange;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.ClientSize = new System.Drawing.Size(701, 279);
+            this.ClientSize = new System.Drawing.Size(701, 318);
             this.Controls.Add(this.lblError);
             this.Controls.Add(this.btnOpenProject);
             this.Controls.Add(this.lblProjectLocation);
@@ -226,7 +229,7 @@
             this.Controls.Add(this.txtNewProjectName);
             this.Controls.Add(this.lblNewProject);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
-            this.Icon = OpenBots.Core.Properties.Resources.OpenBots_ico;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(5);
             this.MaximizeBox = false;
             this.MinimizeBox = false;

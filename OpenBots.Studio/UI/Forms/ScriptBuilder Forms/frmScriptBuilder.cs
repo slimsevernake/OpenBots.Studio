@@ -73,7 +73,7 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
             }
         }
         public Project ScriptProject { get; set; }
-        private string _scriptProjectPath;
+        public string ScriptProjectPath { get; private set; }
         private string _mainFileName;
         private Point _lastClickPosition;
         private int _debugLine;
@@ -140,14 +140,9 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
 
         private void UpdateWindowTitle()
         {
-            if (!string.IsNullOrEmpty(ScriptFilePath))
+            if (ScriptProject.ProjectName != null)
             {
-                FileInfo scriptFileInfo = new FileInfo(ScriptFilePath);
-                Text = "OpenBots Studio - (Project: " + ScriptProject.ProjectName + " - Script: " + scriptFileInfo.Name + ")";
-            }
-            else if (ScriptProject.ProjectName != null)
-            {
-                Text = "OpenBots Studio - (Project: " + ScriptProject.ProjectName + ")";
+                Text = "OpenBots Studio - " + ScriptProject.ProjectName;
             }
             else
             {
@@ -269,7 +264,7 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
             if (_appSettings.ClientSettings.StartupMode == "Attended Task Mode")
             {
                 WindowState = FormWindowState.Minimized;
-                var frmAttended = new frmAttendedMode(ScriptProject.ProjectName);
+                var frmAttended = new frmAttendedMode(ScriptProjectPath);
                 frmAttended.Show();
             }
 
@@ -513,6 +508,9 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
                 ScriptVariables = _scriptVariables,
                 ScriptElements = _scriptElements
             };
+
+            newCommandForm.ProjectPath = ScriptProjectPath;
+
             if (specificCommand != "")
                 newCommandForm.DefaultStartupCommand = specificCommand;
 

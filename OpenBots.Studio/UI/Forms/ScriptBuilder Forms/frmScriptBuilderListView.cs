@@ -249,7 +249,7 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
                 frmScriptBuilder newBuilder = new frmScriptBuilder();
 
                 newBuilder.ScriptProject = ScriptProject;
-                newBuilder._scriptProjectPath = _scriptProjectPath;
+                newBuilder.ScriptProjectPath = ScriptProjectPath;
 
                 //add variables/elements
                 newBuilder._scriptVariables = _scriptVariables;
@@ -318,6 +318,8 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
 
                 //set elements
                 editCommand.ScriptElements = _scriptElements;
+
+                editCommand.ProjectPath = ScriptProjectPath;
 
                 if (currentCommand.CommandName == "SeleniumElementActionCommand")
                     editCommand.HTMLElementRecorderURL = HTMLElementRecorderURL;
