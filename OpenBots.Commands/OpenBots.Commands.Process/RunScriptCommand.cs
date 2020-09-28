@@ -8,7 +8,6 @@ using OpenBots.Engine;
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
-using System.Xml.Serialization;
 using Diagnostics = System.Diagnostics;
 
 namespace OpenBots.Commands.Process
@@ -19,7 +18,7 @@ namespace OpenBots.Commands.Process
 
     public class RunScriptCommand : ScriptCommand
     {
-        [XmlAttribute]
+
         [PropertyDescription("Script Path")]
         [InputSpecification("Enter a fully qualified path to the script, including the script extension.")]
         [SampleUsage(@"C:\temp\myscript.ps1 || {vScriptPath} || {ProjectPath}\myscript.ps1")]
@@ -29,7 +28,6 @@ namespace OpenBots.Commands.Process
         [PropertyUIHelper(UIAdditionalHelperType.ShowFileSelectionHelper)]
         public string v_ScriptPath { get; set; }
 
-        [XmlAttribute]
         [PropertyDescription("Script Type")]
         [PropertyUISelectionOption("Default")]
         [PropertyUISelectionOption("Powershell")]
@@ -39,7 +37,6 @@ namespace OpenBots.Commands.Process
         [Remarks("Default executes with the system default for that file type.")]
         public string v_ScriptType { get; set; }
 
-        [XmlAttribute]
         [PropertyDescription("Arguments")]
         [InputSpecification("Enter any arguments as a single string.")]
         [SampleUsage("-message Hello -t 2 || {vArguments}")]

@@ -10,7 +10,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
-using System.Xml.Serialization;
 
 namespace OpenBots.Commands.File
 {
@@ -19,7 +18,6 @@ namespace OpenBots.Commands.File
     [Description("This command returns a list of file paths from a specified location.")]
     public class GetFilesCommand : ScriptCommand
     {
-        [XmlAttribute]
         [PropertyDescription("Source Folder Path")]
         [InputSpecification("Enter or Select the path to the folder.")]
         [SampleUsage(@"C:\temp\myfolder || {ProjectPath}\myfolder || {vSourceFolderPath}")]
@@ -28,7 +26,6 @@ namespace OpenBots.Commands.File
         [PropertyUIHelper(UIAdditionalHelperType.ShowFolderSelectionHelper)]
         public string v_SourceFolderPath { get; set; }
 
-        [XmlAttribute]
         [PropertyDescription("Output File Path(s) List Variable")]
         [InputSpecification("Create a new variable or select a variable from the list.")]
         [SampleUsage("{vUserVariable}")]
@@ -50,7 +47,7 @@ namespace OpenBots.Commands.File
             var sourceFolder = v_SourceFolderPath.ConvertUserVariableToString(engine);
 
             //Get File Paths from the folder
-            var filesList = Directory.GetFiles(sourceFolder).ToList();
+            var filesList = Directory.GetFiles(sourceFolder, ".", SearchOption.AllDirectories).ToList();
 
             //Add File Paths to the output variable
             filesList.StoreInUserVariable(engine, v_OutputUserVariableName);

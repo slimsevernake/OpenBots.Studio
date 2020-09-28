@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Windows.Forms;
-using System.Xml.Serialization;
 using OpenBots.Core.Attributes.ClassAttributes;
 using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
@@ -24,7 +23,7 @@ namespace OpenBots.Commands
         "until the result of the logical statements becomes false.")]
     public class BeginMultiLoopCommand : ScriptCommand
     {
-        [XmlElement]
+
         [PropertyDescription("Multiple Loop Conditions")]
         [InputSpecification("Add new Loop condition(s).")]
         [SampleUsage("")]
@@ -32,14 +31,14 @@ namespace OpenBots.Commands
         [PropertyUIHelper(UIAdditionalHelperType.ShowLoopBuilder)]
         public DataTable v_LoopConditionsTable { get; set; }
 
-        [XmlIgnore]
+        [JsonIgnore]
         [NonSerialized]
         private DataGridView _loopConditionHelper;
 
-        [XmlIgnore]
+        [JsonIgnore]
         private List<ScriptVariable> _scriptVariables { get; set; }
 
-        [XmlIgnore]
+        [JsonIgnore]
         private List<ScriptElement> _scriptElements { get; set; }
 
         public BeginMultiLoopCommand()

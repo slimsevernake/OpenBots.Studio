@@ -9,7 +9,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Windows.Forms;
-using System.Xml.Serialization;
 
 namespace OpenBots.Commands.Folder
 {
@@ -18,7 +17,6 @@ namespace OpenBots.Commands.Folder
     [Description("This command moves/copies a folder to a specified location.")]
     public class MoveCopyFolderCommand : ScriptCommand
     {
-        [XmlAttribute]
         [PropertyDescription("Folder Operation Type")]
         [PropertyUISelectionOption("Move Folder")]
         [PropertyUISelectionOption("Copy Folder")]
@@ -27,7 +25,6 @@ namespace OpenBots.Commands.Folder
         [Remarks("Moving will remove the folder from the original path while Copying will not.")]
         public string v_OperationType { get; set; }
 
-        [XmlAttribute]
         [PropertyDescription("Source Folder Path")]
         [InputSpecification("Enter or Select the path to the original folder.")]
         [SampleUsage(@"C:\temp\myfolder || {ProjectPath}\myfolder || {vOriginalFolderPath}")]
@@ -36,7 +33,6 @@ namespace OpenBots.Commands.Folder
         [PropertyUIHelper(UIAdditionalHelperType.ShowFolderSelectionHelper)] 
         public string v_SourceFolderPath { get; set; }
 
-        [XmlAttribute]
         [PropertyDescription("Destination Folder Path")]
         [InputSpecification("Enter or Select the destination folder path.")]
         [SampleUsage(@"C:\temp\DestinationFolder || {ProjectPath}\DestinationFolder || {vDestinationFolderPath}")]
@@ -45,7 +41,6 @@ namespace OpenBots.Commands.Folder
         [PropertyUIHelper(UIAdditionalHelperType.ShowFolderSelectionHelper)] 
         public string v_DestinationDirectory { get; set; }
 
-        [XmlAttribute]
         [PropertyDescription("Create Destination Folder")]
         [PropertyUISelectionOption("Yes")]
         [PropertyUISelectionOption("No")]
@@ -54,7 +49,6 @@ namespace OpenBots.Commands.Folder
         [Remarks("")]
         public string v_CreateDirectory { get; set; }
 
-        [XmlAttribute]
         [PropertyDescription("Delete Existing Folder")]
         [PropertyUISelectionOption("Yes")]
         [PropertyUISelectionOption("No")]

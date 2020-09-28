@@ -11,7 +11,6 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Windows.Forms;
-using System.Xml.Serialization;
 using Application = Microsoft.Office.Interop.Excel.Application;
 using DataTable = System.Data.DataTable;
 
@@ -20,10 +19,8 @@ namespace OpenBots.Commands.Excel
     [Serializable]
     [Group("Excel Commands")]
     [Description("This command reads an Excel Config Worksheet and stores it in a Dictionary.")]
-
     public class LoadDictionaryCommand : ScriptCommand
     {
-        [XmlAttribute]
         [PropertyDescription("Workbook File Path")]
         [InputSpecification("Enter or Select the path to the Workbook file.")]
         [SampleUsage(@"C:\temp\myfile.xlsx || {vFilePath} || {ProjectPath}\myfile.xlsx")]
@@ -32,7 +29,6 @@ namespace OpenBots.Commands.Excel
         [PropertyUIHelper(UIAdditionalHelperType.ShowFileSelectionHelper)]
         public string v_FilePath { get; set; }
 
-        [XmlAttribute]
         [PropertyDescription("Worksheet")]
         [InputSpecification("Indicate the Worksheet to be retrieved.")]
         [SampleUsage("Sheet1 || {vSheet}")]
@@ -40,7 +36,6 @@ namespace OpenBots.Commands.Excel
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_SheetName { get; set; }
 
-        [XmlAttribute]
         [PropertyDescription("Key Column Name")]
         [InputSpecification("Enter the name of the column to be loaded as Dictionary Keys.")]
         [SampleUsage("Name || {vKeyColumn}")]
@@ -48,7 +43,6 @@ namespace OpenBots.Commands.Excel
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_KeyColumn { get; set; }
 
-        [XmlAttribute]
         [PropertyDescription("Value Column Name")]
         [InputSpecification("Enter the name of the column to be loaded as Dictionary Values.")]
         [SampleUsage("Value || {vValueColumn}")]
@@ -56,7 +50,6 @@ namespace OpenBots.Commands.Excel
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_ValueColumn { get; set; }
 
-        [XmlAttribute]
         [PropertyDescription("Output Dictionary Variable")]
         [InputSpecification("Create a new variable or select a variable from the list.")]
         [SampleUsage("{vUserVariable}")]

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
-using System.Xml.Serialization;
 using OpenBots.Core.Attributes.ClassAttributes;
 using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
@@ -18,7 +17,7 @@ namespace OpenBots.Commands
     [Description("This command simulates a mouse movement to a specified position.")]
     public class SendMouseMoveCommand : ScriptCommand
     {
-        [XmlAttribute]
+
         [PropertyDescription("X Position")]
         [InputSpecification("Input the new horizontal coordinate of the mouse. Starts from 0 on the left and increases going right.")]
         [SampleUsage("0 || {vXPosition}")]
@@ -27,7 +26,6 @@ namespace OpenBots.Commands
         [PropertyUIHelper(UIAdditionalHelperType.ShowMouseCaptureHelper)]
         public string v_XMousePosition { get; set; }
 
-        [XmlAttribute]
         [PropertyDescription("Y Position")]
         [InputSpecification("Input the new vertical coordinate of the mouse. Starts from 0 at the top and increases going down.")]
         [SampleUsage("0 || {vYPosition}")]
@@ -36,7 +34,6 @@ namespace OpenBots.Commands
         [PropertyUIHelper(UIAdditionalHelperType.ShowMouseCaptureHelper)]
         public string v_YMousePosition { get; set; }
 
-        [XmlAttribute]
         [PropertyDescription("Click Type (Optional)")]
         [PropertyUISelectionOption("None")]
         [PropertyUISelectionOption("Left Click")]

@@ -9,7 +9,6 @@ using OpenBots.Engine;
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
-using System.Xml.Serialization;
 using Application = Microsoft.Office.Interop.Outlook.Application;
 
 namespace OpenBots.Commands.Outlook
@@ -20,7 +19,7 @@ namespace OpenBots.Commands.Outlook
 
     public class SendOutlookEmailCommand : ScriptCommand
     {
-        [XmlAttribute]
+
         [PropertyDescription("Recipient(s)")]
         [InputSpecification("Enter the email address(es) of the recipient(s).")]
         [SampleUsage("test@test.com || test@test.com;test2@test.com || {vEmail} || {vEmail1};{vEmail2} || {vEmails}")]
@@ -28,7 +27,6 @@ namespace OpenBots.Commands.Outlook
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_Recipients { get; set; }
 
-        [XmlAttribute]
         [PropertyDescription("Email Subject")]
         [InputSpecification("Enter the subject of the email.")]
         [SampleUsage("Hello || {vSubject}")]
@@ -36,7 +34,6 @@ namespace OpenBots.Commands.Outlook
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_Subject { get; set; }
 
-        [XmlAttribute]
         [PropertyDescription("Email Body")]
         [InputSpecification("Enter text to be used as the email body.")]
         [SampleUsage("Dear John, ... || {vBody}")]
@@ -44,7 +41,6 @@ namespace OpenBots.Commands.Outlook
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_Body { get; set; }
 
-        [XmlAttribute]
         [PropertyDescription("Email Body Type")]
         [PropertyUISelectionOption("Plain")]
         [PropertyUISelectionOption("HTML")]
@@ -52,7 +48,6 @@ namespace OpenBots.Commands.Outlook
         [Remarks("")]
         public string v_BodyType { get; set; }
 
-        [XmlAttribute]
         [PropertyDescription("Attachment File Path(s)")]
         [InputSpecification("Enter the file path(s) of the file(s) to attach.")]
         [SampleUsage(@"C:\temp\myFile.xlsx || {vFile} || C:\temp\myFile1.xlsx;C:\temp\myFile2.xlsx || {vFile1};{vFile2} || {vFiles}")]

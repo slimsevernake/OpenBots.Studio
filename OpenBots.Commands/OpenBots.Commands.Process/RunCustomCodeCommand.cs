@@ -5,6 +5,7 @@ using OpenBots.Core.Common;
 using OpenBots.Core.Enums;
 using OpenBots.Core.Infrastructure;
 using OpenBots.Core.Script;
+using OpenBots.Core.Utilities.CommandUtilities;
 using OpenBots.Core.Utilities.CommonUtilities;
 using OpenBots.Engine;
 using SimpleNLG.Extensions;
@@ -14,7 +15,6 @@ using System.Linq;
 using System.Reflection;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
-using System.Xml.Serialization;
 using Diagnostics = System.Diagnostics;
 using Group = OpenBots.Core.Attributes.ClassAttributes.Group;
 
@@ -26,7 +26,7 @@ namespace OpenBots.Commands.Process
 
     public class RunCustomCodeCommand : ScriptCommand
     {
-        [XmlAttribute]
+
         [PropertyDescription("C# Code")]
         [InputSpecification("Enter the code to be executed or use the builder to create your custom C# code. "+
                             "The builder contains a Hello World template that you can use to build from.")]
@@ -36,7 +36,6 @@ namespace OpenBots.Commands.Process
         [PropertyUIHelper(UIAdditionalHelperType.ShowCodeBuilder)]
         public string v_Code { get; set; }
 
-        [XmlAttribute]
         [PropertyDescription("Arguments")]
         [InputSpecification("Enter arguments that the custom code will receive during execution, split them using commas.")]
         [SampleUsage("hello || {vArg} || hello,world || {vArg1},{vArg2}")]
@@ -44,7 +43,6 @@ namespace OpenBots.Commands.Process
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_Args { get; set; }
 
-        [XmlAttribute]
         [PropertyDescription("Output Data Variable")]
         [InputSpecification("Create a new variable or select a variable from the list.")]
         [SampleUsage("{vUserVariable}")]

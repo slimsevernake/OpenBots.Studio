@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
-using System.Xml.Serialization;
 using OpenBots.Core.Attributes.ClassAttributes;
 using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
@@ -13,21 +12,17 @@ using OpenBots.Engine;
 
 namespace OpenBots.Commands
 {
-
     [Serializable]
     [Group("Web Browser Commands")]
     [Description("This command allows you to execute a script in a Selenium web browser session.")]
-
     public class SeleniumExecuteScriptCommand : ScriptCommand
     {
-        [XmlAttribute]
         [PropertyDescription("Browser Instance Name")]
         [InputSpecification("Enter the unique instance that was specified in the **Create Browser** command.")]
         [SampleUsage("MyBrowserInstance")]
         [Remarks("Failure to enter the correct instance name or failure to first call the **Create Browser** command will cause an error.")]
         public string v_InstanceName { get; set; } 
 
-        [XmlAttribute]
         [PropertyDescription("Script Code")]
         [InputSpecification("Enter the script code to execute.")]
         [SampleUsage("arguments[0].click(); || alert('Welcome to OpenBots'); || {vScript}")]
@@ -35,7 +30,6 @@ namespace OpenBots.Commands
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_ScriptCode { get; set; }
 
-        [XmlAttribute]
         [PropertyDescription("Arguments")]
         [InputSpecification("Enter any necessary arguments.")]
         [SampleUsage("button || {vArguments}")]
@@ -43,7 +37,6 @@ namespace OpenBots.Commands
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_Arguments { get; set; }
 
-        [XmlAttribute]
         [PropertyDescription("Output Data Variable")]
         [InputSpecification("Create a new variable or select a variable from the list.")]
         [SampleUsage("{vUserVariable}")]

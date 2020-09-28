@@ -9,7 +9,6 @@ using OpenBots.Engine;
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
-using System.Xml.Serialization;
 
 namespace OpenBots.Commands.Data
 {
@@ -18,7 +17,7 @@ namespace OpenBots.Commands.Data
     [Description("This command parses a JSON array into a list.")]
     public class ParseJSONArrayCommand : ScriptCommand
     {
-        [XmlAttribute]
+
         [PropertyDescription("JSON Array")]
         [InputSpecification("Provide a variable or JSON array value.")]
         [SampleUsage("[{\"rect\":{\"length\":10, \"width\":5}}] || {vArrayVariable}")]
@@ -26,7 +25,6 @@ namespace OpenBots.Commands.Data
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_JsonArrayName { get; set; }
 
-        [XmlAttribute]
         [PropertyDescription("Output List Variable")]
         [InputSpecification("Create a new variable or select a variable from the list.")]
         [SampleUsage("{vUserVariable}")]

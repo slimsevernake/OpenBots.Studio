@@ -9,7 +9,6 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Windows.Forms;
-using System.Xml.Serialization;
 
 namespace OpenBots.Commands.Dictionary
 {
@@ -18,7 +17,7 @@ namespace OpenBots.Commands.Dictionary
     [Description("This command adds an item (key and value pair) to a Dictionary.")]
     public class AddDictionaryItemCommand : ScriptCommand
     {
-        [XmlAttribute]
+
         [PropertyDescription("Dictionary")]
         [InputSpecification("Select the dictionary variable to add an item to.")]
         [SampleUsage("{vMyDictionary}")]
@@ -26,7 +25,6 @@ namespace OpenBots.Commands.Dictionary
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_DictionaryName { get; set; }
 
-        [XmlElement]
         [PropertyDescription("Keys and Values")]
         [InputSpecification("Enter Keys and Values required for the dictionary.")]
         [SampleUsage("[FirstName | John] || [{vKey} | {vValue}]")]

@@ -8,7 +8,6 @@ using OpenBots.Engine;
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
-using System.Xml.Serialization;
 
 namespace OpenBots.Commands.Data
 {
@@ -17,7 +16,7 @@ namespace OpenBots.Commands.Data
     [Description("This command replaces an existing substring in a string and saves the result in a variable.")]
     public class ReplaceTextCommand : ScriptCommand
     {
-        [XmlAttribute]
+
         [PropertyDescription("Text Data")]
         [InputSpecification("Provide a variable or text value.")]
         [SampleUsage("Hello John || {vTextData}")]
@@ -25,7 +24,6 @@ namespace OpenBots.Commands.Data
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_InputText { get; set; }
 
-        [XmlAttribute]
         [PropertyDescription("Old Text")]
         [InputSpecification("Specify the old value of the text that will be replaced.")]
         [SampleUsage("Hello || {vOldText}")]
@@ -33,7 +31,6 @@ namespace OpenBots.Commands.Data
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_OldText { get; set; }
 
-        [XmlAttribute]
         [PropertyDescription("New Text")]
         [InputSpecification("Specify the new value to replace the old value.")]
         [SampleUsage("Hi || {vNewText}")]
@@ -41,7 +38,6 @@ namespace OpenBots.Commands.Data
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_NewText { get; set; }
 
-        [XmlAttribute]
         [PropertyDescription("Output Text Variable")]
         [InputSpecification("Create a new variable or select a variable from the list.")]
         [SampleUsage("{vUserVariable}")]

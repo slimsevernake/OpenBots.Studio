@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
-using System.Xml.Serialization;
 using OpenBots.Core.Attributes.ClassAttributes;
 using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
@@ -18,7 +17,7 @@ namespace OpenBots.Commands
     [Description("This command repeats the subsequent actions a specified number of times.")]
     public class LoopNumberOfTimesCommand : ScriptCommand
     {
-        [XmlAttribute]
+
         [PropertyDescription("Loop Count")]
         [InputSpecification("Enter the amount of times you would like to execute the encased commands.")]
         [SampleUsage("5 || {vLoopCount}")]
@@ -26,7 +25,6 @@ namespace OpenBots.Commands
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_LoopParameter { get; set; }
 
-        [XmlAttribute]
         [PropertyDescription("Start Index")]
         [InputSpecification("Enter the starting index of the loop.")]
         [SampleUsage("5 || {vStartIndex}")]

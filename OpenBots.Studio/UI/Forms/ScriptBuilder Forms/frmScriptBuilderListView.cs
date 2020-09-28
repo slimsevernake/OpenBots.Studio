@@ -9,10 +9,9 @@ using OpenBots.Commands;
 using OpenBots.Core.Command;
 using OpenBots.Core.Common;
 using OpenBots.Core.Enums;
-using OpenBots.Core.Script;
 using OpenBots.Core.Properties;
 using OpenBots.UI.CustomControls.CustomUIControls;
-using OpenBots.UI.DTOs;
+using OpenBots.Core.UI.DTOs;
 using OpenBots.UI.Forms.Supplement_Forms;
 
 namespace OpenBots.UI.Forms.ScriptBuilder_Forms
@@ -31,7 +30,7 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
             new ColumnHeader{ Width = 20 },
             new ColumnHeader{ Text = "Script Commands", Width = -2 } });
             newLstScriptActions.Dock = DockStyle.Fill;
-            newLstScriptActions.Font = new Font("Segoe UI", 11, FontStyle.Bold, GraphicsUnit.Point, ((byte)(0)));
+            newLstScriptActions.Font = new Font("Segoe UI", 11, FontStyle.Bold, GraphicsUnit.Point, 0);
             newLstScriptActions.FullRowSelect = true;
             newLstScriptActions.HeaderStyle = ColumnHeaderStyle.None;
             newLstScriptActions.HideSelection = false;
@@ -173,13 +172,7 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
             if (e.KeyCode == Keys.Delete)
             {
                 CreateUndoSnapshot();
-                foreach (ListViewItem itm in _selectedTabScriptActions.SelectedItems)
-                {
-                    _selectedTabScriptActions.Items.Remove(itm);
-                }
-
-                _selectedTabScriptActions.Invalidate();
-                //FormatCommandListView();
+                DeleteSelectedCode();          
             }
             else if (e.KeyCode == Keys.Enter)
             {
@@ -217,6 +210,15 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
                             ClearSelectedListViewItems();
                             SaveToFile(false);
                         }                        
+                        break;
+                    case Keys.E:
+                        SetSelectedCodeToCommented(false);
+                        break;
+                    case Keys.D:
+                        SetSelectedCodeToCommented(true);
+                        break;
+                    case Keys.B:
+                        AddRemoveBreakpoint();
                         break;
                 }
             }
@@ -772,6 +774,54 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
             }
         }
 
+        private void DeleteSelectedCode()
+        {
+            foreach (ListViewItem item in _selectedTabScriptActions.SelectedItems)
+            {               
+                switch (((ScriptCommand)item.Tag).CommandName)
+                {
+                    case "LoopCollectionCommand":
+                    case "LoopContinuouslyCommand":
+                    case "LoopNumberOfTimesCommand":
+                    case "BeginLoopCommand":
+                    case "BeginMultiLoopCommand":
+                        FindEndCommand(item, "EndLoopCommand");
+                        break;
+                    case "BeginIfCommand":
+                    case "BeginMultiIfCommand":
+                        FindEndCommand(item, "EndIfCommand");
+                        break;
+                    case "BeginTryCommand":
+                        FindEndCommand(item, "EndTryCommand");
+                        break;
+                    case "BeginRetryCommand":
+                        FindEndCommand(item, "EndRetryCommand");
+                        break;
+                    case "BeginSwitchCommand":
+                        FindEndCommand(item, "EndSwitchCommand");
+                        break;
+                    default:
+                        break;
+                }
+            }
+
+            foreach (ListViewItem item in _selectedTabScriptActions.SelectedItems)
+                _selectedTabScriptActions.Items.Remove(item);
+
+            _selectedTabScriptActions.Invalidate();
+        }
+
+        private void FindEndCommand(ListViewItem item, string endCommandName)
+        {
+            for (int itemIndex = item.Index; itemIndex < _selectedTabScriptActions.Items.Count; itemIndex++)
+            {
+                _selectedTabScriptActions.Items[itemIndex].Selected = true;
+                if (((ScriptCommand)_selectedTabScriptActions.Items[itemIndex].Tag).CommandName == endCommandName &&
+                    _selectedTabScriptActions.Items[itemIndex].IndentCount == item.IndentCount)
+                    break;
+            }
+        }
+
         private void SetSelectedCodeToCommented(bool setCommented)
         {
             //warn if nothing was selected
@@ -789,12 +839,9 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
 
             //recolor
             _selectedTabScriptActions.Invalidate();
-
-            //clear selection
-            _selectedTabScriptActions.SelectedIndices.Clear();
         }
 
-        private void SetPauseBeforeExecution()
+        private void AddRemoveBreakpoint()
         {
             //warn if nothing was selected
             if (_selectedTabScriptActions.SelectedItems.Count == 0)
@@ -810,11 +857,7 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
             }
 
             //recolor
-            //FormatCommandListView();
             _selectedTabScriptActions.Invalidate();
-
-            //clear selection
-            _selectedTabScriptActions.SelectedIndices.Clear();
         }
 
         private void disableSelectedCodeToolStripMenuItem_Click(object sender, EventArgs e)
@@ -827,24 +870,29 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
             SetSelectedCodeToCommented(false);
         }
 
-        private void pauseBeforeExecutionToolStripMenuItem_Click(object sender, EventArgs e)
+        private void addRemoveBreakpointToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            SetPauseBeforeExecution();
+            AddRemoveBreakpoint();
         }
 
-        private void cutSelectedActionssToolStripMenuItem_Click(object sender, EventArgs e)
+        private void cutSelectedCodeToolStripMenuItem_Click(object sender, EventArgs e)
         {
             CutRows();
         }
 
-        private void copySelectedToolStripMenuItem_Click(object sender, EventArgs e)
+        private void copySelectedCodeToolStripMenuItem_Click(object sender, EventArgs e)
         {
             CopyRows();
         }
 
-        private void pasteSelectedToolStripMenuItem_Click(object sender, EventArgs e)
+        private void pasteSelectedCodeToolStripMenuItem_Click(object sender, EventArgs e)
         {
             PasteRows();
+        }
+
+        private void deleteSelectedCodeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DeleteSelectedCode();
         }
 
         private void viewCodeToolStripMenuItem_Click(object sender, EventArgs e)

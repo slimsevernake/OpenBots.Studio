@@ -14,7 +14,6 @@ using System.Linq;
 using System.Security.Authentication;
 using System.Threading;
 using System.Windows.Forms;
-using System.Xml.Serialization;
 
 namespace OpenBots.Commands.Email
 {
@@ -24,7 +23,7 @@ namespace OpenBots.Commands.Email
 
     public class DeleteIMAPEmailCommand : ScriptCommand
     {
-        [XmlAttribute]
+
         [PropertyDescription("MimeMessage")]
         [InputSpecification("Enter the MimeMessage to delete.")]
         [SampleUsage("{vMimeMessage}")]
@@ -32,7 +31,6 @@ namespace OpenBots.Commands.Email
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_IMAPMimeMessage { get; set; }
 
-        [XmlAttribute]
         [PropertyDescription("Host")]
         [InputSpecification("Define the host/service name that the script should use.")]
         [SampleUsage("imap.gmail.com || {vHost}")]
@@ -40,7 +38,6 @@ namespace OpenBots.Commands.Email
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_IMAPHost { get; set; }
 
-        [XmlAttribute]
         [PropertyDescription("Port")]
         [InputSpecification("Define the port number that should be used when contacting the IMAP service.")]
         [SampleUsage("993 || {vPort}")]
@@ -48,7 +45,6 @@ namespace OpenBots.Commands.Email
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_IMAPPort { get; set; }
 
-        [XmlAttribute]
         [PropertyDescription("Username")]
         [InputSpecification("Define the username to use when contacting the IMAP service.")]
         [SampleUsage("myRobot || {vUsername}")]
@@ -56,7 +52,6 @@ namespace OpenBots.Commands.Email
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_IMAPUserName { get; set; }
 
-        [XmlAttribute]
         [PropertyDescription("Password")]
         [InputSpecification("Define the password to use when contacting the IMAP service.")]
         [SampleUsage("password || {vPassword}")]
@@ -64,7 +59,6 @@ namespace OpenBots.Commands.Email
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_IMAPPassword { get; set; }
 
-        [XmlAttribute]
         [PropertyDescription("Delete Read Emails Only")]
         [PropertyUISelectionOption("Yes")]
         [PropertyUISelectionOption("No")]

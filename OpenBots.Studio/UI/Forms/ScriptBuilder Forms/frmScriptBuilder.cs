@@ -32,7 +32,6 @@ using OpenBots.Core.Script;
 using OpenBots.Core.Settings;
 using OpenBots.Core.Utilities.CommonUtilities;
 using OpenBots.Engine;
-using OpenBots.Server;
 using OpenBots.UI.CustomControls;
 using OpenBots.UI.CustomControls.CustomUIControls;
 using OpenBots.UI.Forms.Supplement_Forms;
@@ -166,25 +165,10 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
 
             //get app settings
             _appSettings = new ApplicationSettings();
-            _appSettings = _appSettings.GetOrCreateApplicationSettings();
-
-            if (_appSettings.ServerSettings.ServerConnectionEnabled && _appSettings.ServerSettings.HTTPGuid == Guid.Empty)
-            {
-                HttpServerClient.GetGuid();
-            }
-            else if (_appSettings.ServerSettings.ServerConnectionEnabled && _appSettings.ServerSettings.HTTPGuid != Guid.Empty)
-            {
-                HttpServerClient.InitializeScriptEngine(new frmScriptEngine());
-                HttpServerClient.CheckIn();
-            }
-
-            HttpServerClient.InitializeScriptEngine(new frmScriptEngine());
-            HttpServerClient.AssociatedBuilder = this;
+            _appSettings = _appSettings.GetOrCreateApplicationSettings();      
 
             string clientLoggerFilePath = Path.Combine(Folders.GetFolder(FolderType.LogFolder), "OpenBots Automation Client Logs.txt");
             Logger automationClientLogger = new Logging().CreateFileLogger(clientLoggerFilePath, Serilog.RollingInterval.Day);
-            LocalTCPClient.InitializeAutomationEngine(new AutomationEngineInstance(automationClientLogger));
-            LocalTCPClient.Initialize(this, new AutomationEngineInstance(automationClientLogger));
             //Core.Sockets.SocketClient.Initialize();
             //Core.Sockets.SocketClient.associatedBuilder = this;
 
@@ -354,12 +338,14 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
                     if (flwRecentFiles.Controls.Count == 7)
                         return;
 
-                    LinkLabel newFileLink = new LinkLabel();
-                    newFileLink.Text = fil;
-                    newFileLink.AutoSize = true;
-                    newFileLink.LinkColor = Color.AliceBlue;
-                    newFileLink.Font = lnkGitIssue.Font;
-                    newFileLink.Margin = new Padding(0, 0, 0, 0);
+                    LinkLabel newFileLink = new LinkLabel
+                    {
+                        Text = fil,
+                        AutoSize = true,
+                        LinkColor = Color.AliceBlue,
+                        Font = lnkGitIssue.Font,
+                        Margin = new Padding(0, 0, 0, 0)
+                    };
                     newFileLink.LinkClicked += NewFileLink_LinkClicked;
                     flwRecentFiles.Controls.Add(newFileLink);
                 }
@@ -493,9 +479,11 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
         private void PerformAntiIdle()
         {
             _lastAntiIdleEvent = DateTime.Now;
-            var mouseMove = new SendMouseMoveCommand();
-            mouseMove.v_XMousePosition = (Cursor.Position.X + 1).ToString();
-            mouseMove.v_YMousePosition = (Cursor.Position.Y + 1).ToString();
+            var mouseMove = new SendMouseMoveCommand
+            {
+                v_XMousePosition = (Cursor.Position.X + 1).ToString(),
+                v_YMousePosition = (Cursor.Position.Y + 1).ToString()
+            };
             Notify("Anti-Idle Triggered");
         }
 
@@ -514,11 +502,12 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
         private void AddNewCommand(string specificCommand = "")
         {
             //bring up new command configuration form
-            frmCommandEditor newCommandForm = new frmCommandEditor(_automationCommands, GetConfiguredCommands());
-            newCommandForm.CreationModeInstance = CreationMode.Add;
-            newCommandForm.ScriptVariables = _scriptVariables;
-            newCommandForm.ScriptElements = _scriptElements;
-            newCommandForm.ProjectPath = ScriptProjectPath;
+            frmCommandEditor newCommandForm = new frmCommandEditor(_automationCommands, GetConfiguredCommands())
+            {
+                CreationModeInstance = CreationMode.Add,
+                ScriptVariables = _scriptVariables,
+                ScriptElements = _scriptElements
+            };
             if (specificCommand != "")
                 newCommandForm.DefaultStartupCommand = specificCommand;
 
@@ -655,6 +644,11 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
                 txtCommandSearch.Text = _txtCommandWatermark;
                 txtCommandSearch.ForeColor = Color.LightGray;
             }
+        }
+
+        private void uiBtnClearCommandSearch_Click(object sender, EventArgs e)
+        {
+            txtCommandSearch.Clear();
         }
         #endregion
 

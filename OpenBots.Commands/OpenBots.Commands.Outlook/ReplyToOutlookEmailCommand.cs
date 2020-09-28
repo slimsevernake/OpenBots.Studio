@@ -9,7 +9,6 @@ using OpenBots.Engine;
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
-using System.Xml.Serialization;
 
 namespace OpenBots.Commands.Outlook
 {
@@ -19,7 +18,7 @@ namespace OpenBots.Commands.Outlook
 
     public class ReplyToOutlookEmailCommand : ScriptCommand
     {
-        [XmlAttribute]
+
         [PropertyDescription("MailItem")]
         [InputSpecification("Enter the MailItem to reply to.")]
         [SampleUsage("{vMailItem}")]
@@ -27,7 +26,6 @@ namespace OpenBots.Commands.Outlook
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_MailItem { get; set; }
 
-        [XmlAttribute]
         [PropertyDescription("Mail Operation")]
         [PropertyUISelectionOption("Reply")]
         [PropertyUISelectionOption("Reply All")]
@@ -36,7 +34,6 @@ namespace OpenBots.Commands.Outlook
         [Remarks("Replying will reply to only the original sender. Reply all will reply to everyone in the recipient list.")]
         public string v_OperationType { get; set; }
 
-        [XmlAttribute]
         [PropertyDescription("Email Body")]
         [InputSpecification("Enter text to be used as the email body.")]
         [SampleUsage("Dear John, ... || {vBody}")]
@@ -44,7 +41,6 @@ namespace OpenBots.Commands.Outlook
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_Body { get; set; }
 
-        [XmlAttribute]
         [PropertyDescription("Email Body Type")]
         [PropertyUISelectionOption("Plain")]
         [PropertyUISelectionOption("HTML")]
@@ -52,7 +48,6 @@ namespace OpenBots.Commands.Outlook
         [Remarks("")]
         public string v_BodyType { get; set; }
 
-        [XmlAttribute]
         [PropertyDescription("Attachment File Path(s)")]
         [InputSpecification("Enter the file path(s) of the file(s) to attach.")]
         [SampleUsage(@"C:\temp\myFile.xlsx || {vFile} || C:\temp\myFile1.xlsx;C:\temp\myFile2.xlsx || {vFile1};{vFile2} || {vFiles}")]

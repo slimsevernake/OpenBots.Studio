@@ -1,4 +1,5 @@
 ﻿using Microsoft.Office.Interop.Outlook;
+using Newtonsoft.Json;
 using OpenBots.Core.Attributes.ClassAttributes;
 using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
@@ -10,7 +11,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Windows.Forms;
-using System.Xml.Serialization;
 using Application = Microsoft.Office.Interop.Outlook.Application;
 
 namespace OpenBots.Commands.Outlook
@@ -21,7 +21,7 @@ namespace OpenBots.Commands.Outlook
 
     public class GetOutlookEmailsCommand : ScriptCommand
     {
-        [XmlAttribute]
+
         [PropertyDescription("Source Mail Folder Name")]
         [InputSpecification("Enter the name of the Outlook mail folder the emails are located in.")]
         [SampleUsage("Inbox || {vFolderName}")]
@@ -29,7 +29,6 @@ namespace OpenBots.Commands.Outlook
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_SourceFolder { get; set; }
 
-        [XmlAttribute]
         [PropertyDescription("Filter")]
         [InputSpecification("Enter a valid Outlook filter string.")]
         [SampleUsage("[Subject] = 'Hello' || [Subject] = 'Hello' and [SenderName] = 'Jane Doe' || {vFilter} || None")]
@@ -37,7 +36,6 @@ namespace OpenBots.Commands.Outlook
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_Filter { get; set; }
 
-        [XmlAttribute]
         [PropertyDescription("Unread Only")]
         [PropertyUISelectionOption("Yes")]
         [PropertyUISelectionOption("No")]
@@ -46,7 +44,6 @@ namespace OpenBots.Commands.Outlook
         [Remarks("")]
         public string v_GetUnreadOnly { get; set; }
 
-        [XmlAttribute]
         [PropertyDescription("Mark As Read")]
         [PropertyUISelectionOption("Yes")]
         [PropertyUISelectionOption("No")]
@@ -55,7 +52,6 @@ namespace OpenBots.Commands.Outlook
         [Remarks("")]
         public string v_MarkAsRead { get; set; }
 
-        [XmlAttribute]
         [PropertyDescription("Save MailItems and Attachments")]
         [PropertyUISelectionOption("Yes")]
         [PropertyUISelectionOption("No")]
@@ -64,7 +60,6 @@ namespace OpenBots.Commands.Outlook
         [Remarks("")]
         public string v_SaveMessagesAndAttachments { get; set; }
 
-        [XmlAttribute]
         [PropertyDescription("Output MailItem Directory")]   
         [InputSpecification("Enter or Select the path of the directory to store the messages in.")]
         [SampleUsage(@"C:\temp\myfolder || {vFolderPath} || {ProjectPath}\myFolder")]
@@ -73,7 +68,6 @@ namespace OpenBots.Commands.Outlook
         [PropertyUIHelper(UIAdditionalHelperType.ShowFolderSelectionHelper)]
         public string v_MessageDirectory { get; set; }
 
-        [XmlAttribute]
         [PropertyDescription("Output Attachment Directory")]      
         [InputSpecification("Enter or Select the path to the directory to store the attachments in.")]
         [SampleUsage(@"C:\temp\myfolder\attachments || {vFolderPath} || {ProjectPath}\myFolder\attachments")]
@@ -82,12 +76,15 @@ namespace OpenBots.Commands.Outlook
         [PropertyUIHelper(UIAdditionalHelperType.ShowFolderSelectionHelper)]
         public string v_AttachmentDirectory { get; set; }
 
-        [XmlAttribute]
         [PropertyDescription("Output MailItem List Variable")]
         [InputSpecification("Create a new variable or select a variable from the list.")]
         [SampleUsage("{vUserVariable}")]
         [Remarks("Variables not pre-defined in the Variable Manager will be automatically generated at runtime.")]
         public string v_OutputUserVariableName { get; set; }
+
+        [JsonIgnore]
+        [NonSerialized]
+        public List<Control> SavingControls;
 
         public GetOutlookEmailsCommand()
         {
@@ -173,8 +170,17 @@ namespace OpenBots.Commands.Outlook
             RenderedControls.AddRange(commandControls.CreateDefaultDropdownGroupFor("v_GetUnreadOnly", this, editor));
             RenderedControls.AddRange(commandControls.CreateDefaultDropdownGroupFor("v_MarkAsRead", this, editor));
             RenderedControls.AddRange(commandControls.CreateDefaultDropdownGroupFor("v_SaveMessagesAndAttachments", this, editor));
-            RenderedControls.AddRange(commandControls.CreateDefaultInputGroupFor("v_MessageDirectory", this, editor));
-            RenderedControls.AddRange(commandControls.CreateDefaultInputGroupFor("v_AttachmentDirectory", this, editor));
+            ((ComboBox)RenderedControls[11]).SelectedIndexChanged += SaveMailItemsComboBox_SelectedValueChanged;
+
+            SavingControls = new List<Control>();
+            SavingControls.AddRange(commandControls.CreateDefaultInputGroupFor("v_MessageDirectory", this, editor));
+            SavingControls.AddRange(commandControls.CreateDefaultOutputGroupFor("v_AttachmentDirectory", this, editor));
+
+            foreach (var ctrl in SavingControls)
+                ctrl.Visible = false;
+
+            RenderedControls.AddRange(SavingControls);
+
             RenderedControls.AddRange(commandControls.CreateDefaultOutputGroupFor("v_OutputUserVariableName", this, editor));
 
             return RenderedControls;
@@ -194,13 +200,35 @@ namespace OpenBots.Commands.Outlook
             if (v_SaveMessagesAndAttachments == "Yes")
             {
                 if (Directory.Exists(msgDirectory))
-                    mail.SaveAs(Path.Combine(msgDirectory, mail.Subject + ".msg"));
+                {
+                    string mailFileName = string.Join("_", mail.Subject.Split(Path.GetInvalidFileNameChars()));
+                    mail.SaveAs(Path.Combine(msgDirectory, mailFileName + ".msg"));
+                }
+                    
                 if (Directory.Exists(attDirectory))
                 {
                     foreach (Attachment attachment in mail.Attachments)
                     {
                         attachment.SaveAsFile(Path.Combine(attDirectory, attachment.FileName));
                     }
+                }
+            }
+        }
+
+        private void SaveMailItemsComboBox_SelectedValueChanged(object sender, EventArgs e)
+        {
+            if (((ComboBox)RenderedControls[11]).Text == "Yes")
+            {
+                foreach (var ctrl in SavingControls)
+                    ctrl.Visible = true;
+            }
+            else
+            {
+                foreach (var ctrl in SavingControls)
+                {
+                    ctrl.Visible = false;
+                    if (ctrl is TextBox)
+                        ((TextBox)ctrl).Clear();
                 }
             }
         }

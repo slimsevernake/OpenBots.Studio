@@ -7,7 +7,6 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Windows.Forms;
-using System.Xml.Serialization;
 using OpenBots.Core.Attributes.ClassAttributes;
 using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
@@ -25,7 +24,7 @@ namespace OpenBots.Commands
 
     public class ExecuteDLLCommand : ScriptCommand
     {
-        [XmlAttribute]
+
         [PropertyDescription("DLL File Path")]
         [InputSpecification("Enter or Select the path to the DLL File.")]
         [SampleUsage("C:\\temp\\myfile.dll || {vDLLFilePath}")]
@@ -34,7 +33,6 @@ namespace OpenBots.Commands
         [PropertyUIHelper(UIAdditionalHelperType.ShowDLLExplorer)]
         public string v_FilePath { get; set; }
 
-        [XmlAttribute]
         [PropertyDescription("Class Name")]
         [InputSpecification("Provide the parent class name of the method to be invoked in the DLL.")]
         [SampleUsage("myNamespace.myClassName || {vClassName}")]
@@ -42,7 +40,6 @@ namespace OpenBots.Commands
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_ClassName { get; set; }
 
-        [XmlAttribute]
         [PropertyDescription("Method Name")]
         [InputSpecification("Provide the method name to be invoked in the DLL.")]
         [SampleUsage("GetSomething || {vMethodName}")]
@@ -50,7 +47,7 @@ namespace OpenBots.Commands
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_MethodName { get; set; }
 
-        [XmlIgnore]
+        [JsonIgnore]
         [PropertyDescription("Parameters (Optional)")]
         [InputSpecification("Select the 'Generate Parameters' button once you have indicated a file, class, and method.")]
         [SampleUsage("")]
@@ -58,14 +55,13 @@ namespace OpenBots.Commands
         [PropertyUIHelper(UIAdditionalHelperType.GenerateDLLParameters)]
         public DataTable v_MethodParameters { get; set; }
 
-        [XmlAttribute]
         [PropertyDescription("Output Result Variable")]
         [InputSpecification("Create a new variable or select a variable from the list.")]
         [SampleUsage("{vUserVariable}")]
         [Remarks("Variables not pre-defined in the Variable Manager will be automatically generated at runtime.")]
         public string v_OutputUserVariableName { get; set; }
 
-        [XmlIgnore]
+        [JsonIgnore]
         [NonSerialized]
         private DataGridView _parametersGridViewHelper;
 

@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Windows.Forms;
-using System.Xml.Serialization;
 using OpenBots.Core.Attributes.ClassAttributes;
 using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
@@ -23,7 +22,6 @@ namespace OpenBots.Commands
     [Description("This command evaluates a group of combined logical statements to determine if the combined result of the statements is 'true' or 'false' and subsequently performs action(s) based on the result.")]
     public class BeginMultiIfCommand : ScriptCommand
     {
-        [XmlElement]
         [PropertyDescription("Multiple If Conditions")]
         [InputSpecification("Add new If condition(s).")]
         [SampleUsage("")]
@@ -31,14 +29,14 @@ namespace OpenBots.Commands
         [PropertyUIHelper(UIAdditionalHelperType.ShowIfBuilder)]
         public DataTable v_IfConditionsTable { get; set; }
 
-        [XmlIgnore]
+        [JsonIgnore]
         [NonSerialized]
         private DataGridView _ifConditionHelper;
 
-        [XmlIgnore]
+        [JsonIgnore]
         private List<ScriptVariable> _scriptVariables { get; set; }
 
-        [XmlIgnore]
+        [JsonIgnore]
         private List<ScriptElement> _scriptElements { get; set; }
 
         public BeginMultiIfCommand()

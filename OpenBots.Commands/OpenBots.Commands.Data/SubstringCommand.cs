@@ -8,7 +8,6 @@ using OpenBots.Engine;
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
-using System.Xml.Serialization;
 
 namespace OpenBots.Commands.Data
 {
@@ -17,7 +16,7 @@ namespace OpenBots.Commands.Data
     [Description("This command returns a substring from a specified string.")]
     public class SubstringCommand : ScriptCommand
     {
-        [XmlAttribute]
+
         [PropertyDescription("Text Data")]
         [InputSpecification("Provide a variable or text value.")]
         [SampleUsage("Sample text to extract substring from || {vTextData}")]
@@ -25,7 +24,6 @@ namespace OpenBots.Commands.Data
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_InputText { get; set; }
 
-        [XmlAttribute]
         [PropertyDescription("Starting Index")]
         [InputSpecification("Indicate the starting position within the text.")]
         [SampleUsage("0 || 1 || {vStartingIndex}")]
@@ -33,7 +31,6 @@ namespace OpenBots.Commands.Data
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_StartIndex { get; set; }
 
-        [XmlAttribute]
         [PropertyDescription("Substring Length (Optional)")]
         [InputSpecification("Indicate number of characters to extract.")]
         [SampleUsage("-1 || 1 || {vSubstringLength}")]
@@ -41,7 +38,6 @@ namespace OpenBots.Commands.Data
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_StringLength { get; set; }
 
-        [XmlAttribute]
         [PropertyDescription("Output Substring Variable")]
         [InputSpecification("Create a new variable or select a variable from the list.")]
         [SampleUsage("{vUserVariable}")]

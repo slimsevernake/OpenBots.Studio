@@ -14,7 +14,6 @@ using System.Security;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Windows.Forms;
-using System.Xml.Serialization;
 using OpenBots.Core.Attributes.ClassAttributes;
 using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
@@ -29,16 +28,15 @@ using OpenBots.UI.Forms.Supplement_Forms;
 using Group = OpenBots.Core.Attributes.ClassAttributes.Group;
 using HtmlDocument = HtmlAgilityPack.HtmlDocument;
 using OpenQA.Selenium.Interactions;
+using Newtonsoft.Json;
 
 namespace OpenBots.Commands
 {
     [Serializable]
     [Group("Web Browser Commands")]
     [Description("This command performs an element action in a Selenium web browser session.")]
-
     public class SeleniumElementActionCommand : ScriptCommand
     {
-        [XmlAttribute]
         [PropertyDescription("Browser Instance Name")]
         [InputSpecification("Enter the unique instance that was specified in the **Create Browser** command.")]
         [SampleUsage("MyBrowserInstance")]
@@ -61,7 +59,6 @@ namespace OpenBots.Commands
         [PropertyUIHelper(UIAdditionalHelperType.ShowElementHelper)] 
         public DataTable v_SeleniumSearchParameters { get; set; }
 
-        [XmlElement]
         [PropertyDescription("Element Search Option")]
         [PropertyUISelectionOption("Find Element")]
         [PropertyUISelectionOption("Find Elements")]
@@ -70,7 +67,6 @@ namespace OpenBots.Commands
         [Remarks("")]
         public string v_SeleniumSearchOption { get; set; }
 
-        [XmlElement]
         [PropertyDescription("Element Action")]
         [PropertyUISelectionOption("Invoke Click")]
         [PropertyUISelectionOption("Left Click")]
@@ -94,7 +90,6 @@ namespace OpenBots.Commands
         [Remarks("Selecting this field changes the parameters required in the following step.")]
         public string v_SeleniumElementAction { get; set; }
 
-        [XmlElement]
         [PropertyDescription("Action Parameters")]
         [InputSpecification("Action Parameters will be determined based on the action settings selected.")]
         [SampleUsage("data || {vData} || *Variable Name*: {vNewVariable}")]
@@ -103,19 +98,19 @@ namespace OpenBots.Commands
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public DataTable v_WebActionParameterTable { get; set; }
 
-        [XmlIgnore]
+        [JsonIgnore]
         [NonSerialized]
         private DataGridView _actionParametersGridViewHelper;
 
-        [XmlIgnore]
+        [JsonIgnore]
         [NonSerialized]
         private ComboBox _elementActionDropdown;
 
-        [XmlIgnore]
+        [JsonIgnore]
         [NonSerialized]
         private List<Control> _actionParametersControls;
 
-        [XmlIgnore]
+        [JsonIgnore]
         [NonSerialized]
         private DataGridView _searchParametersGridViewHelper;
 
@@ -211,9 +206,11 @@ namespace OpenBots.Commands
                     try
                     {
                         element = FindElement(engine, seleniumInstance, seleniumSearchParamRows);
-                             
+
                         if (element == null)
                             throw elementSearchException;
+                        else
+                            break;
                     }
                     catch (Exception)
                     {
@@ -606,11 +603,15 @@ namespace OpenBots.Commands
             SeleniumAction_SelectionChangeCommitted(null, null);
         }
 
-        public bool ElementExists(object sender, string searchType, string elementName)
+        public bool ElementExists(object sender, string searchMethod, string parameterName)
         {
             //get engine reference
             var engine = (AutomationEngineInstance)sender;
             List<string[]> seleniumSearchParamRows = new List<string[]>();
+            seleniumSearchParamRows.Add(new string[]
+            {
+                string.Empty, searchMethod, parameterName
+            });
 
             //get stored app object
             var browserObject = v_InstanceName.GetAppInstance(engine);
@@ -692,7 +693,7 @@ namespace OpenBots.Commands
         public void ShowRecorder(object sender, EventArgs e, IfrmCommandEditor editor)
         {
             //create recorder
-            frmHTMLElementRecorder newElementRecorder = new frmHTMLElementRecorder(editor.HTMLElementRecorderURL);
+            frmWebElementRecorder newElementRecorder = new frmWebElementRecorder(editor.HTMLElementRecorderURL);
             newElementRecorder.ScriptElements = editor.ScriptElements;
 
             //show form

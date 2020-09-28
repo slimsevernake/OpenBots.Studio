@@ -5,11 +5,9 @@ using OpenBots.Core.Enums;
 using OpenBots.Core.Infrastructure;
 using OpenBots.Core.Utilities.CommonUtilities;
 using OpenBots.Engine;
-using OpenBots.Server;
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
-using System.Xml.Serialization;
 
 namespace OpenBots.Commands.Remote
 {
@@ -18,7 +16,6 @@ namespace OpenBots.Commands.Remote
     [Description("This command executes a task remotely on another OpenBots instance.")]
     public class RemoteAPICommand : ScriptCommand
     {
-        [XmlAttribute]
         [PropertyDescription("API Endpoint/Port")]
         [InputSpecification("Define the API endpoint or port enabled for local listening.")]
         [SampleUsage("example.com/hello || 192.168.2.200:19312 || {vMyUrl}")]
@@ -26,7 +23,6 @@ namespace OpenBots.Commands.Remote
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_BaseURL { get; set; }
 
-        [XmlAttribute]
         [PropertyDescription("Parameter Type")]
         [PropertyUISelectionOption("Get Engine Status")]
         [PropertyUISelectionOption("Restart OpenBots")]
@@ -35,7 +31,6 @@ namespace OpenBots.Commands.Remote
         [Remarks("")]
         public string v_ParameterType { get; set; }
 
-        [XmlAttribute]
         [PropertyDescription("Request Timeout (Seconds)")]
         [InputSpecification("Enter the length of time to wait before the request times out.")]
         [SampleUsage("30 || {vTime}")]
@@ -43,7 +38,6 @@ namespace OpenBots.Commands.Remote
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_RequestTimeout { get; set; }
 
-        [XmlAttribute]
         [PropertyDescription("Output Response Variable")]
         [InputSpecification("Create a new variable or select a variable from the list.")]
         [SampleUsage("{vUserVariable}")]

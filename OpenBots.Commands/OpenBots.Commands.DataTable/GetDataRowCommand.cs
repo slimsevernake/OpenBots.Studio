@@ -9,7 +9,6 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Windows.Forms;
-using System.Xml.Serialization;
 using Data = System.Data;
 
 namespace OpenBots.Commands.DataTable
@@ -20,7 +19,7 @@ namespace OpenBots.Commands.DataTable
 
     public class GetDataRowCommand : ScriptCommand
     {
-        [XmlAttribute]
+
         [PropertyDescription("DataTable")]
         [InputSpecification("Enter an existing DataTable to get rows from.")]
         [SampleUsage("{vDataTable}")]
@@ -28,7 +27,6 @@ namespace OpenBots.Commands.DataTable
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_DataTable { get; set; }
 
-        [XmlAttribute]
         [PropertyDescription("DataRow Index")]
         [InputSpecification("Enter a valid DataRow index value.")]
         [SampleUsage("0 || {vIndex}")]
@@ -36,7 +34,6 @@ namespace OpenBots.Commands.DataTable
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_DataRowIndex { get; set; }
 
-        [XmlAttribute]
         [PropertyDescription("Output DataRow Variable")]
         [InputSpecification("Create a new variable or select a variable from the list.")]
         [SampleUsage("{vUserVariable}")]

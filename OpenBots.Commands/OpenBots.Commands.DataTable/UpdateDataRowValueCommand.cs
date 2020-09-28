@@ -9,7 +9,6 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Windows.Forms;
-using System.Xml.Serialization;
 
 namespace OpenBots.Commands.DataTable
 {
@@ -19,7 +18,7 @@ namespace OpenBots.Commands.DataTable
 
     public class UpdateDataRowValueCommand : ScriptCommand
     {
-        [XmlAttribute]
+
         [PropertyDescription("DataRow")]
         [InputSpecification("Enter an existing DataRow to add values to.")]
         [SampleUsage("{vDataRow}")]
@@ -27,7 +26,6 @@ namespace OpenBots.Commands.DataTable
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_DataRow { get; set; }
 
-        [XmlAttribute]
         [PropertyDescription("Search Option")]
         [PropertyUISelectionOption("Column Name")]
         [PropertyUISelectionOption("Column Index")]
@@ -36,7 +34,6 @@ namespace OpenBots.Commands.DataTable
         [Remarks("")]
         public string v_Option { get; set; }
 
-        [XmlAttribute]
         [PropertyDescription("Search Value")]
         [InputSpecification("Enter a valid DataRow index or column name.")]
         [SampleUsage("0 || {vIndex} || Column1 || {vColumnName}")]
@@ -44,7 +41,6 @@ namespace OpenBots.Commands.DataTable
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_DataValueIndex { get; set; }
 
-        [XmlAttribute]
         [PropertyDescription("Cell Value")]
         [InputSpecification("Enter the value to write to the DataRow cell.")]
         [SampleUsage("value || {vValue}")]

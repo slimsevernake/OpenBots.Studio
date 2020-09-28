@@ -10,7 +10,6 @@ using OpenBots.Core.IO;
 using OpenBots.Core.Script;
 using OpenBots.Core.Settings;
 using OpenBots.Core.Utilities.CommonUtilities;
-using OpenBots.Server;
 using OpenBots.UI.CustomControls.CustomUIControls;
 using OpenBots.UI.Forms.Supplement_Forms;
 using OpenBots.UI.Supplement_Forms;
@@ -36,10 +35,12 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
             ScriptFilePath = null;
 
             string title = $"New Tab {(uiScriptTabControl.TabCount + 1)} *";
-            TabPage newTabPage = new TabPage(title);
-            newTabPage.Name = title;
-            newTabPage.Tag = new ScriptObject(new List<ScriptVariable>(), new List<ScriptElement>());
-            newTabPage.ToolTipText = "";
+            TabPage newTabPage = new TabPage(title)
+            {
+                Name = title,
+                Tag = new ScriptObject(new List<ScriptVariable>(), new List<ScriptElement>()),
+                ToolTipText = ""
+            };
             uiScriptTabControl.Controls.Add(newTabPage);
             newTabPage.Controls.Add(NewLstScriptActions(title));
             newTabPage.Controls.Add(pnlCommandHelper);
@@ -66,10 +67,12 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
         private void uiBtnOpen_Click(object sender, EventArgs e)
         {
             //show ofd
-            OpenFileDialog openFileDialog = new OpenFileDialog();
-            openFileDialog.InitialDirectory = ScriptProjectPath;
-            openFileDialog.RestoreDirectory = true;
-            openFileDialog.Filter = "Json (*.json)|*.json";
+            OpenFileDialog openFileDialog = new OpenFileDialog
+            {
+                InitialDirectory = _scriptProjectPath,
+                RestoreDirectory = true,
+                Filter = "Json (*.json)|*.json"
+            };
 
             //if user selected file
             if (openFileDialog.ShowDialog() == DialogResult.OK)
@@ -82,10 +85,12 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
         {
             //show ofd
-            OpenFileDialog openFileDialog = new OpenFileDialog();
-            openFileDialog.InitialDirectory = ScriptProjectPath;
-            openFileDialog.RestoreDirectory = true;
-            openFileDialog.Filter = "Json (*.json)|*.json";
+            OpenFileDialog openFileDialog = new OpenFileDialog
+            {
+                InitialDirectory = _scriptProjectPath,
+                RestoreDirectory = true,
+                Filter = "Json (*.json)|*.json"
+            };
 
             //if user selected file
             if (openFileDialog.ShowDialog() == DialogResult.OK)
@@ -113,10 +118,12 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
                                                                               .FirstOrDefault();
                     if (foundTab == null)
                     {
-                        TabPage newtabPage = new TabPage(fileName);
-                        newtabPage.Name = fileName;
-                        newtabPage.ToolTipText = filePath;
-                        
+                        TabPage newtabPage = new TabPage(fileName)
+                        {
+                            Name = fileName,
+                            ToolTipText = filePath
+                        };
+
                         uiScriptTabControl.TabPages.Add(newtabPage);
                         newtabPage.Controls.Add(NewLstScriptActions(fileName));
                         uiScriptTabControl.SelectedTab = newtabPage;
@@ -325,10 +332,12 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
             //define default output path
             if (string.IsNullOrEmpty(ScriptFilePath) || (saveAs))
             {
-                SaveFileDialog saveFileDialog = new SaveFileDialog();
-                saveFileDialog.InitialDirectory = ScriptProjectPath;
-                saveFileDialog.RestoreDirectory = true;
-                saveFileDialog.Filter = "Json (*.json)|*.json";
+                SaveFileDialog saveFileDialog = new SaveFileDialog
+                {
+                    InitialDirectory = _scriptProjectPath,
+                    RestoreDirectory = true,
+                    Filter = "Json (*.json)|*.json"
+                };
 
                 if (saveFileDialog.ShowDialog() != DialogResult.OK)
                     return;
@@ -388,10 +397,12 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
         private void BeginImportProcess()
         {
             //show ofd
-            OpenFileDialog openFileDialog = new OpenFileDialog();
-            openFileDialog.InitialDirectory = Folders.GetFolder(FolderType.ScriptsFolder);
-            openFileDialog.RestoreDirectory = true;
-            openFileDialog.Filter = "Json (*.json)|*.json";
+            OpenFileDialog openFileDialog = new OpenFileDialog
+            {
+                InitialDirectory = Folders.GetFolder(FolderType.ScriptsFolder),
+                RestoreDirectory = true,
+                Filter = "Json (*.json)|*.json"
+            };
 
             //if user selected file
             if (openFileDialog.ShowDialog() == DialogResult.OK)
@@ -517,9 +528,11 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
 
         private void OpenVariableManager()
         {
-            frmScriptVariables scriptVariableEditor = new frmScriptVariables();
-            scriptVariableEditor.ScriptName = uiScriptTabControl.SelectedTab.Name;
-            scriptVariableEditor.ScriptVariables = _scriptVariables;
+            frmScriptVariables scriptVariableEditor = new frmScriptVariables
+            {
+                ScriptName = uiScriptTabControl.SelectedTab.Name,
+                ScriptVariables = _scriptVariables
+            };
 
             if (scriptVariableEditor.ShowDialog() == DialogResult.OK)
             {
@@ -541,9 +554,11 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
 
         private void OpenElementManager()
         {
-            frmScriptElements scriptElementEditor = new frmScriptElements();
-            scriptElementEditor.ScriptName = uiScriptTabControl.SelectedTab.Name;
-            scriptElementEditor.ScriptElements = _scriptElements;
+            frmScriptElements scriptElementEditor = new frmScriptElements
+            {
+                ScriptName = uiScriptTabControl.SelectedTab.Name,
+                ScriptElements = _scriptElements
+            };
 
             if (scriptElementEditor.ShowDialog() == DialogResult.OK)
             {
@@ -571,10 +586,6 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
             //reload app settings
             _appSettings = new ApplicationSettings();
             _appSettings = _appSettings.GetOrCreateApplicationSettings();
-
-            //reinit
-            HttpServerClient.InitializeScriptEngine(new frmScriptEngine());
-            HttpServerClient.Initialize();
         }
 
         private void showSearchBarToolStripMenuItem_Click(object sender, EventArgs e)
@@ -630,6 +641,9 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
 
         private void debugToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            if (IsScriptRunning)
+                return;
+
             saveToolStripMenuItem_Click(null, null);
             _isDebugMode = true;
             RunScript();
@@ -704,6 +718,9 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
 
         private void runToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            if (IsScriptRunning)
+                return;
+
             saveToolStripMenuItem_Click(null, null);
             _isDebugMode = false;
             RunScript();
@@ -713,15 +730,27 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
         {
             runToolStripMenuItem_Click(sender, e);
         }
+
+        private void breakpointToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            AddRemoveBreakpoint();
+        }
+
+        private void uiBtnBreakpoint_Click(object sender, EventArgs e)
+        {
+            AddRemoveBreakpoint();
+        }
         #endregion
 
         #region Recorder Buttons
         private void elementRecorderToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            frmHTMLElementRecorder elementRecorder = new frmHTMLElementRecorder(HTMLElementRecorderURL);
-            elementRecorder.CallBackForm = this;
-            elementRecorder.IsRecordingSequence = true;
-            elementRecorder.ScriptElements = _scriptElements;
+            frmWebElementRecorder elementRecorder = new frmWebElementRecorder(HTMLElementRecorderURL)
+            {
+                CallBackForm = this,
+                IsRecordingSequence = true,
+                ScriptElements = _scriptElements
+            };
             elementRecorder.chkStopOnClick.Visible = false;
             elementRecorder.IsCommandItemSelected = _selectedTabScriptActions.SelectedItems.Count > 0;
 
@@ -751,9 +780,11 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
         private void RecordSequence()
         {
             Hide();
-            frmScreenRecorder sequenceRecorder = new frmScreenRecorder();
-            sequenceRecorder.CallBackForm = this;
-            sequenceRecorder.IsCommandItemSelected = _selectedTabScriptActions.SelectedItems.Count > 0;
+            frmScreenRecorder sequenceRecorder = new frmScreenRecorder
+            {
+                CallBackForm = this,
+                IsCommandItemSelected = _selectedTabScriptActions.SelectedItems.Count > 0
+            };
 
             sequenceRecorder.ShowDialog();
             uiScriptTabControl.SelectedTab.Controls.Remove(pnlCommandHelper);
@@ -767,9 +798,11 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
         {
             Hide();
 
-            frmThickAppElementRecorder appElementRecorder = new frmThickAppElementRecorder();
-            appElementRecorder.CallBackForm = this;
-            appElementRecorder.IsRecordingSequence = true;
+            frmAdvancedUIElementRecorder appElementRecorder = new frmAdvancedUIElementRecorder
+            {
+                CallBackForm = this,
+                IsRecordingSequence = true
+            };
             appElementRecorder.chkStopOnClick.Visible = false;
             appElementRecorder.IsCommandItemSelected = _selectedTabScriptActions.SelectedItems.Count > 0;
 

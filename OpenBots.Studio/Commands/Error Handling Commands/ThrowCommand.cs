@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Windows.Forms;
-using System.Xml.Serialization;
 using OpenBots.Core.Attributes.ClassAttributes;
 using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
@@ -18,7 +17,6 @@ namespace OpenBots.Commands
     [Description("This command throws an exception during script execution.")]
     public class ThrowCommand : ScriptCommand
     {
-        [XmlAttribute]
         [PropertyDescription("Exception Type")]
         [PropertyUISelectionOption("AccessViolationException")]
         [PropertyUISelectionOption("ArgumentException")]
@@ -41,7 +39,6 @@ namespace OpenBots.Commands
         [Remarks("")]
         public string v_ExceptionType { get; set; }
 
-        [XmlAttribute]
         [PropertyDescription("Exception Message")]
         [InputSpecification("Enter a custom exception message.")]
         [SampleUsage("A Custom Message || {vExceptionMessage}")]

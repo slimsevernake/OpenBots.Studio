@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
-using System.Xml.Serialization;
 using OpenBots.Core.Attributes.ClassAttributes;
 using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
@@ -17,7 +16,7 @@ namespace OpenBots.Commands
     [Description("This command gets text from the user's clipboard.")]
     public class GetClipboardTextCommand : ScriptCommand
     {
-        [XmlAttribute]
+
         [PropertyDescription("Output Clipboard Text Variable")]
         [InputSpecification("Create a new variable or select a variable from the list.")]
         [SampleUsage("{vUserVariable}")]

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
-using System.Xml.Serialization;
 using OpenBots.Core.Attributes.ClassAttributes;
 using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
@@ -18,7 +17,7 @@ namespace OpenBots.Commands
     [Description("This command encrypts or decrypts text.")]
     public class EncryptionCommand : ScriptCommand
     {
-        [XmlElement]
+
         [PropertyDescription("Encryption Action")]
         [PropertyUISelectionOption("Encrypt")]
         [PropertyUISelectionOption("Decrypt")]
@@ -27,7 +26,6 @@ namespace OpenBots.Commands
         [Remarks("")]
         public string v_EncryptionType { get; set; }
 
-        [XmlAttribute]
         [PropertyDescription("Text")]
         [InputSpecification("Select or provide the text to encrypt/decrypt.")]
         [SampleUsage("Hello || {vText}")]
@@ -35,7 +33,6 @@ namespace OpenBots.Commands
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_InputValue { get; set; }
 
-        [XmlAttribute]
         [PropertyDescription("Pass Phrase")]
         [InputSpecification("Select or provide a pass phrase for encryption/decryption.")]
         [SampleUsage("OPENBOTS || {vPassPhrase}")]
@@ -43,7 +40,6 @@ namespace OpenBots.Commands
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_PassPhrase { get; set; }
 
-        [XmlAttribute]
         [PropertyDescription("Output Result Variable")]
         [InputSpecification("Create a new variable or select a variable from the list.")]
         [SampleUsage("{vUserVariable}")]

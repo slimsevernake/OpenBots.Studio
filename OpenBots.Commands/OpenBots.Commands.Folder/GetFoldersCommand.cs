@@ -10,7 +10,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
-using System.Xml.Serialization;
 
 namespace OpenBots.Commands.Folder
 {
@@ -19,7 +18,6 @@ namespace OpenBots.Commands.Folder
     [Description("This command returns a list of folder directories from a specified location.")]
     public class GetFoldersCommand : ScriptCommand
     {
-        [XmlAttribute]
         [PropertyDescription("Root Folder Path")]
         [InputSpecification("Enter or Select the path to the root folder to get its subdirectories.")]
         [SampleUsage(@"C:\temp\myfolder || {ProjectPath}\myfolder || {vTextFolderPath}")]
@@ -28,7 +26,6 @@ namespace OpenBots.Commands.Folder
         [PropertyUIHelper(UIAdditionalHelperType.ShowFolderSelectionHelper)]
         public string v_SourceFolderPath { get; set; }
 
-        [XmlAttribute]
         [PropertyDescription("Output Folder Path(s) Variable")]
         [InputSpecification("Create a new variable or select a variable from the list.")]
         [SampleUsage("{vUserVariable}")]

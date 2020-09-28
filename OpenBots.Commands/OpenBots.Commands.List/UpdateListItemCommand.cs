@@ -12,7 +12,6 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Windows.Forms;
-using System.Xml.Serialization;
 using Exception = System.Exception;
 
 namespace OpenBots.Commands.List
@@ -22,7 +21,6 @@ namespace OpenBots.Commands.List
     [Description("This command updates an item in an existing List variable at a specified index.")]
     public class UpdateListItemCommand : ScriptCommand
     {
-        [XmlAttribute]
         [PropertyDescription("List")]
         [InputSpecification("Provide a List variable.")]
         [SampleUsage("{vList}")]
@@ -30,7 +28,6 @@ namespace OpenBots.Commands.List
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_ListName { get; set; }
 
-        [XmlAttribute]
         [PropertyDescription("List Item")]
         [InputSpecification("Enter the item to write to the List.")]
         [SampleUsage("Hello || {vItem}")]
@@ -38,7 +35,6 @@ namespace OpenBots.Commands.List
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_ListItem { get; set; }
 
-        [XmlAttribute]
         [PropertyDescription("List Index")]
         [InputSpecification("Enter the List index where the item will be written to.")]
         [SampleUsage("0 || {vIndex}")]

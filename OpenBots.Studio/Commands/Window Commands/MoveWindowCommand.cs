@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
-using System.Xml.Serialization;
 using OpenBots.Core.Attributes.ClassAttributes;
 using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
@@ -18,7 +17,6 @@ namespace OpenBots.Commands
     [Description("This command moves an open window to a specified location on screen.")]
     public class MoveWindowCommand : ScriptCommand
     {
-        [XmlAttribute]
         [PropertyDescription("Window Name")]
         [InputSpecification("Select the name of the window to move.")]
         [SampleUsage("Untitled - Notepad || Current Window || {vWindow}")]
@@ -26,7 +24,6 @@ namespace OpenBots.Commands
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_WindowName { get; set; }
 
-        [XmlAttribute]
         [PropertyDescription("X Position")]
         [InputSpecification("Input the new horizontal coordinate of the window. Starts from 0 on the left and increases going right.")]
         [SampleUsage("0 || {vXPosition}")]
@@ -35,7 +32,6 @@ namespace OpenBots.Commands
         [PropertyUIHelper(UIAdditionalHelperType.ShowMouseCaptureHelper)]
         public string v_XMousePosition { get; set; }
 
-        [XmlAttribute]
         [PropertyDescription("Y Position")]
         [InputSpecification("Input the new vertical coordinate of the window. Starts from 0 at the top and increases going down.")]
         [SampleUsage("0 || {vYPosition}")]

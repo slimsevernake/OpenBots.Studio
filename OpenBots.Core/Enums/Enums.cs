@@ -2,11 +2,6 @@
 
 namespace OpenBots.Core.Enums
 {
-    public enum EngineStatus
-    {
-        Loaded, Running, Paused, Finished
-    }
-
     public enum WindowState
     {
         [Description("Minimizes a window, even if the thread that owns the window is not responding. This flag should only be used when minimizing windows from a different thread.")]
@@ -66,36 +61,11 @@ namespace OpenBots.Core.Enums
         ShowEncryptionHelper
     }
 
-    public enum BotStoreRequestType
-    {
-        BotStoreValue,
-        BotStoreModel
-    }
-
-    public enum PublishType
-    {
-        ClientReference,
-        ServerReference,
-    }
-
-    public enum WorkerStatus
-    {
-        Pending = 0,
-        Authorized = 1,
-        Revoked = 2
-    }
-
     public enum ScriptFinishedResult
     {
         Successful, 
         Error, 
         Cancelled
-    }
-
-    public enum LoginResultCode
-    {
-        Success,
-        Failed
     }
 
     public enum CreationMode

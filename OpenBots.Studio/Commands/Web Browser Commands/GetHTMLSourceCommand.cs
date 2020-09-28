@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using System.Windows.Forms;
-using System.Xml.Serialization;
 using OpenBots.Core.Attributes.ClassAttributes;
 using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
@@ -20,7 +19,6 @@ namespace OpenBots.Commands
 
     public class GetHTMLSourceCommand : ScriptCommand
     {
-        [XmlAttribute]
         [PropertyDescription("URL")]
         [InputSpecification("Enter a valid URL that you want to collect data from.")]
         [SampleUsage("http://mycompany.com/news || {vCompany}")]
@@ -28,7 +26,6 @@ namespace OpenBots.Commands
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_WebRequestURL { get; set; }
 
-        [XmlAttribute]
         [PropertyDescription("Execute Request As Logged On User")]
         [PropertyUISelectionOption("Yes")]
         [PropertyUISelectionOption("No")]
@@ -37,7 +34,6 @@ namespace OpenBots.Commands
         [Remarks("")]
         public string v_WebRequestCredentials { get; set; }
 
-        [XmlAttribute]
         [PropertyDescription("Output Response Variable")]
         [InputSpecification("Create a new variable or select a variable from the list.")]
         [SampleUsage("{vUserVariable}")]

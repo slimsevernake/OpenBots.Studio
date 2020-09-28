@@ -9,7 +9,6 @@ using OpenBots.Engine;
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
-using System.Xml.Serialization;
 using Application = Microsoft.Office.Interop.Word.Application;
 using Group = OpenBots.Core.Attributes.ClassAttributes.Group;
 
@@ -18,17 +17,14 @@ namespace OpenBots.Commands.Word
     [Serializable]
     [Group("Word Commands")]
     [Description("This command appends text to a Word Document.")]
-
     public class WordAppendTextCommand : ScriptCommand
     {
-        [XmlAttribute]
         [PropertyDescription("Word Instance Name")]
         [InputSpecification("Enter the unique instance that was specified in the **Create Application** command.")]
         [SampleUsage("MyWordInstance")]
         [Remarks("Failure to enter the correct instance or failure to first call the **Create Application** command will cause an error.")]
         public string v_InstanceName { get; set; }
 
-        [XmlAttribute]
         [PropertyDescription("Text")]
         [InputSpecification("Enter the text to append to the Document.")]
         [SampleUsage("Hello World || {vText}")]
@@ -36,7 +32,6 @@ namespace OpenBots.Commands.Word
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_TextToSet { get; set; }
 
-        [XmlAttribute]
         [PropertyDescription("Font Name")]
         [PropertyUISelectionOption("Arial")]
         [PropertyUISelectionOption("Calibri")]
@@ -48,7 +43,6 @@ namespace OpenBots.Commands.Word
         [Remarks("")]
         public string v_FontName { get; set; }
 
-        [XmlAttribute]
         [PropertyDescription("Font Size")]
         [PropertyUISelectionOption("10")]
         [PropertyUISelectionOption("11")]
@@ -62,7 +56,6 @@ namespace OpenBots.Commands.Word
         [Remarks("")]
         public string v_FontSize { get; set; }
 
-        [XmlAttribute]
         [PropertyDescription("Bold")]
         [PropertyUISelectionOption("Yes")]
         [PropertyUISelectionOption("No")]
@@ -71,7 +64,6 @@ namespace OpenBots.Commands.Word
         [Remarks("")]
         public string v_FontBold { get; set; }
 
-        [XmlAttribute]
         [PropertyDescription("Italic")]
         [PropertyUISelectionOption("Yes")]
         [PropertyUISelectionOption("No")]
@@ -80,7 +72,6 @@ namespace OpenBots.Commands.Word
         [Remarks("")]
         public string v_FontItalic { get; set; }
 
-        [XmlAttribute]
         [PropertyDescription("Underline")]
         [PropertyUISelectionOption("Yes")]
         [PropertyUISelectionOption("No")]

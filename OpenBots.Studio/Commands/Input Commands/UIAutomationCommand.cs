@@ -7,7 +7,6 @@ using System.Security;
 using System.Threading;
 using System.Windows.Automation;
 using System.Windows.Forms;
-using System.Xml.Serialization;
 using OpenBots.Core.Attributes.ClassAttributes;
 using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
@@ -20,6 +19,7 @@ using OpenBots.Engine;
 using OpenBots.Core.Properties;
 using OpenBots.Core.UI.Controls;
 using OpenBots.UI.Forms.Supplement_Forms;
+using Newtonsoft.Json;
 
 namespace OpenBots.Commands
 {
@@ -28,7 +28,7 @@ namespace OpenBots.Commands
     [Description("This Command automates an element in a targeted window.")]
     public class UIAutomationCommand : ScriptCommand
     {
-        [XmlAttribute]
+
         [PropertyDescription("Window Name")]
         [InputSpecification("Select the name of the window to automate.")]
         [SampleUsage("Untitled - Notepad || Current Window || {vWindow}")]
@@ -36,7 +36,6 @@ namespace OpenBots.Commands
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_WindowName { get; set; }
 
-        [XmlAttribute]
         [PropertyDescription("Element Action")]
         [PropertyUISelectionOption("Click Element")]
         [PropertyUISelectionOption("Set Text")]
@@ -64,19 +63,19 @@ namespace OpenBots.Commands
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public DataTable v_UIAActionParameters { get; set; }
 
-        [XmlIgnore]
+        [JsonIgnore]
         [NonSerialized]
         private ComboBox _automationTypeControl;
 
-        [XmlIgnore]
+        [JsonIgnore]
         [NonSerialized]
         private DataGridView _searchParametersGridViewHelper;
 
-        [XmlIgnore]
+        [JsonIgnore]
         [NonSerialized]
         private DataGridView _actionParametersGridViewHelper;
 
-        [XmlIgnore]
+        [JsonIgnore]
         [NonSerialized]
         private List<Control> _actionParametersControls;
 
@@ -630,7 +629,7 @@ namespace OpenBots.Commands
         {
             //get command reference
             //create recorder
-            frmThickAppElementRecorder newElementRecorder = new frmThickAppElementRecorder();
+            frmAdvancedUIElementRecorder newElementRecorder = new frmAdvancedUIElementRecorder();
             newElementRecorder.cboWindowTitle.Text = RenderedControls[2].Text;
             newElementRecorder.SearchParameters = v_UIASearchParameters;
 

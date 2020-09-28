@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
-using System.Xml.Serialization;
 using OpenBots.Core.Attributes.ClassAttributes;
 using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
@@ -15,7 +14,7 @@ namespace OpenBots.Commands
                  "case is equal to that of the preceding Switch Command.")]
     public class CaseCommand : ScriptCommand
     {
-        [XmlAttribute]
+
         [PropertyDescription("Case")]
         [InputSpecification("This block will be executed if the specified case value matches the value in the Switch Command.")]
         [SampleUsage("1 || hello")]

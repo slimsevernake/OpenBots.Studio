@@ -8,7 +8,6 @@ using OpenBots.Engine;
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
-using System.Xml.Serialization;
 
 namespace OpenBots.Commands.Variable
 {
@@ -17,7 +16,6 @@ namespace OpenBots.Commands.Variable
     [Description("This command modifies a variable.")]
     public class SetVariableCommand : ScriptCommand
     {
-        [XmlAttribute]
         [PropertyDescription("Input Value")]
         [InputSpecification("Enter the input value for the variable.")]
         [SampleUsage("Hello || {vNum} || {vNum}+1")]
@@ -25,7 +23,6 @@ namespace OpenBots.Commands.Variable
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_Input { get; set; }
 
-        [XmlAttribute]
         [PropertyDescription("Output Data Variable")]
         [InputSpecification("Create a new variable or select a variable from the list.")]
         [SampleUsage("{vUserVariable}")]

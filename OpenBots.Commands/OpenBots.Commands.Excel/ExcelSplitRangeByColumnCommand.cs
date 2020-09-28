@@ -12,7 +12,6 @@ using System.Data;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
-using System.Xml.Serialization;
 using Application = Microsoft.Office.Interop.Excel.Application;
 using DataTable = System.Data.DataTable;
 
@@ -21,17 +20,14 @@ namespace OpenBots.Commands.Excel
     [Serializable]
     [Group("Excel Commands")]
     [Description("This command takes a specific Excel range, splits it into separate ranges by column, and stores them in new Workbooks.")]
-
     public class ExcelSplitRangeByColumnCommand : ScriptCommand
     {
-        [XmlAttribute]
         [PropertyDescription("Excel Instance Name")]
         [InputSpecification("Enter the unique instance that was specified in the **Create Application** command.")]
         [SampleUsage("MyExcelInstance")]
         [Remarks("Failure to enter the correct instance or failure to first call the **Create Application** command will cause an error.")]
         public string v_InstanceName { get; set; }
 
-        [XmlAttribute]
         [PropertyDescription("Range")]
         [InputSpecification("Enter the location of the range to split.")]
         [SampleUsage("A1:B10 || A1: || {vRange} || {vStart}:{vEnd} || {vStart}:")]
@@ -39,7 +35,6 @@ namespace OpenBots.Commands.Excel
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_Range { get; set; }
 
-        [XmlAttribute]
         [PropertyDescription("Column to Split")]
         [InputSpecification("Enter the name of the column you wish to split the selected range by.")]
         [SampleUsage("ColA || {vColumnName}")]
@@ -47,7 +42,6 @@ namespace OpenBots.Commands.Excel
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_ColumnName { get; set; }
 
-        [XmlAttribute]
         [PropertyDescription("Split Range Output Directory")]
         [InputSpecification("Enter or Select the new directory for the split range files.")]
         [SampleUsage(@"C:\temp\Split Files\ || {vFolderPath} || {ProjectPath}\Split Files")]
@@ -56,7 +50,6 @@ namespace OpenBots.Commands.Excel
         [PropertyUIHelper(UIAdditionalHelperType.ShowFolderSelectionHelper)]
         public string v_OutputDirectory { get; set; }
 
-        [XmlAttribute]
         [PropertyDescription("Output File Type")]
         [PropertyUISelectionOption("xlsx")]
         [PropertyUISelectionOption("csv")]
@@ -65,7 +58,6 @@ namespace OpenBots.Commands.Excel
         [Remarks("")]
         public string v_FileType { get; set; }
 
-        [XmlAttribute]
         [PropertyDescription("Output DataTable List Variable")]
         [InputSpecification("Create a new variable or select a variable from the list.")]
         [SampleUsage("{vUserVariable}")]

@@ -7,7 +7,6 @@ using OpenBots.Engine;
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
-using System.Xml.Serialization;
 using Application = Microsoft.Office.Interop.Word.Application;
 
 namespace OpenBots.Commands.Word
@@ -18,14 +17,13 @@ namespace OpenBots.Commands.Word
 
     public class WordCloseApplicationCommand : ScriptCommand
     {
-        [XmlAttribute]
+
         [PropertyDescription("Word Instance Name")]
         [InputSpecification("Enter the unique instance that was specified in the **Create Application** command.")]
         [SampleUsage("MyWordInstance")]
         [Remarks("Failure to enter the correct instance or failure to first call the **Create Application** command will cause an error.")]
         public string v_InstanceName { get; set; }
 
-        [XmlAttribute]
         [PropertyDescription("Save Document")]
         [PropertyUISelectionOption("Yes")]
         [PropertyUISelectionOption("No")]

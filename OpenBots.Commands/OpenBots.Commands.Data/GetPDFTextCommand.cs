@@ -11,7 +11,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using System.Windows.Forms;
-using System.Xml.Serialization;
 
 namespace OpenBots.Commands.Data
 {
@@ -20,7 +19,6 @@ namespace OpenBots.Commands.Data
     [Description("This command reads all text from a PDF file and saves it into a variable.")]
     public class GetPDFTextCommand : ScriptCommand
     {
-        [XmlAttribute]
         [PropertyDescription("Source Type")]
         [PropertyUISelectionOption("File Path")]
         [PropertyUISelectionOption("File URL")]
@@ -29,7 +27,6 @@ namespace OpenBots.Commands.Data
         [Remarks("Select 'File Path' if the file is locally placed or 'File URL' to read a file from a web URL.")]
         public string v_FileSourceType { get; set; }
 
-        [XmlAttribute]
         [PropertyDescription("File Path / URL")]
         [InputSpecification("Specify the local path or URL to the applicable PDF file.")]
         [SampleUsage(@"C:\temp\myfile.pdf || https://temp.com/myfile.pdf || {vFilePath}")]
@@ -38,7 +35,6 @@ namespace OpenBots.Commands.Data
         [PropertyUIHelper(UIAdditionalHelperType.ShowFileSelectionHelper)]
         public string v_FilePath { get; set; }
 
-        [XmlAttribute]
         [PropertyDescription("Output Text Variable")]
         [InputSpecification("Create a new variable or select a variable from the list.")]
         [SampleUsage("{vUserVariable}")]
@@ -102,7 +98,7 @@ namespace OpenBots.Commands.Data
             JavaInterface javaInterface = new JavaInterface();
 
             //get output from process
-            var result = javaInterface.ExtractPDFText(vSourceFilePath);
+            var result = ExtractPDFText(javaInterface, vSourceFilePath);
 
             //apply to variable
             result.StoreInUserVariable(engine, v_OutputUserVariableName);
@@ -123,6 +119,33 @@ namespace OpenBots.Commands.Data
         public override string GetDisplayValue()
         {
             return base.GetDisplayValue() + $" [Extract Text From '{v_FilePath}' - Store Text in '{v_OutputUserVariableName}']";
+        }
+
+        public string ExtractPDFText(JavaInterface javaInterface, string pdfFilePath)
+        {
+            //create pdf path
+            var pdfPath = "\"" + pdfFilePath + "\"";
+
+            //create args
+            var args = string.Join(" ", pdfPath);
+
+            //create interface process
+            var javaProcess = javaInterface.Create("OpenBots-ExtractPDFText.jar", args);
+
+            //run command line
+            javaProcess.Start();
+
+            //track output
+            var output = javaProcess.StandardOutput.ReadToEnd();
+
+            //wait for exist
+            javaProcess.WaitForExit();
+
+            //close and dispose
+            javaProcess.Close();
+
+            //return data
+            return output;
         }
     }
 }

@@ -14,7 +14,6 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Windows.Forms;
-using System.Xml.Serialization;
 
 namespace OpenBots.Commands.List
 {
@@ -23,7 +22,6 @@ namespace OpenBots.Commands.List
     [Description("This command returns an item (having a specific index) from a List.")]
     public class GetListItemCommand : ScriptCommand
     {
-        [XmlAttribute]
         [PropertyDescription("List")]
         [InputSpecification("Provide a List variable.")]
         [SampleUsage("{vList}")]
@@ -31,7 +29,6 @@ namespace OpenBots.Commands.List
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_ListName { get; set; }
 
-        [XmlAttribute]
         [PropertyDescription("Index")]
         [InputSpecification("Specify a valid List item index.")]
         [SampleUsage("0 || {vIndex}")]
@@ -39,7 +36,6 @@ namespace OpenBots.Commands.List
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_ItemIndex { get; set; }
 
-        [XmlAttribute]
         [PropertyDescription("Output List Item Variable")]
         [InputSpecification("Create a new variable or select a variable from the list.")]
         [SampleUsage("{vUserVariable}")]

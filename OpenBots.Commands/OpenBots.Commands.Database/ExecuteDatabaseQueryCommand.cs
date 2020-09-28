@@ -1,4 +1,5 @@
-﻿using OpenBots.Core.Attributes.ClassAttributes;
+﻿using Newtonsoft.Json;
+using OpenBots.Core.Attributes.ClassAttributes;
 using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
 using OpenBots.Core.Enums;
@@ -14,7 +15,6 @@ using System.Data.OleDb;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
-using System.Xml.Serialization;
 
 namespace OpenBots.Commands.Database
 {
@@ -23,14 +23,13 @@ namespace OpenBots.Commands.Database
     [Description("This command performs a OleDb database query.")]
     public class ExecuteDatabaseQueryCommand : ScriptCommand
     {
-        [XmlAttribute]
+
         [PropertyDescription("Database Instance Name")]
         [InputSpecification("Enter the unique instance that was specified in the **Define Database Connection** command.")]
         [SampleUsage("MyBrowserInstance")]
         [Remarks("Failure to enter the correct instance name or failure to first call the **Define Database Connection** command will cause an error.")]
         public string v_InstanceName { get; set; }
 
-        [XmlAttribute]
         [PropertyDescription("Define Query Execution Type")]
         [PropertyUISelectionOption("Return Dataset")]
         [PropertyUISelectionOption("Execute NonQuery")]
@@ -40,7 +39,6 @@ namespace OpenBots.Commands.Database
         [Remarks("")]
         public string v_QueryType { get; set; }
 
-        [XmlAttribute]
         [PropertyDescription("Query")]
         [InputSpecification("Define the OleDb query to execute.")]
         [SampleUsage("SELECT OrderID, CustomerID FROM Orders || {vQuery}")]
@@ -48,7 +46,6 @@ namespace OpenBots.Commands.Database
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_Query { get; set; }
 
-        [XmlElement]
         [PropertyDescription("Query Parameters")]
         [InputSpecification("Define the query parameters.")]
         [SampleUsage("[STRING | @name | {vNameValue}]")]
@@ -56,18 +53,17 @@ namespace OpenBots.Commands.Database
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public DataTable v_QueryParameters { get; set; }
 
-        [XmlAttribute]
         [PropertyDescription("Output Dataset Variable")]
         [InputSpecification("Create a new variable or select a variable from the list.")]
         [SampleUsage("{vUserVariable}")]
         [Remarks("Variables not pre-defined in the Variable Manager will be automatically generated at runtime.")]
         public string v_OutputUserVariableName { get; set; }
 
-        [XmlIgnore]
+        [JsonIgnore]
         [NonSerialized]
         private DataGridView _queryParametersGridView;
 
-        [XmlIgnore]
+        [JsonIgnore]
         [NonSerialized]
         private List<Control> _queryParametersControls;
 

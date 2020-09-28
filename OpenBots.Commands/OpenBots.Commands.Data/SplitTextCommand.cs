@@ -9,7 +9,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
-using System.Xml.Serialization;
 
 namespace OpenBots.Commands.Data
 {
@@ -18,7 +17,7 @@ namespace OpenBots.Commands.Data
     [Description("This command splits a string by a delimiter and saves the result in a list.")]
     public class SplitTextCommand : ScriptCommand
     {
-        [XmlAttribute]
+
         [PropertyDescription("Text Data")]
         [InputSpecification("Provide a variable or text value.")]
         [SampleUsage("Sample text, to be splitted by comma delimiter || {vTextData}")]
@@ -26,7 +25,6 @@ namespace OpenBots.Commands.Data
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_InputText { get; set; }
 
-        [XmlAttribute]
         [PropertyDescription("Text Delimiter")]
         [InputSpecification("Specify the character that will be used to split the text.")]
         [SampleUsage("[crLF] || [chars] || , || {vDelimiter}")]
@@ -34,7 +32,6 @@ namespace OpenBots.Commands.Data
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_SplitCharacter { get; set; }
 
-        [XmlAttribute]
         [PropertyDescription("Output List Variable")]
         [InputSpecification("Create a new variable or select a variable from the list.")]
         [SampleUsage("{vUserVariable}")]

@@ -10,7 +10,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
-using System.Xml.Serialization;
 using Group = OpenBots.Core.Attributes.ClassAttributes.Group;
 
 namespace OpenBots.Commands.RegEx
@@ -20,7 +19,6 @@ namespace OpenBots.Commands.RegEx
     [Description("This command splits a given text based on a Regex pattern.")]
     public class RegexSplitCommand : ScriptCommand
     {
-        [XmlAttribute]
         [PropertyDescription("Text")]
         [InputSpecification("Select or provide text to apply Regex on.")]
         [SampleUsage("Hello || {vText}")]
@@ -28,7 +26,6 @@ namespace OpenBots.Commands.RegEx
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_InputText { get; set; }
 
-        [XmlAttribute]
         [PropertyDescription("Regex Pattern")]
         [InputSpecification("Enter a Regex Pattern to apply to the input Text.")]
         [SampleUsage(@"^([\w\-]+) || {vPattern}")]
@@ -36,7 +33,6 @@ namespace OpenBots.Commands.RegEx
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_Regex { get; set; }
 
-        [XmlAttribute]
         [PropertyDescription("Output List Variable")]
         [InputSpecification("Create a new variable or select a variable from the list.")]
         [SampleUsage("{vUserVariable}")]

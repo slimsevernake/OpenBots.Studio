@@ -11,7 +11,6 @@ using System.Collections.Generic;
 using System.Data;
 using System.Reflection;
 using System.Windows.Forms;
-using System.Xml.Serialization;
 using Application = Microsoft.Office.Interop.Excel.Application;
 
 namespace OpenBots.Commands.Excel
@@ -19,17 +18,14 @@ namespace OpenBots.Commands.Excel
     [Serializable]
     [Group("Excel Commands")]
     [Description("This command appends a row after the last row of an Excel Worksheet.")]
-
     public class ExcelAppendRowCommand : ScriptCommand
     {
-        [XmlAttribute]
         [PropertyDescription("Excel Instance Name")]
         [InputSpecification("Enter the unique instance that was specified in the **Create Application** command.")]
         [SampleUsage("MyExcelInstance")]
         [Remarks("Failure to enter the correct instance or failure to first call the **Create Application** command will cause an error.")]
         public string v_InstanceName { get; set; }
 
-        [XmlAttribute]
         [PropertyDescription("Row")]
         [InputSpecification("Enter the text value that will be set in the appended row (Can be a DataRow).")]
         [SampleUsage("Hello,World || {vData1},{vData2} || {vDataRow}")]
