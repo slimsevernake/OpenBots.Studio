@@ -390,6 +390,11 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
             publishProject.ShowDialog();
         }
 
+        private void uiBtnPublishProject_Click(object sender, EventArgs e)
+        {
+            publishProjectToolStripMenuItem_Click(sender, e);
+        }
+
         private void uiBtnImport_Click(object sender, EventArgs e)
         {
             BeginImportProcess();
