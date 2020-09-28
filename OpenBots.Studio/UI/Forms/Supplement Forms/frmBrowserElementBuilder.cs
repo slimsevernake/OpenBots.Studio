@@ -12,13 +12,14 @@
 //WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 //See the License for the specific language governing permissions and
 //limitations under the License.
-using MSHTML;
+using mshtml;
 using SHDocVw;
 using System;
 using System.Data;
 using System.Reflection;
 using System.Windows.Forms;
 using OpenBots.Commands;
+using OpenBots.Core.UI.Forms;
 
 namespace OpenBots.UI.Forms.Supplement_Forms
 {

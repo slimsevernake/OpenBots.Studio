@@ -12,17 +12,13 @@ namespace OpenBots.Core.Settings
     [Serializable]
     public class ApplicationSettings
     {
-        public ServerSettings ServerSettings { get; set; }
         public EngineSettings EngineSettings { get; set; }
         public ClientSettings ClientSettings { get; set; }
-        public LocalListenerSettings ListenerSettings { get; set; }
 
         public ApplicationSettings()
         {
-            ServerSettings = new ServerSettings();
             EngineSettings = new EngineSettings();
             ClientSettings = new ClientSettings();
-            ListenerSettings = new LocalListenerSettings();
         }
 
         public void Save(ApplicationSettings appSettings)

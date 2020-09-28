@@ -11,7 +11,7 @@ using OpenBots.Core.Common;
 using OpenBots.Core.Enums;
 using OpenBots.Core.Properties;
 using OpenBots.UI.CustomControls.CustomUIControls;
-using OpenBots.UI.DTOs;
+using OpenBots.Core.UI.DTOs;
 using OpenBots.UI.Forms.Supplement_Forms;
 
 namespace OpenBots.UI.Forms.ScriptBuilder_Forms

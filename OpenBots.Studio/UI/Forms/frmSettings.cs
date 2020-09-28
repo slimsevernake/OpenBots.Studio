@@ -19,16 +19,16 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Windows.Forms;
-using OpenBots.Core.Documentation;
+
 using OpenBots.Core.Enums;
 using OpenBots.Core.IO;
 using OpenBots.Core.Metrics;
 using OpenBots.Core.Settings;
 using OpenBots.Core.UI.Forms;
-using OpenBots.Server;
 using OpenBots.UI.Forms.ScriptBuilder_Forms;
 using OpenBots.UI.Forms.Supplement_Forms;
 using OpenBots.Utilities;
+using OpenBots.Studio.Utilities.Documentation;
 
 namespace OpenBots.UI.Forms
 {
@@ -46,16 +46,6 @@ namespace OpenBots.UI.Forms
         {
             newAppSettings = new ApplicationSettings();
             newAppSettings = newAppSettings.GetOrCreateApplicationSettings();
-
-            var serverSettings = newAppSettings.ServerSettings;
-            chkServerEnabled.DataBindings.Add("Checked", serverSettings, "ServerConnectionEnabled", false, DataSourceUpdateMode.OnPropertyChanged);
-            chkAutomaticallyConnect.DataBindings.Add("Checked", serverSettings, "ConnectToServerOnStartup", false, DataSourceUpdateMode.OnPropertyChanged);
-            chkRetryOnDisconnect.DataBindings.Add("Checked", serverSettings, "RetryServerConnectionOnFail", false, DataSourceUpdateMode.OnPropertyChanged);
-            chkBypassValidation.DataBindings.Add("Checked", serverSettings, "BypassCertificateValidation", false, DataSourceUpdateMode.OnPropertyChanged);
-            txtPublicKey.DataBindings.Add("Text", serverSettings, "ServerPublicKey", false, DataSourceUpdateMode.OnPropertyChanged);
-            txtServerURL.DataBindings.Add("Text", serverSettings, "ServerURL", false, DataSourceUpdateMode.OnPropertyChanged);
-            txtHttpsAddress.DataBindings.Add("Text", serverSettings, "HTTPServerURL", false, DataSourceUpdateMode.OnPropertyChanged);
-            txtGUID.DataBindings.Add("Text", serverSettings, "HTTPGuid", false, DataSourceUpdateMode.OnPropertyChanged);
 
             var engineSettings = newAppSettings.EngineSettings;
             chkShowDebug.DataBindings.Add("Checked", engineSettings, "ShowDebugWindow", false, DataSourceUpdateMode.OnPropertyChanged);
@@ -83,17 +73,6 @@ namespace OpenBots.UI.Forms
             txtLogging3.DataBindings.Add("Text", engineSettings, "LoggingValue3", false, DataSourceUpdateMode.OnPropertyChanged);
             txtLogging4.DataBindings.Add("Text", engineSettings, "LoggingValue4", false, DataSourceUpdateMode.OnPropertyChanged);
 
-            var listenerSettings = newAppSettings.ListenerSettings;
-            chkAutoStartListener.DataBindings.Add("Checked", listenerSettings, "StartListenerOnStartup", false, DataSourceUpdateMode.OnPropertyChanged);
-            chkEnableListening.DataBindings.Add("Checked", listenerSettings, "LocalListeningEnabled", false, DataSourceUpdateMode.OnPropertyChanged);
-            chkRequireListenerKey.DataBindings.Add("Checked", listenerSettings, "RequireListenerAuthenticationKey", false, DataSourceUpdateMode.OnPropertyChanged);
-            txtListeningPort.DataBindings.Add("Text", listenerSettings, "ListeningPort", false, DataSourceUpdateMode.OnPropertyChanged);
-            txtAuthListeningKey.DataBindings.Add("Text", listenerSettings, "AuthKey", false, DataSourceUpdateMode.OnPropertyChanged);
-            chkEnableWhitelist.DataBindings.Add("Checked", listenerSettings, "EnableWhitelist", false, DataSourceUpdateMode.OnPropertyChanged);
-            txtWhiteList.DataBindings.Add("Text", listenerSettings, "IPWhiteList", false, DataSourceUpdateMode.OnPropertyChanged);
-
-            SetupListeningUI();
-
             var clientSettings = newAppSettings.ClientSettings;
             chkAntiIdle.DataBindings.Add("Checked", clientSettings, "AntiIdleWhileOpen", false, DataSourceUpdateMode.OnPropertyChanged);
             txtAppFolderPath.DataBindings.Add("Text", clientSettings, "RootFolder", false, DataSourceUpdateMode.OnPropertyChanged);
@@ -107,46 +86,7 @@ namespace OpenBots.UI.Forms
 
             //get metrics
             bgwMetrics.RunWorkerAsync();
-
-            LocalTCPClient.ListeningStarted += AutomationTCPListener_ListeningStarted;
-            LocalTCPClient.ListeningStopped += AutomationTCPListener_ListeningStopped;
         }
-
-        public delegate void AutomationTCPListener_StartedDelegate(object sender, EventArgs e);
-        public delegate void AutomationTCPListener_StoppedDelegate(object sender, EventArgs e);
-        private void AutomationTCPListener_ListeningStopped(object sender, EventArgs e)
-        {
-            if (InvokeRequired)
-            {
-                var stoppedDelegate = new AutomationTCPListener_StoppedDelegate(AutomationTCPListener_ListeningStopped);
-                Invoke(stoppedDelegate, new object[] { sender, e });
-            }
-            else
-            {
-                SetupListeningUI();
-            }
-        }
-
-        private void AutomationTCPListener_ListeningStarted(object sender, EventArgs e)
-        {
-            if (InvokeRequired)
-            {
-                var startedDelegate = new AutomationTCPListener_StoppedDelegate(AutomationTCPListener_ListeningStarted);
-                Invoke(startedDelegate, new object[] { sender, e });
-            }
-            else
-            {
-                SetupListeningUI();
-            }
-
-        }
-
-        private void btnConnect_Click(object sender, EventArgs e)
-        {
-            SocketClient.InitializeScriptEngine(new frmScriptEngine());
-            SocketClient.Connect(txtServerURL.Text);
-        }
-
 
         private void btnAddAssembly_Click(object sender, EventArgs e)
         {
@@ -167,9 +107,7 @@ namespace OpenBots.UI.Forms
                 newAppSettings.EngineSettings.LoggingValue1 = Path.Combine(Folders.GetFolder(FolderType.LogFolder), "OpenBots Engine Logs.txt");
 
             newAppSettings.Save(newAppSettings);
-            
-            SocketClient.InitializeScriptEngine(new frmScriptEngine());
-            SocketClient.LoadSettings();
+
             Close();
         }
 
@@ -215,36 +153,6 @@ namespace OpenBots.UI.Forms
             else
             {
                 MessageBox.Show("The application is currently up-to-date!", "No Updates Available", MessageBoxButtons.OK);
-            }
-        }
-
-        private void tmrGetSocketStatus_Tick(object sender, EventArgs e)
-        {
-
-            lblStatus.Text = "Socket Status: " + SocketClient.GetSocketState();
-            if (SocketClient.ConnectionException != string.Empty)
-            {
-                lblSocketException.Show();
-                lblSocketException.Text = SocketClient.ConnectionException;
-            }
-            else
-            {
-                lblSocketException.Hide();
-            }
-        }
-
-        private void btnCloseConnection_Click(object sender, EventArgs e)
-        {
-            SocketClient.Disconnect();
-        }
-
-        private void chkBypassValidation_CheckedChanged(object sender, EventArgs e)
-        {
-            if (chkBypassValidation.Checked)
-            {
-                MessageBox.Show("Bypassing SSL Certificate Validation procedures is inherently insecure" +
-                    " as the client will trust any server certificate. Please consider issuing proper SSL Certificates.",
-                    "Warning - Insecure", MessageBoxButtons.OK);
             }
         }
 
@@ -354,13 +262,17 @@ namespace OpenBots.UI.Forms
 
                 foreach (var metric in metricsSummary)
                 {
-                    var rootNode = new TreeNode();
-                    rootNode.Text = metric.FileName + " [" + metric.AverageExecutionTime + " avg.]";
+                    var rootNode = new TreeNode
+                    {
+                        Text = metric.FileName + " [" + metric.AverageExecutionTime + " avg.]"
+                    };
 
                     foreach (var metricItem in metric.ExecutionData)
                     {
-                        var subNode = new TreeNode();
-                        subNode.Text = string.Join(" - ", metricItem.LoggedOn.ToString("MM/dd/yy hh:mm"), metricItem.ExecutionTime);
+                        var subNode = new TreeNode
+                        {
+                            Text = string.Join(" - ", metricItem.LoggedOn.ToString("MM/dd/yy hh:mm"), metricItem.ExecutionTime)
+                        };
                         rootNode.Nodes.Add(subNode);
                     }
                     tvExecutionTimes.Nodes.Add(rootNode);
@@ -399,98 +311,12 @@ namespace OpenBots.UI.Forms
             }
         }
 
-        private void btnLaunchDisplayManager_Click(object sender, EventArgs e)
-        {
-            frmDisplayManager displayManager = new frmDisplayManager();
-            displayManager.Show();
-            Close();
-        }
-
-        private void btnGetGUID_Click(object sender, EventArgs e)
-        {
-            var successfulConnection = HttpServerClient.TestConnection(txtHttpsAddress.Text);
-
-            if (successfulConnection)
-            {
-                var pulledNewGUID = HttpServerClient.GetGuid();
-
-                if (pulledNewGUID)
-                {
-                    newAppSettings = new ApplicationSettings();
-                    newAppSettings = newAppSettings.GetOrCreateApplicationSettings();
-                    txtHttpsAddress.Text = newAppSettings.ServerSettings.HTTPGuid.ToString();
-                    MessageBox.Show("Connected Successfully! GUID will be reloaded automatically the next time settings is loaded!");
-                }
-                MessageBox.Show("Connected Successfully!");
-            }
-            else
-            {
-                MessageBox.Show("Unable To Connect!");
-            }
-        }
-
-        private void btnGetBotGUID_Click(object sender, EventArgs e)
-        {
-            var newGUID = HttpServerClient.GetGuid();
-        }
-
-        private void btnTaskPublish_Click(object sender, EventArgs e)
-        {
-            if (File.Exists(scriptBuilderForm.ScriptFilePath))
-            {
-                HttpServerClient.PublishScript(scriptBuilderForm.ScriptFilePath, PublishType.ServerReference);
-            }
-            else
-            {
-                MessageBox.Show("Please open the task in order to publish it.");
-            }
-        }
-
-        private void SetupListeningUI()
-        {
-            if (LocalTCPClient.IsListening)
-            {
-                lblListeningStatus.Text = $"Client is Listening at Endpoint '{LocalTCPClient.GetListeningAddress()}'.";
-                btnStopListening.Enabled = true;
-                btnStartListening.Enabled = false;
-            }
-            else
-            {
-                lblListeningStatus.Text = $"Client is Not Listening!";
-                btnStopListening.Enabled = false;
-                btnStartListening.Enabled = true;
-            }
-            lblListeningStatus.Show();
-        }
-
-        private void DisableListenerButtons()
-        {
-            btnStopListening.Enabled = false;
-            btnStartListening.Enabled = false;
-        }
-
-        private void btnStartListening_Click(object sender, EventArgs e)
-        {
-            if (int.TryParse(txtListeningPort.Text, out var portNumber))
-            {
-                DisableListenerButtons();
-                LocalTCPClient.InitializeScriptEngine(new frmScriptEngine());
-                LocalTCPClient.StartListening(portNumber);
-            }
-        }
-
-        private void btnStopListening_Click(object sender, EventArgs e)
-        {
-            DisableListenerButtons();
-            LocalTCPClient.StopAutomationListener();
-        }
-
-        private void btnWhiteList_Click(object sender, EventArgs e)
-        {
-            //newAppSettings.ListenerSettings.IPWhiteList.Add(new WhiteListIPSettings("127.0.0.1"));
-            //Supplement_Forms.frmGridView frmWhitelist = new Supplement_Forms.frmGridView(newAppSettings.ListenerSettings.IPWhiteList);
-            //frmWhitelist.ShowDialog();
-        }
+        //private void btnLaunchDisplayManager_Click(object sender, EventArgs e)
+        //{
+        //    frmDisplayManager displayManager = new frmDisplayManager();
+        //    displayManager.Show();
+        //    Close();
+        //}  
 
         private void cbxSinkType_SelectedIndexChanged(object sender, EventArgs e)
         {
