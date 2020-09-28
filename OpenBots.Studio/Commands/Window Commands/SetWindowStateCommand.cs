@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
-using System.Xml.Serialization;
 using OpenBots.Core.Attributes.ClassAttributes;
 using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
@@ -18,7 +17,6 @@ namespace OpenBots.Commands
     [Description("This command sets a open window's state.")]
     public class SetWindowStateCommand : ScriptCommand
     {
-        [XmlAttribute]
         [PropertyDescription("Window Name")]
         [InputSpecification("Select the name of the window to set.")]
         [SampleUsage("Untitled - Notepad || Current Window || {vWindow}")]
@@ -26,7 +24,6 @@ namespace OpenBots.Commands
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_WindowName { get; set; }
 
-        [XmlAttribute]
         [PropertyDescription("Window State")]
         [PropertyUISelectionOption("Maximize")]
         [PropertyUISelectionOption("Minimize")]

@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using OpenBots.Core.Attributes.ClassAttributes;
 using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
@@ -11,7 +12,6 @@ using System.Collections.Generic;
 using System.Data;
 using System.Drawing;
 using System.Windows.Forms;
-using System.Xml.Serialization;
 
 namespace OpenBots.Commands.Data
 {
@@ -20,7 +20,7 @@ namespace OpenBots.Commands.Data
     [Description("This command runs a number of queries on a JSON object and saves the results in the specified list variables.")]
     public class ParseJSONModelCommand : ScriptCommand
     {
-        [XmlAttribute]
+
         [PropertyDescription("JSON Object")]
         [InputSpecification("Provide a variable or JSON object value.")]
         [SampleUsage("{\"rect\":{\"length\":10, \"width\":5}} || {vJsonObject}")]
@@ -28,7 +28,6 @@ namespace OpenBots.Commands.Data
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_JsonObject { get; set; }
 
-        [XmlElement]
         [PropertyDescription("Parameters")]
         [InputSpecification("Specify JSON Selector(s) (JPath) and Output Variable(s).")]
         [SampleUsage("[$.rect.length | vOutputList] || [{Selector} | {vOutputList}]")]
@@ -36,7 +35,7 @@ namespace OpenBots.Commands.Data
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public DataTable v_ParseObjects { get; set; }
 
-        [XmlIgnore]
+        [JsonIgnore]
         [NonSerialized]
         private DataGridView _parseObjectsGridViewHelper;
 

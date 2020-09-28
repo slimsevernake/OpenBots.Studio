@@ -9,7 +9,6 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Windows.Forms;
-using System.Xml.Serialization;
 
 namespace OpenBots.Commands.Data
 {
@@ -18,7 +17,6 @@ namespace OpenBots.Commands.Data
     [Description("This command performs a math calculation and saves the result in a variable.")]
     public class MathCalculationCommand : ScriptCommand
     {
-        [XmlAttribute]
         [PropertyDescription("Math Expression")]
         [InputSpecification("Specify either text or a variable that contains a valid math expression.")]
         [SampleUsage("(2 + 5) * 3 || ({vNumber1} + {vNumber2}) * {vNumber3}")]
@@ -26,7 +24,6 @@ namespace OpenBots.Commands.Data
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_MathExpression { get; set; }
 
-        [XmlAttribute]
         [PropertyDescription("Thousand Separator (Optional)")]
         [InputSpecification("Specify the seperator used to identify decimal places.")]
         [SampleUsage(", || . || {vThousandSeparator}")]
@@ -34,7 +31,6 @@ namespace OpenBots.Commands.Data
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_ThousandSeparator { get; set; }
 
-        [XmlAttribute]
         [PropertyDescription("Decimal Separator (Optional)")]
         [InputSpecification("Specify the seperator used to identify decimal places.")]
         [SampleUsage(". || , || {vDecimalSeparator}")]
@@ -42,7 +38,6 @@ namespace OpenBots.Commands.Data
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_DecimalSeparator { get; set; }
 
-        [XmlAttribute]
         [PropertyDescription("Output Result Variable")]
         [InputSpecification("Create a new variable or select a variable from the list.")]
         [SampleUsage("{vUserVariable}")]

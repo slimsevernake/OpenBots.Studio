@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Windows.Forms;
-using System.Xml.Serialization;
+using Newtonsoft.Json;
 using OpenBots.Core.Attributes.ClassAttributes;
 using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
@@ -18,7 +18,6 @@ namespace OpenBots.Commands
     [Description("This command measures time elapsed during the execution of the process.")]
     public class StopwatchCommand : ScriptCommand
     {
-        [XmlAttribute]
         [PropertyDescription("Stopwatch Instance Name")]
         [InputSpecification("Enter a unique name that will represent the application instance.")]
         [SampleUsage("MyStopwatchInstance")]
@@ -26,7 +25,6 @@ namespace OpenBots.Commands
                  "ensuring that the commands you specify run against the correct application.")]
         public string v_InstanceName { get; set; }
 
-        [XmlAttribute]
         [PropertyDescription("Stopwatch Action")]
         [PropertyUISelectionOption("Start Stopwatch")]
         [PropertyUISelectionOption("Stop Stopwatch")]
@@ -38,7 +36,6 @@ namespace OpenBots.Commands
         [Remarks("")]
         public string v_StopwatchAction { get; set; }
 
-        [XmlAttribute]
         [PropertyDescription("String Format")]
         [InputSpecification("Specify a DateTime string format if required.")]
         [SampleUsage("MM/dd/yy || hh:mm || {vFormat}")]
@@ -46,14 +43,13 @@ namespace OpenBots.Commands
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_ToStringFormat { get; set; }
 
-        [XmlAttribute]
         [PropertyDescription("Output Elapsed Time Variable")]
         [InputSpecification("Create a new variable or select a variable from the list.")]
         [SampleUsage("{vUserVariable}")]
         [Remarks("Variables not pre-defined in the Variable Manager will be automatically generated at runtime.")]
         public string v_OutputUserVariableName { get; set; }
 
-        [XmlIgnore]
+        [JsonIgnore]
         [NonSerialized]
         public List<Control> MeasureControls;
 
@@ -130,6 +126,14 @@ namespace OpenBots.Commands
             RenderedControls.AddRange(MeasureControls);
           
             return RenderedControls;
+        }     
+
+        public override string GetDisplayValue()
+        {
+            if (v_StopwatchAction == "Measure Stopwatch")
+                return base.GetDisplayValue() + $" [{v_StopwatchAction} - Store Elapsed Time in '{v_OutputUserVariableName}' - Instance Name '{v_InstanceName}']";
+            else
+                return base.GetDisplayValue() + $" [{v_StopwatchAction} - Instance Name '{v_InstanceName}']";
         }
 
         private void StopWatchComboBox_SelectedValueChanged(object sender, EventArgs e)
@@ -139,19 +143,15 @@ namespace OpenBots.Commands
                 foreach (var ctrl in MeasureControls)
                     ctrl.Visible = true;
             }
-            else 
+            else
             {
                 foreach (var ctrl in MeasureControls)
+                {
                     ctrl.Visible = false;
+                    if (ctrl is TextBox)
+                        ((TextBox)ctrl).Clear();
+                }
             }
-        }
-
-        public override string GetDisplayValue()
-        {
-            if (v_StopwatchAction == "Measure Stopwatch")
-                return base.GetDisplayValue() + $" [{v_StopwatchAction} - Store Elapsed Time in '{v_OutputUserVariableName}' - Instance Name '{v_InstanceName}']";
-            else
-                return base.GetDisplayValue() + $" [{v_StopwatchAction} - Instance Name '{v_InstanceName}']";
         }
     }
 }

@@ -3,7 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
-using System.Xml.Serialization;
 using OpenBots.Core.Attributes.ClassAttributes;
 using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
@@ -19,7 +18,7 @@ namespace OpenBots.Commands
     [Description("This command extracts text from an image file.")]
     public class PerformOCRCommand : ScriptCommand
     {
-        [XmlAttribute]
+
         [PropertyDescription("Image File Path")]
         [InputSpecification("Select the image to perform OCR text extraction on.")]
         [SampleUsage(@"C:\temp\myimages.png || {ProjectPath}\myimages.png || {vImageFile}")]
@@ -28,7 +27,6 @@ namespace OpenBots.Commands
         [PropertyUIHelper(UIAdditionalHelperType.ShowFileSelectionHelper)]
         public string v_FilePath { get; set; }
 
-        [XmlAttribute]
         [PropertyDescription("Output OCR Result Variable")]
         [InputSpecification("Create a new variable or select a variable from the list.")]
         [SampleUsage("{vUserVariable}")]

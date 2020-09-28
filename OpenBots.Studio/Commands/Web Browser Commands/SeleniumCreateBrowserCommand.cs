@@ -6,7 +6,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Windows.Forms;
-using System.Xml.Serialization;
 using OpenBots.Core.App;
 using OpenBots.Core.Attributes.ClassAttributes;
 using OpenBots.Core.Attributes.PropertyAttributes;
@@ -24,7 +23,7 @@ namespace OpenBots.Commands
 
     public class SeleniumCreateBrowserCommand : ScriptCommand
     {
-        [XmlAttribute]
+
         [PropertyDescription("Browser Instance Name")]
         [InputSpecification("Enter a unique name that will represent the application instance.")]
         [SampleUsage("MyBrowserInstance")]
@@ -32,7 +31,6 @@ namespace OpenBots.Commands
                  "ensuring that the commands you specify run against the correct application.")]
         public string v_InstanceName { get; set; }
 
-        [XmlAttribute]
         [PropertyDescription("Browser Engine Type")]
         [PropertyUISelectionOption("Chrome")]
         [PropertyUISelectionOption("Firefox")]
@@ -42,7 +40,6 @@ namespace OpenBots.Commands
         [Remarks("The recommended browser option for web automation is Chrome.")]
         public string v_EngineType { get; set; }
 
-        [XmlAttribute]
         [PropertyDescription("URL")]
         [InputSpecification("Enter the URL that you want the selenium instance to navigate to.")]
         [SampleUsage("https://mycompany.com/orders || {vURL}")]
@@ -50,7 +47,6 @@ namespace OpenBots.Commands
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_URL { get; set; }
 
-        [XmlAttribute]
         [PropertyDescription("Instance Tracking")]
         [PropertyUISelectionOption("Forget Instance")]
         [PropertyUISelectionOption("Keep Instance Alive")]
@@ -62,7 +58,6 @@ namespace OpenBots.Commands
                  "If the application is closed, the references will be forgotten automatically.")]
         public string v_InstanceTracking { get; set; }
 
-        [XmlAttribute]
         [PropertyDescription("Window State")]
         [PropertyUISelectionOption("Normal")]
         [PropertyUISelectionOption("Maximize")]
@@ -71,7 +66,6 @@ namespace OpenBots.Commands
         [Remarks("")]
         public string v_BrowserWindowOption { get; set; }
 
-        [XmlAttribute]
         [PropertyDescription("Selenium Command Line Options (Chrome)")]
         [InputSpecification("Select options to be passed to the Selenium command.")]
         [SampleUsage("user-data-dir=c:\\users\\public\\SeleniumOpenBotsProfile || {vOptions}")]

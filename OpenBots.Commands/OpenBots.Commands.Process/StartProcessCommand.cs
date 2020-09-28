@@ -9,7 +9,6 @@ using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Windows.Forms;
-using System.Xml.Serialization;
 using Diagnostics = System.Diagnostics;
 
 namespace OpenBots.Commands.Process
@@ -20,7 +19,7 @@ namespace OpenBots.Commands.Process
 
     public class StartProcessCommand : ScriptCommand
     {
-        [XmlAttribute]
+
         [PropertyDescription("Program Name or Path")]
         [InputSpecification("Provide a valid program name or enter a full path to the script/executable including the extension.")]
         [SampleUsage(@"notepad || excel || {vApp} || C:\temp\myapp.exe || {ProjectPath}\myapp.exe")]
@@ -29,7 +28,6 @@ namespace OpenBots.Commands.Process
         [PropertyUIHelper(UIAdditionalHelperType.ShowFileSelectionHelper)]
         public string v_ProgramName { get; set; }
 
-        [XmlAttribute]
         [PropertyDescription("Arguments")]
         [InputSpecification("Enter any arguments or flags if applicable.")]
         [SampleUsage("-a || -version || {vArg}")]
@@ -37,7 +35,6 @@ namespace OpenBots.Commands.Process
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_ProgramArgs { get; set; }
 
-        [XmlAttribute]
         [PropertyDescription("Wait For Exit")]
         [PropertyUISelectionOption("Yes")]
         [PropertyUISelectionOption("No")]

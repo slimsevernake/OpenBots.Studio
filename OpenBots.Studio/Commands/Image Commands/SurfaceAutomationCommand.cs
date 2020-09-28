@@ -8,7 +8,7 @@ using System.Linq;
 using System.Security;
 using System.Threading;
 using System.Windows.Forms;
-using System.Xml.Serialization;
+using Newtonsoft.Json;
 using OpenBots.Core.Attributes.ClassAttributes;
 using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
@@ -30,7 +30,6 @@ namespace OpenBots.Commands
     [Description("This command attempts to find and perform an action on an existing image on screen.")]
     public class SurfaceAutomationCommand : ScriptCommand
     {
-        [XmlAttribute]
         [PropertyDescription("Capture Search Image")]
         [InputSpecification("Use the tool to capture an image that will be located on screen during execution.")]
         [SampleUsage("")]
@@ -40,7 +39,6 @@ namespace OpenBots.Commands
         [PropertyUIHelper(UIAdditionalHelperType.ShowImageCaptureHelper)]
         public string v_ImageCapture { get; set; }
 
-        [XmlElement]
         [PropertyDescription("Element Action")]
         [PropertyUISelectionOption("Click Image")]
         [PropertyUISelectionOption("Set Text")]
@@ -52,7 +50,6 @@ namespace OpenBots.Commands
         [Remarks("Selecting this field changes the parameters required in the following step.")]
         public string v_ImageAction { get; set; }
 
-        [XmlElement]
         [PropertyDescription("Additional Parameters")]
         [InputSpecification("Additional Parameters will be required based on the action settings selected.")]
         [SampleUsage("data || {vData}")]
@@ -60,7 +57,6 @@ namespace OpenBots.Commands
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public DataTable v_ImageActionParameterTable { get; set; }
 
-        [XmlAttribute]
         [PropertyDescription("Accuracy (0-1)")]
         [InputSpecification("Enter a value between 0 and 1 to set the match Accuracy. Set to 1 for a perfect match.")]
         [SampleUsage("0.8 || 1 || {vAccuracy}")]
@@ -70,15 +66,15 @@ namespace OpenBots.Commands
 
         public bool TestMode = false;
 
-        [XmlIgnore]
+        [JsonIgnore]
         [NonSerialized]
         private DataGridView _imageGridViewHelper;
 
-        [XmlIgnore]
+        [JsonIgnore]
         [NonSerialized]
         private ComboBox _imageActionDropdown;
 
-        [XmlIgnore]
+        [JsonIgnore]
         [NonSerialized]
         private List<Control> _imageParameterControls;
 

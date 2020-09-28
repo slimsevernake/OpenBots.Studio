@@ -10,7 +10,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Windows.Forms;
-using System.Xml.Serialization;
 using Application = Microsoft.Office.Interop.Word.Application;
 
 namespace OpenBots.Commands.Word
@@ -18,17 +17,14 @@ namespace OpenBots.Commands.Word
     [Serializable]
     [Group("Word Commands")]
     [Description("This command saves a Word Document to a specific file.")]
-
     public class WordSaveDocumentAsCommand : ScriptCommand
     {
-        [XmlAttribute]
         [PropertyDescription("Word Instance Name")]
         [InputSpecification("Enter the unique instance that was specified in the **Create Application** command.")]
         [SampleUsage("MyWordInstance")]
         [Remarks("Failure to enter the correct instance or failure to first call the **Create Application** command will cause an error.")]
         public string v_InstanceName { get; set; }
 
-        [XmlAttribute]
         [PropertyDescription("Document Location")]
         [InputSpecification("Enter or Select the path of the folder to save the Document in.")]
         [SampleUsage(@"C:\temp || {vFolderPath} || {ProjectPath}")]
@@ -37,7 +33,6 @@ namespace OpenBots.Commands.Word
         [PropertyUIHelper(UIAdditionalHelperType.ShowFolderSelectionHelper)]
         public string v_FolderPath { get; set; }
 
-        [XmlAttribute]
         [PropertyDescription("Document File Name")]
         [InputSpecification("Enter or Select the name of the Document file.")]
         [SampleUsage("myFile.docx || {vFilename}")]

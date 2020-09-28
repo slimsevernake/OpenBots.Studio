@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Windows.Forms;
-using System.Xml.Serialization;
 using OpenBots.Core.Attributes.ClassAttributes;
 using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
@@ -16,14 +15,12 @@ using OpenBots.Engine;
 
 namespace OpenBots.Commands
 {
-
     [Serializable]
     [Group("API Commands")]
     [Description("This command calls a REST API with a specific HTTP method.")]
 
     public class ExecuteRESTAPICommand : ScriptCommand
     {
-        [XmlAttribute]
         [PropertyDescription("Base URL")]
         [InputSpecification("Provide the base URL of the API.")]
         [SampleUsage("https://example.com || {vMyUrl}")]
@@ -31,7 +28,6 @@ namespace OpenBots.Commands
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_BaseURL { get; set; }
 
-        [XmlAttribute]
         [PropertyDescription("Endpoint")]
         [InputSpecification("Define any API endpoint which contains the full URL.")]
         [SampleUsage("/v2/getUser/1 || {vMyUrl}")]
@@ -39,7 +35,6 @@ namespace OpenBots.Commands
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_APIEndPoint { get; set; }
 
-        [XmlAttribute]
         [PropertyDescription("Method Type")]
         [PropertyUISelectionOption("GET")]
         [PropertyUISelectionOption("POST")]
@@ -48,7 +43,6 @@ namespace OpenBots.Commands
         [Remarks("")]
         public string v_APIMethodType { get; set; }
 
-        [XmlAttribute]
         [PropertyDescription("Request Format")]
         [PropertyUISelectionOption("Json")]
         [PropertyUISelectionOption("Xml")]
@@ -71,18 +65,17 @@ namespace OpenBots.Commands
         [Remarks("")]
         public DataTable v_AdvancedParameters { get; set; }
 
-        [XmlAttribute]
         [PropertyDescription("Output Response Variable")]
         [InputSpecification("Create a new variable or select a variable from the list.")]
         [SampleUsage("{vUserVariable}")]
         [Remarks("Variables not pre-defined in the Variable Manager will be automatically generated at runtime.")]
         public string v_OutputUserVariableName { get; set; }
 
-        [XmlIgnore]
+        [JsonIgnore]
         [NonSerialized]
         private DataGridView _RESTParametersGridViewHelper;
 
-        [XmlIgnore]
+        [JsonIgnore]
         [NonSerialized]
         private DataGridView _advancedRESTParametersGridViewHelper;
 

@@ -11,9 +11,7 @@ using System;
 using System.Collections.Generic;
 using System.Security.Authentication;
 using System.Threading;
-using System.Windows.Forms;
-using System.Xml.Serialization;
-
+using System.Windows.Forms;
 namespace OpenBots.Commands.Email
 {
     [Serializable]
@@ -22,7 +20,7 @@ namespace OpenBots.Commands.Email
 
     public class ForwardSMTPEmailCommand : ScriptCommand
     {
-        [XmlAttribute]
+
         [PropertyDescription("MimeMessage")]
         [InputSpecification("Enter the MimeMessage to forward.")]
         [SampleUsage("{vMimeMessage}")]
@@ -30,7 +28,6 @@ namespace OpenBots.Commands.Email
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_SMTPMimeMessage { get; set; }
 
-        [XmlAttribute]
         [PropertyDescription("Host")]
         [InputSpecification("Define the host/service name that the script should use.")]
         [SampleUsage("smtp.gmail.com || {vHost}")]
@@ -38,7 +35,6 @@ namespace OpenBots.Commands.Email
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_SMTPHost { get; set; }
 
-        [XmlAttribute]
         [PropertyDescription("Port")]
         [InputSpecification("Define the port number that should be used when contacting the SMTP service.")]
         [SampleUsage("465 || {vPort}")]
@@ -46,7 +42,6 @@ namespace OpenBots.Commands.Email
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_SMTPPort { get; set; }
 
-        [XmlAttribute]
         [PropertyDescription("Username")]
         [InputSpecification("Define the username to use when contacting the SMTP service.")]
         [SampleUsage("myRobot || {vUsername}")]
@@ -54,7 +49,6 @@ namespace OpenBots.Commands.Email
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_SMTPUserName { get; set; }
 
-        [XmlAttribute]
         [PropertyDescription("Password")]
         [InputSpecification("Define the password to use when contacting the SMTP service.")]
         [SampleUsage("password || {vPassword}")]
@@ -62,7 +56,6 @@ namespace OpenBots.Commands.Email
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_SMTPPassword { get; set; }
 
-        [XmlAttribute]
         [PropertyDescription("Recipient(s)")]
         [InputSpecification("Enter the email address(es) of the recipient(s).")]
         [SampleUsage("test@test.com || test@test.com;test2@test.com || {vEmail} || {vEmail1};{vEmail2} || {vEmails}")]
@@ -70,7 +63,6 @@ namespace OpenBots.Commands.Email
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_SMTPRecipients { get; set; }
 
-        [XmlAttribute]
         [PropertyDescription("Email Body")]
         [InputSpecification("Enter text to be used as the email body.")]
         [SampleUsage("Everything ran ok at {DateTime.Now}  || {vBody}")]

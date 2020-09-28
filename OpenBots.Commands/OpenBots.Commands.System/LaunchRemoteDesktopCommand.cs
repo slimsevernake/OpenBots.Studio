@@ -12,7 +12,6 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
-using System.Xml.Serialization;
 
 namespace OpenBots.Commands.System
 {
@@ -21,7 +20,6 @@ namespace OpenBots.Commands.System
     [Description("This command launches a remote desktop session.")]
     public class LaunchRemoteDesktopCommand : ScriptCommand
     {
-        [XmlAttribute]
         [PropertyDescription("Machine Name")]
         [InputSpecification("Define the name of the machine to log on to.")]
         [SampleUsage("myMachine || {vMachineName}")]
@@ -29,7 +27,6 @@ namespace OpenBots.Commands.System
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_MachineName { get; set; }
 
-        [XmlAttribute]
         [PropertyDescription("Username")]
         [InputSpecification("Define the username to use when connecting to the machine.")]
         [SampleUsage("myRobot || {vUsername}")]
@@ -37,7 +34,6 @@ namespace OpenBots.Commands.System
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_UserName { get; set; }
 
-        [XmlAttribute]
         [PropertyDescription("Password")]
         [InputSpecification("Define the password to use when connecting to the machine.")]
         [SampleUsage("password || {vPassword}")]
@@ -45,7 +41,6 @@ namespace OpenBots.Commands.System
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_Password { get; set; }
 
-        [XmlAttribute]
         [PropertyDescription("RDP Window Width")]
         [InputSpecification("Define the width for the Remote Desktop Window.")]
         [SampleUsage("1000 || {vWidth}")]
@@ -53,7 +48,6 @@ namespace OpenBots.Commands.System
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_RDPWidth { get; set; }
 
-        [XmlAttribute]
         [PropertyDescription("RDP Window Height")]
         [InputSpecification("Define the height for the Remote Desktop Window.")]
         [SampleUsage("800 || {vHeight}")]

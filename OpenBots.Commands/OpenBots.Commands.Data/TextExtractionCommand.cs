@@ -1,4 +1,5 @@
-﻿using OpenBots.Core.Attributes.ClassAttributes;
+﻿using Newtonsoft.Json;
+using OpenBots.Core.Attributes.ClassAttributes;
 using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
 using OpenBots.Core.Enums;
@@ -11,8 +12,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text.RegularExpressions;
-using System.Windows.Forms;
-using System.Xml.Serialization;
+using System.Windows.Forms;
 using Group = OpenBots.Core.Attributes.ClassAttributes.Group;
 
 namespace OpenBots.Commands.Data
@@ -22,7 +22,6 @@ namespace OpenBots.Commands.Data
     [Description("This command performs advanced text extraction.")]
     public class TextExtractionCommand : ScriptCommand
     {
-        [XmlAttribute]
         [PropertyDescription("Text Data")]
         [InputSpecification("Provide a variable or text value.")]
         [SampleUsage("Sample text to perform text extraction on || {vTextData}")]
@@ -30,7 +29,6 @@ namespace OpenBots.Commands.Data
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_InputText { get; set; }
 
-        [XmlAttribute]
         [PropertyDescription("Text Extraction Type")]
         [PropertyUISelectionOption("Extract All After Text")]
         [PropertyUISelectionOption("Extract All Before Text")]
@@ -40,7 +38,6 @@ namespace OpenBots.Commands.Data
         [Remarks("For trailing text, use 'After Text'. For leading text, use 'Before Text'. For text between two substrings, use 'Between Text'.")]
         public string v_TextExtractionType { get; set; }
 
-        [XmlElement]
         [PropertyDescription("Extraction Parameters")]
         [InputSpecification("Define the required extraction parameters, which is dependent on the type of extraction.")]
         [SampleUsage("A substring from input text || {vSubstring}")]
@@ -48,14 +45,13 @@ namespace OpenBots.Commands.Data
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public DataTable v_TextExtractionTable { get; set; }
 
-        [XmlAttribute]
         [PropertyDescription("Output Text Variable")]
         [InputSpecification("Create a new variable or select a variable from the list.")]
         [SampleUsage("{vUserVariable}")]
         [Remarks("Variables not pre-defined in the Variable Manager will be automatically generated at runtime.")]
         public string v_OutputUserVariableName { get; set; }
 
-        [XmlIgnore]
+        [JsonIgnore]
         [NonSerialized]
         private DataGridView _parametersGridViewHelper;
 

@@ -8,7 +8,6 @@ using SimpleNLG;
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
-using System.Xml.Serialization;
 
 namespace OpenBots.Commands.NLG
 {
@@ -17,7 +16,7 @@ namespace OpenBots.Commands.NLG
     [Description("This command creates a Natural Language Generation Instance.")]
     public class CreateNLGInstanceCommand : ScriptCommand
     {
-        [XmlAttribute]
+
         [PropertyDescription("NLG Instance Name")]
         [InputSpecification("Enter a unique name that will represent the application instance.")]
         [SampleUsage("MyNLGInstance")]

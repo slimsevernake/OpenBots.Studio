@@ -9,7 +9,6 @@ using OpenBots.Engine;
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
-using System.Xml.Serialization;
 using Application = Microsoft.Office.Interop.Outlook.Application;
 
 namespace OpenBots.Commands.Outlook
@@ -20,7 +19,7 @@ namespace OpenBots.Commands.Outlook
 
     public class MoveCopyOutlookEmailCommand : ScriptCommand
     {
-        [XmlAttribute]
+
         [PropertyDescription("MailItem")]
         [InputSpecification("Enter the MailItem to move or copy.")]
         [SampleUsage("{vMailItem}")]
@@ -28,7 +27,6 @@ namespace OpenBots.Commands.Outlook
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_MailItem { get; set; }
 
-        [XmlAttribute]
         [PropertyDescription("Destination Mail Folder Name")]
         [InputSpecification("Enter the name of the Outlook mail folder the emails are being moved/copied to.")]
         [SampleUsage("New Folder || {vFolderName}")]
@@ -36,7 +34,6 @@ namespace OpenBots.Commands.Outlook
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_DestinationFolder { get; set; }
 
-        [XmlAttribute]
         [PropertyDescription("Mail Operation")]
         [PropertyUISelectionOption("Move MailItem")]
         [PropertyUISelectionOption("Copy MailItem")]
@@ -45,7 +42,6 @@ namespace OpenBots.Commands.Outlook
         [Remarks("Moving will remove the emails from the original folder while copying will not.")]
         public string v_OperationType { get; set; }
 
-        [XmlAttribute]
         [PropertyDescription("Unread Only")]
         [PropertyUISelectionOption("Yes")]
         [PropertyUISelectionOption("No")]

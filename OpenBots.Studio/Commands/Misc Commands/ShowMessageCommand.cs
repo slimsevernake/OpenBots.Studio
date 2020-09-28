@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
-using System.Xml.Serialization;
 using OpenBots.Core.Attributes.ClassAttributes;
 using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
@@ -17,7 +16,7 @@ namespace OpenBots.Commands
     [Description("This command displays a message to the user.")]
     public class ShowMessageCommand : ScriptCommand
     {
-        [XmlAttribute]
+
         [PropertyDescription("Message")]      
         [InputSpecification("Specify any text or variable value that should be displayed on screen.")]
         [SampleUsage("Hello World || {vMyText} || Hello {vName}")]
@@ -25,7 +24,6 @@ namespace OpenBots.Commands
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_Message { get; set; }
 
-        [XmlAttribute]
         [PropertyDescription("Close After X (Seconds)")]
         [InputSpecification("Specify how many seconds to display the message on screen. After the specified time," + 
                             "\nthe message box will be automatically closed and script will resume execution.")]

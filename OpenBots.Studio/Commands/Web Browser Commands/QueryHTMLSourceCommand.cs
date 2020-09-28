@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
-using System.Xml.Serialization;
 using OpenBots.Core.Attributes.ClassAttributes;
 using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
@@ -12,14 +11,12 @@ using OpenBots.Engine;
 
 namespace OpenBots.Commands
 {
-
     [Serializable]
     [Group("Web Browser Commands")]
     [Description("This command parses and extracts data from an HTML source object or a successful **GetHTMLSourceCommand**.")]
 
     public class QueryHTMLSourceCommand : ScriptCommand
     {
-        [XmlAttribute]
         [PropertyDescription("HTML")]
         [InputSpecification("Enter the HTML to be queried.")]
         [SampleUsage("<!DOCTYPE html><html><head><title>Example</title></head></html> || {vMyHTML}")]
@@ -27,7 +24,6 @@ namespace OpenBots.Commands
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_HTMLVariable { get; set; }
 
-        [XmlAttribute]
         [PropertyDescription("XPath Query")]
         [InputSpecification("Enter the XPath Query and the item will be extracted.")]
         [SampleUsage("@//*[@id=\"aso_search_form_anchor\"]/div/input || {vMyXPath}")]
@@ -35,7 +31,6 @@ namespace OpenBots.Commands
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_XPathQuery { get; set; }
 
-        [XmlAttribute]
         [PropertyDescription("Output Query Result Variable")]
         [InputSpecification("Create a new variable or select a variable from the list.")]
         [SampleUsage("{vUserVariable}")]

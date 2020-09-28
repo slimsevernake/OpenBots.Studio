@@ -10,7 +10,6 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Windows.Forms;
-using System.Xml.Serialization;
 using Data = System.Data;
 
 namespace OpenBots.Commands.DataTable
@@ -21,7 +20,7 @@ namespace OpenBots.Commands.DataTable
 
     public class FilterDataTableCommand : ScriptCommand
     {
-        [XmlAttribute]
+
         [PropertyDescription("Input DataTable")]
         [InputSpecification("Enter the DataTable to filter through.")]
         [SampleUsage("{vDataTable}")]
@@ -29,7 +28,6 @@ namespace OpenBots.Commands.DataTable
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_DataTable { get; set; }
 
-        [XmlAttribute]
         [PropertyDescription("Filter Tuple")]
         [InputSpecification("Enter a tuple containing the column name and item you would like to filter by.")]
         [SampleUsage("(ColumnName1,Item1),(ColumnName2,Item2) || ({vColumn1},{vItem1}),({vCloumn2},{vItem2}) || {vFilterTuple}")]
@@ -37,7 +35,6 @@ namespace OpenBots.Commands.DataTable
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_SearchItem { get; set; }
 
-        [XmlAttribute]
         [PropertyDescription("Output Filtered DataTable Variable")]
         [InputSpecification("Create a new variable or select a variable from the list.")]
         [SampleUsage("{vUserVariable}")]

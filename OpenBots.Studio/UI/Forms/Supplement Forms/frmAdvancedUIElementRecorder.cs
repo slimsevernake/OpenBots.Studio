@@ -21,7 +21,7 @@ using OpenBots.Core.UI.Forms;
 
 namespace OpenBots.UI.Forms.Supplement_Forms
 {
-    public partial class frmThickAppElementRecorder : UIForm
+    public partial class frmAdvancedUIElementRecorder : UIForm
     {
         public DataTable SearchParameters;
         public string LastItemClicked;
@@ -42,7 +42,9 @@ namespace OpenBots.UI.Forms.Supplement_Forms
         private string _recordingMessage = "Recording. Press F2 to save and close.";
         private string _errorMessage = "Error cloning element. Please Try Again.";
 
-        public frmThickAppElementRecorder()
+        private Point _lastClickedMouseCoordinates;
+
+        public frmAdvancedUIElementRecorder()
         {
             _appSettings = new ApplicationSettings();
             _appSettings = _appSettings.GetOrCreateApplicationSettings();
@@ -66,12 +68,8 @@ namespace OpenBots.UI.Forms.Supplement_Forms
             if (!_isRecording)
             {
                 _isRecording = true;
-               
-                SearchParameters = new DataTable();
-                SearchParameters.Columns.Add("Enabled");
-                SearchParameters.Columns.Add("Parameter Name");
-                SearchParameters.Columns.Add("Parameter Value");
-                SearchParameters.TableName = DateTime.Now.ToString("UIASearchParamTable" + DateTime.Now.ToString("MMddyy.hhmmss"));
+
+                SearchParameters = NewSearchParameterDataTable();
 
                 //clear all
                 SearchParameters.Rows.Clear();
@@ -151,7 +149,6 @@ namespace OpenBots.UI.Forms.Supplement_Forms
 
         private void GlobalHook_HookStopped(object sender, EventArgs e)
         {
-            GlobalHook_MouseEvent(null, null);
             _isHookStopped = true;
             Close();
         }
@@ -160,7 +157,7 @@ namespace OpenBots.UI.Forms.Supplement_Forms
         {
             //mouse down has occured
             if (e != null)
-            {
+            {               
                 //invoke UIA
                 try
                 {
@@ -174,7 +171,20 @@ namespace OpenBots.UI.Forms.Supplement_Forms
                     switch (e.MouseMessage)
                     {
                         case MouseMessages.WmLButtonDown:
-                            clickType = "Left Click";
+                            if (e.MouseCoordinates.X == _lastClickedMouseCoordinates.X &&
+                                e.MouseCoordinates.Y == _lastClickedMouseCoordinates.Y &&
+                                _stopwatch.ElapsedMilliseconds <= 500)
+                            {
+                                _stopwatch.Stop();
+
+                                //remove previous commands generated from single click
+                                for (int i = 0; i < 2; i++)
+                                    _sequenceCommandList.RemoveAt(_sequenceCommandList.Count - 1);
+
+                                clickType = "Double Left Click";
+                            }                              
+                            else
+                                clickType = "Left Click";
                             break;
                         case MouseMessages.WmMButtonDown:
                             clickType = "Middle Click";
@@ -189,6 +199,8 @@ namespace OpenBots.UI.Forms.Supplement_Forms
 
                     if (IsRecordingSequence && _isRecording)
                         BuildElementClickActionCommand(clickType);
+
+                    _lastClickedMouseCoordinates = e.MouseCoordinates;
                 }
                 catch (Exception)
                 {
@@ -243,7 +255,7 @@ namespace OpenBots.UI.Forms.Supplement_Forms
             PropertyInfo[] properties = typeof(AutomationElement.AutomationElementInformation).GetProperties();
             Array.Sort(properties, (x, y) => string.Compare(x.Name, y.Name));
 
-            SearchParameters.Rows.Clear();
+            SearchParameters = NewSearchParameterDataTable();
 
             if (IsRecordingSequence)
             {
@@ -308,37 +320,24 @@ namespace OpenBots.UI.Forms.Supplement_Forms
 
         private void BuildElementClickActionCommand(string clickType)
         {
-            //check if previous click was made within 500ms of this to and change to double click if true
-            if ((_sequenceCommandList.Count > 1) && (_sequenceCommandList[_sequenceCommandList.Count - 1] is UIAutomationCommand)
-                && (_sequenceCommandList[_sequenceCommandList.Count - 1] as UIAutomationCommand).v_AutomationType == "Click Element"
-                && (_sequenceCommandList[_sequenceCommandList.Count - 1] as UIAutomationCommand).v_UIAActionParameters.Rows[0].ItemArray[1].ToString() == "Left Click"
-                && _stopwatch.ElapsedMilliseconds <= 500)
+            BuildWaitForElementActionCommand();
+
+            var clickElementActionCommand = new UIAutomationCommand
             {
-                var lastCreatedClickCommand = (UIAutomationCommand)_sequenceCommandList[_sequenceCommandList.Count - 1];
-                lastCreatedClickCommand.v_UIAActionParameters.Rows[0].SetField(1, "Double Left Click");
-                _stopwatch.Stop();
-            }
-            else
-            {
-                BuildWaitForElementActionCommand();
+                v_WindowName = _windowName,
+                v_UIASearchParameters = SearchParameters,
+                v_AutomationType = "Click Element"
+            };
 
-                var clickElementActionCommand = new UIAutomationCommand
-                {
-                    v_WindowName = _windowName,
-                    v_UIASearchParameters = SearchParameters,
-                    v_AutomationType = "Click Element"
-                };
+            DataTable webActionDT = clickElementActionCommand.v_UIAActionParameters;
+            DataRow clickTypeRow = webActionDT.NewRow();
+            clickTypeRow["Parameter Name"] = "Click Type";
+            clickTypeRow["Parameter Value"] = clickType;
+            webActionDT.Rows.Add(clickTypeRow);
 
-                DataTable webActionDT = clickElementActionCommand.v_UIAActionParameters;
-                DataRow clickTypeRow = webActionDT.NewRow();
-                clickTypeRow["Parameter Name"] = "Click Type";
-                clickTypeRow["Parameter Value"] = clickType;
-                webActionDT.Rows.Add(clickTypeRow);
+            _sequenceCommandList.Add(clickElementActionCommand);
 
-                _sequenceCommandList.Add(clickElementActionCommand);
-
-                _stopwatch.Restart();
-            }
+            _stopwatch.Restart();
         }
 
         private void BuildWaitForElementActionCommand()
@@ -467,6 +466,16 @@ namespace OpenBots.UI.Forms.Supplement_Forms
             }
 
             DialogResult = DialogResult.Cancel;
+        }
+
+        private DataTable NewSearchParameterDataTable()
+        {
+            DataTable searchParameters = new DataTable();
+            searchParameters.Columns.Add("Enabled");
+            searchParameters.Columns.Add("Parameter Name");
+            searchParameters.Columns.Add("Parameter Value");
+            searchParameters.TableName = DateTime.Now.ToString("UIASearchParamTable" + DateTime.Now.ToString("MMddyy.hhmmss"));
+            return searchParameters;
         }
     }
 }

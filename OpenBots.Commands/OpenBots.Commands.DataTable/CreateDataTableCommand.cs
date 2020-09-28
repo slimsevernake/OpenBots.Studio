@@ -9,7 +9,6 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Windows.Forms;
-using System.Xml.Serialization;
 using Data = System.Data;
 
 namespace OpenBots.Commands.DataTable
@@ -20,7 +19,7 @@ namespace OpenBots.Commands.DataTable
 
     public class CreateDataTableCommand : ScriptCommand
     {
-        [XmlElement]
+
         [PropertyDescription("Column Names")]
         [InputSpecification("Enter the Column Names required for each column of data.")]
         [SampleUsage("MyColumn || {vColumn}")]
@@ -28,7 +27,6 @@ namespace OpenBots.Commands.DataTable
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public Data.DataTable v_ColumnNameDataTable { get; set; }
 
-        [XmlAttribute]
         [PropertyDescription("Output DataTable Variable")]
         [InputSpecification("Create a new variable or select a variable from the list.")]
         [SampleUsage("{vUserVariable}")]

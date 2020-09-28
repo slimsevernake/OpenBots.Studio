@@ -9,17 +9,14 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Windows.Forms;
-using System.Xml.Serialization;
 
 namespace OpenBots.Commands.Folder
 {
-
     [Serializable]
     [Group("Folder Operation Commands")]
     [Description("This command creates a folder in a specified location.")]
     public class CreateFolderCommand : ScriptCommand
     {
-        [XmlAttribute]
         [PropertyDescription("New Folder Name")]
         [InputSpecification("Enter the name of the new folder.")]
         [SampleUsage("myFolderName || {vFolderName}")]
@@ -27,7 +24,6 @@ namespace OpenBots.Commands.Folder
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_NewFolderName { get; set; }
 
-        [XmlAttribute]
         [PropertyDescription("Directory Path")]
         [InputSpecification("Enter or Select the path to the directory to create the folder in.")]
         [SampleUsage(@"C:\temp\myfolder || {ProjectPath}\myfolder || {vTextFolderPath}")]
@@ -36,7 +32,6 @@ namespace OpenBots.Commands.Folder
         [PropertyUIHelper(UIAdditionalHelperType.ShowFolderSelectionHelper)] 
         public string v_DestinationDirectory { get; set; }
 
-        [XmlAttribute]
         [PropertyDescription("Delete Existing Folder")]
         [PropertyUISelectionOption("Yes")]
         [PropertyUISelectionOption("No")]

@@ -1,5 +1,13 @@
 ﻿using Gecko;
 using HtmlAgilityPack;
+using OpenBots.Commands;
+using OpenBots.Core.Command;
+using OpenBots.Core.Script;
+using OpenBots.Core.Settings;
+using OpenBots.Core.UI.Forms;
+using OpenBots.UI.Forms.ScriptBuilder_Forms;
+using OpenBots.UI.Supplement_Forms;
+using OpenBots.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -8,19 +16,10 @@ using System.IO;
 using System.Reflection;
 using System.Text;
 using System.Windows.Forms;
-using OpenBots.Commands;
-using OpenBots.Core.Command;
-using OpenBots.Core.Script;
-using OpenBots.Core.Settings;
-using OpenBots.UI.Forms.ScriptBuilder_Forms;
-using OpenBots.UI.Supplement_Forms;
-using OpenBots.Utilities;
-using System.Diagnostics;
-using OpenBots.Core.UI.Forms;
 
 namespace OpenBots.UI.Forms.Supplement_Forms
 {
-    public partial class frmHTMLElementRecorder : UIForm
+    public partial class frmWebElementRecorder : UIForm
     {
         public List<ScriptElement> ScriptElements { get; set; }
         public DataTable SearchParameters { get; set; }
@@ -36,7 +35,7 @@ namespace OpenBots.UI.Forms.Supplement_Forms
         private DataTable _parameterSettings;
 
         private bool _isFirstRecordClick;
-        private string _homeURL = "https://www.google.com/"; //TODO replace with openbots url;
+        private string _homeURL = "https://openbots.ai/";
         private string _xPath;
         private string _name;
         private string _id;
@@ -49,12 +48,11 @@ namespace OpenBots.UI.Forms.Supplement_Forms
         private SeleniumCreateBrowserCommand _createBrowserCommand;
         private ApplicationSettings _appSettings;
         private Point _lastSavedPoint;
-        private Stopwatch _stopwatch;
 
         private string _recordingMessage = "Recording. Press F2 to save and close.";
         private string _errorMessage = "Error cloning element. Please Try Again.";
 
-        public frmHTMLElementRecorder(string startURL)
+        public frmWebElementRecorder(string startURL)
         {
             _appSettings = new ApplicationSettings();
             _appSettings = _appSettings.GetOrCreateApplicationSettings();
@@ -72,9 +70,6 @@ namespace OpenBots.UI.Forms.Supplement_Forms
             wbElementRecorder.Navigate(StartURL);
             tbURL.Text = StartURL;
             tbURL.Refresh();
-
-            _stopwatch = new Stopwatch();
-            _stopwatch.Start();
         }
 
         private void frmHTMLElementRecorder_Load(object sender, EventArgs e)
@@ -90,11 +85,7 @@ namespace OpenBots.UI.Forms.Supplement_Forms
                 if (!chkStopOnClick.Checked)
                     lblDescription.Text = _recordingMessage;
 
-                SearchParameters = new DataTable();
-                SearchParameters.Columns.Add("Enabled");
-                SearchParameters.Columns.Add("Parameter Name");
-                SearchParameters.Columns.Add("Parameter Value");
-                SearchParameters.TableName = DateTime.Now.ToString("UIASearchParamTable" + DateTime.Now.ToString("MMddyy.hhmmss"));
+                SearchParameters = NewSearchParameterDataTable();
 
                 //clear all
                 SearchParameters.Rows.Clear();
@@ -104,6 +95,7 @@ namespace OpenBots.UI.Forms.Supplement_Forms
                 GlobalHook.HookStopped += GlobalHook_HookStopped;
                 GlobalHook.StartElementCaptureHook(chkStopOnClick.Checked);
                 wbElementRecorder.DomClick += wbElementRecorder_DomClick;
+                wbElementRecorder.DomDoubleClick += wbElementRecorder_DomDoubleClick;
                 wbElementRecorder.DomKeyDown += WbElementRecorder_DomKeyDown;
 
                 if (IsRecordingSequence && _isFirstRecordClick)
@@ -132,6 +124,7 @@ namespace OpenBots.UI.Forms.Supplement_Forms
 
                         //remove wait for left mouse down event
                         wbElementRecorder.DomClick -= wbElementRecorder_DomClick;
+                        wbElementRecorder.DomDoubleClick -= wbElementRecorder_DomDoubleClick;
                         wbElementRecorder.DomKeyDown -= WbElementRecorder_DomKeyDown;
                         GlobalHook.HookStopped -= GlobalHook_HookStopped;
 
@@ -207,6 +200,36 @@ namespace OpenBots.UI.Forms.Supplement_Forms
                 Close();
         }
 
+        private void wbElementRecorder_DomDoubleClick(object sender, DomMouseEventArgs e)
+        {
+            //mouse down has occured
+            if (e != null)
+            {
+                try
+                {
+                    if (_isRecording)
+                    {
+                        _lastSavedPoint = new Point(e.ClientX, e.ClientY);
+                        LoadSearchParameters(_lastSavedPoint);
+                        lblDescription.Text = _recordingMessage;
+                    }
+
+                    if (IsRecordingSequence && _isRecording)
+                    {
+                        //remove previous commands generated from two single clicks
+                        for(int i = 0; i < 4; i++)
+                            _sequenceCommandList.RemoveAt(_sequenceCommandList.Count - 1);
+
+                        BuildElementClickActionCommand("Double Left Click");
+                    }
+                }
+                catch (Exception)
+                {
+                    lblDescription.Text = _errorMessage;
+                }
+            }
+        }
+
         private void WbElementRecorder_DomKeyDown(object sender, DomKeyEventArgs e)
         {
             //mouse down has occured
@@ -263,9 +286,9 @@ namespace OpenBots.UI.Forms.Supplement_Forms
             LastItemClicked = $"[XPath:{_xPath}].[ID:{_id}].[Name:{_name}].[Tag Name:{_tagName}].[Class:{_className}].[Link Text:{_linkText}].[CSS Selector:{cssSelectorString}]";
             lblSubHeader.Text = LastItemClicked;
 
+            SearchParameters = NewSearchParameterDataTable();
             if (IsRecordingSequence)
-            {
-                SearchParameters.Rows.Clear();
+            {                
                 foreach (DataRow row in _parameterSettings.Rows)
                 {
                     switch (row[1].ToString())
@@ -297,7 +320,6 @@ namespace OpenBots.UI.Forms.Supplement_Forms
             }
             else
             {
-                SearchParameters.Rows.Clear();
                 SearchParameters.Rows.Add(true, "XPath", _xPath);
                 SearchParameters.Rows.Add(false, "ID", _id);
                 SearchParameters.Rows.Add(false, "Name", _name);
@@ -460,29 +482,15 @@ namespace OpenBots.UI.Forms.Supplement_Forms
 
         private void BuildElementClickActionCommand(string clickType)
         {
-            //check if previous click was made within 500ms of this to and change to double click if true
-            if ((_sequenceCommandList.Count > 1) && (_sequenceCommandList[_sequenceCommandList.Count - 1] is SeleniumElementActionCommand)
-                && (_sequenceCommandList[_sequenceCommandList.Count - 1] as SeleniumElementActionCommand).v_SeleniumElementAction == "Invoke Click" 
-                && _stopwatch.ElapsedMilliseconds <= 500)
-            {
-                var lastCreatedClickCommand = (SeleniumElementActionCommand)_sequenceCommandList[_sequenceCommandList.Count - 1];
-                lastCreatedClickCommand.v_SeleniumElementAction = "Double Left Click";
-                _stopwatch.Stop();
-            }
-            else
-            {
-                BuildWaitForElementActionCommand();
+            BuildWaitForElementActionCommand();
 
-                var clickElementActionCommand = new SeleniumElementActionCommand
-                {
-                    v_InstanceName = _browserInstanceName,
-                    v_SeleniumSearchParameters = SearchParameters,
-                    v_SeleniumElementAction = clickType
-                };
-                _sequenceCommandList.Add(clickElementActionCommand);
-
-                _stopwatch.Restart();
-            }           
+            var clickElementActionCommand = new SeleniumElementActionCommand
+            {
+                v_InstanceName = _browserInstanceName,
+                v_SeleniumSearchParameters = SearchParameters,
+                v_SeleniumElementAction = clickType
+            };
+            _sequenceCommandList.Add(clickElementActionCommand);          
         }
 
         private void BuildWaitForElementActionCommand()
@@ -618,6 +626,16 @@ namespace OpenBots.UI.Forms.Supplement_Forms
                 if (_browserEngineType != "None")
                     CallBackForm.AddCommandToListView(closeBrowserCommand);
             }            
+        }
+
+        private DataTable NewSearchParameterDataTable()
+        {
+            DataTable searchParameters = new DataTable();
+            searchParameters.Columns.Add("Enabled");
+            searchParameters.Columns.Add("Parameter Name");
+            searchParameters.Columns.Add("Parameter Value");
+            searchParameters.TableName = DateTime.Now.ToString("UIASearchParamTable" + DateTime.Now.ToString("MMddyy.hhmmss"));
+            return searchParameters;
         }
 
         readonly Dictionary<uint, string> _seleniumAdvancedKeyMap = new Dictionary<uint, string>()

@@ -9,7 +9,6 @@ using OpenBots.Engine;
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
-using System.Xml.Serialization;
 using Application = Microsoft.Office.Interop.Excel.Application;
 
 namespace OpenBots.Commands.Excel
@@ -17,17 +16,14 @@ namespace OpenBots.Commands.Excel
     [Serializable]
     [Group("Excel Commands")]
     [Description("This command deletes a specific cell or range in an Excel Worksheet.")]
-
     public class ExcelDeleteRangeCommand : ScriptCommand
     {
-        [XmlAttribute]
         [PropertyDescription("Excel Instance Name")]
         [InputSpecification("Enter the unique instance that was specified in the **Create Application** command.")]
         [SampleUsage("MyExcelInstance")]
         [Remarks("Failure to enter the correct instance or failure to first call the **Create Application** command will cause an error.")]
         public string v_InstanceName { get; set; }
 
-        [XmlAttribute]
         [PropertyDescription("Range")]
         [InputSpecification("Enter the location of the cell or range to delete.")]
         [SampleUsage("A1 || A1:B10 || A1: || {vRange} || {vStart}:{vEnd} || {vStart}:")]
@@ -35,7 +31,6 @@ namespace OpenBots.Commands.Excel
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_Range { get; set; }
 
-        [XmlAttribute]
         [PropertyDescription("Shift Cells Up")]
         [PropertyUISelectionOption("Yes")]
         [PropertyUISelectionOption("No")]

@@ -9,7 +9,6 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Windows.Forms;
-using System.Xml.Serialization;
 
 namespace OpenBots.Commands.Dictionary
 {
@@ -18,7 +17,7 @@ namespace OpenBots.Commands.Dictionary
     [Description("This command creates a new Dictionary.")]
     public class CreateDictionaryCommand : ScriptCommand
     {
-        [XmlElement]
+
         [PropertyDescription("Keys and Values")]
         [InputSpecification("Enter the Keys and Values required for the new dictionary.")]
         [SampleUsage("[FirstName | John] || [{vKey} | {vValue}]")]
@@ -26,7 +25,6 @@ namespace OpenBots.Commands.Dictionary
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public DataTable v_ColumnNameDataTable { get; set; }
 
-        [XmlAttribute]
         [PropertyDescription("Output Dictionary Variable")]
         [InputSpecification("Create a new variable or select a variable from the list.")]
         [SampleUsage("{vUserVariable}")]

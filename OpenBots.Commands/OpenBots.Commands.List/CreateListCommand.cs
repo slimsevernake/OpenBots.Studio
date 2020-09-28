@@ -12,7 +12,6 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Windows.Forms;
-using System.Xml.Serialization;
 using Exception = System.Exception;
 
 namespace OpenBots.Commands.List
@@ -22,7 +21,6 @@ namespace OpenBots.Commands.List
     [Description("This command creates a new List variable.")]
     public class CreateListCommand : ScriptCommand
     {
-        [XmlAttribute]
         [PropertyDescription("List Type")]
         [PropertyUISelectionOption("String")]
         [PropertyUISelectionOption("DataTable")]
@@ -34,7 +32,6 @@ namespace OpenBots.Commands.List
         [Remarks("")]
         public string v_ListType { get; set; }
 
-        [XmlAttribute]
         [PropertyDescription("List Item(s)")]
         [InputSpecification("Enter the item(s) to write to the List.")]
         [SampleUsage("Hello || {vItem} || Hello,World || {vItem1},{vItem2}")]
@@ -43,7 +40,6 @@ namespace OpenBots.Commands.List
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_ListItems { get; set; }
 
-        [XmlAttribute]
         [PropertyDescription("Output List Variable")]
         [InputSpecification("Create a new variable or select a variable from the list.")]
         [SampleUsage("{vUserVariable}")]
@@ -66,7 +62,7 @@ namespace OpenBots.Commands.List
             dynamic vNewList = null;
             string[] splitListItems = null;
 
-            if (!string.IsNullOrEmpty(v_ListItems.Trim()))
+            if (!string.IsNullOrEmpty(v_ListItems))
             {
                 splitListItems = v_ListItems.Split(',');
             }

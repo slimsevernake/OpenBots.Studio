@@ -9,7 +9,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Windows.Forms;
-using System.Xml.Serialization;
 
 namespace OpenBots.Commands.TextFile
 {
@@ -18,16 +17,15 @@ namespace OpenBots.Commands.TextFile
     [Description("This command reads text data from a text file and stores it in a variable.")]
     public class ReadTextFileCommand : ScriptCommand
     {
-        [XmlAttribute]
-        [PropertyDescription("File Path")]
-        [InputSpecification("Enter or Select the path to the text file.")]
+
+        [PropertyDescription("Text File Path")]
+        [InputSpecification("Enter or select the path to the text file.")]
         [SampleUsage(@"C:\temp\myfile.txt || {ProjectPath}\myText.txt || {vTextFilePath}")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         [PropertyUIHelper(UIAdditionalHelperType.ShowFileSelectionHelper)]
         public string v_FilePath { get; set; }
 
-        [XmlAttribute]
         [PropertyDescription("Output Text Variable")]
         [InputSpecification("Create a new variable or select a variable from the list.")]
         [SampleUsage("{vUserVariable}")]

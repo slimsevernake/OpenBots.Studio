@@ -9,7 +9,6 @@ using OpenBots.Engine;
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
-using System.Xml.Serialization;
 using Application = Microsoft.Office.Interop.Word.Application;
 
 namespace OpenBots.Commands.Word
@@ -17,17 +16,14 @@ namespace OpenBots.Commands.Word
     [Serializable]
     [Group("Word Commands")]
     [Description("This command replaces specific text in a Word Document.")]
-
     public class WordReplaceTextCommand : ScriptCommand
     {
-        [XmlAttribute]
         [PropertyDescription("Word Instance Name")]
         [InputSpecification("Enter the unique instance that was specified in the **Create Application** command.")]
         [SampleUsage("MyWordInstance")]
         [Remarks("Failure to enter the correct instance or failure to first call the **Create Application** command will cause an error.")]
         public string v_InstanceName { get; set; }
 
-        [XmlAttribute]
         [PropertyDescription("Find")]
         [InputSpecification("Enter the text to find.")]
         [SampleUsage("old text || {vFindText}")]
@@ -35,7 +31,6 @@ namespace OpenBots.Commands.Word
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_FindText { get; set; }
 
-        [XmlAttribute]
         [PropertyDescription("Replace")]
         [InputSpecification("Enter the text to replace with.")]
         [SampleUsage("new text || {vReplaceText}")]

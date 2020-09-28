@@ -9,7 +9,6 @@ using OpenBots.Engine;
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
-using System.Xml.Serialization;
 using Application = Microsoft.Office.Interop.Excel.Application;
 
 namespace OpenBots.Commands.Excel
@@ -20,14 +19,12 @@ namespace OpenBots.Commands.Excel
 
     public class ExcelDeleteRowCommand : ScriptCommand
     {
-        [XmlAttribute]
         [PropertyDescription("Excel Instance Name")]
         [InputSpecification("Enter the unique instance that was specified in the **Create Application** command.")]
         [SampleUsage("MyExcelInstance")]
         [Remarks("Failure to enter the correct instance or failure to first call the **Create Application** command will cause an error.")]
         public string v_InstanceName { get; set; }
 
-        [XmlAttribute]
         [PropertyDescription("Row Number")]
         [InputSpecification("Enter the number of the row to be deleted.")]
         [SampleUsage("1 || {vRowNumber}")]
@@ -35,7 +32,6 @@ namespace OpenBots.Commands.Excel
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_RowNumber { get; set; }
 
-        [XmlAttribute]
         [PropertyDescription("Shift Cells Up")]
         [PropertyUISelectionOption("Yes")]
         [PropertyUISelectionOption("No")]

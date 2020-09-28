@@ -7,7 +7,6 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Windows.Forms;
-using System.Xml.Serialization;
 using OpenBots.Core.Attributes.ClassAttributes;
 using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
@@ -24,7 +23,6 @@ namespace OpenBots.Commands
     [Description("This command iterates over a collection to let user perform actions on the collection items.")]
     public class LoopCollectionCommand : ScriptCommand
     {
-        [XmlAttribute]
         [PropertyDescription("Input Collection")]
         [InputSpecification("Provide a collection variable.")]
         [SampleUsage("{vMyCollection}")]
@@ -33,7 +31,6 @@ namespace OpenBots.Commands
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_LoopParameter { get; set; }
 
-        [XmlAttribute]
         [PropertyDescription("Output Collection Item Variable")]
         [InputSpecification("Create a new variable or select a variable from the list.")]
         [SampleUsage("{vUserVariable}")]

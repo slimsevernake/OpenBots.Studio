@@ -60,5 +60,8 @@
     <Folder Include="Library\" />
     <Folder Include="Resources\" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

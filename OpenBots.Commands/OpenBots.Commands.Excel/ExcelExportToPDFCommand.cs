@@ -11,7 +11,6 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
-using System.Xml.Serialization;
 using Application = Microsoft.Office.Interop.Excel.Application;
 
 namespace OpenBots.Commands.Excel
@@ -19,10 +18,8 @@ namespace OpenBots.Commands.Excel
     [Serializable]
     [Group("Excel Commands")]
     [Description("This command exports a Excel Worksheet to a PDF file.")]
-
     public class ExcelExportToPDFCommand : ScriptCommand
     {
-        [XmlAttribute]
         [PropertyDescription("Excel Instance Name")]
         [InputSpecification("Enter the unique instance that was specified in the **Create Application** command.")]
         [SampleUsage("MyExcelInstance || {vExcelInstance}")]
@@ -30,7 +27,6 @@ namespace OpenBots.Commands.Excel
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_InstanceName { get; set; }
 
-        [XmlAttribute]
         [PropertyDescription("PDF Location")]
         [InputSpecification("Enter or Select the path of the folder to export the PDF to.")]
         [SampleUsage(@"C:\temp || {vFolderPath} || {ProjectPath}")]
@@ -39,7 +35,6 @@ namespace OpenBots.Commands.Excel
         [PropertyUIHelper(UIAdditionalHelperType.ShowFolderSelectionHelper)]
         public string v_FolderPath { get; set; }
 
-        [XmlAttribute]
         [PropertyDescription("PDF File Name")]
         [InputSpecification("Enter or Select the name of the PDF file.")]
         [SampleUsage("myFile.pdf || {vFilename}")]
@@ -47,7 +42,6 @@ namespace OpenBots.Commands.Excel
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_FileName { get; set; }
 
-        [XmlAttribute]
         [PropertyDescription("AutoFit Cells")]
         [PropertyUISelectionOption("Yes")]
         [PropertyUISelectionOption("No")]
@@ -56,7 +50,6 @@ namespace OpenBots.Commands.Excel
         [Remarks("")]
         public string v_AutoFitCells { get; set; }
 
-        [XmlAttribute]
         [PropertyDescription("Display Gridlines")]
         [PropertyUISelectionOption("Yes")]
         [PropertyUISelectionOption("No")]

@@ -9,7 +9,6 @@ using OpenBots.Engine;
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
-using System.Xml.Serialization;
 using Application = Microsoft.Office.Interop.Word.Application;
 using DataTable = System.Data.DataTable;
 using Group = OpenBots.Core.Attributes.ClassAttributes.Group;
@@ -19,17 +18,14 @@ namespace OpenBots.Commands.Word
     [Serializable]
     [Group("Word Commands")]
     [Description("This command appends a DataTable to a Word Document.")]
-
     public class WordAppendDataTableCommand : ScriptCommand
     {
-        [XmlAttribute]
         [PropertyDescription("Word Instance Name")]
         [InputSpecification("Enter the unique instance that was specified in the **Create Application** command.")]
         [SampleUsage("MyWordInstance")]
         [Remarks("Failure to enter the correct instance or failure to first call the **Create Application** command will cause an error.")]
         public string v_InstanceName { get; set; }
 
-        [XmlAttribute]
         [PropertyDescription("DataTable")]
         [InputSpecification("Enter the DataTable to append to the Document.")]
         [SampleUsage("{vDataTable}")]

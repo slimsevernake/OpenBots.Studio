@@ -9,7 +9,6 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Windows.Forms;
-using System.Xml.Serialization;
 using Data = System.Data;
 
 namespace OpenBots.Commands.DataTable
@@ -20,7 +19,7 @@ namespace OpenBots.Commands.DataTable
 
     public class MergeDataTableCommand : ScriptCommand
     {
-        [XmlAttribute]
+
         [PropertyDescription("Source DataTable")]
         [InputSpecification("Enter an existing DataTable to merge into another one.")]
         [SampleUsage("{vSrcDataTable}")]
@@ -28,7 +27,6 @@ namespace OpenBots.Commands.DataTable
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_SourceDataTable { get; set; }
 
-        [XmlAttribute]
         [PropertyDescription("Destination DataTable")]
         [InputSpecification("Enter an existing DataTable to apply the merge operation to.")]
         [SampleUsage("{vDestDataTable}")]
@@ -36,7 +34,6 @@ namespace OpenBots.Commands.DataTable
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_DestinationDataTable { get; set; }
 
-        [XmlAttribute]
         [PropertyDescription("Missing Schema Action")]
         [PropertyUISelectionOption("Add")]
         [PropertyUISelectionOption("AddWithKey")]

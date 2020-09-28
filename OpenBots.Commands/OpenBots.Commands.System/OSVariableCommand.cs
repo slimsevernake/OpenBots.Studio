@@ -1,4 +1,5 @@
-﻿using OpenBots.Core.Attributes.ClassAttributes;
+﻿using Newtonsoft.Json;
+using OpenBots.Core.Attributes.ClassAttributes;
 using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
 using OpenBots.Core.Infrastructure;
@@ -8,8 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Management;
-using System.Windows.Forms;
-using System.Xml.Serialization;
+using System.Windows.Forms;
 
 namespace OpenBots.Commands.System
 {
@@ -18,25 +18,24 @@ namespace OpenBots.Commands.System
     [Description("This command exclusively selects an OS variable.")]
     public class OSVariableCommand : ScriptCommand
     {
-        [XmlAttribute]
+
         [PropertyDescription("OS Variable")]
         [InputSpecification("Select an OS variable from one of the options.")]
         [SampleUsage("")]
         [Remarks("")]
         public string v_OSVariableName { get; set; }
 
-        [XmlAttribute]
         [PropertyDescription("Output OS Variable")]
         [InputSpecification("Create a new variable or select a variable from the list.")]
         [SampleUsage("{vUserVariable}")]
         [Remarks("Variables not pre-defined in the Variable Manager will be automatically generated at runtime.")]
         public string v_OutputUserVariableName { get; set; }
 
-        [XmlIgnore]
+        [JsonIgnore]
         [NonSerialized]
         public ComboBox VariableNameComboBox;
 
-        [XmlIgnore]
+        [JsonIgnore]
         [NonSerialized]
         public Label VariableValue;
 

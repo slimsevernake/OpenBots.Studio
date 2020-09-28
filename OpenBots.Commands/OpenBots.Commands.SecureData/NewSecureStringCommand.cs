@@ -9,7 +9,6 @@ using System;
 using System.Collections.Generic;
 using System.Security;
 using System.Windows.Forms;
-using System.Xml.Serialization;
 
 namespace OpenBots.Commands.SecureData
 {
@@ -18,7 +17,6 @@ namespace OpenBots.Commands.SecureData
     [Description("This command adds text as a SecureString into a variable.")]
     public class NewSecureStringCommand : ScriptCommand
     {
-        [XmlAttribute]
         [PropertyDescription("Input Text")]
         [InputSpecification("Enter the text for the variable.")]
         [SampleUsage("Some Text || {vText}")]
@@ -26,7 +24,6 @@ namespace OpenBots.Commands.SecureData
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_Input { get; set; }
 
-        [XmlAttribute]
         [PropertyDescription("Output SecureString Variable")]
         [InputSpecification("Create a new variable or select a variable from the list.")]
         [SampleUsage("{vUserVariable}")]

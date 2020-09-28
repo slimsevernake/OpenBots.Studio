@@ -9,7 +9,6 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Windows.Forms;
-using System.Xml.Serialization;
 
 namespace OpenBots.Commands.Data
 {
@@ -18,7 +17,6 @@ namespace OpenBots.Commands.Data
     [Description("This command performs a specified operation on a string to modify it.")]
     public class ModifyStringCommand : ScriptCommand
     {
-        [XmlAttribute]
         [PropertyDescription("Text Data")]
         [InputSpecification("Provide a variable or text value.")]
         [SampleUsage("A sample text || {vStringVariable}")]
@@ -26,7 +24,6 @@ namespace OpenBots.Commands.Data
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_InputText { get; set; }
 
-        [XmlAttribute]
         [PropertyDescription("String Function")]
         [PropertyUISelectionOption("To Upper Case")]
         [PropertyUISelectionOption("To Lower Case")]
@@ -37,7 +34,6 @@ namespace OpenBots.Commands.Data
         [Remarks("Each function, when applied to text data, converts it to a specific format.")]
         public string v_TextOperation { get; set; }
 
-        [XmlAttribute]
         [PropertyDescription("Output Text Variable")]
         [InputSpecification("Create a new variable or select a variable from the list.")]
         [SampleUsage("{vUserVariable}")]

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
-using System.Xml.Serialization;
 using OpenBots.Core.Attributes.ClassAttributes;
 using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
@@ -15,7 +14,7 @@ namespace OpenBots.Commands
     [Description("This command specifies what to do if an error is encountered during execution.")]
     public class ErrorHandlingCommand : ScriptCommand
     {
-        [XmlAttribute]
+
         [PropertyDescription("Error Action")]
         [PropertyUISelectionOption("Stop Processing")]
         [PropertyUISelectionOption("Continue Processing")]

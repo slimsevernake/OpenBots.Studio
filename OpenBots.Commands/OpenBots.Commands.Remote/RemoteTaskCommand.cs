@@ -9,17 +9,14 @@ using OpenBots.Server;
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
-using System.Xml.Serialization;
 
 namespace OpenBots.Commands.Remote
 {
-
     [Serializable]
     [Group("Remote Commands")]
     [Description("This command executes a task remotely on another OpenBots instance.")]
     public class RemoteTaskCommand : ScriptCommand
     {
-        [XmlAttribute]
         [PropertyDescription("API Endpoint/Port")]
         [InputSpecification("Define the API endpoint or port enabled for local listening.")]
         [SampleUsage("example.com/hello || 192.168.2.200:19312 || {vMyUrl}")]
@@ -27,7 +24,6 @@ namespace OpenBots.Commands.Remote
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_BaseURL { get; set; }
 
-        [XmlAttribute]
         [PropertyDescription("Parameter Type")]
         [PropertyUISelectionOption("Run Raw Script Data")]
         [PropertyUISelectionOption("Run Local File")]
@@ -38,7 +34,6 @@ namespace OpenBots.Commands.Remote
         [Remarks("")]
         public string v_ParameterType { get; set; }
 
-        [XmlAttribute]
         [PropertyDescription("Execution Preference")]
         [PropertyUISelectionOption("Continue Execution")]
         [PropertyUISelectionOption("Await For Result")]
@@ -47,7 +42,6 @@ namespace OpenBots.Commands.Remote
         [Remarks("")]
         public string v_ExecuteAwait { get; set; }
 
-        [XmlAttribute]
         [PropertyDescription("Script Parameter Data")]
         [InputSpecification("Specify the data, typically either raw data, a local file, or a remote file.")]
         [SampleUsage(@"hello || {vData} || C:\temp\myfile.json || {ProjectPath}\myfile.json || {vFilePath}")]
@@ -56,7 +50,6 @@ namespace OpenBots.Commands.Remote
         [PropertyUIHelper(UIAdditionalHelperType.ShowFileSelectionHelper)]
         public string v_Parameter { get; set; }
 
-        [XmlAttribute]
         [PropertyDescription("Request Timeout (Seconds)")]
         [InputSpecification("Enter the length of time to wait before the request times out.")]
         [SampleUsage("30 || {vTime}")]
@@ -64,7 +57,6 @@ namespace OpenBots.Commands.Remote
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_RequestTimeout { get; set; }
 
-        [XmlAttribute]
         [PropertyDescription("Output Response Variable")]
         [InputSpecification("Create a new variable or select a variable from the list.")]
         [SampleUsage("{vUserVariable}")]

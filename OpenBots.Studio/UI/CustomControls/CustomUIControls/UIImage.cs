@@ -157,9 +157,10 @@ namespace OpenBots.UI.CustomControls.CustomUIControls
             uiImages.Add("ExitLoopCommand", Resources.command_exitloop);
             uiImages.Add("SequenceCommand", Resources.command_sequence);
             uiImages.Add("ReadTextFileCommand", Resources.command_files);
-            uiImages.Add("WriteTextFileCommand", Resources.command_files);
+            uiImages.Add("WriteCreateTextFileCommand", Resources.command_files);
             uiImages.Add("MoveCopyFileCommand", Resources.command_files);
             uiImages.Add("ExtractFilesCommand", Resources.command_files);
+            uiImages.Add("CompressFilesCommand", Resources.command_files);
             uiImages.Add("DeleteFileCommand", Resources.command_files);
             uiImages.Add("RenameFileCommand", Resources.command_files);
             uiImages.Add("WaitForFileCommand", Resources.command_files);

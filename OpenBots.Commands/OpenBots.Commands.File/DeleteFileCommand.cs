@@ -8,7 +8,6 @@ using OpenBots.Engine;
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
-using System.Xml.Serialization;
 using IO = System.IO;
 
 namespace OpenBots.Commands.File
@@ -18,7 +17,6 @@ namespace OpenBots.Commands.File
     [Description("This command deletes a file from a specified destination.")]
     public class DeleteFileCommand : ScriptCommand
     {
-        [XmlAttribute]
         [PropertyDescription("File Path")]
         [InputSpecification("Enter or Select the path to the file.")]
         [SampleUsage(@"C:\temp\myfile.txt || {ProjectPath}\myfile.txt || {vFilePath}")]

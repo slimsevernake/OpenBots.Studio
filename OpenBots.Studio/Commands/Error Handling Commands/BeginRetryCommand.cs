@@ -5,7 +5,6 @@ using System.Data;
 using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
-using System.Xml.Serialization;
 using OpenBots.Core.Attributes.ClassAttributes;
 using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
@@ -26,7 +25,6 @@ namespace OpenBots.Commands
         "an error is thrown.")]
     public class BeginRetryCommand : ScriptCommand
     {
-        [XmlAttribute]
         [PropertyDescription("Number of Retries")]
         [InputSpecification("Enter or provide the number of retries.")]
         [SampleUsage("3 || {vRetryCount}")]
@@ -34,7 +32,6 @@ namespace OpenBots.Commands
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_RetryCount { get; set; }
 
-        [XmlAttribute]
         [PropertyDescription("Retry Interval")]
         [InputSpecification("Enter or provide the amount of time (in seconds) between each retry.")]
         [SampleUsage("5 || {vRetryInterval}")]
@@ -42,7 +39,6 @@ namespace OpenBots.Commands
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_RetryInterval { get; set; }
 
-        [XmlElement]
         [PropertyDescription("Condition")]
         [InputSpecification("Add a condition.")]
         [SampleUsage("")]
@@ -50,14 +46,14 @@ namespace OpenBots.Commands
         [PropertyUIHelper(UIAdditionalHelperType.ShowIfBuilder)]
         public DataTable v_IfConditionsTable { get; set; }
 
-        [XmlIgnore]
+        [JsonIgnore]
         [NonSerialized]
         private DataGridView _ifConditionHelper;
 
-        [XmlIgnore]
+        [JsonIgnore]
         private List<ScriptVariable> _scriptVariables { get; set; }
 
-        [XmlIgnore]
+        [JsonIgnore]
         private List<ScriptElement> _scriptElements { get; set; }
 
         public BeginRetryCommand()

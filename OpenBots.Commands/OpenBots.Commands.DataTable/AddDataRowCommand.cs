@@ -1,4 +1,5 @@
-﻿using OpenBots.Commands.DataTable.Forms;
+﻿using Newtonsoft.Json;
+using OpenBots.Commands.DataTable.Forms;
 using OpenBots.Core.Attributes.ClassAttributes;
 using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
@@ -14,7 +15,6 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
-using System.Xml.Serialization;
 using Data = System.Data;
 
 namespace OpenBots.Commands.DataTable
@@ -25,7 +25,7 @@ namespace OpenBots.Commands.DataTable
 
     public class AddDataRowCommand : ScriptCommand
     {
-        [XmlAttribute]
+
         [PropertyDescription("DataTable")]
         [InputSpecification("Enter an existing DataTable to add a DataRow to.")]
         [SampleUsage("{vDataTable}")]
@@ -33,7 +33,6 @@ namespace OpenBots.Commands.DataTable
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_DataTable { get; set; }
 
-        [XmlElement]
         [PropertyDescription("Data")]
         [InputSpecification("Enter Column Names and Data for each column in the DataRow.")]
         [SampleUsage("[ First Name | John ] || [ {vColumn} | {vData} ]")]
@@ -41,7 +40,7 @@ namespace OpenBots.Commands.DataTable
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public Data.DataTable v_DataRowDataTable { get; set; }
 
-        [XmlIgnore]
+        [JsonIgnore]
         [NonSerialized]
         private List<CreateDataTableCommand> _dataTableCreationCommands;
 

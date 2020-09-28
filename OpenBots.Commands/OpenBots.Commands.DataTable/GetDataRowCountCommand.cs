@@ -8,7 +8,6 @@ using OpenBots.Engine;
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
-using System.Xml.Serialization;
 using Data = System.Data;
 
 namespace OpenBots.Commands.DataTable
@@ -19,7 +18,7 @@ namespace OpenBots.Commands.DataTable
 
     public class GetDataRowCountCommand : ScriptCommand
     {
-        [XmlAttribute]
+
         [PropertyDescription("DataTable")]
         [InputSpecification("Enter an existing DataTable.")]
         [SampleUsage("{vDataTable}")]
@@ -27,7 +26,6 @@ namespace OpenBots.Commands.DataTable
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_DataTable { get; set; }
 
-        [XmlAttribute]
         [PropertyDescription("Output Count Variable")]
         [InputSpecification("Create a new variable or select a variable from the list.")]
         [SampleUsage("{vUserVariable}")]

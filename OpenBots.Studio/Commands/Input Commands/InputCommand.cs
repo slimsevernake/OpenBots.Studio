@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Data;
 using System.Drawing;
 using System.Windows.Forms;
-using System.Xml.Serialization;
 using OpenBots.Core.Attributes.ClassAttributes;
 using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
@@ -15,6 +14,7 @@ using OpenBots.Engine;
 using OpenBots.Core.Properties;
 using OpenBots.Core.UI.Controls;
 using OpenBots.UI.Forms;
+using Newtonsoft.Json;
 
 namespace OpenBots.Commands
 {
@@ -23,7 +23,7 @@ namespace OpenBots.Commands
     [Description("This command provides the user with a form to input and store a collection of data.")]
     public class InputCommand : ScriptCommand
     {
-        [XmlAttribute]
+
         [PropertyDescription("Header Name")]
         [InputSpecification("Define the header to be displayed on the input form.")]
         [SampleUsage("Please Provide Input || {vHeader}")]
@@ -31,7 +31,6 @@ namespace OpenBots.Commands
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_InputHeader { get; set; }
 
-        [XmlAttribute]
         [PropertyDescription("Input Directions")]
         [InputSpecification("Define the directions to give to the user.")]
         [SampleUsage("Directions: Please fill in the following fields || {vDirections}")]
@@ -39,7 +38,6 @@ namespace OpenBots.Commands
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_InputDirections { get; set; }
 
-        [XmlElement]
         [PropertyDescription("Input Parameters")]
         [InputSpecification("Define the required input parameters.")]
         [SampleUsage("[TextBox | Name | 500,30 | John | {vName}]")]
@@ -47,11 +45,11 @@ namespace OpenBots.Commands
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public DataTable v_UserInputConfig { get; set; }
 
-        [XmlIgnore]
+        [JsonIgnore]
         [NonSerialized]
         private DataGridView _userInputGridViewHelper;
 
-        [XmlIgnore]
+        [JsonIgnore]
         [NonSerialized]
         private CommandItemControl _addRowControl;
 

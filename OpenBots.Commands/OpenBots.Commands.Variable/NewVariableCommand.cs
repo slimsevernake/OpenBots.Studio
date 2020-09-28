@@ -8,7 +8,6 @@ using OpenBots.Engine;
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
-using System.Xml.Serialization;
 
 namespace OpenBots.Commands.Variable
 {
@@ -17,14 +16,13 @@ namespace OpenBots.Commands.Variable
     [Description("This command adds a new variable or updates an existing variable.")]
     public class NewVariableCommand : ScriptCommand
     {
-        [XmlAttribute]
+
         [PropertyDescription("New Variable Name")]
         [InputSpecification("Indicate a unique reference name for later use.")]
         [SampleUsage("{vSomeVariable}")]
         [Remarks("")]
         public string v_VariableName { get; set; }
 
-        [XmlAttribute]
         [PropertyDescription("Input Value")]
         [InputSpecification("Enter the value for the variable.")]
         [SampleUsage("Hello || {vNum} || {vNum}+1")]

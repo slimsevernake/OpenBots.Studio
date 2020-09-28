@@ -7,7 +7,6 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Windows.Forms;
-using System.Xml.Serialization;
 
 namespace OpenBots.Commands.System
 {
@@ -16,7 +15,7 @@ namespace OpenBots.Commands.System
     [Description("This command performs a system action.")]
     public class SystemActionCommand : ScriptCommand
     {
-        [XmlAttribute]
+
         [PropertyDescription("System Action")]
         [PropertyUISelectionOption("Shutdown")]
         [PropertyUISelectionOption("Restart")]

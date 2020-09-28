@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
-using System.Xml.Serialization;
+using Newtonsoft.Json;
 using OpenBots.Core.Attributes.ClassAttributes;
 using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
@@ -18,7 +18,6 @@ namespace OpenBots.Commands
     [Description("This command resizes an open window to a specified size.")]
     public class ResizeWindowCommand : ScriptCommand
     {
-        [XmlAttribute]
         [PropertyDescription("Window Name")]
         [InputSpecification("Select the name of the window to resize.")]
         [SampleUsage("Untitled - Notepad || Current Window || {vWindow}")]
@@ -26,7 +25,6 @@ namespace OpenBots.Commands
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_WindowName { get; set; }
 
-        [XmlAttribute]
         [PropertyDescription("Width (Pixels)")]
         [InputSpecification("Input the new width size of the window.")]
         [SampleUsage("800 || {vWidth}")]
@@ -34,7 +32,6 @@ namespace OpenBots.Commands
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_XWindowSize { get; set; }
 
-        [XmlAttribute]
         [PropertyDescription("Height (Pixels)")]
         [InputSpecification("Input the new height size of the window.")]
         [SampleUsage("500 || {vHeight}")]
@@ -42,7 +39,7 @@ namespace OpenBots.Commands
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_YWindowSize { get; set; }
 
-        [XmlIgnore]
+        [JsonIgnore]
         [NonSerialized]
         public ComboBox WindowNameControl;
         public ResizeWindowCommand()

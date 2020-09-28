@@ -1,4 +1,5 @@
-﻿using OpenBots.Core.Attributes.ClassAttributes;
+﻿using Newtonsoft.Json;
+using OpenBots.Core.Attributes.ClassAttributes;
 using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
 using OpenBots.Core.Enums;
@@ -10,7 +11,6 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Windows.Forms;
-using System.Xml.Serialization;
 using Application = Microsoft.Office.Interop.Word.Application;
 
 namespace OpenBots.Commands.Word
@@ -22,7 +22,7 @@ namespace OpenBots.Commands.Word
 
     public class WordCreateApplicationCommand : ScriptCommand
     {
-        [XmlAttribute]
+
         [PropertyDescription("Word Instance Name")]
         [InputSpecification("Enter a unique name that will represent the application instance.")]
         [SampleUsage("MyWordInstance")]
@@ -30,7 +30,6 @@ namespace OpenBots.Commands.Word
                  "ensuring that the commands you specify run against the correct application.")]
         public string v_InstanceName { get; set; }
 
-        [XmlAttribute]
         [PropertyDescription("New/Open Document")]
         [PropertyUISelectionOption("New Document")]
         [PropertyUISelectionOption("Open Document")]
@@ -39,7 +38,6 @@ namespace OpenBots.Commands.Word
         [Remarks("")]
         public string v_NewOpenDocument { get; set; }
 
-        [XmlAttribute]
         [PropertyDescription("Document File Path")]
         [InputSpecification("Enter or Select the path to the Document file.")]
         [SampleUsage(@"C:\temp\myfile.docx || {vFilePath} || {ProjectPath}\myfile.docx")]
@@ -48,7 +46,6 @@ namespace OpenBots.Commands.Word
         [PropertyUIHelper(UIAdditionalHelperType.ShowFileSelectionHelper)]
         public string v_FilePath { get; set; }
 
-        [XmlAttribute]
         [PropertyDescription("Visible")]
         [PropertyUISelectionOption("Yes")]
         [PropertyUISelectionOption("No")]
@@ -57,7 +54,6 @@ namespace OpenBots.Commands.Word
         [Remarks("")]
         public string v_Visible { get; set; }
 
-        [XmlAttribute]
         [PropertyDescription("Close All Existing Word Instances")]
         [PropertyUISelectionOption("Yes")]
         [PropertyUISelectionOption("No")]
@@ -66,6 +62,10 @@ namespace OpenBots.Commands.Word
         [Remarks("")]
         public string v_CloseAllInstances { get; set; }
 
+        [JsonIgnore]
+        [NonSerialized]
+        public List<Control> OpenFileControls;
+
         public WordCreateApplicationCommand()
         {
             CommandName = "WordCreateApplicationCommand";
@@ -73,7 +73,7 @@ namespace OpenBots.Commands.Word
             CommandEnabled = true;
             CustomRendering = true;
             v_InstanceName = "DefaultWord";
-            v_NewOpenDocument = "New Workbook";
+            v_NewOpenDocument = "New Document";
             v_Visible = "No";
             v_CloseAllInstances = "Yes";
         }
@@ -123,6 +123,16 @@ namespace OpenBots.Commands.Word
 
             RenderedControls.AddRange(commandControls.CreateDefaultInputGroupFor("v_InstanceName", this, editor));
             RenderedControls.AddRange(commandControls.CreateDefaultDropdownGroupFor("v_NewOpenDocument", this, editor));
+            ((ComboBox)RenderedControls[3]).SelectedIndexChanged += OpenFileComboBox_SelectedValueChanged;
+
+            OpenFileControls = new List<Control>();
+            OpenFileControls.AddRange(commandControls.CreateDefaultInputGroupFor("v_FilePath", this, editor));
+
+            foreach (var ctrl in OpenFileControls)
+                ctrl.Visible = false;
+
+            RenderedControls.AddRange(OpenFileControls);
+
             RenderedControls.AddRange(commandControls.CreateDefaultInputGroupFor("v_FilePath", this, editor));
             RenderedControls.AddRange(commandControls.CreateDefaultDropdownGroupFor("v_Visible", this, editor));
             RenderedControls.AddRange(commandControls.CreateDefaultDropdownGroupFor("v_CloseAllInstances", this, editor));
@@ -133,6 +143,24 @@ namespace OpenBots.Commands.Word
         public override string GetDisplayValue()
         {
             return base.GetDisplayValue() + $" [{v_NewOpenDocument} - Visible '{v_Visible}' - Close Instances '{v_CloseAllInstances}' - New Instance Name '{v_InstanceName}']";
+        }
+
+        private void OpenFileComboBox_SelectedValueChanged(object sender, EventArgs e)
+        {
+            if (((ComboBox)RenderedControls[3]).Text == "Open Document")
+            {
+                foreach (var ctrl in OpenFileControls)
+                    ctrl.Visible = true;
+            }
+            else
+            {
+                foreach (var ctrl in OpenFileControls)
+                {
+                    ctrl.Visible = false;
+                    if (ctrl is TextBox)
+                        ((TextBox)ctrl).Clear();
+                }
+            }
         }
     }
 }

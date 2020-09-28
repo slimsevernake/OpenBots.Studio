@@ -9,7 +9,6 @@ using SimpleNLG;
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
-using System.Xml.Serialization;
 
 namespace OpenBots.Commands.NLG
 {
@@ -18,14 +17,13 @@ namespace OpenBots.Commands.NLG
     [Description("This command defines a Natural Language Generation parameter.")]
     public class SetNLGParameterCommand : ScriptCommand
     {
-        [XmlAttribute]
+
         [PropertyDescription("NLG Instance Name")]
         [InputSpecification("Enter the unique instance that was specified in the **Create NLG Instance** command.")]
         [SampleUsage("MyNLGInstance")]
         [Remarks("Failure to enter the correct instance name or failure to first call the **Create NLG Instance** command will cause an error.")]
         public string v_InstanceName { get; set; }
 
-        [XmlAttribute]
         [PropertyDescription("NLG Parameter Type")]
         [PropertyUISelectionOption("Set Subject")]
         [PropertyUISelectionOption("Set Verb")]
@@ -40,7 +38,6 @@ namespace OpenBots.Commands.NLG
         [Remarks("")]
         public string v_ParameterType { get; set; }
 
-        [XmlAttribute]
         [PropertyDescription("Input Value")]
         [InputSpecification("Enter the value that should be associated with the parameter")]
         [SampleUsage("Hello || {vValue}")]

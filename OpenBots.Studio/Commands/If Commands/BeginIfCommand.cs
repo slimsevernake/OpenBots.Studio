@@ -6,7 +6,6 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using System.Xml.Serialization;
 using OpenBots.Core.Attributes.ClassAttributes;
 using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
@@ -20,6 +19,7 @@ using OpenBots.Core.Properties;
 using OpenBots.Core.UI.Controls;
 using OpenBots.UI.Forms.Supplement_Forms;
 using OpenBots.Utilities;
+using Newtonsoft.Json;
 
 namespace OpenBots.Commands
 {
@@ -28,7 +28,6 @@ namespace OpenBots.Commands
     [Description("This command evaluates a logical statement to determine if the statement is 'true' or 'false' and subsequently performs action(s) based on either condition.")]
     public class BeginIfCommand : ScriptCommand
     {
-        [XmlAttribute]
         [PropertyDescription("Condition Type")]
         [PropertyUISelectionOption("Value Compare")]
         [PropertyUISelectionOption("Date Compare")]
@@ -48,7 +47,6 @@ namespace OpenBots.Commands
         [Remarks("")]
         public string v_IfActionType { get; set; }
 
-        [XmlElement]
         [PropertyDescription("Additional Parameters")]
         [InputSpecification("Supply or Select the required comparison parameters.")]
         [SampleUsage("Param Value || {vParamValue}")]
@@ -56,19 +54,19 @@ namespace OpenBots.Commands
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public DataTable v_IfActionParameterTable { get; set; }
 
-        [XmlIgnore]
+        [JsonIgnore]
         [NonSerialized]
         private DataGridView _ifGridViewHelper;
 
-        [XmlIgnore]
+        [JsonIgnore]
         [NonSerialized]
         private ComboBox _actionDropdown;
 
-        [XmlIgnore]
+        [JsonIgnore]
         [NonSerialized]
         private List<Control> _parameterControls;
 
-        [XmlIgnore]
+        [JsonIgnore]
         [NonSerialized]
         private CommandItemControl _recorderControl;
 
@@ -653,7 +651,7 @@ namespace OpenBots.Commands
 
 
                 SeleniumElementActionCommand newElementActionCommand = new SeleniumElementActionCommand();
-                newElementActionCommand.v_InstanceName = instanceName.ConvertUserVariableToString(engine);
+                newElementActionCommand.v_InstanceName = instanceName;
                 bool elementExists = newElementActionCommand.ElementExists(sender, searchMethod, parameterName);
                 ifResult = elementExists;
 
@@ -919,7 +917,7 @@ namespace OpenBots.Commands
 
                     if (sender != null)
                     {
-                        actionParameters.Rows.Add("Selenium Instance Name", "default");
+                        actionParameters.Rows.Add("Selenium Instance Name", "DefaultBrowser");
                         actionParameters.Rows.Add("Element Search Method", "");
                         actionParameters.Rows.Add("Element Search Parameter", "");
                         actionParameters.Rows.Add("True When", "");
@@ -1021,7 +1019,7 @@ namespace OpenBots.Commands
             UIAutomationCommand cmd = new UIAutomationCommand();
 
             //create recorder
-            frmThickAppElementRecorder newElementRecorder = new frmThickAppElementRecorder();
+            frmAdvancedUIElementRecorder newElementRecorder = new frmAdvancedUIElementRecorder();
             newElementRecorder.SearchParameters = cmd.v_UIASearchParameters;
 
             //show form

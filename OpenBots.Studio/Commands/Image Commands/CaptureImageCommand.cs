@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
-using System.Xml.Serialization;
 using OpenBots.Core.Attributes.ClassAttributes;
 using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
@@ -20,7 +19,7 @@ namespace OpenBots.Commands
     [Description("This command captures an image on screen and stores it as a Bitmap variable.")]
     public class CaptureImageCommand : ScriptCommand
     {
-        [XmlAttribute]
+
         [PropertyDescription("Capture Search Image")]
         [InputSpecification("Use the tool to capture an image that will be located on screen during execution.")]
         [SampleUsage("")]
@@ -30,7 +29,6 @@ namespace OpenBots.Commands
         [PropertyUIHelper(UIAdditionalHelperType.ShowImageCaptureHelper)]
         public string v_ImageCapture { get; set; }
 
-        [XmlAttribute]
         [PropertyDescription("Output Image Variable")]
         [InputSpecification("Create a new variable or select a variable from the list.")]
         [SampleUsage("vUserVariable")]
