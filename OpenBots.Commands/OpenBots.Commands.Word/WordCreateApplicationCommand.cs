@@ -147,7 +147,7 @@ namespace OpenBots.Commands.Word
 
         private void OpenFileComboBox_SelectedValueChanged(object sender, EventArgs e)
         {
-            if (((ComboBox)RenderedControls[3]).Text == "Open Workbook")
+            if (((ComboBox)RenderedControls[3]).Text == "Open Document")
             {
                 foreach (var ctrl in OpenFileControls)
                     ctrl.Visible = true;
