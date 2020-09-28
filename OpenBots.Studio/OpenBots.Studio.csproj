@@ -238,7 +238,6 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="UI\CustomControls\CommandControls.cs" />
-    <Compile Include="UI\DTOs\SteppingCommandsItem.cs" />
     <Compile Include="UI\Forms\Supplement Forms\frmAdvancedUIElementRecorderSettings.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -704,6 +703,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Sample Scripts\" />
+    <Folder Include="UI\DTOs\" />
     <Folder Include="UI\FormEventArgs\" />
   </ItemGroup>
   <ItemGroup>

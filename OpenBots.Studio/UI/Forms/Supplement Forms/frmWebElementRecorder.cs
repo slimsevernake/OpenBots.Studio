@@ -1,5 +1,13 @@
 ﻿using Gecko;
 using HtmlAgilityPack;
+using OpenBots.Commands;
+using OpenBots.Core.Command;
+using OpenBots.Core.Script;
+using OpenBots.Core.Settings;
+using OpenBots.Core.UI.Forms;
+using OpenBots.UI.Forms.ScriptBuilder_Forms;
+using OpenBots.UI.Supplement_Forms;
+using OpenBots.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -8,15 +16,6 @@ using System.IO;
 using System.Reflection;
 using System.Text;
 using System.Windows.Forms;
-using OpenBots.Commands;
-using OpenBots.Core.Command;
-using OpenBots.Core.Script;
-using OpenBots.Core.Settings;
-using OpenBots.UI.Forms.ScriptBuilder_Forms;
-using OpenBots.UI.Supplement_Forms;
-using OpenBots.Utilities;
-using System.Diagnostics;
-using OpenBots.Core.UI.Forms;
 
 namespace OpenBots.UI.Forms.Supplement_Forms
 {

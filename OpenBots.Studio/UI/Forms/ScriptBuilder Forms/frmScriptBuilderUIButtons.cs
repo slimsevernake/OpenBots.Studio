@@ -760,7 +760,7 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
         #region Recorder Buttons
         private void elementRecorderToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            frmHTMLElementRecorder elementRecorder = new frmHTMLElementRecorder(HTMLElementRecorderURL)
+            frmWebElementRecorder elementRecorder = new frmWebElementRecorder(HTMLElementRecorderURL)
             {
                 CallBackForm = this,
                 IsRecordingSequence = true,
@@ -813,7 +813,7 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
         {
             Hide();
 
-            frmThickAppElementRecorder appElementRecorder = new frmThickAppElementRecorder
+            frmAdvancedUIElementRecorder appElementRecorder = new frmAdvancedUIElementRecorder
             {
                 CallBackForm = this,
                 IsRecordingSequence = true
