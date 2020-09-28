@@ -69,7 +69,7 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
             //show ofd
             OpenFileDialog openFileDialog = new OpenFileDialog
             {
-                InitialDirectory = _scriptProjectPath,
+                InitialDirectory = ScriptProjectPath,
                 RestoreDirectory = true,
                 Filter = "Json (*.json)|*.json"
             };
@@ -87,7 +87,7 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
             //show ofd
             OpenFileDialog openFileDialog = new OpenFileDialog
             {
-                InitialDirectory = _scriptProjectPath,
+                InitialDirectory = ScriptProjectPath,
                 RestoreDirectory = true,
                 Filter = "Json (*.json)|*.json"
             };
@@ -334,7 +334,7 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
             {
                 SaveFileDialog saveFileDialog = new SaveFileDialog
                 {
-                    InitialDirectory = _scriptProjectPath,
+                    InitialDirectory = ScriptProjectPath,
                     RestoreDirectory = true,
                     Filter = "Json (*.json)|*.json"
                 };

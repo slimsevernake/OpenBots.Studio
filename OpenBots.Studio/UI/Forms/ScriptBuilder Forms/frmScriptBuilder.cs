@@ -508,6 +508,9 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
                 ScriptVariables = _scriptVariables,
                 ScriptElements = _scriptElements
             };
+
+            newCommandForm.ProjectPath = ScriptProjectPath;
+
             if (specificCommand != "")
                 newCommandForm.DefaultStartupCommand = specificCommand;
 
