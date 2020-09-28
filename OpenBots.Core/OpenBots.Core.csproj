@@ -229,6 +229,7 @@
     <Content Include="Resources\Icons\ActionBar\action-bar-open.png" />
     <Content Include="Resources\Icons\ActionBar\action-bar-options.png" />
     <Content Include="Resources\Icons\ActionBar\action-bar-project.png" />
+    <None Include="Resources\Icons\ActionBar\action-bar-publish.png" />
     <Content Include="Resources\Icons\ActionBar\action-bar-record.png" />
     <Content Include="Resources\Icons\ActionBar\action-bar-run.png" />
     <Content Include="Resources\Icons\ActionBar\action-bar-save.png" />
