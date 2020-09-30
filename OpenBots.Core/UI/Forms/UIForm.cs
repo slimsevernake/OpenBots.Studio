@@ -12,9 +12,8 @@
 //WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 //See the License for the specific language governing permissions and
 //limitations under the License.
-using OpenBots.Core.Properties;
+using OpenBots.Core.Utilities.FormsUtilities;
 using System;
-using System.ComponentModel;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Windows.Forms;
@@ -23,28 +22,52 @@ namespace OpenBots.Core.UI.Forms
 {
     public class UIForm : Form
     {
+        public Theme Theme { get; set; } = new Theme();
+
         private void InitializeComponent()
         {
-            ComponentResourceManager resources = new ComponentResourceManager(typeof(UIForm));
-            SuspendLayout();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UIForm));
+            this.SuspendLayout();
             // 
             // UIForm
             // 
-            ClientSize = new Size(284, 261);
-            Icon = Resources.OpenBots_ico;
-            Name = "UIForm";
-            Load += new EventHandler(UIForm_Load);
-            ResumeLayout(false);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(523, 554);
+            this.Icon = global::OpenBots.Core.Properties.Resources.OpenBots_ico;
+            this.Name = "UIForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+            this.Load += new System.EventHandler(this.UIForm_Load);
+            this.ResumeLayout(false);
 
         }
+
+        public UIForm()
+        {
+            InitializeComponent();
+        }
+
         private void UIForm_Load(object sender, EventArgs e)
         {
 
         }
 
-        protected override void OnPaintBackground(PaintEventArgs e)
+        protected override void OnShown(EventArgs e)
         {
-            base.OnPaintBackground(e);
+            base.OnShown(e);
+            // Resizes if too tall to fit
+            if (ClientSize.Height > Screen.PrimaryScreen.WorkingArea.Height - CurrentAutoScaleDimensions.Height)
+            {
+                int width = ClientSize.Width;
+                int height = Screen.PrimaryScreen.WorkingArea.Height - (int)CurrentAutoScaleDimensions.Height;
+
+                ClientSize = new Size(width, height);
+            }
+        }
+
+        protected override void OnPaint(PaintEventArgs e)
+        {
+           // base.OnPaintBackground(e);
 
             var topColor = Color.FromArgb(49, 49, 49);
             using (var brush = new LinearGradientBrush(
@@ -53,8 +76,14 @@ namespace OpenBots.Core.UI.Forms
                 topColor,
                 LinearGradientMode.Vertical))
             {
-                e.Graphics.FillRectangle(brush, 0, 0, Width, Height);
+                //e.Graphics.FillRectangle(brush, 0, 0, Width, Height);
+                if (ClientRectangle.Width != 0 && ClientRectangle.Height != 0)
+                    e.Graphics.FillRectangle(Theme.CreateGradient(ClientRectangle), ClientRectangle);
+                base.OnPaint(e);
+
             }
+
+
         }
 
         public static void MoveFormToBottomRight(Form sender)

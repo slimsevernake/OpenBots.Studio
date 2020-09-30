@@ -81,7 +81,7 @@
             this.lblMainLogo.AutoSize = true;
             this.lblMainLogo.BackColor = System.Drawing.Color.Transparent;
             this.lblMainLogo.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblMainLogo.ForeColor = System.Drawing.Color.SteelBlue;
+            this.lblMainLogo.ForeColor = System.Drawing.Color.White;
             this.lblMainLogo.Location = new System.Drawing.Point(16, 23);
             this.lblMainLogo.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblMainLogo.Name = "lblMainLogo";
@@ -94,7 +94,7 @@
             this.lblParameterHeader.AutoSize = true;
             this.lblParameterHeader.BackColor = System.Drawing.Color.Transparent;
             this.lblParameterHeader.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblParameterHeader.ForeColor = System.Drawing.Color.SteelBlue;
+            this.lblParameterHeader.ForeColor = System.Drawing.Color.White;
             this.lblParameterHeader.Location = new System.Drawing.Point(16, 126);
             this.lblParameterHeader.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblParameterHeader.Name = "lblParameterHeader";
@@ -161,7 +161,7 @@
             this.lblDirections.AutoSize = true;
             this.lblDirections.BackColor = System.Drawing.Color.Transparent;
             this.lblDirections.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblDirections.ForeColor = System.Drawing.Color.SteelBlue;
+            this.lblDirections.ForeColor = System.Drawing.Color.White;
             this.lblDirections.Location = new System.Drawing.Point(19, 58);
             this.lblDirections.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblDirections.Name = "lblDirections";
@@ -182,11 +182,10 @@
             this.Controls.Add(this.lblMainLogo);
             this.Controls.Add(this.dgvSearchParameters);
             this.Controls.Add(this.cboIEWindow);
-            this.Icon = OpenBots.Core.Properties.Resources.OpenBots_ico;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "frmBrowserElementBuilder";
             this.Text = "Web Element Builder";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Load += new System.EventHandler(this.frmBrowserElementBuilder_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvSearchParameters)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.uiBtnRefresh)).EndInit();

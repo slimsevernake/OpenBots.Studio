@@ -37,7 +37,7 @@ using OpenBots.Core.Properties;
 
 namespace OpenBots.UI.Forms
 {
-    public partial class frmScriptEngine : ThemedForm, IfrmScriptEngine
+    public partial class frmScriptEngine : UIForm, IfrmScriptEngine
     {
         //all variables used by this form
         #region Form Variables
@@ -435,12 +435,14 @@ namespace OpenBots.UI.Forms
 
                 if (mainLogoText.Contains("(error)"))
                 {
+                    //BackColor = Color.OrangeRed;
                     Theme.BgGradientStartColor = Color.OrangeRed;
                     Theme.BgGradientEndColor = Color.OrangeRed;
                     Invalidate();
                 }
                 else if (mainLogoText.Contains("(success)")) 
                 {
+                    //BackColor = Color.Green;
                     Theme.BgGradientStartColor = Color.Green;
                     Theme.BgGradientEndColor = Color.Green;
                     Invalidate();                  

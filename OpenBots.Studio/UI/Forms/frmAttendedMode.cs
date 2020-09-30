@@ -8,10 +8,11 @@ using OpenBots.Core.Enums;
 using OpenBots.Core.IO;
 using OpenBots.Core.Settings;
 using OpenBots.Core.Utilities.CommonUtilities;
+using OpenBots.Core.UI.Forms;
 
 namespace OpenBots.UI.Forms
 {
-    public partial class frmAttendedMode : Form
+    public partial class frmAttendedMode : UIForm
     {
         #region Variables
         private ApplicationSettings _appSettings;

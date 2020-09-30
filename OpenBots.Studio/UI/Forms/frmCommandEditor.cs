@@ -30,7 +30,7 @@ using OpenBots.UI.CustomControls.CustomUIControls;
 
 namespace OpenBots.UI.Forms
 {
-    public partial class frmCommandEditor : ThemedForm, IfrmCommandEditor
+    public partial class frmCommandEditor : UIForm, IfrmCommandEditor
     {
         //list of available commands
         private List<AutomationCommand> _commandList = new List<AutomationCommand>();

@@ -32,7 +32,7 @@ using OpenBots.Studio.Utilities.Documentation;
 
 namespace OpenBots.UI.Forms
 {
-    public partial class frmSettings : ThemedForm
+    public partial class frmSettings : UIForm
     {
         ApplicationSettings newAppSettings;
         public frmScriptBuilder scriptBuilderForm;

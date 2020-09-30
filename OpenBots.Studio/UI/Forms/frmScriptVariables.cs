@@ -22,7 +22,7 @@ using OpenBots.UI.Forms.Supplement_Forms;
 
 namespace OpenBots.UI.Forms
 {
-    public partial class frmScriptVariables : ThemedForm
+    public partial class frmScriptVariables : UIForm
     {
         public List<ScriptVariable> ScriptVariables { get; set; }
         public string ScriptName { get; set; }
@@ -239,11 +239,6 @@ namespace OpenBots.UI.Forms
             }
             return node;
         }
-        #endregion
-
-        private void pnlBottom_Paint(object sender, PaintEventArgs e)
-        {
-            e.Graphics.FillRectangle(Theme.CreateGradient(pnlBottom.ClientRectangle), pnlBottom.ClientRectangle);
-        }
+        #endregion       
     }
 }

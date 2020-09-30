@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using System.Windows.Forms;
 using OpenBots.Core.Script;
+using OpenBots.Core.UI.Forms;
 
 namespace OpenBots.UI.Forms.Supplement_Forms
 {
     [System.Runtime.InteropServices.ComVisibleAttribute(true)]
-    public partial class frmHTMLDisplayForm : Form
+    public partial class frmHTMLDisplayForm : UIForm
     {
         public DialogResult Result { get; set; }
         public string TemplateHTML { get; set; }

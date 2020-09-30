@@ -21,7 +21,7 @@ using OpenBots.Core.UI.Forms;
 
 namespace OpenBots.UI.Forms.Supplement_Forms
 {
-    public partial class frmVariableSelector : ThemedForm
+    public partial class frmVariableSelector : UIForm
     {
         private List<string> _variableList;
         private string _txtCommandWatermark = "Type Here to Search";

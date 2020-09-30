@@ -8,7 +8,7 @@ using OpenBots.Core.UI.Forms;
 
 namespace OpenBots.UI.Forms.Supplement_Forms
 {
-    public partial class frmAddElement : ThemedForm
+    public partial class frmAddElement : UIForm
     {
         public List<ScriptElement> ScriptElements { get; set; }
         public DataTable ElementValueDT { get; set; }

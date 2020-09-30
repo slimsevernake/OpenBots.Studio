@@ -108,8 +108,6 @@
             this.pnlControlContainer.Name = "pnlControlContainer";
             this.pnlControlContainer.Size = new System.Drawing.Size(891, 76);
             this.pnlControlContainer.TabIndex = 19;
-            theme1.BgGradientEndColor = System.Drawing.Color.FromArgb(((int)(((byte)(43)))), ((int)(((byte)(50)))), ((int)(((byte)(178)))));
-            theme1.BgGradientStartColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(136)))), ((int)(((byte)(204)))));
             this.pnlControlContainer.Theme = theme1;
             // 
             // uiBtnOk

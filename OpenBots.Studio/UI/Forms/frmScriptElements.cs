@@ -10,7 +10,7 @@ using System.Linq;
 
 namespace OpenBots.UI.Forms
 {
-    public partial class frmScriptElements : ThemedForm
+    public partial class frmScriptElements : UIForm
     {
         public List<ScriptElement> ScriptElements { get; set; }
         public string ScriptName { get; set; }
@@ -218,10 +218,5 @@ namespace OpenBots.UI.Forms
             return node;
         }
         #endregion
-
-        private void pnlBottom_Paint(object sender, PaintEventArgs e)
-        {
-            e.Graphics.FillRectangle(Theme.CreateGradient(pnlBottom.ClientRectangle), pnlBottom.ClientRectangle);
-        }
     }
 }
