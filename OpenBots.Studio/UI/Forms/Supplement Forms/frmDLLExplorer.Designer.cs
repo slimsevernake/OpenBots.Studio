@@ -169,7 +169,6 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackgroundChangeIndex = 247;
             this.ClientSize = new System.Drawing.Size(724, 639);
             this.Controls.Add(this.uiBtnOk);
             this.Controls.Add(this.upbLoadDLL);

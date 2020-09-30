@@ -1,42 +1,43 @@
-﻿using NuGet;
+﻿using MailKit;
+using NuGet;
 using OpenBots.Core.Enums;
 using OpenBots.Core.IO;
 using OpenBots.Core.UI.Forms;
+using OpenBots.Utilities;
+using RestSharp.Extensions;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
+using System.Reflection;
 using System.Windows.Forms;
 
 namespace OpenBots.UI.Supplement_Forms
 {
     public partial class frmPublishProject : UIForm
     {
-        public string Version { get; set; }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public string Username { get; set; }
-        public string Description { get; set; }
-
         private string _projectPath;
         private string _projectName;
-        public frmPublishProject(string projectPath)
+        private Guid _projectId;
+
+        public frmPublishProject(string projectPath, Project project)
         {
             _projectPath = projectPath;
-            _projectName = _projectPath.Split('\\').LastOrDefault();
+            _projectName = project.ProjectName;
+            _projectId = project.ProjectID;
             InitializeComponent();
             
         }
 
         private void frmPublishProject_Load(object sender, EventArgs e)
         {
-            txtLocation.Text = Folders.GetFolder(FolderType.RootFolder);
+            txtLocation.Text = Folders.GetFolder(FolderType.PublishedFolder);
             lblPublish.Text = $"publish {_projectName}";
             Text = $"publish {_projectName}";
         }
 
         private void btnOkay_Click(object sender, EventArgs e)
         {
+            ValidateForm();
             PublishProject();
             DialogResult = DialogResult.OK;
         }
@@ -47,34 +48,53 @@ namespace OpenBots.UI.Supplement_Forms
         }
 
         private void PublishProject()
-        {
-            
+        {          
             string[] scriptFiles = Directory.GetFiles(_projectPath, "*.json", SearchOption.AllDirectories);
             List<ManifestContentFiles> manifestFiles = new List<ManifestContentFiles>();
             foreach (string file in scriptFiles)
             {
                 ManifestContentFiles manifestFile = new ManifestContentFiles
                 {
-
+                    Include = file.Replace(_projectPath, "")
                 };
+                manifestFiles.Add(manifestFile);
             }
 
             ManifestMetadata metadata = new ManifestMetadata()
-            {
-                
-                Id = Guid.NewGuid().ToString(),
+            {               
+                Id = _projectId.ToString(),
                 Title = _projectName,
-                Authors = $"{txtFirstName.Text} {txtLastName.Text} <{txtEmail.Text}>",
-                Version = txtVersion.Text,
-                Description = txtDescription.Text,
-                RequireLicenseAcceptance = false,
-
-            };
+                Authors = $"{txtFirstName.Text} {txtLastName.Text} <{txtEmail.Text}>".Trim(),
+                Version = txtVersion.Text.Trim(),
+                Description = txtDescription.Text.Trim(),
+                RequireLicenseAcceptance = false,               
+                DependencySets = new List<ManifestDependencySet>()
+                {
+                    new ManifestDependencySet()
+                    {
+                        Dependencies = new List<ManifestDependency>()
+                        {
+                            new ManifestDependency()
+                            {
+                                Id = "OpenBots.Studio",
+                                Version = new Version(Application.ProductVersion).ToString()
+                            }
+                        }
+                    }
+                },
+                ContentFiles = manifestFiles,               
+            };         
 
             PackageBuilder builder = new PackageBuilder();
             builder.PopulateFiles(_projectPath, new[] { new ManifestFile() { Source = "**" } });
             builder.Populate(metadata);
-            using (FileStream stream = File.Open(Path.Combine(txtLocation.Text, _projectName + ".nupkg"), FileMode.OpenOrCreate))
+
+            if (!Directory.Exists(txtLocation.Text))
+                Directory.CreateDirectory(txtLocation.Text);
+
+            using (FileStream stream = File.Open(Path.Combine(txtLocation.Text.Trim(), 
+                                                              $"{_projectName}_{txtVersion.Text.Trim()}.nupkg"), 
+                                                              FileMode.OpenOrCreate))
             {
                 builder.Save(stream);
             }
@@ -88,8 +108,11 @@ namespace OpenBots.UI.Supplement_Forms
                 txtLocation.Text = fbd.SelectedPath;
                 txtLocation.Focus();
             }
-        }
-
+        }  
         
+        private void ValidateForm()
+        {
+           
+        }
     }
 }

@@ -154,7 +154,6 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackgroundChangeIndex = 153;
             this.ClientSize = new System.Drawing.Size(712, 626);
             this.Controls.Add(this.tlpInputs);
             this.Icon = OpenBots.Core.Properties.Resources.OpenBots_ico;

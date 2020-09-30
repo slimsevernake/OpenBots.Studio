@@ -197,7 +197,6 @@ namespace OpenBots.UI.Forms.Supplement_Forms
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(49)))), ((int)(((byte)(49)))), ((int)(((byte)(49)))));
-            this.BackgroundChangeIndex = 265;
             this.Controls.Add(this.tlpControls);
             this.Name = "frmWebElementRecorder";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmHTMLElementRecorder_FormClosing);

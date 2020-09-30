@@ -12,6 +12,7 @@
 //WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 //See the License for the specific language governing permissions and
 //limitations under the License.
+using OpenBots.Core.Properties;
 using System;
 using System.ComponentModel;
 using System.Drawing;
@@ -22,35 +23,18 @@ namespace OpenBots.Core.UI.Forms
 {
     public class UIForm : Form
     {
-        private int _backgroundChangeIndex;
-        public int BackgroundChangeIndex
-        {
-            get
-            {
-                if (_backgroundChangeIndex <= 0)
-                    return (Height / 2);
-                else
-                    return _backgroundChangeIndex;
-            }
-            set
-            {
-                _backgroundChangeIndex = value;
-                Invalidate();
-            }
-        }
-
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UIForm));
-            this.SuspendLayout();
+            ComponentResourceManager resources = new ComponentResourceManager(typeof(UIForm));
+            SuspendLayout();
             // 
             // UIForm
             // 
-            this.ClientSize = new System.Drawing.Size(284, 261);
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Name = "UIForm";
-            this.Load += new System.EventHandler(this.UIForm_Load);
-            this.ResumeLayout(false);
+            ClientSize = new Size(284, 261);
+            Icon = Resources.OpenBots_ico;
+            Name = "UIForm";
+            Load += new EventHandler(UIForm_Load);
+            ResumeLayout(false);
 
         }
         private void UIForm_Load(object sender, EventArgs e)
@@ -62,37 +46,14 @@ namespace OpenBots.Core.UI.Forms
         {
             base.OnPaintBackground(e);
 
-            //using (var brush = new LinearGradientBrush
-            //      (new Rectangle(0, 0, Width, BackgroundChangeIndex), Color.SteelBlue, Color.FromArgb(106, 160, 204),
-            //      LinearGradientMode.Vertical))
-            //{
-            //    e.Graphics.FillRectangle(brush, 0, 0, Width, BackgroundChangeIndex);
-            //}
-
-            //using (var brush = new LinearGradientBrush
-
-            //(new Rectangle(0, BackgroundChangeIndex, Width, Height), Color.FromArgb(255, 214, 88), Color.Orange,
-            //LinearGradientMode.Vertical))
-            //{
-            //    e.Graphics.FillRectangle(brush, 0, BackgroundChangeIndex, Width, Height);
-            //}
-
             var topColor = Color.FromArgb(49, 49, 49);
             using (var brush = new LinearGradientBrush(
-                new Rectangle(0, 0, Width, BackgroundChangeIndex),
+                new Rectangle(0, 0, Width, Height),
                 topColor,
                 topColor,
                 LinearGradientMode.Vertical))
             {
-                e.Graphics.FillRectangle(brush, 0, 0, Width, BackgroundChangeIndex);
-            }
-
-            using (var brush = new LinearGradientBrush(
-                new Rectangle(0, BackgroundChangeIndex, Width, Height),
-                Color.SteelBlue, Color.LightSteelBlue,
-                LinearGradientMode.Vertical))
-            {
-                e.Graphics.FillRectangle(brush, 0, BackgroundChangeIndex, Width, Height);
+                e.Graphics.FillRectangle(brush, 0, 0, Width, Height);
             }
         }
 

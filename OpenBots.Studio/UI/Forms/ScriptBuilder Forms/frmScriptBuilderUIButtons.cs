@@ -386,7 +386,7 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
 
         private void publishProjectToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            frmPublishProject publishProject = new frmPublishProject(ScriptProjectPath);
+            frmPublishProject publishProject = new frmPublishProject(ScriptProjectPath, ScriptProject);
             publishProject.ShowDialog();
         }
 

@@ -70,7 +70,7 @@ namespace OpenBots.UI.Forms
         {
             //build script path and execute
             var scriptFilePath = Path.Combine(_appSettings.ClientSettings.AttendedTasksFolder, cboSelectedScript.Text);
-            var projectName = _projectPath.Split('\\').LastOrDefault();
+            var projectName = new DirectoryInfo(_projectPath).Name;
             //initialize Logger
             Logger engineLogger = null;
             switch (_appSettings.EngineSettings.LoggingSinkType)

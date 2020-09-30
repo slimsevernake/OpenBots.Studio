@@ -27,6 +27,9 @@ namespace OpenBots.Core.IO
                 case FolderType.ScriptsFolder:
                     //return scripts folder
                     return Path.Combine(GetFolder(FolderType.RootFolder), "My Scripts");
+                case FolderType.PublishedFolder:
+                    //return scripts folder
+                    return Path.Combine(GetFolder(FolderType.RootFolder), "Published");
                 case FolderType.LogFolder:
                     //return logs folder
                     return Path.Combine(GetFolder(FolderType.RootFolder), "Logs");

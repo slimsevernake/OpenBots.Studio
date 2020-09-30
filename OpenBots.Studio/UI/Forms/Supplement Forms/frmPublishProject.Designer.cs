@@ -246,7 +246,6 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackgroundChangeIndex = 1000;
             this.ClientSize = new System.Drawing.Size(587, 558);
             this.Controls.Add(this.btnFolderManager);
             this.Controls.Add(this.txtLocation);
