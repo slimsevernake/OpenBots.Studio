@@ -435,14 +435,12 @@ namespace OpenBots.UI.Forms
 
                 if (mainLogoText.Contains("(error)"))
                 {
-                    //BackColor = Color.OrangeRed;
                     Theme.BgGradientStartColor = Color.OrangeRed;
                     Theme.BgGradientEndColor = Color.OrangeRed;
                     Invalidate();
                 }
                 else if (mainLogoText.Contains("(success)")) 
                 {
-                    //BackColor = Color.Green;
                     Theme.BgGradientStartColor = Color.Green;
                     Theme.BgGradientEndColor = Color.Green;
                     Invalidate();                  
