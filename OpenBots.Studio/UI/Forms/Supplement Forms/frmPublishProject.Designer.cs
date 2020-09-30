@@ -45,6 +45,7 @@
             this.txtLocation = new System.Windows.Forms.TextBox();
             this.lblLocation = new System.Windows.Forms.Label();
             this.btnFolderManager = new System.Windows.Forms.Button();
+            this.lblError = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.btnCancel)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnOkay)).BeginInit();
             this.SuspendLayout();
@@ -90,7 +91,7 @@
             this.txtFirstName.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtFirstName.ForeColor = System.Drawing.Color.SteelBlue;
             this.txtFirstName.Location = new System.Drawing.Point(20, 90);
-            this.txtFirstName.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtFirstName.Margin = new System.Windows.Forms.Padding(4);
             this.txtFirstName.Name = "txtFirstName";
             this.txtFirstName.Size = new System.Drawing.Size(270, 32);
             this.txtFirstName.TabIndex = 34;
@@ -116,7 +117,7 @@
             this.lblPublish.Location = new System.Drawing.Point(12, 9);
             this.lblPublish.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.lblPublish.Name = "lblPublish";
-            this.lblPublish.Size = new System.Drawing.Size(198, 58);
+            this.lblPublish.Size = new System.Drawing.Size(158, 46);
             this.lblPublish.TabIndex = 35;
             this.lblPublish.Text = "Publish";
             // 
@@ -242,11 +243,23 @@
             this.btnFolderManager.UseVisualStyleBackColor = true;
             this.btnFolderManager.Click += new System.EventHandler(this.btnFolderManager_Click);
             // 
+            // lblError
+            // 
+            this.lblError.BackColor = System.Drawing.Color.Transparent;
+            this.lblError.Font = new System.Drawing.Font("Segoe UI Light", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblError.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.lblError.Location = new System.Drawing.Point(152, 510);
+            this.lblError.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblError.Name = "lblError";
+            this.lblError.Size = new System.Drawing.Size(417, 30);
+            this.lblError.TabIndex = 47;
+            // 
             // frmPublishProject
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(587, 558);
+            this.Controls.Add(this.lblError);
             this.Controls.Add(this.btnFolderManager);
             this.Controls.Add(this.txtLocation);
             this.Controls.Add(this.lblLocation);
@@ -264,11 +277,10 @@
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnOkay);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.Margin = new System.Windows.Forms.Padding(5);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "frmPublishProject";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Publish";
             this.TopMost = true;
             this.Load += new System.EventHandler(this.frmPublishProject_Load);
@@ -297,5 +309,6 @@
         public System.Windows.Forms.TextBox txtLocation;
         private System.Windows.Forms.Label lblLocation;
         private System.Windows.Forms.Button btnFolderManager;
+        private System.Windows.Forms.Label lblError;
     }
 }

@@ -19,7 +19,6 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Windows.Forms;
-
 using OpenBots.Core.Enums;
 using OpenBots.Core.IO;
 using OpenBots.Core.Metrics;
