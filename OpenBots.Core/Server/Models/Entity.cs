@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
-#nullable enable
 
 namespace OpenBots.Server.Model.Core
 {
@@ -30,14 +29,14 @@ namespace OpenBots.Server.Model.Core
 
         [MaxLength(100,ErrorMessage ="Created by value must be 100 characters or less.")]
         [Display(Name = "CreatedBy")]
-        public string? CreatedBy { get; set; }
+        public string CreatedBy { get; set; }
 
         [Display(Name = "CreatedOn")]
         public DateTime? CreatedOn { get; set; }
 
         [MaxLength(100,ErrorMessage ="Deleted by value must be 100 characters or less.")]
         [Display(Name = "DeletedBy")]
-        public string? DeletedBy { get; set; }
+        public string DeletedBy { get; set; }
 
         [Display(Name = "DeleteOn")]
         public DateTime? DeleteOn { get; set; }
@@ -51,6 +50,6 @@ namespace OpenBots.Server.Model.Core
 
         [StringLength(100, ErrorMessage = "Deleted by value must be 100 characters or less.")]
         [Display(Name = "UpdatedBy")]
-        public string? UpdatedBy { get; set; }
+        public string UpdatedBy { get; set; }
     }
 }

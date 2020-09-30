@@ -86,6 +86,10 @@
       <HintPath>..\packages\Serilog.Sinks.SignalR.2.0.10\lib\net46\Serilog.Sinks.SignalR.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Annotations, Version=4.2.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ComponentModel.Annotations.4.5.0\lib\net461\System.ComponentModel.Annotations.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Net.Http" />
@@ -143,9 +147,15 @@
     <Compile Include="Script\ScriptElement.cs" />
     <Compile Include="Script\ScriptObject.cs" />
     <Compile Include="Script\ScriptVariable.cs" />
-    <Compile Include="Server Models\Asset.cs" />
-    <Compile Include="Server Models\Entity.cs" />
-    <Compile Include="Server Models\NamedEntity.cs" />
+    <Compile Include="Server\Interfaces\IEntity.cs" />
+    <Compile Include="Server\Interfaces\INamedEntity.cs" />
+    <Compile Include="Server\Interfaces\INameIDPair.cs" />
+    <Compile Include="Server\Models\Asset.cs" />
+    <Compile Include="Server\Models\BinaryObject.cs" />
+    <Compile Include="Server\Models\Credential.cs" />
+    <Compile Include="Server\Models\Entity.cs" />
+    <Compile Include="Server\Models\NamedEntity.cs" />
+    <Compile Include="Server\Models\QueueItem.cs" />
     <Compile Include="Settings\ApplicationSettings.cs" />
     <Compile Include="Settings\ClientSettings.cs" />
     <Compile Include="Settings\EngineSettings.cs" />

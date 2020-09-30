@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel.DataAnnotations;
-#nullable enable
 
 namespace OpenBots.Server.Model.Core
 {
@@ -14,6 +13,6 @@ namespace OpenBots.Server.Model.Core
         [MinLength(3, ErrorMessage = "Name must be at least 3 characters.")]
         [RegularExpression("^[A-Za-z0-9_. ]{3,100}$")] // Alphanumeric with Underscore and Dot only
         [Display(Name= "Name")]
-        public string? Name { get; set; }
+        public string Name { get; set; }
     }
 }
