@@ -15,7 +15,6 @@
 using OpenBots.Core.Utilities.FormsUtilities;
 using System;
 using System.Drawing;
-using System.Drawing.Drawing2D;
 using System.Windows.Forms;
 
 namespace OpenBots.Core.UI.Forms
@@ -67,23 +66,9 @@ namespace OpenBots.Core.UI.Forms
 
         protected override void OnPaint(PaintEventArgs e)
         {
-           // base.OnPaintBackground(e);
-
-            var topColor = Color.FromArgb(49, 49, 49);
-            using (var brush = new LinearGradientBrush(
-                new Rectangle(0, 0, Width, Height),
-                topColor,
-                topColor,
-                LinearGradientMode.Vertical))
-            {
-                //e.Graphics.FillRectangle(brush, 0, 0, Width, Height);
-                if (ClientRectangle.Width != 0 && ClientRectangle.Height != 0)
-                    e.Graphics.FillRectangle(Theme.CreateGradient(ClientRectangle), ClientRectangle);
-                base.OnPaint(e);
-
-            }
-
-
+            if (ClientRectangle.Width != 0 && ClientRectangle.Height != 0)
+                e.Graphics.FillRectangle(Theme.CreateGradient(ClientRectangle), ClientRectangle);
+            base.OnPaint(e);           
         }
 
         public static void MoveFormToBottomRight(Form sender)
