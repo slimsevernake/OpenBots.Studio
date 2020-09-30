@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            OpenBots.Core.Utilities.FormsUtilities.Theme theme1 = new OpenBots.Core.Utilities.FormsUtilities.Theme();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmDialog));
             this.autoCloseTimer = new System.Windows.Forms.Timer(this.components);
             this.lblAutoClose = new System.Windows.Forms.Label();
@@ -108,7 +107,6 @@
             this.pnlControlContainer.Name = "pnlControlContainer";
             this.pnlControlContainer.Size = new System.Drawing.Size(891, 76);
             this.pnlControlContainer.TabIndex = 19;
-            this.pnlControlContainer.Theme = theme1;
             // 
             // uiBtnOk
             // 
