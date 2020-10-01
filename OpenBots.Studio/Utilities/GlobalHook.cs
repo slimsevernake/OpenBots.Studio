@@ -10,6 +10,9 @@ using OpenBots.Core.User32;
 using System.Data;
 using OpenBots.Core.Common;
 using OpenBots.Core.Enums;
+using OpenBots.Commands.Input;
+using OpenBots.Commands.Window;
+using OpenBots.Commands.Engine;
 
 namespace OpenBots.Utilities
 {

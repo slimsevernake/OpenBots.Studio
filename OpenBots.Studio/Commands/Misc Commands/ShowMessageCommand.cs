@@ -7,6 +7,7 @@ using OpenBots.Core.Command;
 using OpenBots.Core.Enums;
 using OpenBots.Core.Infrastructure;
 using OpenBots.Core.Utilities.CommonUtilities;
+using OpenBots.Engine;
 using OpenBots.UI.Forms;
 
 namespace OpenBots.Commands
@@ -43,7 +44,7 @@ namespace OpenBots.Commands
 
         public override void RunCommand(object sender)
         {
-            var engine = (Engine.AutomationEngineInstance)sender;
+            var engine = (AutomationEngineInstance)sender;
 
             int closeAfter = int.Parse(v_AutoCloseAfter.ConvertUserVariableToString(engine));
 

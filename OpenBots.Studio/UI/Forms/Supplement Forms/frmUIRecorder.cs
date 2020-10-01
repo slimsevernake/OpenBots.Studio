@@ -9,6 +9,7 @@ using OpenBots.UI.Forms;
 using OpenBots.UI.Forms.ScriptBuilder_Forms;
 using OpenBots.Utilities;
 using OpenBots.Core.UI.Forms;
+using OpenBots.Commands.Input;
 
 namespace OpenBots.UI.Supplement_Forms
 {

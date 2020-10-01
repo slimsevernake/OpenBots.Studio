@@ -29,6 +29,7 @@ using Group = OpenBots.Core.Attributes.ClassAttributes.Group;
 using HtmlDocument = HtmlAgilityPack.HtmlDocument;
 using OpenQA.Selenium.Interactions;
 using Newtonsoft.Json;
+using OpenBots.Core.User32;
 
 namespace OpenBots.Commands
 {
@@ -261,12 +262,12 @@ namespace OpenBots.Commands
                                                        select rw.Field<string>("Parameter Value")).FirstOrDefault().ConvertUserVariableToString(engine));
 
                     var elementLocation = element.Location;
-                    SendMouseMoveCommand newMouseMove = new SendMouseMoveCommand();
                     var seleniumWindowPosition = seleniumInstance.Manage().Window.Position;
-                    newMouseMove.v_XMousePosition = (seleniumWindowPosition.X + elementLocation.X +  userXAdjust).ToString();
-                    newMouseMove.v_YMousePosition = (seleniumWindowPosition.Y + elementLocation.Y +  userYAdjust).ToString();
-                    newMouseMove.v_MouseClick = v_SeleniumElementAction;
-                    newMouseMove.RunCommand(sender);
+                    User32Functions.SendMouseMove(
+                        (seleniumWindowPosition.X + elementLocation.X +  userXAdjust).ToString(),
+                        (seleniumWindowPosition.Y + elementLocation.Y + userYAdjust).ToString(),
+                        v_SeleniumElementAction);
+                    
                     break;
                 case "Double Left Click":
                     actions.DoubleClick((IWebElement)element).Perform();

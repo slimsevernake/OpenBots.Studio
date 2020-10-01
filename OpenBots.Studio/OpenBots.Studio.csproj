@@ -223,23 +223,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Commands\Engine Commands\ErrorHandlingCommand.cs" />
-    <Compile Include="Commands\Engine Commands\LogMessageCommand.cs" />
-    <Compile Include="Commands\Engine Commands\PauseScriptCommand.cs" />
-    <Compile Include="Commands\Engine Commands\SetEngineDelayCommand.cs" />
-    <Compile Include="Commands\Engine Commands\SetEnginePreferenceCommand.cs" />
-    <Compile Include="Commands\Engine Commands\ShowEngineContextCommand.cs" />
-    <Compile Include="Commands\Engine Commands\StopwatchCommand.cs" />
     <Compile Include="Commands\Image Commands\CaptureImageCommand.cs" />
     <Compile Include="Commands\Image Commands\SurfaceAutomationCommand.cs" />
-    <Compile Include="Commands\Input Commands\InputCommand.cs" />
     <Compile Include="Commands\Error Handling Commands\BeginRetryCommand.cs" />
     <Compile Include="Commands\Error Handling Commands\EndRetryCommand.cs" />
     <Compile Include="Commands\Error Handling Commands\RethrowCommand.cs" />
     <Compile Include="Commands\Misc Commands\ShowMessageCommand.cs" />
-    <Compile Include="Commands\Switch Commands\BeginSwitchCommand.cs" />
-    <Compile Include="Commands\Switch Commands\CaseCommand.cs" />
-    <Compile Include="Commands\Switch Commands\EndSwitchCommand.cs" />
+    <Compile Include="Commands\Misc Commands\UIAutomationCommand.cs" />
     <Compile Include="Commands\Task Commands\RunTaskCommand.cs" />
     <Compile Include="Commands\Task Commands\StopCurrentTaskCommand.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
@@ -271,7 +261,6 @@
     <Compile Include="Utilities\Documentation\DocumentationGeneration.cs" />
     <Compile Include="Utilities\GlobalHook.cs" />
     <Compile Include="Utilities\ManifestUpdate.cs" />
-    <Compile Include="Commands\API Commands\ExecuteRESTAPICommand.cs" />
     <Compile Include="Commands\Web Browser Commands\QueryHTMLSourceCommand.cs" />
     <Compile Include="Commands\Web Browser Commands\GetHTMLSourceCommand.cs" />
     <Compile Include="Commands\Error Handling Commands\CatchCommand.cs" />
@@ -286,12 +275,6 @@
     <Compile Include="Commands\If Commands\EndIfCommand.cs" />
     <Compile Include="Commands\Image Commands\PerformOCRCommand.cs" />
     <Compile Include="Commands\Image Commands\TakeScreenshotCommand.cs" />
-    <Compile Include="Commands\Input Commands\HTMLInputCommand.cs" />
-    <Compile Include="Commands\Input Commands\SendAdvancedKeystrokesCommand.cs" />
-    <Compile Include="Commands\Input Commands\SendKeystrokesCommand.cs" />
-    <Compile Include="Commands\Input Commands\SendMouseClickCommand.cs" />
-    <Compile Include="Commands\Input Commands\SendMouseMoveCommand.cs" />
-    <Compile Include="Commands\Input Commands\UIAutomationCommand.cs" />
     <Compile Include="Commands\Loop Commands\BeginLoopCommand.cs" />
     <Compile Include="Commands\Loop Commands\BeginMultiLoopCommand.cs" />
     <Compile Include="Commands\Loop Commands\EndLoopCommand.cs" />
@@ -305,7 +288,6 @@
     <Compile Include="Commands\Misc Commands\GetClipboardTextCommand.cs" />
     <Compile Include="Commands\Misc Commands\SequenceCommand.cs" />
     <Compile Include="Commands\Misc Commands\SetClipboardTextCommand.cs" />
-    <Compile Include="Commands\API Commands\ExecuteDLLCommand.cs" />
     <Compile Include="Commands\Web Browser Commands\SeleniumCloseBrowserCommand.cs" />
     <Compile Include="Commands\Web Browser Commands\SeleniumCreateBrowserCommand.cs" />
     <Compile Include="Commands\Web Browser Commands\SeleniumElementActionCommand.cs" />
@@ -317,12 +299,6 @@
     <Compile Include="Commands\Web Browser Commands\SeleniumRefreshCommand.cs" />
     <Compile Include="Commands\Web Browser Commands\SeleniumSwitchBrowserFrameCommand.cs" />
     <Compile Include="Commands\Web Browser Commands\SeleniumSwitchBrowserWindowCommand.cs" />
-    <Compile Include="Commands\Window Commands\ActivateWindowCommand.cs" />
-    <Compile Include="Commands\Window Commands\CloseWindowCommand.cs" />
-    <Compile Include="Commands\Window Commands\MoveWindowCommand.cs" />
-    <Compile Include="Commands\Window Commands\ResizeWindowCommand.cs" />
-    <Compile Include="Commands\Window Commands\SetWindowStateCommand.cs" />
-    <Compile Include="Commands\Window Commands\WaitForWindowToExistCommand.cs" />
     <Compile Include="Utilities\Project.cs" />
     <Compile Include="UI\CustomControls\AutomationCommand.cs" />
     <Compile Include="UI\CustomControls\CommandGroupControl.cs">
@@ -483,12 +459,6 @@
     </Compile>
     <Compile Include="UI\Forms\Supplement Forms\frmAdvancedUIElementRecorder.Designer.cs">
       <DependentUpon>frmAdvancedUIElementRecorder.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UI\Forms\Supplement Forms\frmUserInput.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="UI\Forms\Supplement Forms\frmUserInput.Designer.cs">
-      <DependentUpon>frmUserInput.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\Forms\Supplement Forms\frmElementSelector.cs">
       <SubType>Form</SubType>
@@ -674,9 +644,6 @@
     <EmbeddedResource Include="UI\Forms\Supplement Forms\frmAdvancedUIElementRecorder.resx">
       <DependentUpon>frmAdvancedUIElementRecorder.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\Forms\Supplement Forms\frmUserInput.resx">
-      <DependentUpon>frmUserInput.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="UI\Forms\Supplement Forms\frmElementSelector.resx">
       <DependentUpon>frmElementSelector.cs</DependentUpon>
     </EmbeddedResource>
@@ -738,6 +705,26 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\OpenBots.Commands\OpenBots.Commands.API\OpenBots.Commands.API.csproj">
+      <Project>{b75a4e96-f0b9-4fbc-9049-4086cf0d45cb}</Project>
+      <Name>OpenBots.Commands.API</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\OpenBots.Commands\OpenBots.Commands.Engine\OpenBots.Commands.Engine.csproj">
+      <Project>{89ca4ba7-1faf-4cc2-9881-d579ede0406f}</Project>
+      <Name>OpenBots.Commands.Engine</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\OpenBots.Commands\OpenBots.Commands.Input\OpenBots.Commands.Input.csproj">
+      <Project>{ba259e6d-f93f-4ba5-a82a-f70f725c292e}</Project>
+      <Name>OpenBots.Commands.Input</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\OpenBots.Commands\OpenBots.Commands.Switch\OpenBots.Commands.Switch.csproj">
+      <Project>{6e2a242f-9f48-4094-9c75-3d1de1c8d5a1}</Project>
+      <Name>OpenBots.Commands.Switch</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\OpenBots.Commands\OpenBots.Commands.Window\OpenBots.Commands.Window.csproj">
+      <Project>{54e5a81d-e636-41e4-9b27-78f0108def57}</Project>
+      <Name>OpenBots.Commands.Window</Name>
+    </ProjectReference>
     <ProjectReference Include="..\OpenBots.Core\OpenBots.Core.csproj">
       <Project>{6956836d-d2b0-4b7a-b06d-fa3a22b4c4ff}</Project>
       <Name>OpenBots.Core</Name>
