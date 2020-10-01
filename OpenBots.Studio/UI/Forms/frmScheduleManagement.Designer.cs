@@ -393,7 +393,6 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackgroundChangeIndex = 268;
             this.ClientSize = new System.Drawing.Size(628, 474);
             this.Controls.Add(this.lblAddNewSchedule);
             this.Controls.Add(this.panel1);

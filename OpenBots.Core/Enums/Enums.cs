@@ -39,7 +39,8 @@ namespace OpenBots.Core.Enums
         ScriptsFolder,
         LogFolder,
         TempFolder,
-        AttendedTasksFolder
+        AttendedTasksFolder,
+        PublishedFolder
     }
 
     public enum UIAdditionalHelperType

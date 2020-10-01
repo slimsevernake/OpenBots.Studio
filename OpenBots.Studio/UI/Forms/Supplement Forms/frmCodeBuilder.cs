@@ -1,4 +1,5 @@
-﻿using OpenBots.Core.Utilities.CommandUtilities;
+﻿using OpenBots.Core.UI.Forms;
+using OpenBots.Core.Utilities.CommandUtilities;
 using System;
 using System.Diagnostics;
 using System.Drawing;
@@ -7,7 +8,7 @@ using System.Windows.Forms;
 
 namespace OpenBots.UI.Forms.Supplement_Forms
 {
-    public partial class frmCodeBuilder : Form
+    public partial class frmCodeBuilder : UIForm
     {
         public frmCodeBuilder()
         {

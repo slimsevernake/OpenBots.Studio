@@ -8,10 +8,11 @@ using OpenBots.Core.Enums;
 using OpenBots.Core.IO;
 using OpenBots.Core.Settings;
 using OpenBots.Core.Utilities.CommonUtilities;
+using OpenBots.Core.UI.Forms;
 
 namespace OpenBots.UI.Forms
 {
-    public partial class frmAttendedMode : Form
+    public partial class frmAttendedMode : UIForm
     {
         #region Variables
         private ApplicationSettings _appSettings;
@@ -70,7 +71,7 @@ namespace OpenBots.UI.Forms
         {
             //build script path and execute
             var scriptFilePath = Path.Combine(_appSettings.ClientSettings.AttendedTasksFolder, cboSelectedScript.Text);
-            var projectName = _projectPath.Split('\\').LastOrDefault();
+            var projectName = new DirectoryInfo(_projectPath).Name;
             //initialize Logger
             Logger engineLogger = null;
             switch (_appSettings.EngineSettings.LoggingSinkType)

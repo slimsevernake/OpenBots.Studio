@@ -37,7 +37,7 @@ using OpenBots.Core.Properties;
 
 namespace OpenBots.UI.Forms
 {
-    public partial class frmScriptEngine : ThemedForm, IfrmScriptEngine
+    public partial class frmScriptEngine : UIForm, IfrmScriptEngine
     {
         //all variables used by this form
         #region Form Variables

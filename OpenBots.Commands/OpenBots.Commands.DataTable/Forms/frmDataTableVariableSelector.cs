@@ -4,7 +4,7 @@ using OpenBots.Core.UI.Forms;
 
 namespace OpenBots.Commands.DataTable.Forms
 {
-    public partial class frmDataTableVariableSelector : ThemedForm
+    public partial class frmDataTableVariableSelector : UIForm
     {
         public frmDataTableVariableSelector()
         {

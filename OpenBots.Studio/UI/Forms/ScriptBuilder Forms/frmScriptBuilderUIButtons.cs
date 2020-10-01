@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.IO;
-using System.Linq;
-using System.Windows.Forms;
-using OpenBots.Commands;
+﻿using OpenBots.Commands;
 using OpenBots.Core.Enums;
 using OpenBots.Core.IO;
 using OpenBots.Core.Script;
@@ -13,6 +7,12 @@ using OpenBots.Core.Utilities.CommonUtilities;
 using OpenBots.UI.CustomControls.CustomUIControls;
 using OpenBots.UI.Forms.Supplement_Forms;
 using OpenBots.UI.Supplement_Forms;
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.IO;
+using System.Linq;
+using System.Windows.Forms;
 
 namespace OpenBots.UI.Forms.ScriptBuilder_Forms
 {
@@ -382,6 +382,17 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
             _selectedTabScriptActions.SelectedItems.Clear();
             _selectedIndex = -1;
             _selectedTabScriptActions.Invalidate();
+        }
+
+        private void publishProjectToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmPublishProject publishProject = new frmPublishProject(ScriptProjectPath, ScriptProject);
+            publishProject.ShowDialog();
+        }
+
+        private void uiBtnPublishProject_Click(object sender, EventArgs e)
+        {
+            publishProjectToolStripMenuItem_Click(sender, e);
         }
 
         private void uiBtnImport_Click(object sender, EventArgs e)

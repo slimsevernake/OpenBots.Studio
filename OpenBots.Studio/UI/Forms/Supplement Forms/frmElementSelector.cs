@@ -7,7 +7,7 @@ using OpenBots.Core.UI.Forms;
 
 namespace OpenBots.UI.Forms.Supplement_Forms
 {
-    public partial class frmElementSelector : ThemedForm
+    public partial class frmElementSelector : UIForm
     {
         private List<string> _elementList;
         private string _txtCommandWatermark = "Type Here to Search";

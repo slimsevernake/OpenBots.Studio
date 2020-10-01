@@ -6,7 +6,7 @@ using OpenBots.Core.UI.Forms;
 
 namespace OpenBots.UI.Forms.Supplement_Forms
 {
-    public partial class frmEngineContextViewer : ThemedForm
+    public partial class frmEngineContextViewer : UIForm
     {
         public frmEngineContextViewer(string context, int closeAfter)
         {

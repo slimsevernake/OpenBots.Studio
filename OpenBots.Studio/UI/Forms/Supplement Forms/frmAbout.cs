@@ -21,7 +21,7 @@ using OpenBots.Core.UI.Forms;
 
 namespace OpenBots.UI.Forms.Supplement_Forms
 {
-    public partial class frmAbout : ThemedForm
+    public partial class frmAbout : UIForm
     {
         public frmAbout()
         {

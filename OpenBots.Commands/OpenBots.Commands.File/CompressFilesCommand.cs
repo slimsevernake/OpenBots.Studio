@@ -71,7 +71,7 @@ namespace OpenBots.Commands.File
 
             string[] filenames = Directory.GetFiles(vSourceDirectoryPathOrigin);
 
-            string sourceDirectoryName = vSourceDirectoryPathOrigin.Split('\\').LastOrDefault();
+            string sourceDirectoryName = new DirectoryInfo(vSourceDirectoryPathOrigin).Name;
             string compressedFileName = Path.Combine(vFilePathDestination, sourceDirectoryName + ".zip");
             using (ZipOutputStream OutputStream = new ZipOutputStream(IO.File.Create(compressedFileName)))
             {

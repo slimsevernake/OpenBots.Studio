@@ -8,7 +8,7 @@ using OpenBots.Core.UI.Forms;
 
 namespace OpenBots.UI.Forms.Supplement_Forms
 {
-    public partial class frmProjectBuilder : ThemedForm
+    public partial class frmProjectBuilder : UIForm
     {
         public bool CreateProject { get; private set; }
         public bool OpenProject { get; private set; }

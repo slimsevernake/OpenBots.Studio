@@ -7,7 +7,7 @@ using OpenBots.Core.UI.Forms;
 
 namespace OpenBots.UI.Forms.Supplement_Forms
 {
-    public partial class frmAddVariable : ThemedForm
+    public partial class frmAddVariable : UIForm
     {
         public List<ScriptVariable> ScriptVariables { get; set; }
         private bool _isEditMode;

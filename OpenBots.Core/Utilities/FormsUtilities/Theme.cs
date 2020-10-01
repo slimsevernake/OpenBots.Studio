@@ -5,8 +5,8 @@ namespace OpenBots.Core.Utilities.FormsUtilities
 {
     public class Theme
     {
-        public Color BgGradientStartColor { get; set; } = Color.FromArgb(20, 136, 204);
-        public Color BgGradientEndColor { get; set; } = Color.FromArgb(43, 50, 178);
+        public Color BgGradientStartColor { get; set; } = Color.FromArgb(49, 49, 49);
+        public Color BgGradientEndColor { get; set; } = Color.FromArgb(49, 49, 49);
 
         public LinearGradientBrush CreateGradient(Rectangle rect)
         {
