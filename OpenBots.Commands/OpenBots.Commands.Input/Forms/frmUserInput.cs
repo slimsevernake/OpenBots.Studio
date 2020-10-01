@@ -3,10 +3,9 @@ using System.Collections.Generic;
 using System.Data;
 using System.Drawing;
 using System.Windows.Forms;
-using OpenBots.Commands;
 using OpenBots.Core.UI.Forms;
 
-namespace OpenBots.UI.Forms.Supplement_Forms
+namespace OpenBots.Commands.Input.Forms
 {
     public partial class frmUserInput : UIForm
     {

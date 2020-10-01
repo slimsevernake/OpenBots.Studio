@@ -9,6 +9,7 @@ using System.Reflection;
 using System.Threading;
 using System.Windows.Forms;
 using OpenBots.Commands;
+using OpenBots.Commands.API;
 using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
 using OpenBots.Core.Common;

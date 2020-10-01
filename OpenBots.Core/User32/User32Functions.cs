@@ -417,5 +417,36 @@ namespace OpenBots.Core.User32
             SetCursorPosition(xPos, yPos);
             SendMouseClick(clickType, xPos, yPos);
         }
+
+        public static void ActivateWindow(string windowName)
+        {
+            var targetWindows = User32Functions.FindTargetWindows(windowName);
+
+            //loop each window
+            foreach (var targetedWindow in targetWindows)
+            {
+                User32Functions.SetWindowState(targetedWindow, WindowState.SwShowNormal);
+                User32Functions.SetForegroundWindow(targetedWindow);
+            }
+        }
+
+        public static void MoveWindow(string windowName, string xPosition, string yPosition)
+        {
+            var targetWindows = User32Functions.FindTargetWindows(windowName);
+
+            //loop each window
+            foreach (var targetedWindow in targetWindows)
+            {
+                User32Functions.SetWindowState(targetedWindow, WindowState.SwShowNormal);
+
+                if (!int.TryParse(xPosition, out int xPos))
+                    throw new Exception("X Position Invalid - " + xPosition);
+
+                if (!int.TryParse(yPosition, out int yPos))
+                    throw new Exception("Y Position Invalid - " + yPosition);
+
+                User32Functions.SetWindowPosition(targetedWindow, xPos, yPos);
+            }
+        }
     }
 }

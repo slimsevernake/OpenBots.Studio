@@ -14,6 +14,7 @@
 //limitations under the License.
 
 using OpenBots.Commands;
+using OpenBots.Commands.Input;
 using OpenBots.Core.Command;
 using OpenBots.Core.Enums;
 using OpenBots.Core.Infrastructure;

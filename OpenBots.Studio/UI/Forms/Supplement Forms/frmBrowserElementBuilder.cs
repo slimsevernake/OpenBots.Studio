@@ -20,6 +20,7 @@ using System.Reflection;
 using System.Windows.Forms;
 using OpenBots.Commands;
 using OpenBots.Core.UI.Forms;
+using OpenBots.Core.User32;
 
 namespace OpenBots.UI.Forms.Supplement_Forms
 {
@@ -115,15 +116,9 @@ namespace OpenBots.UI.Forms.Supplement_Forms
                             return false;
                         };
 
-                        var activateWindow = new ActivateWindowCommand();
-                        activateWindow.v_WindowName = cboIEWindow.Text + " - Internet Explorer";
-                        activateWindow.RunCommand(null);
-
-                        var moveWindow = new MoveWindowCommand();
-                        moveWindow.v_WindowName = cboIEWindow.Text + " - Internet Explorer";
-                        moveWindow.v_XMousePosition = "0";
-                        moveWindow.v_YMousePosition = "0";
-                        moveWindow.RunCommand(null);
+                        var windowName = cboIEWindow.Text + " - Internet Explorer";
+                        User32Functions.ActivateWindow(windowName);
+                        User32Functions.MoveWindow(windowName, "0", "0");
 
                         MoveFormToBottomRight(this);
                         TopMost = true;

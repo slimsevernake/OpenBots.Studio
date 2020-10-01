@@ -1,4 +1,5 @@
 ﻿using OpenBots.Commands;
+using OpenBots.Commands.Switch;
 using OpenBots.Core.Enums;
 using OpenBots.Core.IO;
 using OpenBots.Core.Script;
