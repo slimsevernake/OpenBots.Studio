@@ -17,7 +17,7 @@ namespace OpenBots.Commands.Assets
     [Serializable]
     [Group("Asset Commands")]
     [Description("This command gets an Asset from OpenBots Server")]
-    public class GetAssetCommand : ScriptCommand
+    public class UpdateAssetCommand : ScriptCommand
     {
         [PropertyDescription("Asset Name")]
         [InputSpecification("Enter the name of the Asset")]
@@ -36,32 +36,33 @@ namespace OpenBots.Commands.Assets
         [Remarks("")]
         public string v_AssetType { get; set; }
 
-        [PropertyDescription("Output Directory Path")]
-        [InputSpecification("Enter or Select the directory path to store the file in.")]
-        [SampleUsage(@"C:\temp || {vDirectoryPath} || {ProjectPath}\temp")]
+        [PropertyDescription("Asset File Path")]
+        [InputSpecification("Enter or Select the path of the file to upload.")]
+        [SampleUsage(@"C:\temp\myfile.txt || {vFilePath} || {ProjectPath}\myfile.txt")]
         [Remarks("This input should only be used for File type Assets.")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowFolderSelectionHelper)]
-        public string v_OutputDirectoryPath { get; set; }
+        [PropertyUIHelper(UIAdditionalHelperType.ShowFileSelectionHelper)]
+        public string v_AssetFilePath { get; set; }
 
-        [PropertyDescription("Output Asset Value Variable")]
-        [InputSpecification("Create a new variable or select a variable from the list.")]
-        [SampleUsage("{vUserVariable}")]
-        [Remarks("Variables not pre-defined in the Variable Manager will be automatically generated at runtime.")]
-        public string v_OutputUserVariableName { get; set; }
-
-        [JsonIgnore]
-        [NonSerialized]
-        public List<Control> DownloadPathControls;
+        [PropertyDescription("Asset Value")]
+        [InputSpecification("Enter the value of the Asset")]
+        [SampleUsage("John || {vAssetValue}")]
+        [Remarks("")]
+        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
+        public string v_AssetValue { get; set; }
 
         [JsonIgnore]
         [NonSerialized]
-        public List<Control> OutputVariableControls;
+        public List<Control> UploadPathControls;
 
-        public GetAssetCommand()
+        [JsonIgnore]
+        [NonSerialized]
+        public List<Control> AssetValueControls;
+
+        public UpdateAssetCommand()
         {
-            CommandName = "GetAssetCommand";
-            SelectionName = "Get Asset";
+            CommandName = "UpdateAssetCommand";
+            SelectionName = "Update Asset";
             CommandEnabled = true;
             CustomRendering = true;
             v_AssetType = "Text";
@@ -71,7 +72,8 @@ namespace OpenBots.Commands.Assets
         {
             var engine = (AutomationEngineInstance)sender;
             var vAssetName = v_AssetName.ConvertUserVariableToString(engine);
-            var vOutputDirectoryPath = v_OutputDirectoryPath.ConvertUserVariableToString(engine);
+            var vAssetFilePath = v_AssetFilePath.ConvertUserVariableToString(engine);
+            var vAssetValue = v_AssetValue.ConvertUserVariableToString(engine);
 
             var client = new RestClient("https://openbotsserver-dev.azurewebsites.net/");
 
@@ -82,30 +84,24 @@ namespace OpenBots.Commands.Assets
             if (asset == null)
                 throw new Exception($"No Asset was found for '{vAssetName}' with type '{v_AssetType}'");
 
-            string assetValue;
             switch (v_AssetType)
             {
                 case "Text":
-                    assetValue = asset.TextValue;
+                    asset.TextValue = vAssetValue;
                     break;
                 case "Number":
-                    assetValue = asset.NumberValue.ToString();
+                    asset.NumberValue = double.Parse(vAssetValue);
                     break;
                 case "JSON":
-                    assetValue = asset.JsonValue;
+                    asset.JsonValue = vAssetValue;
                     break;
                 case "File":
-                    var binaryObjectID = asset.BinaryObjectID;
-                    BinaryObjectMethods.GetBinaryObject(client, binaryObjectID);
-                    assetValue = ""; //TODO Finish download for File Asset
-                    break;
-                default:
-                    assetValue = string.Empty;
+                    BinaryObjectMethods.UpdateBinaryObject(client, asset.BinaryObjectID, vAssetFilePath);
                     break;
             }
-            
+
             if (v_AssetType != "File")
-                assetValue.StoreInUserVariable(engine, v_OutputUserVariableName);
+                AssetMethods.PutAsset(client, asset);
         }
 
         public override List<Control> Render(IfrmCommandEditor editor, ICommandControls commandControls)
@@ -116,17 +112,17 @@ namespace OpenBots.Commands.Assets
             RenderedControls.AddRange(commandControls.CreateDefaultDropdownGroupFor("v_AssetType", this, editor));
             ((ComboBox)RenderedControls[4]).SelectedIndexChanged += AssetTypeComboBox_SelectedValueChanged;
 
-            DownloadPathControls = new List<Control>();
-            DownloadPathControls.AddRange(commandControls.CreateDefaultInputGroupFor("v_OutputDirectoryPath", this, editor));
-            foreach (var ctrl in DownloadPathControls)
+            UploadPathControls = new List<Control>();
+            UploadPathControls.AddRange(commandControls.CreateDefaultInputGroupFor("v_AssetFilePath", this, editor));
+            foreach (var ctrl in UploadPathControls)
                 ctrl.Visible = false;
-            RenderedControls.AddRange(DownloadPathControls);
+            RenderedControls.AddRange(UploadPathControls);
 
-            OutputVariableControls = new List<Control>();
-            OutputVariableControls.AddRange(commandControls.CreateDefaultInputGroupFor("v_OutputUserVariableName", this, editor));
-            foreach (var ctrl in OutputVariableControls)
+            AssetValueControls = new List<Control>();
+            AssetValueControls.AddRange(commandControls.CreateDefaultInputGroupFor("v_AssetValue", this, editor));
+            foreach (var ctrl in AssetValueControls)
                 ctrl.Visible = false;
-            RenderedControls.AddRange(OutputVariableControls);
+            RenderedControls.AddRange(AssetValueControls);
 
             return RenderedControls;
         }
@@ -134,20 +130,19 @@ namespace OpenBots.Commands.Assets
         public override string GetDisplayValue()
         {
             if (v_AssetType != "File")
-                return base.GetDisplayValue() + $" [Get Asset '{v_AssetName}' of Type '{v_AssetType}'- Store Asset Value in '{v_OutputUserVariableName}']";
+                return base.GetDisplayValue() + $" [Update Asset '{v_AssetName}' of Type '{v_AssetType}' With Value '{v_AssetValue}']";
             else
-                return base.GetDisplayValue() + $" [Get Asset '{v_AssetName}' of Type '{v_AssetType}'- Save File in Directory '{v_OutputDirectoryPath}']";
-
+                return base.GetDisplayValue() + $" [Update Asset '{v_AssetName}' of Type '{v_AssetType}' With File '{v_AssetFilePath}']";
         }
 
         private void AssetTypeComboBox_SelectedValueChanged(object sender, EventArgs e)
         {
             if (((ComboBox)RenderedControls[4]).Text == "File")
             {
-                foreach (var ctrl in DownloadPathControls)
+                foreach (var ctrl in UploadPathControls)
                     ctrl.Visible = true;
 
-                foreach (var ctrl in OutputVariableControls)
+                foreach (var ctrl in AssetValueControls)
                 {
                     ctrl.Visible = false;
                     if (ctrl is TextBox)
@@ -156,14 +151,14 @@ namespace OpenBots.Commands.Assets
             }
             else
             {
-                foreach (var ctrl in DownloadPathControls)
+                foreach (var ctrl in UploadPathControls)
                 {
                     ctrl.Visible = false;
                     if (ctrl is TextBox)
                         ((TextBox)ctrl).Clear();
                 }
 
-                foreach (var ctrl in OutputVariableControls)
+                foreach (var ctrl in AssetValueControls)
                     ctrl.Visible = true;
             }
         }

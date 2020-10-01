@@ -1,7 +1,5 @@
 ﻿using OpenBots.Server.Model.Core;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace OpenBots.Server.Model
 {
@@ -42,7 +40,5 @@ namespace OpenBots.Server.Model
         /// Hash Code
         /// </summary>
         public virtual string HashCode { get; set; }
-
-
     }
 }

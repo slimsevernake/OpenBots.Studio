@@ -6,6 +6,7 @@ namespace OpenBots.Server.Model.Core
     {
         public NamedEntity() : base()
         {
+
         }
 
         [MaxLength(100,ErrorMessage ="Name must be 100 characters or less.")]

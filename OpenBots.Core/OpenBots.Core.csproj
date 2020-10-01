@@ -147,6 +147,11 @@
     <Compile Include="Script\ScriptElement.cs" />
     <Compile Include="Script\ScriptObject.cs" />
     <Compile Include="Script\ScriptVariable.cs" />
+    <Compile Include="Server\API Methods\AssetMethods.cs" />
+    <Compile Include="Server\API Methods\AuthMethods.cs" />
+    <Compile Include="Server\API Methods\BinaryObjectMethods.cs" />
+    <Compile Include="Server\API Methods\CredentialMethods.cs" />
+    <Compile Include="Server\API Methods\JobMethods.cs" />
     <Compile Include="Server\Interfaces\IEntity.cs" />
     <Compile Include="Server\Interfaces\INamedEntity.cs" />
     <Compile Include="Server\Interfaces\INameIDPair.cs" />
