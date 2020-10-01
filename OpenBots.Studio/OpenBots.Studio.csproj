@@ -223,24 +223,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Commands\Engine Commands\ErrorHandlingCommand.cs" />
-    <Compile Include="Commands\Engine Commands\LogMessageCommand.cs" />
-    <Compile Include="Commands\Engine Commands\PauseScriptCommand.cs" />
-    <Compile Include="Commands\Engine Commands\SetEngineDelayCommand.cs" />
-    <Compile Include="Commands\Engine Commands\SetEnginePreferenceCommand.cs" />
-    <Compile Include="Commands\Engine Commands\ShowEngineContextCommand.cs" />
-    <Compile Include="Commands\Engine Commands\StopwatchCommand.cs" />
     <Compile Include="Commands\Image Commands\CaptureImageCommand.cs" />
     <Compile Include="Commands\Image Commands\SurfaceAutomationCommand.cs" />
-    <Compile Include="Commands\Input Commands\InputCommand.cs" />
     <Compile Include="Commands\Error Handling Commands\BeginRetryCommand.cs" />
     <Compile Include="Commands\Error Handling Commands\EndRetryCommand.cs" />
     <Compile Include="Commands\Error Handling Commands\RethrowCommand.cs" />
     <Compile Include="Commands\Misc Commands\ShowMessageCommand.cs" />
     <Compile Include="Commands\Misc Commands\UIAutomationCommand.cs" />
-    <Compile Include="Commands\Switch Commands\BeginSwitchCommand.cs" />
-    <Compile Include="Commands\Switch Commands\CaseCommand.cs" />
-    <Compile Include="Commands\Switch Commands\EndSwitchCommand.cs" />
     <Compile Include="Commands\Task Commands\RunTaskCommand.cs" />
     <Compile Include="Commands\Task Commands\StopCurrentTaskCommand.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
@@ -272,7 +261,6 @@
     <Compile Include="Utilities\Documentation\DocumentationGeneration.cs" />
     <Compile Include="Utilities\GlobalHook.cs" />
     <Compile Include="Utilities\ManifestUpdate.cs" />
-    <Compile Include="Commands\API Commands\ExecuteRESTAPICommand.cs" />
     <Compile Include="Commands\Web Browser Commands\QueryHTMLSourceCommand.cs" />
     <Compile Include="Commands\Web Browser Commands\GetHTMLSourceCommand.cs" />
     <Compile Include="Commands\Error Handling Commands\CatchCommand.cs" />
@@ -287,12 +275,6 @@
     <Compile Include="Commands\If Commands\EndIfCommand.cs" />
     <Compile Include="Commands\Image Commands\PerformOCRCommand.cs" />
     <Compile Include="Commands\Image Commands\TakeScreenshotCommand.cs" />
-    <Compile Include="Commands\Input Commands\HTMLInputCommand.cs" />
-    <Compile Include="Commands\Input Commands\SendAdvancedKeystrokesCommand.cs" />
-    <Compile Include="Commands\Input Commands\SendKeystrokesCommand.cs" />
-    <Compile Include="Commands\Input Commands\SendMouseClickCommand.cs" />
-    <Compile Include="Commands\Input Commands\SendMouseMoveCommand.cs" />
-    <Compile Include="Commands\Input Commands\UIAutomationCommand.cs" />
     <Compile Include="Commands\Loop Commands\BeginLoopCommand.cs" />
     <Compile Include="Commands\Loop Commands\BeginMultiLoopCommand.cs" />
     <Compile Include="Commands\Loop Commands\EndLoopCommand.cs" />
@@ -306,7 +288,6 @@
     <Compile Include="Commands\Misc Commands\GetClipboardTextCommand.cs" />
     <Compile Include="Commands\Misc Commands\SequenceCommand.cs" />
     <Compile Include="Commands\Misc Commands\SetClipboardTextCommand.cs" />
-    <Compile Include="Commands\API Commands\ExecuteDLLCommand.cs" />
     <Compile Include="Commands\Web Browser Commands\SeleniumCloseBrowserCommand.cs" />
     <Compile Include="Commands\Web Browser Commands\SeleniumCreateBrowserCommand.cs" />
     <Compile Include="Commands\Web Browser Commands\SeleniumElementActionCommand.cs" />
@@ -318,12 +299,6 @@
     <Compile Include="Commands\Web Browser Commands\SeleniumRefreshCommand.cs" />
     <Compile Include="Commands\Web Browser Commands\SeleniumSwitchBrowserFrameCommand.cs" />
     <Compile Include="Commands\Web Browser Commands\SeleniumSwitchBrowserWindowCommand.cs" />
-    <Compile Include="Commands\Window Commands\ActivateWindowCommand.cs" />
-    <Compile Include="Commands\Window Commands\CloseWindowCommand.cs" />
-    <Compile Include="Commands\Window Commands\MoveWindowCommand.cs" />
-    <Compile Include="Commands\Window Commands\ResizeWindowCommand.cs" />
-    <Compile Include="Commands\Window Commands\SetWindowStateCommand.cs" />
-    <Compile Include="Commands\Window Commands\WaitForWindowToExistCommand.cs" />
     <Compile Include="Utilities\Project.cs" />
     <Compile Include="UI\CustomControls\AutomationCommand.cs" />
     <Compile Include="UI\CustomControls\CommandGroupControl.cs">
