@@ -55,6 +55,14 @@ namespace OpenBots.Commands
         private DataGridView _assignmentsGridViewHelper;
 
         [JsonIgnore]
+        [NonSerialized]
+        private List<ScriptVariable> _variableList;
+
+        [JsonIgnore]
+        [NonSerialized]
+        private List<ScriptVariable> _variableReturnList;
+
+        [JsonIgnore]
         public frmScriptEngine NewEngine { get; set; }
 
         public RunTaskCommand()
@@ -84,6 +92,12 @@ namespace OpenBots.Commands
         public override void RunCommand(object sender)
         {
             AutomationEngineInstance currentScriptEngine = (AutomationEngineInstance)sender;
+            if(currentScriptEngine.ScriptEngineUI == null)
+            {
+                RunServerTask(sender);
+                return;
+            }
+
             var childTaskPath = v_taskPath.ConvertUserVariableToString(currentScriptEngine);
 
             frmScriptEngine parentEngine = (frmScriptEngine)currentScriptEngine.ScriptEngineUI;
@@ -91,41 +105,11 @@ namespace OpenBots.Commands
             int parentDebugLine = currentScriptEngine.ScriptEngineUI.DebugLineNumber;
 
             //create variable list
-            var variableList = new List<ScriptVariable>();
-            var variableReturnList = new List<ScriptVariable>();
-
-            foreach (DataRow rw in v_VariableAssignments.Rows)
-            {
-                var variableName = (string)rw.ItemArray[0];
-                object variableValue = null;
-
-                if (((string)rw.ItemArray[1]).StartsWith("{") && ((string)rw.ItemArray[1]).EndsWith("}"))
-                    variableValue = ((string)rw.ItemArray[1]).ConvertUserVariableToObject(currentScriptEngine);
-
-                if (variableValue is string || variableValue == null)
-                    variableValue = ((string)rw.ItemArray[1]).ConvertUserVariableToString(currentScriptEngine);
-
-                var variableReturn = (string)rw.ItemArray[2];
-
-                variableList.Add(new ScriptVariable
-                {
-                    VariableName = variableName.Replace("{", "").Replace("}", ""),
-                    VariableValue = variableValue
-                });
-
-                if (variableReturn == "Yes")
-                {
-                    variableReturnList.Add(new ScriptVariable
-                    {
-                        VariableName = variableName.Replace("{", "").Replace("}", ""),
-                        VariableValue = variableValue
-                    });
-                }
-            }
+            InitializeVariableLists(currentScriptEngine);
 
             string projectPath = parentEngine.ProjectPath;
             NewEngine = new frmScriptEngine(childTaskPath, projectPath, (frmScriptBuilder)CurrentScriptBuilder, ((frmScriptBuilder)CurrentScriptBuilder).EngineLogger,
-                variableList, null, currentScriptEngine.AppInstances, false, parentEngine.IsDebugMode);
+                _variableList, null, currentScriptEngine.AppInstances, false, parentEngine.IsDebugMode);
     
             NewEngine.IsChildEngine = true;
             NewEngine.IsHiddenTaskEngine = true;
@@ -147,42 +131,10 @@ namespace OpenBots.Commands
             {
                 currentScriptEngine.ScriptEngineUI.ClosingAllEngines = true;
                 currentScriptEngine.ScriptEngineUI.CloseWhenDone = true;
-            }               
-
-            //get new variable list from the new task engine after it finishes running
-            var newVariableList = NewEngine.EngineInstance.VariableList;
-            foreach (var variable in variableReturnList)
-            {
-                //check if the variables we wish to return are in the new variable list
-                if (newVariableList.Exists(x => x.VariableName == variable.VariableName))
-                {
-                    //if yes, get that variable from the new list
-                    ScriptVariable newTemp = newVariableList.Where(x => x.VariableName == variable.VariableName).FirstOrDefault();
-                    //check if that variable previously existed in the current engine
-                    if (currentScriptEngine.VariableList.Exists(x => x.VariableName == newTemp.VariableName))
-                    {
-                        //if yes, overwrite it
-                        ScriptVariable currentTemp = currentScriptEngine.VariableList.Where(x => x.VariableName == newTemp.VariableName).FirstOrDefault();
-                        currentScriptEngine.VariableList.Remove(currentTemp);
-                    }
-                    //Add to current engine variable list
-                    currentScriptEngine.VariableList.Add(newTemp);
-                }
             }
 
-            //get updated app instance dictionary after the new engine finishes running
-            currentScriptEngine.AppInstances = NewEngine.EngineInstance.AppInstances;
-
-            //get errors from new engine (if any)
-            var newEngineErrors = NewEngine.EngineInstance.ErrorsOccured;
-            if (newEngineErrors.Count > 0)
-            {
-                currentScriptEngine.ChildScriptFailed = true;
-                foreach (var error in newEngineErrors)
-                {
-                    currentScriptEngine.ErrorsOccured.Add(error);
-                }
-            }
+            // Update Current Engine Context Post Run Task
+            UpdateCurrentEngineContext(currentScriptEngine, NewEngine.EngineInstance);
 
             ((frmScriptBuilder)CurrentScriptBuilder).EngineLogger.Information("Resuming Parent Task: " + Path.GetFileName(parentTaskPath));
             if (parentEngine.IsDebugMode)
@@ -310,5 +262,99 @@ namespace OpenBots.Commands
                 v_VariableAssignments.Clear();
             }
         }       
+
+        private void RunServerTask(object sender)
+        {
+            AutomationEngineInstance currentScriptEngine = (AutomationEngineInstance)sender;
+            var childTaskPath = v_taskPath.ConvertUserVariableToString(currentScriptEngine);
+
+            string parentTaskPath = currentScriptEngine.FileName;
+
+            //create variable list
+            InitializeVariableLists(currentScriptEngine);
+
+            var newEngine = new AutomationEngineInstance(currentScriptEngine.EngineLogger);
+            newEngine.VariableList = _variableList;
+            newEngine.AppInstances = currentScriptEngine.AppInstances;
+            currentScriptEngine.EngineLogger.Information("Executing Child Task: " + Path.GetFileName(childTaskPath));
+            newEngine.ExecuteScriptAsync(childTaskPath, currentScriptEngine.GetProjectPath());
+
+            UpdateCurrentEngineContext(currentScriptEngine, newEngine);
+
+            currentScriptEngine.EngineLogger.Information("Resuming Parent Task: " + Path.GetFileName(parentTaskPath));
+        }
+
+        private void InitializeVariableLists(IEngine engine)
+        {
+            _variableList = new List<ScriptVariable>();
+            _variableReturnList = new List<ScriptVariable>();
+
+            foreach (DataRow rw in v_VariableAssignments.Rows)
+            {
+                var variableName = (string)rw.ItemArray[0];
+                object variableValue = null;
+
+                if (((string)rw.ItemArray[1]).StartsWith("{") && ((string)rw.ItemArray[1]).EndsWith("}"))
+                    variableValue = ((string)rw.ItemArray[1]).ConvertUserVariableToObject(engine);
+
+                if (variableValue is string || variableValue == null)
+                    variableValue = ((string)rw.ItemArray[1]).ConvertUserVariableToString(engine);
+
+                var variableReturn = (string)rw.ItemArray[2];
+
+                _variableList.Add(new ScriptVariable
+                {
+                    VariableName = variableName.Replace("{", "").Replace("}", ""),
+                    VariableValue = variableValue
+                });
+
+                if (variableReturn == "Yes")
+                {
+                    _variableReturnList.Add(new ScriptVariable
+                    {
+                        VariableName = variableName.Replace("{", "").Replace("}", ""),
+                        VariableValue = variableValue
+                    });
+                }
+            }
+        }
+
+        private void UpdateCurrentEngineContext(IEngine currentScriptEngine, IEngine newEngine)
+        {
+            //get new variable list from the new task engine after it finishes running
+            var newVariableList = newEngine.VariableList;
+            foreach (var variable in _variableReturnList)
+            {
+                //check if the variables we wish to return are in the new variable list
+                if (newVariableList.Exists(x => x.VariableName == variable.VariableName))
+                {
+                    //if yes, get that variable from the new list
+                    ScriptVariable newTemp = newVariableList.Where(x => x.VariableName == variable.VariableName).FirstOrDefault();
+                    //check if that variable previously existed in the current engine
+                    if (currentScriptEngine.VariableList.Exists(x => x.VariableName == newTemp.VariableName))
+                    {
+                        //if yes, overwrite it
+                        ScriptVariable currentTemp = currentScriptEngine.VariableList.Where(x => x.VariableName == newTemp.VariableName).FirstOrDefault();
+                        currentScriptEngine.VariableList.Remove(currentTemp);
+                    }
+                    //Add to current engine variable list
+                    currentScriptEngine.VariableList.Add(newTemp);
+                }
+            }
+
+            //get updated app instance dictionary after the new engine finishes running
+            currentScriptEngine.AppInstances = newEngine.AppInstances;
+
+            //get errors from new engine (if any)
+            var newEngineErrors = newEngine.ErrorsOccured;
+            if (newEngineErrors.Count > 0)
+            {
+                currentScriptEngine.ChildScriptFailed = true;
+                foreach (var error in newEngineErrors)
+                {
+                    currentScriptEngine.ErrorsOccured.Add(error);
+                }
+            }
+        }
     }
 }
