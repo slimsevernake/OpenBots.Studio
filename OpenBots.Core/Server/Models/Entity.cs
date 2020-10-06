@@ -1,8 +1,9 @@
-﻿using System;
+﻿using OpenBots.Core.Server.Interfaces;
+using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
-namespace OpenBots.Server.Model.Core
+namespace OpenBots.Core.Server.Models
 {
     public abstract class Entity : IEntity
     {

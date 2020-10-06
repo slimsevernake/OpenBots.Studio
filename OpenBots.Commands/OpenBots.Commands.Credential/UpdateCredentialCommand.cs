@@ -15,25 +15,25 @@ namespace OpenBots.Commands.Credential
 {
     [Serializable]
     [Group("Credential Commands")]
-    [Description("This command gets an Credential from OpenBots Server")]
+    [Description("This command updates a Credential in OpenBots Server.")]
     public class UpdateCredentialCommand : ScriptCommand
     {
         [PropertyDescription("Credential Name")]
-        [InputSpecification("Enter the name of the Credential")]
+        [InputSpecification("Enter the name of the Credential.")]
         [SampleUsage("Name || {vCredentialName}")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_CredentialName { get; set; }
 
         [PropertyDescription("Credential Username")]
-        [InputSpecification("Enter the Credential username")]
+        [InputSpecification("Enter the Credential username.")]
         [SampleUsage("john@openbots.com || {vCredentialUsername}")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_CredentialUsername { get; set; }
 
         [PropertyDescription("Credential Password")]
-        [InputSpecification("Enter the Credential password")]
+        [InputSpecification("Enter the Credential password.")]
         [SampleUsage("john@openbots.com || {vCredentialPassword}")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
@@ -54,10 +54,7 @@ namespace OpenBots.Commands.Credential
             var vCredentialUsername = v_CredentialUsername.ConvertUserVariableToString(engine);
             var vCredentialPassword = v_CredentialPassword.ConvertUserVariableToString(engine);
 
-            var client = new RestClient("https://openbotsserver-dev.azurewebsites.net/");
-
-            AuthMethods.GetAuthToken(client, "admin@admin.com", "Hello321");
-
+            var client = AuthMethods.GetAuthToken();
             var credential = CredentialMethods.GetCredential(client, $"name eq '{vCredentialName}'");
 
             if (credential == null)
@@ -65,7 +62,6 @@ namespace OpenBots.Commands.Credential
 
             credential.UserName = vCredentialUsername;
             credential.PasswordSecret = vCredentialPassword;
-            //TODO update PasswordHash as well. API isn't doing it.
             
             CredentialMethods.PutCredential(client, credential);
         }
@@ -83,7 +79,7 @@ namespace OpenBots.Commands.Credential
 
         public override string GetDisplayValue()
         {
-            return base.GetDisplayValue() + $" [Update Credential '{v_CredentialName}']";
+            return base.GetDisplayValue() + $" ['{v_CredentialName}']";
         }       
     }
 }

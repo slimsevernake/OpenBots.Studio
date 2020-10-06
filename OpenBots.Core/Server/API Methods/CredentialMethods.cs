@@ -1,9 +1,10 @@
 ﻿using Newtonsoft.Json;
-using OpenBots.Server.Model;
+using OpenBots.Core.Server.Models;
 using RestSharp;
 using RestSharp.Serialization.Json;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 
 namespace OpenBots.Core.Server.API_Methods
 {
@@ -16,6 +17,10 @@ namespace OpenBots.Core.Server.API_Methods
             request.RequestFormat = DataFormat.Json;
 
             var response = client.Execute(request);
+
+            if (!response.IsSuccessful)
+                throw new HttpRequestException($"{response.StatusCode} - {response.ErrorMessage}");
+
             var deserializer = new JsonDeserializer();
             var output = deserializer.Deserialize<Dictionary<string, string>>(response);
             var items = output["items"];
@@ -29,7 +34,10 @@ namespace OpenBots.Core.Server.API_Methods
             request.RequestFormat = DataFormat.Json;
             request.AddJsonBody(credential);
 
-            client.Execute(request);
+            var response = client.Execute(request);
+
+            if (!response.IsSuccessful)
+                throw new HttpRequestException($"{response.StatusCode} - {response.ErrorMessage}");
         }
     }
 }

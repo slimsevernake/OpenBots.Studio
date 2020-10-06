@@ -1,10 +1,7 @@
-﻿using OpenBots.Server.Model.Core;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.ComponentModel.DataAnnotations;
-using System.Text;
 
-namespace OpenBots.Server.Model
+namespace OpenBots.Core.Server.Models
 {
     public class Credential : NamedEntity
     {

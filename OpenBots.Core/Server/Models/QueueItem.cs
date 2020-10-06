@@ -1,7 +1,6 @@
-﻿using OpenBots.Server.Model.Core;
-using System;
+﻿using System;
 
-namespace OpenBots.Server.Model
+namespace OpenBots.Core.Server.Models
 {
     /// <summary>
     /// QueueItem Model
@@ -31,7 +30,7 @@ namespace OpenBots.Server.Model
 		/// <summary>
 		/// Which Queue the QueueItem belongs to
 		/// </summary>
-		public Guid QueueId { get; set; }
+		public Guid? QueueId { get; set; }
 
 		/// <summary>
 		/// Format of Data

@@ -5,9 +5,9 @@ using OpenBots.Core.Command;
 using OpenBots.Core.Enums;
 using OpenBots.Core.Infrastructure;
 using OpenBots.Core.Server.API_Methods;
+using OpenBots.Core.Server.Models;
 using OpenBots.Core.Utilities.CommonUtilities;
 using OpenBots.Engine;
-using RestSharp;
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
@@ -16,11 +16,11 @@ namespace OpenBots.Commands.Asset
 {
     [Serializable]
     [Group("Asset Commands")]
-    [Description("This command gets an Asset from OpenBots Server")]
+    [Description("This command gets an Asset from OpenBots Server.")]
     public class GetAssetCommand : ScriptCommand
     {
         [PropertyDescription("Asset Name")]
-        [InputSpecification("Enter the name of the Asset")]
+        [InputSpecification("Enter the name of the Asset.")]
         [SampleUsage("Name || {vAssetName}")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
@@ -30,8 +30,8 @@ namespace OpenBots.Commands.Asset
         [PropertyUISelectionOption("Text")]
         [PropertyUISelectionOption("Number")]
         [PropertyUISelectionOption("JSON")]
-        //[PropertyUISelectionOption("File")]
-        [InputSpecification("Specify the type of the Asset")]
+        [PropertyUISelectionOption("File")]
+        [InputSpecification("Specify the type of the Asset.")]
         [SampleUsage("")]
         [Remarks("")]
         public string v_AssetType { get; set; }
@@ -73,16 +73,13 @@ namespace OpenBots.Commands.Asset
             var vAssetName = v_AssetName.ConvertUserVariableToString(engine);
             var vOutputDirectoryPath = v_OutputDirectoryPath.ConvertUserVariableToString(engine);
 
-            var client = new RestClient("https://openbotsserver-dev.azurewebsites.net/");
-
-            AuthMethods.GetAuthToken(client, "admin@admin.com", "Hello321");
-
+            var client = AuthMethods.GetAuthToken();
             var asset = AssetMethods.GetAsset(client, $"name eq '{vAssetName}' and type eq '{v_AssetType}'");
 
             if (asset == null)
                 throw new Exception($"No Asset was found for '{vAssetName}' with type '{v_AssetType}'");
 
-            string assetValue;
+            string assetValue = string.Empty;
             switch (v_AssetType)
             {
                 case "Text":
@@ -96,8 +93,9 @@ namespace OpenBots.Commands.Asset
                     break;
                 case "File":
                     var binaryObjectID = asset.BinaryObjectID;
-                    BinaryObjectMethods.GetBinaryObject(client, binaryObjectID);
-                    assetValue = ""; //TODO Finish download for File Asset
+                    BinaryObject binaryObject = BinaryObjectMethods.GetBinaryObject(client, binaryObjectID);
+                    //BinaryObjectMethods.DownloadBinaryObject(client, binaryObjectID, vOutputDirectoryPath, binaryObject.Name); //TODO Finish download for File Asset        
+                    AssetMethods.DownloadFileAsset(client, asset.Id, vOutputDirectoryPath, binaryObject.Name);
                     break;
                 default:
                     assetValue = string.Empty;
@@ -134,9 +132,9 @@ namespace OpenBots.Commands.Asset
         public override string GetDisplayValue()
         {
             if (v_AssetType != "File")
-                return base.GetDisplayValue() + $" [Get Asset '{v_AssetName}' of Type '{v_AssetType}'- Store Asset Value in '{v_OutputUserVariableName}']";
+                return base.GetDisplayValue() + $" ['{v_AssetName}' of Type '{v_AssetType}'- Store Asset Value in '{v_OutputUserVariableName}']";
             else
-                return base.GetDisplayValue() + $" [Get Asset '{v_AssetName}' of Type '{v_AssetType}'- Save File in Directory '{v_OutputDirectoryPath}']";
+                return base.GetDisplayValue() + $" ['{v_AssetName}' of Type '{v_AssetType}'- Save File in Directory '{v_OutputDirectoryPath}']";
 
         }
 

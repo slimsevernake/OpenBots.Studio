@@ -1,4 +1,5 @@
 ﻿using RestSharp;
+using System.Net.Http;
 
 namespace OpenBots.Core.Server.API_Methods
 {
@@ -12,6 +13,9 @@ namespace OpenBots.Core.Server.API_Methods
             //TODO after endpoint is created
 
             var response = client.Execute(request);
+
+            if (!response.IsSuccessful)
+                throw new HttpRequestException($"{response.StatusCode} - {response.ErrorMessage}");
         }
     }
 }

@@ -1,7 +1,6 @@
-﻿using OpenBots.Server.Model.Core;
-using System;
+﻿using System;
 
-namespace OpenBots.Server.Model
+namespace OpenBots.Core.Server.Models
 {
     /// <summary>
     /// Binary Object data model

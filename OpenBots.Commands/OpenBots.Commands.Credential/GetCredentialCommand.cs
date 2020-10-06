@@ -6,7 +6,6 @@ using OpenBots.Core.Infrastructure;
 using OpenBots.Core.Server.API_Methods;
 using OpenBots.Core.Utilities.CommonUtilities;
 using OpenBots.Engine;
-using RestSharp;
 using System;
 using System.Collections.Generic;
 using System.Security;
@@ -16,11 +15,11 @@ namespace OpenBots.Commands.Credential
 {
     [Serializable]
     [Group("Credential Commands")]
-    [Description("This command gets an Credential from OpenBots Server")]
+    [Description("This command gets a Credential from OpenBots Server.")]
     public class GetCredentialCommand : ScriptCommand
     {
         [PropertyDescription("Credential Name")]
-        [InputSpecification("Enter the name of the Credential")]
+        [InputSpecification("Enter the name of the Credential.")]
         [SampleUsage("Name || {vCredentialName}")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
@@ -51,10 +50,7 @@ namespace OpenBots.Commands.Credential
             var engine = (AutomationEngineInstance)sender;
             var vCredentialName = v_CredentialName.ConvertUserVariableToString(engine);
 
-            var client = new RestClient("https://openbotsserver-dev.azurewebsites.net/");
-
-            AuthMethods.GetAuthToken(client, "admin@admin.com", "Hello321");
-
+            var client = AuthMethods.GetAuthToken();
             var credential = CredentialMethods.GetCredential(client, $"name eq '{vCredentialName}'");
 
             if (credential == null)
@@ -80,7 +76,7 @@ namespace OpenBots.Commands.Credential
 
         public override string GetDisplayValue()
         {
-              return base.GetDisplayValue() + $" [Get Credential '{v_CredentialName}' - Store Username in '{v_OutputUserVariableName}' and Password in '{v_OutputUserVariableName2}']";
+              return base.GetDisplayValue() + $" ['{v_CredentialName}' - Store Username in '{v_OutputUserVariableName}' and Password in '{v_OutputUserVariableName2}']";
         }       
     }
 }

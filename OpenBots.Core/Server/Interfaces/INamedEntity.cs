@@ -1,4 +1,4 @@
-﻿namespace OpenBots.Server.Model.Core
+﻿namespace OpenBots.Core.Server.Interfaces
 {
     public interface INamedEntity : IEntity, INameIDPair
     {

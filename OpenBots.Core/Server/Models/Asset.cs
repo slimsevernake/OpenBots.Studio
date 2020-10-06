@@ -1,8 +1,7 @@
-﻿using OpenBots.Server.Model.Core;
-using System;
+﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace OpenBots.Server.Model
+namespace OpenBots.Core.Server.Models
 {
     public class Asset : NamedEntity
     {

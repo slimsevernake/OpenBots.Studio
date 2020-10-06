@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace OpenBots.Server.Model.Core
+namespace OpenBots.Core.Server.Interfaces
 {
     public interface IEntity
     {

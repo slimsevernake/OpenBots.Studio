@@ -7,7 +7,6 @@ using OpenBots.Core.Infrastructure;
 using OpenBots.Core.Server.API_Methods;
 using OpenBots.Core.Utilities.CommonUtilities;
 using OpenBots.Engine;
-using RestSharp;
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
@@ -16,11 +15,11 @@ namespace OpenBots.Commands.Asset
 {
     [Serializable]
     [Group("Asset Commands")]
-    [Description("This command gets an Asset from OpenBots Server")]
+    [Description("This command updates an Asset in OpenBots Server.")]
     public class UpdateAssetCommand : ScriptCommand
     {
         [PropertyDescription("Asset Name")]
-        [InputSpecification("Enter the name of the Asset")]
+        [InputSpecification("Enter the name of the Asset.")]
         [SampleUsage("Name || {vAssetName}")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
@@ -30,8 +29,8 @@ namespace OpenBots.Commands.Asset
         [PropertyUISelectionOption("Text")]
         [PropertyUISelectionOption("Number")]
         [PropertyUISelectionOption("JSON")]
-        //[PropertyUISelectionOption("File")]
-        [InputSpecification("Specify the type of the Asset")]
+        [PropertyUISelectionOption("File")]
+        [InputSpecification("Specify the type of the Asset.")]
         [SampleUsage("")]
         [Remarks("")]
         public string v_AssetType { get; set; }
@@ -45,7 +44,7 @@ namespace OpenBots.Commands.Asset
         public string v_AssetFilePath { get; set; }
 
         [PropertyDescription("Asset Value")]
-        [InputSpecification("Enter the value of the Asset")]
+        [InputSpecification("Enter the new value of the Asset.")]
         [SampleUsage("John || {vAssetValue}")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
@@ -75,10 +74,7 @@ namespace OpenBots.Commands.Asset
             var vAssetFilePath = v_AssetFilePath.ConvertUserVariableToString(engine);
             var vAssetValue = v_AssetValue.ConvertUserVariableToString(engine);
 
-            var client = new RestClient("https://openbotsserver-dev.azurewebsites.net/");
-
-            AuthMethods.GetAuthToken(client, "admin@admin.com", "Hello321");
-
+            var client = AuthMethods.GetAuthToken();
             var asset = AssetMethods.GetAsset(client, $"name eq '{vAssetName}' and type eq '{v_AssetType}'");
 
             if (asset == null)
@@ -96,7 +92,8 @@ namespace OpenBots.Commands.Asset
                     asset.JsonValue = vAssetValue;
                     break;
                 case "File":
-                    BinaryObjectMethods.UpdateBinaryObject(client, asset.BinaryObjectID, vAssetFilePath);
+                    AssetMethods.UpdateFileAsset(client, asset, vAssetFilePath);
+                    //BinaryObjectMethods.UpdateBinaryObject(client, asset.BinaryObjectID, vAssetFilePath);
                     break;
             }
 
@@ -130,9 +127,9 @@ namespace OpenBots.Commands.Asset
         public override string GetDisplayValue()
         {
             if (v_AssetType != "File")
-                return base.GetDisplayValue() + $" [Update Asset '{v_AssetName}' of Type '{v_AssetType}' With Value '{v_AssetValue}']";
+                return base.GetDisplayValue() + $" ['{v_AssetName}' of Type '{v_AssetType}' With Value '{v_AssetValue}']";
             else
-                return base.GetDisplayValue() + $" [Update Asset '{v_AssetName}' of Type '{v_AssetType}' With File '{v_AssetFilePath}']";
+                return base.GetDisplayValue() + $" ['{v_AssetName}' of Type '{v_AssetType}' With File '{v_AssetFilePath}']";
         }
 
         private void AssetTypeComboBox_SelectedValueChanged(object sender, EventArgs e)
