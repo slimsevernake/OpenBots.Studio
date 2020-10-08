@@ -15,6 +15,7 @@ using OpenBots.Core.Command;
 using OpenBots.Core.Common;
 using OpenBots.Core.Enums;
 using OpenBots.Core.Infrastructure;
+using OpenBots.Core.User32;
 using OpenBots.Core.Utilities.CommandUtilities;
 using OpenBots.Core.Utilities.CommonUtilities;
 using OpenBots.Engine;
@@ -189,17 +190,12 @@ namespace OpenBots.Commands
                                                        where rw.Field<string>("Parameter Name") == "Y Adjustment"
                                                        select rw.Field<string>("Parameter Value")).FirstOrDefault().ConvertUserVariableToString(engine));
 
-                        Point clickPositionPoint = GetClickPosition(clickPosition, element); 
+                        Point clickPositionPoint = GetClickPosition(clickPosition, element);
 
                         //move mouse to position
-                        var mouseMove = new SendMouseMoveCommand
-                        {
-                            v_XMousePosition = (clickPositionPoint.X + xAdjust).ToString(),
-                            v_YMousePosition = (clickPositionPoint.Y + yAdjust).ToString(),
-                            v_MouseClick = clickType
-                        };
-
-                        mouseMove.RunCommand(sender);
+                        var mouseX = (clickPositionPoint.X + xAdjust).ToString();
+                        var mouseY = (clickPositionPoint.Y + yAdjust).ToString();
+                        User32Functions.SendMouseMove(mouseX, mouseY, clickType);
                         break;
 
                     case "Set Text":
@@ -225,13 +221,9 @@ namespace OpenBots.Commands
                         Point setTextPositionPoint = GetClickPosition(clickPosition, element);
 
                         //move mouse to position and set text
-                        var setTextMouseMove = new SendMouseMoveCommand
-                        {
-                            v_XMousePosition = (setTextPositionPoint.X + xAdjust).ToString(),
-                            v_YMousePosition = (setTextPositionPoint.Y + yAdjust).ToString(),
-                            v_MouseClick = "Left Click"
-                        };
-                        setTextMouseMove.RunCommand(sender);
+                        var xPos = (setTextPositionPoint.X + xAdjust).ToString();
+                        var yPos = (setTextPositionPoint.Y + yAdjust).ToString();
+                        User32Functions.SendMouseMove(xPos, yPos, "Left Click");
 
                         var simulator = new InputSimulator();
                         simulator.Keyboard.TextEntry(textToSet);
@@ -262,13 +254,9 @@ namespace OpenBots.Commands
                         Point setSecureTextPositionPoint = GetClickPosition(clickPosition, element);
 
                         //move mouse to position and set text
-                        var setSecureTextMouseMove = new SendMouseMoveCommand
-                        {
-                            v_XMousePosition = (setSecureTextPositionPoint.X + xAdjust).ToString(),
-                            v_YMousePosition = (setSecureTextPositionPoint.Y + yAdjust).ToString(),
-                            v_MouseClick = "Left Click"
-                        };
-                        setSecureTextMouseMove.RunCommand(sender);
+                        var xPosition = (setSecureTextPositionPoint.X + xAdjust).ToString();
+                        var yPosition = (setSecureTextPositionPoint.Y + yAdjust).ToString();
+                        User32Functions.SendMouseMove(xPosition, yPosition, "Left Click");
 
                         var simulator2 = new InputSimulator();
                         simulator2.Keyboard.TextEntry(secureString);

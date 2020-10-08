@@ -274,7 +274,6 @@ namespace OpenBots.Commands.System.Forms
             // 
             this.AutoScaleDimensions = new GSystem.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = GSystem.Windows.Forms.AutoScaleMode.Font;
-            this.BackgroundChangeIndex = 3;
             this.ClientSize = new GSystem.Drawing.Size(1017, 654);
             this.Controls.Add(this.tlpDisplayManager);
             this.Icon = OpenBots.Core.Properties.Resources.OpenBots_ico;

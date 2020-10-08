@@ -1,11 +1,12 @@
-﻿using System;
+﻿using OpenBots.Core.UI.Forms;
+using System;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
 namespace OpenBots.UI.Forms.Supplement_Forms
 {
     [ComVisible(true)]
-    public partial class frmHTMLBuilder : Form
+    public partial class frmHTMLBuilder : UIForm
     {
         public frmHTMLBuilder()
         {

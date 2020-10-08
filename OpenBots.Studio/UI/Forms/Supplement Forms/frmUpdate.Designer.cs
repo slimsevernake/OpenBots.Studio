@@ -132,7 +132,6 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.SteelBlue;
-            this.BackgroundChangeIndex = 175;
             this.ClientSize = new System.Drawing.Size(527, 288);
             this.Controls.Add(this.lblText);
             this.Controls.Add(this.uiBtnOk);

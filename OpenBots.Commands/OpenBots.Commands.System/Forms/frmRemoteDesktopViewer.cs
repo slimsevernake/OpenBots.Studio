@@ -2,10 +2,11 @@
 using System.Windows.Forms;
 using OpenBots.Commands.System.Library.Enums;
 using OpenBots.Commands.System.Library.EventArgs;
+using OpenBots.Core.UI.Forms;
 
 namespace OpenBots.Commands.System.Forms
 {
-    public partial class frmRemoteDesktopViewer : Form
+    public partial class frmRemoteDesktopViewer : UIForm
     {
         public event EventHandler<LoginResultEventArgs> LoginUpdateEvent;
 

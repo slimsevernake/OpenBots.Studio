@@ -12,32 +12,16 @@
 //WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 //See the License for the specific language governing permissions and
 //limitations under the License.
+using OpenBots.Core.Utilities.FormsUtilities;
 using System;
-using System.ComponentModel;
 using System.Drawing;
-using System.Drawing.Drawing2D;
 using System.Windows.Forms;
 
 namespace OpenBots.Core.UI.Forms
 {
     public class UIForm : Form
     {
-        private int _backgroundChangeIndex;
-        public int BackgroundChangeIndex
-        {
-            get
-            {
-                if (_backgroundChangeIndex <= 0)
-                    return (Height / 2);
-                else
-                    return _backgroundChangeIndex;
-            }
-            set
-            {
-                _backgroundChangeIndex = value;
-                Invalidate();
-            }
-        }
+        public Theme Theme { get; set; } = new Theme();
 
         private void InitializeComponent()
         {
@@ -46,54 +30,45 @@ namespace OpenBots.Core.UI.Forms
             // 
             // UIForm
             // 
-            this.ClientSize = new System.Drawing.Size(284, 261);
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(523, 554);
+            this.Icon = global::OpenBots.Core.Properties.Resources.OpenBots_ico;
             this.Name = "UIForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Load += new System.EventHandler(this.UIForm_Load);
             this.ResumeLayout(false);
 
         }
+
+        public UIForm()
+        {
+            InitializeComponent();
+        }
+
         private void UIForm_Load(object sender, EventArgs e)
         {
 
         }
 
-        protected override void OnPaintBackground(PaintEventArgs e)
+        protected override void OnShown(EventArgs e)
         {
-            base.OnPaintBackground(e);
-
-            //using (var brush = new LinearGradientBrush
-            //      (new Rectangle(0, 0, Width, BackgroundChangeIndex), Color.SteelBlue, Color.FromArgb(106, 160, 204),
-            //      LinearGradientMode.Vertical))
-            //{
-            //    e.Graphics.FillRectangle(brush, 0, 0, Width, BackgroundChangeIndex);
-            //}
-
-            //using (var brush = new LinearGradientBrush
-
-            //(new Rectangle(0, BackgroundChangeIndex, Width, Height), Color.FromArgb(255, 214, 88), Color.Orange,
-            //LinearGradientMode.Vertical))
-            //{
-            //    e.Graphics.FillRectangle(brush, 0, BackgroundChangeIndex, Width, Height);
-            //}
-
-            var topColor = Color.FromArgb(49, 49, 49);
-            using (var brush = new LinearGradientBrush(
-                new Rectangle(0, 0, Width, BackgroundChangeIndex),
-                topColor,
-                topColor,
-                LinearGradientMode.Vertical))
+            base.OnShown(e);
+            // Resizes if too tall to fit
+            if (ClientSize.Height > Screen.PrimaryScreen.WorkingArea.Height - CurrentAutoScaleDimensions.Height)
             {
-                e.Graphics.FillRectangle(brush, 0, 0, Width, BackgroundChangeIndex);
-            }
+                int width = ClientSize.Width;
+                int height = Screen.PrimaryScreen.WorkingArea.Height - (int)CurrentAutoScaleDimensions.Height;
 
-            using (var brush = new LinearGradientBrush(
-                new Rectangle(0, BackgroundChangeIndex, Width, Height),
-                Color.SteelBlue, Color.LightSteelBlue,
-                LinearGradientMode.Vertical))
-            {
-                e.Graphics.FillRectangle(brush, 0, BackgroundChangeIndex, Width, Height);
+                ClientSize = new Size(width, height);
             }
+        }
+
+        protected override void OnPaint(PaintEventArgs e)
+        {
+            if (ClientRectangle.Width != 0 && ClientRectangle.Height != 0)
+                e.Graphics.FillRectangle(Theme.CreateGradient(ClientRectangle), ClientRectangle);
+            base.OnPaint(e);           
         }
 
         public static void MoveFormToBottomRight(Form sender)

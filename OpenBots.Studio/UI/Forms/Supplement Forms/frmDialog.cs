@@ -16,10 +16,11 @@ using System;
 using System.Drawing;
 using System.Windows.Forms;
 using OpenBots.Core.Enums;
+using OpenBots.Core.UI.Forms;
 
 namespace OpenBots.UI.Forms.Supplement_Forms
 {
-    public partial class frmDialog : Form
+    public partial class frmDialog : UIForm
     {
         public int CloseTicks { get; set; }
         public int TicksPassed { get; set; }
@@ -53,7 +54,6 @@ namespace OpenBots.UI.Forms.Supplement_Forms
                 autoCloseTimer.Interval = 1000;
                 autoCloseTimer.Enabled = true;
             }
-            pnlControlContainer.BackColor = Color.SteelBlue;
             txtMessage.SelectionStart = txtMessage.Text.Length;
         }
 

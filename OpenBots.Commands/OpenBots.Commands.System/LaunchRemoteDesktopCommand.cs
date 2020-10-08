@@ -75,10 +75,15 @@ namespace OpenBots.Commands.System
             var width = int.Parse(v_RDPWidth.ConvertUserVariableToString(engine));
             var height = int.Parse(v_RDPHeight.ConvertUserVariableToString(engine));
 
-            var result = ((Form)engine.ScriptEngineUI).Invoke(new Action(() =>
+            if (engine.ScriptEngineUI != null)
             {
+                var result = ((Form)engine.ScriptEngineUI).Invoke(new Action(() =>
+                {
+                    LaunchRDPSession(machineName, userName, password, width, height);
+                }));
+            }
+            else
                 LaunchRDPSession(machineName, userName, password, width, height);
-            }));
         }
 
         public override List<Control> Render(IfrmCommandEditor editor, ICommandControls commandControls)

@@ -13,6 +13,7 @@ using OpenBots.Core.Properties;
 using OpenBots.UI.CustomControls.CustomUIControls;
 using OpenBots.Core.UI.DTOs;
 using OpenBots.UI.Forms.Supplement_Forms;
+using OpenBots.Commands.Switch;
 
 namespace OpenBots.UI.Forms.ScriptBuilder_Forms
 {

@@ -187,7 +187,6 @@
             this.pnlBottom.Name = "pnlBottom";
             this.pnlBottom.Size = new System.Drawing.Size(861, 63);
             this.pnlBottom.TabIndex = 19;
-            this.pnlBottom.Paint += new System.Windows.Forms.PaintEventHandler(this.pnlBottom_Paint);
             // 
             // frmScriptElements
             // 

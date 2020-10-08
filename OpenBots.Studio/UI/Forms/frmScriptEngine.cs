@@ -37,7 +37,7 @@ using OpenBots.Core.Properties;
 
 namespace OpenBots.UI.Forms
 {
-    public partial class frmScriptEngine : ThemedForm, IfrmScriptEngine
+    public partial class frmScriptEngine : UIForm, IfrmScriptEngine
     {
         //all variables used by this form
         #region Form Variables
@@ -493,43 +493,6 @@ namespace OpenBots.UI.Forms
             {
                 var contextForm = new frmEngineContextViewer(context, closeAfter);
                 contextForm.ShowDialog();
-            }
-        }
-
-        public delegate List<string> ShowInputDelegate(InputCommand inputs);
-        public List<string> ShowInput(InputCommand inputs)
-        {
-            if (InvokeRequired)
-            {
-                var d = new ShowInputDelegate(ShowInput);
-                Invoke(d, new object[] { inputs });
-                return null;
-            }
-            else
-            {
-                var inputForm = new frmUserInput
-                {
-                    InputCommand = inputs
-                };
-                var dialogResult = inputForm.ShowDialog();
-
-                if (dialogResult == DialogResult.OK)
-                {
-                    var responses = new List<string>();
-                    foreach (var ctrl in inputForm.InputControls)
-                    {
-                        if (ctrl is CheckBox)
-                        {
-                            var checkboxCtrl = (CheckBox)ctrl;
-                            responses.Add(checkboxCtrl.Checked.ToString());
-                        }
-                        else
-                            responses.Add(ctrl.Text);
-                    }
-                    return responses;
-                }
-                else
-                    return null;
             }
         }
 

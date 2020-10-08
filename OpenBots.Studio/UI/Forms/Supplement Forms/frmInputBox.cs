@@ -4,7 +4,7 @@ using OpenBots.Core.UI.Forms;
 
 namespace OpenBots.UI.Forms.Supplement_Forms
 {
-    public partial class frmInputBox : ThemedForm
+    public partial class frmInputBox : UIForm
     {
         public frmInputBox(string prompt, string title)
         {

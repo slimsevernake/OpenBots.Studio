@@ -137,6 +137,9 @@
       <HintPath>..\packages\Microsoft.Owin.Security.3.0.1\lib\net45\Microsoft.Owin.Security.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.VisualBasic" />
+    <Reference Include="Microsoft.Web.XmlTransform, Version=2.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Web.Xdt.2.1.1\lib\net40\Microsoft.Web.XmlTransform.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Win32.TaskScheduler, Version=2.6.1.0, Culture=neutral, PublicKeyToken=0d013ddd5178a2ae, processorArchitecture=MSIL">
       <HintPath>..\packages\TaskScheduler.2.6.1\lib\net452\Microsoft.Win32.TaskScheduler.dll</HintPath>
     </Reference>
@@ -145,6 +148,9 @@
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="NuGet.Core, Version=2.14.0.832, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\NuGet.Core.2.14.0\lib\net40-Client\NuGet.Core.dll</HintPath>
     </Reference>
     <Reference Include="OneNoteOCRDll, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\OneNoteOCR.1.0.0.0\lib\OneNoteOCRDll.dll</HintPath>
@@ -183,6 +189,10 @@
       <HintPath>..\packages\SuperSocket.ClientEngine.Core.0.8.0.13\lib\net45\SuperSocket.ClientEngine.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Annotations, Version=4.2.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ComponentModel.Annotations.4.7.0\lib\net461\System.ComponentModel.Annotations.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Web" />
     <Reference Include="System.Windows" />
@@ -214,23 +224,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Commands\Engine Commands\ErrorHandlingCommand.cs" />
-    <Compile Include="Commands\Engine Commands\LogMessageCommand.cs" />
-    <Compile Include="Commands\Engine Commands\PauseScriptCommand.cs" />
-    <Compile Include="Commands\Engine Commands\SetEngineDelayCommand.cs" />
-    <Compile Include="Commands\Engine Commands\SetEnginePreferenceCommand.cs" />
-    <Compile Include="Commands\Engine Commands\ShowEngineContextCommand.cs" />
-    <Compile Include="Commands\Engine Commands\StopwatchCommand.cs" />
     <Compile Include="Commands\Image Commands\CaptureImageCommand.cs" />
     <Compile Include="Commands\Image Commands\SurfaceAutomationCommand.cs" />
-    <Compile Include="Commands\Input Commands\InputCommand.cs" />
     <Compile Include="Commands\Error Handling Commands\BeginRetryCommand.cs" />
     <Compile Include="Commands\Error Handling Commands\EndRetryCommand.cs" />
     <Compile Include="Commands\Error Handling Commands\RethrowCommand.cs" />
     <Compile Include="Commands\Misc Commands\ShowMessageCommand.cs" />
-    <Compile Include="Commands\Switch Commands\BeginSwitchCommand.cs" />
-    <Compile Include="Commands\Switch Commands\CaseCommand.cs" />
-    <Compile Include="Commands\Switch Commands\EndSwitchCommand.cs" />
+    <Compile Include="Commands\Misc Commands\UIAutomationCommand.cs" />
     <Compile Include="Commands\Task Commands\RunTaskCommand.cs" />
     <Compile Include="Commands\Task Commands\StopCurrentTaskCommand.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
@@ -245,6 +245,12 @@
     <Compile Include="UI\Forms\Supplement Forms\frmAdvancedUIElementRecorderSettings.Designer.cs">
       <DependentUpon>frmAdvancedUIElementRecorderSettings.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\Forms\Supplement Forms\frmPublishProject.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Forms\Supplement Forms\frmPublishProject.Designer.cs">
+      <DependentUpon>frmPublishProject.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\Forms\Supplement Forms\frmWebElementRecorderSettings.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -256,7 +262,6 @@
     <Compile Include="Utilities\Documentation\DocumentationGeneration.cs" />
     <Compile Include="Utilities\GlobalHook.cs" />
     <Compile Include="Utilities\ManifestUpdate.cs" />
-    <Compile Include="Commands\API Commands\ExecuteRESTAPICommand.cs" />
     <Compile Include="Commands\Web Browser Commands\QueryHTMLSourceCommand.cs" />
     <Compile Include="Commands\Web Browser Commands\GetHTMLSourceCommand.cs" />
     <Compile Include="Commands\Error Handling Commands\CatchCommand.cs" />
@@ -271,12 +276,6 @@
     <Compile Include="Commands\If Commands\EndIfCommand.cs" />
     <Compile Include="Commands\Image Commands\PerformOCRCommand.cs" />
     <Compile Include="Commands\Image Commands\TakeScreenshotCommand.cs" />
-    <Compile Include="Commands\Input Commands\HTMLInputCommand.cs" />
-    <Compile Include="Commands\Input Commands\SendAdvancedKeystrokesCommand.cs" />
-    <Compile Include="Commands\Input Commands\SendKeystrokesCommand.cs" />
-    <Compile Include="Commands\Input Commands\SendMouseClickCommand.cs" />
-    <Compile Include="Commands\Input Commands\SendMouseMoveCommand.cs" />
-    <Compile Include="Commands\Input Commands\UIAutomationCommand.cs" />
     <Compile Include="Commands\Loop Commands\BeginLoopCommand.cs" />
     <Compile Include="Commands\Loop Commands\BeginMultiLoopCommand.cs" />
     <Compile Include="Commands\Loop Commands\EndLoopCommand.cs" />
@@ -290,7 +289,6 @@
     <Compile Include="Commands\Misc Commands\GetClipboardTextCommand.cs" />
     <Compile Include="Commands\Misc Commands\SequenceCommand.cs" />
     <Compile Include="Commands\Misc Commands\SetClipboardTextCommand.cs" />
-    <Compile Include="Commands\API Commands\ExecuteDLLCommand.cs" />
     <Compile Include="Commands\Web Browser Commands\SeleniumCloseBrowserCommand.cs" />
     <Compile Include="Commands\Web Browser Commands\SeleniumCreateBrowserCommand.cs" />
     <Compile Include="Commands\Web Browser Commands\SeleniumElementActionCommand.cs" />
@@ -302,12 +300,6 @@
     <Compile Include="Commands\Web Browser Commands\SeleniumRefreshCommand.cs" />
     <Compile Include="Commands\Web Browser Commands\SeleniumSwitchBrowserFrameCommand.cs" />
     <Compile Include="Commands\Web Browser Commands\SeleniumSwitchBrowserWindowCommand.cs" />
-    <Compile Include="Commands\Window Commands\ActivateWindowCommand.cs" />
-    <Compile Include="Commands\Window Commands\CloseWindowCommand.cs" />
-    <Compile Include="Commands\Window Commands\MoveWindowCommand.cs" />
-    <Compile Include="Commands\Window Commands\ResizeWindowCommand.cs" />
-    <Compile Include="Commands\Window Commands\SetWindowStateCommand.cs" />
-    <Compile Include="Commands\Window Commands\WaitForWindowToExistCommand.cs" />
     <Compile Include="Utilities\Project.cs" />
     <Compile Include="UI\CustomControls\AutomationCommand.cs" />
     <Compile Include="UI\CustomControls\CommandGroupControl.cs">
@@ -469,12 +461,6 @@
     <Compile Include="UI\Forms\Supplement Forms\frmAdvancedUIElementRecorder.Designer.cs">
       <DependentUpon>frmAdvancedUIElementRecorder.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\Forms\Supplement Forms\frmUserInput.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="UI\Forms\Supplement Forms\frmUserInput.Designer.cs">
-      <DependentUpon>frmUserInput.cs</DependentUpon>
-    </Compile>
     <Compile Include="UI\Forms\Supplement Forms\frmElementSelector.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -575,6 +561,9 @@
     <EmbeddedResource Include="UI\Forms\Supplement Forms\frmAdvancedUIElementRecorderSettings.resx">
       <DependentUpon>frmAdvancedUIElementRecorderSettings.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="UI\Forms\Supplement Forms\frmPublishProject.resx">
+      <DependentUpon>frmPublishProject.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UI\Forms\Supplement Forms\frmWebElementRecorderSettings.resx">
       <DependentUpon>frmWebElementRecorderSettings.cs</DependentUpon>
     </EmbeddedResource>
@@ -656,9 +645,6 @@
     <EmbeddedResource Include="UI\Forms\Supplement Forms\frmAdvancedUIElementRecorder.resx">
       <DependentUpon>frmAdvancedUIElementRecorder.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\Forms\Supplement Forms\frmUserInput.resx">
-      <DependentUpon>frmUserInput.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="UI\Forms\Supplement Forms\frmElementSelector.resx">
       <DependentUpon>frmElementSelector.cs</DependentUpon>
     </EmbeddedResource>
@@ -720,6 +706,26 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\OpenBots.Commands\OpenBots.Commands.API\OpenBots.Commands.API.csproj">
+      <Project>{b75a4e96-f0b9-4fbc-9049-4086cf0d45cb}</Project>
+      <Name>OpenBots.Commands.API</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\OpenBots.Commands\OpenBots.Commands.Engine\OpenBots.Commands.Engine.csproj">
+      <Project>{89ca4ba7-1faf-4cc2-9881-d579ede0406f}</Project>
+      <Name>OpenBots.Commands.Engine</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\OpenBots.Commands\OpenBots.Commands.Input\OpenBots.Commands.Input.csproj">
+      <Project>{ba259e6d-f93f-4ba5-a82a-f70f725c292e}</Project>
+      <Name>OpenBots.Commands.Input</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\OpenBots.Commands\OpenBots.Commands.Switch\OpenBots.Commands.Switch.csproj">
+      <Project>{6e2a242f-9f48-4094-9c75-3d1de1c8d5a1}</Project>
+      <Name>OpenBots.Commands.Switch</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\OpenBots.Commands\OpenBots.Commands.Window\OpenBots.Commands.Window.csproj">
+      <Project>{54e5a81d-e636-41e4-9b27-78f0108def57}</Project>
+      <Name>OpenBots.Commands.Window</Name>
+    </ProjectReference>
     <ProjectReference Include="..\OpenBots.Core\OpenBots.Core.csproj">
       <Project>{6956836d-d2b0-4b7a-b06d-fa3a22b4c4ff}</Project>
       <Name>OpenBots.Core</Name>

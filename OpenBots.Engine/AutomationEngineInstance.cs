@@ -261,17 +261,17 @@ namespace OpenBots.Engine
             //get command
             ScriptCommand parentCommand = command.ScriptCommand;
 
-            if (parentCommand.CommandName == "RunTaskCommand" || parentCommand.CommandName == "MessageBoxCommand")
+            if (ScriptEngineUI != null && (parentCommand.CommandName == "RunTaskCommand" || parentCommand.CommandName == "MessageBoxCommand"))
                 parentCommand.CurrentScriptBuilder = ScriptEngineUI.CallBackForm;
 
-            //set LastCommadExecuted
+            //set LastCommandExecuted
             LastExecutedCommand = command.ScriptCommand;
 
             //update execution line numbers
             LineNumberChanged(parentCommand.LineNumber);
 
             //handle pause request
-            if (parentCommand.PauseBeforeExecution && ScriptEngineUI.IsDebugMode && !ChildScriptFailed)
+            if (ScriptEngineUI != null && parentCommand.PauseBeforeExecution && ScriptEngineUI.IsDebugMode && !ChildScriptFailed)
             {
                 ReportProgress("Pausing Before Execution");
                 _isScriptPaused = true;
@@ -385,7 +385,7 @@ namespace OpenBots.Engine
                         displayValue = displayValue.Replace(displayValue.Split('-').Last(), logMessage);
                         ReportProgress($"Logging Line {parentCommand.LineNumber}: {(parentCommand.v_IsPrivate ? _privateCommandLog : displayValue)}",
                             parentCommand.LogLevel);
-                    }                       
+                    }
                 }
             }
             catch (Exception ex)
@@ -428,7 +428,7 @@ namespace OpenBots.Engine
                 }
                 else
                 {
-                    if (!command.IsExceptionIgnored && ScriptEngineUI.IsDebugMode)
+                    if (ScriptEngineUI != null && !command.IsExceptionIgnored && ScriptEngineUI.IsDebugMode)
                     {
                         //load error form if exception is not handled
                         ScriptEngineUI.CallBackForm.IsUnhandledException = true;
@@ -587,7 +587,7 @@ namespace OpenBots.Engine
                 TaskResult = error;
             }
 
-            if (!ScriptEngineUI.IsChildEngine)
+            if (ScriptEngineUI != null && !ScriptEngineUI.IsChildEngine)
                 EngineLogger.Dispose();
 
             _currentStatus = EngineStatus.Finished;
@@ -609,7 +609,7 @@ namespace OpenBots.Engine
                 string summaryLoggerFilePath = Path.Combine(Folders.GetFolder(FolderType.LogFolder), "OpenBots Execution Summary Logs.txt");
                 Logger summaryLogger = new Logging().CreateJsonFileLogger(summaryLoggerFilePath, Serilog.RollingInterval.Infinite);
                 summaryLogger.Information(serializedArguments);
-                if (!ScriptEngineUI.IsChildEngine)
+                if (ScriptEngineUI != null && !ScriptEngineUI.IsChildEngine)
                     summaryLogger.Dispose();
             }
 
@@ -638,6 +638,16 @@ namespace OpenBots.Engine
             };
 
             return  JsonConvert.SerializeObject(this, settings);
+        }
+
+        public string GetProjectPath()
+        {
+            string projectPath = string.Empty;
+            var projectPathVariable = VariableList.Where(v => v.VariableName == "ProjectPath").SingleOrDefault();
+            if (projectPathVariable != null)
+                projectPath = projectPathVariable.VariableValue.ToString();
+
+            return projectPath;
         }
     }
 }
