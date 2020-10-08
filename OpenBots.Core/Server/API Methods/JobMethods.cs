@@ -15,7 +15,7 @@ namespace OpenBots.Core.Server.API_Methods
             var response = client.Execute(request);
 
             if (!response.IsSuccessful)
-                throw new HttpRequestException($"{response.StatusCode} - {response.ErrorMessage}");
+                throw new HttpRequestException($"Status Code: {response.StatusCode} - Error Message: {response.ErrorMessage}");
         }
     }
 }

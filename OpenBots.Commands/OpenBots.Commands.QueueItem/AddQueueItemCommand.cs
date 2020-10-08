@@ -8,7 +8,6 @@ using OpenBots.Core.Server.API_Methods;
 using OpenBots.Core.Server.Models;
 using OpenBots.Core.Utilities.CommonUtilities;
 using OpenBots.Engine;
-using RestSharp;
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
@@ -37,7 +36,7 @@ namespace OpenBots.Commands.QueueItem
       
         [PropertyDescription("QueueItem Type")]
         [PropertyUISelectionOption("Text")]
-        [PropertyUISelectionOption("JSON")]
+        [PropertyUISelectionOption("Json")]
         [InputSpecification("Specify the type of the new QueueItem.")]
         [SampleUsage("")]
         [Remarks("")]
@@ -99,7 +98,6 @@ namespace OpenBots.Commands.QueueItem
                 DataJson = vQueueItemTextValue,
                 Name = vQueueItemName,
                 IsDeleted = false,
-                CreatedBy = queue.CreatedBy,
                 Priority = int.Parse(vPriority)
             };
 
@@ -121,7 +119,7 @@ namespace OpenBots.Commands.QueueItem
                 ctrl.Visible = false;
             RenderedControls.AddRange(JsonTypeControls);
 
-            RenderedControls.AddRange(commandControls.CreateDefaultInputGroupFor("v_QueueItemTextValue", this, editor));
+            RenderedControls.AddRange(commandControls.CreateDefaultInputGroupFor("v_QueueItemTextValue", this, editor, 100, 300));
             RenderedControls.AddRange(commandControls.CreateDefaultInputGroupFor("v_Priority", this, editor));
 
             return RenderedControls;
@@ -134,7 +132,7 @@ namespace OpenBots.Commands.QueueItem
 
         private void QueueItemTypeComboBox_SelectedValueChanged(object sender, EventArgs e)
         {
-            if (((ComboBox)RenderedControls[7]).Text == "JSON")
+            if (((ComboBox)RenderedControls[7]).Text == "Json")
             {
                 foreach (var ctrl in JsonTypeControls)
                     ctrl.Visible = true;

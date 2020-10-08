@@ -18,7 +18,7 @@ namespace OpenBots.Core.Server.API_Methods
             var response = client.Execute(request);
 
             if (!response.IsSuccessful)
-                throw new HttpRequestException($"{response.StatusCode} - {response.ErrorMessage}");
+                throw new HttpRequestException($"Status Code: {response.StatusCode} - Error Message: {response.ErrorMessage}");
 
             byte[] file = response.RawBytes;
             File.WriteAllBytes(Path.Combine(directoryPath, fileName), file);
@@ -37,7 +37,7 @@ namespace OpenBots.Core.Server.API_Methods
             var response = client.Execute(request);
 
             if (!response.IsSuccessful)
-                throw new HttpRequestException($"{response.StatusCode} - {response.ErrorMessage}");
+                throw new HttpRequestException($"Status Code: {response.StatusCode} - Error Message: {response.ErrorMessage}");
             //TODO  - Seems to be functional here, but API isn't working properly
         }
 
@@ -50,7 +50,7 @@ namespace OpenBots.Core.Server.API_Methods
             var response = client.Execute(request);
 
             if (!response.IsSuccessful)
-                throw new HttpRequestException($"{response.StatusCode} - {response.ErrorMessage}");
+                throw new HttpRequestException($"Status Code: {response.StatusCode} - Error Message: {response.ErrorMessage}");
 
             return JsonConvert.DeserializeObject<BinaryObject>(response.Content);
         }

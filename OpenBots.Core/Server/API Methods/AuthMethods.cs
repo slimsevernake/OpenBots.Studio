@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using OpenBots.Core.Server.UserRegistry;
 using RestSharp;
 using RestSharp.Serialization.Json;
 using System;
@@ -14,15 +15,19 @@ namespace OpenBots.Core.Server.API_Methods
         {
             var client = new RestClient("https://openbotsserver-dev.azurewebsites.net/");
 
-            string agentSettingsPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), @"GitHub\OpenBots.Agent\OpenBots.Agent.Client\bin\Debug\OpenBots.Settings");
-            //TODO - replace with environment variable
+            //string agentSettingsPath = Environment.GetEnvironmentVariable("AgentSettings", EnvironmentVariableTarget.Machine);
+            //string agentSettingsText = File.ReadAllText(agentSettingsPath);
+            //var settings = JsonConvert.DeserializeObject<Dictionary<string, string>>(agentSettingsText);
+            //string agentID = settings["AgentId"];
 
-            string agentSettingsText = File.ReadAllText(agentSettingsPath);
-            var settings = JsonConvert.DeserializeObject<Dictionary<string, string>>(agentSettingsText);
-            string agentID = settings["AgentId"];
-            string username = "admin@admin.com";
-            string password = "Hello321";
-            //TODO - get registry key to use for authorization 
+            //if (string.IsNullOrEmpty(agentID))
+                //throw new Exception("Agent not found");
+
+            string username = "admin@admin.com";  ///new RegistryManager().AgentUsername;
+            string password = "Hello321";  //new RegistryManager().AgentPassword;
+
+            if (username == null || password == null)
+                throw new Exception("Agent credentials not found");
 
             var request = new RestRequest("api/v1/auth/token", Method.POST);
             request.RequestFormat = DataFormat.Json;          
@@ -31,7 +36,7 @@ namespace OpenBots.Core.Server.API_Methods
             var response = client.Execute(request);
 
             if (!response.IsSuccessful)
-                throw new HttpRequestException($"{response.StatusCode} - {response.ErrorMessage}");
+                throw new HttpRequestException($"Status Code: {response.StatusCode} - Error Message: {response.ErrorMessage}");
 
             var deserializer = new JsonDeserializer();
             var output = deserializer.Deserialize<Dictionary<string, string>>(response);

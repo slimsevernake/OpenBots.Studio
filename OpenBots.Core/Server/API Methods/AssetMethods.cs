@@ -21,7 +21,7 @@ namespace OpenBots.Core.Server.API_Methods
             var response = client.Execute(request);
 
             if (!response.IsSuccessful)
-                throw new HttpRequestException($"{response.StatusCode} - {response.ErrorMessage}");
+                throw new HttpRequestException($"Status Code: {response.StatusCode} - Error Message: {response.ErrorMessage}");
 
             var deserializer = new JsonDeserializer();
             var output = deserializer.Deserialize<Dictionary<string, string>>(response);
@@ -39,7 +39,7 @@ namespace OpenBots.Core.Server.API_Methods
             var response = client.Execute(request);
 
             if (!response.IsSuccessful)
-                throw new HttpRequestException($"{response.StatusCode} - {response.ErrorMessage}");
+                throw new HttpRequestException($"Status Code: {response.StatusCode} - Error Message: {response.ErrorMessage}");
         }
 
         public static void DownloadFileAsset(RestClient client, Guid? assetID, string directoryPath, string fileName)
@@ -51,7 +51,7 @@ namespace OpenBots.Core.Server.API_Methods
             var response = client.Execute(request);
 
             if (!response.IsSuccessful)
-                throw new HttpRequestException($"{response.StatusCode} - {response.ErrorMessage}");
+                throw new HttpRequestException($"Status Code: {response.StatusCode} - Error Message: {response.ErrorMessage}");
 
             byte[] file = response.RawBytes;
             File.WriteAllBytes(Path.Combine(directoryPath, fileName), file);
@@ -74,7 +74,7 @@ namespace OpenBots.Core.Server.API_Methods
             var response = client.Execute(request);
 
             if (!response.IsSuccessful)
-                throw new HttpRequestException($"{response.StatusCode} - {response.ErrorMessage}");
+                throw new HttpRequestException($"Status Code: {response.StatusCode} - Error Message: {response.ErrorMessage}");
         }
     }
 }

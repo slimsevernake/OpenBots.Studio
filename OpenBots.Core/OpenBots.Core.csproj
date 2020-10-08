@@ -147,6 +147,7 @@
     <Compile Include="Script\ScriptElement.cs" />
     <Compile Include="Script\ScriptObject.cs" />
     <Compile Include="Script\ScriptVariable.cs" />
+    <Compile Include="Server\API Methods\AgentMethods.cs" />
     <Compile Include="Server\API Methods\AssetMethods.cs" />
     <Compile Include="Server\API Methods\AuthMethods.cs" />
     <Compile Include="Server\API Methods\BinaryObjectMethods.cs" />
@@ -165,6 +166,8 @@
     <Compile Include="Server\Models\NamedEntity.cs" />
     <Compile Include="Server\Models\Queue.cs" />
     <Compile Include="Server\Models\QueueItem.cs" />
+    <Compile Include="Server\UserRegistry\RegistryKeys.cs" />
+    <Compile Include="Server\UserRegistry\RegistryManager.cs" />
     <Compile Include="Settings\ApplicationSettings.cs" />
     <Compile Include="Settings\ClientSettings.cs" />
     <Compile Include="Settings\EngineSettings.cs" />

@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace OpenBots.Core.Server.Models
 {
-    public class AgentModel : NamedEntity
+    public class Agent : NamedEntity
     {
         [MaxLength(100, ErrorMessage = "Name must be 100 characters or less.")]
         [Required]

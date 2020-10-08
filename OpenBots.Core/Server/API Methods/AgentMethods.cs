@@ -2,17 +2,19 @@
 using OpenBots.Core.Server.Models;
 using RestSharp;
 using RestSharp.Serialization.Json;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net.Http;
 
 namespace OpenBots.Core.Server.API_Methods
 {
-    public class CredentialMethods
+    public class AgentMethods
     {
-        public static Credential GetCredential(RestClient client, string filter)
+        public static Agent GetAgent(RestClient client, string filter)
         {
-            var request = new RestRequest("api/v1/Credentials", Method.GET);
+            var request = new RestRequest("api/v1/Agents", Method.GET);
             request.AddParameter("$filter", filter);
             request.RequestFormat = DataFormat.Json;
 
@@ -24,20 +26,22 @@ namespace OpenBots.Core.Server.API_Methods
             var deserializer = new JsonDeserializer();
             var output = deserializer.Deserialize<Dictionary<string, string>>(response);
             var items = output["items"];
-            return JsonConvert.DeserializeObject<List<Credential>>(items).FirstOrDefault();
+            return JsonConvert.DeserializeObject<List<Agent>>(items).FirstOrDefault();
         }
 
-        public static void PutCredential(RestClient client, Credential credential)
+        public static Agent GetAgentById(RestClient client, Guid agentId)
         {
-            var request = new RestRequest("api/v1/Credentials/{id}", Method.PUT);
-            request.AddUrlSegment("id", credential.Id.ToString());
+            var request = new RestRequest("api/v1/Agents/{id}", Method.GET);
+            request.AddUrlSegment("id", agentId.ToString());
+            request.AddParameter("id", agentId.ToString());
             request.RequestFormat = DataFormat.Json;
-            request.AddJsonBody(credential);
 
             var response = client.Execute(request);
 
             if (!response.IsSuccessful)
                 throw new HttpRequestException($"Status Code: {response.StatusCode} - Error Message: {response.ErrorMessage}");
+
+            return JsonConvert.DeserializeObject<Agent>(response.Content);
         }
     }
 }

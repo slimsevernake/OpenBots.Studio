@@ -7,7 +7,6 @@ using OpenBots.Core.Infrastructure;
 using OpenBots.Core.Server.API_Methods;
 using OpenBots.Core.Utilities.CommonUtilities;
 using OpenBots.Engine;
-using RestSharp;
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
@@ -57,12 +56,12 @@ namespace OpenBots.Commands.QueueItem
         public override void RunCommand(object sender)
         {
             var engine = (AutomationEngineInstance)sender;
-            var vQueueItem = (Dictionary<string, string>)v_QueueItem.ConvertUserVariableToObject(engine);
+            var vQueueItem = (Dictionary<string, object>)v_QueueItem.ConvertUserVariableToObject(engine);
             var vQueueItemErrorMessage = v_QueueItemErrorMessage.ConvertUserVariableToString(engine);
 
             var client = AuthMethods.GetAuthToken();
 
-            string transactionKey = vQueueItem["LockTransactionKey"];
+            Guid transactionKey = (Guid)vQueueItem["LockTransactionKey"];
 
             switch (v_QueueItemStatusType)
             {
@@ -73,8 +72,6 @@ namespace OpenBots.Commands.QueueItem
                     QueueItemMethods.RollbackQueueItem(client, transactionKey, vQueueItemErrorMessage);
                     break;
             }
-
-            //Needs to be tested
         }
 
         public override List<Control> Render(IfrmCommandEditor editor, ICommandControls commandControls)

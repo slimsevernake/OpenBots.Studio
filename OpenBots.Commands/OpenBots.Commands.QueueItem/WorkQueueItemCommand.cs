@@ -7,19 +7,17 @@ using OpenBots.Core.Server.API_Methods;
 using OpenBots.Core.Server.Models;
 using OpenBots.Core.Utilities.CommonUtilities;
 using OpenBots.Engine;
-using RestSharp;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Windows.Forms;
-using QueueItemModel = OpenBots.Core.Server.Models.QueueItem;
 
 namespace OpenBots.Commands.QueueItem
 {
     [Serializable]
     [Group("QueueItem Commands")]
-    [Description("This command adds a QueueItem to an existing Queue in OpenBots Server")]
+    [Description("This command gets a QueueItem from an existing Queue in OpenBots Server.")]
     public class WorkQueueItemCommand : ScriptCommand
     {
         [PropertyDescription("Queue Name")]
@@ -47,15 +45,17 @@ namespace OpenBots.Commands.QueueItem
         {
             var engine = (AutomationEngineInstance)sender;
             var vQueueName = v_QueueName.ConvertUserVariableToString(engine);
-            Dictionary<string, string> queueItemDict = new Dictionary<string, string>();
+            Dictionary<string, object> queueItemDict = new Dictionary<string, object>();
 
             var client = AuthMethods.GetAuthToken();
 
+            Agent agent = AgentMethods.GetAgent(client, $"name eq 'AliAgent'"); //temporary
+
             Queue queue = QueueMethods.GetQueue(client, $"name eq '{vQueueName}'");
-            QueueItemModel queueItem = QueueItemMethods.DequeueQueueItem(client, new Guid(), queue.Id); //TODO add agentID and test
+            var queueItem = QueueItemMethods.DequeueQueueItem(client, agent.Id, queue.Id); //TODO add agentID and test
 
             queueItemDict = queueItem.GetType().GetProperties(BindingFlags.Instance | BindingFlags.Public)
-                                               .ToDictionary(prop => prop.Name, prop => prop.GetValue(queueItem, null).ToString());
+                                               .ToDictionary(prop => prop.Name, prop => prop.GetValue(queueItem, null));
 
             queueItemDict.StoreInUserVariable(engine, v_OutputUserVariableName);
         }
