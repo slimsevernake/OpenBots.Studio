@@ -1,4 +1,5 @@
-﻿using OpenBots.Core.Attributes.ClassAttributes;
+﻿using Newtonsoft.Json;
+using OpenBots.Core.Attributes.ClassAttributes;
 using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
 using OpenBots.Core.Enums;
@@ -9,6 +10,7 @@ using OpenBots.Core.Utilities.CommonUtilities;
 using OpenBots.Engine;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Windows.Forms;
@@ -17,17 +19,17 @@ namespace OpenBots.Commands.QueueItem
 {
     [Serializable]
     [Group("QueueItem Commands")]
-    [Description("This command gets a QueueItem from an existing Queue in OpenBots Server.")]
+    [Description("This command gets and locks a QueueItem from an existing Queue in OpenBots Server.")]
     public class WorkQueueItemCommand : ScriptCommand
     {
         [PropertyDescription("Queue Name")]
         [InputSpecification("Enter the name of the Queue.")]
         [SampleUsage("Name || {vQueueName}")]
-        [Remarks("")]
+        [Remarks("QueueItem Text/Json values are store in the 'DataJson' key of a QueueItem Dictionary.")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_QueueName { get; set; }
 
-        [PropertyDescription("Output QueueItem Variable")]
+        [PropertyDescription("Output QueueItem Dictionary Variable")]
         [InputSpecification("Create a new variable or select a variable from the list.")]
         [SampleUsage("{vUserVariable}")]
         [Remarks("Variables not pre-defined in the Variable Manager will be automatically generated at runtime.")]
@@ -49,10 +51,16 @@ namespace OpenBots.Commands.QueueItem
 
             var client = AuthMethods.GetAuthToken();
 
+            //string agentSettingsPath = Environment.GetEnvironmentVariable("AgentSettings", EnvironmentVariableTarget.Machine);
+            //string agentSettingsText = File.ReadAllText(agentSettingsPath);
+            //var settings = JsonConvert.DeserializeObject<Dictionary<string, string>>(agentSettingsText);
+            //Guid agentId = Guid.Parse(settings["AgentId"]);
+            //Agent agent = AgentMethods.GetAgentById(client, agentId);
+
             Agent agent = AgentMethods.GetAgent(client, $"name eq 'AliAgent'"); //temporary
 
             Queue queue = QueueMethods.GetQueue(client, $"name eq '{vQueueName}'");
-            var queueItem = QueueItemMethods.DequeueQueueItem(client, agent.Id, queue.Id); //TODO add agentID and test
+            var queueItem = QueueItemMethods.DequeueQueueItem(client, agent.Id, queue.Id);
 
             queueItemDict = queueItem.GetType().GetProperties(BindingFlags.Instance | BindingFlags.Public)
                                                .ToDictionary(prop => prop.Name, prop => prop.GetValue(queueItem, null));
@@ -72,7 +80,7 @@ namespace OpenBots.Commands.QueueItem
 
         public override string GetDisplayValue()
         {
-            return base.GetDisplayValue() + $" [From Queue '{v_QueueName}' - Store QueueItem in '{v_OutputUserVariableName}']";
+            return base.GetDisplayValue() + $" [From Queue '{v_QueueName}' - Store QueueItem Dictionary in '{v_OutputUserVariableName}']";
         }
     }
 }
