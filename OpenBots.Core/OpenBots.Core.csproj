@@ -153,6 +153,7 @@
     <Compile Include="Server\API Methods\BinaryObjectMethods.cs" />
     <Compile Include="Server\API Methods\CredentialMethods.cs" />
     <Compile Include="Server\API Methods\JobMethods.cs" />
+    <Compile Include="Server\API Methods\ProcessMethods.cs" />
     <Compile Include="Server\API Methods\QueueItemMethods.cs" />
     <Compile Include="Server\API Methods\QueueMethods.cs" />
     <Compile Include="Server\Interfaces\IEntity.cs" />

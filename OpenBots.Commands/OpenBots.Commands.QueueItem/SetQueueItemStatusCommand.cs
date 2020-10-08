@@ -28,6 +28,7 @@ namespace OpenBots.Commands.QueueItem
         [PropertyDescription("QueueItem Status Type")]
         [PropertyUISelectionOption("Successful")]
         [PropertyUISelectionOption("Failed")]
+        [PropertyUISelectionOption("Failed Fatally")]
         [InputSpecification("Specify the QueueItem status type.")]
         [SampleUsage("")]
         [Remarks("")]
@@ -69,7 +70,10 @@ namespace OpenBots.Commands.QueueItem
                     QueueItemMethods.CommitQueueItem(client, transactionKey);
                     break;
                 case "Failed":
-                    QueueItemMethods.RollbackQueueItem(client, transactionKey, vQueueItemErrorMessage);
+                    QueueItemMethods.RollbackQueueItem(client, transactionKey, vQueueItemErrorMessage, false);
+                    break;
+                case "Failed Fatally":
+                    QueueItemMethods.RollbackQueueItem(client, transactionKey, vQueueItemErrorMessage, true);
                     break;
             }
         }
@@ -93,7 +97,7 @@ namespace OpenBots.Commands.QueueItem
 
         public override string GetDisplayValue()
         {
-            if (v_QueueItemStatusType == "Failed")
+            if (v_QueueItemStatusType != "Successful")
                 return base.GetDisplayValue() + $" [Set '{v_QueueItem}' Status to '{v_QueueItemStatusType}' With Message '{v_QueueItemErrorMessage}']";
             else
                 return base.GetDisplayValue() + $" [Set '{v_QueueItem}' Status to '{v_QueueItemStatusType}']";
@@ -101,7 +105,7 @@ namespace OpenBots.Commands.QueueItem
 
         private void QueueItemStatusTypeComboBox_SelectedValueChanged(object sender, EventArgs e)
         {
-            if (((ComboBox)RenderedControls[4]).Text == "Failed")
+            if (((ComboBox)RenderedControls[4]).Text != "Successful")
             {
                 foreach (var ctrl in ErrorMessageControls)
                     ctrl.Visible = true;

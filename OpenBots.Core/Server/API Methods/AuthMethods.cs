@@ -15,19 +15,24 @@ namespace OpenBots.Core.Server.API_Methods
         {
             var client = new RestClient("https://openbotsserver-dev.azurewebsites.net/");
 
-            //string agentSettingsPath = Environment.GetEnvironmentVariable("AgentSettings", EnvironmentVariableTarget.Machine);
-            //string agentSettingsText = File.ReadAllText(agentSettingsPath);
-            //var settings = JsonConvert.DeserializeObject<Dictionary<string, string>>(agentSettingsText);
-            //string agentID = settings["AgentId"];
+            //Environment.SetEnvironmentVariable("OpenBots_Agent_Config_Path", @"C:\Users\Francesca\Documents\GitHub\OpenBots.Agent\OpenBots.Agent.Client\bin\Debug\OpenBots.settings", EnvironmentVariableTarget.Machine);
+            string agentSettingsPath = Environment.GetEnvironmentVariable("OpenBots_Agent_Config_Path", EnvironmentVariableTarget.Machine);
 
-            //if (string.IsNullOrEmpty(agentID))
-                //throw new Exception("Agent not found");
+            if (agentSettingsPath == null)
+                throw new Exception("Agent settings file not found");
 
-            string username = "admin@admin.com";  ///new RegistryManager().AgentUsername;
-            string password = "Hello321";  //new RegistryManager().AgentPassword;
+            string agentSettingsText = File.ReadAllText(agentSettingsPath);
+            var settings = JsonConvert.DeserializeObject<Dictionary<string, string>>(agentSettingsText);
+            string agentId = settings["AgentId"];
+
+            if (string.IsNullOrEmpty(agentId))
+                throw new Exception("Agent is not connected");
+
+            string username = new RegistryManager().AgentUsername;
+            string password = new RegistryManager().AgentPassword;
 
             if (username == null || password == null)
-                throw new Exception("Agent credentials not found");
+                throw new Exception("Agent credentials not found in registry");
 
             var request = new RestRequest("api/v1/auth/token", Method.POST);
             request.RequestFormat = DataFormat.Json;          

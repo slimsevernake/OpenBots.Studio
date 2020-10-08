@@ -51,13 +51,20 @@ namespace OpenBots.Commands.QueueItem
 
             var client = AuthMethods.GetAuthToken();
 
-            //string agentSettingsPath = Environment.GetEnvironmentVariable("AgentSettings", EnvironmentVariableTarget.Machine);
-            //string agentSettingsText = File.ReadAllText(agentSettingsPath);
-            //var settings = JsonConvert.DeserializeObject<Dictionary<string, string>>(agentSettingsText);
-            //Guid agentId = Guid.Parse(settings["AgentId"]);
-            //Agent agent = AgentMethods.GetAgentById(client, agentId);
 
-            Agent agent = AgentMethods.GetAgent(client, $"name eq 'AliAgent'"); //temporary
+            string agentSettingsPath = Environment.GetEnvironmentVariable("OpenBots_Agent_Config_Path", EnvironmentVariableTarget.Machine);
+
+            if (agentSettingsPath == null)
+                throw new Exception("Agent settings file not found");
+
+            string agentSettingsText = File.ReadAllText(agentSettingsPath);
+            var settings = JsonConvert.DeserializeObject<Dictionary<string, string>>(agentSettingsText);
+            string agentId = settings["AgentId"];
+
+            if (string.IsNullOrEmpty(agentId))
+                throw new Exception("Agent is not connected");
+
+            Agent agent = AgentMethods.GetAgentById(client, Guid.Parse(agentId));
 
             Queue queue = QueueMethods.GetQueue(client, $"name eq '{vQueueName}'");
             var queueItem = QueueItemMethods.DequeueQueueItem(client, agent.Id, queue.Id);

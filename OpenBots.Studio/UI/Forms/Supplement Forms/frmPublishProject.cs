@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Windows.Forms;
 using System.ComponentModel.DataAnnotations;
+using OpenBots.Core.Server.API_Methods;
 
 namespace OpenBots.UI.Supplement_Forms
 {
@@ -67,7 +68,7 @@ namespace OpenBots.UI.Supplement_Forms
                 {
                     Id = _projectId.ToString(),
                     Title = _projectName,
-                    Authors = $"{txtFirstName.Text} {txtLastName.Text} <{txtEmail.Text}>".Trim(),
+                    Authors = txtAuthorName.Text.Trim(),
                     Version = txtVersion.Text.Trim(),
                     Description = txtDescription.Text.Trim(),
                     RequireLicenseAcceptance = false,
@@ -98,7 +99,11 @@ namespace OpenBots.UI.Supplement_Forms
                 string nugetFilePath = Path.Combine(txtLocation.Text.Trim(), $"{_projectName}_{txtVersion.Text.Trim()}.nupkg");
                 using (FileStream stream = File.Open(nugetFilePath, FileMode.OpenOrCreate))
                     builder.Save(stream);
-                return true;
+
+                var client = AuthMethods.GetAuthToken();
+                ProcessMethods.UploadProcess(client, _projectName, nugetFilePath);
+
+                return true;             
             }
             catch (Exception ex)
             {
@@ -118,15 +123,8 @@ namespace OpenBots.UI.Supplement_Forms
         }  
         
         private bool ValidateForm()
-        {
-            new EmailAddressAttribute().IsValid(txtEmail.Text.Trim());
-            if (string.IsNullOrEmpty(txtEmail.Text.Trim()) || 
-                !(new EmailAddressAttribute().IsValid(txtEmail.Text.Trim())))
-            {
-                lblError.Text = "Please provide a valid email";
-                return false;
-            }
-            else if (string.IsNullOrEmpty(txtVersion.Text.Trim()))
+        {           
+            if (string.IsNullOrEmpty(txtVersion.Text.Trim()))
             {
                 lblError.Text = "Please provide a valid version";
                 return false;
