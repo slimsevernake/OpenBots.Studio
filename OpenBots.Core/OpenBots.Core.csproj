@@ -264,6 +264,7 @@
     <Content Include="Resources\Icons\Browser\browser-save.png" />
     <Content Include="Resources\Dependencies\chromedriver.exe" />
     <Content Include="Resources\Icons\Buttons\close-button.png" />
+    <None Include="Resources\Icons\Commands\command-asset.png" />
     <Content Include="Resources\Icons\Commands\command-begin-if.png" />
     <Content Include="Resources\Icons\Commands\command-begin-multi-if.png" />
     <Content Include="Resources\Icons\Commands\command-begin-switch.png" />
@@ -273,6 +274,7 @@
     <Content Include="Resources\Icons\Commands\command-case.png" />
     <Content Include="Resources\Icons\Commands\command-catch.png" />
     <Content Include="Resources\Icons\Commands\command-comment.png" />
+    <None Include="Resources\Icons\Commands\command-credential.png" />
     <Content Include="Resources\Icons\Commands\command-database.png" />
     <Content Include="Resources\Icons\Commands\command-database2.png" />
     <Content Include="Resources\Icons\Commands\command-dictionary.png" />
@@ -297,6 +299,7 @@
     <Content Include="Resources\Icons\Commands\command-parse.png" />
     <Content Include="Resources\Icons\Commands\command-password.png" />
     <Content Include="Resources\Icons\Commands\command-pause.png" />
+    <None Include="Resources\Icons\Commands\command-queueitem.png" />
     <Content Include="Resources\Icons\Commands\command-regex.png" />
     <Content Include="Resources\Icons\Commands\command-remote.png" />
     <Content Include="Resources\Icons\Commands\command-resume.png" />
