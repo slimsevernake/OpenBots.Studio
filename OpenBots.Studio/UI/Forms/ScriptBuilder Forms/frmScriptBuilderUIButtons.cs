@@ -389,6 +389,9 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
         {
             frmPublishProject publishProject = new frmPublishProject(ScriptProjectPath, ScriptProject);
             publishProject.ShowDialog();
+
+            if (publishProject.DialogResult == DialogResult.OK)
+                Notify(publishProject.NotificationMessage);
         }
 
         private void uiBtnPublishProject_Click(object sender, EventArgs e)

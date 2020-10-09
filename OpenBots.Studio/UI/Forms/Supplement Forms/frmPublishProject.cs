@@ -1,23 +1,23 @@
 ﻿using NuGet;
 using OpenBots.Core.Enums;
 using OpenBots.Core.IO;
+using OpenBots.Core.Server.API_Methods;
 using OpenBots.Core.UI.Forms;
 using OpenBots.Utilities;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Windows.Forms;
-using System.ComponentModel.DataAnnotations;
-using OpenBots.Core.Server.API_Methods;
 
 namespace OpenBots.UI.Supplement_Forms
 {
     public partial class frmPublishProject : UIForm
     {
+        public string NotificationMessage { get; set; }
         private string _projectPath;
         private string _projectName;
         private Guid _projectId;
-
+        
         public frmPublishProject(string projectPath, Project project)
         {
             _projectPath = projectPath;
@@ -100,8 +100,16 @@ namespace OpenBots.UI.Supplement_Forms
                 using (FileStream stream = File.Open(nugetFilePath, FileMode.OpenOrCreate))
                     builder.Save(stream);
 
-                var client = AuthMethods.GetAuthToken();
-                ProcessMethods.UploadProcess(client, _projectName, nugetFilePath);
+                NotificationMessage = $"'{_projectName}' published successfully";
+
+                try {
+                    var client = AuthMethods.GetAuthToken();
+                    ProcessMethods.UploadProcess(client, _projectName, nugetFilePath);
+                }
+                catch (Exception)
+                {
+                    NotificationMessage = $"'{_projectName}' was published locally but was unable to connect to the server";
+                }
 
                 return true;             
             }

@@ -120,7 +120,7 @@ namespace OpenBots.Commands
         {
             base.Render(editor, commandControls);
 
-            RenderedControls.AddRange(commandControls.CreateDefaultInputGroupFor("v_Message", this, editor));
+            RenderedControls.AddRange(commandControls.CreateDefaultInputGroupFor("v_Message", this, editor, 100, 300));
             RenderedControls.AddRange(commandControls.CreateDefaultInputGroupFor("v_AutoCloseAfter", this, editor));
 
             return RenderedControls;
