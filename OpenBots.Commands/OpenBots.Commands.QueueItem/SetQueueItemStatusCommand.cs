@@ -27,8 +27,8 @@ namespace OpenBots.Commands.QueueItem
 
         [PropertyDescription("QueueItem Status Type")]
         [PropertyUISelectionOption("Successful")]
-        [PropertyUISelectionOption("Failed")]
-        [PropertyUISelectionOption("Failed Fatally")]
+        [PropertyUISelectionOption("Failed - Should Retry")]
+        [PropertyUISelectionOption("Failed - Fatal")]
         [InputSpecification("Specify the QueueItem status type.")]
         [SampleUsage("")]
         [Remarks("")]
@@ -69,10 +69,10 @@ namespace OpenBots.Commands.QueueItem
                 case "Successful":
                     QueueItemMethods.CommitQueueItem(client, transactionKey);
                     break;
-                case "Failed":
+                case "Failed - Should Retry":
                     QueueItemMethods.RollbackQueueItem(client, transactionKey, vQueueItemErrorMessage, false);
                     break;
-                case "Failed Fatally":
+                case "Failed - Fatal":
                     QueueItemMethods.RollbackQueueItem(client, transactionKey, vQueueItemErrorMessage, true);
                     break;
             }
