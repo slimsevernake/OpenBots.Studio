@@ -93,7 +93,6 @@ namespace OpenBots.Commands.Asset
                     break;
                 case "File":
                     AssetMethods.UpdateFileAsset(client, asset, vAssetFilePath);
-                    //BinaryObjectMethods.UpdateBinaryObject(client, asset.BinaryObjectID, vAssetFilePath);
                     break;
             }
 

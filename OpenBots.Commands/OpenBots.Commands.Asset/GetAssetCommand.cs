@@ -93,8 +93,7 @@ namespace OpenBots.Commands.Asset
                     break;
                 case "File":
                     var binaryObjectID = asset.BinaryObjectID;
-                    BinaryObject binaryObject = BinaryObjectMethods.GetBinaryObject(client, binaryObjectID);
-                    //BinaryObjectMethods.DownloadBinaryObject(client, binaryObjectID, vOutputDirectoryPath, binaryObject.Name); //TODO Finish download for File Asset        
+                    BinaryObject binaryObject = BinaryObjectMethods.GetBinaryObject(client, binaryObjectID);      
                     AssetMethods.DownloadFileAsset(client, asset.Id, vOutputDirectoryPath, binaryObject.Name);
                     break;
                 default:

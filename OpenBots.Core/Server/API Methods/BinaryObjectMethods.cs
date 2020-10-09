@@ -38,7 +38,6 @@ namespace OpenBots.Core.Server.API_Methods
 
             if (!response.IsSuccessful)
                 throw new HttpRequestException($"Status Code: {response.StatusCode} - Error Message: {response.ErrorMessage}");
-            //TODO  - Seems to be functional here, but API isn't working properly
         }
 
         public static BinaryObject GetBinaryObject(RestClient client, Guid? binaryObjectID)

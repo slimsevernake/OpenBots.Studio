@@ -67,10 +67,6 @@ namespace OpenBots.Core.Server.API_Methods
             request.AddHeader("Content-Type", "multipart/form-data");
             request.AddFile("File", filePath.Trim());
 
-            request.AddParameter("Name", asset.Name, ParameterType.GetOrPost); //TODO remove after PR gets merged
-            request.AddParameter("Type", asset.Type, ParameterType.GetOrPost);
-            request.AddParameter("organizationId", "ef8a6670-f522-4fcd-a55e-90aa92d1deb7", ParameterType.GetOrPost);
-
             var response = client.Execute(request);
 
             if (!response.IsSuccessful)
