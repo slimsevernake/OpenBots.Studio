@@ -22,13 +22,5 @@ namespace OpenBots.Core.Infrastructure
         void RemoveDebugTab();
         DialogResult LoadErrorForm(string errorMessage);
         string HTMLElementRecorderURL { get; set; }
-
-        string ConvertDataTableToString(DataTable dt);
-        string ConvertDataRowToString(DataRow row);
-        string ConvertMailItemToString(MailItem mail);
-        string ConvertMimeMessageToString(MimeMessage message);
-        string ConvertIWebElementToString(IWebElement element);
-        string ConvertBitmapToString(Bitmap bitmap);
-        string ConvertListToString(object list);
     }
 }
