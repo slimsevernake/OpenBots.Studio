@@ -509,11 +509,10 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
                 ScriptElements = _scriptElements
             };
 
-            newCommandForm.ProjectPath = ScriptProjectPath;
-
             if (specificCommand != "")
                 newCommandForm.DefaultStartupCommand = specificCommand;
 
+            newCommandForm.ProjectPath = ScriptProjectPath;
             newCommandForm.HTMLElementRecorderURL = HTMLElementRecorderURL;
 
             //if a command was selected

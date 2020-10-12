@@ -157,7 +157,7 @@ namespace OpenBots.UI.Forms
         {
             foreach (Control item in flw_InputVariables.Controls)
             {
-                item.Width = this.Width - 70;
+                item.Width = Width - 70;
             }
         }
 
@@ -234,6 +234,7 @@ namespace OpenBots.UI.Forms
                 {
                     DataGridView currentControl = (DataGridView)ctrl;
                     currentControl.EndEdit();
+                    currentControl.CurrentCell = null;
                 }
 
                 if (ctrl is UIPictureBox)
