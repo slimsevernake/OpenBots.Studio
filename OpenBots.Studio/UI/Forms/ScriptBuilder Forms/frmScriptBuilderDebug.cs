@@ -64,6 +64,7 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
                 variablesGridViewHelper.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
                 variablesGridViewHelper.AllowUserToAddRows = false;
                 variablesGridViewHelper.AllowUserToDeleteRows = false;
+                variablesGridViewHelper.ReadOnly = true;
 
                 if (debugTab.Controls.Count != 0)
                     debugTab.Controls.RemoveAt(0);
