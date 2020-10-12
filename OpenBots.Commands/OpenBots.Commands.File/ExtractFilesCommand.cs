@@ -67,6 +67,13 @@ namespace OpenBots.Commands.File
             // get file path to destination files
             var vFilePathDestination = v_PathDestination.ConvertUserVariableToString(engine);
 
+            vFilePathDestination = Path.Combine(vFilePathDestination, Path.GetFileNameWithoutExtension(vSourceFilePathOrigin));
+
+            if (Directory.Exists(vFilePathDestination))
+                Directory.Delete(vFilePathDestination, true);
+
+            Directory.CreateDirectory(vFilePathDestination);
+
             // get password to extract files
             var vPassword = v_Password.ConvertUserVariableToString(engine);
             FileStream fs = IO.File.OpenRead(vSourceFilePathOrigin);
@@ -110,7 +117,6 @@ namespace OpenBots.Commands.File
             {
                 file.IsStreamOwner = true;
                 file.Close(); 
-
                 //Get File Paths from the folder
                 var filesList = Directory.GetFiles(vFilePathDestination, ".", SearchOption.AllDirectories).ToList();
 
