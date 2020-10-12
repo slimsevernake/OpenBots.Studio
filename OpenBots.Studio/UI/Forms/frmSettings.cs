@@ -293,7 +293,7 @@ namespace OpenBots.UI.Forms
 
         private void btnLaunchAttendedMode_Click(object sender, EventArgs e)
         {
-            var frmAttended = new frmAttendedMode(scriptBuilderForm.ScriptProject.ProjectName);
+            var frmAttended = new frmAttendedMode(scriptBuilderForm.ScriptProjectPath);
             frmAttended.Show();
             Close();
         }
