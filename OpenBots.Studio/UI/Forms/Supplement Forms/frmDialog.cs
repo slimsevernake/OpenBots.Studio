@@ -12,11 +12,10 @@
 //WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 //See the License for the specific language governing permissions and
 //limitations under the License.
-using System;
-using System.Drawing;
-using System.Windows.Forms;
 using OpenBots.Core.Enums;
 using OpenBots.Core.UI.Forms;
+using System;
+using System.Windows.Forms;
 
 namespace OpenBots.UI.Forms.Supplement_Forms
 {
@@ -55,6 +54,7 @@ namespace OpenBots.UI.Forms.Supplement_Forms
                 autoCloseTimer.Enabled = true;
             }
             txtMessage.SelectionStart = txtMessage.Text.Length;
+            txtMessage.ReadOnly = true;
         }
 
         private void CalculateCloseTime()

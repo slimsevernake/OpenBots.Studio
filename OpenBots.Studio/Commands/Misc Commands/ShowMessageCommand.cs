@@ -111,7 +111,7 @@ namespace OpenBots.Commands
 
             var result = ((frmScriptEngine)engine.ScriptEngineUI).Invoke(new Action(() =>
                 {
-                    engine.ScriptEngineUI.ShowMessage(variableMessage, "MessageBox Command", DialogType.OkOnly, closeAfter);
+                    engine.ScriptEngineUI.ShowMessage(variableMessage, "MessageBox", DialogType.OkOnly, closeAfter);
                 }
             ));
 
