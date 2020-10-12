@@ -37,7 +37,7 @@ namespace OpenBots.UI.Forms
             _appSettings = new ApplicationSettings().GetOrCreateApplicationSettings();
 
             //setup file system watcher
-            attendedScriptWatcher.Path = _projectPath
+            attendedScriptWatcher.Path = _projectPath;
 
             //move form to default location
             MoveToDefaultFormLocation();
