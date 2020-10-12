@@ -51,9 +51,15 @@ namespace OpenBots.Commands.Dictionary
             var engine = (AutomationEngineInstance)sender;
             var vKey = v_Key.ConvertUserVariableToString(engine);
 
+            dynamic dict = null;
+
             //Declare local dictionary and assign output
-            Dictionary<string,string> dict = (Dictionary<string,string>)v_InputDictionary.ConvertUserVariableToObject(engine);
-            var dictValue = dict[vKey].ConvertUserVariableToString(engine);
+            if (v_InputDictionary.ConvertUserVariableToObject(engine) is Dictionary<string, string>)
+                dict = (Dictionary<string,string>)v_InputDictionary.ConvertUserVariableToObject(engine);
+            else if (v_InputDictionary.ConvertUserVariableToObject(engine) is Dictionary<string, object>)
+                dict = (Dictionary<string, object>)v_InputDictionary.ConvertUserVariableToObject(engine);
+
+            var dictValue = ((object)dict[vKey]).ToString().ConvertUserVariableToString(engine);
 
             dictValue.StoreInUserVariable(engine, v_OutputUserVariableName);
         }

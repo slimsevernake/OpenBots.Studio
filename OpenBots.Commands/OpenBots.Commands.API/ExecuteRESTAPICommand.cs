@@ -182,19 +182,7 @@ namespace OpenBots.Commands.API
                     var paramType = rw.Field<string>("Parameter Type").ConvertUserVariableToString(engine);
                     var contentType = rw.Field<string>("Content Type").ConvertUserVariableToString(engine);
 
-                    var param = new Parameter();
-
-                    if (!string.IsNullOrEmpty(contentType))
-                        param.ContentType = contentType;
-
-                    if (!string.IsNullOrEmpty(paramType))
-                        param.Type = (ParameterType)Enum.Parse(typeof(ParameterType), paramType);
-
-
-                    param.Name = paramName;
-                    param.Value = paramValue;
-
-                    request.Parameters.Add(param);
+                    request.AddParameter(paramName, paramValue, contentType, (ParameterType)Enum.Parse(typeof(ParameterType), paramType));
                 }
 
                 var requestFormat = v_RequestFormat.ConvertUserVariableToString(engine);
