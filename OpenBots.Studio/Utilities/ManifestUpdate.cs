@@ -7,8 +7,8 @@ namespace OpenBots.Utilities
     public class ManifestUpdate
     {
         //from manifest
-        private string _remoteVersion { get; set; }
-        public string PackageURL { get; private set; }
+        public string RemoteVersion { get; set; }
+        public string PackageURL { get; set; }
 
         //helpers
         public bool RemoteVersionNewer { get; private set; }
@@ -51,7 +51,7 @@ namespace OpenBots.Utilities
             }
 
             //create versions
-            manifestConfig.RemoteVersionProper = new Version(manifestConfig._remoteVersion);
+            manifestConfig.RemoteVersionProper = new Version(manifestConfig.RemoteVersion);
             manifestConfig.LocalVersionProper = new Version(Application.ProductVersion);
 
             //determine comparison
