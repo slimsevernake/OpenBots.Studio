@@ -21,7 +21,7 @@ namespace OpenBots.Commands.Switch
         [PropertyDescription("Switch")]
         [InputSpecification("This value will determine the Case block to execute.")]
         [SampleUsage("{vSwitch}")]
-        [Remarks("")]
+        [Remarks("This value must be a variable.")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_SwitchValue { get; set; }
 
@@ -37,7 +37,10 @@ namespace OpenBots.Commands.Switch
         {
             //get engine
             var engine = (AutomationEngineInstance)sender;
+
             var vSwitchValue = v_SwitchValue.ConvertUserVariableToString(engine);
+            if (vSwitchValue == v_SwitchValue || !v_SwitchValue.StartsWith("{") || !v_SwitchValue.EndsWith("}"))
+                throw new Exception("Switch value is not a variable");
 
             //get indexes of commands
             var caseIndices = FindAllCaseIndices(parentCommand.AdditionalScriptCommands);

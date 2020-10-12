@@ -346,12 +346,12 @@ namespace OpenBots.Engine
                     (parentCommand.CommandName == "BeginRetryCommand" || (parentCommand.CommandName == "BeginSwitchCommand")))
                 {
                     //run the command and pass bgw/command as this command will recursively call this method for sub commands
-                    command.IsExceptionIgnored = true;
+                    //command.IsExceptionIgnored = true;
                     parentCommand.RunCommand(this, command);
                 }
                 else if (parentCommand.CommandName == "SequenceCommand")
                 {
-                    command.IsExceptionIgnored = true;
+                    //command.IsExceptionIgnored = true;
                     parentCommand.RunCommand(this, command);
                 }
                 else if (parentCommand.CommandName == "StopCurrentTaskCommand")
