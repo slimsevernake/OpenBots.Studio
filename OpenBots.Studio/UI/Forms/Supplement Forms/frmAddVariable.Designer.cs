@@ -80,6 +80,7 @@
             this.txtVariableName.Name = "txtVariableName";
             this.txtVariableName.Size = new System.Drawing.Size(566, 32);
             this.txtVariableName.TabIndex = 16;
+            this.txtVariableName.Text = "{}";
             // 
             // lblDefineNameDescription
             // 
