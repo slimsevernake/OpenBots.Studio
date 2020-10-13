@@ -292,6 +292,8 @@ namespace OpenBots.UI.Forms
                 case ScriptFinishedResult.Cancelled:
                     AddStatus("Script Cancelled By User");
                     UpdateUI("debug info (cancelled)");
+                    if (IsChildEngine)
+                        CloseWhenDone = true;
                     break;
                 default:
                     break;

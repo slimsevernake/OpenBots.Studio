@@ -777,8 +777,18 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
 
         private void DeleteSelectedCode()
         {
+            SelectAllScopedCode();
+
             foreach (ListViewItem item in _selectedTabScriptActions.SelectedItems)
-            {               
+                _selectedTabScriptActions.Items.Remove(item);
+
+            _selectedTabScriptActions.Invalidate();
+        }
+
+        private void SelectAllScopedCode()
+        {
+            foreach (ListViewItem item in _selectedTabScriptActions.SelectedItems)
+            {
                 switch (((ScriptCommand)item.Tag).CommandName)
                 {
                     case "LoopCollectionCommand":
@@ -805,11 +815,6 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
                         break;
                 }
             }
-
-            foreach (ListViewItem item in _selectedTabScriptActions.SelectedItems)
-                _selectedTabScriptActions.Items.Remove(item);
-
-            _selectedTabScriptActions.Invalidate();
         }
 
         private void FindEndCommand(ListViewItem item, string endCommandName)
@@ -825,6 +830,8 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
 
         private void SetSelectedCodeToCommented(bool setCommented)
         {
+            SelectAllScopedCode();
+
             //warn if nothing was selected
             if (_selectedTabScriptActions.SelectedItems.Count == 0)
                 Notify("No code was selected!");
