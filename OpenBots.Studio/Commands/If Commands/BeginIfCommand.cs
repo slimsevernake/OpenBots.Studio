@@ -626,7 +626,7 @@ namespace OpenBots.Commands
                     existCheck = true;
                 }
 
-                if (Directory.Exists(folderName) == existCheck)
+                if (Directory.Exists(userFolderSelected) == existCheck)
                 {
                     ifResult = true;
                 }
@@ -742,20 +742,16 @@ namespace OpenBots.Commands
 
         private void ifAction_SelectionChangeCommitted(object sender, EventArgs e)
         {
-            ComboBox ifAction = (ComboBox)_actionDropdown;
-            DataGridView ifActionParameterBox = (DataGridView)_ifGridViewHelper;
+            DataGridView ifActionParameterBox = _ifGridViewHelper;
 
-            BeginIfCommand cmd = (BeginIfCommand)this;
+            BeginIfCommand cmd = this;
             DataTable actionParameters = cmd.v_IfActionParameterTable;
 
             //sender is null when command is updating
             if (sender != null)
                 actionParameters.Rows.Clear();
 
-            DataGridViewComboBoxCell comparisonComboBox = new DataGridViewComboBoxCell();
-
-            //recorder control
-            Control recorderControl = (Control)_recorderControl;
+            DataGridViewComboBoxCell comparisonComboBox;
 
             //remove if exists            
             if (_recorderControl.Visible)
@@ -763,7 +759,7 @@ namespace OpenBots.Commands
                 _recorderControl.Hide();
             }
 
-            switch (ifAction.SelectedItem)
+            switch (_actionDropdown.SelectedItem)
             {
                 case "Value Compare":
                 case "Date Compare":
@@ -879,7 +875,7 @@ namespace OpenBots.Commands
                     if (sender != null)
                     {
                         actionParameters.Rows.Add("File Path", "");
-                        actionParameters.Rows.Add("True When", "");
+                        actionParameters.Rows.Add("True When", "It Does Exist");
                         ifActionParameterBox.DataSource = actionParameters;
                     }
 
@@ -899,7 +895,7 @@ namespace OpenBots.Commands
                     if (sender != null)
                     {
                         actionParameters.Rows.Add("Folder Path", "");
-                        actionParameters.Rows.Add("True When", "");
+                        actionParameters.Rows.Add("True When", "It Does Exist");
                         ifActionParameterBox.DataSource = actionParameters;
                     }
 
@@ -920,7 +916,7 @@ namespace OpenBots.Commands
                         actionParameters.Rows.Add("Selenium Instance Name", "DefaultBrowser");
                         actionParameters.Rows.Add("Element Search Method", "");
                         actionParameters.Rows.Add("Element Search Parameter", "");
-                        actionParameters.Rows.Add("True When", "");
+                        actionParameters.Rows.Add("True When", "It Does Exist");
                         ifActionParameterBox.DataSource = actionParameters;
                     }
 
@@ -951,7 +947,7 @@ namespace OpenBots.Commands
                         actionParameters.Rows.Add("Window Name", "Current Window");
                         actionParameters.Rows.Add("Element Search Method", "");
                         actionParameters.Rows.Add("Element Search Parameter", "");
-                        actionParameters.Rows.Add("True When", "");
+                        actionParameters.Rows.Add("True When", "It Does Exist");
                         ifActionParameterBox.DataSource = actionParameters;
                     }
 
@@ -997,7 +993,7 @@ namespace OpenBots.Commands
                     {
                         actionParameters.Rows.Add("Captured Image", "");
                         actionParameters.Rows.Add("Accuracy (0-1)", "0.8");
-                        actionParameters.Rows.Add("True When", "");
+                        actionParameters.Rows.Add("True When", "It Does Exist");
                         ifActionParameterBox.DataSource = actionParameters;
                     }
 
@@ -1045,7 +1041,14 @@ namespace OpenBots.Commands
 
         private void IfGridViewHelper_MouseEnter(object sender, EventArgs e)
         {
-            ifAction_SelectionChangeCommitted(null, null);
+            try
+            {
+                ifAction_SelectionChangeCommitted(null, null);
+            }
+            catch (Exception)
+            {
+                ifAction_SelectionChangeCommitted(sender, e);
+            }           
         }
     }
 }
