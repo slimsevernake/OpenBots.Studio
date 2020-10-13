@@ -107,9 +107,11 @@ namespace OpenBots.Core.Utilities.CommonUtilities
 
                 for (int i = 0; i < dt.Columns.Count - 1; i++)
                     stringBuilder.AppendFormat("{0}, ", rows[i]);
-
+          
                 stringBuilder.AppendFormat("{0}]", rows[dt.Columns.Count - 1]);
+                stringBuilder.AppendLine();
             }
+            stringBuilder.Length = stringBuilder.Length - 2;
             return stringBuilder.ToString();
         }
 
