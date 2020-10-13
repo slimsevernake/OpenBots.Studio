@@ -12,6 +12,20 @@
 //WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 //See the License for the specific language governing permissions and
 //limitations under the License.
+using OpenBots.Core.Enums;
+using OpenBots.Core.Infrastructure;
+using OpenBots.Core.IO;
+using OpenBots.Core.Model.EngineModel;
+using OpenBots.Core.Properties;
+using OpenBots.Core.Script;
+using OpenBots.Core.Settings;
+using OpenBots.Core.UI.DTOs;
+using OpenBots.Core.UI.Forms;
+using OpenBots.Core.Utilities.CommonUtilities;
+using OpenBots.Engine;
+using OpenBots.UI.Forms.ScriptBuilder_Forms;
+using OpenBots.UI.Forms.Supplement_Forms;
+using OpenBots.Utilities;
 using Serilog.Core;
 using System;
 using System.Collections.Generic;
@@ -19,21 +33,6 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
-using OpenBots.Commands;
-using OpenBots.Core.Enums;
-using OpenBots.Core.Infrastructure;
-using OpenBots.Core.IO;
-using OpenBots.Core.Model.EngineModel;
-using OpenBots.Core.Script;
-using OpenBots.Core.Settings;
-using OpenBots.Core.UI.Forms;
-using OpenBots.Core.Utilities.CommonUtilities;
-using OpenBots.Engine;
-using OpenBots.Core.UI.DTOs;
-using OpenBots.UI.Forms.ScriptBuilder_Forms;
-using OpenBots.UI.Forms.Supplement_Forms;
-using OpenBots.Utilities;
-using OpenBots.Core.Properties;
 
 namespace OpenBots.UI.Forms
 {

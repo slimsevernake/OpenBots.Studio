@@ -58,7 +58,7 @@ namespace OpenBots.Commands.SecureData
 
         public override string GetDisplayValue()
         {
-            return base.GetDisplayValue() + $" [Convert '{v_Input}' - Store SecureString in '{v_OutputUserVariableName}']";
+            return base.GetDisplayValue() + $" [Store SecureString in '{v_OutputUserVariableName}']";
         }
     }
 }
