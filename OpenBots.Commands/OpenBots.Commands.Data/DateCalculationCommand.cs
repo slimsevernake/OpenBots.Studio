@@ -193,10 +193,16 @@ namespace OpenBots.Commands.Data
 
         public override string GetDisplayValue()
         {
-            //determine operand and interval
-            var operand = v_CalculationMethod.Split(' ').First();
-            var interval = v_CalculationMethod.Split(' ').Last();
+            string operand = "Add";
+            string interval = "";
 
+            //determine operand and interval
+            if (!string.IsNullOrEmpty(v_CalculationMethod))
+            {
+                operand = v_CalculationMethod.Split(' ').First();
+                interval = v_CalculationMethod.Split(' ').Last();
+            }
+            
             //additional language handling based on selection made
             string operandLanguage;
             if (operand == "Add")
