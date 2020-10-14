@@ -1,7 +1,5 @@
 ﻿using OpenBots.Core.Server.Interfaces;
 using System;
-using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
 
 namespace OpenBots.Core.Server.Models
 {
@@ -16,38 +14,14 @@ namespace OpenBots.Core.Server.Models
             IsDeleted = false;
         }
 
-        [Key]
-        //[Required]
-        [Display(Name = "Id")]
         public Guid? Id { get; set; }
-
-        [DefaultValue(false)]
-        [Display(Name = "IsDeleted")]
         public bool? IsDeleted { get; set; }
-
-        [MaxLength(100,ErrorMessage ="Created by value must be 100 characters or less.")]
-        [Display(Name = "CreatedBy")]
         public string CreatedBy { get; set; }
-
-        [Display(Name = "CreatedOn")]
         public DateTime? CreatedOn { get; set; }
-
-        [MaxLength(100,ErrorMessage ="Deleted by value must be 100 characters or less.")]
-        [Display(Name = "DeletedBy")]
         public string DeletedBy { get; set; }
-
-        [Display(Name = "DeleteOn")]
         public DateTime? DeleteOn { get; set; }
-
-        [Timestamp]
-        [Display(Name ="Timestamp")]
         public byte[] Timestamp { get; set; }
-
-        [Display(Name = "UpdatedOn")]
         public DateTime? UpdatedOn { get; set; }
-
-        [StringLength(100, ErrorMessage = "Deleted by value must be 100 characters or less.")]
-        [Display(Name = "UpdatedBy")]
         public string UpdatedBy { get; set; }
     }
 }
