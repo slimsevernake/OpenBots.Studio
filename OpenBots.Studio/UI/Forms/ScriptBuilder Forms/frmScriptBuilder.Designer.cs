@@ -1639,7 +1639,7 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
             // aboutOpenBotsToolStripMenuItem
             // 
             this.aboutOpenBotsToolStripMenuItem.ForeColor = System.Drawing.Color.White;
-            this.aboutOpenBotsToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("aboutOpenBotsToolStripMenuItem.Image")));
+            this.aboutOpenBotsToolStripMenuItem.Image = Core.Properties.Resources.action_bar_project;
             this.aboutOpenBotsToolStripMenuItem.Name = "aboutOpenBotsToolStripMenuItem";
             this.aboutOpenBotsToolStripMenuItem.Size = new System.Drawing.Size(249, 26);
             this.aboutOpenBotsToolStripMenuItem.Text = "About OpenBots Studio";
