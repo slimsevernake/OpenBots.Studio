@@ -38,7 +38,6 @@
             this.chkAutoStartListener = new System.Windows.Forms.CheckBox();
             this.lblListeningPort = new System.Windows.Forms.Label();
             this.txtListeningPort = new System.Windows.Forms.TextBox();
-            this.lblListeningStatus = new System.Windows.Forms.Label();
             this.btnStopListening = new System.Windows.Forms.Button();
             this.btnStartListening = new System.Windows.Forms.Button();
             this.chkRequireListenerKey = new System.Windows.Forms.CheckBox();
@@ -132,7 +131,7 @@
             this.uiBtnOpen.Image = ((System.Drawing.Image)(resources.GetObject("uiBtnOpen.Image")));
             this.uiBtnOpen.IsMouseOver = false;
             this.uiBtnOpen.Location = new System.Drawing.Point(4, 885);
-            this.uiBtnOpen.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.uiBtnOpen.Margin = new System.Windows.Forms.Padding(4);
             this.uiBtnOpen.Name = "uiBtnOpen";
             this.uiBtnOpen.Size = new System.Drawing.Size(60, 60);
             this.uiBtnOpen.TabIndex = 13;
@@ -187,14 +186,6 @@
             this.txtListeningPort.Name = "txtListeningPort";
             this.txtListeningPort.Size = new System.Drawing.Size(100, 22);
             this.txtListeningPort.TabIndex = 0;
-            // 
-            // lblListeningStatus
-            // 
-            this.lblListeningStatus.Location = new System.Drawing.Point(0, 0);
-            this.lblListeningStatus.Name = "lblListeningStatus";
-            this.lblListeningStatus.Size = new System.Drawing.Size(100, 23);
-            this.lblListeningStatus.TabIndex = 0;
-            this.lblListeningStatus.Text = "ttttt";
             // 
             // btnStopListening
             // 
@@ -262,7 +253,7 @@
             this.tlpSettings.Controls.Add(this.pnlSettings, 0, 0);
             this.tlpSettings.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tlpSettings.Location = new System.Drawing.Point(0, 0);
-            this.tlpSettings.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tlpSettings.Margin = new System.Windows.Forms.Padding(4);
             this.tlpSettings.Name = "tlpSettings";
             this.tlpSettings.RowCount = 3;
             this.tlpSettings.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 86F));
@@ -279,7 +270,7 @@
             this.uiSettingTabs.Dock = System.Windows.Forms.DockStyle.Fill;
             this.uiSettingTabs.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.uiSettingTabs.Location = new System.Drawing.Point(4, 90);
-            this.uiSettingTabs.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.uiSettingTabs.Margin = new System.Windows.Forms.Padding(4);
             this.uiSettingTabs.Name = "uiSettingTabs";
             this.uiSettingTabs.SelectedIndex = 0;
             this.uiSettingTabs.Size = new System.Drawing.Size(845, 787);
@@ -311,9 +302,9 @@
             this.tabAppSettings.Controls.Add(this.chkAntiIdle);
             this.tabAppSettings.Controls.Add(this.btnUpdates);
             this.tabAppSettings.Location = new System.Drawing.Point(4, 37);
-            this.tabAppSettings.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabAppSettings.Margin = new System.Windows.Forms.Padding(4);
             this.tabAppSettings.Name = "tabAppSettings";
-            this.tabAppSettings.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabAppSettings.Padding = new System.Windows.Forms.Padding(4);
             this.tabAppSettings.Size = new System.Drawing.Size(837, 746);
             this.tabAppSettings.TabIndex = 0;
             this.tabAppSettings.Text = "Application";
@@ -325,7 +316,7 @@
             this.chkSlimActionBar.Font = new System.Drawing.Font("Segoe UI Semilight", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.chkSlimActionBar.ForeColor = System.Drawing.Color.SteelBlue;
             this.chkSlimActionBar.Location = new System.Drawing.Point(13, 153);
-            this.chkSlimActionBar.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.chkSlimActionBar.Margin = new System.Windows.Forms.Padding(4);
             this.chkSlimActionBar.Name = "chkSlimActionBar";
             this.chkSlimActionBar.Size = new System.Drawing.Size(197, 32);
             this.chkSlimActionBar.TabIndex = 42;
@@ -339,7 +330,7 @@
             this.chkPreloadCommands.Font = new System.Drawing.Font("Segoe UI Semilight", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.chkPreloadCommands.ForeColor = System.Drawing.Color.SteelBlue;
             this.chkPreloadCommands.Location = new System.Drawing.Point(13, 178);
-            this.chkPreloadCommands.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.chkPreloadCommands.Margin = new System.Windows.Forms.Padding(4);
             this.chkPreloadCommands.Name = "chkPreloadCommands";
             this.chkPreloadCommands.Size = new System.Drawing.Size(409, 32);
             this.chkPreloadCommands.TabIndex = 41;
@@ -368,7 +359,7 @@
             "Builder Mode",
             "Attended Task Mode"});
             this.cboStartUpMode.Location = new System.Drawing.Point(16, 374);
-            this.cboStartUpMode.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.cboStartUpMode.Margin = new System.Windows.Forms.Padding(4);
             this.cboStartUpMode.Name = "cboStartUpMode";
             this.cboStartUpMode.Size = new System.Drawing.Size(291, 36);
             this.cboStartUpMode.TabIndex = 38;
@@ -376,7 +367,7 @@
             // btnSelectAttendedTaskFolder
             // 
             this.btnSelectAttendedTaskFolder.Location = new System.Drawing.Point(672, 306);
-            this.btnSelectAttendedTaskFolder.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnSelectAttendedTaskFolder.Margin = new System.Windows.Forms.Padding(4);
             this.btnSelectAttendedTaskFolder.Name = "btnSelectAttendedTaskFolder";
             this.btnSelectAttendedTaskFolder.Size = new System.Drawing.Size(56, 37);
             this.btnSelectAttendedTaskFolder.TabIndex = 37;
@@ -400,7 +391,7 @@
             // txtAttendedTaskFolder
             // 
             this.txtAttendedTaskFolder.Location = new System.Drawing.Point(16, 307);
-            this.txtAttendedTaskFolder.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtAttendedTaskFolder.Margin = new System.Windows.Forms.Padding(4);
             this.txtAttendedTaskFolder.Name = "txtAttendedTaskFolder";
             this.txtAttendedTaskFolder.Size = new System.Drawing.Size(652, 34);
             this.txtAttendedTaskFolder.TabIndex = 35;
@@ -408,7 +399,7 @@
             // txtAppFolderPath
             // 
             this.txtAppFolderPath.Location = new System.Drawing.Point(16, 242);
-            this.txtAppFolderPath.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtAppFolderPath.Margin = new System.Windows.Forms.Padding(4);
             this.txtAppFolderPath.Name = "txtAppFolderPath";
             this.txtAppFolderPath.Size = new System.Drawing.Size(652, 34);
             this.txtAppFolderPath.TabIndex = 23;
@@ -417,7 +408,7 @@
             // 
             this.btnLaunchAttendedMode.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnLaunchAttendedMode.Location = new System.Drawing.Point(300, 420);
-            this.btnLaunchAttendedMode.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnLaunchAttendedMode.Margin = new System.Windows.Forms.Padding(4);
             this.btnLaunchAttendedMode.Name = "btnLaunchAttendedMode";
             this.btnLaunchAttendedMode.Size = new System.Drawing.Size(276, 33);
             this.btnLaunchAttendedMode.TabIndex = 34;
@@ -432,7 +423,7 @@
             this.chkMinimizeToTray.Font = new System.Drawing.Font("Segoe UI Semilight", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.chkMinimizeToTray.ForeColor = System.Drawing.Color.SteelBlue;
             this.chkMinimizeToTray.Location = new System.Drawing.Point(13, 126);
-            this.chkMinimizeToTray.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.chkMinimizeToTray.Margin = new System.Windows.Forms.Padding(4);
             this.chkMinimizeToTray.Name = "chkMinimizeToTray";
             this.chkMinimizeToTray.Size = new System.Drawing.Size(236, 32);
             this.chkMinimizeToTray.TabIndex = 33;
@@ -446,7 +437,7 @@
             this.chkSequenceDragDrop.Font = new System.Drawing.Font("Segoe UI Semilight", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.chkSequenceDragDrop.ForeColor = System.Drawing.Color.SteelBlue;
             this.chkSequenceDragDrop.Location = new System.Drawing.Point(13, 98);
-            this.chkSequenceDragDrop.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.chkSequenceDragDrop.Margin = new System.Windows.Forms.Padding(4);
             this.chkSequenceDragDrop.Name = "chkSequenceDragDrop";
             this.chkSequenceDragDrop.Size = new System.Drawing.Size(438, 32);
             this.chkSequenceDragDrop.TabIndex = 32;
@@ -457,7 +448,7 @@
             // 
             this.btnGenerateWikiDocs.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnGenerateWikiDocs.Location = new System.Drawing.Point(16, 461);
-            this.btnGenerateWikiDocs.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnGenerateWikiDocs.Margin = new System.Windows.Forms.Padding(4);
             this.btnGenerateWikiDocs.Name = "btnGenerateWikiDocs";
             this.btnGenerateWikiDocs.Size = new System.Drawing.Size(276, 33);
             this.btnGenerateWikiDocs.TabIndex = 31;
@@ -472,7 +463,7 @@
             this.chkInsertCommandsInline.Font = new System.Drawing.Font("Segoe UI Semilight", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.chkInsertCommandsInline.ForeColor = System.Drawing.Color.SteelBlue;
             this.chkInsertCommandsInline.Location = new System.Drawing.Point(13, 71);
-            this.chkInsertCommandsInline.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.chkInsertCommandsInline.Margin = new System.Windows.Forms.Padding(4);
             this.chkInsertCommandsInline.Name = "chkInsertCommandsInline";
             this.chkInsertCommandsInline.Size = new System.Drawing.Size(452, 32);
             this.chkInsertCommandsInline.TabIndex = 30;
@@ -482,8 +473,8 @@
             // btnClearMetrics
             // 
             this.btnClearMetrics.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnClearMetrics.Location = new System.Drawing.Point(15, 681);
-            this.btnClearMetrics.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnClearMetrics.Location = new System.Drawing.Point(15, 688);
+            this.btnClearMetrics.Margin = new System.Windows.Forms.Padding(4);
             this.btnClearMetrics.Name = "btnClearMetrics";
             this.btnClearMetrics.Size = new System.Drawing.Size(144, 31);
             this.btnClearMetrics.TabIndex = 29;
@@ -498,18 +489,19 @@
             this.lblScriptExecutionMetrics.BackColor = System.Drawing.Color.Transparent;
             this.lblScriptExecutionMetrics.Font = new System.Drawing.Font("Segoe UI Semilight", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblScriptExecutionMetrics.ForeColor = System.Drawing.Color.SlateGray;
-            this.lblScriptExecutionMetrics.Location = new System.Drawing.Point(17, 514);
+            this.lblScriptExecutionMetrics.Location = new System.Drawing.Point(16, 498);
             this.lblScriptExecutionMetrics.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblScriptExecutionMetrics.Name = "lblScriptExecutionMetrics";
-            this.lblScriptExecutionMetrics.Size = new System.Drawing.Size(0, 23);
+            this.lblScriptExecutionMetrics.Size = new System.Drawing.Size(186, 23);
             this.lblScriptExecutionMetrics.TabIndex = 28;
+            this.lblScriptExecutionMetrics.Text = "Script Execution Metrics";
             // 
             // lblGettingMetrics
             // 
             this.lblGettingMetrics.AccessibleRole = System.Windows.Forms.AccessibleRole.ButtonDropDownGrid;
             this.lblGettingMetrics.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblGettingMetrics.ForeColor = System.Drawing.Color.SteelBlue;
-            this.lblGettingMetrics.Location = new System.Drawing.Point(16, 520);
+            this.lblGettingMetrics.Location = new System.Drawing.Point(16, 525);
             this.lblGettingMetrics.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblGettingMetrics.Name = "lblGettingMetrics";
             this.lblGettingMetrics.Size = new System.Drawing.Size(712, 156);
@@ -518,8 +510,8 @@
             // 
             // tvExecutionTimes
             // 
-            this.tvExecutionTimes.Location = new System.Drawing.Point(16, 520);
-            this.tvExecutionTimes.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tvExecutionTimes.Location = new System.Drawing.Point(16, 525);
+            this.tvExecutionTimes.Margin = new System.Windows.Forms.Padding(4);
             this.tvExecutionTimes.Name = "tvExecutionTimes";
             this.tvExecutionTimes.Size = new System.Drawing.Size(711, 155);
             this.tvExecutionTimes.TabIndex = 26;
@@ -528,7 +520,7 @@
             // btnSelectFolder
             // 
             this.btnSelectFolder.Location = new System.Drawing.Point(672, 241);
-            this.btnSelectFolder.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnSelectFolder.Margin = new System.Windows.Forms.Padding(4);
             this.btnSelectFolder.Name = "btnSelectFolder";
             this.btnSelectFolder.Size = new System.Drawing.Size(56, 37);
             this.btnSelectFolder.TabIndex = 25;
@@ -569,7 +561,7 @@
             this.chkAntiIdle.Font = new System.Drawing.Font("Segoe UI Semilight", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.chkAntiIdle.ForeColor = System.Drawing.Color.SteelBlue;
             this.chkAntiIdle.Location = new System.Drawing.Point(13, 44);
-            this.chkAntiIdle.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.chkAntiIdle.Margin = new System.Windows.Forms.Padding(4);
             this.chkAntiIdle.Name = "chkAntiIdle";
             this.chkAntiIdle.Size = new System.Drawing.Size(268, 32);
             this.chkAntiIdle.TabIndex = 20;
@@ -580,7 +572,7 @@
             // 
             this.btnUpdates.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnUpdates.Location = new System.Drawing.Point(16, 420);
-            this.btnUpdates.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnUpdates.Margin = new System.Windows.Forms.Padding(4);
             this.btnUpdates.Name = "btnUpdates";
             this.btnUpdates.Size = new System.Drawing.Size(276, 33);
             this.btnUpdates.TabIndex = 22;
@@ -618,9 +610,9 @@
             this.tabDebugSettings.Controls.Add(this.chkAutoCloseWindow);
             this.tabDebugSettings.Controls.Add(this.chkEnableLogging);
             this.tabDebugSettings.Location = new System.Drawing.Point(4, 37);
-            this.tabDebugSettings.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabDebugSettings.Margin = new System.Windows.Forms.Padding(4);
             this.tabDebugSettings.Name = "tabDebugSettings";
-            this.tabDebugSettings.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabDebugSettings.Padding = new System.Windows.Forms.Padding(4);
             this.tabDebugSettings.Size = new System.Drawing.Size(837, 746);
             this.tabDebugSettings.TabIndex = 1;
             this.tabDebugSettings.Text = "Automation Engine";
@@ -641,7 +633,7 @@
             this.cbxMinLogLevel.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbxMinLogLevel.FormattingEnabled = true;
             this.cbxMinLogLevel.Location = new System.Drawing.Point(595, 367);
-            this.cbxMinLogLevel.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.cbxMinLogLevel.Margin = new System.Windows.Forms.Padding(4);
             this.cbxMinLogLevel.Name = "cbxMinLogLevel";
             this.cbxMinLogLevel.Size = new System.Drawing.Size(188, 36);
             this.cbxMinLogLevel.TabIndex = 51;
@@ -663,7 +655,7 @@
             // txtLogging4
             // 
             this.txtLogging4.Location = new System.Drawing.Point(189, 532);
-            this.txtLogging4.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtLogging4.Margin = new System.Windows.Forms.Padding(4);
             this.txtLogging4.Name = "txtLogging4";
             this.txtLogging4.Size = new System.Drawing.Size(592, 34);
             this.txtLogging4.TabIndex = 49;
@@ -672,7 +664,7 @@
             // txtLogging3
             // 
             this.txtLogging3.Location = new System.Drawing.Point(189, 492);
-            this.txtLogging3.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtLogging3.Margin = new System.Windows.Forms.Padding(4);
             this.txtLogging3.Name = "txtLogging3";
             this.txtLogging3.Size = new System.Drawing.Size(592, 34);
             this.txtLogging3.TabIndex = 46;
@@ -681,7 +673,7 @@
             // txtLogging2
             // 
             this.txtLogging2.Location = new System.Drawing.Point(189, 452);
-            this.txtLogging2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtLogging2.Margin = new System.Windows.Forms.Padding(4);
             this.txtLogging2.Name = "txtLogging2";
             this.txtLogging2.Size = new System.Drawing.Size(592, 34);
             this.txtLogging2.TabIndex = 45;
@@ -690,7 +682,7 @@
             // txtLogging1
             // 
             this.txtLogging1.Location = new System.Drawing.Point(189, 412);
-            this.txtLogging1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtLogging1.Margin = new System.Windows.Forms.Padding(4);
             this.txtLogging1.Name = "txtLogging1";
             this.txtLogging1.Size = new System.Drawing.Size(592, 34);
             this.txtLogging1.TabIndex = 43;
@@ -698,7 +690,7 @@
             // txtCommandDelay
             // 
             this.txtCommandDelay.Location = new System.Drawing.Point(444, 237);
-            this.txtCommandDelay.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtCommandDelay.Margin = new System.Windows.Forms.Padding(4);
             this.txtCommandDelay.Name = "txtCommandDelay";
             this.txtCommandDelay.Size = new System.Drawing.Size(101, 34);
             this.txtCommandDelay.TabIndex = 33;
@@ -765,7 +757,7 @@
             this.cbxSinkType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbxSinkType.FormattingEnabled = true;
             this.cbxSinkType.Location = new System.Drawing.Point(189, 367);
-            this.cbxSinkType.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.cbxSinkType.Margin = new System.Windows.Forms.Padding(4);
             this.cbxSinkType.Name = "cbxSinkType";
             this.cbxSinkType.Size = new System.Drawing.Size(188, 36);
             this.cbxSinkType.TabIndex = 41;
@@ -804,7 +796,7 @@
             this.chkAutoCalcVariables.Font = new System.Drawing.Font("Segoe UI Semilight", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.chkAutoCalcVariables.ForeColor = System.Drawing.Color.SteelBlue;
             this.chkAutoCalcVariables.Location = new System.Drawing.Point(13, 206);
-            this.chkAutoCalcVariables.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.chkAutoCalcVariables.Margin = new System.Windows.Forms.Padding(4);
             this.chkAutoCalcVariables.Name = "chkAutoCalcVariables";
             this.chkAutoCalcVariables.Size = new System.Drawing.Size(309, 32);
             this.chkAutoCalcVariables.TabIndex = 38;
@@ -829,7 +821,7 @@
             this.cbxCancellationKey.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbxCancellationKey.FormattingEnabled = true;
             this.cbxCancellationKey.Location = new System.Drawing.Point(189, 274);
-            this.cbxCancellationKey.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.cbxCancellationKey.Margin = new System.Windows.Forms.Padding(4);
             this.cbxCancellationKey.Name = "cbxCancellationKey";
             this.cbxCancellationKey.Size = new System.Drawing.Size(188, 36);
             this.cbxCancellationKey.TabIndex = 36;
@@ -841,7 +833,7 @@
             this.chkOverrideInstances.Font = new System.Drawing.Font("Segoe UI Semilight", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.chkOverrideInstances.ForeColor = System.Drawing.Color.SteelBlue;
             this.chkOverrideInstances.Location = new System.Drawing.Point(13, 178);
-            this.chkOverrideInstances.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.chkOverrideInstances.Margin = new System.Windows.Forms.Padding(4);
             this.chkOverrideInstances.Name = "chkOverrideInstances";
             this.chkOverrideInstances.Size = new System.Drawing.Size(230, 32);
             this.chkOverrideInstances.TabIndex = 35;
@@ -868,7 +860,7 @@
             this.chkTrackMetrics.Font = new System.Drawing.Font("Segoe UI Semilight", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.chkTrackMetrics.ForeColor = System.Drawing.Color.SteelBlue;
             this.chkTrackMetrics.Location = new System.Drawing.Point(13, 153);
-            this.chkTrackMetrics.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.chkTrackMetrics.Margin = new System.Windows.Forms.Padding(4);
             this.chkTrackMetrics.Name = "chkTrackMetrics";
             this.chkTrackMetrics.Size = new System.Drawing.Size(229, 32);
             this.chkTrackMetrics.TabIndex = 25;
@@ -895,7 +887,7 @@
             this.chkShowDebug.Font = new System.Drawing.Font("Segoe UI Semilight", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.chkShowDebug.ForeColor = System.Drawing.Color.SteelBlue;
             this.chkShowDebug.Location = new System.Drawing.Point(13, 43);
-            this.chkShowDebug.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.chkShowDebug.Margin = new System.Windows.Forms.Padding(4);
             this.chkShowDebug.Name = "chkShowDebug";
             this.chkShowDebug.Size = new System.Drawing.Size(216, 32);
             this.chkShowDebug.TabIndex = 12;
@@ -909,7 +901,7 @@
             this.chkAdvancedDebug.Font = new System.Drawing.Font("Segoe UI Semilight", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.chkAdvancedDebug.ForeColor = System.Drawing.Color.SteelBlue;
             this.chkAdvancedDebug.Location = new System.Drawing.Point(13, 126);
-            this.chkAdvancedDebug.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.chkAdvancedDebug.Margin = new System.Windows.Forms.Padding(4);
             this.chkAdvancedDebug.Name = "chkAdvancedDebug";
             this.chkAdvancedDebug.Size = new System.Drawing.Size(424, 32);
             this.chkAdvancedDebug.TabIndex = 23;
@@ -923,7 +915,7 @@
             this.chkAutoCloseWindow.Font = new System.Drawing.Font("Segoe UI Semilight", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.chkAutoCloseWindow.ForeColor = System.Drawing.Color.SteelBlue;
             this.chkAutoCloseWindow.Location = new System.Drawing.Point(13, 70);
-            this.chkAutoCloseWindow.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.chkAutoCloseWindow.Margin = new System.Windows.Forms.Padding(4);
             this.chkAutoCloseWindow.Name = "chkAutoCloseWindow";
             this.chkAutoCloseWindow.Size = new System.Drawing.Size(334, 32);
             this.chkAutoCloseWindow.TabIndex = 13;
@@ -937,7 +929,7 @@
             this.chkEnableLogging.Font = new System.Drawing.Font("Segoe UI Semilight", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.chkEnableLogging.ForeColor = System.Drawing.Color.SteelBlue;
             this.chkEnableLogging.Location = new System.Drawing.Point(13, 98);
-            this.chkEnableLogging.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.chkEnableLogging.Margin = new System.Windows.Forms.Padding(4);
             this.chkEnableLogging.Name = "chkEnableLogging";
             this.chkEnableLogging.Size = new System.Drawing.Size(256, 32);
             this.chkEnableLogging.TabIndex = 14;
@@ -969,7 +961,7 @@
             this.Controls.Add(this.tlpSettings);
             this.DoubleBuffered = true;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.Margin = new System.Windows.Forms.Padding(5);
             this.Name = "frmSettings";
             this.Text = "Settings";
             this.Load += new System.EventHandler(this.frmSettings_Load);
@@ -1002,7 +994,6 @@
         private System.Windows.Forms.CheckBox chkRequireListenerKey;
         private System.Windows.Forms.Button btnStopListening;
         private System.Windows.Forms.Button btnStartListening;
-        private System.Windows.Forms.Label lblListeningStatus;
         private System.Windows.Forms.CheckBox chkAutoStartListener;
         private System.Windows.Forms.Label lblListeningPort;
         private System.Windows.Forms.TextBox txtListeningPort;
