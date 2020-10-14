@@ -99,6 +99,7 @@ namespace OpenBots.Utilities
                     newAutomationCommand.DisplayGroup = groupAttribute;
                     newAutomationCommand.FullName = string.Join(" - ", groupAttribute, newCommand.SelectionName);
                     newAutomationCommand.ShortName = newCommand.SelectionName;
+                    newAutomationCommand.Description = GetDescription(commandClass);
 
                     if (userPrefs.ClientSettings.PreloadBuilderCommands)
                     {
@@ -111,6 +112,15 @@ namespace OpenBots.Utilities
             }
 
             return commandList;
+        }
+
+        static string GetDescription(Type type)
+        {
+            var descriptions = (Description[])type.GetCustomAttributes(typeof(Description), true);
+
+            if (descriptions.Length == 0)
+                return string.Empty;
+            return descriptions[0].CommandFunctionalDescription;
         }
     }
 }

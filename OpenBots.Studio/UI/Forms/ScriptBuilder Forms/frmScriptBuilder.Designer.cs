@@ -604,7 +604,7 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
             this.uiBtnPublishProject.DisplayText = "Publish";
             this.uiBtnPublishProject.DisplayTextBrush = System.Drawing.Color.AliceBlue;
             this.uiBtnPublishProject.Font = new System.Drawing.Font("Segoe UI", 8F);
-            this.uiBtnPublishProject.Image = Core.Properties.Resources.action_bar_publish;
+            this.uiBtnPublishProject.Image = ((System.Drawing.Image)(resources.GetObject("uiBtnPublishProject.Image")));
             this.uiBtnPublishProject.IsMouseOver = false;
             this.uiBtnPublishProject.Location = new System.Drawing.Point(360, 24);
             this.uiBtnPublishProject.Margin = new System.Windows.Forms.Padding(4);
@@ -1057,6 +1057,7 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
             this.tvProject.Name = "tvProject";
             this.tvProject.SelectedImageIndex = 0;
             this.tvProject.ShowLines = false;
+            this.tvProject.ShowNodeToolTips = true;
             this.tvProject.Size = new System.Drawing.Size(312, 598);
             this.tvProject.TabIndex = 0;
             this.tvProject.BeforeExpand += new System.Windows.Forms.TreeViewCancelEventHandler(this.tvProject_BeforeExpand);
@@ -1198,6 +1199,7 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
             this.tvCommands.Margin = new System.Windows.Forms.Padding(4);
             this.tvCommands.Name = "tvCommands";
             this.tvCommands.ShowLines = false;
+            this.tvCommands.ShowNodeToolTips = true;
             this.tvCommands.Size = new System.Drawing.Size(308, 594);
             this.tvCommands.TabIndex = 9;
             this.tvCommands.DoubleClick += new System.EventHandler(this.tvCommands_DoubleClick);
@@ -1639,7 +1641,7 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
             // aboutOpenBotsToolStripMenuItem
             // 
             this.aboutOpenBotsToolStripMenuItem.ForeColor = System.Drawing.Color.White;
-            this.aboutOpenBotsToolStripMenuItem.Image = Core.Properties.Resources.action_bar_project;
+            this.aboutOpenBotsToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("aboutOpenBotsToolStripMenuItem.Image")));
             this.aboutOpenBotsToolStripMenuItem.Name = "aboutOpenBotsToolStripMenuItem";
             this.aboutOpenBotsToolStripMenuItem.Size = new System.Drawing.Size(249, 26);
             this.aboutOpenBotsToolStripMenuItem.Text = "About OpenBots Studio";

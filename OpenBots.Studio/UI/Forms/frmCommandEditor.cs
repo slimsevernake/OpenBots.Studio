@@ -15,6 +15,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Drawing;
 using System.Linq;
 using System.Reflection;
 using System.Windows.Forms;
@@ -189,6 +190,21 @@ namespace OpenBots.UI.Forms
 
             //bind controls to new data source
             userSelectedCommand.Bind(this, _commandControls);
+
+            Label descriptionLabel = new Label();
+            descriptionLabel.AutoSize = true;
+            descriptionLabel.Font = new Font("Segoe UI", 12);
+            descriptionLabel.ForeColor = Color.White;
+            descriptionLabel.Name = "lbl_" + userSelectedCommand.ShortName;
+            descriptionLabel.Text = userSelectedCommand.Description;
+            descriptionLabel.Padding = new Padding(0, 0, 0, 5);
+            flw_InputVariables.Controls.Add(descriptionLabel);
+
+            Label separator = new Label();
+            separator.AutoSize = false;
+            separator.Height = 2;
+            separator.BorderStyle = BorderStyle.Fixed3D;            
+            flw_InputVariables.Controls.Add(separator);
 
             //add each control
             foreach (var ctrl in userSelectedCommand.UIControls)

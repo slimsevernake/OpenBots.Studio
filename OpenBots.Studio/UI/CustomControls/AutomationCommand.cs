@@ -16,6 +16,7 @@ namespace OpenBots.UI.CustomControls
         public Type CommandClass { get; set; }
         public string FullName { get; set; }
         public string ShortName { get; set; }
+        public string Description { get; set; }
         public string DisplayGroup { get; set; }
         public ScriptCommand Command { get; set; }
         public List<Control> UIControls { get; set; }
@@ -75,7 +76,7 @@ namespace OpenBots.UI.CustomControls
             //preference to preload is false
             //if (UIControls is null)
             //{
-            this.RenderUIComponents(editor, commandControls);
+            RenderUIComponents(editor, commandControls);
             //}
 
             foreach (var ctrl in UIControls)

@@ -242,6 +242,7 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
                 foreach (var subcmd in cmd)
                 {
                     TreeNode subNode = new TreeNode(subcmd.ShortName);
+                    subNode.ToolTipText = subcmd.Description;
 
                     if (!subcmd.Command.CustomRendering)
                     {
@@ -257,6 +258,7 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
             //tvCommands.ImageList = uiImages;
 
             _tvCommandsCopy = new TreeView();
+            _tvCommandsCopy.ShowNodeToolTips = true;
             CopyTreeView(tvCommands, _tvCommandsCopy);
             txtCommandSearch.Text = _txtCommandWatermark;
 
@@ -582,6 +584,7 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
             foreach (TreeNode originalChildNode in originalTreeNode.Nodes)
             {
                 copiedChildNode = new TreeNode(originalChildNode.Text);
+                copiedChildNode.ToolTipText = originalChildNode.ToolTipText;
                 copiedTreeNode.Nodes.Add(copiedChildNode);
             }
         }
@@ -606,7 +609,9 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
                     {
                         if (childNodeCopy.Text.ToLower().Contains(txtCommandSearch.Text.ToLower()))
                         {
-                            searchedParentNode.Nodes.Add(new TreeNode(childNodeCopy.Text));
+                            var searchedChildNode = new TreeNode(childNodeCopy.Text);
+                            searchedChildNode.ToolTipText = childNodeCopy.ToolTipText;
+                            searchedParentNode.Nodes.Add(searchedChildNode);
                             childNodefound = true;
                         }
                     }
