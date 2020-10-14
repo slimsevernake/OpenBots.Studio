@@ -41,6 +41,7 @@ namespace OpenBots.UI.CustomControls.CustomUIControls
             uiImages.Add("GetListItemCommand", Resources.command_function);
             uiImages.Add("AddListItemCommand", Resources.command_function);
             uiImages.Add("UpdateListItemCommand", Resources.command_function);
+            uiImages.Add("RemoveListItemCommand", Resources.command_function);
             uiImages.Add("CreateListCommand", Resources.command_function);
             uiImages.Add("RunScriptCommand", Resources.command_script);
             uiImages.Add("RunCustomCodeCommand", Resources.command_script);
