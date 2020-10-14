@@ -1,6 +1,4 @@
-﻿using OpenBots.Core.Server.Models;
-
-namespace OpenBots.Core.Server.Models
+﻿namespace OpenBots.Core.Server.Models
 {
     public class Queue : NamedEntity
     {
