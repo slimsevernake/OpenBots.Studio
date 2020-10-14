@@ -457,8 +457,8 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
                     _selectedTabScriptActions.Items.Add(rowItem);
                 }
 
-                ((ScriptActionTag)_selectedTabScriptActions.Tag).UndoList.RemoveAt(
-                    ((ScriptActionTag)_selectedTabScriptActions.Tag).UndoList.Count - 1);
+                ((ScriptActionTag)_selectedTabScriptActions.Tag).UndoList
+                    .RemoveAt(((ScriptActionTag)_selectedTabScriptActions.Tag).UndoList.Count - 1);
 
                 _selectedTabScriptActions.Invalidate();
             }
@@ -476,8 +476,8 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
                     _selectedTabScriptActions.Items.Add(rowItem);
                 }
 
-                ((ScriptActionTag)_selectedTabScriptActions.Tag).RedoList.RemoveAt(
-                    ((ScriptActionTag)_selectedTabScriptActions.Tag).RedoList.Count - 1);
+                ((ScriptActionTag)_selectedTabScriptActions.Tag).RedoList
+                    .RemoveAt(((ScriptActionTag)_selectedTabScriptActions.Tag).RedoList.Count - 1);
 
                 _selectedTabScriptActions.Invalidate();
             }
@@ -603,7 +603,7 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
         private void AutoSizeLineNumberColumn()
         {
             //auto adjust column width based on # of commands
-            int columnWidth = (14 * _selectedTabScriptActions.Items.Count.ToString().Length);
+            int columnWidth = (20 * _selectedTabScriptActions.Items.Count.ToString().Length);
             _selectedTabScriptActions.Columns[0].Width = columnWidth;
         }
 
@@ -649,9 +649,7 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
                         //draw command icon
                         var img = _uiImages.Images[command.GetType().Name];
                         if (img != null)
-                        {
                             e.Graphics.DrawImage(img, modifiedBounds.Left, modifiedBounds.Top + 3);
-                        }
                     }                   
                     break;
                 case 2:
