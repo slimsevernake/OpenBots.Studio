@@ -13,9 +13,6 @@ namespace OpenBots.Core.Server.API_Methods
     {
         public static RestClient GetAuthToken()
         {
-            var client = new RestClient("https://openbotsserver-dev.azurewebsites.net/");
-
-            //Environment.SetEnvironmentVariable("OpenBots_Agent_Config_Path", @"C:\Users\Francesca\Documents\GitHub\OpenBots.Agent\OpenBots.Agent.Client\bin\Debug\OpenBots.settings", EnvironmentVariableTarget.Machine);
             string agentSettingsPath = Environment.GetEnvironmentVariable("OpenBots_Agent_Config_Path", EnvironmentVariableTarget.Machine);
 
             if (agentSettingsPath == null)
@@ -24,6 +21,7 @@ namespace OpenBots.Core.Server.API_Methods
             string agentSettingsText = File.ReadAllText(agentSettingsPath);
             var settings = JsonConvert.DeserializeObject<Dictionary<string, string>>(agentSettingsText);
             string agentId = settings["AgentId"];
+            string serverURL = settings["OpenBotsServerUrl"];
 
             if (string.IsNullOrEmpty(agentId))
                 throw new Exception("Agent is not connected");
@@ -33,6 +31,11 @@ namespace OpenBots.Core.Server.API_Methods
 
             if (username == null || password == null)
                 throw new Exception("Agent credentials not found in registry");
+
+            if (string.IsNullOrEmpty(serverURL))
+                throw new Exception("Server URL not found");
+
+            var client = new RestClient(serverURL);
 
             var request = new RestRequest("api/v1/auth/token", Method.POST);
             request.RequestFormat = DataFormat.Json;          

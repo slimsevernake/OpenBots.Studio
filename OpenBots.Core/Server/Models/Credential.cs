@@ -12,7 +12,6 @@ namespace OpenBots.Core.Server.Models
         public string Domain { get; set; }
         [Required]
         public string UserName { get; set; }
-        //[DoNotAudit]
         public string PasswordSecret { get; set; }
         public string PasswordHash { get; set; }
         public string Certificate { get; set; }

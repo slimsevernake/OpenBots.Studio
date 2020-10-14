@@ -10,7 +10,6 @@ namespace OpenBots.Core.Server.API_Methods
             var request = new RestRequest("api/v1/Processes", Method.POST);
             request.AddParameter("Name", name);
             request.AddParameter("Status", "Published");
-            request.AddParameter("OrganizationId", "ef8a6670-f522-4fcd-a55e-90aa92d1deb7"); //TODO Remove once API is updated to not require it
             request.RequestFormat = DataFormat.Json;
 
             request.AddHeader("Content-Type", "multipart/form-data"); 

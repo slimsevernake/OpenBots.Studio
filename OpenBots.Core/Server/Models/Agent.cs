@@ -16,15 +16,10 @@ namespace OpenBots.Core.Server.Models
         public string MachineName { get; set; }
         [Required]
         public bool IsEnabled { get; set; }
-
         public DateTime? LastReportedOn { get; set; }
-
         public string LastReportedStatus { get; set; }
-
         public string LastReportedWork { get; set; }
-
         public string LastReportedMessage { get; set; }
-
         public bool? IsHealthy { get; set; }
         [Required]
         public bool isConnected { get; set; }

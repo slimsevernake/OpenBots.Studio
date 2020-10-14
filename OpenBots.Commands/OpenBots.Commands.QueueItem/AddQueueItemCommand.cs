@@ -101,7 +101,7 @@ namespace OpenBots.Commands.QueueItem
                 Priority = int.Parse(vPriority)
             };
 
-            QueueItemMethods.EnqueQueueItem(client, queueItem);
+            QueueItemMethods.EnqueueQueueItem(client, queueItem);
         }
 
         public override List<Control> Render(IfrmCommandEditor editor, ICommandControls commandControls)
