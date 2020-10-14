@@ -696,7 +696,7 @@ namespace OpenBots.Commands
             //create recorder
             frmWebElementRecorder newElementRecorder = new frmWebElementRecorder(editor.HTMLElementRecorderURL);
             newElementRecorder.ScriptElements = editor.ScriptElements;
-
+            newElementRecorder.chkStopOnClick.Checked = true;
             //show form
             newElementRecorder.ShowDialog();
 

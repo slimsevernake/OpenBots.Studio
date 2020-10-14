@@ -323,6 +323,16 @@ namespace OpenBots.Core.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        public static System.Drawing.Bitmap command_asset {
+            get {
+                object obj = ResourceManager.GetObject("command_asset", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         public static System.Drawing.Bitmap command_begin_if {
             get {
                 object obj = ResourceManager.GetObject("command_begin_if", resourceCulture);
@@ -406,6 +416,16 @@ namespace OpenBots.Core.Properties {
         public static System.Drawing.Bitmap command_comment {
             get {
                 object obj = ResourceManager.GetObject("command_comment", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap command_credential {
+            get {
+                object obj = ResourceManager.GetObject("command_credential", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -656,6 +676,16 @@ namespace OpenBots.Core.Properties {
         public static System.Drawing.Bitmap command_pause {
             get {
                 object obj = ResourceManager.GetObject("command_pause", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap command_queueitem {
+            get {
+                object obj = ResourceManager.GetObject("command_queueitem", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

@@ -122,6 +122,7 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
                                     ConvertListToString(variable.VariableValue));
                                 break;
                             case string a when a.Contains("System.Collections.Generic.Dictionary`2[[System.String") && a.Contains("],[System.String"):
+                            case string b when b.Contains("System.Collections.Generic.Dictionary`2[[System.String") && b.Contains("],[System.Object"):
                                 variableValues.Rows.Add(variable.VariableName, type,
                                    ConvertDictionaryToString(variable.VariableValue));
                                 break;
@@ -346,23 +347,33 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
         {
             StringBuilder stringBuilder = new StringBuilder();
             Type type = dictionary.GetType().GetGenericArguments()[1];
-             
+            dynamic stringDictionary = null;
+
             if (type == typeof(string))
             {
-                Dictionary<string, string> stringDictionary = (Dictionary<string, string>)dictionary;
+                stringDictionary = (Dictionary<string, string>)dictionary;
                 stringBuilder.Append($"Count({stringDictionary.Count}) [");
 
                 foreach (KeyValuePair<string, string> pair in stringDictionary)
-                    stringBuilder.AppendFormat("[{0}, {1}], ", pair.Key, pair.Value);
-
-                if (stringDictionary.Count > 0)
-                {
-                    stringBuilder.Length = stringBuilder.Length - 2;
-                    stringBuilder.Append("]");
-                }                   
-                else
-                    stringBuilder.Length = stringBuilder.Length - 2;
+                    stringBuilder.AppendFormat("[{0}, {1}], ", pair.Key, pair.Value);              
             }
+            else if (type == typeof(object))
+            {
+                stringDictionary = (Dictionary<string, object>)dictionary;
+                stringBuilder.Append($"Count({stringDictionary.Count}) [");
+
+                foreach (KeyValuePair<string, object> pair in stringDictionary)
+                    stringBuilder.AppendFormat("[{0}, {1}], ", pair.Key, pair.Value == null ? 
+                                                string.Empty : pair.Value.ToString());
+            }
+
+            if (stringDictionary.Count > 0)
+            {
+                stringBuilder.Length = stringBuilder.Length - 2;
+                stringBuilder.Append("]");
+            }
+            else
+                stringBuilder.Length = stringBuilder.Length - 2;
 
             return stringBuilder.ToString();
         }
