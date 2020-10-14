@@ -25,7 +25,7 @@ namespace OpenBots.Commands.Outlook
         [PropertyDescription("Source Mail Folder Name")]
         [InputSpecification("Enter the name of the Outlook mail folder the emails are located in.")]
         [SampleUsage("Inbox || {vFolderName}")]
-        [Remarks("")]
+        [Remarks("Source folder cannot be a sub mail folder.")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_SourceFolder { get; set; }
 
