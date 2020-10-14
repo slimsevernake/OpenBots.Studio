@@ -30,7 +30,7 @@ namespace OpenBots.Core.Server.API_Methods
             return JsonConvert.DeserializeObject<List<QueueItem>>(items).FirstOrDefault();
         }
 
-        public static void EnqueQueueItem(RestClient client, QueueItem queueItem)
+        public static void EnqueueQueueItem(RestClient client, QueueItem queueItem)
         {
             var request = new RestRequest("api/v1/QueueItems/Enqueue", Method.POST);
             request.RequestFormat = DataFormat.Json;
