@@ -16,7 +16,7 @@ namespace OpenBots.Commands.Excel
     [Serializable]
     [Group("Excel Commands")]
     [Description("This command activates a specific Worksheet in an Excel Workbook.")]
-    public class ExcelActivateSheetCommand : ScriptCommand
+    public class ExcelAppendSheetCommand : ScriptCommand
     {
         [PropertyDescription("Excel Instance Name")]
         [InputSpecification("Enter the unique instance that was specified in the **Create Application** command.")]
@@ -25,16 +25,16 @@ namespace OpenBots.Commands.Excel
         public string v_InstanceName { get; set; }
 
         [PropertyDescription("Worksheet Name")]
-        [InputSpecification("Specify the Worksheet within the Workbook to activate.")]
+        [InputSpecification("Specify the name of the new Worksheet to append.")]
         [SampleUsage("Sheet1 || {vSheet}")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_SheetName { get; set; }
 
-        public ExcelActivateSheetCommand()
+        public ExcelAppendSheetCommand()
         {
-            CommandName = "ExcelActivateSheetCommand";
-            SelectionName = "Activate Sheet";
+            CommandName = "ExcelAppendSheetCommand";
+            SelectionName = "Append Sheet";
             CommandEnabled = true;
             CustomRendering = true;
             v_InstanceName = "DefaultExcel";
@@ -43,12 +43,13 @@ namespace OpenBots.Commands.Excel
         public override void RunCommand(object sender)
         {
             var engine = (AutomationEngineInstance)sender;
-            string vSheetToActivate = v_SheetName.ConvertUserVariableToString(engine);
+            string vSheetToAppend = v_SheetName.ConvertUserVariableToString(engine);
 
             var excelObject = v_InstanceName.GetAppInstance(engine);
-            var excelInstance = (Application)excelObject;      
-            var workSheet = excelInstance.Sheets[vSheetToActivate] as Worksheet;
-            workSheet.Select(); 
+            var excelInstance = (Application)excelObject;
+            var workSheet = excelInstance.Sheets.Add() as Worksheet;
+            workSheet.Name = vSheetToAppend;
+            workSheet.Select();
         }
 
         public override List<Control> Render(IfrmCommandEditor editor, ICommandControls commandControls)

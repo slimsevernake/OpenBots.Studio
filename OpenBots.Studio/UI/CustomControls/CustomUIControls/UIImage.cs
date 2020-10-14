@@ -77,6 +77,8 @@ namespace OpenBots.UI.CustomControls.CustomUIControls
             uiImages.Add("ExcelGetLastRowIndexCommand", Resources.command_spreadsheet);
             uiImages.Add("ExcelSaveWorkbookCommand", Resources.command_spreadsheet);
             uiImages.Add("ExcelActivateSheetCommand", Resources.command_spreadsheet);
+            uiImages.Add("ExcelAppendSheetCommand", Resources.command_spreadsheet);
+            uiImages.Add("ExcelRenameSheetCommand", Resources.command_spreadsheet);
             uiImages.Add("ExcelExportToPDFCommand", Resources.command_spreadsheet);
             uiImages.Add("WordCreateApplicationCommand", Resources.command_files);
             uiImages.Add("WordCloseApplicationCommand", Resources.command_files);

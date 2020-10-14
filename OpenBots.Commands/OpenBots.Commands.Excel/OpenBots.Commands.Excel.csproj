@@ -54,6 +54,7 @@
     <Compile Include="ExcelActivateSheetCommand.cs" />
     <Compile Include="ExcelAppendCellCommand.cs" />
     <Compile Include="ExcelAppendRowCommand.cs" />
+    <Compile Include="ExcelAppendSheetCommand.cs" />
     <Compile Include="ExcelCloseApplicationCommand.cs" />
     <Compile Include="ExcelCreateApplicationCommand.cs" />
     <Compile Include="ExcelDeleteRangeCommand.cs" />
@@ -63,6 +64,7 @@
     <Compile Include="ExcelGetLastRowIndexCommand.cs" />
     <Compile Include="ExcelGetRangeCommand.cs" />
     <Compile Include="ExcelLoadDictionaryCommand.cs" />
+    <Compile Include="ExcelRenameSheetCommand.cs" />
     <Compile Include="ExcelRunMacroCommand.cs" />
     <Compile Include="ExcelSaveWorkbookAsCommand.cs" />
     <Compile Include="ExcelSaveWorkbookCommand.cs" />

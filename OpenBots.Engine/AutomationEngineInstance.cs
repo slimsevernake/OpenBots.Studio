@@ -325,11 +325,8 @@ namespace OpenBots.Engine
                 throw new Exception("Child Script Failed");
 
             //bypass comments
-            if (parentCommand.CommandName == "AddCodeCommentCommand" || parentCommand.IsCommented)
-            {
-                ReportProgress($"Skipping Line {parentCommand.LineNumber}: {(parentCommand.v_IsPrivate ? _privateCommandLog : parentCommand.GetDisplayValue().ConvertUserVariableToString(this))}", parentCommand.LogLevel);
+            if (parentCommand.CommandName == "AddCodeCommentCommand" || parentCommand.IsCommented)             
                 return;
-            }
 
             //report intended execution
             if (parentCommand.CommandName != "LogMessageCommand")

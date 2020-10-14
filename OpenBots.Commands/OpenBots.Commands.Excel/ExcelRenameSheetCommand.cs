@@ -16,7 +16,7 @@ namespace OpenBots.Commands.Excel
     [Serializable]
     [Group("Excel Commands")]
     [Description("This command activates a specific Worksheet in an Excel Workbook.")]
-    public class ExcelActivateSheetCommand : ScriptCommand
+    public class ExcelRenameSheetCommand : ScriptCommand
     {
         [PropertyDescription("Excel Instance Name")]
         [InputSpecification("Enter the unique instance that was specified in the **Create Application** command.")]
@@ -24,17 +24,24 @@ namespace OpenBots.Commands.Excel
         [Remarks("Failure to enter the correct instance or failure to first call the **Create Application** command will cause an error.")]
         public string v_InstanceName { get; set; }
 
-        [PropertyDescription("Worksheet Name")]
-        [InputSpecification("Specify the Worksheet within the Workbook to activate.")]
+        [PropertyDescription("Original Worksheet Name")]
+        [InputSpecification("Specify the name of the new Worksheet to rename.")]
         [SampleUsage("Sheet1 || {vSheet}")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
-        public string v_SheetName { get; set; }
+        public string v_OriginalSheetName { get; set; }
 
-        public ExcelActivateSheetCommand()
+        [PropertyDescription("New Worksheet Name")]
+        [InputSpecification("Specify the new name of the new Worksheet.")]
+        [SampleUsage("Sheet1 || {vSheet}")]
+        [Remarks("")]
+        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
+        public string v_NewSheetName { get; set; }
+
+        public ExcelRenameSheetCommand()
         {
-            CommandName = "ExcelActivateSheetCommand";
-            SelectionName = "Activate Sheet";
+            CommandName = "ExcelRenameSheetCommand";
+            SelectionName = "Rename Sheet";
             CommandEnabled = true;
             CustomRendering = true;
             v_InstanceName = "DefaultExcel";
@@ -43,12 +50,14 @@ namespace OpenBots.Commands.Excel
         public override void RunCommand(object sender)
         {
             var engine = (AutomationEngineInstance)sender;
-            string vSheetToActivate = v_SheetName.ConvertUserVariableToString(engine);
+            string vSheetToRename = v_OriginalSheetName.ConvertUserVariableToString(engine);
+            string vNewSheetName = v_NewSheetName.ConvertUserVariableToString(engine);
 
             var excelObject = v_InstanceName.GetAppInstance(engine);
-            var excelInstance = (Application)excelObject;      
-            var workSheet = excelInstance.Sheets[vSheetToActivate] as Worksheet;
-            workSheet.Select(); 
+            var excelInstance = (Application)excelObject;
+            var workSheet = excelInstance.Sheets[vSheetToRename] as Worksheet;
+            workSheet.Name = vNewSheetName;
+            workSheet.Select();
         }
 
         public override List<Control> Render(IfrmCommandEditor editor, ICommandControls commandControls)
@@ -56,14 +65,15 @@ namespace OpenBots.Commands.Excel
             base.Render(editor, commandControls);
 
             RenderedControls.AddRange(commandControls.CreateDefaultInputGroupFor("v_InstanceName", this, editor));
-            RenderedControls.AddRange(commandControls.CreateDefaultInputGroupFor("v_SheetName", this, editor));
+            RenderedControls.AddRange(commandControls.CreateDefaultInputGroupFor("v_OriginalSheetName", this, editor));
+            RenderedControls.AddRange(commandControls.CreateDefaultInputGroupFor("v_NewSheetName", this, editor));
 
             return RenderedControls;
         }
 
         public override string GetDisplayValue()
         {
-            return base.GetDisplayValue() + $" [Sheet '{v_SheetName}' - Instance Name '{v_InstanceName}']";
+            return base.GetDisplayValue() + $" [Sheet '{v_OriginalSheetName}' to '{v_NewSheetName}'- Instance Name '{v_InstanceName}']";
         }
     }
 }
