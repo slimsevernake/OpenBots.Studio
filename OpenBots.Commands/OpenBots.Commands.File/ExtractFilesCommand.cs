@@ -89,7 +89,8 @@ namespace OpenBots.Commands.File
             {
                 if (!zipEntry.IsFile)
                 {
-                    // Ignore directories
+                    // Ignore directories but create them in case they're empty
+                    Directory.CreateDirectory(Path.Combine(vFilePathDestination, zipEntry.Name));
                     continue;
                 }
 
