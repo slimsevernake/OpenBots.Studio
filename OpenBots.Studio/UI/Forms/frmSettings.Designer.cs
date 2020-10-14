@@ -33,19 +33,6 @@
             this.lblManageSettings = new System.Windows.Forms.Label();
             this.uiBtnOpen = new OpenBots.Core.UI.Controls.UIPictureButton();
             this.lblMainLogo = new System.Windows.Forms.Label();
-            this.txtWhiteList = new System.Windows.Forms.TextBox();
-            this.chkEnableWhitelist = new System.Windows.Forms.CheckBox();
-            this.chkAutoStartListener = new System.Windows.Forms.CheckBox();
-            this.lblListeningPort = new System.Windows.Forms.Label();
-            this.txtListeningPort = new System.Windows.Forms.TextBox();
-            this.btnStopListening = new System.Windows.Forms.Button();
-            this.btnStartListening = new System.Windows.Forms.Button();
-            this.chkRequireListenerKey = new System.Windows.Forms.CheckBox();
-            this.lblAuthKey = new System.Windows.Forms.Label();
-            this.txtAuthListeningKey = new System.Windows.Forms.TextBox();
-            this.chkEnableListening = new System.Windows.Forms.CheckBox();
-            this.lblLocalListenerSettingsDesc = new System.Windows.Forms.Label();
-            this.lblLocalListenerSettings = new System.Windows.Forms.Label();
             this.tlpSettings = new System.Windows.Forms.TableLayoutPanel();
             this.uiSettingTabs = new OpenBots.UI.CustomControls.CustomUIControls.UITabControl();
             this.tabAppSettings = new System.Windows.Forms.TabPage();
@@ -99,7 +86,6 @@
             this.chkAutoCloseWindow = new System.Windows.Forms.CheckBox();
             this.chkEnableLogging = new System.Windows.Forms.CheckBox();
             this.pnlSettings = new System.Windows.Forms.Panel();
-            this.tmrGetSocketStatus = new System.Windows.Forms.Timer(this.components);
             this.bgwMetrics = new System.ComponentModel.BackgroundWorker();
             ((System.ComponentModel.ISupportInitialize)(this.uiBtnOpen)).BeginInit();
             this.tlpSettings.SuspendLayout();
@@ -150,98 +136,7 @@
             this.lblMainLogo.Name = "lblMainLogo";
             this.lblMainLogo.Size = new System.Drawing.Size(156, 54);
             this.lblMainLogo.TabIndex = 14;
-            this.lblMainLogo.Text = "settings";
-            // 
-            // txtWhiteList
-            // 
-            this.txtWhiteList.Location = new System.Drawing.Point(0, 0);
-            this.txtWhiteList.Name = "txtWhiteList";
-            this.txtWhiteList.Size = new System.Drawing.Size(100, 22);
-            this.txtWhiteList.TabIndex = 0;
-            // 
-            // chkEnableWhitelist
-            // 
-            this.chkEnableWhitelist.Location = new System.Drawing.Point(0, 0);
-            this.chkEnableWhitelist.Name = "chkEnableWhitelist";
-            this.chkEnableWhitelist.Size = new System.Drawing.Size(104, 24);
-            this.chkEnableWhitelist.TabIndex = 0;
-            // 
-            // chkAutoStartListener
-            // 
-            this.chkAutoStartListener.Location = new System.Drawing.Point(0, 0);
-            this.chkAutoStartListener.Name = "chkAutoStartListener";
-            this.chkAutoStartListener.Size = new System.Drawing.Size(104, 24);
-            this.chkAutoStartListener.TabIndex = 0;
-            // 
-            // lblListeningPort
-            // 
-            this.lblListeningPort.Location = new System.Drawing.Point(0, 0);
-            this.lblListeningPort.Name = "lblListeningPort";
-            this.lblListeningPort.Size = new System.Drawing.Size(100, 23);
-            this.lblListeningPort.TabIndex = 0;
-            // 
-            // txtListeningPort
-            // 
-            this.txtListeningPort.Location = new System.Drawing.Point(0, 0);
-            this.txtListeningPort.Name = "txtListeningPort";
-            this.txtListeningPort.Size = new System.Drawing.Size(100, 22);
-            this.txtListeningPort.TabIndex = 0;
-            // 
-            // btnStopListening
-            // 
-            this.btnStopListening.Location = new System.Drawing.Point(0, 0);
-            this.btnStopListening.Name = "btnStopListening";
-            this.btnStopListening.Size = new System.Drawing.Size(75, 23);
-            this.btnStopListening.TabIndex = 0;
-            // 
-            // btnStartListening
-            // 
-            this.btnStartListening.Location = new System.Drawing.Point(0, 0);
-            this.btnStartListening.Name = "btnStartListening";
-            this.btnStartListening.Size = new System.Drawing.Size(75, 23);
-            this.btnStartListening.TabIndex = 0;
-            // 
-            // chkRequireListenerKey
-            // 
-            this.chkRequireListenerKey.Location = new System.Drawing.Point(0, 0);
-            this.chkRequireListenerKey.Name = "chkRequireListenerKey";
-            this.chkRequireListenerKey.Size = new System.Drawing.Size(104, 24);
-            this.chkRequireListenerKey.TabIndex = 0;
-            // 
-            // lblAuthKey
-            // 
-            this.lblAuthKey.Location = new System.Drawing.Point(0, 0);
-            this.lblAuthKey.Name = "lblAuthKey";
-            this.lblAuthKey.Size = new System.Drawing.Size(100, 23);
-            this.lblAuthKey.TabIndex = 0;
-            // 
-            // txtAuthListeningKey
-            // 
-            this.txtAuthListeningKey.Location = new System.Drawing.Point(0, 0);
-            this.txtAuthListeningKey.Name = "txtAuthListeningKey";
-            this.txtAuthListeningKey.Size = new System.Drawing.Size(100, 22);
-            this.txtAuthListeningKey.TabIndex = 0;
-            // 
-            // chkEnableListening
-            // 
-            this.chkEnableListening.Location = new System.Drawing.Point(0, 0);
-            this.chkEnableListening.Name = "chkEnableListening";
-            this.chkEnableListening.Size = new System.Drawing.Size(104, 24);
-            this.chkEnableListening.TabIndex = 0;
-            // 
-            // lblLocalListenerSettingsDesc
-            // 
-            this.lblLocalListenerSettingsDesc.Location = new System.Drawing.Point(0, 0);
-            this.lblLocalListenerSettingsDesc.Name = "lblLocalListenerSettingsDesc";
-            this.lblLocalListenerSettingsDesc.Size = new System.Drawing.Size(100, 23);
-            this.lblLocalListenerSettingsDesc.TabIndex = 0;
-            // 
-            // lblLocalListenerSettings
-            // 
-            this.lblLocalListenerSettings.Location = new System.Drawing.Point(0, 0);
-            this.lblLocalListenerSettings.Name = "lblLocalListenerSettings";
-            this.lblLocalListenerSettings.Size = new System.Drawing.Size(100, 23);
-            this.lblLocalListenerSettings.TabIndex = 0;
+            this.lblMainLogo.Text = "settings";           
             // 
             // tlpSettings
             // 
@@ -984,21 +879,7 @@
         private System.Windows.Forms.Label lblMainLogo;
         private System.Windows.Forms.TableLayoutPanel tlpSettings;
         private System.Windows.Forms.Panel pnlSettings;
-        private System.Windows.Forms.Timer tmrGetSocketStatus;
         private System.ComponentModel.BackgroundWorker bgwMetrics;
-        private System.Windows.Forms.Label lblLocalListenerSettingsDesc;
-        private System.Windows.Forms.Label lblLocalListenerSettings;
-        private System.Windows.Forms.Label lblAuthKey;
-        private System.Windows.Forms.TextBox txtAuthListeningKey;
-        private System.Windows.Forms.CheckBox chkEnableListening;
-        private System.Windows.Forms.CheckBox chkRequireListenerKey;
-        private System.Windows.Forms.Button btnStopListening;
-        private System.Windows.Forms.Button btnStartListening;
-        private System.Windows.Forms.CheckBox chkAutoStartListener;
-        private System.Windows.Forms.Label lblListeningPort;
-        private System.Windows.Forms.TextBox txtListeningPort;
-        private System.Windows.Forms.CheckBox chkEnableWhitelist;
-        private System.Windows.Forms.TextBox txtWhiteList;
         private CustomControls.CustomUIControls.UITabControl uiSettingTabs;
         private System.Windows.Forms.TabPage tabDebugSettings;
         private System.Windows.Forms.Button btnFileManager;
