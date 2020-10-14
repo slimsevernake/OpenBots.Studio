@@ -92,18 +92,25 @@ namespace OpenBots.Commands.Excel
             string cName;
             DataTable DT = new DataTable();
 
-            for (rCnt = 2; rCnt <= rw; rCnt++)
+            int startRow;
+            if (v_AddHeaders == "Yes")
+                startRow = 2;
+            else
+                startRow = 1;
+
+            for (rCnt = startRow; rCnt <= rw; rCnt++)
             {
                 DataRow newRow = DT.NewRow();
                 for (cCnt = 1; cCnt <= cl; cCnt++)
                 {
-                    if (!DT.Columns.Contains(cCnt.ToString()))
-                        DT.Columns.Add(cCnt.ToString());
+                    string colName = $"Column{cCnt - 1}";
+                    if (!DT.Columns.Contains(colName))
+                        DT.Columns.Add(colName);
 
                     if (((cellRange.Cells[rCnt, cCnt] as Range).Value2) == null)
-                        newRow[cCnt.ToString()] = "";
+                        newRow[colName] = "";
                     else
-                        newRow[cCnt.ToString()] = (cellRange.Cells[rCnt, cCnt] as Range).Value2.ToString();
+                        newRow[colName] = (cellRange.Cells[rCnt, cCnt] as Range).Value2.ToString();
                 }
                 DT.Rows.Add(newRow);
             }
