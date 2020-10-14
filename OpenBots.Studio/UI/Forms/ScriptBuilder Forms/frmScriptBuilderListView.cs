@@ -53,6 +53,8 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
             newLstScriptActions.MouseClick += new MouseEventHandler(lstScriptActions_MouseClick);
             newLstScriptActions.MouseMove += new MouseEventHandler(lstScriptActions_MouseMove);
             newLstScriptActions.Tag = new ScriptActionTag();
+            newLstScriptActions.ShowItemToolTips = true;
+
             return newLstScriptActions;
         }
 
@@ -530,6 +532,8 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
             newCommand.ForeColor = cmdDetails.DisplayForeColor;
             newCommand.BackColor = Color.DimGray;
             newCommand.ImageIndex = _uiImages.Images.IndexOfKey(cmdDetails.GetType().Name);
+            newCommand.ToolTipText = cmdDetails.GetDisplayValue();
+
             return newCommand;
         }
         #endregion
