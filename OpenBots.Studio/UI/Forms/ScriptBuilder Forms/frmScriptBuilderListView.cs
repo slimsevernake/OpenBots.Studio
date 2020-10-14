@@ -331,7 +331,7 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
                     CreateUndoSnapshot();
                     selectedCommandItem.Tag = editCommand.SelectedCommand;
                     selectedCommandItem.Text = editCommand.SelectedCommand.GetDisplayValue(); //+ "(" + cmdDetails.SelectedVariables() + ")";
-                    selectedCommandItem.SubItems.Add(editCommand.SelectedCommand.GetDisplayValue());
+                    selectedCommandItem.SubItems.Add(editCommand.SelectedCommand.GetDisplayValue());                    
                 }
 
                 if (editCommand.SelectedCommand.CommandName == "SeleniumElementActionCommand")
@@ -961,6 +961,8 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
 
             //insert command
             _selectedTabScriptActions.Items.Insert(insertionIndex, command);
+            ClearSelectedListViewItems();
+            command.Selected = true;
 
             //special types also get a following command and comment
             if ((selectedCommand.CommandName == "LoopCollectionCommand") || (selectedCommand.CommandName == "LoopContinuouslyCommand") ||
