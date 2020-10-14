@@ -13,11 +13,5 @@ namespace OpenBots.Core.Server.Models
         public string PasswordHash { get; set; }
         public string Certificate { get; set; }
     }
-
-    public class CredentialsLookup
-    {
-        public Guid CredentialId { get; set; }
-        public string CredentialName { get; set; }
-    }
 }
 
