@@ -378,6 +378,22 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
             }
         }
 
+        private void SaveAllFiles()
+        {
+            TabPage currentTab = uiScriptTabControl.SelectedTab;
+            foreach (TabPage openTab in uiScriptTabControl.TabPages)
+            {
+                if (openTab.Text.Contains(" *"))
+                {
+                    uiScriptTabControl.SelectedTab = openTab;
+                    //clear selected items
+                    ClearSelectedListViewItems();
+                    SaveToFile(false); // Save & Run!
+                }
+            }
+            uiScriptTabControl.SelectedTab = currentTab;
+        }
+
         private void ClearSelectedListViewItems()
         {
             _selectedTabScriptActions.SelectedItems.Clear();
@@ -683,20 +699,12 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
                 return;
             }
 
-            TabPage currentTab = uiScriptTabControl.SelectedTab;
-            foreach (TabPage openTab in uiScriptTabControl.TabPages)
-            {
-                if (openTab.Text.Contains(" *"))
-                {
-                    uiScriptTabControl.SelectedTab = openTab;
-                    //clear selected items
-                    ClearSelectedListViewItems();
-                    SaveToFile(false); // Save & Run!
-                }
-            }
-            uiScriptTabControl.SelectedTab = currentTab;
+            SaveAllFiles();
 
             Notify("Running Script..");
+
+            if (CurrentEngine != null)
+                ((Form)CurrentEngine).Close();
 
             //initialize Logger
             switch (_appSettings.EngineSettings.LoggingSinkType)
