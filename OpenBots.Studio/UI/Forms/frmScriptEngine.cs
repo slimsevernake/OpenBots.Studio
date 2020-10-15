@@ -64,6 +64,17 @@ namespace OpenBots.UI.Forms
         public Logger ScriptEngineLogger { get; set; }
         #endregion
 
+        private const int CP_NOCLOSE_BUTTON = 0x200;
+        protected override CreateParams CreateParams
+        {
+            get
+            {
+                CreateParams mdiCp = base.CreateParams;
+                mdiCp.ClassStyle = mdiCp.ClassStyle | CP_NOCLOSE_BUTTON;
+                return mdiCp;
+            }
+        }
+
         //events and methods
         #region Form Events/Methods
         public frmScriptEngine(string pathToFile, string projectPath, frmScriptBuilder builderForm, Logger engineLogger, List<ScriptVariable> variables = null, 
@@ -320,6 +331,34 @@ namespace OpenBots.UI.Forms
         private void EngineInstance_LineNumberChangedEvent(object sender, LineNumberChangedEventArgs e)
         {
             UpdateLineNumber(e.CurrentLineNumber);
+        }
+
+        private void lstSteppingCommands_DrawItem(object sender, DrawItemEventArgs e)
+        {
+            if (e.Index != -1)
+            {
+                SteppingCommandsItem item = lstSteppingCommands.Items[e.Index] as SteppingCommandsItem;
+
+                if (item != null)
+                {
+                    if ((e.State & DrawItemState.Selected) == DrawItemState.Selected)
+                    {
+                        e = new DrawItemEventArgs(e.Graphics, e.Font, e.Bounds, e.Index,
+                                                  e.State ^ DrawItemState.Selected,
+                                                  e.ForeColor, item.Color);
+
+                        e.DrawBackground();
+                        e.Graphics.DrawString(item.Text, e.Font, Brushes.White, e.Bounds);
+                    }
+                    else
+                    {
+                        e.DrawBackground();
+                        e.Graphics.DrawString(item.Text, e.Font, new SolidBrush(item.Color),
+                                              e.Bounds);
+                    }
+                    e.DrawFocusRectangle();
+                }
+            }
         }
         #endregion
 
@@ -708,34 +747,6 @@ namespace OpenBots.UI.Forms
             MessageBox.Show(((SteppingCommandsItem)lstSteppingCommands.SelectedItem).Text, "Item Status");
         }
 
-        #endregion UI Elements
-
-        private void lstSteppingCommands_DrawItem(object sender, DrawItemEventArgs e)
-        {
-            if (e.Index != -1)
-            {
-                SteppingCommandsItem item = lstSteppingCommands.Items[e.Index] as SteppingCommandsItem;
-
-                if (item != null)
-                {
-                    if ((e.State & DrawItemState.Selected) == DrawItemState.Selected)
-                    {
-                        e = new DrawItemEventArgs(e.Graphics, e.Font, e.Bounds, e.Index,
-                                                  e.State ^ DrawItemState.Selected,
-                                                  e.ForeColor, item.Color);
-
-                        e.DrawBackground();
-                        e.Graphics.DrawString(item.Text, e.Font, Brushes.White, e.Bounds);
-                    }
-                    else
-                    {
-                        e.DrawBackground();
-                        e.Graphics.DrawString(item.Text, e.Font, new SolidBrush(item.Color),
-                                              e.Bounds);
-                    }
-                    e.DrawFocusRectangle();
-                }
-            }                
-        }
+        #endregion UI Elements       
     }
 }

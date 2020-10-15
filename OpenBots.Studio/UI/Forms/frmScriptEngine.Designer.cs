@@ -88,7 +88,7 @@
             this.lblMainLogo.Location = new System.Drawing.Point(1, 6);
             this.lblMainLogo.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblMainLogo.Name = "lblMainLogo";
-            this.lblMainLogo.Size = new System.Drawing.Size(509, 68);
+            this.lblMainLogo.Size = new System.Drawing.Size(407, 54);
             this.lblMainLogo.TabIndex = 4;
             this.lblMainLogo.Text = "OpenBots is executing";
             // 
@@ -125,7 +125,7 @@
             this.uiBtnStepInto.DisplayText = "Step Into";
             this.uiBtnStepInto.DisplayTextBrush = System.Drawing.Color.AliceBlue;
             this.uiBtnStepInto.Font = new System.Drawing.Font("Segoe UI", 8F);
-            this.uiBtnStepInto.Image = global::OpenBots.Core.Properties.Resources.command_step_into;
+            this.uiBtnStepInto.Image = ((System.Drawing.Image)(resources.GetObject("uiBtnStepInto.Image")));
             this.uiBtnStepInto.IsMouseOver = false;
             this.uiBtnStepInto.Location = new System.Drawing.Point(717, 2);
             this.uiBtnStepInto.Margin = new System.Windows.Forms.Padding(4);
@@ -144,7 +144,7 @@
             this.uiBtnStepOver.DisplayText = "Step Over";
             this.uiBtnStepOver.DisplayTextBrush = System.Drawing.Color.AliceBlue;
             this.uiBtnStepOver.Font = new System.Drawing.Font("Segoe UI", 8F);
-            this.uiBtnStepOver.Image = global::OpenBots.Core.Properties.Resources.command_step_over;
+            this.uiBtnStepOver.Image = ((System.Drawing.Image)(resources.GetObject("uiBtnStepOver.Image")));
             this.uiBtnStepOver.IsMouseOver = false;
             this.uiBtnStepOver.Location = new System.Drawing.Point(653, 2);
             this.uiBtnStepOver.Margin = new System.Windows.Forms.Padding(4);
@@ -163,7 +163,7 @@
             this.uiBtnCancel.DisplayText = "Cancel";
             this.uiBtnCancel.DisplayTextBrush = System.Drawing.Color.AliceBlue;
             this.uiBtnCancel.Font = new System.Drawing.Font("Segoe UI", 8F);
-            this.uiBtnCancel.Image = global::OpenBots.Core.Properties.Resources.command_cancel;
+            this.uiBtnCancel.Image = ((System.Drawing.Image)(resources.GetObject("uiBtnCancel.Image")));
             this.uiBtnCancel.IsMouseOver = false;
             this.uiBtnCancel.Location = new System.Drawing.Point(845, 2);
             this.uiBtnCancel.Margin = new System.Windows.Forms.Padding(4);
@@ -181,7 +181,7 @@
             this.uiBtnPause.DisplayText = "Pause";
             this.uiBtnPause.DisplayTextBrush = System.Drawing.Color.AliceBlue;
             this.uiBtnPause.Font = new System.Drawing.Font("Segoe UI", 8F);
-            this.uiBtnPause.Image = global::OpenBots.Core.Properties.Resources.command_pause;
+            this.uiBtnPause.Image = ((System.Drawing.Image)(resources.GetObject("uiBtnPause.Image")));
             this.uiBtnPause.IsMouseOver = false;
             this.uiBtnPause.Location = new System.Drawing.Point(781, 2);
             this.uiBtnPause.Margin = new System.Windows.Forms.Padding(4);
@@ -195,7 +195,7 @@
             // pbBotIcon
             // 
             this.pbBotIcon.BackColor = System.Drawing.Color.Transparent;
-            this.pbBotIcon.Image = global::OpenBots.Core.Properties.Resources.executing;
+            this.pbBotIcon.Image = ((System.Drawing.Image)(resources.GetObject("pbBotIcon.Image")));
             this.pbBotIcon.Location = new System.Drawing.Point(16, 69);
             this.pbBotIcon.Margin = new System.Windows.Forms.Padding(4);
             this.pbBotIcon.Name = "pbBotIcon";
@@ -209,8 +209,8 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.SteelBlue;
-            this.ClientSize = new System.Drawing.Size(925, 290);
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(59)))), ((int)(((byte)(59)))), ((int)(((byte)(59)))));
+            this.ClientSize = new System.Drawing.Size(923, 292);
             this.Controls.Add(this.uiBtnStepInto);
             this.Controls.Add(this.uiBtnStepOver);
             this.Controls.Add(this.lblAction);
@@ -221,9 +221,10 @@
             this.Controls.Add(this.lblCloseTimer);
             this.Controls.Add(this.lstSteppingCommands);
             this.Controls.Add(this.pbBotIcon);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Icon = OpenBots.Core.Properties.Resources.OpenBots_ico;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(5);
+            this.MaximizeBox = false;
             this.Name = "frmScriptEngine";
             this.Text = "Bot Engine";
             this.TopMost = true;
