@@ -184,46 +184,58 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
             }
             else if (e.Control)
             {
-                switch (e.KeyCode)
+                if (e.Shift)
                 {
-                    case Keys.X:
-                        CutRows();
-                        break;
-                    case Keys.C:
-                        CopyRows();
-                        break;
-                    case Keys.V:
-                        PasteRows();
-                        break;
-                    case Keys.Z:
-                        UndoChange();
-                        break;
-                    case Keys.R:
-                        RedoChange();
-                        break;
-                    case Keys.A:
-                        foreach (ListViewItem item in _selectedTabScriptActions.Items)
-                            item.Selected = true;
-                        break;
-                    case Keys.S:
-                        if (_isSequence)
-                            uiBtnSaveSequence_Click(null, null);
-                        else
-                        {
-                            ClearSelectedListViewItems();
-                            SaveToFile(false);
-                        }                        
-                        break;
-                    case Keys.E:
-                        SetSelectedCodeToCommented(false);
-                        break;
-                    case Keys.D:
-                        SetSelectedCodeToCommented(true);
-                        break;
-                    case Keys.B:
-                        AddRemoveBreakpoint();
-                        break;
+                    switch (e.KeyCode)
+                    {
+                        case Keys.S:
+                            SaveAllFiles();
+                            break;
+                    }
                 }
+                else
+                {
+                    switch (e.KeyCode)
+                    {
+                        case Keys.X:
+                            CutRows();
+                            break;
+                        case Keys.C:
+                            CopyRows();
+                            break;
+                        case Keys.V:
+                            PasteRows();
+                            break;
+                        case Keys.Z:
+                            UndoChange();
+                            break;
+                        case Keys.R:
+                            RedoChange();
+                            break;
+                        case Keys.A:
+                            foreach (ListViewItem item in _selectedTabScriptActions.Items)
+                                item.Selected = true;
+                            break;
+                        case Keys.S:
+                            if (_isSequence)
+                                uiBtnSaveSequence_Click(null, null);
+                            else
+                            {
+                                ClearSelectedListViewItems();
+                                SaveToFile(false);
+                            }
+                            break;
+                        case Keys.E:
+                            SetSelectedCodeToCommented(false);
+                            break;
+                        case Keys.D:
+                            SetSelectedCodeToCommented(true);
+                            break;
+                        case Keys.B:
+                            AddRemoveBreakpoint();
+                            break;
+                    }
+                }                
             }
         }
 

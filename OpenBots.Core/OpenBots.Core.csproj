@@ -251,6 +251,7 @@
     <Content Include="Resources\Icons\ActionBar\action-bar-record.png" />
     <Content Include="Resources\Icons\ActionBar\action-bar-run.png" />
     <Content Include="Resources\Icons\ActionBar\action-bar-save.png" />
+    <None Include="Resources\Icons\ActionBar\action-bar-saveall.png" />
     <Content Include="Resources\Icons\ActionBar\action-bar-saveas.png" />
     <Content Include="Resources\Icons\ActionBar\action-bar-schedule.png" />
     <Content Include="Resources\Icons\ActionBar\action-bar-variable.png" />

@@ -12,8 +12,6 @@
 //WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 //See the License for the specific language governing permissions and
 //limitations under the License.
-
-using OpenBots.Commands;
 using OpenBots.Commands.Input;
 using OpenBots.Core.Command;
 using OpenBots.Core.Enums;
@@ -681,7 +679,7 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
             LinkLabel senderLink = (LinkLabel)sender;
             OpenFile(Path.Combine(Folders.GetFolder(FolderType.ScriptsFolder), senderLink.Text));
         }
-        #endregion
+        #endregion        
     }
 }
 

@@ -394,6 +394,16 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
             uiScriptTabControl.SelectedTab = currentTab;
         }
 
+        private void saveAllToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SaveAllFiles();
+        }
+
+        private void uiBtnSaveAll_Click(object sender, EventArgs e)
+        {
+            SaveAllFiles();
+        }
+
         private void ClearSelectedListViewItems()
         {
             _selectedTabScriptActions.SelectedItems.Clear();
