@@ -199,6 +199,7 @@ namespace OpenBots.UI.CustomControls
 
             inputBox.Name = parameterName;
             inputBox.KeyDown += InputBox_KeyDown;
+            inputBox.KeyPress += InputBox_KeyPress;
 
             if (parameterName == "v_Comment")
                 inputBox.Margin = new Padding(0, 0, 0, 20);
@@ -207,10 +208,31 @@ namespace OpenBots.UI.CustomControls
 
         private void InputBox_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.Modifiers == Keys.Shift && e.KeyCode == Keys.Enter)
+            if (e.Control && e.KeyCode == Keys.K)
+            {
+                frmScriptVariables scriptVariableEditor = new frmScriptVariables
+                {
+                    ScriptVariables = _currentEditor.ScriptVariables
+                };
+
+                if (scriptVariableEditor.ShowDialog() == DialogResult.OK)
+                {
+                    _currentEditor.ScriptVariables = scriptVariableEditor.ScriptVariables;
+                    ((TextBox)sender).Text += scriptVariableEditor.LastModifiedVariableName;
+                }
+
+            } 
+            else if (e.Modifiers == Keys.Shift && e.KeyCode == Keys.Enter)
                 return;
             else if (e.KeyCode == Keys.Enter)
-                _currentEditor.uiBtnAdd_Click(null, null);
+                _currentEditor.uiBtnAdd_Click(null, null);          
+        }
+
+        private void InputBox_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            //Control + K
+            if (e.KeyChar == '\v')
+                e.Handled = true;
         }
 
         public CheckBox CreateCheckBoxFor(string parameterName, ScriptCommand parent)
@@ -276,8 +298,36 @@ namespace OpenBots.UI.CustomControls
             standardComboBox.Width = 300;
             standardComboBox.Name = parameterName;
             standardComboBox.Click += StandardComboBox_Click;
+            standardComboBox.KeyDown += StandardComboBox_KeyDown;
+            standardComboBox.KeyPress += StandardComboBox_KeyPress;
 
             return standardComboBox;
+        }
+
+        private void StandardComboBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Control && e.KeyCode == Keys.K)
+            {
+                frmScriptVariables scriptVariableEditor = new frmScriptVariables
+                {
+                    ScriptVariables = _currentEditor.ScriptVariables
+                };
+
+                if (scriptVariableEditor.ShowDialog() == DialogResult.OK)
+                {
+                    _currentEditor.ScriptVariables = scriptVariableEditor.ScriptVariables;
+                    ((ComboBox)sender).Text = scriptVariableEditor.LastModifiedVariableName;
+                }
+            }
+            else if (e.KeyCode == Keys.Enter)
+                _currentEditor.uiBtnAdd_Click(null, null);
+        }
+
+        private void StandardComboBox_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            //Control + K
+            if (e.KeyChar == '\v')
+                e.Handled = true;
         }
 
         private void StandardComboBox_Click(object sender, EventArgs e)

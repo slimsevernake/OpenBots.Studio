@@ -234,6 +234,12 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
                         case Keys.B:
                             AddRemoveBreakpoint();
                             break;
+                        case Keys.K:
+                            OpenVariableManager();
+                            break;
+                        case Keys.L:
+                            OpenElementManager();
+                            break;
                     }
                 }                
             }
