@@ -57,6 +57,7 @@
     <Compile Include="ExcelAppendSheetCommand.cs" />
     <Compile Include="ExcelCloseApplicationCommand.cs" />
     <Compile Include="ExcelCreateApplicationCommand.cs" />
+    <Compile Include="ExcelDeleteColumnCommand.cs" />
     <Compile Include="ExcelDeleteRangeCommand.cs" />
     <Compile Include="ExcelDeleteRowCommand.cs" />
     <Compile Include="ExcelExportToPDFCommand.cs" />

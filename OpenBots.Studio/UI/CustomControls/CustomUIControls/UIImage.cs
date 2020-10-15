@@ -74,6 +74,7 @@ namespace OpenBots.UI.CustomControls.CustomUIControls
             uiImages.Add("ExcelRunMacroCommand", Resources.command_spreadsheet);
             uiImages.Add("ExcelSaveWorkbookAsCommand", Resources.command_spreadsheet);
             uiImages.Add("ExcelDeleteRowCommand", Resources.command_spreadsheet);
+            uiImages.Add("ExcelDeleteColumnCommand", Resources.command_spreadsheet);
             uiImages.Add("ExcelDeleteRangeCommand", Resources.command_spreadsheet);
             uiImages.Add("ExcelGetLastRowIndexCommand", Resources.command_spreadsheet);
             uiImages.Add("ExcelSaveWorkbookCommand", Resources.command_spreadsheet);
