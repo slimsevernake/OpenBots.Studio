@@ -143,6 +143,7 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
             this.aboutOpenBotsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.scriptActionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.scheduleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.shortcutMenuToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.recorderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.elementRecorderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.uiRecorderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -163,6 +164,7 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
             this.tsmiCloseTab = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiCloseAllButThis = new System.Windows.Forms.ToolStripMenuItem();
             this.cmsProjectMainFolderActions = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.openShortcutMenuToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cmsProjectFolderActions.SuspendLayout();
             this.cmsScriptActions.SuspendLayout();
             this.pnlControlContainer.SuspendLayout();
@@ -331,9 +333,10 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
             this.pasteSelectedCodeToolStripMenuItem,
             this.deleteSelectedCodeToolStripMenuItem,
             this.moveToParentToolStripMenuItem,
-            this.viewCodeToolStripMenuItem});
+            this.viewCodeToolStripMenuItem,
+            this.openShortcutMenuToolStripMenuItem});
             this.cmsScriptActions.Name = "cmsScriptActions";
-            this.cmsScriptActions.Size = new System.Drawing.Size(329, 256);
+            this.cmsScriptActions.Size = new System.Drawing.Size(411, 390);
             // 
             // enableSelectedCodeToolStripMenuItem
             // 
@@ -1534,7 +1537,7 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
             this.addProjectToolStripMenuItem.ForeColor = System.Drawing.Color.White;
             this.addProjectToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("addProjectToolStripMenuItem.Image")));
             this.addProjectToolStripMenuItem.Name = "addProjectToolStripMenuItem";
-            this.addProjectToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.addProjectToolStripMenuItem.Size = new System.Drawing.Size(219, 26);
             this.addProjectToolStripMenuItem.Text = "Project Manager";
             this.addProjectToolStripMenuItem.Click += new System.EventHandler(this.addProjectToolStripMenuItem_Click);
             // 
@@ -1544,7 +1547,7 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
             this.newToolStripMenuItem.ForeColor = System.Drawing.Color.White;
             this.newToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("newToolStripMenuItem.Image")));
             this.newToolStripMenuItem.Name = "newToolStripMenuItem";
-            this.newToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.newToolStripMenuItem.Size = new System.Drawing.Size(219, 26);
             this.newToolStripMenuItem.Text = "New File";
             this.newToolStripMenuItem.Click += new System.EventHandler(this.newToolStripMenuItem_Click);
             // 
@@ -1553,7 +1556,7 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
             this.openToolStripMenuItem.ForeColor = System.Drawing.Color.White;
             this.openToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("openToolStripMenuItem.Image")));
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(219, 26);
             this.openToolStripMenuItem.Text = "Open Existing File";
             this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
             // 
@@ -1562,7 +1565,7 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
             this.importFileToolStripMenuItem.ForeColor = System.Drawing.Color.White;
             this.importFileToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("importFileToolStripMenuItem.Image")));
             this.importFileToolStripMenuItem.Name = "importFileToolStripMenuItem";
-            this.importFileToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.importFileToolStripMenuItem.Size = new System.Drawing.Size(219, 26);
             this.importFileToolStripMenuItem.Text = "Import File";
             this.importFileToolStripMenuItem.Click += new System.EventHandler(this.importFileToolStripMenuItem_Click);
             // 
@@ -1571,7 +1574,7 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
             this.saveToolStripMenuItem.ForeColor = System.Drawing.Color.White;
             this.saveToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("saveToolStripMenuItem.Image")));
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(219, 26);
             this.saveToolStripMenuItem.Text = "Save";
             this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
             // 
@@ -1580,7 +1583,7 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
             this.saveAsToolStripMenuItem.ForeColor = System.Drawing.Color.White;
             this.saveAsToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("saveAsToolStripMenuItem.Image")));
             this.saveAsToolStripMenuItem.Name = "saveAsToolStripMenuItem";
-            this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(219, 26);
             this.saveAsToolStripMenuItem.Text = "Save As";
             this.saveAsToolStripMenuItem.Click += new System.EventHandler(this.saveAsToolStripMenuItem_Click);
             // 
@@ -1589,7 +1592,7 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
             this.saveAllToolStripMenuItem.ForeColor = System.Drawing.Color.White;
             this.saveAllToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("saveAllToolStripMenuItem.Image")));
             this.saveAllToolStripMenuItem.Name = "saveAllToolStripMenuItem";
-            this.saveAllToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.saveAllToolStripMenuItem.Size = new System.Drawing.Size(219, 26);
             this.saveAllToolStripMenuItem.Text = "Save All";
             this.saveAllToolStripMenuItem.Click += new System.EventHandler(this.saveAllToolStripMenuItem_Click);
             // 
@@ -1598,7 +1601,7 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
             this.publishProjectToolStripMenuItem.ForeColor = System.Drawing.Color.White;
             this.publishProjectToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("publishProjectToolStripMenuItem.Image")));
             this.publishProjectToolStripMenuItem.Name = "publishProjectToolStripMenuItem";
-            this.publishProjectToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.publishProjectToolStripMenuItem.Size = new System.Drawing.Size(219, 26);
             this.publishProjectToolStripMenuItem.Text = "Publish Project";
             this.publishProjectToolStripMenuItem.Click += new System.EventHandler(this.publishProjectToolStripMenuItem_Click);
             // 
@@ -1607,7 +1610,7 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
             this.restartApplicationToolStripMenuItem.ForeColor = System.Drawing.Color.White;
             this.restartApplicationToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("restartApplicationToolStripMenuItem.Image")));
             this.restartApplicationToolStripMenuItem.Name = "restartApplicationToolStripMenuItem";
-            this.restartApplicationToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.restartApplicationToolStripMenuItem.Size = new System.Drawing.Size(219, 26);
             this.restartApplicationToolStripMenuItem.Text = "Restart Application";
             this.restartApplicationToolStripMenuItem.Click += new System.EventHandler(this.restartApplicationToolStripMenuItem_Click);
             // 
@@ -1616,7 +1619,7 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
             this.closeApplicationToolStripMenuItem.ForeColor = System.Drawing.Color.White;
             this.closeApplicationToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("closeApplicationToolStripMenuItem.Image")));
             this.closeApplicationToolStripMenuItem.Name = "closeApplicationToolStripMenuItem";
-            this.closeApplicationToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.closeApplicationToolStripMenuItem.Size = new System.Drawing.Size(219, 26);
             this.closeApplicationToolStripMenuItem.Text = "Close Application";
             this.closeApplicationToolStripMenuItem.Click += new System.EventHandler(this.closeApplicationToolStripMenuItem_Click);
             // 
@@ -1682,7 +1685,8 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
             // scriptActionsToolStripMenuItem
             // 
             this.scriptActionsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.scheduleToolStripMenuItem});
+            this.scheduleToolStripMenuItem,
+            this.shortcutMenuToolStripMenuItem});
             this.scriptActionsToolStripMenuItem.ForeColor = System.Drawing.Color.White;
             this.scriptActionsToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("scriptActionsToolStripMenuItem.Image")));
             this.scriptActionsToolStripMenuItem.Name = "scriptActionsToolStripMenuItem";
@@ -1694,9 +1698,17 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
             this.scheduleToolStripMenuItem.ForeColor = System.Drawing.Color.White;
             this.scheduleToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("scheduleToolStripMenuItem.Image")));
             this.scheduleToolStripMenuItem.Name = "scheduleToolStripMenuItem";
-            this.scheduleToolStripMenuItem.Size = new System.Drawing.Size(152, 26);
+            this.scheduleToolStripMenuItem.Size = new System.Drawing.Size(188, 26);
             this.scheduleToolStripMenuItem.Text = "Schedule";
             this.scheduleToolStripMenuItem.Click += new System.EventHandler(this.scheduleToolStripMenuItem_Click);
+            // 
+            // shortcutMenuToolStripMenuItem
+            // 
+            this.shortcutMenuToolStripMenuItem.ForeColor = System.Drawing.Color.White;
+            this.shortcutMenuToolStripMenuItem.Name = "shortcutMenuToolStripMenuItem";
+            this.shortcutMenuToolStripMenuItem.Size = new System.Drawing.Size(188, 26);
+            this.shortcutMenuToolStripMenuItem.Text = "Shortcut Menu";
+            this.shortcutMenuToolStripMenuItem.Click += new System.EventHandler(this.shortcutMenuToolStripMenuItem_Click);
             // 
             // recorderToolStripMenuItem
             // 
@@ -1893,6 +1905,13 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
             this.tsmiMainPasteFolder});
             this.cmsProjectMainFolderActions.Name = "cmsProjectMainFolderActions";
             this.cmsProjectMainFolderActions.Size = new System.Drawing.Size(199, 88);
+            // 
+            // openShortcutMenuToolStripMenuItem
+            // 
+            this.openShortcutMenuToolStripMenuItem.Name = "openShortcutMenuToolStripMenuItem";
+            this.openShortcutMenuToolStripMenuItem.Size = new System.Drawing.Size(328, 28);
+            this.openShortcutMenuToolStripMenuItem.Text = "Open Shortcut Menu";
+            this.openShortcutMenuToolStripMenuItem.Click += new System.EventHandler(this.openShortcutMenuToolStripMenuItem_Click);
             // 
             // frmScriptBuilder
             // 
@@ -2108,6 +2127,8 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
         private Core.UI.Controls.UIPictureButton uiBtnPublishProject;
         private ToolStripMenuItem saveAllToolStripMenuItem;
         private Core.UI.Controls.UIPictureButton uiBtnSaveAll;
+        private ToolStripMenuItem shortcutMenuToolStripMenuItem;
+        private ToolStripMenuItem openShortcutMenuToolStripMenuItem;
     }
 }
 

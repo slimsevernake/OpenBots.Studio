@@ -413,6 +413,7 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
 
         private void publishProjectToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            SaveAllFiles();
             frmPublishProject publishProject = new frmPublishProject(ScriptProjectPath, ScriptProject);
             publishProject.ShowDialog();
 
@@ -856,6 +857,17 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
         {
             DialogResult = DialogResult.OK;
             Close();
+        }
+
+        private void shortcutMenuToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmShortcutMenu shortcutMenuForm = new frmShortcutMenu();
+            shortcutMenuForm.Show();
+        }
+
+        private void openShortcutMenuToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            shortcutMenuToolStripMenuItem_Click(sender, e);
         }
         #endregion
         #endregion
