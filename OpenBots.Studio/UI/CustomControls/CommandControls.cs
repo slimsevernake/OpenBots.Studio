@@ -208,6 +208,7 @@ namespace OpenBots.UI.CustomControls
 
         private void InputBox_KeyDown(object sender, KeyEventArgs e)
         {
+            TextBox inputBox = (TextBox)sender;
             if (e.Control && e.KeyCode == Keys.K)
             {
                 frmScriptVariables scriptVariableEditor = new frmScriptVariables
@@ -218,7 +219,7 @@ namespace OpenBots.UI.CustomControls
                 if (scriptVariableEditor.ShowDialog() == DialogResult.OK)
                 {
                     _currentEditor.ScriptVariables = scriptVariableEditor.ScriptVariables;
-                    ((TextBox)sender).Text += scriptVariableEditor.LastModifiedVariableName;
+                    inputBox.Text = inputBox.Text.Insert(inputBox.SelectionStart, scriptVariableEditor.LastModifiedVariableName);
                 }
 
             } 
@@ -549,15 +550,15 @@ namespace OpenBots.UI.CustomControls
                 {
                     TextBox targetTextbox = (TextBox)inputBox.Tag;
                     //concat variable name with brackets [vVariable] as engine searches for the same
-                    targetTextbox.Text = targetTextbox.Text + string.Concat("{",
-                        newVariableSelector.lstVariables.SelectedItem.ToString(), "}");
+                    targetTextbox.Text = targetTextbox.Text.Insert(targetTextbox.SelectionStart, string.Concat("{",
+                        newVariableSelector.lstVariables.SelectedItem.ToString(), "}"));
                 }
                 else if (inputBox.Tag is ComboBox)
                 {
                     ComboBox targetCombobox = (ComboBox)inputBox.Tag;
                     //concat variable name with brackets [vVariable] as engine searches for the same
-                    targetCombobox.Text = targetCombobox.Text + string.Concat("{",
-                        newVariableSelector.lstVariables.SelectedItem.ToString(), "}");
+                    targetCombobox.Text = targetCombobox.Text.Insert(targetCombobox.SelectionStart, string.Concat("{",
+                        newVariableSelector.lstVariables.SelectedItem.ToString(), "}"));
                 }
                 else if (inputBox.Tag is DataGridView)
                 {
@@ -578,9 +579,15 @@ namespace OpenBots.UI.CustomControls
 
                     targetDGV.SelectedCells[0].Value = targetDGV.SelectedCells[0].Value +
                         string.Concat("{", newVariableSelector.lstVariables.SelectedItem.ToString(), "}");
+
+                    //TODO - Insert variables at cursor position instead of at the end of a cell
+                    //targetDGV.CurrentCell = targetDGV.SelectedCells[0];
+                    //targetDGV.BeginEdit(false);
+                    //TextBox editor = (TextBox)targetDGV.EditingControl;
+                    //editor.Text = editor.Text.Insert(editor.SelectionStart, string.Concat("{",
+                    //    newVariableSelector.lstVariables.SelectedItem.ToString(), "}"));
+
                 }
-
-
             }
         }
 
