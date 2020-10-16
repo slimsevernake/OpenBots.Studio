@@ -42,8 +42,8 @@ namespace OpenBots.Studio.Utilities.Documentation
             foreach (var path in cmdAssemblyPaths)
             {
                 commandClasses.AddRange(Assembly.LoadFrom(path).GetTypes()
-                                 .Where(t => t.Namespace == "OpenBots.Commands")
-                                 .Where(t => t.Name != "ScriptCommand")
+                                 .Where(t => t.Namespace != null && t.Namespace.StartsWith("OpenBots.Commands"))
+                                 //.Where(t => t.Name != "ScriptCommand")
                                  .Where(t => t.IsAbstract == false)
                                  .Where(t => t.BaseType.Name == "ScriptCommand")
                                  .ToList());
