@@ -106,6 +106,10 @@ namespace OpenBots.Core.User32
         [return: MarshalAs(UnmanagedType.Bool)]
         private static extern bool EnumChildWindows(IntPtr window, EnumWindowProc callback, IntPtr lParam);
 
+        [DllImport("user32.dll")]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        static extern bool GetWindowPlacement(IntPtr hWnd, ref WINDOWPLACEMENT lpwndpl);
+
         private enum _mouseEvents
         {
             MouseEventFLeftDown = 0x02,
@@ -114,6 +118,16 @@ namespace OpenBots.Core.User32
             MouseEventFRightUp = 0x10,
             MouseEventFMiddleDown = 0x20,
             MouseEventFMiddleUp = 0x40
+        }
+
+        private struct WINDOWPLACEMENT
+        {
+            public int length;
+            public int flags;
+            public int showCmd;
+            public Point ptMinPosition;
+            public Point ptMaxPosition;
+            public Rectangle rcNormalPosition;
         }
 
         private delegate bool EnumWindowProc(IntPtr hwnd, IntPtr lParam);
@@ -420,24 +434,38 @@ namespace OpenBots.Core.User32
 
         public static void ActivateWindow(string windowName)
         {
-            var targetWindows = User32Functions.FindTargetWindows(windowName);
+            var targetWindows = FindTargetWindows(windowName);
 
             //loop each window
             foreach (var targetedWindow in targetWindows)
             {
-                User32Functions.SetWindowState(targetedWindow, WindowState.SwShowNormal);
-                User32Functions.SetForegroundWindow(targetedWindow);
+                WINDOWPLACEMENT placement = new WINDOWPLACEMENT();
+                GetWindowPlacement(targetedWindow, ref placement);
+
+                switch (placement.showCmd)
+                {
+                    case 1: //Normal
+                        SetWindowState(targetedWindow, WindowState.SwShowNormal);
+                        break;
+                    case 2: //Minimized
+                        SetWindowState(targetedWindow, WindowState.SwRestore);
+                        break;
+                    case 3: //Maximized
+                        SetWindowState(targetedWindow, WindowState.SwMaximize);
+                        break;
+                }
+                SetForegroundWindow(targetedWindow);
             }
         }
 
         public static void MoveWindow(string windowName, string xPosition, string yPosition)
         {
-            var targetWindows = User32Functions.FindTargetWindows(windowName);
+            var targetWindows = FindTargetWindows(windowName);
 
             //loop each window
             foreach (var targetedWindow in targetWindows)
             {
-                User32Functions.SetWindowState(targetedWindow, WindowState.SwShowNormal);
+                SetWindowState(targetedWindow, WindowState.SwShowNormal);
 
                 if (!int.TryParse(xPosition, out int xPos))
                     throw new Exception("X Position Invalid - " + xPosition);
@@ -445,7 +473,7 @@ namespace OpenBots.Core.User32
                 if (!int.TryParse(yPosition, out int yPos))
                     throw new Exception("Y Position Invalid - " + yPosition);
 
-                User32Functions.SetWindowPosition(targetedWindow, xPos, yPos);
+                SetWindowPosition(targetedWindow, xPos, yPos);
             }
         }
     }
