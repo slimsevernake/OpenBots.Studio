@@ -54,6 +54,7 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
             this.deleteSelectedCodeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.moveToParentToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.viewCodeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.openShortcutMenuToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.notifyTray = new System.Windows.Forms.NotifyIcon(this.components);
             this.pnlControlContainer = new System.Windows.Forms.Panel();
             this.grpSearch = new OpenBots.UI.CustomControls.CustomUIControls.UIGroupBox();
@@ -164,7 +165,6 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
             this.tsmiCloseTab = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiCloseAllButThis = new System.Windows.Forms.ToolStripMenuItem();
             this.cmsProjectMainFolderActions = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.openShortcutMenuToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cmsProjectFolderActions.SuspendLayout();
             this.cmsScriptActions.SuspendLayout();
             this.pnlControlContainer.SuspendLayout();
@@ -336,7 +336,7 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
             this.viewCodeToolStripMenuItem,
             this.openShortcutMenuToolStripMenuItem});
             this.cmsScriptActions.Name = "cmsScriptActions";
-            this.cmsScriptActions.Size = new System.Drawing.Size(411, 390);
+            this.cmsScriptActions.Size = new System.Drawing.Size(329, 284);
             // 
             // enableSelectedCodeToolStripMenuItem
             // 
@@ -408,6 +408,13 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
             this.viewCodeToolStripMenuItem.Size = new System.Drawing.Size(328, 28);
             this.viewCodeToolStripMenuItem.Text = "View Code";
             this.viewCodeToolStripMenuItem.Click += new System.EventHandler(this.viewCodeToolStripMenuItem_Click);
+            // 
+            // openShortcutMenuToolStripMenuItem
+            // 
+            this.openShortcutMenuToolStripMenuItem.Name = "openShortcutMenuToolStripMenuItem";
+            this.openShortcutMenuToolStripMenuItem.Size = new System.Drawing.Size(328, 28);
+            this.openShortcutMenuToolStripMenuItem.Text = "Open Shortcut Menu";
+            this.openShortcutMenuToolStripMenuItem.Click += new System.EventHandler(this.openShortcutMenuToolStripMenuItem_Click);
             // 
             // notifyTray
             // 
@@ -1698,15 +1705,16 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
             this.scheduleToolStripMenuItem.ForeColor = System.Drawing.Color.White;
             this.scheduleToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("scheduleToolStripMenuItem.Image")));
             this.scheduleToolStripMenuItem.Name = "scheduleToolStripMenuItem";
-            this.scheduleToolStripMenuItem.Size = new System.Drawing.Size(188, 26);
+            this.scheduleToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.scheduleToolStripMenuItem.Text = "Schedule";
             this.scheduleToolStripMenuItem.Click += new System.EventHandler(this.scheduleToolStripMenuItem_Click);
             // 
             // shortcutMenuToolStripMenuItem
             // 
             this.shortcutMenuToolStripMenuItem.ForeColor = System.Drawing.Color.White;
+            this.shortcutMenuToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("shortcutMenuToolStripMenuItem.Image")));
             this.shortcutMenuToolStripMenuItem.Name = "shortcutMenuToolStripMenuItem";
-            this.shortcutMenuToolStripMenuItem.Size = new System.Drawing.Size(188, 26);
+            this.shortcutMenuToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.shortcutMenuToolStripMenuItem.Text = "Shortcut Menu";
             this.shortcutMenuToolStripMenuItem.Click += new System.EventHandler(this.shortcutMenuToolStripMenuItem_Click);
             // 
@@ -1905,13 +1913,6 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
             this.tsmiMainPasteFolder});
             this.cmsProjectMainFolderActions.Name = "cmsProjectMainFolderActions";
             this.cmsProjectMainFolderActions.Size = new System.Drawing.Size(199, 88);
-            // 
-            // openShortcutMenuToolStripMenuItem
-            // 
-            this.openShortcutMenuToolStripMenuItem.Name = "openShortcutMenuToolStripMenuItem";
-            this.openShortcutMenuToolStripMenuItem.Size = new System.Drawing.Size(328, 28);
-            this.openShortcutMenuToolStripMenuItem.Text = "Open Shortcut Menu";
-            this.openShortcutMenuToolStripMenuItem.Click += new System.EventHandler(this.openShortcutMenuToolStripMenuItem_Click);
             // 
             // frmScriptBuilder
             // 

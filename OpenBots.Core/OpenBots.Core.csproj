@@ -254,6 +254,7 @@
     <None Include="Resources\Icons\ActionBar\action-bar-saveall.png" />
     <Content Include="Resources\Icons\ActionBar\action-bar-saveas.png" />
     <Content Include="Resources\Icons\ActionBar\action-bar-schedule.png" />
+    <None Include="Resources\Icons\ActionBar\action-bar-shortcut.png" />
     <Content Include="Resources\Icons\ActionBar\action-bar-variable.png" />
     <Content Include="Resources\Icons\ActionBar\action_bar_close.png" />
     <Content Include="Resources\Icons\ActionBar\action_bar_restart.png" />

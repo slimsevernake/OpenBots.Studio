@@ -263,6 +263,16 @@ namespace OpenBots.Core.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        public static System.Drawing.Bitmap action_bar_shortcut {
+            get {
+                object obj = ResourceManager.GetObject("action_bar_shortcut", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         public static System.Drawing.Bitmap action_bar_variable {
             get {
                 object obj = ResourceManager.GetObject("action_bar_variable", resourceCulture);
