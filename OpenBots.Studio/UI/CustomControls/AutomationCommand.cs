@@ -43,12 +43,13 @@ namespace OpenBots.UI.CustomControls
 
                 if (!checkBoxControlExists)
                 {
-                    FlowLayoutPanel flpCheckBox = new FlowLayoutPanel();
-                    flpCheckBox.Height = 30;
-                    flpCheckBox.FlowDirection = FlowDirection.LeftToRight;
-                    flpCheckBox.Controls.Add(commandControls.CreateCheckBoxFor("v_IsPrivate", Command));
-                    flpCheckBox.Controls.Add(commandControls.CreateDefaultLabelFor("v_IsPrivate", Command));
-                    UIControls.Add(flpCheckBox);
+                    //TODO: when using a layoutpanel, checkbox is resetting when form closes
+                    //FlowLayoutPanel flpCheckBox = new FlowLayoutPanel();
+                    //flpCheckBox.Height = 30;
+                    //flpCheckBox.FlowDirection = FlowDirection.LeftToRight;
+                    UIControls.Add(commandControls.CreateDefaultLabelFor("v_IsPrivate", Command));
+                    UIControls.Add(commandControls.CreateCheckBoxFor("v_IsPrivate", Command));
+                    //UIControls.Add(flpCheckBox);
                 }
 
                 //generate comment command if user did not generate it
