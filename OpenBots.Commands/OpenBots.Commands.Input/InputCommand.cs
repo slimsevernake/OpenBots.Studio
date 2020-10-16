@@ -167,7 +167,7 @@ namespace OpenBots.Commands.Input
             _userInputGridViewHelper.ColumnHeadersHeight = 30;
             _userInputGridViewHelper.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             _userInputGridViewHelper.AllowUserToAddRows = false;
-            _userInputGridViewHelper.AllowUserToDeleteRows = false;
+            _userInputGridViewHelper.AllowUserToDeleteRows = true;
 
             _addRowControl = new CommandItemControl();
             _addRowControl.Padding = new Padding(10, 0, 0, 0);
