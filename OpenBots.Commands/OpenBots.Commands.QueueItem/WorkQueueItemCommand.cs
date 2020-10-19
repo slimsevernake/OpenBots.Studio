@@ -72,6 +72,12 @@ namespace OpenBots.Commands.QueueItem
             queueItemDict = queueItem.GetType().GetProperties(BindingFlags.Instance | BindingFlags.Public)
                                                .ToDictionary(prop => prop.Name, prop => prop.GetValue(queueItem, null));
 
+            queueItemDict = queueItemDict.Where(kvp => kvp.Key == "LockTransactionKey" ||
+                                                       kvp.Key == "Type" ||
+                                                       kvp.Key == "JsonType" ||
+                                                       kvp.Key == "DataJson" ||
+                                                       kvp.Key == "LockedUntilUTC").ToDictionary(i =>i.Key, i => i.Value);
+
             queueItemDict.StoreInUserVariable(engine, v_OutputUserVariableName);
         }
 

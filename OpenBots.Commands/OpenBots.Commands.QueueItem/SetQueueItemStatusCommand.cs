@@ -34,7 +34,14 @@ namespace OpenBots.Commands.QueueItem
         [Remarks("")]
         public string v_QueueItemStatusType { get; set; }
 
-        [PropertyDescription("QueueItem Error Message")]
+        [PropertyDescription("QueueItem Error Code (Optional)")]
+        [InputSpecification("Enter the QueueItem code.")]
+        [SampleUsage("400 || {vStatusCode}")]
+        [Remarks("")]
+        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
+        public string v_QueueItemErrorCode { get; set; }
+
+        [PropertyDescription("QueueItem Error Message (Optional)")]
         [InputSpecification("Enter the QueueItem error message.")]
         [SampleUsage("File not found || {vStatusMessage}")]
         [Remarks("")]
@@ -59,6 +66,7 @@ namespace OpenBots.Commands.QueueItem
             var engine = (AutomationEngineInstance)sender;
             var vQueueItem = (Dictionary<string, object>)v_QueueItem.ConvertUserVariableToObject(engine);
             var vQueueItemErrorMessage = v_QueueItemErrorMessage.ConvertUserVariableToString(engine);
+            var vQueueItemErrorCode = v_QueueItemErrorCode.ConvertUserVariableToString(engine);
 
             var client = AuthMethods.GetAuthToken();
 
@@ -70,10 +78,10 @@ namespace OpenBots.Commands.QueueItem
                     QueueItemMethods.CommitQueueItem(client, transactionKey);
                     break;
                 case "Failed - Should Retry":
-                    QueueItemMethods.RollbackQueueItem(client, transactionKey, vQueueItemErrorMessage, false);
+                    QueueItemMethods.RollbackQueueItem(client, transactionKey, vQueueItemErrorCode, vQueueItemErrorMessage, false);
                     break;
                 case "Failed - Fatal":
-                    QueueItemMethods.RollbackQueueItem(client, transactionKey, vQueueItemErrorMessage, true);
+                    QueueItemMethods.RollbackQueueItem(client, transactionKey, vQueueItemErrorCode, vQueueItemErrorMessage, true);
                     break;
             }
         }
@@ -87,6 +95,7 @@ namespace OpenBots.Commands.QueueItem
             ((ComboBox)RenderedControls[4]).SelectedIndexChanged += QueueItemStatusTypeComboBox_SelectedValueChanged;
 
             ErrorMessageControls = new List<Control>();
+            ErrorMessageControls.AddRange(commandControls.CreateDefaultInputGroupFor("v_QueueItemErrorCode", this, editor));
             ErrorMessageControls.AddRange(commandControls.CreateDefaultInputGroupFor("v_QueueItemErrorMessage", this, editor));
             foreach (var ctrl in ErrorMessageControls)
                 ctrl.Visible = false;
