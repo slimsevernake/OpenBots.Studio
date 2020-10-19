@@ -1,4 +1,5 @@
-﻿using OpenBots.Core.Attributes.ClassAttributes;
+﻿using Newtonsoft.Json;
+using OpenBots.Core.Attributes.ClassAttributes;
 using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
 using OpenBots.Core.Enums;
@@ -69,6 +70,10 @@ namespace OpenBots.Commands.Data
         [Remarks("Variables not pre-defined in the Variable Manager will be automatically generated at runtime.")]
         public string v_OutputUserVariableName { get; set; }
 
+        [JsonIgnore]
+        [NonSerialized]
+        public List<Control> StringFormatControls;
+
         public DateCalculationCommand()
         {
             CommandName = "DateCalculationCommand";
@@ -77,6 +82,7 @@ namespace OpenBots.Commands.Data
             CustomRendering = true;
 
             v_InputDate = "{DateTime.Now}";
+            v_CalculationMethod = "Add Second(s)";
             v_ToStringFormat = "MM/dd/yyyy hh:mm:ss";
         }
 
@@ -185,7 +191,17 @@ namespace OpenBots.Commands.Data
             RenderedControls.AddRange(commandControls.CreateDefaultInputGroupFor("v_InputDate", this, editor));
             RenderedControls.AddRange(commandControls.CreateDefaultDropdownGroupFor("v_CalculationMethod", this, editor));
             RenderedControls.AddRange(commandControls.CreateDefaultInputGroupFor("v_Increment", this, editor));
-            RenderedControls.AddRange(commandControls.CreateDefaultInputGroupFor("v_ToStringFormat", this, editor));
+
+            ((ComboBox)RenderedControls[4]).SelectedIndexChanged += calculationMethodComboBox_SelectedValueChanged;
+
+            StringFormatControls = new List<Control>();
+            StringFormatControls.AddRange(commandControls.CreateDefaultInputGroupFor("v_ToStringFormat", this, editor));
+
+            foreach (var ctrl in StringFormatControls)
+                ctrl.Visible = false;
+
+            RenderedControls.AddRange(StringFormatControls);
+
             RenderedControls.AddRange(commandControls.CreateDefaultOutputGroupFor("v_OutputUserVariableName", this, editor));
 
             return RenderedControls;
@@ -215,6 +231,28 @@ namespace OpenBots.Commands.Data
 
             //return value
             return base.GetDisplayValue() + $" [{operand} '{v_Increment}' {interval} {operandLanguage} '{v_InputDate}' - Store Date in '{v_OutputUserVariableName}']";
+        }
+
+        private void calculationMethodComboBox_SelectedValueChanged(object sender, EventArgs e)
+        {
+            if (!((ComboBox)RenderedControls[4]).Text.StartsWith("Get"))
+            {
+                foreach (var ctrl in StringFormatControls)
+                {
+                    ctrl.Visible = true;
+                    if (ctrl is TextBox && string.IsNullOrEmpty(((TextBox)ctrl).Text))
+                        ((TextBox)ctrl).Text = "MM/dd/yyyy hh:mm:ss";
+                }                                    
+            }
+            else
+            {
+                foreach (var ctrl in StringFormatControls)
+                {
+                    ctrl.Visible = false;
+                    if (ctrl is TextBox)
+                        ((TextBox)ctrl).Clear();
+                }
+            }
         }
     }
 }
