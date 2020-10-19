@@ -30,7 +30,7 @@ namespace OpenBots.Commands.Outlook
         [PropertyDescription("Destination Mail Folder Name")]
         [InputSpecification("Enter the name of the Outlook mail folder the emails are being moved/copied to.")]
         [SampleUsage("New Folder || {vFolderName}")]
-        [Remarks("Destination folder cannot be a sub mail folder.")]
+        [Remarks("Destination folder cannot be a subfolder.")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_DestinationFolder { get; set; }
 
