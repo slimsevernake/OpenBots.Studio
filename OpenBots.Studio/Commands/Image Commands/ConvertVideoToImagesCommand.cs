@@ -15,7 +15,7 @@ namespace OpenBots.Commands
 {
     [Serializable]
     [Group("Image Commands")]
-    [Description("This command converts a video into images.")]
+    [Description("This command converts a video into a seqquence of images.")]
     public class ConvertVideoToImagesCommand : ScriptCommand
     {
         [PropertyDescription("Video File Path")]
