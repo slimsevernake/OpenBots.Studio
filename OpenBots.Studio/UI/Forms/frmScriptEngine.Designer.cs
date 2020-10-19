@@ -233,7 +233,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(5);
             this.Name = "frmScriptEngine";
-            this.Text = "Bot Engine";
+            this.Text = "OpenBots Engine";
             this.TopMost = true;
             this.Load += new System.EventHandler(this.frmProcessingStatus_Load);
             ((System.ComponentModel.ISupportInitialize)(this.uiBtnStepInto)).EndInit();
