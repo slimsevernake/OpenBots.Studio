@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Newtonsoft.Json;
 using OpenBots.Core.Command;
 
 namespace OpenBots.Core.Script
@@ -15,6 +16,7 @@ namespace OpenBots.Core.Script
         /// </summary>
         public List<ScriptAction> AdditionalScriptCommands { get; set; }
 
+        [JsonIgnore]
         public bool IsExceptionIgnored { get; set; }
         /// <summary>
         /// adds a command as a nested command to a top-level command
