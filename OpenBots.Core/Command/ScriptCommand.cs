@@ -33,10 +33,7 @@ namespace OpenBots.Core.Command
         public string v_Comment { get; set; }
 
         [JsonIgnore]
-        public List<Control> RenderedControls;
-        
-        [JsonIgnore]
-        public Dictionary<string, object> PropertyValues;
+        public List<Control> RenderedControls;      
 
         [JsonIgnore]
         public bool IsSteppedInto { get; set; }
