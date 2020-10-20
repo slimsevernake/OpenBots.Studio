@@ -20,7 +20,7 @@ namespace OpenBots.Commands.Process
     public class StartProcessCommand : ScriptCommand
     {
 
-        [PropertyDescription("Program Name or Path")]
+        [DisplayName("Program Name or Path")]
         [InputSpecification("Provide a valid program name or enter a full path to the script/executable including the extension.")]
         [SampleUsage(@"notepad || excel || {vApp} || C:\temp\myapp.exe || {ProjectPath}\myapp.exe")]
         [Remarks("")]
@@ -28,14 +28,14 @@ namespace OpenBots.Commands.Process
         [PropertyUIHelper(UIAdditionalHelperType.ShowFileSelectionHelper)]
         public string v_ProgramName { get; set; }
 
-        [PropertyDescription("Arguments")]
+        [DisplayName("Arguments")]
         [InputSpecification("Enter any arguments or flags if applicable.")]
         [SampleUsage("-a || -version || {vArg}")]
         [Remarks("You will need to consult documentation to determine if your executable supports arguments or flags on startup.")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_ProgramArgs { get; set; }
 
-        [PropertyDescription("Wait For Exit")]
+        [DisplayName("Wait For Exit")]
         [PropertyUISelectionOption("Yes")]
         [PropertyUISelectionOption("No")]
         [InputSpecification("Indicate whether to wait for the process to be completed.")]

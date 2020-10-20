@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Data;
 using System.Diagnostics;
 using System.Drawing;
@@ -127,13 +128,13 @@ namespace OpenBots.UI.CustomControls
         {
             var variableProperties = parent.GetType().GetProperties().Where(f => f.Name == parameterName).FirstOrDefault();
 
-            var propertyAttributesAssigned = variableProperties.GetCustomAttributes(typeof(PropertyDescription), true);
+            var propertyAttributesAssigned = variableProperties.GetCustomAttributes(typeof(DisplayNameAttribute), true);
 
             Label inputLabel = new Label();
             if (propertyAttributesAssigned.Length > 0)
             {
-                var attribute = (PropertyDescription)propertyAttributesAssigned[0];
-                inputLabel.Text = attribute.Description;
+                var attribute = (DisplayNameAttribute)propertyAttributesAssigned[0];
+                inputLabel.Text = attribute.DisplayName;
             }
             else
             {

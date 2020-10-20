@@ -18,7 +18,7 @@ namespace OpenBots.Commands
     public class EncryptionCommand : ScriptCommand
     {
 
-        [PropertyDescription("Encryption Action")]
+        [DisplayName("Encryption Action")]
         [PropertyUISelectionOption("Encrypt")]
         [PropertyUISelectionOption("Decrypt")]
         [InputSpecification("Select the appropriate action to take.")]
@@ -26,21 +26,21 @@ namespace OpenBots.Commands
         [Remarks("")]
         public string v_EncryptionType { get; set; }
 
-        [PropertyDescription("Text")]
+        [DisplayName("Text")]
         [InputSpecification("Select or provide the text to encrypt/decrypt.")]
         [SampleUsage("Hello || {vText}")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_InputValue { get; set; }
 
-        [PropertyDescription("Pass Phrase")]
+        [DisplayName("Pass Phrase")]
         [InputSpecification("Select or provide a pass phrase for encryption/decryption.")]
         [SampleUsage("OPENBOTS || {vPassPhrase}")]
         [Remarks("If decrypting, provide the pass phrase used to encypt the original text.")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_PassPhrase { get; set; }
 
-        [PropertyDescription("Output Result Variable")]
+        [DisplayName("Output Result Variable")]
         [InputSpecification("Create a new variable or select a variable from the list.")]
         [SampleUsage("{vUserVariable}")]
         [Remarks("Variables not pre-defined in the Variable Manager will be automatically generated at runtime.")]

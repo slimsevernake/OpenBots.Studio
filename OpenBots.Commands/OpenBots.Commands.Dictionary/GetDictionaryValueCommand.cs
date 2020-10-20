@@ -17,21 +17,21 @@ namespace OpenBots.Commands.Dictionary
     public class GetDictionaryValueCommand : ScriptCommand
     {
 
-        [PropertyDescription("Dictionary")]
+        [DisplayName("Dictionary")]
         [InputSpecification("Specify the dictionary variable to get a value from.")]
         [SampleUsage("{vDictionary}")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_InputDictionary { get; set; }
 
-        [PropertyDescription("Key")]
+        [DisplayName("Key")]
         [InputSpecification("Specify the key to get the value for.")]
         [SampleUsage("SomeKey || {vKey}")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_Key { get; set; }
 
-        [PropertyDescription("Output Value Variable")]
+        [DisplayName("Output Value Variable")]
         [InputSpecification("Create a new variable or select a variable from the list.")]
         [SampleUsage("{vUserVariable}")]
         [Remarks("Variables not pre-defined in the Variable Manager will be automatically generated at runtime.")]

@@ -26,14 +26,14 @@ namespace OpenBots.Commands.DataTable
     public class AddDataRowCommand : ScriptCommand
     {
 
-        [PropertyDescription("DataTable")]
+        [DisplayName("DataTable")]
         [InputSpecification("Enter an existing DataTable to add a DataRow to.")]
         [SampleUsage("{vDataTable}")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_DataTable { get; set; }
 
-        [PropertyDescription("Data")]
+        [DisplayName("Data")]
         [InputSpecification("Enter Column Names and Data for each column in the DataRow.")]
         [SampleUsage("[ First Name | John ] || [ {vColumn} | {vData} ]")]
         [Remarks("")]

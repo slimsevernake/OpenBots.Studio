@@ -18,13 +18,13 @@ namespace OpenBots.Commands
     [Description("This command retrieves information from a Selenium web browser session.")]
     public class SeleniumGetBrowserInfoCommand : ScriptCommand
     {
-        [PropertyDescription("Browser Instance Name")]
+        [DisplayName("Browser Instance Name")]
         [InputSpecification("Enter the unique instance that was specified in the **Create Browser** command.")]
         [SampleUsage("MyBrowserInstance")]
         [Remarks("Failure to enter the correct instance name or failure to first call the **Create Browser** command will cause an error.")]
         public string v_InstanceName { get; set; }
 
-        [PropertyDescription("Info Property")]
+        [DisplayName("Info Property")]
         [PropertyUISelectionOption("Window Title")]
         [PropertyUISelectionOption("Window URL")]
         [PropertyUISelectionOption("Current Handle ID")]
@@ -36,7 +36,7 @@ namespace OpenBots.Commands
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_InfoType { get; set; }
 
-        [PropertyDescription("Output Info Variable")]
+        [DisplayName("Output Info Variable")]
         [InputSpecification("Create a new variable or select a variable from the list.")]
         [SampleUsage("{vUserVariable}")]
         [Remarks("Variables not pre-defined in the Variable Manager will be automatically generated at runtime.")]

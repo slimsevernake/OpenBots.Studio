@@ -17,7 +17,7 @@ namespace OpenBots.Commands.Folder
     [Description("This command renames an existing folder.")]
     public class RenameFolderCommand : ScriptCommand
     {
-        [PropertyDescription("Folder Path")]
+        [DisplayName("Folder Path")]
         [InputSpecification("Enter or Select the path to the folder.")]
         [SampleUsage(@"C:\temp\myFolder || {ProjectPath}\myfolder || {vFolderPath}")]
         [Remarks("{ProjectPath} is the directory path of the current project.")]
@@ -25,7 +25,7 @@ namespace OpenBots.Commands.Folder
         [PropertyUIHelper(UIAdditionalHelperType.ShowFolderSelectionHelper)] 
         public string v_SourceFolderPath { get; set; }
 
-        [PropertyDescription("New Folder Name")]
+        [DisplayName("New Folder Name")]
         [InputSpecification("Specify the new folder name.")]
         [SampleUsage("New Folder Name || {vNewFolderName}")]
         [Remarks("")]

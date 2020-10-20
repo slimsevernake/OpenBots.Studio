@@ -21,27 +21,27 @@ namespace OpenBots.Commands.Excel
     public class ExcelWriteRangeCommand : ScriptCommand
     {
 
-        [PropertyDescription("Excel Instance Name")]
+        [DisplayName("Excel Instance Name")]
         [InputSpecification("Enter the unique instance that was specified in the **Create Application** command.")]
         [SampleUsage("MyExcelInstance")]
         [Remarks("Failure to enter the correct instance or failure to first call the **Create Application** command will cause an error.")]
         public string v_InstanceName { get; set; }
 
-        [PropertyDescription("DataTable")]
+        [DisplayName("DataTable")]
         [InputSpecification("Enter the DataTable to write to the Worksheet.")]
         [SampleUsage("{vDataTable}")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_DataTableToSet { get; set; }
 
-        [PropertyDescription("Cell Location")]
+        [DisplayName("Cell Location")]
         [InputSpecification("Enter the location of the cell to set the DataTable at.")]
         [SampleUsage("A1 || {vCellLocation}")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_CellLocation { get; set; }
 
-        [PropertyDescription("Add Headers")]
+        [DisplayName("Add Headers")]
         [PropertyUISelectionOption("Yes")]
         [PropertyUISelectionOption("No")]
         [InputSpecification("When selected, the column headers from the specified DataTable are also written.")]

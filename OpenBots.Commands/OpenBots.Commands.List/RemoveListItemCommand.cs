@@ -21,14 +21,14 @@ namespace OpenBots.Commands.List
     [Description("This command removes an item from an existing List variable at a specified index.")]
     public class RemoveListItemCommand : ScriptCommand
     {
-        [PropertyDescription("List")]
+        [DisplayName("List")]
         [InputSpecification("Provide a List variable.")]
         [SampleUsage("{vList}")]
         [Remarks("Any type of variable other than List will cause error.")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_ListName { get; set; }
 
-        [PropertyDescription("List Index")]
+        [DisplayName("List Index")]
         [InputSpecification("Enter the List index where the item will be removed")]
         [SampleUsage("0 || {vIndex}")]
         [Remarks("Providing an out of range index will produce an exception.")]

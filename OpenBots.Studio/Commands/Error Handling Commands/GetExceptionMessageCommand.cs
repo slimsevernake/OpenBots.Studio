@@ -17,7 +17,7 @@ namespace OpenBots.Commands
     public class GetExceptionMessageCommand : ScriptCommand
     {
 
-        [PropertyDescription("Output Exception Message Variable")]
+        [DisplayName("Output Exception Message Variable")]
         [InputSpecification("Create a new variable or select a variable from the list.")]
         [SampleUsage("{vUserVariable}")]
         [Remarks("Variables not pre-defined in the Variable Manager will be automatically generated at runtime.")]

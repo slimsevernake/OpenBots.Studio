@@ -24,42 +24,42 @@ namespace OpenBots.Commands.Email
     public class DeleteIMAPEmailCommand : ScriptCommand
     {
 
-        [PropertyDescription("MimeMessage")]
+        [DisplayName("MimeMessage")]
         [InputSpecification("Enter the MimeMessage to delete.")]
         [SampleUsage("{vMimeMessage}")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_IMAPMimeMessage { get; set; }
 
-        [PropertyDescription("Host")]
+        [DisplayName("Host")]
         [InputSpecification("Define the host/service name that the script should use.")]
         [SampleUsage("imap.gmail.com || {vHost}")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_IMAPHost { get; set; }
 
-        [PropertyDescription("Port")]
+        [DisplayName("Port")]
         [InputSpecification("Define the port number that should be used when contacting the IMAP service.")]
         [SampleUsage("993 || {vPort}")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_IMAPPort { get; set; }
 
-        [PropertyDescription("Username")]
+        [DisplayName("Username")]
         [InputSpecification("Define the username to use when contacting the IMAP service.")]
         [SampleUsage("myRobot || {vUsername}")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_IMAPUserName { get; set; }
 
-        [PropertyDescription("Password")]
+        [DisplayName("Password")]
         [InputSpecification("Define the password to use when contacting the IMAP service.")]
         [SampleUsage("password || {vPassword}")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_IMAPPassword { get; set; }
 
-        [PropertyDescription("Delete Read Emails Only")]
+        [DisplayName("Delete Read Emails Only")]
         [PropertyUISelectionOption("Yes")]
         [PropertyUISelectionOption("No")]
         [InputSpecification("Specify whether to delete read email messages only.")]

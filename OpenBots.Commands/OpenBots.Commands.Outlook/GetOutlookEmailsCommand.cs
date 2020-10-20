@@ -22,21 +22,21 @@ namespace OpenBots.Commands.Outlook
     public class GetOutlookEmailsCommand : ScriptCommand
     {
 
-        [PropertyDescription("Source Mail Folder Name")]
+        [DisplayName("Source Mail Folder Name")]
         [InputSpecification("Enter the name of the Outlook mail folder the emails are located in.")]
         [SampleUsage("Inbox || {vFolderName}")]
         [Remarks("Source folder cannot be a subfolder.")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_SourceFolder { get; set; }
 
-        [PropertyDescription("Filter")]
+        [DisplayName("Filter")]
         [InputSpecification("Enter a valid Outlook filter string.")]
         [SampleUsage("[Subject] = 'Hello' || [Subject] = 'Hello' and [SenderName] = 'Jane Doe' || {vFilter} || None")]
         [Remarks("*Warning* Using 'None' as the Filter will return every email in the selected Mail Folder.")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_Filter { get; set; }
 
-        [PropertyDescription("Unread Only")]
+        [DisplayName("Unread Only")]
         [PropertyUISelectionOption("Yes")]
         [PropertyUISelectionOption("No")]
         [InputSpecification("Specify whether to retrieve unread email messages only.")]
@@ -44,7 +44,7 @@ namespace OpenBots.Commands.Outlook
         [Remarks("")]
         public string v_GetUnreadOnly { get; set; }
 
-        [PropertyDescription("Mark As Read")]
+        [DisplayName("Mark As Read")]
         [PropertyUISelectionOption("Yes")]
         [PropertyUISelectionOption("No")]
         [InputSpecification("Specify whether to mark retrieved emails as read.")]
@@ -52,7 +52,7 @@ namespace OpenBots.Commands.Outlook
         [Remarks("")]
         public string v_MarkAsRead { get; set; }
 
-        [PropertyDescription("Save MailItems and Attachments")]
+        [DisplayName("Save MailItems and Attachments")]
         [PropertyUISelectionOption("Yes")]
         [PropertyUISelectionOption("No")]
         [InputSpecification("Specify whether to save the email attachments to a local directory.")]
@@ -60,7 +60,7 @@ namespace OpenBots.Commands.Outlook
         [Remarks("")]
         public string v_SaveMessagesAndAttachments { get; set; }
 
-        [PropertyDescription("Output MailItem Directory")]   
+        [DisplayName("Output MailItem Directory")]   
         [InputSpecification("Enter or Select the path of the directory to store the messages in.")]
         [SampleUsage(@"C:\temp\myfolder || {vFolderPath} || {ProjectPath}\myFolder")]
         [Remarks("This input is optional and will only be used if *Save MailItems and Attachments* is set to **Yes**.")]
@@ -68,7 +68,7 @@ namespace OpenBots.Commands.Outlook
         [PropertyUIHelper(UIAdditionalHelperType.ShowFolderSelectionHelper)]
         public string v_MessageDirectory { get; set; }
 
-        [PropertyDescription("Output Attachment Directory")]      
+        [DisplayName("Output Attachment Directory")]      
         [InputSpecification("Enter or Select the path to the directory to store the attachments in.")]
         [SampleUsage(@"C:\temp\myfolder\attachments || {vFolderPath} || {ProjectPath}\myFolder\attachments")]
         [Remarks("This input is optional and will only be used if *Save MailItems and Attachments* is set to **Yes**.")]
@@ -76,7 +76,7 @@ namespace OpenBots.Commands.Outlook
         [PropertyUIHelper(UIAdditionalHelperType.ShowFolderSelectionHelper)]
         public string v_AttachmentDirectory { get; set; }
 
-        [PropertyDescription("Output MailItem List Variable")]
+        [DisplayName("Output MailItem List Variable")]
         [InputSpecification("Create a new variable or select a variable from the list.")]
         [SampleUsage("{vUserVariable}")]
         [Remarks("Variables not pre-defined in the Variable Manager will be automatically generated at runtime.")]

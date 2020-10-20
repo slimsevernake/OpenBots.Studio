@@ -15,7 +15,7 @@ namespace OpenBots.Commands.Engine
     public class ErrorHandlingCommand : ScriptCommand
     {
 
-        [PropertyDescription("Error Action")]
+        [DisplayName("Error Action")]
         [PropertyUISelectionOption("Stop Processing")]
         [PropertyUISelectionOption("Continue Processing")]
         [InputSpecification("Select the action to take when the bot comes across an error.")]

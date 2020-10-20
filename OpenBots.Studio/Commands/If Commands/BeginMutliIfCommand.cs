@@ -22,7 +22,7 @@ namespace OpenBots.Commands
     [Description("This command evaluates a group of combined logical statements to determine if the combined result of the statements is 'true' or 'false' and subsequently performs action(s) based on the result.")]
     public class BeginMultiIfCommand : ScriptCommand
     {
-        [PropertyDescription("Multiple If Conditions")]
+        [DisplayName("Multiple If Conditions")]
         [InputSpecification("Add new If condition(s).")]
         [SampleUsage("")]
         [Remarks("All of the conditions must be true to execute the If block.")]

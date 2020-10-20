@@ -19,14 +19,14 @@ namespace OpenBots.Commands.Outlook
     public class ReplyToOutlookEmailCommand : ScriptCommand
     {
 
-        [PropertyDescription("MailItem")]
+        [DisplayName("MailItem")]
         [InputSpecification("Enter the MailItem to reply to.")]
         [SampleUsage("{vMailItem}")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_MailItem { get; set; }
 
-        [PropertyDescription("Mail Operation")]
+        [DisplayName("Mail Operation")]
         [PropertyUISelectionOption("Reply")]
         [PropertyUISelectionOption("Reply All")]
         [InputSpecification("Specify whether you intend to reply or reply all.")]
@@ -34,21 +34,21 @@ namespace OpenBots.Commands.Outlook
         [Remarks("Replying will reply to only the original sender. Reply all will reply to everyone in the recipient list.")]
         public string v_OperationType { get; set; }
 
-        [PropertyDescription("Email Body")]
+        [DisplayName("Email Body")]
         [InputSpecification("Enter text to be used as the email body.")]
         [SampleUsage("Dear John, ... || {vBody}")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_Body { get; set; }
 
-        [PropertyDescription("Email Body Type")]
+        [DisplayName("Email Body Type")]
         [PropertyUISelectionOption("Plain")]
         [PropertyUISelectionOption("HTML")]
         [InputSpecification("Select the email body format.")]
         [Remarks("")]
         public string v_BodyType { get; set; }
 
-        [PropertyDescription("Attachment File Path(s)")]
+        [DisplayName("Attachment File Path(s)")]
         [InputSpecification("Enter the file path(s) of the file(s) to attach.")]
         [SampleUsage(@"C:\temp\myFile.xlsx || {vFile} || C:\temp\myFile1.xlsx;C:\temp\myFile2.xlsx || {vFile1};{vFile2} || {vFiles}")]
         [Remarks("This input is optional. Multiple attachments should be delimited by a semicolon (;).")]

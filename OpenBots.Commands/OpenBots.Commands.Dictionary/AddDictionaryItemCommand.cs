@@ -18,14 +18,14 @@ namespace OpenBots.Commands.Dictionary
     public class AddDictionaryItemCommand : ScriptCommand
     {
 
-        [PropertyDescription("Dictionary")]
+        [DisplayName("Dictionary")]
         [InputSpecification("Select the dictionary variable to add an item to.")]
         [SampleUsage("{vMyDictionary}")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_DictionaryName { get; set; }
 
-        [PropertyDescription("Keys and Values")]
+        [DisplayName("Keys and Values")]
         [InputSpecification("Enter Keys and Values required for the dictionary.")]
         [SampleUsage("[FirstName | John] || [{vKey} | {vValue}]")]
         [Remarks("")]

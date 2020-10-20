@@ -18,7 +18,7 @@ namespace OpenBots.Commands.Folder
     [Description("This command returns a list of folder directories from a specified location.")]
     public class GetFoldersCommand : ScriptCommand
     {
-        [PropertyDescription("Root Folder Path")]
+        [DisplayName("Root Folder Path")]
         [InputSpecification("Enter or Select the path to the root folder to get its subdirectories.")]
         [SampleUsage(@"C:\temp\myfolder || {ProjectPath}\myfolder || {vTextFolderPath}")]
         [Remarks("{ProjectPath} is the directory path of the current project.")]
@@ -26,7 +26,7 @@ namespace OpenBots.Commands.Folder
         [PropertyUIHelper(UIAdditionalHelperType.ShowFolderSelectionHelper)]
         public string v_SourceFolderPath { get; set; }
 
-        [PropertyDescription("Output Folder Path(s) Variable")]
+        [DisplayName("Output Folder Path(s) Variable")]
         [InputSpecification("Create a new variable or select a variable from the list.")]
         [SampleUsage("{vUserVariable}")]
         [Remarks("Variables not pre-defined in the Variable Manager will be automatically generated at runtime.")]

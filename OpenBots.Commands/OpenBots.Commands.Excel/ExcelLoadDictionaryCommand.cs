@@ -21,7 +21,7 @@ namespace OpenBots.Commands.Excel
     [Description("This command reads an Excel Config Worksheet and stores it in a Dictionary.")]
     public class LoadDictionaryCommand : ScriptCommand
     {
-        [PropertyDescription("Workbook File Path")]
+        [DisplayName("Workbook File Path")]
         [InputSpecification("Enter or Select the path to the Workbook file.")]
         [SampleUsage(@"C:\temp\myfile.xlsx || {vFilePath} || {ProjectPath}\myfile.xlsx")]
         [Remarks("This command does not require Excel to be opened. A snapshot will be taken of the workbook as it exists at the time this command runs.")]
@@ -29,28 +29,28 @@ namespace OpenBots.Commands.Excel
         [PropertyUIHelper(UIAdditionalHelperType.ShowFileSelectionHelper)]
         public string v_FilePath { get; set; }
 
-        [PropertyDescription("Worksheet")]
+        [DisplayName("Worksheet")]
         [InputSpecification("Indicate the Worksheet to be retrieved.")]
         [SampleUsage("Sheet1 || {vSheet}")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_SheetName { get; set; }
 
-        [PropertyDescription("Key Column Name")]
+        [DisplayName("Key Column Name")]
         [InputSpecification("Enter the name of the column to be loaded as Dictionary Keys.")]
         [SampleUsage("Name || {vKeyColumn}")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_KeyColumn { get; set; }
 
-        [PropertyDescription("Value Column Name")]
+        [DisplayName("Value Column Name")]
         [InputSpecification("Enter the name of the column to be loaded as Dictionary Values.")]
         [SampleUsage("Value || {vValueColumn}")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_ValueColumn { get; set; }
 
-        [PropertyDescription("Output Dictionary Variable")]
+        [DisplayName("Output Dictionary Variable")]
         [InputSpecification("Create a new variable or select a variable from the list.")]
         [SampleUsage("{vUserVariable}")]
         [Remarks("Variables not pre-defined in the Variable Manager will be automatically generated at runtime.")]

@@ -18,13 +18,13 @@ namespace OpenBots.Commands.NLG
     public class SetNLGParameterCommand : ScriptCommand
     {
 
-        [PropertyDescription("NLG Instance Name")]
+        [DisplayName("NLG Instance Name")]
         [InputSpecification("Enter the unique instance that was specified in the **Create NLG Instance** command.")]
         [SampleUsage("MyNLGInstance")]
         [Remarks("Failure to enter the correct instance name or failure to first call the **Create NLG Instance** command will cause an error.")]
         public string v_InstanceName { get; set; }
 
-        [PropertyDescription("NLG Parameter Type")]
+        [DisplayName("NLG Parameter Type")]
         [PropertyUISelectionOption("Set Subject")]
         [PropertyUISelectionOption("Set Verb")]
         [PropertyUISelectionOption("Set Object")]
@@ -38,7 +38,7 @@ namespace OpenBots.Commands.NLG
         [Remarks("")]
         public string v_ParameterType { get; set; }
 
-        [PropertyDescription("Input Value")]
+        [DisplayName("Input Value")]
         [InputSpecification("Enter the value that should be associated with the parameter")]
         [SampleUsage("Hello || {vValue}")]
         [Remarks("")]

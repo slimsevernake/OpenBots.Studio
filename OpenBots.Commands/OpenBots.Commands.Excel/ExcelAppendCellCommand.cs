@@ -19,13 +19,13 @@ namespace OpenBots.Commands.Excel
     [Description("This command appends a cell to the first column after the last row in an Excel Worksheet.")]
     public class ExcelAppendCellCommand : ScriptCommand
     {
-        [PropertyDescription("Excel Instance Name")]
+        [DisplayName("Excel Instance Name")]
         [InputSpecification("Enter the unique instance that was specified in the **Create Application** command.")]
         [SampleUsage("MyExcelInstance")]
         [Remarks("Failure to enter the correct instance or failure to first call the **Create Application** command will cause an error.")]
         public string v_InstanceName { get; set; }
 
-        [PropertyDescription("Cell Value")]
+        [DisplayName("Cell Value")]
         [InputSpecification("Enter the text value that will be set in the appended cell.")]
         [SampleUsage("Hello World || {vText}")]
         [Remarks("")]

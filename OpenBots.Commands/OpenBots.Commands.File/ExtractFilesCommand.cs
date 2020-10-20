@@ -21,7 +21,7 @@ namespace OpenBots.Commands.File
     [Description("This command extracts file(s) from a Zip file.")]
     public class ExtractFilesCommand : ScriptCommand
     {
-        [PropertyDescription("Source File Path")]
+        [DisplayName("Source File Path")]
         [InputSpecification("Enter or Select the Path to the source zip file.")]
         [SampleUsage(@"C:\temp\myfile.zip || {ProjectPath}\myfile.zip || {vFileSourcePath}")]
         [Remarks("{ProjectPath} is the directory path of the current project.")]
@@ -29,14 +29,14 @@ namespace OpenBots.Commands.File
         [PropertyUIHelper(UIAdditionalHelperType.ShowFileSelectionHelper)]
         public string v_FilePathOrigin { get; set; }
 
-        [PropertyDescription("Password (Optional)")]
+        [DisplayName("Password (Optional)")]
         [InputSpecification("Define the password to use if required to extract files.")]
         [SampleUsage("password || {vPassword}")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_Password { get; set; }
 
-        [PropertyDescription("Extracted File(s) Directory Path")]
+        [DisplayName("Extracted File(s) Directory Path")]
         [InputSpecification("Enter or Select the Folder Path to move extracted file(s) to.")]
         [SampleUsage(@"C:\temp || {ProjectPath}\temp || {vFilesPath}")]
         [Remarks("{ProjectPath} is the directory path of the current project.")]
@@ -44,7 +44,7 @@ namespace OpenBots.Commands.File
         [PropertyUIHelper(UIAdditionalHelperType.ShowFolderSelectionHelper)]
         public string v_PathDestination { get; set; }
 
-        [PropertyDescription("Output Extracted File Path(s) List Variable")]
+        [DisplayName("Output Extracted File Path(s) List Variable")]
         [InputSpecification("Create a new variable or select a variable from the list.")]
         [SampleUsage("{vUserVariable}")]
         [Remarks("Variables not pre-defined in the Variable Manager will be automatically generated at runtime.")]

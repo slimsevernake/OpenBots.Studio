@@ -19,20 +19,20 @@ namespace OpenBots.Commands.Excel
 
     public class ExcelDeleteRowCommand : ScriptCommand
     {
-        [PropertyDescription("Excel Instance Name")]
+        [DisplayName("Excel Instance Name")]
         [InputSpecification("Enter the unique instance that was specified in the **Create Application** command.")]
         [SampleUsage("MyExcelInstance")]
         [Remarks("Failure to enter the correct instance or failure to first call the **Create Application** command will cause an error.")]
         public string v_InstanceName { get; set; }
 
-        [PropertyDescription("Row Number")]
+        [DisplayName("Row Number")]
         [InputSpecification("Enter the number of the row to be deleted.")]
         [SampleUsage("1 || {vRowNumber}")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_RowNumber { get; set; }
 
-        [PropertyDescription("Shift Cells Up")]
+        [DisplayName("Shift Cells Up")]
         [PropertyUISelectionOption("Yes")]
         [PropertyUISelectionOption("No")]
         [InputSpecification("'Yes' removes the entire row. 'No' only clears the row of its cell values.")]

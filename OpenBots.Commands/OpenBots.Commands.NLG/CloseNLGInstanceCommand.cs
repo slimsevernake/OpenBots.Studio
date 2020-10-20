@@ -15,7 +15,7 @@ namespace OpenBots.Commands.NLG
     [Description("This command closes a Natural Language Generation Instance.")]
     public class CloseNLGInstanceCommand : ScriptCommand
     {
-        [PropertyDescription("NLG Instance Name")]
+        [DisplayName("NLG Instance Name")]
         [InputSpecification("Enter the unique instance that was specified in the **Create NLG Instance** command.")]
         [SampleUsage("MyNLGInstance")]
         [Remarks("Failure to enter the correct instance name or failure to first call the **Create NLG Instance** command will cause an error.")]

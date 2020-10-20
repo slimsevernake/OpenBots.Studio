@@ -21,21 +21,21 @@ namespace OpenBots.Commands.DataTable
     public class RemoveDataRowCommand : ScriptCommand
     {
 
-        [PropertyDescription("DataTable")]
+        [DisplayName("DataTable")]
         [InputSpecification("Enter an existing DataTable.")]
         [SampleUsage("{vDataTable}")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_DataTable { get; set; }
 
-        [PropertyDescription("Removal Tuple")]
+        [DisplayName("Removal Tuple")]
         [InputSpecification("Enter a tuple containing the column name and item you would like to remove.")]
         [SampleUsage("(ColumnName1,Item1),(ColumnName2,Item2) || ({vColumn1},{vItem1}),({vCloumn2},{vItem2}) || {vRemovalTuple}")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_SearchItem { get; set; }
 
-        [PropertyDescription("Overwrite Option")]
+        [DisplayName("Overwrite Option")]
         [PropertyUISelectionOption("And")]
         [PropertyUISelectionOption("Or")]
         [InputSpecification("Indicate whether this command should remove rows with all the constraints or remove those with 1 or more constraints.")]

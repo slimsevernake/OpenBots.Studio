@@ -24,21 +24,21 @@ namespace OpenBots.Commands.Input
     public class InputCommand : ScriptCommand
     {
 
-        [PropertyDescription("Header Name")]
+        [DisplayName("Header Name")]
         [InputSpecification("Define the header to be displayed on the input form.")]
         [SampleUsage("Please Provide Input || {vHeader}")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_InputHeader { get; set; }
 
-        [PropertyDescription("Input Directions")]
+        [DisplayName("Input Directions")]
         [InputSpecification("Define the directions to give to the user.")]
         [SampleUsage("Directions: Please fill in the following fields || {vDirections}")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_InputDirections { get; set; }
 
-        [PropertyDescription("Input Parameters")]
+        [DisplayName("Input Parameters")]
         [InputSpecification("Define the required input parameters.")]
         [SampleUsage("[TextBox | Name | 500,30 | John | {vName}]")]
         [Remarks("")]

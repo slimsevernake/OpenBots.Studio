@@ -17,7 +17,7 @@ namespace OpenBots.Commands.NLG
     public class CreateNLGInstanceCommand : ScriptCommand
     {
 
-        [PropertyDescription("NLG Instance Name")]
+        [DisplayName("NLG Instance Name")]
         [InputSpecification("Enter a unique name that will represent the application instance.")]
         [SampleUsage("MyNLGInstance")]
         [Remarks("This unique name allows you to refer to the instance by name in future commands, " +

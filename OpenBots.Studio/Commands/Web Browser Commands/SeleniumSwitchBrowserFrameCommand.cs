@@ -17,13 +17,13 @@ namespace OpenBots.Commands
     [Description("This command switches between browser frames provided a valid search parameter.")]  
     public class SeleniumSwitchBrowserFrameCommand : ScriptCommand
     {
-        [PropertyDescription("Browser Instance Name")]
+        [DisplayName("Browser Instance Name")]
         [InputSpecification("Enter the unique instance that was specified in the **Create Browser** command.")]
         [SampleUsage("MyBrowserInstance")]
         [Remarks("Failure to enter the correct instance name or failure to first call the **Create Browser** command will cause an error.")]
         public string v_InstanceName { get; set; }
 
-        [PropertyDescription("Frame Search Type")]
+        [DisplayName("Frame Search Type")]
         [PropertyUISelectionOption("Index")]
         [PropertyUISelectionOption("Name or ID")]
         [PropertyUISelectionOption("Parent Frame")]
@@ -34,7 +34,7 @@ namespace OpenBots.Commands
         [Remarks("")]
         public string v_SelectionType { get; set; }
 
-        [PropertyDescription("Frame Search Parameter")]
+        [DisplayName("Frame Search Parameter")]
         [InputSpecification("Provide the parameter to match (ex. Index, Name or ID).")]
         [SampleUsage("1 || name || {vSearchData}")]
         [Remarks("")]

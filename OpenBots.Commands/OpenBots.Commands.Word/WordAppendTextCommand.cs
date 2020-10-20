@@ -18,20 +18,20 @@ namespace OpenBots.Commands.Word
     [Description("This command appends text to a Word Document.")]
     public class WordAppendTextCommand : ScriptCommand
     {
-        [PropertyDescription("Word Instance Name")]
+        [DisplayName("Word Instance Name")]
         [InputSpecification("Enter the unique instance that was specified in the **Create Application** command.")]
         [SampleUsage("MyWordInstance")]
         [Remarks("Failure to enter the correct instance or failure to first call the **Create Application** command will cause an error.")]
         public string v_InstanceName { get; set; }
 
-        [PropertyDescription("Text")]
+        [DisplayName("Text")]
         [InputSpecification("Enter the text to append to the Document.")]
         [SampleUsage("Hello World || {vText}")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_TextToSet { get; set; }
 
-        [PropertyDescription("Font Name")]
+        [DisplayName("Font Name")]
         [PropertyUISelectionOption("Arial")]
         [PropertyUISelectionOption("Calibri")]
         [PropertyUISelectionOption("Helvetica")]
@@ -42,7 +42,7 @@ namespace OpenBots.Commands.Word
         [Remarks("")]
         public string v_FontName { get; set; }
 
-        [PropertyDescription("Font Size")]
+        [DisplayName("Font Size")]
         [PropertyUISelectionOption("10")]
         [PropertyUISelectionOption("11")]
         [PropertyUISelectionOption("12")]
@@ -55,7 +55,7 @@ namespace OpenBots.Commands.Word
         [Remarks("")]
         public string v_FontSize { get; set; }
 
-        [PropertyDescription("Bold")]
+        [DisplayName("Bold")]
         [PropertyUISelectionOption("Yes")]
         [PropertyUISelectionOption("No")]
         [InputSpecification("Specify whether the text font should be bold.")]
@@ -63,7 +63,7 @@ namespace OpenBots.Commands.Word
         [Remarks("")]
         public string v_FontBold { get; set; }
 
-        [PropertyDescription("Italic")]
+        [DisplayName("Italic")]
         [PropertyUISelectionOption("Yes")]
         [PropertyUISelectionOption("No")]
         [InputSpecification("Specify whether the text font should be italic.")]
@@ -71,7 +71,7 @@ namespace OpenBots.Commands.Word
         [Remarks("")]
         public string v_FontItalic { get; set; }
 
-        [PropertyDescription("Underline")]
+        [DisplayName("Underline")]
         [PropertyUISelectionOption("Yes")]
         [PropertyUISelectionOption("No")]
         [InputSpecification("Specify whether the text font should be underlined.")]

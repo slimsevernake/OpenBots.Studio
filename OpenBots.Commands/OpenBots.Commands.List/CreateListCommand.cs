@@ -21,7 +21,7 @@ namespace OpenBots.Commands.List
     [Description("This command creates a new List variable.")]
     public class CreateListCommand : ScriptCommand
     {
-        [PropertyDescription("List Type")]
+        [DisplayName("List Type")]
         [PropertyUISelectionOption("String")]
         [PropertyUISelectionOption("DataTable")]
         [PropertyUISelectionOption("MailItem (Outlook)")]
@@ -32,7 +32,7 @@ namespace OpenBots.Commands.List
         [Remarks("")]
         public string v_ListType { get; set; }
 
-        [PropertyDescription("List Item(s)")]
+        [DisplayName("List Item(s)")]
         [InputSpecification("Enter the item(s) to write to the List.")]
         [SampleUsage("Hello || {vItem} || Hello,World || {vItem1},{vItem2}")]
         [Remarks("List item can only be a String, DataTable, MailItem or IWebElement.\n" + 
@@ -40,7 +40,7 @@ namespace OpenBots.Commands.List
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_ListItems { get; set; }
 
-        [PropertyDescription("Output List Variable")]
+        [DisplayName("Output List Variable")]
         [InputSpecification("Create a new variable or select a variable from the list.")]
         [SampleUsage("{vUserVariable}")]
         [Remarks("Variables not pre-defined in the Variable Manager will be automatically generated at runtime.")]

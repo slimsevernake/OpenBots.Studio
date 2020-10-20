@@ -15,7 +15,7 @@ namespace OpenBots.Commands.Input
     public class SendMouseClickCommand : ScriptCommand
     {
 
-        [PropertyDescription("Click Type")]
+        [DisplayName("Click Type")]
         [PropertyUISelectionOption("Left Click")]
         [PropertyUISelectionOption("Middle Click")]
         [PropertyUISelectionOption("Right Click")]

@@ -16,7 +16,7 @@ namespace OpenBots.Commands.Engine
     [Description("This command sets delays between the execution of commands in a running instance.")]
     public class SetEngineDelayCommand : ScriptCommand
     {
-        [PropertyDescription("Command Delay Time (Milliseconds)")]
+        [DisplayName("Command Delay Time (Milliseconds)")]
         [InputSpecification("Select or provide a specific amount of time in milliseconds.")]
         [SampleUsage("1000 || {vTime}")]
         [Remarks("")]

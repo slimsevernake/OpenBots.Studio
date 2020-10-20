@@ -17,21 +17,21 @@ namespace OpenBots.Commands
 
     public class QueryHTMLSourceCommand : ScriptCommand
     {
-        [PropertyDescription("HTML")]
+        [DisplayName("HTML")]
         [InputSpecification("Enter the HTML to be queried.")]
         [SampleUsage("<!DOCTYPE html><html><head><title>Example</title></head></html> || {vMyHTML}")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_HTMLVariable { get; set; }
 
-        [PropertyDescription("XPath Query")]
+        [DisplayName("XPath Query")]
         [InputSpecification("Enter the XPath Query and the item will be extracted.")]
         [SampleUsage("@//*[@id=\"aso_search_form_anchor\"]/div/input || {vMyXPath}")]
         [Remarks("You can use Chrome Dev Tools to click an element and copy the XPath.")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_XPathQuery { get; set; }
 
-        [PropertyDescription("Output Query Result Variable")]
+        [DisplayName("Output Query Result Variable")]
         [InputSpecification("Create a new variable or select a variable from the list.")]
         [SampleUsage("{vUserVariable}")]
         [Remarks("Variables not pre-defined in the Variable Manager will be automatically generated at runtime.")]

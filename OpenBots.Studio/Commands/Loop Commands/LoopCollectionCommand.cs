@@ -23,7 +23,7 @@ namespace OpenBots.Commands
     [Description("This command iterates over a collection to let user perform actions on the collection items.")]
     public class LoopCollectionCommand : ScriptCommand
     {
-        [PropertyDescription("Input Collection")]
+        [DisplayName("Input Collection")]
         [InputSpecification("Provide a collection variable.")]
         [SampleUsage("{vMyCollection}")]
         [Remarks("If the collection is a DataTable then the output item will be a DataRow and its column value can be accessed using the " +
@@ -31,7 +31,7 @@ namespace OpenBots.Commands
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_LoopParameter { get; set; }
 
-        [PropertyDescription("Output Collection Item Variable")]
+        [DisplayName("Output Collection Item Variable")]
         [InputSpecification("Create a new variable or select a variable from the list.")]
         [SampleUsage("{vUserVariable}")]
         [Remarks("Variables not pre-defined in the Variable Manager will be automatically generated at runtime.")]

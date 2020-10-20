@@ -16,14 +16,14 @@ namespace OpenBots.Commands.Data
     [Description("This command returns the count of all words in a string.")]
     public class GetWordCountCommand : ScriptCommand
     {
-        [PropertyDescription("Text Data")]
+        [DisplayName("Text Data")]
         [InputSpecification("Provide a variable or text value.")]
         [SampleUsage("Hello World || {vStringVariable}")]
         [Remarks("Providing data of a type other than a 'String' will result in an error.")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_InputValue { get; set; }
 
-        [PropertyDescription("Output Count Variable")]
+        [DisplayName("Output Count Variable")]
         [InputSpecification("Create a new variable or select a variable from the list.")]
         [SampleUsage("{vUserVariable}")]
         [Remarks("Variables not pre-defined in the Variable Manager will be automatically generated at runtime.")]

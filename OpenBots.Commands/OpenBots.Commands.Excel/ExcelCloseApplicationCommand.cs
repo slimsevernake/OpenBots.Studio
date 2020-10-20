@@ -16,13 +16,13 @@ namespace OpenBots.Commands.Excel
     [Description("This command closes an open Excel Workbook and Instance.")]
     public class ExcelCloseApplicationCommand : ScriptCommand
     {
-        [PropertyDescription("Excel Instance Name")]
+        [DisplayName("Excel Instance Name")]
         [InputSpecification("Enter the unique instance that was specified in the **Create Application** command.")]
         [SampleUsage("MyExcelInstance")]
         [Remarks("Failure to enter the correct instance or failure to first call the **Create Application** command will cause an error.")]
         public string v_InstanceName { get; set; }
 
-        [PropertyDescription("Save Workbook")]
+        [DisplayName("Save Workbook")]
         [PropertyUISelectionOption("Yes")]
         [PropertyUISelectionOption("No")]
         [InputSpecification("Indicate whether the Workbook should be saved before closing.")]

@@ -20,7 +20,7 @@ namespace OpenBots.Commands
     public class CaptureImageCommand : ScriptCommand
     {
 
-        [PropertyDescription("Capture Search Image")]
+        [DisplayName("Capture Search Image")]
         [InputSpecification("Use the tool to capture an image that will be located on screen during execution.")]
         [SampleUsage("")]
         [Remarks("Images with larger color variance will be found more quickly than those with a lot of white space. \n" +
@@ -29,7 +29,7 @@ namespace OpenBots.Commands
         [PropertyUIHelper(UIAdditionalHelperType.ShowImageCaptureHelper)]
         public string v_ImageCapture { get; set; }
 
-        [PropertyDescription("Output Image Variable")]
+        [DisplayName("Output Image Variable")]
         [InputSpecification("Create a new variable or select a variable from the list.")]
         [SampleUsage("vUserVariable")]
         [Remarks("Variables not pre-defined in the Variable Manager will be automatically generated at runtime.")]

@@ -18,14 +18,14 @@ namespace OpenBots.Commands.Asset
     [Description("This command updates an Asset in OpenBots Server.")]
     public class UpdateAssetCommand : ScriptCommand
     {
-        [PropertyDescription("Asset Name")]
+        [DisplayName("Asset Name")]
         [InputSpecification("Enter the name of the Asset.")]
         [SampleUsage("Name || {vAssetName}")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_AssetName { get; set; }
 
-        [PropertyDescription("Asset Type")]
+        [DisplayName("Asset Type")]
         [PropertyUISelectionOption("Text")]
         [PropertyUISelectionOption("Number")]
         [PropertyUISelectionOption("JSON")]
@@ -35,7 +35,7 @@ namespace OpenBots.Commands.Asset
         [Remarks("")]
         public string v_AssetType { get; set; }
 
-        [PropertyDescription("Asset File Path")]
+        [DisplayName("Asset File Path")]
         [InputSpecification("Enter or Select the path of the file to upload.")]
         [SampleUsage(@"C:\temp\myfile.txt || {vFilePath} || {ProjectPath}\myfile.txt")]
         [Remarks("This input should only be used for File type Assets.")]
@@ -43,7 +43,7 @@ namespace OpenBots.Commands.Asset
         [PropertyUIHelper(UIAdditionalHelperType.ShowFileSelectionHelper)]
         public string v_AssetFilePath { get; set; }
 
-        [PropertyDescription("Asset Value")]
+        [DisplayName("Asset Value")]
         [InputSpecification("Enter the new value of the Asset.")]
         [SampleUsage("John || {vAssetValue}")]
         [Remarks("")]

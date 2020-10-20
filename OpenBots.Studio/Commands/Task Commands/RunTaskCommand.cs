@@ -24,7 +24,7 @@ namespace OpenBots.Commands
     [Description("This command executes a Task.")]
     public class RunTaskCommand : ScriptCommand
     {
-        [PropertyDescription("Task File Path")]
+        [DisplayName("Task File Path")]
         [InputSpecification("Enter or select a valid path to the Task file.")]
         [SampleUsage(@"C:\temp\mytask.json || {vScriptPath} || {ProjectPath}\mytask.json")]
         [Remarks("")]
@@ -32,13 +32,13 @@ namespace OpenBots.Commands
         [PropertyUIHelper(UIAdditionalHelperType.ShowFileSelectionHelper)]
         public string v_taskPath { get; set; }
 
-        [PropertyDescription("Assign Variables")]
+        [DisplayName("Assign Variables")]
         [InputSpecification("Select to assign variables to the Task.")]
         [SampleUsage("")]
         [Remarks("If selected, variables will be automatically generated from the Task's *Variable Manager*.")]
         public bool v_AssignVariables { get; set; }
 
-        [PropertyDescription("Task Variables")]
+        [DisplayName("Task Variables")]
         [InputSpecification("Enter a VariableValue for each input variable.")]
         [SampleUsage("Hello World || {vVariableValue}")]
         [Remarks("For inputs, set VariableReturn to *No*. For outputs, set VariableReturn to *Yes*. " +

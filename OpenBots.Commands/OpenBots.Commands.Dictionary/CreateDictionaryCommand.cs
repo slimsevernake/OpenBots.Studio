@@ -18,14 +18,14 @@ namespace OpenBots.Commands.Dictionary
     public class CreateDictionaryCommand : ScriptCommand
     {
 
-        [PropertyDescription("Keys and Values")]
+        [DisplayName("Keys and Values")]
         [InputSpecification("Enter the Keys and Values required for the new dictionary.")]
         [SampleUsage("[FirstName | John] || [{vKey} | {vValue}]")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public DataTable v_ColumnNameDataTable { get; set; }
 
-        [PropertyDescription("Output Dictionary Variable")]
+        [DisplayName("Output Dictionary Variable")]
         [InputSpecification("Create a new variable or select a variable from the list.")]
         [SampleUsage("{vUserVariable}")]
         [Remarks("Variables not pre-defined in the Variable Manager will be automatically generated at runtime.")]

@@ -17,14 +17,14 @@ namespace OpenBots.Commands.Window
     [Description("This command sets a open window's state.")]
     public class SetWindowStateCommand : ScriptCommand
     {
-        [PropertyDescription("Window Name")]
+        [DisplayName("Window Name")]
         [InputSpecification("Select the name of the window to set.")]
         [SampleUsage("Untitled - Notepad || Current Window || {vWindow}")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_WindowName { get; set; }
 
-        [PropertyDescription("Window State")]
+        [DisplayName("Window State")]
         [PropertyUISelectionOption("Maximize")]
         [PropertyUISelectionOption("Minimize")]
         [PropertyUISelectionOption("Restore")]

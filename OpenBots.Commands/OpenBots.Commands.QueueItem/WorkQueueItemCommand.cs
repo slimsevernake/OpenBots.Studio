@@ -22,14 +22,14 @@ namespace OpenBots.Commands.QueueItem
     [Description("This command gets and locks a QueueItem from an existing Queue in OpenBots Server.")]
     public class WorkQueueItemCommand : ScriptCommand
     {
-        [PropertyDescription("Queue Name")]
+        [DisplayName("Queue Name")]
         [InputSpecification("Enter the name of the Queue.")]
         [SampleUsage("Name || {vQueueName}")]
         [Remarks("QueueItem Text/Json values are store in the 'DataJson' key of a QueueItem Dictionary.")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_QueueName { get; set; }
 
-        [PropertyDescription("Output QueueItem Dictionary Variable")]
+        [DisplayName("Output QueueItem Dictionary Variable")]
         [InputSpecification("Create a new variable or select a variable from the list.")]
         [SampleUsage("{vUserVariable}")]
         [Remarks("Variables not pre-defined in the Variable Manager will be automatically generated at runtime.")]

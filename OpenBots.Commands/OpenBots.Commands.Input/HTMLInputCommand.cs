@@ -18,14 +18,14 @@ namespace OpenBots.Commands.Input
     public class HTMLInputCommand : ScriptCommand
     {
 
-        [PropertyDescription("HTML")]
+        [DisplayName("HTML")]
         [InputSpecification("Define the form to be displayed using the HTML Builder.")]
         [SampleUsage("")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowHTMLBuilder)]
         public string v_InputHTML { get; set; }
 
-        [PropertyDescription("Error On Close")]
+        [DisplayName("Error On Close")]
         [PropertyUISelectionOption("Yes")]
         [PropertyUISelectionOption("No")]
         [InputSpecification("Specify if an exception should be thrown on any result other than 'OK'.")]

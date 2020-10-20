@@ -30,7 +30,7 @@ namespace OpenBots.Commands
     public class BeginLoopCommand : ScriptCommand
     {
 
-        [PropertyDescription("Loop Condition")]
+        [DisplayName("Loop Condition")]
         [PropertyUISelectionOption("Value Compare")]
         [PropertyUISelectionOption("Date Compare")]
         [PropertyUISelectionOption("Variable Compare")]
@@ -50,7 +50,7 @@ namespace OpenBots.Commands
         [Remarks("")]
         public string v_LoopActionType { get; set; }
 
-        [PropertyDescription("Additional Parameters")]
+        [DisplayName("Additional Parameters")]
         [InputSpecification("Supply or Select the required comparison parameters.")]
         [SampleUsage("Param Value || {vParamValue}")]
         [Remarks("")]

@@ -19,7 +19,7 @@ namespace OpenBots.Commands
     public class PerformOCRCommand : ScriptCommand
     {
 
-        [PropertyDescription("Image File Path")]
+        [DisplayName("Image File Path")]
         [InputSpecification("Select the image to perform OCR text extraction on.")]
         [SampleUsage(@"C:\temp\myimages.png || {ProjectPath}\myimages.png || {vImageFile}")]
         [Remarks("")]
@@ -27,7 +27,7 @@ namespace OpenBots.Commands
         [PropertyUIHelper(UIAdditionalHelperType.ShowFileSelectionHelper)]
         public string v_FilePath { get; set; }
 
-        [PropertyDescription("Output OCR Result Variable")]
+        [DisplayName("Output OCR Result Variable")]
         [InputSpecification("Create a new variable or select a variable from the list.")]
         [SampleUsage("{vUserVariable}")]
         [Remarks("Variables not pre-defined in the Variable Manager will be automatically generated at runtime.")]

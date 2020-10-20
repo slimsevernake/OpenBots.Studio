@@ -17,7 +17,7 @@ namespace OpenBots.Commands.File
     [Description("This command renames an existing file.")]
     public class RenameFileCommand : ScriptCommand
     {
-        [PropertyDescription("File Path")]
+        [DisplayName("File Path")]
         [InputSpecification("Enter or Select the path to the file.")]
         [SampleUsage(@"C:\temp\myfile.txt || {ProjectPath}\myfile.txt || {vTextFilePath}")]
         [Remarks("{ProjectPath} is the directory path of the current project.")]
@@ -25,7 +25,7 @@ namespace OpenBots.Commands.File
         [PropertyUIHelper(UIAdditionalHelperType.ShowFileSelectionHelper)] 
         public string v_SourceFilePath { get; set; }
 
-        [PropertyDescription("New File Name (with extension)")]
+        [DisplayName("New File Name (with extension)")]
         [InputSpecification("Specify new file name with extension.")]
         [SampleUsage("newfile.txt || {vNewFileName}")]
         [Remarks("Changing the file extension will not automatically convert files.")]

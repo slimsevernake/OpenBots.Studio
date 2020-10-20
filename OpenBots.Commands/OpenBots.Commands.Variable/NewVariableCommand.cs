@@ -17,20 +17,20 @@ namespace OpenBots.Commands.Variable
     public class NewVariableCommand : ScriptCommand
     {
 
-        [PropertyDescription("New Variable Name")]
+        [DisplayName("New Variable Name")]
         [InputSpecification("Indicate a unique reference name for later use.")]
         [SampleUsage("{vSomeVariable}")]
         [Remarks("")]
         public string v_VariableName { get; set; }
 
-        [PropertyDescription("Input Value")]
+        [DisplayName("Input Value")]
         [InputSpecification("Enter the value for the variable.")]
         [SampleUsage("Hello || {vNum} || {vNum}+1")]
         [Remarks("You can use variables in input if you encase them within braces {vSomeValue}. You can also perform basic math operations.")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_Input { get; set; }
 
-        [PropertyDescription("Additional Actions")]
+        [DisplayName("Additional Actions")]
         [PropertyUISelectionOption("Do Nothing If Variable Exists")]
         [PropertyUISelectionOption("Error If Variable Exists")]
         [PropertyUISelectionOption("Replace If Variable Exists")]

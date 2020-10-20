@@ -22,7 +22,7 @@ namespace OpenBots.Commands.API
     [Description("This command invokes a method of a specific class from a DLL.")]
     public class ExecuteDLLCommand : ScriptCommand
     {
-        [PropertyDescription("DLL File Path")]
+        [DisplayName("DLL File Path")]
         [InputSpecification("Enter or Select the path to the DLL File.")]
         [SampleUsage("C:\\temp\\myfile.dll || {vDLLFilePath}")]
         [Remarks("")]
@@ -30,14 +30,14 @@ namespace OpenBots.Commands.API
         [PropertyUIHelper(UIAdditionalHelperType.ShowDLLExplorer)]
         public string v_FilePath { get; set; }
 
-        [PropertyDescription("Class Name")]
+        [DisplayName("Class Name")]
         [InputSpecification("Provide the parent class name of the method to be invoked in the DLL.")]
         [SampleUsage("myNamespace.myClassName || {vClassName}")]
         [Remarks("Namespace should be included")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_ClassName { get; set; }
 
-        [PropertyDescription("Method Name")]
+        [DisplayName("Method Name")]
         [InputSpecification("Provide the method name to be invoked in the DLL.")]
         [SampleUsage("GetSomething || {vMethodName}")]
         [Remarks("")]
@@ -45,14 +45,14 @@ namespace OpenBots.Commands.API
         public string v_MethodName { get; set; }
 
         [JsonIgnore]
-        [PropertyDescription("Parameters (Optional)")]
+        [DisplayName("Parameters (Optional)")]
         [InputSpecification("Select the 'Generate Parameters' button once you have indicated a file, class, and method.")]
         [SampleUsage("")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.GenerateDLLParameters)]
         public DataTable v_MethodParameters { get; set; }
 
-        [PropertyDescription("Output Result Variable")]
+        [DisplayName("Output Result Variable")]
         [InputSpecification("Create a new variable or select a variable from the list.")]
         [SampleUsage("{vUserVariable}")]
         [Remarks("Variables not pre-defined in the Variable Manager will be automatically generated at runtime.")]

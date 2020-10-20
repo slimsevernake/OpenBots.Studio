@@ -19,7 +19,7 @@ namespace OpenBots.Commands.Data
     [Description("This command reads all text from a PDF file and saves it into a variable.")]
     public class GetPDFTextCommand : ScriptCommand
     {
-        [PropertyDescription("Source Type")]
+        [DisplayName("Source Type")]
         [PropertyUISelectionOption("File Path")]
         [PropertyUISelectionOption("File URL")]
         [InputSpecification("Select source type of PDF file.")]
@@ -27,7 +27,7 @@ namespace OpenBots.Commands.Data
         [Remarks("Select 'File Path' if the file is locally placed or 'File URL' to read a file from a web URL.")]
         public string v_FileSourceType { get; set; }
 
-        [PropertyDescription("File Path / URL")]
+        [DisplayName("File Path / URL")]
         [InputSpecification("Specify the local path or URL to the applicable PDF file.")]
         [SampleUsage(@"C:\temp\myfile.pdf || https://temp.com/myfile.pdf || {vFilePath}")]
         [Remarks("Providing an invalid File Path/URL will result in an error.")]
@@ -35,7 +35,7 @@ namespace OpenBots.Commands.Data
         [PropertyUIHelper(UIAdditionalHelperType.ShowFileSelectionHelper)]
         public string v_FilePath { get; set; }
 
-        [PropertyDescription("Output Text Variable")]
+        [DisplayName("Output Text Variable")]
         [InputSpecification("Create a new variable or select a variable from the list.")]
         [SampleUsage("{vUserVariable}")]
         [Remarks("Variables not pre-defined in the Variable Manager will be automatically generated at runtime.")]

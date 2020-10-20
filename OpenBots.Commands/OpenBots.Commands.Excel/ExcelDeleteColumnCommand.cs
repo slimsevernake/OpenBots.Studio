@@ -19,20 +19,20 @@ namespace OpenBots.Commands.Excel
 
     public class ExcelDeleteColumnCommand : ScriptCommand
     {
-        [PropertyDescription("Excel Instance Name")]
+        [DisplayName("Excel Instance Name")]
         [InputSpecification("Enter the unique instance that was specified in the **Create Application** command.")]
         [SampleUsage("MyExcelInstance")]
         [Remarks("Failure to enter the correct instance or failure to first call the **Create Application** command will cause an error.")]
         public string v_InstanceName { get; set; }
 
-        [PropertyDescription("Column Letter")]
+        [DisplayName("Column Letter")]
         [InputSpecification("Enter the letter of the column to be deleted.")]
         [SampleUsage("A || {vColumnLetter}")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_ColumnLetter { get; set; }
 
-        [PropertyDescription("Shift Cells Left")]
+        [DisplayName("Shift Cells Left")]
         [PropertyUISelectionOption("Yes")]
         [PropertyUISelectionOption("No")]
         [InputSpecification("'Yes' removes the entire column. 'No' only clears the column of its cell values.")]

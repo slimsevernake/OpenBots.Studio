@@ -18,13 +18,13 @@ namespace OpenBots.Commands.System
     [Description("This command exclusively selects an environment variable.")]
     public class EnvironmentVariableCommand : ScriptCommand
     {
-        [PropertyDescription("Environment Variable")]
+        [DisplayName("Environment Variable")]
         [InputSpecification("Select an evironment variable from one of the options.")]
         [SampleUsage("")]
         [Remarks("")]
         public string v_EnvVariableName { get; set; }
 
-        [PropertyDescription("Output Environment Variable")]
+        [DisplayName("Output Environment Variable")]
         [InputSpecification("Create a new variable or select a variable from the list.")]
         [SampleUsage("{vUserVariable}")]
         [Remarks("Variables not pre-defined in the Variable Manager will be automatically generated at runtime.")]

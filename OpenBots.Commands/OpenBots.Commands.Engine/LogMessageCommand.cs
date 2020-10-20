@@ -18,7 +18,7 @@ namespace OpenBots.Commands.Engine
     [Description("This command logs text data to either an engine file or a custom file.")]
     public class LogMessageCommand : ScriptCommand
     {
-        [PropertyDescription("Write Log To")]
+        [DisplayName("Write Log To")]
         [InputSpecification("Specify the corresponding logging option to save logs to Engine Logs or to a custom File.")]
         [SampleUsage(@"Engine Logs || C:\MyEngineLogs.txt || {vFileVariable}")]
         [Remarks("Selecting 'Engine Logs' will result in writing execution logs in the 'Engine Logs'. " +
@@ -28,14 +28,14 @@ namespace OpenBots.Commands.Engine
         [PropertyUIHelper(UIAdditionalHelperType.ShowFileSelectionHelper)]
         public string v_LogFile { get; set; }
 
-        [PropertyDescription("Log Text")]
+        [DisplayName("Log Text")]
         [InputSpecification("Specify the log text.")]
         [SampleUsage("Third Step is Complete || {vLogText}")]
         [Remarks("Provide only text data.")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_LogText { get; set; }
 
-        [PropertyDescription("Log Type")]
+        [DisplayName("Log Type")]
         [PropertyUISelectionOption("Verbose")]
         [PropertyUISelectionOption("Debug")]
         [PropertyUISelectionOption("Information")]

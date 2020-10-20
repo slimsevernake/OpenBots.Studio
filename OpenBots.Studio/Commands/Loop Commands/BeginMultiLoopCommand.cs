@@ -24,7 +24,7 @@ namespace OpenBots.Commands
     public class BeginMultiLoopCommand : ScriptCommand
     {
 
-        [PropertyDescription("Multiple Loop Conditions")]
+        [DisplayName("Multiple Loop Conditions")]
         [InputSpecification("Add new Loop condition(s).")]
         [SampleUsage("")]
         [Remarks("All of the conditions must be true to execute the loop block.")]

@@ -19,14 +19,14 @@ namespace OpenBots.Commands
 
     public class GetHTMLSourceCommand : ScriptCommand
     {
-        [PropertyDescription("URL")]
+        [DisplayName("URL")]
         [InputSpecification("Enter a valid URL that you want to collect data from.")]
         [SampleUsage("http://mycompany.com/news || {vCompany}")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_WebRequestURL { get; set; }
 
-        [PropertyDescription("Execute Request As Logged On User")]
+        [DisplayName("Execute Request As Logged On User")]
         [PropertyUISelectionOption("Yes")]
         [PropertyUISelectionOption("No")]
         [InputSpecification("Sets currently logged on user authentication information for the request.")]
@@ -34,7 +34,7 @@ namespace OpenBots.Commands
         [Remarks("")]
         public string v_WebRequestCredentials { get; set; }
 
-        [PropertyDescription("Output Response Variable")]
+        [DisplayName("Output Response Variable")]
         [InputSpecification("Create a new variable or select a variable from the list.")]
         [SampleUsage("{vUserVariable}")]
         [Remarks("Variables not pre-defined in the Variable Manager will be automatically generated at runtime.")]

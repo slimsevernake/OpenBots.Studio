@@ -16,7 +16,7 @@ namespace OpenBots.Commands.System
     public class SystemActionCommand : ScriptCommand
     {
 
-        [PropertyDescription("System Action")]
+        [DisplayName("System Action")]
         [PropertyUISelectionOption("Shutdown")]
         [PropertyUISelectionOption("Restart")]
         [PropertyUISelectionOption("Logoff")]

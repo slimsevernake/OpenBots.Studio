@@ -21,14 +21,14 @@ namespace OpenBots.Commands.Data
     public class ParseJSONModelCommand : ScriptCommand
     {
 
-        [PropertyDescription("JSON Object")]
+        [DisplayName("JSON Object")]
         [InputSpecification("Provide a variable or JSON object value.")]
         [SampleUsage("{\"rect\":{\"length\":10, \"width\":5}} || {vJsonObject}")]
         [Remarks("Providing data of a type other than a 'JSON Object' will result in an error.")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_JsonObject { get; set; }
 
-        [PropertyDescription("Parameters")]
+        [DisplayName("Parameters")]
         [InputSpecification("Specify JSON Selector(s) (JPath) and Output Variable(s).")]
         [SampleUsage("[$.rect.length | vOutputList] || [{Selector} | {vOutputList}]")]
         [Remarks("'$.rect.length' is a JSON Selector to query on an inputted JSON Object and store its results in {vOutputList}.")]

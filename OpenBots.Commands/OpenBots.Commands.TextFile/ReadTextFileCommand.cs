@@ -18,7 +18,7 @@ namespace OpenBots.Commands.TextFile
     public class ReadTextFileCommand : ScriptCommand
     {
 
-        [PropertyDescription("Text File Path")]
+        [DisplayName("Text File Path")]
         [InputSpecification("Enter or select the path to the text file.")]
         [SampleUsage(@"C:\temp\myfile.txt || {ProjectPath}\myText.txt || {vTextFilePath}")]
         [Remarks("")]
@@ -26,7 +26,7 @@ namespace OpenBots.Commands.TextFile
         [PropertyUIHelper(UIAdditionalHelperType.ShowFileSelectionHelper)]
         public string v_FilePath { get; set; }
 
-        [PropertyDescription("Output Text Variable")]
+        [DisplayName("Output Text Variable")]
         [InputSpecification("Create a new variable or select a variable from the list.")]
         [SampleUsage("{vUserVariable}")]
         [Remarks("Variables not pre-defined in the Variable Manager will be automatically generated at runtime.")]

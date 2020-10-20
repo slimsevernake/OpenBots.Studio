@@ -20,14 +20,14 @@ namespace OpenBots.Commands.Excel
     [Description("This command exports a Excel Worksheet to a PDF file.")]
     public class ExcelExportToPDFCommand : ScriptCommand
     {
-        [PropertyDescription("Excel Instance Name")]
+        [DisplayName("Excel Instance Name")]
         [InputSpecification("Enter the unique instance that was specified in the **Create Application** command.")]
         [SampleUsage("MyExcelInstance || {vExcelInstance}")]
         [Remarks("Failure to enter the correct instance or failure to first call the **Create Application** command will cause an error.")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_InstanceName { get; set; }
 
-        [PropertyDescription("PDF Location")]
+        [DisplayName("PDF Location")]
         [InputSpecification("Enter or Select the path of the folder to export the PDF to.")]
         [SampleUsage(@"C:\temp || {vFolderPath} || {ProjectPath}")]
         [Remarks("")]
@@ -35,14 +35,14 @@ namespace OpenBots.Commands.Excel
         [PropertyUIHelper(UIAdditionalHelperType.ShowFolderSelectionHelper)]
         public string v_FolderPath { get; set; }
 
-        [PropertyDescription("PDF File Name")]
+        [DisplayName("PDF File Name")]
         [InputSpecification("Enter or Select the name of the PDF file.")]
         [SampleUsage("myFile.pdf || {vFilename}")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_FileName { get; set; }
 
-        [PropertyDescription("AutoFit Cells")]
+        [DisplayName("AutoFit Cells")]
         [PropertyUISelectionOption("Yes")]
         [PropertyUISelectionOption("No")]
         [InputSpecification("Indicate whether to autofit cell sizes to fit their contents.")]
@@ -50,7 +50,7 @@ namespace OpenBots.Commands.Excel
         [Remarks("")]
         public string v_AutoFitCells { get; set; }
 
-        [PropertyDescription("Display Gridlines")]
+        [DisplayName("Display Gridlines")]
         [PropertyUISelectionOption("Yes")]
         [PropertyUISelectionOption("No")]
         [InputSpecification("Indicate whether to display Worksheet gridlines.")]

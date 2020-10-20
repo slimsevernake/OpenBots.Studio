@@ -23,14 +23,14 @@ namespace OpenBots.Commands.Word
     public class WordCreateApplicationCommand : ScriptCommand
     {
 
-        [PropertyDescription("Word Instance Name")]
+        [DisplayName("Word Instance Name")]
         [InputSpecification("Enter a unique name that will represent the application instance.")]
         [SampleUsage("MyWordInstance")]
         [Remarks("This unique name allows you to refer to the instance by name in future commands, " +
                  "ensuring that the commands you specify run against the correct application.")]
         public string v_InstanceName { get; set; }
 
-        [PropertyDescription("New/Open Document")]
+        [DisplayName("New/Open Document")]
         [PropertyUISelectionOption("New Document")]
         [PropertyUISelectionOption("Open Document")]
         [InputSpecification("Indicate whether to create a new Document or to open an existing Document.")]
@@ -38,7 +38,7 @@ namespace OpenBots.Commands.Word
         [Remarks("")]
         public string v_NewOpenDocument { get; set; }
 
-        [PropertyDescription("Document File Path")]
+        [DisplayName("Document File Path")]
         [InputSpecification("Enter or Select the path to the Document file.")]
         [SampleUsage(@"C:\temp\myfile.docx || {vFilePath} || {ProjectPath}\myfile.docx")]
         [Remarks("This input should only be used for opening existing Documents.")]
@@ -46,7 +46,7 @@ namespace OpenBots.Commands.Word
         [PropertyUIHelper(UIAdditionalHelperType.ShowFileSelectionHelper)]
         public string v_FilePath { get; set; }
 
-        [PropertyDescription("Visible")]
+        [DisplayName("Visible")]
         [PropertyUISelectionOption("Yes")]
         [PropertyUISelectionOption("No")]
         [InputSpecification("Indicate whether the Word automation should be visible or not.")]
@@ -54,7 +54,7 @@ namespace OpenBots.Commands.Word
         [Remarks("")]
         public string v_Visible { get; set; }
 
-        [PropertyDescription("Close All Existing Word Instances")]
+        [DisplayName("Close All Existing Word Instances")]
         [PropertyUISelectionOption("Yes")]
         [PropertyUISelectionOption("No")]
         [InputSpecification("Indicate whether to close any existing Word instances before executing Word Automation.")]

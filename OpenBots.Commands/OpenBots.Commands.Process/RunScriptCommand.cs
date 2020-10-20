@@ -19,7 +19,7 @@ namespace OpenBots.Commands.Process
     public class RunScriptCommand : ScriptCommand
     {
 
-        [PropertyDescription("Script Path")]
+        [DisplayName("Script Path")]
         [InputSpecification("Enter a fully qualified path to the script, including the script extension.")]
         [SampleUsage(@"C:\temp\myscript.ps1 || {vScriptPath} || {ProjectPath}\myscript.ps1")]
         [Remarks("This command differs from *Start Process* because this command blocks execution until the script has completed. " +
@@ -28,7 +28,7 @@ namespace OpenBots.Commands.Process
         [PropertyUIHelper(UIAdditionalHelperType.ShowFileSelectionHelper)]
         public string v_ScriptPath { get; set; }
 
-        [PropertyDescription("Script Type")]
+        [DisplayName("Script Type")]
         [PropertyUISelectionOption("Default")]
         [PropertyUISelectionOption("Powershell")]
         [PropertyUISelectionOption("Python")]
@@ -37,7 +37,7 @@ namespace OpenBots.Commands.Process
         [Remarks("Default executes with the system default for that file type.")]
         public string v_ScriptType { get; set; }
 
-        [PropertyDescription("Arguments")]
+        [DisplayName("Arguments")]
         [InputSpecification("Enter any arguments as a single string.")]
         [SampleUsage("-message Hello -t 2 || {vArguments}")]
         [Remarks("This input is optional.")]

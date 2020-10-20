@@ -8,6 +8,7 @@ using System.Windows.Forms;
 using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Infrastructure;
 using OpenBots.Core.Script;
+using System.ComponentModel;
 
 namespace OpenBots.Core.Command
 {
@@ -22,13 +23,13 @@ namespace OpenBots.Core.Command
         public bool PauseBeforeExecution { get; set; }
         public bool CommandEnabled { get; set; }
 
-        [PropertyDescription("Private (Optional)")]
+        [DisplayName("Private (Optional)")]
         [InputSpecification("Optional field to mark the command as private (data sensitive) in order to avoid its logging.")]
         [SampleUsage("")]
         [Remarks("")]
         public bool v_IsPrivate { get; set; }
 
-        [PropertyDescription("Comment Field (Optional)")]
+        [DisplayName("Comment Field (Optional)")]
         [InputSpecification("Optional field to enter a custom comment which could potentially describe this command or the need for this command, if required.")]
         [SampleUsage("I am using this command to ...")]
         [Remarks("Optional")]

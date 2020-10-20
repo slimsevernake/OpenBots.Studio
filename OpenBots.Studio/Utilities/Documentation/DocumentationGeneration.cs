@@ -85,7 +85,7 @@ namespace OpenBots.Studio.Utilities.Documentation
                 foreach (var prop in commandClass.GetProperties().Where(f => f.Name.StartsWith("v_")).ToList())
                 {
                     //pull attributes from property
-                    var commandLabel = CleanMarkdownValue(GetPropertyValue(prop, typeof(PropertyDescription)));
+                    var commandLabel = CleanMarkdownValue(GetPropertyValue(prop, typeof(DisplayNameAttribute)));
                     var helpfulExplanation = CleanMarkdownValue(GetPropertyValue(prop, typeof(InputSpecification)));
                     var sampleUsage = CleanMarkdownValue(GetPropertyValue(prop, typeof(SampleUsage)));
                     var remarks = CleanMarkdownValue(GetPropertyValue(prop, typeof(Remarks)));
@@ -167,10 +167,10 @@ namespace OpenBots.Studio.Utilities.Documentation
             {
                 var attributeFound = attribute[0];
 
-                if (attributeFound is PropertyDescription)
+                if (attributeFound is DisplayNameAttribute)
                 {
-                    var processedAttribute = (PropertyDescription)attributeFound;
-                    return processedAttribute.Description;
+                    var processedAttribute = (DisplayNameAttribute)attributeFound;
+                    return processedAttribute.DisplayName;
                 }
                 else if (attributeFound is InputSpecification)
                 {

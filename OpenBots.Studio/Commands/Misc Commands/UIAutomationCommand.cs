@@ -29,14 +29,14 @@ namespace OpenBots.Commands
     public class UIAutomationCommand : ScriptCommand
     {
 
-        [PropertyDescription("Window Name")]
+        [DisplayName("Window Name")]
         [InputSpecification("Select the name of the window to automate.")]
         [SampleUsage("Untitled - Notepad || Current Window || {vWindow}")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_WindowName { get; set; }
 
-        [PropertyDescription("Element Action")]
+        [DisplayName("Element Action")]
         [PropertyUISelectionOption("Click Element")]
         [PropertyUISelectionOption("Set Text")]
         [PropertyUISelectionOption("Set Secure Text")]
@@ -50,13 +50,13 @@ namespace OpenBots.Commands
         [Remarks("Selecting this field changes the parameters required in the following step.")]
         public string v_AutomationType { get; set; }
 
-        [PropertyDescription("Element Search Parameter")]
+        [DisplayName("Element Search Parameter")]
         [InputSpecification("Use the Element Recorder to generate a listing of potential search parameters.")]
         [SampleUsage("AutomationId || Name")]
         [Remarks("Once you have clicked on a valid window the search parameters will be populated. Select a single parameter to find the element.")]
         public DataTable v_UIASearchParameters { get; set; }
 
-        [PropertyDescription("Action Parameters")]
+        [DisplayName("Action Parameters")]
         [InputSpecification("Action Parameters will be determined based on the action settings selected.")]
         [SampleUsage("data || {vData} || *Variable Name*: {vNewVariable}")]
         [Remarks("Action Parameters range from adding offset coordinates to specifying a variable to apply element text to.")]

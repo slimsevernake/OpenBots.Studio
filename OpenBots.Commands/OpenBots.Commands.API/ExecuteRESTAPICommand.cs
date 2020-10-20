@@ -21,21 +21,21 @@ namespace OpenBots.Commands.API
 
     public class ExecuteRESTAPICommand : ScriptCommand
     {
-        [PropertyDescription("Base URL")]
+        [DisplayName("Base URL")]
         [InputSpecification("Provide the base URL of the API.")]
         [SampleUsage("https://example.com || {vMyUrl}")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_BaseURL { get; set; }
 
-        [PropertyDescription("Endpoint")]
+        [DisplayName("Endpoint")]
         [InputSpecification("Define any API endpoint which contains the full URL.")]
         [SampleUsage("/v2/getUser/1 || {vMyUrl}")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_APIEndPoint { get; set; }
 
-        [PropertyDescription("Method Type")]
+        [DisplayName("Method Type")]
         [PropertyUISelectionOption("GET")]
         [PropertyUISelectionOption("POST")]
         [InputSpecification("Select the necessary method type.")]
@@ -43,7 +43,7 @@ namespace OpenBots.Commands.API
         [Remarks("")]
         public string v_APIMethodType { get; set; }
 
-        [PropertyDescription("Request Format")]
+        [DisplayName("Request Format")]
         [PropertyUISelectionOption("Json")]
         [PropertyUISelectionOption("Xml")]
         [PropertyUISelectionOption("None")]
@@ -52,20 +52,20 @@ namespace OpenBots.Commands.API
         [Remarks("")]
         public string v_RequestFormat { get; set; }
 
-        [PropertyDescription("Basic REST Parameters")]
+        [DisplayName("Basic REST Parameters")]
         [InputSpecification("Specify default search parameters.")]
         [SampleUsage("")]
         [Remarks("Once you have clicked on a valid window the search parameters will be populated." +
                  " Enable only the ones required to be a match at runtime.")]
         public DataTable v_RESTParameters { get; set; }
 
-        [PropertyDescription("Advanced REST Parameters")]
+        [DisplayName("Advanced REST Parameters")]
         [InputSpecification("Specify a list of advanced parameters.")]
         [SampleUsage("")]
         [Remarks("")]
         public DataTable v_AdvancedParameters { get; set; }
 
-        [PropertyDescription("Output Response Variable")]
+        [DisplayName("Output Response Variable")]
         [InputSpecification("Create a new variable or select a variable from the list.")]
         [SampleUsage("{vUserVariable}")]
         [Remarks("Variables not pre-defined in the Variable Manager will be automatically generated at runtime.")]

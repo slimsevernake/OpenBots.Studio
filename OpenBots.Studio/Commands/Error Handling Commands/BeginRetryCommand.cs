@@ -25,21 +25,21 @@ namespace OpenBots.Commands
         "an error is thrown.")]
     public class BeginRetryCommand : ScriptCommand
     {
-        [PropertyDescription("Number of Retries")]
+        [DisplayName("Number of Retries")]
         [InputSpecification("Enter or provide the number of retries.")]
         [SampleUsage("3 || {vRetryCount}")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_RetryCount { get; set; }
 
-        [PropertyDescription("Retry Interval")]
+        [DisplayName("Retry Interval")]
         [InputSpecification("Enter or provide the amount of time (in seconds) between each retry.")]
         [SampleUsage("5 || {vRetryInterval}")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_RetryInterval { get; set; }
 
-        [PropertyDescription("Condition")]
+        [DisplayName("Condition")]
         [InputSpecification("Add a condition.")]
         [SampleUsage("")]
         [Remarks("Items in the retry scope will be executed if the condition doesn't satisfy.")]

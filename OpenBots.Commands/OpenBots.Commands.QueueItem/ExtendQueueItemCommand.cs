@@ -17,7 +17,7 @@ namespace OpenBots.Commands.QueueItem
     [Description("This command extends a QueueItem in an existing Queue in OpenBots Server.")]
     public class ExtendQueueItemCommand : ScriptCommand
     {
-        [PropertyDescription("QueueItem")]
+        [DisplayName("QueueItem")]
         [InputSpecification("Enter a QueueItem Dictionary variable.")]
         [SampleUsage("{vQueueItem}")]
         [Remarks("")]

@@ -28,7 +28,7 @@ namespace OpenBots.Commands
     [Description("This command evaluates a logical statement to determine if the statement is 'true' or 'false' and subsequently performs action(s) based on either condition.")]
     public class BeginIfCommand : ScriptCommand
     {
-        [PropertyDescription("Condition Type")]
+        [DisplayName("Condition Type")]
         [PropertyUISelectionOption("Value Compare")]
         [PropertyUISelectionOption("Date Compare")]
         [PropertyUISelectionOption("Variable Compare")]
@@ -47,7 +47,7 @@ namespace OpenBots.Commands
         [Remarks("")]
         public string v_IfActionType { get; set; }
 
-        [PropertyDescription("Additional Parameters")]
+        [DisplayName("Additional Parameters")]
         [InputSpecification("Supply or Select the required comparison parameters.")]
         [SampleUsage("Param Value || {vParamValue}")]
         [Remarks("")]

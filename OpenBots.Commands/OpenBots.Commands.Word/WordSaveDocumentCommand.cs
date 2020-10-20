@@ -16,7 +16,7 @@ namespace OpenBots.Commands.Word
     [Description("This command saves a Word Document.")]
     public class WordSaveDocumentCommand : ScriptCommand
     {
-        [PropertyDescription("Word Instance Name")]
+        [DisplayName("Word Instance Name")]
         [InputSpecification("Enter the unique instance that was specified in the **Create Application** command.")]
         [SampleUsage("MyWordInstance")]
         [Remarks("Failure to enter the correct instance or failure to first call the **Create Application** command will cause an error.")]

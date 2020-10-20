@@ -18,14 +18,14 @@ namespace OpenBots.Commands
     public class LoopNumberOfTimesCommand : ScriptCommand
     {
 
-        [PropertyDescription("Loop Count")]
+        [DisplayName("Loop Count")]
         [InputSpecification("Enter the amount of times you would like to execute the encased commands.")]
         [SampleUsage("5 || {vLoopCount}")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_LoopParameter { get; set; }
 
-        [PropertyDescription("Start Index")]
+        [DisplayName("Start Index")]
         [InputSpecification("Enter the starting index of the loop.")]
         [SampleUsage("5 || {vStartIndex}")]
         [Remarks("")]

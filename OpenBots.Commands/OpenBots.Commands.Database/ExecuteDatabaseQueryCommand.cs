@@ -24,13 +24,13 @@ namespace OpenBots.Commands.Database
     public class ExecuteDatabaseQueryCommand : ScriptCommand
     {
 
-        [PropertyDescription("Database Instance Name")]
+        [DisplayName("Database Instance Name")]
         [InputSpecification("Enter the unique instance that was specified in the **Define Database Connection** command.")]
         [SampleUsage("MyBrowserInstance")]
         [Remarks("Failure to enter the correct instance name or failure to first call the **Define Database Connection** command will cause an error.")]
         public string v_InstanceName { get; set; }
 
-        [PropertyDescription("Define Query Execution Type")]
+        [DisplayName("Define Query Execution Type")]
         [PropertyUISelectionOption("Return Dataset")]
         [PropertyUISelectionOption("Execute NonQuery")]
         [PropertyUISelectionOption("Execute Stored Procedure")]
@@ -39,21 +39,21 @@ namespace OpenBots.Commands.Database
         [Remarks("")]
         public string v_QueryType { get; set; }
 
-        [PropertyDescription("Query")]
+        [DisplayName("Query")]
         [InputSpecification("Define the OleDb query to execute.")]
         [SampleUsage("SELECT OrderID, CustomerID FROM Orders || {vQuery}")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_Query { get; set; }
 
-        [PropertyDescription("Query Parameters")]
+        [DisplayName("Query Parameters")]
         [InputSpecification("Define the query parameters.")]
         [SampleUsage("[STRING | @name | {vNameValue}]")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public DataTable v_QueryParameters { get; set; }
 
-        [PropertyDescription("Output Dataset Variable")]
+        [DisplayName("Output Dataset Variable")]
         [InputSpecification("Create a new variable or select a variable from the list.")]
         [SampleUsage("{vUserVariable}")]
         [Remarks("Variables not pre-defined in the Variable Manager will be automatically generated at runtime.")]

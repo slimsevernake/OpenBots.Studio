@@ -14,7 +14,7 @@ namespace OpenBots.Commands
                  "associated try.")]
     public class CatchCommand : ScriptCommand
     {
-        [PropertyDescription("Exception Type")]
+        [DisplayName("Exception Type")]
         [PropertyUISelectionOption("AccessViolationException")]
         [PropertyUISelectionOption("ArgumentException")]
         [PropertyUISelectionOption("ArgumentNullException")]

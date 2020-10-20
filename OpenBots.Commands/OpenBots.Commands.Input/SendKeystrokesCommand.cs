@@ -20,14 +20,14 @@ namespace OpenBots.Commands.Input
     public class SendKeystrokesCommand : ScriptCommand
     {
 
-        [PropertyDescription("Window Name")]
+        [DisplayName("Window Name")]
         [InputSpecification("Select the name of the window to send keystrokes to.")]
         [SampleUsage("Untitled - Notepad || Current Window || {vWindow}")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_WindowName { get; set; }
 
-        [PropertyDescription("Text to Send")]
+        [DisplayName("Text to Send")]
         [InputSpecification("Enter the text to be sent to the specified window.")]
         [SampleUsage("Hello, World! || {vText}")]
         [Remarks("")]
@@ -35,7 +35,7 @@ namespace OpenBots.Commands.Input
         [PropertyUIHelper(UIAdditionalHelperType.ShowEncryptionHelper)]
         public string v_TextToSend { get; set; }
 
-        [PropertyDescription("Text Encrypted")]
+        [DisplayName("Text Encrypted")]
         [PropertyUISelectionOption("Not Encrypted")]
         [PropertyUISelectionOption("Encrypted")]
         [InputSpecification("Indicate whether the text in *Text to Send* is encrypted.")]

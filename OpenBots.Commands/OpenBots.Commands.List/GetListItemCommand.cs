@@ -22,21 +22,21 @@ namespace OpenBots.Commands.List
     [Description("This command returns an item (having a specific index) from a List.")]
     public class GetListItemCommand : ScriptCommand
     {
-        [PropertyDescription("List")]
+        [DisplayName("List")]
         [InputSpecification("Provide a List variable.")]
         [SampleUsage("{vList}")]
         [Remarks("Any type of variable other than List will cause error.")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_ListName { get; set; }
 
-        [PropertyDescription("Index")]
+        [DisplayName("Index")]
         [InputSpecification("Specify a valid List item index.")]
         [SampleUsage("0 || {vIndex}")]
         [Remarks("'0' is the index of the first item in a List. Providing an invalid or out-of-bounds index will result in an error.")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_ItemIndex { get; set; }
 
-        [PropertyDescription("Output List Item Variable")]
+        [DisplayName("Output List Item Variable")]
         [InputSpecification("Create a new variable or select a variable from the list.")]
         [SampleUsage("{vUserVariable}")]
         [Remarks("Variables not pre-defined in the Variable Manager will be automatically generated at runtime.")]

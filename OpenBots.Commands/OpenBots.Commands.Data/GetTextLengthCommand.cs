@@ -17,14 +17,14 @@ namespace OpenBots.Commands.Data
     public class GetTextLengthCommand : ScriptCommand
     {
 
-        [PropertyDescription("Text Data")]
+        [DisplayName("Text Data")]
         [InputSpecification("Provide a variable or text value.")]
         [SampleUsage("Hello World || {vStringVariable}")]
         [Remarks("Providing data of a type other than a 'String' will result in an error.")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_InputValue { get; set; }
 
-        [PropertyDescription("Output Length Variable")]
+        [DisplayName("Output Length Variable")]
         [InputSpecification("Create a new variable or select a variable from the list.")]
         [SampleUsage("{vUserVariable}")]
         [Remarks("Variables not pre-defined in the Variable Manager will be automatically generated at runtime.")]

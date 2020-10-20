@@ -20,21 +20,21 @@ namespace OpenBots.Commands.QueueItem
     [Description("This command adds a QueueItem to an existing Queue in OpenBots Server.")]
     public class AddQueueItemCommand : ScriptCommand
     {
-        [PropertyDescription("Queue Name")]
+        [DisplayName("Queue Name")]
         [InputSpecification("Enter the name of the existing Queue.")]
         [SampleUsage("Name || {vQueueName}")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_QueueName { get; set; }
 
-        [PropertyDescription("QueueItem Name")]
+        [DisplayName("QueueItem Name")]
         [InputSpecification("Enter the name of the new QueueItem.")]
         [SampleUsage("Name || {vQueueItemName}")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_QueueItemName { get; set; }
       
-        [PropertyDescription("QueueItem Type")]
+        [DisplayName("QueueItem Type")]
         [PropertyUISelectionOption("Text")]
         [PropertyUISelectionOption("Json")]
         [InputSpecification("Specify the type of the new QueueItem.")]
@@ -42,21 +42,21 @@ namespace OpenBots.Commands.QueueItem
         [Remarks("")]
         public string v_QueueItemType { get; set; }
 
-        [PropertyDescription("Json Type")]
+        [DisplayName("Json Type")]
         [InputSpecification("Specify the type of the Json.")]
         [SampleUsage("Company || {vJsonType}")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_JsonType { get; set; }
 
-        [PropertyDescription("QueueItem Value")]
+        [DisplayName("QueueItem Value")]
         [InputSpecification("Enter the value of the new QueueItem.")]
         [SampleUsage("Value || {vQueueItemValue}")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_QueueItemTextValue { get; set; }
 
-        [PropertyDescription("Priority")]
+        [DisplayName("Priority")]
         [InputSpecification("Enter a priority value between 0-100.")]
         [SampleUsage("100 || {vPriority}")]
         [Remarks("")]

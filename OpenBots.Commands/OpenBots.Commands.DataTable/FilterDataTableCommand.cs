@@ -19,21 +19,21 @@ namespace OpenBots.Commands.DataTable
     [Description("This command filters specific rows from a DataTable into a new Datatable.")]
     public class FilterDataTableCommand : ScriptCommand
     {
-        [PropertyDescription("Input DataTable")]
+        [DisplayName("Input DataTable")]
         [InputSpecification("Enter the DataTable to filter through.")]
         [SampleUsage("{vDataTable}")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_DataTable { get; set; }
 
-        [PropertyDescription("Filter Tuple")]
+        [DisplayName("Filter Tuple")]
         [InputSpecification("Enter a tuple containing the column name and item you would like to filter by.")]
         [SampleUsage("(ColumnName1,Item1),(ColumnName2,Item2) || ({vColumn1},{vItem1}),({vCloumn2},{vItem2}) || {vFilterTuple}")]
         [Remarks("DataRows must match all provided tuples to be included in the filtered DataTable.")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_SearchItem { get; set; }
 
-        [PropertyDescription("Output Filtered DataTable Variable")]
+        [DisplayName("Output Filtered DataTable Variable")]
         [InputSpecification("Create a new variable or select a variable from the list.")]
         [SampleUsage("{vUserVariable}")]
         [Remarks("Variables not pre-defined in the Variable Manager will be automatically generated at runtime.")]

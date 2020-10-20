@@ -20,7 +20,7 @@ namespace OpenBots.Commands.File
     [Description("This command compresses file(s) from a directory into a Zip file.")]
     public class CompressFilesCommand : ScriptCommand
     {
-        [PropertyDescription("Source Directory Path")]
+        [DisplayName("Source Directory Path")]
         [InputSpecification("Enter or Select the Path to the source directory.")]
         [SampleUsage(@"C:\temp || {ProjectPath}\temp || {vFileSourcePath}")]
         [Remarks("{ProjectPath} is the directory path of the current project.")]
@@ -28,14 +28,14 @@ namespace OpenBots.Commands.File
         [PropertyUIHelper(UIAdditionalHelperType.ShowFolderSelectionHelper)]
         public string v_DirectoryPathOrigin { get; set; }
 
-        [PropertyDescription("Password (Optional)")]
+        [DisplayName("Password (Optional)")]
         [InputSpecification("Define the password to use for file compression.")]
         [SampleUsage("password || {vPassword}")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_Password { get; set; }
 
-        [PropertyDescription("Compressed File Directory Path")]
+        [DisplayName("Compressed File Directory Path")]
         [InputSpecification("Enter or Select the Folder Path to place the compressed file in.")]
         [SampleUsage(@"C:\temp || {ProjectPath}\temp || {vFilesPath}")]
         [Remarks("{ProjectPath} is the directory path of the current project.")]
@@ -43,7 +43,7 @@ namespace OpenBots.Commands.File
         [PropertyUIHelper(UIAdditionalHelperType.ShowFolderSelectionHelper)]
         public string v_PathDestination { get; set; }
 
-        [PropertyDescription("Output Compressed File Path Variable")]
+        [DisplayName("Output Compressed File Path Variable")]
         [InputSpecification("Create a new variable or select a variable from the list.")]
         [SampleUsage("{vUserVariable}")]
         [Remarks("Variables not pre-defined in the Variable Manager will be automatically generated at runtime.")]

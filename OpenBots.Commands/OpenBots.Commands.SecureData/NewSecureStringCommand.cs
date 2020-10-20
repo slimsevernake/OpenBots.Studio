@@ -17,14 +17,14 @@ namespace OpenBots.Commands.SecureData
     [Description("This command adds text as a SecureString into a variable.")]
     public class NewSecureStringCommand : ScriptCommand
     {
-        [PropertyDescription("Input Text")]
+        [DisplayName("Input Text")]
         [InputSpecification("Enter the text for the variable.")]
         [SampleUsage("Some Text || {vText}")]
         [Remarks("You can use variables in input if you encase them within braces {vText}. You can also perform basic math operations.")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_Input { get; set; }
 
-        [PropertyDescription("Output SecureString Variable")]
+        [DisplayName("Output SecureString Variable")]
         [InputSpecification("Create a new variable or select a variable from the list.")]
         [SampleUsage("{vUserVariable}")]
         [Remarks("Variables not pre-defined in the Variable Manager will be automatically generated at runtime.")]

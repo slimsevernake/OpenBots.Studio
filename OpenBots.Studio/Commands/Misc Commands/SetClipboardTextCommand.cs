@@ -18,7 +18,7 @@ namespace OpenBots.Commands
     public class SetClipboardTextCommand : ScriptCommand
     {
 
-        [PropertyDescription("Text")]
+        [DisplayName("Text")]
         [InputSpecification("Select or provide the text to set on the clipboard.")]
         [SampleUsage("Hello || {vTextToSet}")]
         [Remarks("")]

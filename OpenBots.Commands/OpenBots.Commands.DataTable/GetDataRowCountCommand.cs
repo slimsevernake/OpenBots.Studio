@@ -19,14 +19,14 @@ namespace OpenBots.Commands.DataTable
     public class GetDataRowCountCommand : ScriptCommand
     {
 
-        [PropertyDescription("DataTable")]
+        [DisplayName("DataTable")]
         [InputSpecification("Enter an existing DataTable.")]
         [SampleUsage("{vDataTable}")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_DataTable { get; set; }
 
-        [PropertyDescription("Output Count Variable")]
+        [DisplayName("Output Count Variable")]
         [InputSpecification("Create a new variable or select a variable from the list.")]
         [SampleUsage("{vUserVariable}")]
         [Remarks("Variables not pre-defined in the Variable Manager will be automatically generated at runtime.")]

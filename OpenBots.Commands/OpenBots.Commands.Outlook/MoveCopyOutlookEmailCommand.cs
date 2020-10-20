@@ -20,21 +20,21 @@ namespace OpenBots.Commands.Outlook
     public class MoveCopyOutlookEmailCommand : ScriptCommand
     {
 
-        [PropertyDescription("MailItem")]
+        [DisplayName("MailItem")]
         [InputSpecification("Enter the MailItem to move or copy.")]
         [SampleUsage("{vMailItem}")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_MailItem { get; set; }
 
-        [PropertyDescription("Destination Mail Folder Name")]
+        [DisplayName("Destination Mail Folder Name")]
         [InputSpecification("Enter the name of the Outlook mail folder the emails are being moved/copied to.")]
         [SampleUsage("New Folder || {vFolderName}")]
         [Remarks("Destination folder cannot be a subfolder.")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_DestinationFolder { get; set; }
 
-        [PropertyDescription("Mail Operation")]
+        [DisplayName("Mail Operation")]
         [PropertyUISelectionOption("Move MailItem")]
         [PropertyUISelectionOption("Copy MailItem")]
         [InputSpecification("Specify whether to move or copy the selected emails.")]
@@ -42,7 +42,7 @@ namespace OpenBots.Commands.Outlook
         [Remarks("Moving will remove the emails from the original folder while copying will not.")]
         public string v_OperationType { get; set; }
 
-        [PropertyDescription("Unread Only")]
+        [DisplayName("Unread Only")]
         [PropertyUISelectionOption("Yes")]
         [PropertyUISelectionOption("No")]
         [InputSpecification("Specify whether to move/copy unread email messages only.")]

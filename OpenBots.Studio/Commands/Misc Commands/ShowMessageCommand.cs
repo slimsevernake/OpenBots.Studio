@@ -18,14 +18,14 @@ namespace OpenBots.Commands
     public class ShowMessageCommand : ScriptCommand
     {
 
-        [PropertyDescription("Message")]      
+        [DisplayName("Message")]      
         [InputSpecification("Specify any text or variable value that should be displayed on screen.")]
         [SampleUsage("Hello World || {vMyText} || Hello {vName}")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_Message { get; set; }
 
-        [PropertyDescription("Close After X (Seconds)")]
+        [DisplayName("Close After X (Seconds)")]
         [InputSpecification("Specify how many seconds to display the message on screen. After the specified time," + 
                             "\nthe message box will be automatically closed and script will resume execution.")]
         [SampleUsage("0 || 5 || {vSeconds})")]
