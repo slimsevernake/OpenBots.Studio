@@ -15,7 +15,6 @@ namespace OpenBots.Commands
     {
         public NextLoopCommand()
         {
-            DefaultPause = 0;
             CommandName = "NextLoopCommand";
             SelectionName = "Next Loop";
             CommandEnabled = true;            

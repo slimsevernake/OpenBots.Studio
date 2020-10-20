@@ -15,7 +15,6 @@ namespace OpenBots.Commands
     {
         public EndLoopCommand()
         {
-            DefaultPause = 0;
             CommandName = "EndLoopCommand";
             SelectionName = "End Loop";
             CommandEnabled = true;          

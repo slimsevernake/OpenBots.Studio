@@ -15,7 +15,6 @@ namespace OpenBots.Commands
     {
         public ExitLoopCommand()
         {
-            DefaultPause = 0;
             CommandName = "ExitLoopCommand";
             SelectionName = "Exit Loop";
             CommandEnabled = true;        

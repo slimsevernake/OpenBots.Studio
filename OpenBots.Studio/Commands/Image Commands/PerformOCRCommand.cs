@@ -38,7 +38,6 @@ namespace OpenBots.Commands
 
         public PerformOCRCommand()
         {
-            DefaultPause = 0;
             CommandName = "PerformOCRCommand";
             SelectionName = "Perform OCR";
             CommandEnabled = true;            

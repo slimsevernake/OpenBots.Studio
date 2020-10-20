@@ -18,7 +18,6 @@ namespace OpenBots.Core.Command
         public string CommandName { get; set; }
         public bool IsCommented { get; set; }
         public string SelectionName { get; set; }
-        public int DefaultPause { get; set; }
         public int LineNumber { get; set; }
         public bool PauseBeforeExecution { get; set; }
         public bool CommandEnabled { get; set; }
@@ -53,7 +52,6 @@ namespace OpenBots.Core.Command
         public ScriptCommand()
         {
             CommandEnabled = false;
-            DefaultPause = 0;
             IsCommented = false;
             GenerateID();
         }
@@ -66,12 +64,10 @@ namespace OpenBots.Core.Command
 
         public virtual void RunCommand(object sender)
         {
-            Thread.Sleep(DefaultPause);
         }
 
         public virtual void RunCommand(object sender, ScriptAction command)
         {
-            Thread.Sleep(DefaultPause);
         }
 
         public virtual string GetDisplayValue()

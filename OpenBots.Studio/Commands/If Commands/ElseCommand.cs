@@ -15,7 +15,6 @@ namespace OpenBots.Commands
     {
         public ElseCommand()
         {
-            DefaultPause = 0;
             CommandName = "ElseCommand";
             SelectionName = "Else";
             CommandEnabled = true;            

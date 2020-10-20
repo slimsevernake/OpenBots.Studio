@@ -25,7 +25,6 @@ namespace OpenBots.Core.Infrastructure
         bool IsCancellationPending { get; set; }
         bool CurrentLoopCancelled { get; set; }
         bool CurrentLoopContinuing { get; set; }
-        [JsonIgnore]
         IfrmScriptEngine ScriptEngineUI { get; set; }
         EngineSettings EngineSettings { get; set; }
         List<DataTable> DataTables { get; set; }

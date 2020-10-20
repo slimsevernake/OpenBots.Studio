@@ -14,7 +14,6 @@ namespace OpenBots.Commands
     {
         public EndIfCommand()
         {
-            DefaultPause = 0;
             CommandName = "EndIfCommand";
             SelectionName = "End If";
             CommandEnabled = true;            

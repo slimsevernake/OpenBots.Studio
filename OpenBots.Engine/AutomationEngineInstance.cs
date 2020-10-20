@@ -43,7 +43,6 @@ namespace OpenBots.Engine
         private bool _isScriptSteppedInto { get; set; }
         private bool _isScriptSteppedOverBeforeException { get; set; }
         private bool _isScriptSteppedIntoBeforeException { get; set; }
-        [JsonIgnore]
         public IfrmScriptEngine ScriptEngineUI { get; set; }
         private Stopwatch _stopWatch { get; set; }
         private EngineStatus _currentStatus { get; set; }
