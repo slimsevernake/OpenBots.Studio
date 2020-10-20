@@ -15,6 +15,7 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using System.Windows.Forms;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
 using OpenBots.Core.Enums;
@@ -37,13 +38,15 @@ namespace OpenBots.Commands
     [Description("This command performs an element action in a Selenium web browser session.")]
     public class SeleniumElementActionCommand : ScriptCommand
     {
-        [DisplayName("Browser Instance Name")]
+        [Required]
+		[DisplayName("Browser Instance Name")]
         [Description("Enter the unique instance that was specified in the **Create Browser** command.")]
         [SampleUsage("MyBrowserInstance")]
         [Remarks("Failure to enter the correct instance name or failure to first call the **Create Browser** command will cause an error.")]
         public string v_InstanceName { get; set; }
 
-        [DisplayName("Element Search Parameter")]
+        [Required]
+		[DisplayName("Element Search Parameter")]
         [Description("Use the Element Recorder to generate a listing of potential search parameters." + 
             "Select the specific search type(s) that you want to use to isolate the element on the web page.")]
         [SampleUsage("{vSearchParameter}" +
@@ -59,7 +62,8 @@ namespace OpenBots.Commands
         [PropertyUIHelper(UIAdditionalHelperType.ShowElementHelper)] 
         public DataTable v_SeleniumSearchParameters { get; set; }
 
-        [DisplayName("Element Search Option")]
+        [Required]
+		[DisplayName("Element Search Option")]
         [PropertyUISelectionOption("Find Element")]
         [PropertyUISelectionOption("Find Elements")]
         [Description("Indicate whether to search for a single or multiple elements.")]
@@ -67,7 +71,8 @@ namespace OpenBots.Commands
         [Remarks("")]
         public string v_SeleniumSearchOption { get; set; }
 
-        [DisplayName("Element Action")]
+        [Required]
+		[DisplayName("Element Action")]
         [PropertyUISelectionOption("Invoke Click")]
         [PropertyUISelectionOption("Left Click")]
         [PropertyUISelectionOption("Right Click")]
@@ -90,7 +95,8 @@ namespace OpenBots.Commands
         [Remarks("Selecting this field changes the parameters required in the following step.")]
         public string v_SeleniumElementAction { get; set; }
 
-        [DisplayName("Action Parameters")]
+        [Required]
+		[DisplayName("Action Parameters")]
         [Description("Action Parameters will be determined based on the action settings selected.")]
         [SampleUsage("data || {vData} || *Variable Name*: {vNewVariable}")]
         [Remarks("Action Parameters range from adding offset coordinates to specifying a variable to apply element text to.\n"+

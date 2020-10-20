@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
 using OpenBots.Core.Common;
@@ -20,7 +21,8 @@ namespace OpenBots.Commands
     public class CaptureImageCommand : ScriptCommand
     {
 
-        [DisplayName("Capture Search Image")]
+        [Required]
+		[DisplayName("Capture Search Image")]
         [Description("Use the tool to capture an image that will be located on screen during execution.")]
         [SampleUsage("")]
         [Remarks("Images with larger color variance will be found more quickly than those with a lot of white space. \n" +
@@ -29,7 +31,8 @@ namespace OpenBots.Commands
         [PropertyUIHelper(UIAdditionalHelperType.ShowImageCaptureHelper)]
         public string v_ImageCapture { get; set; }
 
-        [DisplayName("Output Image Variable")]
+        [Required]
+		[DisplayName("Output Image Variable")]
         [Description("Create a new variable or select a variable from the list.")]
         [SampleUsage("vUserVariable")]
         [Remarks("Variables not pre-defined in the Variable Manager will be automatically generated at runtime.")]

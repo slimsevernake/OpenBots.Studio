@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Windows.Forms;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
 using OpenBots.Core.Enums;
@@ -17,7 +18,8 @@ namespace OpenBots.Commands.Window
     [Description("This command activates an open window and brings it to the front.")]
     public class ActivateWindowCommand : ScriptCommand
     {
-        [DisplayName("Window Name")]
+        [Required]
+		[DisplayName("Window Name")]
         [Description("Select the name of the window to activate and bring forward.")]
         [SampleUsage("Untitled - Notepad || {vWindow}")]
         [Remarks("")]

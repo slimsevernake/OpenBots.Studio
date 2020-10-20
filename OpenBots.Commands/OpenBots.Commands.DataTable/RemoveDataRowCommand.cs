@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
 using OpenBots.Core.Enums;
@@ -21,21 +22,24 @@ namespace OpenBots.Commands.DataTable
     public class RemoveDataRowCommand : ScriptCommand
     {
 
-        [DisplayName("DataTable")]
+        [Required]
+		[DisplayName("DataTable")]
         [Description("Enter an existing DataTable.")]
         [SampleUsage("{vDataTable}")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_DataTable { get; set; }
 
-        [DisplayName("Removal Tuple")]
+        [Required]
+		[DisplayName("Removal Tuple")]
         [Description("Enter a tuple containing the column name and item you would like to remove.")]
         [SampleUsage("(ColumnName1,Item1),(ColumnName2,Item2) || ({vColumn1},{vItem1}),({vCloumn2},{vItem2}) || {vRemovalTuple}")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_SearchItem { get; set; }
 
-        [DisplayName("Overwrite Option")]
+        [Required]
+		[DisplayName("Overwrite Option")]
         [PropertyUISelectionOption("And")]
         [PropertyUISelectionOption("Or")]
         [Description("Indicate whether this command should remove rows with all the constraints or remove those with 1 or more constraints.")]

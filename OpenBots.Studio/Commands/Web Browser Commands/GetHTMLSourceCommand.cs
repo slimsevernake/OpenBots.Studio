@@ -4,6 +4,7 @@ using System.IO;
 using System.Net;
 using System.Windows.Forms;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
 using OpenBots.Core.Enums;
@@ -19,14 +20,16 @@ namespace OpenBots.Commands
 
     public class GetHTMLSourceCommand : ScriptCommand
     {
-        [DisplayName("URL")]
+        [Required]
+		[DisplayName("URL")]
         [Description("Enter a valid URL that you want to collect data from.")]
         [SampleUsage("http://mycompany.com/news || {vCompany}")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_WebRequestURL { get; set; }
 
-        [DisplayName("Execute Request As Logged On User")]
+        [Required]
+		[DisplayName("Execute Request As Logged On User")]
         [PropertyUISelectionOption("Yes")]
         [PropertyUISelectionOption("No")]
         [Description("Sets currently logged on user authentication information for the request.")]
@@ -34,7 +37,8 @@ namespace OpenBots.Commands
         [Remarks("")]
         public string v_WebRequestCredentials { get; set; }
 
-        [DisplayName("Output Response Variable")]
+        [Required]
+		[DisplayName("Output Response Variable")]
         [Description("Create a new variable or select a variable from the list.")]
         [SampleUsage("{vUserVariable}")]
         [Remarks("Variables not pre-defined in the Variable Manager will be automatically generated at runtime.")]

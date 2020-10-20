@@ -8,6 +8,7 @@ using System.Threading;
 using System.Windows.Automation;
 using System.Windows.Forms;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
 using OpenBots.Core.Enums;
@@ -29,14 +30,16 @@ namespace OpenBots.Commands
     public class UIAutomationCommand : ScriptCommand
     {
 
-        [DisplayName("Window Name")]
+        [Required]
+		[DisplayName("Window Name")]
         [Description("Select the name of the window to automate.")]
         [SampleUsage("Untitled - Notepad || Current Window || {vWindow}")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_WindowName { get; set; }
 
-        [DisplayName("Element Action")]
+        [Required]
+		[DisplayName("Element Action")]
         [PropertyUISelectionOption("Click Element")]
         [PropertyUISelectionOption("Set Text")]
         [PropertyUISelectionOption("Set Secure Text")]
@@ -50,13 +53,15 @@ namespace OpenBots.Commands
         [Remarks("Selecting this field changes the parameters required in the following step.")]
         public string v_AutomationType { get; set; }
 
-        [DisplayName("Element Search Parameter")]
+        [Required]
+		[DisplayName("Element Search Parameter")]
         [Description("Use the Element Recorder to generate a listing of potential search parameters.")]
         [SampleUsage("AutomationId || Name")]
         [Remarks("Once you have clicked on a valid window the search parameters will be populated. Select a single parameter to find the element.")]
         public DataTable v_UIASearchParameters { get; set; }
 
-        [DisplayName("Action Parameters")]
+        [Required]
+		[DisplayName("Action Parameters")]
         [Description("Action Parameters will be determined based on the action settings selected.")]
         [SampleUsage("data || {vData} || *Variable Name*: {vNewVariable}")]
         [Remarks("Action Parameters range from adding offset coordinates to specifying a variable to apply element text to.")]

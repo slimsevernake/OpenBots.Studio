@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
 using OpenBots.Core.Infrastructure;
@@ -16,7 +17,8 @@ namespace OpenBots.Commands.System
     public class SystemActionCommand : ScriptCommand
     {
 
-        [DisplayName("System Action")]
+        [Required]
+		[DisplayName("System Action")]
         [PropertyUISelectionOption("Shutdown")]
         [PropertyUISelectionOption("Restart")]
         [PropertyUISelectionOption("Logoff")]

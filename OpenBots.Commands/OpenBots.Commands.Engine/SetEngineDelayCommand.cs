@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Windows.Forms;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
 using OpenBots.Core.Enums;
@@ -16,7 +17,8 @@ namespace OpenBots.Commands.Engine
     [Description("This command sets delays between the execution of commands in a running instance.")]
     public class SetEngineDelayCommand : ScriptCommand
     {
-        [DisplayName("Command Delay Time (Milliseconds)")]
+        [Required]
+		[DisplayName("Command Delay Time (Milliseconds)")]
         [Description("Select or provide a specific amount of time in milliseconds.")]
         [SampleUsage("1000 || {vTime}")]
         [Remarks("")]

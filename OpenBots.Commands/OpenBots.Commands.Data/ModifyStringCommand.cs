@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
 using OpenBots.Core.Enums;
@@ -17,14 +18,16 @@ namespace OpenBots.Commands.Data
     [Description("This command performs a specified operation on a string to modify it.")]
     public class ModifyStringCommand : ScriptCommand
     {
-        [DisplayName("Text Data")]
+        [Required]
+		[DisplayName("Text Data")]
         [Description("Provide a variable or text value.")]
         [SampleUsage("A sample text || {vStringVariable}")]
         [Remarks("Providing data of a type other than a 'String' will result in an error.")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_InputText { get; set; }
 
-        [DisplayName("String Function")]
+        [Required]
+		[DisplayName("String Function")]
         [PropertyUISelectionOption("To Upper Case")]
         [PropertyUISelectionOption("To Lower Case")]
         [PropertyUISelectionOption("To Base64 String")]
@@ -34,7 +37,8 @@ namespace OpenBots.Commands.Data
         [Remarks("Each function, when applied to text data, converts it to a specific format.")]
         public string v_TextOperation { get; set; }
 
-        [DisplayName("Output Text Variable")]
+        [Required]
+		[DisplayName("Output Text Variable")]
         [Description("Create a new variable or select a variable from the list.")]
         [SampleUsage("{vUserVariable}")]
         [Remarks("Variables not pre-defined in the Variable Manager will be automatically generated at runtime.")]

@@ -3,6 +3,7 @@ using MimeKit;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
 using OpenBots.Core.Enums;
@@ -22,14 +23,16 @@ namespace OpenBots.Commands.List
     [Description("This command returns the count of items contained in a List.")]
     public class GetListCountCommand : ScriptCommand
     {
-        [DisplayName("List")]
+        [Required]
+		[DisplayName("List")]
         [Description("Provide a List variable.")]
         [SampleUsage("{vList}")]
         [Remarks("Providing any type of variable other than a List will result in an error.")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_ListName { get; set; }
 
-        [DisplayName("Output Count Variable")]
+        [Required]
+		[DisplayName("Output Count Variable")]
         [Description("Create a new variable or select a variable from the list.")]
         [SampleUsage("{vUserVariable}")]
         [Remarks("Variables not pre-defined in the Variable Manager will be automatically generated at runtime.")]

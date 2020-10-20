@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
 using OpenBots.Core.Enums;
@@ -23,14 +24,16 @@ namespace OpenBots.Commands.Word
     public class WordCreateApplicationCommand : ScriptCommand
     {
 
-        [DisplayName("Word Instance Name")]
+        [Required]
+		[DisplayName("Word Instance Name")]
         [Description("Enter a unique name that will represent the application instance.")]
         [SampleUsage("MyWordInstance")]
         [Remarks("This unique name allows you to refer to the instance by name in future commands, " +
                  "ensuring that the commands you specify run against the correct application.")]
         public string v_InstanceName { get; set; }
 
-        [DisplayName("New/Open Document")]
+        [Required]
+		[DisplayName("New/Open Document")]
         [PropertyUISelectionOption("New Document")]
         [PropertyUISelectionOption("Open Document")]
         [Description("Indicate whether to create a new Document or to open an existing Document.")]
@@ -38,7 +41,8 @@ namespace OpenBots.Commands.Word
         [Remarks("")]
         public string v_NewOpenDocument { get; set; }
 
-        [DisplayName("Document File Path")]
+        [Required]
+		[DisplayName("Document File Path")]
         [Description("Enter or Select the path to the Document file.")]
         [SampleUsage(@"C:\temp\myfile.docx || {vFilePath} || {ProjectPath}\myfile.docx")]
         [Remarks("This input should only be used for opening existing Documents.")]
@@ -46,7 +50,8 @@ namespace OpenBots.Commands.Word
         [PropertyUIHelper(UIAdditionalHelperType.ShowFileSelectionHelper)]
         public string v_FilePath { get; set; }
 
-        [DisplayName("Visible")]
+        [Required]
+		[DisplayName("Visible")]
         [PropertyUISelectionOption("Yes")]
         [PropertyUISelectionOption("No")]
         [Description("Indicate whether the Word automation should be visible or not.")]
@@ -54,7 +59,8 @@ namespace OpenBots.Commands.Word
         [Remarks("")]
         public string v_Visible { get; set; }
 
-        [DisplayName("Close All Existing Word Instances")]
+        [Required]
+		[DisplayName("Close All Existing Word Instances")]
         [PropertyUISelectionOption("Yes")]
         [PropertyUISelectionOption("No")]
         [Description("Indicate whether to close any existing Word instances before executing Word Automation.")]

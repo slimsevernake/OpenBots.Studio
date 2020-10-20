@@ -1,6 +1,7 @@
 ﻿using Microsoft.Office.Interop.Outlook;
 using Newtonsoft.Json;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
 using OpenBots.Core.Enums;
@@ -22,21 +23,24 @@ namespace OpenBots.Commands.Outlook
     public class GetOutlookEmailsCommand : ScriptCommand
     {
 
-        [DisplayName("Source Mail Folder Name")]
+        [Required]
+		[DisplayName("Source Mail Folder Name")]
         [Description("Enter the name of the Outlook mail folder the emails are located in.")]
         [SampleUsage("Inbox || {vFolderName}")]
         [Remarks("Source folder cannot be a subfolder.")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_SourceFolder { get; set; }
 
-        [DisplayName("Filter")]
+        [Required]
+		[DisplayName("Filter")]
         [Description("Enter a valid Outlook filter string.")]
         [SampleUsage("[Subject] = 'Hello' || [Subject] = 'Hello' and [SenderName] = 'Jane Doe' || {vFilter} || None")]
         [Remarks("*Warning* Using 'None' as the Filter will return every email in the selected Mail Folder.")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_Filter { get; set; }
 
-        [DisplayName("Unread Only")]
+        [Required]
+		[DisplayName("Unread Only")]
         [PropertyUISelectionOption("Yes")]
         [PropertyUISelectionOption("No")]
         [Description("Specify whether to retrieve unread email messages only.")]
@@ -44,7 +48,8 @@ namespace OpenBots.Commands.Outlook
         [Remarks("")]
         public string v_GetUnreadOnly { get; set; }
 
-        [DisplayName("Mark As Read")]
+        [Required]
+		[DisplayName("Mark As Read")]
         [PropertyUISelectionOption("Yes")]
         [PropertyUISelectionOption("No")]
         [Description("Specify whether to mark retrieved emails as read.")]
@@ -52,7 +57,8 @@ namespace OpenBots.Commands.Outlook
         [Remarks("")]
         public string v_MarkAsRead { get; set; }
 
-        [DisplayName("Save MailItems and Attachments")]
+        [Required]
+		[DisplayName("Save MailItems and Attachments")]
         [PropertyUISelectionOption("Yes")]
         [PropertyUISelectionOption("No")]
         [Description("Specify whether to save the email attachments to a local directory.")]
@@ -60,7 +66,8 @@ namespace OpenBots.Commands.Outlook
         [Remarks("")]
         public string v_SaveMessagesAndAttachments { get; set; }
 
-        [DisplayName("Output MailItem Directory")]   
+        [Required]
+		[DisplayName("Output MailItem Directory")]   
         [Description("Enter or Select the path of the directory to store the messages in.")]
         [SampleUsage(@"C:\temp\myfolder || {vFolderPath} || {ProjectPath}\myFolder")]
         [Remarks("This input is optional and will only be used if *Save MailItems and Attachments* is set to **Yes**.")]
@@ -68,7 +75,8 @@ namespace OpenBots.Commands.Outlook
         [PropertyUIHelper(UIAdditionalHelperType.ShowFolderSelectionHelper)]
         public string v_MessageDirectory { get; set; }
 
-        [DisplayName("Output Attachment Directory")]      
+        [Required]
+		[DisplayName("Output Attachment Directory")]      
         [Description("Enter or Select the path to the directory to store the attachments in.")]
         [SampleUsage(@"C:\temp\myfolder\attachments || {vFolderPath} || {ProjectPath}\myFolder\attachments")]
         [Remarks("This input is optional and will only be used if *Save MailItems and Attachments* is set to **Yes**.")]
@@ -76,7 +84,8 @@ namespace OpenBots.Commands.Outlook
         [PropertyUIHelper(UIAdditionalHelperType.ShowFolderSelectionHelper)]
         public string v_AttachmentDirectory { get; set; }
 
-        [DisplayName("Output MailItem List Variable")]
+        [Required]
+		[DisplayName("Output MailItem List Variable")]
         [Description("Create a new variable or select a variable from the list.")]
         [SampleUsage("{vUserVariable}")]
         [Remarks("Variables not pre-defined in the Variable Manager will be automatically generated at runtime.")]

@@ -1,5 +1,6 @@
 ﻿using Microsoft.Office.Interop.Word;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
 using OpenBots.Core.Enums;
@@ -18,13 +19,15 @@ namespace OpenBots.Commands.Word
     [Description("This command appends an image to a Word Document.")]
     public class WordAppendImageCommand : ScriptCommand
     {
-        [DisplayName("Word Instance Name")]
+        [Required]
+		[DisplayName("Word Instance Name")]
         [Description("Enter the unique instance that was specified in the **Create Application** command.")]
         [SampleUsage("MyWordInstance")]
         [Remarks("Failure to enter the correct instance or failure to first call the **Create Application** command will cause an error.")]
         public string v_InstanceName { get; set; }
 
-        [DisplayName("Image File Path")]    
+        [Required]
+		[DisplayName("Image File Path")]    
         [Description("Enter the file path of the image to append to the Document.")]
         [SampleUsage(@"C:\temp\myImage.png || {vImageFilePath} || {ProjectPath}\myImage.png")]
         [Remarks("")]

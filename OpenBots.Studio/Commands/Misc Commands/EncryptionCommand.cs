@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Windows.Forms;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
 using OpenBots.Core.Enums;
@@ -18,7 +19,8 @@ namespace OpenBots.Commands
     public class EncryptionCommand : ScriptCommand
     {
 
-        [DisplayName("Encryption Action")]
+        [Required]
+		[DisplayName("Encryption Action")]
         [PropertyUISelectionOption("Encrypt")]
         [PropertyUISelectionOption("Decrypt")]
         [Description("Select the appropriate action to take.")]
@@ -26,21 +28,24 @@ namespace OpenBots.Commands
         [Remarks("")]
         public string v_EncryptionType { get; set; }
 
-        [DisplayName("Text")]
+        [Required]
+		[DisplayName("Text")]
         [Description("Select or provide the text to encrypt/decrypt.")]
         [SampleUsage("Hello || {vText}")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_InputValue { get; set; }
 
-        [DisplayName("Pass Phrase")]
+        [Required]
+		[DisplayName("Pass Phrase")]
         [Description("Select or provide a pass phrase for encryption/decryption.")]
         [SampleUsage("OPENBOTS || {vPassPhrase}")]
         [Remarks("If decrypting, provide the pass phrase used to encypt the original text.")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_PassPhrase { get; set; }
 
-        [DisplayName("Output Result Variable")]
+        [Required]
+		[DisplayName("Output Result Variable")]
         [Description("Create a new variable or select a variable from the list.")]
         [SampleUsage("{vUserVariable}")]
         [Remarks("Variables not pre-defined in the Variable Manager will be automatically generated at runtime.")]

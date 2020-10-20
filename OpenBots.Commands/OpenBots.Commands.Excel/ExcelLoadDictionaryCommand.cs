@@ -1,5 +1,6 @@
 ﻿using Microsoft.Office.Interop.Excel;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
 using OpenBots.Core.Enums;
@@ -21,7 +22,8 @@ namespace OpenBots.Commands.Excel
     [Description("This command reads an Excel Config Worksheet and stores it in a Dictionary.")]
     public class LoadDictionaryCommand : ScriptCommand
     {
-        [DisplayName("Workbook File Path")]
+        [Required]
+		[DisplayName("Workbook File Path")]
         [Description("Enter or Select the path to the Workbook file.")]
         [SampleUsage(@"C:\temp\myfile.xlsx || {vFilePath} || {ProjectPath}\myfile.xlsx")]
         [Remarks("This command does not require Excel to be opened. A snapshot will be taken of the workbook as it exists at the time this command runs.")]
@@ -29,28 +31,32 @@ namespace OpenBots.Commands.Excel
         [PropertyUIHelper(UIAdditionalHelperType.ShowFileSelectionHelper)]
         public string v_FilePath { get; set; }
 
-        [DisplayName("Worksheet")]
+        [Required]
+		[DisplayName("Worksheet")]
         [Description("Indicate the Worksheet to be retrieved.")]
         [SampleUsage("Sheet1 || {vSheet}")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_SheetName { get; set; }
 
-        [DisplayName("Key Column Name")]
+        [Required]
+		[DisplayName("Key Column Name")]
         [Description("Enter the name of the column to be loaded as Dictionary Keys.")]
         [SampleUsage("Name || {vKeyColumn}")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_KeyColumn { get; set; }
 
-        [DisplayName("Value Column Name")]
+        [Required]
+		[DisplayName("Value Column Name")]
         [Description("Enter the name of the column to be loaded as Dictionary Values.")]
         [SampleUsage("Value || {vValueColumn}")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_ValueColumn { get; set; }
 
-        [DisplayName("Output Dictionary Variable")]
+        [Required]
+		[DisplayName("Output Dictionary Variable")]
         [Description("Create a new variable or select a variable from the list.")]
         [SampleUsage("{vUserVariable}")]
         [Remarks("Variables not pre-defined in the Variable Manager will be automatically generated at runtime.")]

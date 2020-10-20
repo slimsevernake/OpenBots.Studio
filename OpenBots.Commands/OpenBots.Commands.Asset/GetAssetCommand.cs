@@ -11,6 +11,7 @@ using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace OpenBots.Commands.Asset
 {
@@ -19,14 +20,16 @@ namespace OpenBots.Commands.Asset
     [Description("This command gets an Asset from OpenBots Server.")]
     public class GetAssetCommand : ScriptCommand
     {
-        [DisplayName("Asset Name")]
+        [Required]
+		[DisplayName("Asset Name")]
         [Description("Enter the name of the Asset.")]
         [SampleUsage("Name || {vAssetName}")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_AssetName { get; set; }
 
-        [DisplayName("Asset Type")]
+        [Required]
+		[DisplayName("Asset Type")]
         [PropertyUISelectionOption("Text")]
         [PropertyUISelectionOption("Number")]
         [PropertyUISelectionOption("JSON")]
@@ -36,7 +39,8 @@ namespace OpenBots.Commands.Asset
         [Remarks("")]
         public string v_AssetType { get; set; }
 
-        [DisplayName("Output Directory Path")]
+        [Required]
+		[DisplayName("Output Directory Path")]
         [Description("Enter or Select the directory path to store the file in.")]
         [SampleUsage(@"C:\temp || {vDirectoryPath} || {ProjectPath}\temp")]
         [Remarks("This input should only be used for File type Assets.")]
@@ -44,7 +48,8 @@ namespace OpenBots.Commands.Asset
         [PropertyUIHelper(UIAdditionalHelperType.ShowFolderSelectionHelper)]
         public string v_OutputDirectoryPath { get; set; }
 
-        [DisplayName("Output Asset Value Variable")]
+        [Required]
+		[DisplayName("Output Asset Value Variable")]
         [Description("Create a new variable or select a variable from the list.")]
         [SampleUsage("{vUserVariable}")]
         [Remarks("Variables not pre-defined in the Variable Manager will be automatically generated at runtime.")]

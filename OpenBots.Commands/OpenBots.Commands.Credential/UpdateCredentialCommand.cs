@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
 using OpenBots.Core.Enums;
@@ -18,21 +19,24 @@ namespace OpenBots.Commands.Credential
     [Description("This command updates a Credential in OpenBots Server.")]
     public class UpdateCredentialCommand : ScriptCommand
     {
-        [DisplayName("Credential Name")]
+        [Required]
+		[DisplayName("Credential Name")]
         [Description("Enter the name of the Credential.")]
         [SampleUsage("Name || {vCredentialName}")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_CredentialName { get; set; }
 
-        [DisplayName("Credential Username")]
+        [Required]
+		[DisplayName("Credential Username")]
         [Description("Enter the Credential username.")]
         [SampleUsage("john@openbots.com || {vCredentialUsername}")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_CredentialUsername { get; set; }
 
-        [DisplayName("Credential Password")]
+        [Required]
+		[DisplayName("Credential Password")]
         [Description("Enter the Credential password.")]
         [SampleUsage("john@openbots.com || {vCredentialPassword}")]
         [Remarks("")]

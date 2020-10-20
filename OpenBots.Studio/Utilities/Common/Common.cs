@@ -18,6 +18,7 @@ using System.Linq;
 using System.Reflection;
 using OpenBots.Core.Command;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace OpenBots.Studio.Utilities.Common
 {

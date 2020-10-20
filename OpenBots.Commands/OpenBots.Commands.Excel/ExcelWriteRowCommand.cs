@@ -1,5 +1,6 @@
 ﻿using Microsoft.Office.Interop.Excel;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
 using OpenBots.Core.Enums;
@@ -21,20 +22,23 @@ namespace OpenBots.Commands.Excel
     public class ExcelWriteRowCommand : ScriptCommand
     {
 
-        [DisplayName("Excel Instance Name")]
+        [Required]
+		[DisplayName("Excel Instance Name")]
         [Description("Enter the unique instance that was specified in the **Create Application** command.")]
         [SampleUsage("MyExcelInstance")]
         [Remarks("Failure to enter the correct instance or failure to first call the **Create Application** command will cause an error.")]
         public string v_InstanceName { get; set; }
 
-        [DisplayName("Row")]
+        [Required]
+		[DisplayName("Row")]
         [Description("Enter the text value that will be set in the selected row (Can be a DataRow).")]
         [SampleUsage("Hello,World || {vData1},{vData2} || {vDataRow}")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_RowToSet { get; set; }
 
-        [DisplayName("Cell Location")]
+        [Required]
+		[DisplayName("Cell Location")]
         [Description("Enter the location of the cell to write the row to.")]
         [SampleUsage("A1 || {vCellLocation}")]
         [Remarks("")]

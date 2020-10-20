@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
 using OpenBots.Core.Enums;
@@ -17,13 +18,15 @@ namespace OpenBots.Commands
     [Description("This command switches between browser frames provided a valid search parameter.")]  
     public class SeleniumSwitchBrowserFrameCommand : ScriptCommand
     {
-        [DisplayName("Browser Instance Name")]
+        [Required]
+		[DisplayName("Browser Instance Name")]
         [Description("Enter the unique instance that was specified in the **Create Browser** command.")]
         [SampleUsage("MyBrowserInstance")]
         [Remarks("Failure to enter the correct instance name or failure to first call the **Create Browser** command will cause an error.")]
         public string v_InstanceName { get; set; }
 
-        [DisplayName("Frame Search Type")]
+        [Required]
+		[DisplayName("Frame Search Type")]
         [PropertyUISelectionOption("Index")]
         [PropertyUISelectionOption("Name or ID")]
         [PropertyUISelectionOption("Parent Frame")]
@@ -34,7 +37,8 @@ namespace OpenBots.Commands
         [Remarks("")]
         public string v_SelectionType { get; set; }
 
-        [DisplayName("Frame Search Parameter")]
+        [Required]
+		[DisplayName("Frame Search Parameter")]
         [Description("Provide the parameter to match (ex. Index, Name or ID).")]
         [SampleUsage("1 || name || {vSearchData}")]
         [Remarks("")]

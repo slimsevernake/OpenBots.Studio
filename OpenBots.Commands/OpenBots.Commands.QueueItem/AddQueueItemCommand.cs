@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
 using OpenBots.Core.Enums;
@@ -20,21 +21,24 @@ namespace OpenBots.Commands.QueueItem
     [Description("This command adds a QueueItem to an existing Queue in OpenBots Server.")]
     public class AddQueueItemCommand : ScriptCommand
     {
-        [DisplayName("Queue Name")]
+        [Required]
+		[DisplayName("Queue Name")]
         [Description("Enter the name of the existing Queue.")]
         [SampleUsage("Name || {vQueueName}")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_QueueName { get; set; }
 
-        [DisplayName("QueueItem Name")]
+        [Required]
+		[DisplayName("QueueItem Name")]
         [Description("Enter the name of the new QueueItem.")]
         [SampleUsage("Name || {vQueueItemName}")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_QueueItemName { get; set; }
       
-        [DisplayName("QueueItem Type")]
+        [Required]
+		[DisplayName("QueueItem Type")]
         [PropertyUISelectionOption("Text")]
         [PropertyUISelectionOption("Json")]
         [Description("Specify the type of the new QueueItem.")]
@@ -42,21 +46,24 @@ namespace OpenBots.Commands.QueueItem
         [Remarks("")]
         public string v_QueueItemType { get; set; }
 
-        [DisplayName("Json Type")]
+        [Required]
+		[DisplayName("Json Type")]
         [Description("Specify the type of the Json.")]
         [SampleUsage("Company || {vJsonType}")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_JsonType { get; set; }
 
-        [DisplayName("QueueItem Value")]
+        [Required]
+		[DisplayName("QueueItem Value")]
         [Description("Enter the value of the new QueueItem.")]
         [SampleUsage("Value || {vQueueItemValue}")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_QueueItemTextValue { get; set; }
 
-        [DisplayName("Priority")]
+        [Required]
+		[DisplayName("Priority")]
         [Description("Enter a priority value between 0-100.")]
         [SampleUsage("100 || {vPriority}")]
         [Remarks("")]

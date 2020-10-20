@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
 using OpenBots.Core.Enums;
@@ -17,13 +18,15 @@ namespace OpenBots.Commands
     [Description("This command switches between browser windows provided a valid search parameter.")]
     public class SeleniumSwitchBrowserWindowCommand : ScriptCommand
     {
-        [DisplayName("Browser Instance Name")]
+        [Required]
+		[DisplayName("Browser Instance Name")]
         [Description("Enter the unique instance that was specified in the **Create Browser** command.")]
         [SampleUsage("MyBrowserInstance")]
         [Remarks("Failure to enter the correct instance name or failure to first call the **Create Browser** command will cause an error.")]
         public string v_InstanceName { get; set; }
 
-        [DisplayName("Broswer Search Type")]
+        [Required]
+		[DisplayName("Broswer Search Type")]
         [PropertyUISelectionOption("Window URL")]
         [PropertyUISelectionOption("Window Title")]
         [PropertyUISelectionOption("Handle ID")]
@@ -32,7 +35,8 @@ namespace OpenBots.Commands
         [Remarks("")]
         public string v_WindowMatchType { get; set; }
 
-        [DisplayName("Match Specification")]
+        [Required]
+		[DisplayName("Match Specification")]
         [PropertyUISelectionOption("Exact Match")]
         [PropertyUISelectionOption("Contains Match")]
         [Description("Select whether the search parameter should match the window type exactly or just contain it.")]
@@ -40,7 +44,8 @@ namespace OpenBots.Commands
         [Remarks("")]
         public string v_MatchSpecification { get; set; }
 
-        [DisplayName("Case-Sensitive")]
+        [Required]
+		[DisplayName("Case-Sensitive")]
         [PropertyUISelectionOption("Yes")]
         [PropertyUISelectionOption("No")]
         [Description("Select whether the search parameter is case-sensitive or not.")]
@@ -48,7 +53,8 @@ namespace OpenBots.Commands
         [Remarks("")]
         public string v_CaseSensitiveMatch { get; set; }
 
-        [DisplayName("Browser Search Parameter")]
+        [Required]
+		[DisplayName("Browser Search Parameter")]
         [Description("Provide the parameter to match (ex. Window URL, Window Title, Handle ID).")]
         [SampleUsage("http://www.url.com || Welcome to Homepage || {vSearchData}")]
         [Remarks("")]

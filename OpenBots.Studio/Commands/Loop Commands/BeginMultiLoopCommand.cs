@@ -5,6 +5,7 @@ using System.Data;
 using System.Linq;
 using System.Windows.Forms;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
 using OpenBots.Core.Enums;
@@ -24,7 +25,8 @@ namespace OpenBots.Commands
     public class BeginMultiLoopCommand : ScriptCommand
     {
 
-        [DisplayName("Multiple Loop Conditions")]
+        [Required]
+		[DisplayName("Multiple Loop Conditions")]
         [Description("Add new Loop condition(s).")]
         [SampleUsage("")]
         [Remarks("All of the conditions must be true to execute the loop block.")]

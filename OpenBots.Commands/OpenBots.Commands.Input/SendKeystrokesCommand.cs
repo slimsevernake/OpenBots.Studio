@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Windows.Forms;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
 using OpenBots.Core.Enums;
@@ -20,14 +21,16 @@ namespace OpenBots.Commands.Input
     public class SendKeystrokesCommand : ScriptCommand
     {
 
-        [DisplayName("Window Name")]
+        [Required]
+		[DisplayName("Window Name")]
         [Description("Select the name of the window to send keystrokes to.")]
         [SampleUsage("Untitled - Notepad || Current Window || {vWindow}")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_WindowName { get; set; }
 
-        [DisplayName("Text to Send")]
+        [Required]
+		[DisplayName("Text to Send")]
         [Description("Enter the text to be sent to the specified window.")]
         [SampleUsage("Hello, World! || {vText}")]
         [Remarks("")]
@@ -35,7 +38,8 @@ namespace OpenBots.Commands.Input
         [PropertyUIHelper(UIAdditionalHelperType.ShowEncryptionHelper)]
         public string v_TextToSend { get; set; }
 
-        [DisplayName("Text Encrypted")]
+        [Required]
+		[DisplayName("Text Encrypted")]
         [PropertyUISelectionOption("Not Encrypted")]
         [PropertyUISelectionOption("Encrypted")]
         [Description("Indicate whether the text in *Text to Send* is encrypted.")]

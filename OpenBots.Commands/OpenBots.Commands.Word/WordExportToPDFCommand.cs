@@ -1,5 +1,6 @@
 ﻿using Microsoft.Office.Interop.Word;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
 using OpenBots.Core.Enums;
@@ -20,13 +21,15 @@ namespace OpenBots.Commands.Word
 
     public class WordExportToPDFCommand : ScriptCommand
     {
-        [DisplayName("Word Instance Name")]
+        [Required]
+		[DisplayName("Word Instance Name")]
         [Description("Enter the unique instance that was specified in the **Create Application** command.")]
         [SampleUsage("MyWordInstance")]
         [Remarks("Failure to enter the correct instance or failure to first call the **Create Application** command will cause an error.")]
         public string v_InstanceName { get; set; }
 
-        [DisplayName("PDF Location")]
+        [Required]
+		[DisplayName("PDF Location")]
         [Description("Enter or Select the path of the folder to export the PDF to.")]
         [SampleUsage(@"C:\temp || {vFolderPath} || {ProjectPath}")]
         [Remarks("")]
@@ -34,7 +37,8 @@ namespace OpenBots.Commands.Word
         [PropertyUIHelper(UIAdditionalHelperType.ShowFolderSelectionHelper)]
         public string v_FolderPath { get; set; }
 
-        [DisplayName("PDF File Name")]
+        [Required]
+		[DisplayName("PDF File Name")]
         [Description("Enter or Select the name of the PDF file.")]
         [SampleUsage("myFile.pdf || {vFilename}")]
         [Remarks("")]

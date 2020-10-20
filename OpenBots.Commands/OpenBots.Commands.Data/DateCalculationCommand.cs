@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
 using OpenBots.Core.Enums;
@@ -19,14 +20,16 @@ namespace OpenBots.Commands.Data
     [Description("This command performs a specific operation on a date and saves the result in a variable.")]
     public class DateCalculationCommand : ScriptCommand
     {
-        [DisplayName("Date")]
+        [Required]
+		[DisplayName("Date")]
         [Description("Specify either text or a variable that contains the date.")]
         [SampleUsage("1/1/2000 || {DateTime.Now}")]
         [Remarks("You can use known text or variables.")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_InputDate { get; set; }
 
-        [DisplayName("Calculation Method")]
+        [Required]
+		[DisplayName("Calculation Method")]
         [PropertyUISelectionOption("Add Second(s)")]
         [PropertyUISelectionOption("Add Minute(s)")]
         [PropertyUISelectionOption("Add Hour(s)")]
@@ -50,21 +53,23 @@ namespace OpenBots.Commands.Data
         [Remarks("The selected operation will be applied to the input date value and result will be stored in the output variable.")]
         public string v_CalculationMethod { get; set; }
 
-        [DisplayName("Increment Value")]
+        [Required]
+		[DisplayName("Increment Value")]
         [Description("Specify how many units to increment by.")]
         [SampleUsage("15 || {vIncrement}")]
         [Remarks("You can use negative numbers which will do the opposite, ex. Subtract Days and an increment of -5 will Add Days.")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_Increment { get; set; }
 
-        [DisplayName("Date Format (Optional)")]
+		[DisplayName("Date Format (Optional)")]
         [Description("Specify the output date format.")]
         [SampleUsage("MM/dd/yy hh:mm:ss || MM/dd/yyyy || {vDateFormat}")]
         [Remarks("You can specify either a valid DateTime, Date or Time Format; an invalid format will result in an error.")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_ToStringFormat { get; set; }
 
-        [DisplayName("Output Date Variable")]
+        [Required]
+		[DisplayName("Output Date Variable")]
         [Description("Create a new variable or select a variable from the list.")]
         [SampleUsage("{vUserVariable}")]
         [Remarks("Variables not pre-defined in the Variable Manager will be automatically generated at runtime.")]

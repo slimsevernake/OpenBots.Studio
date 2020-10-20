@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Windows.Forms;
 using Newtonsoft.Json;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
 using OpenBots.Core.Enums;
@@ -18,14 +19,16 @@ namespace OpenBots.Commands.Engine
     [Description("This command measures time elapsed during the execution of the process.")]
     public class StopwatchCommand : ScriptCommand
     {
-        [DisplayName("Stopwatch Instance Name")]
+        [Required]
+		[DisplayName("Stopwatch Instance Name")]
         [Description("Enter a unique name that will represent the application instance.")]
         [SampleUsage("MyStopwatchInstance")]
         [Remarks("This unique name allows you to refer to the instance by name in future commands, " +
                  "ensuring that the commands you specify run against the correct application.")]
         public string v_InstanceName { get; set; }
 
-        [DisplayName("Stopwatch Action")]
+        [Required]
+		[DisplayName("Stopwatch Action")]
         [PropertyUISelectionOption("Start Stopwatch")]
         [PropertyUISelectionOption("Stop Stopwatch")]
         [PropertyUISelectionOption("Restart Stopwatch")]
@@ -36,14 +39,15 @@ namespace OpenBots.Commands.Engine
         [Remarks("")]
         public string v_StopwatchAction { get; set; }
 
-        [DisplayName("String Format")]
+		[DisplayName("String Format (Optional)")]
         [Description("Specify a DateTime string format if required.")]
         [SampleUsage("MM/dd/yy || hh:mm || {vFormat}")]
         [Remarks("This input is optional.")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_ToStringFormat { get; set; }
 
-        [DisplayName("Output Elapsed Time Variable")]
+        [Required]
+		[DisplayName("Output Elapsed Time Variable")]
         [Description("Create a new variable or select a variable from the list.")]
         [SampleUsage("{vUserVariable}")]
         [Remarks("Variables not pre-defined in the Variable Manager will be automatically generated at runtime.")]

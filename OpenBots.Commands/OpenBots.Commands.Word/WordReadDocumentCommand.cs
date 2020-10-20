@@ -1,5 +1,6 @@
 ﻿using Microsoft.Office.Interop.Word;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
 using OpenBots.Core.Infrastructure;
@@ -17,13 +18,15 @@ namespace OpenBots.Commands.Word
     [Description("This command extracts text from a Word Document.")]
     public class WordReadDocumentCommand : ScriptCommand
     {
-        [DisplayName("Word Instance Name")]
+        [Required]
+		[DisplayName("Word Instance Name")]
         [Description("Enter the unique instance that was specified in the **Create Application** command.")]
         [SampleUsage("MyWordInstance")]
         [Remarks("Failure to enter the correct instance or failure to first call the **Create Application** command will cause an error.")]
         public string v_InstanceName { get; set; }
 
-        [DisplayName("Output Text Variable")]
+        [Required]
+		[DisplayName("Output Text Variable")]
         [Description("Create a new variable or select a variable from the list.")]
         [SampleUsage("{vUserVariable}")]
         [Remarks("Variables not pre-defined in the Variable Manager will be automatically generated at runtime.")]

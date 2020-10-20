@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
 using OpenBots.Core.Enums;
@@ -18,14 +19,16 @@ namespace OpenBots.Commands.QueueItem
     [Description("This command updates the status of a QueueItem in an existing Queue in OpenBots Server.")]
     public class SetQueueItemStatusCommand : ScriptCommand
     {
-        [DisplayName("QueueItem")]
+        [Required]
+		[DisplayName("QueueItem")]
         [Description("Enter a QueueItem Dictionary variable.")]
         [SampleUsage("{vQueueItem}")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_QueueItem { get; set; }
 
-        [DisplayName("QueueItem Status Type")]
+        [Required]
+		[DisplayName("QueueItem Status Type")]
         [PropertyUISelectionOption("Successful")]
         [PropertyUISelectionOption("Failed - Should Retry")]
         [PropertyUISelectionOption("Failed - Fatal")]
@@ -34,14 +37,14 @@ namespace OpenBots.Commands.QueueItem
         [Remarks("")]
         public string v_QueueItemStatusType { get; set; }
 
-        [DisplayName("QueueItem Error Code (Optional)")]
+		[DisplayName("QueueItem Error Code (Optional)")]
         [Description("Enter the QueueItem code.")]
         [SampleUsage("400 || {vStatusCode}")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_QueueItemErrorCode { get; set; }
 
-        [DisplayName("QueueItem Error Message (Optional)")]
+		[DisplayName("QueueItem Error Message (Optional)")]
         [Description("Enter the QueueItem error message.")]
         [SampleUsage("File not found || {vStatusMessage}")]
         [Remarks("")]

@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
 using OpenBots.Core.Enums;
@@ -30,7 +31,8 @@ namespace OpenBots.Commands
     public class BeginLoopCommand : ScriptCommand
     {
 
-        [DisplayName("Loop Condition")]
+        [Required]
+		[DisplayName("Loop Condition")]
         [PropertyUISelectionOption("Value Compare")]
         [PropertyUISelectionOption("Date Compare")]
         [PropertyUISelectionOption("Variable Compare")]
@@ -50,7 +52,8 @@ namespace OpenBots.Commands
         [Remarks("")]
         public string v_LoopActionType { get; set; }
 
-        [DisplayName("Additional Parameters")]
+        [Required]
+		[DisplayName("Additional Parameters")]
         [Description("Supply or Select the required comparison parameters.")]
         [SampleUsage("Param Value || {vParamValue}")]
         [Remarks("")]

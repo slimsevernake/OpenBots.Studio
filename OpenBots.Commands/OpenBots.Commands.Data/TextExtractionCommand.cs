@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
 using OpenBots.Core.Enums;
@@ -21,14 +22,16 @@ namespace OpenBots.Commands.Data
     [Description("This command performs advanced text extraction.")]
     public class TextExtractionCommand : ScriptCommand
     {
-        [DisplayName("Text Data")]
+        [Required]
+		[DisplayName("Text Data")]
         [Description("Provide a variable or text value.")]
         [SampleUsage("Sample text to perform text extraction on || {vTextData}")]
         [Remarks("Providing data of a type other than a 'String' will result in an error.")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_InputText { get; set; }
 
-        [DisplayName("Text Extraction Type")]
+        [Required]
+		[DisplayName("Text Extraction Type")]
         [PropertyUISelectionOption("Extract All After Text")]
         [PropertyUISelectionOption("Extract All Before Text")]
         [PropertyUISelectionOption("Extract All Between Text")]
@@ -37,14 +40,16 @@ namespace OpenBots.Commands.Data
         [Remarks("For trailing text, use 'After Text'. For leading text, use 'Before Text'. For text between two substrings, use 'Between Text'.")]
         public string v_TextExtractionType { get; set; }
 
-        [DisplayName("Extraction Parameters")]
+        [Required]
+		[DisplayName("Extraction Parameters")]
         [Description("Define the required extraction parameters, which is dependent on the type of extraction.")]
         [SampleUsage("A substring from input text || {vSubstring}")]
         [Remarks("Set parameter values for each parameter name based on the extraction type.")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public DataTable v_TextExtractionTable { get; set; }
 
-        [DisplayName("Output Text Variable")]
+        [Required]
+		[DisplayName("Output Text Variable")]
         [Description("Create a new variable or select a variable from the list.")]
         [SampleUsage("{vUserVariable}")]
         [Remarks("Variables not pre-defined in the Variable Manager will be automatically generated at runtime.")]

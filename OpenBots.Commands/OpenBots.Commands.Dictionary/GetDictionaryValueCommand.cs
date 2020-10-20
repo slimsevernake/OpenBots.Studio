@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
 using OpenBots.Core.Enums;
@@ -17,21 +18,24 @@ namespace OpenBots.Commands.Dictionary
     public class GetDictionaryValueCommand : ScriptCommand
     {
 
-        [DisplayName("Dictionary")]
+        [Required]
+		[DisplayName("Dictionary")]
         [Description("Specify the dictionary variable to get a value from.")]
         [SampleUsage("{vDictionary}")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_InputDictionary { get; set; }
 
-        [DisplayName("Key")]
+        [Required]
+		[DisplayName("Key")]
         [Description("Specify the key to get the value for.")]
         [SampleUsage("SomeKey || {vKey}")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_Key { get; set; }
 
-        [DisplayName("Output Value Variable")]
+        [Required]
+		[DisplayName("Output Value Variable")]
         [Description("Create a new variable or select a variable from the list.")]
         [SampleUsage("{vUserVariable}")]
         [Remarks("Variables not pre-defined in the Variable Manager will be automatically generated at runtime.")]

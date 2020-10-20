@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Windows.Forms;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
 using OpenBots.Core.Infrastructure;
@@ -14,7 +15,8 @@ namespace OpenBots.Commands
                  "associated try.")]
     public class CatchCommand : ScriptCommand
     {
-        [DisplayName("Exception Type")]
+        [Required]
+		[DisplayName("Exception Type")]
         [PropertyUISelectionOption("AccessViolationException")]
         [PropertyUISelectionOption("ArgumentException")]
         [PropertyUISelectionOption("ArgumentNullException")]

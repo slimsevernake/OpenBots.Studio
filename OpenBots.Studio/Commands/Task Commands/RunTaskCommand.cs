@@ -7,6 +7,7 @@ using System.Linq;
 using System.Windows.Forms;
 using Newtonsoft.Json;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
 using OpenBots.Core.Enums;
@@ -24,7 +25,8 @@ namespace OpenBots.Commands
     [Description("This command executes a Task.")]
     public class RunTaskCommand : ScriptCommand
     {
-        [DisplayName("Task File Path")]
+        [Required]
+		[DisplayName("Task File Path")]
         [Description("Enter or select a valid path to the Task file.")]
         [SampleUsage(@"C:\temp\mytask.json || {vScriptPath} || {ProjectPath}\mytask.json")]
         [Remarks("")]
@@ -32,13 +34,15 @@ namespace OpenBots.Commands
         [PropertyUIHelper(UIAdditionalHelperType.ShowFileSelectionHelper)]
         public string v_taskPath { get; set; }
 
-        [DisplayName("Assign Variables")]
+        [Required]
+		[DisplayName("Assign Variables")]
         [Description("Select to assign variables to the Task.")]
         [SampleUsage("")]
         [Remarks("If selected, variables will be automatically generated from the Task's *Variable Manager*.")]
         public bool v_AssignVariables { get; set; }
 
-        [DisplayName("Task Variables")]
+        [Required]
+		[DisplayName("Task Variables")]
         [Description("Enter a VariableValue for each input variable.")]
         [SampleUsage("Hello World || {vVariableValue}")]
         [Remarks("For inputs, set VariableReturn to *No*. For outputs, set VariableReturn to *Yes*. " +

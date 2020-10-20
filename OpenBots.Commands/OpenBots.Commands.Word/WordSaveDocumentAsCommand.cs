@@ -1,5 +1,6 @@
 ﻿using Microsoft.Office.Interop.Word;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
 using OpenBots.Core.Enums;
@@ -19,13 +20,15 @@ namespace OpenBots.Commands.Word
     [Description("This command saves a Word Document to a specific file.")]
     public class WordSaveDocumentAsCommand : ScriptCommand
     {
-        [DisplayName("Word Instance Name")]
+        [Required]
+		[DisplayName("Word Instance Name")]
         [Description("Enter the unique instance that was specified in the **Create Application** command.")]
         [SampleUsage("MyWordInstance")]
         [Remarks("Failure to enter the correct instance or failure to first call the **Create Application** command will cause an error.")]
         public string v_InstanceName { get; set; }
 
-        [DisplayName("Document Location")]
+        [Required]
+		[DisplayName("Document Location")]
         [Description("Enter or Select the path of the folder to save the Document in.")]
         [SampleUsage(@"C:\temp || {vFolderPath} || {ProjectPath}")]
         [Remarks("")]
@@ -33,7 +36,8 @@ namespace OpenBots.Commands.Word
         [PropertyUIHelper(UIAdditionalHelperType.ShowFolderSelectionHelper)]
         public string v_FolderPath { get; set; }
 
-        [DisplayName("Document File Name")]
+        [Required]
+		[DisplayName("Document File Name")]
         [Description("Enter or Select the name of the Document file.")]
         [SampleUsage("myFile.docx || {vFilename}")]
         [Remarks("")]

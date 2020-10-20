@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
 using OpenBots.Core.Enums;
@@ -17,7 +18,8 @@ namespace OpenBots.Commands.Folder
     [Description("This command deletes a folder from a specified location.")]
     public class DeleteFolderCommand : ScriptCommand
     {
-        [DisplayName("Folder Path")]
+        [Required]
+		[DisplayName("Folder Path")]
         [Description("Enter or Select the path to the folder.")]
         [SampleUsage(@"C:\temp\myfolder || {ProjectPath}\myfolder  || {vTextFolderPath}")]
         [Remarks("{ProjectPath} is the directory path of the current project.")]

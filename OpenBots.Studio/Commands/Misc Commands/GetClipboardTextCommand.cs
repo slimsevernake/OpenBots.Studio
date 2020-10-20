@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Windows.Forms;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
 using OpenBots.Core.Infrastructure;
@@ -17,7 +18,8 @@ namespace OpenBots.Commands
     public class GetClipboardTextCommand : ScriptCommand
     {
 
-        [DisplayName("Output Clipboard Text Variable")]
+        [Required]
+		[DisplayName("Output Clipboard Text Variable")]
         [Description("Create a new variable or select a variable from the list.")]
         [SampleUsage("{vUserVariable}")]
         [Remarks("Variables not pre-defined in the Variable Manager will be automatically generated at runtime.")]

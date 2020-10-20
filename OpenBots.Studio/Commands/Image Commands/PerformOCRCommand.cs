@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
 using OpenBots.Core.Enums;
@@ -19,7 +20,8 @@ namespace OpenBots.Commands
     public class PerformOCRCommand : ScriptCommand
     {
 
-        [DisplayName("Image File Path")]
+        [Required]
+		[DisplayName("Image File Path")]
         [Description("Select the image to perform OCR text extraction on.")]
         [SampleUsage(@"C:\temp\myimages.png || {ProjectPath}\myimages.png || {vImageFile}")]
         [Remarks("")]
@@ -27,7 +29,8 @@ namespace OpenBots.Commands
         [PropertyUIHelper(UIAdditionalHelperType.ShowFileSelectionHelper)]
         public string v_FilePath { get; set; }
 
-        [DisplayName("Output OCR Result Variable")]
+        [Required]
+		[DisplayName("Output OCR Result Variable")]
         [Description("Create a new variable or select a variable from the list.")]
         [SampleUsage("{vUserVariable}")]
         [Remarks("Variables not pre-defined in the Variable Manager will be automatically generated at runtime.")]

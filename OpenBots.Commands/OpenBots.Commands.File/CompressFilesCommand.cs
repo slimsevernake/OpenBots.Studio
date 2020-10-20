@@ -1,5 +1,6 @@
 ﻿using ICSharpCode.SharpZipLib.Zip;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
 using OpenBots.Core.Enums;
@@ -20,7 +21,8 @@ namespace OpenBots.Commands.File
     [Description("This command compresses file(s) from a directory into a Zip file.")]
     public class CompressFilesCommand : ScriptCommand
     {
-        [DisplayName("Source Directory Path")]
+        [Required]
+		[DisplayName("Source Directory Path")]
         [Description("Enter or Select the Path to the source directory.")]
         [SampleUsage(@"C:\temp || {ProjectPath}\temp || {vFileSourcePath}")]
         [Remarks("{ProjectPath} is the directory path of the current project.")]
@@ -28,14 +30,15 @@ namespace OpenBots.Commands.File
         [PropertyUIHelper(UIAdditionalHelperType.ShowFolderSelectionHelper)]
         public string v_DirectoryPathOrigin { get; set; }
 
-        [DisplayName("Password (Optional)")]
+		[DisplayName("Password (Optional)")]
         [Description("Define the password to use for file compression.")]
         [SampleUsage("password || {vPassword}")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_Password { get; set; }
 
-        [DisplayName("Compressed File Directory Path")]
+        [Required]
+		[DisplayName("Compressed File Directory Path")]
         [Description("Enter or Select the Folder Path to place the compressed file in.")]
         [SampleUsage(@"C:\temp || {ProjectPath}\temp || {vFilesPath}")]
         [Remarks("{ProjectPath} is the directory path of the current project.")]
@@ -43,7 +46,8 @@ namespace OpenBots.Commands.File
         [PropertyUIHelper(UIAdditionalHelperType.ShowFolderSelectionHelper)]
         public string v_PathDestination { get; set; }
 
-        [DisplayName("Output Compressed File Path Variable")]
+        [Required]
+		[DisplayName("Output Compressed File Path Variable")]
         [Description("Create a new variable or select a variable from the list.")]
         [SampleUsage("{vUserVariable}")]
         [Remarks("Variables not pre-defined in the Variable Manager will be automatically generated at runtime.")]

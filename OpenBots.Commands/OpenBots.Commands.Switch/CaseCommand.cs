@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Windows.Forms;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
 using OpenBots.Core.Infrastructure;
@@ -15,7 +16,8 @@ namespace OpenBots.Commands.Switch
     public class CaseCommand : ScriptCommand
     {
 
-        [DisplayName("Case")]
+        [Required]
+		[DisplayName("Case")]
         [Description("This block will be executed if the specified case value matches the value in the Switch Command.")]
         [SampleUsage("1 || hello")]
         [Remarks("")]

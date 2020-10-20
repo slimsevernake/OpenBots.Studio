@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
 using OpenBots.Core.Enums;
@@ -18,14 +19,16 @@ namespace OpenBots.Commands.Dictionary
     public class AddDictionaryItemCommand : ScriptCommand
     {
 
-        [DisplayName("Dictionary")]
+        [Required]
+		[DisplayName("Dictionary")]
         [Description("Select the dictionary variable to add an item to.")]
         [SampleUsage("{vMyDictionary}")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_DictionaryName { get; set; }
 
-        [DisplayName("Keys and Values")]
+        [Required]
+		[DisplayName("Keys and Values")]
         [Description("Enter Keys and Values required for the dictionary.")]
         [SampleUsage("[FirstName | John] || [{vKey} | {vValue}]")]
         [Remarks("")]

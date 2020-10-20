@@ -1,5 +1,6 @@
 ﻿using Microsoft.Office.Interop.Excel;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
 using OpenBots.Core.Enums;
@@ -21,27 +22,31 @@ namespace OpenBots.Commands.Excel
     public class ExcelWriteRangeCommand : ScriptCommand
     {
 
-        [DisplayName("Excel Instance Name")]
+        [Required]
+		[DisplayName("Excel Instance Name")]
         [Description("Enter the unique instance that was specified in the **Create Application** command.")]
         [SampleUsage("MyExcelInstance")]
         [Remarks("Failure to enter the correct instance or failure to first call the **Create Application** command will cause an error.")]
         public string v_InstanceName { get; set; }
 
-        [DisplayName("DataTable")]
+        [Required]
+		[DisplayName("DataTable")]
         [Description("Enter the DataTable to write to the Worksheet.")]
         [SampleUsage("{vDataTable}")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_DataTableToSet { get; set; }
 
-        [DisplayName("Cell Location")]
+        [Required]
+		[DisplayName("Cell Location")]
         [Description("Enter the location of the cell to set the DataTable at.")]
         [SampleUsage("A1 || {vCellLocation}")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_CellLocation { get; set; }
 
-        [DisplayName("Add Headers")]
+        [Required]
+		[DisplayName("Add Headers")]
         [PropertyUISelectionOption("Yes")]
         [PropertyUISelectionOption("No")]
         [Description("When selected, the column headers from the specified DataTable are also written.")]

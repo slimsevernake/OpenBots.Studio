@@ -5,6 +5,7 @@ using System.Data;
 using System.Linq;
 using System.Windows.Forms;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
 using OpenBots.Core.Enums;
@@ -22,7 +23,8 @@ namespace OpenBots.Commands
     [Description("This command evaluates a group of combined logical statements to determine if the combined result of the statements is 'true' or 'false' and subsequently performs action(s) based on the result.")]
     public class BeginMultiIfCommand : ScriptCommand
     {
-        [DisplayName("Multiple If Conditions")]
+        [Required]
+		[DisplayName("Multiple If Conditions")]
         [Description("Add new If condition(s).")]
         [SampleUsage("")]
         [Remarks("All of the conditions must be true to execute the If block.")]

@@ -3,6 +3,7 @@ using MailKit.Net.Imap;
 using MailKit.Search;
 using MimeKit;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
 using OpenBots.Core.Enums;
@@ -26,49 +27,56 @@ namespace OpenBots.Commands.Email
     public class GetIMAPEmailsCommand : ScriptCommand
     {
 
-        [DisplayName("Host")]
+        [Required]
+		[DisplayName("Host")]
         [Description("Define the host/service name that the script should use.")]
         [SampleUsage("imap.gmail.com || {vHost}")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_IMAPHost { get; set; }
 
-        [DisplayName("Port")]
+        [Required]
+		[DisplayName("Port")]
         [Description("Define the port number that should be used when contacting the IMAP service.")]
         [SampleUsage("993 || {vPort}")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_IMAPPort { get; set; }
 
-        [DisplayName("Username")]
+        [Required]
+		[DisplayName("Username")]
         [Description("Define the username to use when contacting the IMAP service.")]
         [SampleUsage("myRobot || {vUsername}")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_IMAPUserName { get; set; }
 
-        [DisplayName("Password")]
+        [Required]
+		[DisplayName("Password")]
         [Description("Define the password to use when contacting the IMAP service.")]
         [SampleUsage("password || {vPassword}")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_IMAPPassword { get; set; }
 
-        [DisplayName("Source Mail Folder Name")]
+        [Required]
+		[DisplayName("Source Mail Folder Name")]
         [Description("Enter the name of the mail folder the emails are located in.")]
         [SampleUsage("Inbox || {vFolderName}")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_IMAPSourceFolder { get; set; }
 
-        [DisplayName("Filter")]
+        [Required]
+		[DisplayName("Filter")]
         [Description("Enter a valid filter string.")]
         [SampleUsage("Hello World || myRobot@company.com || {vFilter} || None")]
         [Remarks("*Warning* Using 'None' as the Filter will return every email in the selected Mail Folder.")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_IMAPFilter { get; set; }
 
-        [DisplayName("Unread Only")]
+        [Required]
+		[DisplayName("Unread Only")]
         [PropertyUISelectionOption("Yes")]
         [PropertyUISelectionOption("No")]
         [Description("Specify whether to retrieve unread email messages only.")]
@@ -76,7 +84,8 @@ namespace OpenBots.Commands.Email
         [Remarks("")]
         public string v_IMAPGetUnreadOnly { get; set; }
 
-        [DisplayName("Mark As Read")]
+        [Required]
+		[DisplayName("Mark As Read")]
         [PropertyUISelectionOption("Yes")]
         [PropertyUISelectionOption("No")]
         [Description("Specify whether to mark retrieved emails as read.")]
@@ -84,7 +93,8 @@ namespace OpenBots.Commands.Email
         [Remarks("")]
         public string v_IMAPMarkAsRead { get; set; }
 
-        [DisplayName("Save MimeMessages and Attachments")]
+        [Required]
+		[DisplayName("Save MimeMessages and Attachments")]
         [PropertyUISelectionOption("Yes")]
         [PropertyUISelectionOption("No")]
         [Description("Specify whether to save the email attachments to a local directory.")]
@@ -92,7 +102,8 @@ namespace OpenBots.Commands.Email
         [Remarks("")]
         public string v_IMAPSaveMessagesAndAttachments { get; set; }
 
-        [DisplayName("Output MimeMessage Directory")]
+        [Required]
+		[DisplayName("Output MimeMessage Directory")]
         [Description("Enter or Select the path of the directory to store the messages in.")]
         [SampleUsage(@"C:\temp\myfolder || {vFolderPath} || {ProjectPath}\myFolder")]
         [Remarks("This input is optional and will only be used if *Save MimeMessages and Attachments* is set to **Yes**.")]
@@ -100,7 +111,8 @@ namespace OpenBots.Commands.Email
         [PropertyUIHelper(UIAdditionalHelperType.ShowFolderSelectionHelper)]
         public string v_IMAPMessageDirectory { get; set; }
 
-        [DisplayName("Output Attachment Directory")]
+        [Required]
+		[DisplayName("Output Attachment Directory")]
         [Description("Enter or Select the path to the directory to store the attachments in.")]
         [SampleUsage(@"C:\temp\myfolder\attachments || {vFolderPath} || {ProjectPath}\myFolder\attachments")]
         [Remarks("This input is optional and will only be used if *Save MimeMessages and Attachments* is set to **Yes**.")]
@@ -108,7 +120,8 @@ namespace OpenBots.Commands.Email
         [PropertyUIHelper(UIAdditionalHelperType.ShowFolderSelectionHelper)]
         public string v_IMAPAttachmentDirectory { get; set; }
 
-        [DisplayName("Output MimeMessage List Variable")]
+        [Required]
+		[DisplayName("Output MimeMessage List Variable")]
         [Description("Create a new variable or select a variable from the list.")]
         [SampleUsage("vUserVariable")]
         [Remarks("Variables not pre-defined in the Variable Manager will be automatically generated at runtime.")]

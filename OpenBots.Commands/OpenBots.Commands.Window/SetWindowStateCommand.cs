@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Windows.Forms;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
 using OpenBots.Core.Enums;
@@ -17,14 +18,16 @@ namespace OpenBots.Commands.Window
     [Description("This command sets a open window's state.")]
     public class SetWindowStateCommand : ScriptCommand
     {
-        [DisplayName("Window Name")]
+        [Required]
+		[DisplayName("Window Name")]
         [Description("Select the name of the window to set.")]
         [SampleUsage("Untitled - Notepad || Current Window || {vWindow}")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_WindowName { get; set; }
 
-        [DisplayName("Window State")]
+        [Required]
+		[DisplayName("Window State")]
         [PropertyUISelectionOption("Maximize")]
         [PropertyUISelectionOption("Minimize")]
         [PropertyUISelectionOption("Restore")]

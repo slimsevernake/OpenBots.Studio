@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Windows.Forms;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
 using OpenBots.Core.Enums;
@@ -17,7 +18,8 @@ namespace OpenBots.Commands.Engine
     [Description("This command pauses the script for a set amount of time specified in milliseconds.")]
     public class PauseScriptCommand : ScriptCommand
     {
-        [DisplayName("Pause Time (Milliseconds)")]      
+        [Required]
+		[DisplayName("Pause Time (Milliseconds)")]      
         [Description("Select or provide a specific amount of time in milliseconds.")]
         [SampleUsage("1000 || {vTime}")]
         [Remarks("")]

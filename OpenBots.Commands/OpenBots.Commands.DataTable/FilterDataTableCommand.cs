@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
 using OpenBots.Core.Enums;
@@ -19,21 +20,24 @@ namespace OpenBots.Commands.DataTable
     [Description("This command filters specific rows from a DataTable into a new Datatable.")]
     public class FilterDataTableCommand : ScriptCommand
     {
-        [DisplayName("Input DataTable")]
+        [Required]
+		[DisplayName("Input DataTable")]
         [Description("Enter the DataTable to filter through.")]
         [SampleUsage("{vDataTable}")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_DataTable { get; set; }
 
-        [DisplayName("Filter Tuple")]
+        [Required]
+		[DisplayName("Filter Tuple")]
         [Description("Enter a tuple containing the column name and item you would like to filter by.")]
         [SampleUsage("(ColumnName1,Item1),(ColumnName2,Item2) || ({vColumn1},{vItem1}),({vCloumn2},{vItem2}) || {vFilterTuple}")]
         [Remarks("DataRows must match all provided tuples to be included in the filtered DataTable.")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_SearchItem { get; set; }
 
-        [DisplayName("Output Filtered DataTable Variable")]
+        [Required]
+		[DisplayName("Output Filtered DataTable Variable")]
         [Description("Create a new variable or select a variable from the list.")]
         [SampleUsage("{vUserVariable}")]
         [Remarks("Variables not pre-defined in the Variable Manager will be automatically generated at runtime.")]

@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
 using OpenBots.Core.Infrastructure;
@@ -18,13 +19,15 @@ namespace OpenBots.Commands.System
     [Description("This command exclusively selects an environment variable.")]
     public class EnvironmentVariableCommand : ScriptCommand
     {
-        [DisplayName("Environment Variable")]
+        [Required]
+		[DisplayName("Environment Variable")]
         [Description("Select an evironment variable from one of the options.")]
         [SampleUsage("")]
         [Remarks("")]
         public string v_EnvVariableName { get; set; }
 
-        [DisplayName("Output Environment Variable")]
+        [Required]
+		[DisplayName("Output Environment Variable")]
         [Description("Create a new variable or select a variable from the list.")]
         [SampleUsage("{vUserVariable}")]
         [Remarks("Variables not pre-defined in the Variable Manager will be automatically generated at runtime.")]

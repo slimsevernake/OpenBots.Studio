@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
 using OpenBots.Core.Enums;
@@ -17,7 +18,8 @@ namespace OpenBots.Commands.File
     [Description("This command renames an existing file.")]
     public class RenameFileCommand : ScriptCommand
     {
-        [DisplayName("File Path")]
+        [Required]
+		[DisplayName("File Path")]
         [Description("Enter or Select the path to the file.")]
         [SampleUsage(@"C:\temp\myfile.txt || {ProjectPath}\myfile.txt || {vTextFilePath}")]
         [Remarks("{ProjectPath} is the directory path of the current project.")]
@@ -25,7 +27,8 @@ namespace OpenBots.Commands.File
         [PropertyUIHelper(UIAdditionalHelperType.ShowFileSelectionHelper)] 
         public string v_SourceFilePath { get; set; }
 
-        [DisplayName("New File Name (with extension)")]
+        [Required]
+		[DisplayName("New File Name (with extension)")]
         [Description("Specify new file name with extension.")]
         [SampleUsage("newfile.txt || {vNewFileName}")]
         [Remarks("Changing the file extension will not automatically convert files.")]

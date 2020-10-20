@@ -1,5 +1,6 @@
 ﻿using Microsoft.Office.Interop.Outlook;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
 using OpenBots.Core.Enums;
@@ -19,14 +20,16 @@ namespace OpenBots.Commands.Outlook
     public class ReplyToOutlookEmailCommand : ScriptCommand
     {
 
-        [DisplayName("MailItem")]
+        [Required]
+		[DisplayName("MailItem")]
         [Description("Enter the MailItem to reply to.")]
         [SampleUsage("{vMailItem}")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_MailItem { get; set; }
 
-        [DisplayName("Mail Operation")]
+        [Required]
+		[DisplayName("Mail Operation")]
         [PropertyUISelectionOption("Reply")]
         [PropertyUISelectionOption("Reply All")]
         [Description("Specify whether you intend to reply or reply all.")]
@@ -34,21 +37,23 @@ namespace OpenBots.Commands.Outlook
         [Remarks("Replying will reply to only the original sender. Reply all will reply to everyone in the recipient list.")]
         public string v_OperationType { get; set; }
 
-        [DisplayName("Email Body")]
+        [Required]
+		[DisplayName("Email Body")]
         [Description("Enter text to be used as the email body.")]
         [SampleUsage("Dear John, ... || {vBody}")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_Body { get; set; }
 
-        [DisplayName("Email Body Type")]
+        [Required]
+		[DisplayName("Email Body Type")]
         [PropertyUISelectionOption("Plain")]
         [PropertyUISelectionOption("HTML")]
         [Description("Select the email body format.")]
         [Remarks("")]
         public string v_BodyType { get; set; }
 
-        [DisplayName("Attachment File Path(s)")]
+		[DisplayName("Attachment File Path(s) (Optional)")]
         [Description("Enter the file path(s) of the file(s) to attach.")]
         [SampleUsage(@"C:\temp\myFile.xlsx || {vFile} || C:\temp\myFile1.xlsx;C:\temp\myFile2.xlsx || {vFile1};{vFile2} || {vFiles}")]
         [Remarks("This input is optional. Multiple attachments should be delimited by a semicolon (;).")]

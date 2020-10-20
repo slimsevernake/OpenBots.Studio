@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using OpenBots.Commands.DataTable.Forms;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
 using OpenBots.Core.Enums;
@@ -26,14 +27,16 @@ namespace OpenBots.Commands.DataTable
     public class AddDataRowCommand : ScriptCommand
     {
 
-        [DisplayName("DataTable")]
+        [Required]
+		[DisplayName("DataTable")]
         [Description("Enter an existing DataTable to add a DataRow to.")]
         [SampleUsage("{vDataTable}")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_DataTable { get; set; }
 
-        [DisplayName("Data")]
+        [Required]
+		[DisplayName("Data")]
         [Description("Enter Column Names and Data for each column in the DataRow.")]
         [SampleUsage("[ First Name | John ] || [ {vColumn} | {vData} ]")]
         [Remarks("")]

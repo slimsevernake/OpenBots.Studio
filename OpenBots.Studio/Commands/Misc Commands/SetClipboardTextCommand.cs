@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Windows.Forms;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
 using OpenBots.Core.Enums;
@@ -18,7 +19,8 @@ namespace OpenBots.Commands
     public class SetClipboardTextCommand : ScriptCommand
     {
 
-        [DisplayName("Text")]
+        [Required]
+		[DisplayName("Text")]
         [Description("Select or provide the text to set on the clipboard.")]
         [SampleUsage("Hello || {vTextToSet}")]
         [Remarks("")]

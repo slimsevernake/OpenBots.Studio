@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Windows.Forms;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
 using OpenBots.Core.Enums;
@@ -23,7 +24,8 @@ namespace OpenBots.Commands
     [Description("This command iterates over a collection to let user perform actions on the collection items.")]
     public class LoopCollectionCommand : ScriptCommand
     {
-        [DisplayName("Input Collection")]
+        [Required]
+		[DisplayName("Input Collection")]
         [Description("Provide a collection variable.")]
         [SampleUsage("{vMyCollection}")]
         [Remarks("If the collection is a DataTable then the output item will be a DataRow and its column value can be accessed using the " +
@@ -31,7 +33,8 @@ namespace OpenBots.Commands
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_LoopParameter { get; set; }
 
-        [DisplayName("Output Collection Item Variable")]
+        [Required]
+		[DisplayName("Output Collection Item Variable")]
         [Description("Create a new variable or select a variable from the list.")]
         [SampleUsage("{vUserVariable}")]
         [Remarks("Variables not pre-defined in the Variable Manager will be automatically generated at runtime.")]

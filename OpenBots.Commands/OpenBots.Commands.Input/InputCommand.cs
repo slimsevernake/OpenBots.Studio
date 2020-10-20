@@ -4,6 +4,7 @@ using System.Data;
 using System.Drawing;
 using System.Windows.Forms;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
 using OpenBots.Core.Common;
@@ -24,21 +25,24 @@ namespace OpenBots.Commands.Input
     public class InputCommand : ScriptCommand
     {
 
-        [DisplayName("Header Name")]
+        [Required]
+		[DisplayName("Header Name")]
         [Description("Define the header to be displayed on the input form.")]
         [SampleUsage("Please Provide Input || {vHeader}")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_InputHeader { get; set; }
 
-        [DisplayName("Input Directions")]
+        [Required]
+		[DisplayName("Input Directions")]
         [Description("Define the directions to give to the user.")]
         [SampleUsage("Directions: Please fill in the following fields || {vDirections}")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_InputDirections { get; set; }
 
-        [DisplayName("Input Parameters")]
+        [Required]
+		[DisplayName("Input Parameters")]
         [Description("Define the required input parameters.")]
         [SampleUsage("[TextBox | Name | 500,30 | John | {vName}]")]
         [Remarks("")]

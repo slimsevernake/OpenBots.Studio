@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Windows.Forms;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
 using OpenBots.Core.Enums;
@@ -18,14 +19,16 @@ namespace OpenBots.Commands.Input
     public class HTMLInputCommand : ScriptCommand
     {
 
-        [DisplayName("HTML")]
+        [Required]
+		[DisplayName("HTML")]
         [Description("Define the form to be displayed using the HTML Builder.")]
         [SampleUsage("")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowHTMLBuilder)]
         public string v_InputHTML { get; set; }
 
-        [DisplayName("Error On Close")]
+        [Required]
+		[DisplayName("Error On Close")]
         [PropertyUISelectionOption("Yes")]
         [PropertyUISelectionOption("No")]
         [Description("Specify if an exception should be thrown on any result other than 'OK'.")]

@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
 using OpenBots.Core.Enums;
@@ -18,7 +19,8 @@ namespace OpenBots.Commands.TextFile
     public class WriteCreateTextFileCommand : ScriptCommand
     {
 
-        [DisplayName("Text File Path")]
+        [Required]
+		[DisplayName("Text File Path")]
         [Description("Enter or select the text file path.")]
         [SampleUsage(@"C:\temp\myfile.txt || {ProjectPath}\myText.txt || {vTextFilePath}")]
         [Remarks("If the selected text file does not exist, a file with the provided name and location will be created.")]
@@ -27,14 +29,16 @@ namespace OpenBots.Commands.TextFile
         [PropertyUIHelper(UIAdditionalHelperType.ShowFileSelectionHelper)]
         public string v_FilePath { get; set; }
 
-        [DisplayName("Text")]
+        [Required]
+		[DisplayName("Text")]
         [Description("Indicate the Text to write.")]
         [SampleUsage("Hello World! || {vText}")]
         [Remarks("[crLF] inserts a newline.")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]       
         public string v_TextToWrite { get; set; }
 
-        [DisplayName("Overwrite Option")]
+        [Required]
+		[DisplayName("Overwrite Option")]
         [PropertyUISelectionOption("Append")]
         [PropertyUISelectionOption("Overwrite")]
         [Description("Indicate whether this command should append the text to or overwrite all existing text " +

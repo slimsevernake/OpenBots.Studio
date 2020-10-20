@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
 using OpenBots.Core.Enums;
@@ -17,28 +18,30 @@ namespace OpenBots.Commands.Data
     [Description("This command performs a math calculation and saves the result in a variable.")]
     public class MathCalculationCommand : ScriptCommand
     {
-        [DisplayName("Math Expression")]
+        [Required]
+		[DisplayName("Math Expression")]
         [Description("Specify either text or a variable that contains a valid math expression.")]
         [SampleUsage("(2 + 5) * 3 || ({vNumber1} + {vNumber2}) * {vNumber3}")]
         [Remarks("You can use known numbers or variables.")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_MathExpression { get; set; }
 
-        [DisplayName("Thousand Separator (Optional)")]
+		[DisplayName("Thousand Separator (Optional)")]
         [Description("Specify the seperator used to identify decimal places.")]
         [SampleUsage(", || . || {vThousandSeparator}")]
         [Remarks("Typically a comma or a decimal point (period), like in 100,000, ',' is a thousand separator.")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_ThousandSeparator { get; set; }
 
-        [DisplayName("Decimal Separator (Optional)")]
+		[DisplayName("Decimal Separator (Optional)")]
         [Description("Specify the seperator used to identify decimal places.")]
         [SampleUsage(". || , || {vDecimalSeparator}")]
         [Remarks("Typically a comma or a decimal point (period), like in 60.99, '.' is a decimal separator.")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_DecimalSeparator { get; set; }
 
-        [DisplayName("Output Result Variable")]
+        [Required]
+		[DisplayName("Output Result Variable")]
         [Description("Create a new variable or select a variable from the list.")]
         [SampleUsage("{vUserVariable}")]
         [Remarks("Variables not pre-defined in the Variable Manager will be automatically generated at runtime.")]

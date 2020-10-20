@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
 using OpenBots.Core.Infrastructure;
@@ -20,13 +21,15 @@ namespace OpenBots.Commands.System
     public class OSVariableCommand : ScriptCommand
     {
 
-        [DisplayName("OS Variable")]
+        [Required]
+		[DisplayName("OS Variable")]
         [Description("Select an OS variable from one of the options.")]
         [SampleUsage("")]
         [Remarks("")]
         public string v_OSVariableName { get; set; }
 
-        [DisplayName("Output OS Variable")]
+        [Required]
+		[DisplayName("Output OS Variable")]
         [Description("Create a new variable or select a variable from the list.")]
         [SampleUsage("{vUserVariable}")]
         [Remarks("Variables not pre-defined in the Variable Manager will be automatically generated at runtime.")]

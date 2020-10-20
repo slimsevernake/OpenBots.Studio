@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
 using OpenBots.Core.Enums;
@@ -23,28 +24,32 @@ namespace OpenBots.Commands.Database
     public class DefineDatabaseConnectionCommand : ScriptCommand
     {
 
-        [DisplayName("Database Instance Name")]
+        [Required]
+		[DisplayName("Database Instance Name")]
         [Description("Enter a unique name that will represent the application instance.")]
         [SampleUsage("MyDatabaseInstance")]
         [Remarks("This unique name allows you to refer to the instance by name in future commands, " +
                  "ensuring that the commands you specify run against the correct application.")]
         public string v_InstanceName { get; set; }
 
-        [DisplayName("Connection String")]
+        [Required]
+		[DisplayName("Connection String")]
         [Description("Define the string to use when connecting to the OleDb database.")]
         [SampleUsage("Provider=sqloledb;Data Source=myServerAddress;Initial Catalog=myDataBase;Integrated Security=SSPI; || {vConnectionString}")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_ConnectionString { get; set; }
 
-        [DisplayName("Connection String Password")]
+        [Required]
+		[DisplayName("Connection String Password")]
         [Description("Define the password to use when connecting to the OleDb database.")]
         [SampleUsage("password || {vPassword}")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_ConnectionStringPassword { get; set; }
 
-        [DisplayName("Test Connection Before Proceeding")]
+        [Required]
+		[DisplayName("Test Connection Before Proceeding")]
         [PropertyUISelectionOption("Yes")]
         [PropertyUISelectionOption("No")]
         [Description("Select the appropriate option.")]

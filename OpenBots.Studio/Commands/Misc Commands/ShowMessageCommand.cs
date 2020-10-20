@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Windows.Forms;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
 using OpenBots.Core.Enums;
@@ -18,14 +19,16 @@ namespace OpenBots.Commands
     public class ShowMessageCommand : ScriptCommand
     {
 
-        [DisplayName("Message")]      
+        [Required]
+		[DisplayName("Message")]      
         [Description("Specify any text or variable value that should be displayed on screen.")]
         [SampleUsage("Hello World || {vMyText} || Hello {vName}")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_Message { get; set; }
 
-        [DisplayName("Close After X (Seconds)")]
+        [Required]
+		[DisplayName("Close After X (Seconds)")]
         [Description("Specify how many seconds to display the message on screen. After the specified time," + 
                             "\nthe message box will be automatically closed and script will resume execution.")]
         [SampleUsage("0 || 5 || {vSeconds})")]

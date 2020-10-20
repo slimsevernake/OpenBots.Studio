@@ -1,5 +1,6 @@
 ﻿using Microsoft.Office.Interop.Word;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
 using OpenBots.Core.Enums;
@@ -18,20 +19,23 @@ namespace OpenBots.Commands.Word
     [Description("This command replaces specific text in a Word Document.")]
     public class WordReplaceTextCommand : ScriptCommand
     {
-        [DisplayName("Word Instance Name")]
+        [Required]
+		[DisplayName("Word Instance Name")]
         [Description("Enter the unique instance that was specified in the **Create Application** command.")]
         [SampleUsage("MyWordInstance")]
         [Remarks("Failure to enter the correct instance or failure to first call the **Create Application** command will cause an error.")]
         public string v_InstanceName { get; set; }
 
-        [DisplayName("Find")]
+        [Required]
+		[DisplayName("Find")]
         [Description("Enter the text to find.")]
         [SampleUsage("old text || {vFindText}")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_FindText { get; set; }
 
-        [DisplayName("Replace")]
+        [Required]
+		[DisplayName("Replace")]
         [Description("Enter the text to replace with.")]
         [SampleUsage("new text || {vReplaceText}")]
         [Remarks("")]

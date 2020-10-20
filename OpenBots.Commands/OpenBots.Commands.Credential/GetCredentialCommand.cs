@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Security;
 using System.Windows.Forms;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace OpenBots.Commands.Credential
 {
@@ -18,20 +19,23 @@ namespace OpenBots.Commands.Credential
     [Description("This command gets a Credential from OpenBots Server.")]
     public class GetCredentialCommand : ScriptCommand
     {
-        [DisplayName("Credential Name")]
+        [Required]
+		[DisplayName("Credential Name")]
         [Description("Enter the name of the Credential.")]
         [SampleUsage("Name || {vCredentialName}")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_CredentialName { get; set; }
 
-        [DisplayName("Output Username Variable")]
+        [Required]
+		[DisplayName("Output Username Variable")]
         [Description("Create a new variable or select a variable from the list.")]
         [SampleUsage("{vUserVariable}")]
         [Remarks("Variables not pre-defined in the Variable Manager will be automatically generated at runtime.")]
         public string v_OutputUserVariableName { get; set; }
 
-        [DisplayName("Output Password Variable")]
+        [Required]
+		[DisplayName("Output Password Variable")]
         [Description("Create a new variable or select a variable from the list.")]
         [SampleUsage("{vUserVariable}")]
         [Remarks("Variables not pre-defined in the Variable Manager will be automatically generated at runtime.")]

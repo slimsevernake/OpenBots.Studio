@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Windows.Forms;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
 using OpenBots.Core.Enums;
@@ -17,7 +18,8 @@ namespace OpenBots.Commands
     [Description("This command throws an exception during script execution.")]
     public class ThrowCommand : ScriptCommand
     {
-        [DisplayName("Exception Type")]
+        [Required]
+		[DisplayName("Exception Type")]
         [PropertyUISelectionOption("AccessViolationException")]
         [PropertyUISelectionOption("ArgumentException")]
         [PropertyUISelectionOption("ArgumentNullException")]
@@ -39,7 +41,8 @@ namespace OpenBots.Commands
         [Remarks("")]
         public string v_ExceptionType { get; set; }
 
-        [DisplayName("Exception Message")]
+        [Required]
+		[DisplayName("Exception Message")]
         [Description("Enter a custom exception message.")]
         [SampleUsage("A Custom Message || {vExceptionMessage}")]
         [Remarks("The selected exception with this custom message will be thrown.")]

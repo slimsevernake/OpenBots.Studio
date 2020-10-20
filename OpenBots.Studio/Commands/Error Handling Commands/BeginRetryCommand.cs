@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
 using OpenBots.Core.Enums;
@@ -25,21 +26,24 @@ namespace OpenBots.Commands
         "an error is thrown.")]
     public class BeginRetryCommand : ScriptCommand
     {
-        [DisplayName("Number of Retries")]
+        [Required]
+		[DisplayName("Number of Retries")]
         [Description("Enter or provide the number of retries.")]
         [SampleUsage("3 || {vRetryCount}")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_RetryCount { get; set; }
 
-        [DisplayName("Retry Interval")]
+        [Required]
+		[DisplayName("Retry Interval")]
         [Description("Enter or provide the amount of time (in seconds) between each retry.")]
         [SampleUsage("5 || {vRetryInterval}")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_RetryInterval { get; set; }
 
-        [DisplayName("Condition")]
+        [Required]
+		[DisplayName("Condition")]
         [Description("Add a condition.")]
         [SampleUsage("")]
         [Remarks("Items in the retry scope will be executed if the condition doesn't satisfy.")]

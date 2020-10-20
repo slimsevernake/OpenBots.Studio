@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
 using OpenBots.Core.Enums;
@@ -22,14 +23,16 @@ namespace OpenBots.Commands.QueueItem
     [Description("This command gets and locks a QueueItem from an existing Queue in OpenBots Server.")]
     public class WorkQueueItemCommand : ScriptCommand
     {
-        [DisplayName("Queue Name")]
+        [Required]
+		[DisplayName("Queue Name")]
         [Description("Enter the name of the Queue.")]
         [SampleUsage("Name || {vQueueName}")]
         [Remarks("QueueItem Text/Json values are store in the 'DataJson' key of a QueueItem Dictionary.")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_QueueName { get; set; }
 
-        [DisplayName("Output QueueItem Dictionary Variable")]
+        [Required]
+		[DisplayName("Output QueueItem Dictionary Variable")]
         [Description("Create a new variable or select a variable from the list.")]
         [SampleUsage("{vUserVariable}")]
         [Remarks("Variables not pre-defined in the Variable Manager will be automatically generated at runtime.")]

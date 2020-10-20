@@ -105,7 +105,7 @@
             this.lblDefineDefaultValueDescriptor.Name = "lblDefineDefaultValueDescriptor";
             this.lblDefineDefaultValueDescriptor.Size = new System.Drawing.Size(571, 53);
             this.lblDefineDefaultValueDescriptor.TabIndex = 20;
-            this.lblDefineDefaultValueDescriptor.Text = "Optionally, define a default value for the variable.  The variable will represent" +
+            this.lblDefineDefaultValueDescriptor.Text = "Optionally, define a default value for the variable. The variable will represent" +
     " this value until changed during the task by a task command.";
             // 
             // txtDefaultValue

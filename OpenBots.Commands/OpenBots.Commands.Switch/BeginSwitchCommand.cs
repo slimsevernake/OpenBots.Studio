@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Windows.Forms;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
 using OpenBots.Core.Enums;
@@ -18,7 +19,8 @@ namespace OpenBots.Commands.Switch
     public class BeginSwitchCommand : ScriptCommand
     {
 
-        [DisplayName("Switch")]
+        [Required]
+		[DisplayName("Switch")]
         [Description("This value will determine the Case block to execute.")]
         [SampleUsage("{vSwitch}")]
         [Remarks("This value must be a variable.")]

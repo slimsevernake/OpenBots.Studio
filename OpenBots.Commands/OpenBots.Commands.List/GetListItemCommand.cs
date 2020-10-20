@@ -3,6 +3,7 @@ using MimeKit;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
 using OpenBots.Core.Enums;
@@ -22,21 +23,24 @@ namespace OpenBots.Commands.List
     [Description("This command returns an item (having a specific index) from a List.")]
     public class GetListItemCommand : ScriptCommand
     {
-        [DisplayName("List")]
+        [Required]
+		[DisplayName("List")]
         [Description("Provide a List variable.")]
         [SampleUsage("{vList}")]
         [Remarks("Any type of variable other than List will cause error.")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_ListName { get; set; }
 
-        [DisplayName("Index")]
+        [Required]
+		[DisplayName("Index")]
         [Description("Specify a valid List item index.")]
         [SampleUsage("0 || {vIndex}")]
         [Remarks("'0' is the index of the first item in a List. Providing an invalid or out-of-bounds index will result in an error.")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_ItemIndex { get; set; }
 
-        [DisplayName("Output List Item Variable")]
+        [Required]
+		[DisplayName("Output List Item Variable")]
         [Description("Create a new variable or select a variable from the list.")]
         [SampleUsage("{vUserVariable}")]
         [Remarks("Variables not pre-defined in the Variable Manager will be automatically generated at runtime.")]

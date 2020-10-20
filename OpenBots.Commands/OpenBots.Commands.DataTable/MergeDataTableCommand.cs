@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
 using OpenBots.Core.Enums;
@@ -20,21 +21,24 @@ namespace OpenBots.Commands.DataTable
     public class MergeDataTableCommand : ScriptCommand
     {
 
-        [DisplayName("Source DataTable")]
+        [Required]
+		[DisplayName("Source DataTable")]
         [Description("Enter an existing DataTable to merge into another one.")]
         [SampleUsage("{vSrcDataTable}")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_SourceDataTable { get; set; }
 
-        [DisplayName("Destination DataTable")]
+        [Required]
+		[DisplayName("Destination DataTable")]
         [Description("Enter an existing DataTable to apply the merge operation to.")]
         [SampleUsage("{vDestDataTable}")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_DestinationDataTable { get; set; }
 
-        [DisplayName("Missing Schema Action")]
+        [Required]
+		[DisplayName("Missing Schema Action")]
         [PropertyUISelectionOption("Add")]
         [PropertyUISelectionOption("AddWithKey")]
         [PropertyUISelectionOption("Error")]

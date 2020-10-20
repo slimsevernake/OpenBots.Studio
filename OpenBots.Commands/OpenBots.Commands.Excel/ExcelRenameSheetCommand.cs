@@ -1,5 +1,6 @@
 ﻿using Microsoft.Office.Interop.Excel;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
 using OpenBots.Core.Enums;
@@ -18,20 +19,23 @@ namespace OpenBots.Commands.Excel
     [Description("This command renames a specific Worksheet in an Excel Workbook.")]
     public class ExcelRenameSheetCommand : ScriptCommand
     {
-        [DisplayName("Excel Instance Name")]
+        [Required]
+		[DisplayName("Excel Instance Name")]
         [Description("Enter the unique instance that was specified in the **Create Application** command.")]
         [SampleUsage("MyExcelInstance")]
         [Remarks("Failure to enter the correct instance or failure to first call the **Create Application** command will cause an error.")]
         public string v_InstanceName { get; set; }
 
-        [DisplayName("Original Worksheet Name")]
+        [Required]
+		[DisplayName("Original Worksheet Name")]
         [Description("Specify the name of the new Worksheet to rename.")]
         [SampleUsage("Sheet1 || {vSheet}")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_OriginalSheetName { get; set; }
 
-        [DisplayName("New Worksheet Name")]
+        [Required]
+		[DisplayName("New Worksheet Name")]
         [Description("Specify the new name of the new Worksheet.")]
         [SampleUsage("Sheet1 || {vSheet}")]
         [Remarks("")]

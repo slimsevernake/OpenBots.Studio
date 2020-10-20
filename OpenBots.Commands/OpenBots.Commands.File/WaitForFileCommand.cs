@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
 using OpenBots.Core.Enums;
@@ -18,7 +19,8 @@ namespace OpenBots.Commands.File
     [Description("This command waits for a file to exist at a specified destination.")]
     public class WaitForFileCommand : ScriptCommand
     {
-        [DisplayName("File Path")]
+        [Required]
+		[DisplayName("File Path")]
         [Description("Enter or Select the path to the file.")]
         [SampleUsage(@"C:\temp\myfile.txt || {ProjectPath}\myfile.txt || {vTextFilePath}")]
         [Remarks("{ProjectPath} is the directory path of the current project.")]
@@ -26,7 +28,8 @@ namespace OpenBots.Commands.File
         [PropertyUIHelper(UIAdditionalHelperType.ShowFileSelectionHelper)]
         public string v_FileName { get; set; }
 
-        [DisplayName("Timeout")]
+        [Required]
+		[DisplayName("Timeout")]
         [Description("Specify how many seconds to wait for the file to exist.")]
         [SampleUsage("10 || {vSeconds}")]
         [Remarks("")]

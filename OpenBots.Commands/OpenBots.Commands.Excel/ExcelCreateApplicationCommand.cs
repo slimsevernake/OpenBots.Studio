@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
 using OpenBots.Core.Enums;
@@ -20,14 +21,16 @@ namespace OpenBots.Commands.Excel
     [Description("This command creates an Excel Instance.")]
     public class ExcelCreateApplicationCommand : ScriptCommand
     {
-        [DisplayName("Excel Instance Name")]
+        [Required]
+		[DisplayName("Excel Instance Name")]
         [Description("Enter a unique name that will represent the application instance.")]
         [SampleUsage("MyExcelInstance")]
         [Remarks("This unique name allows you to refer to the instance by name in future commands, " +
                  "ensuring that the commands you specify run against the correct application.")]
         public string v_InstanceName { get; set; }
 
-        [DisplayName("New/Open Workbook")]
+        [Required]
+		[DisplayName("New/Open Workbook")]
         [PropertyUISelectionOption("New Workbook")]
         [PropertyUISelectionOption("Open Workbook")]
         [Description("Indicate whether to create a new Workbook or to open an existing Workbook.")]
@@ -35,7 +38,8 @@ namespace OpenBots.Commands.Excel
         [Remarks("")]
         public string v_NewOpenWorkbook { get; set; }
 
-        [DisplayName("Workbook File Path")]
+        [Required]
+		[DisplayName("Workbook File Path")]
         [Description("Enter or Select the path to the Workbook file.")]
         [SampleUsage(@"C:\temp\myfile.xlsx || {vFilePath} || {ProjectPath}\myfile.xlsx")]
         [Remarks("This input should only be used for opening existing Workbooks.")]
@@ -43,7 +47,8 @@ namespace OpenBots.Commands.Excel
         [PropertyUIHelper(UIAdditionalHelperType.ShowFileSelectionHelper)]
         public string v_FilePath { get; set; }
 
-        [DisplayName("Visible")]
+        [Required]
+		[DisplayName("Visible")]
         [PropertyUISelectionOption("Yes")]
         [PropertyUISelectionOption("No")]
         [Description("Indicate whether the Excel automation should be visible or not.")]
@@ -51,7 +56,8 @@ namespace OpenBots.Commands.Excel
         [Remarks("")]
         public string v_Visible { get; set; }
 
-        [DisplayName("Close All Existing Excel Instances")]
+        [Required]
+		[DisplayName("Close All Existing Excel Instances")]
         [PropertyUISelectionOption("Yes")]
         [PropertyUISelectionOption("No")]
         [Description("Indicate whether to close any existing Excel instances before executing Excel Automation.")]

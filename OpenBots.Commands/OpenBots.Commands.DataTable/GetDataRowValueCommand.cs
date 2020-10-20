@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
 using OpenBots.Core.Enums;
@@ -19,14 +20,16 @@ namespace OpenBots.Commands.DataTable
     public class GetDataRowValueCommand : ScriptCommand
     {
 
-        [DisplayName("DataRow")]
+        [Required]
+		[DisplayName("DataRow")]
         [Description("Enter an existing DataRow to get Values from.")]
         [SampleUsage("{vDataRow}")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_DataRow { get; set; }
 
-        [DisplayName("Search Option")]
+        [Required]
+		[DisplayName("Search Option")]
         [PropertyUISelectionOption("Column Name")]
         [PropertyUISelectionOption("Column Index")]
         [Description("Select whether the DataRow value should be found by column index or column name.")]
@@ -34,14 +37,16 @@ namespace OpenBots.Commands.DataTable
         [Remarks("")]
         public string v_Option { get; set; }
 
-        [DisplayName("Search Value")]
+        [Required]
+		[DisplayName("Search Value")]
         [Description("Enter a valid DataRow index or column name.")]
         [SampleUsage("0 || {vIndex} || Column1 || {vColumnName}")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_DataValueIndex { get; set; }
 
-        [DisplayName("Output Value Variable")]
+        [Required]
+		[DisplayName("Output Value Variable")]
         [Description("Create a new variable or select a variable from the list.")]
         [SampleUsage("{vUserVariable}")]
         [Remarks("Variables not pre-defined in the Variable Manager will be automatically generated at runtime.")]

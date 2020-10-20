@@ -1,6 +1,7 @@
 ﻿using Microsoft.Office.Interop.Outlook;
 using MimeKit;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
 using OpenBots.Core.Enums;
@@ -21,14 +22,16 @@ namespace OpenBots.Commands.List
     [Description("This command removes an item from an existing List variable at a specified index.")]
     public class RemoveListItemCommand : ScriptCommand
     {
-        [DisplayName("List")]
+        [Required]
+		[DisplayName("List")]
         [Description("Provide a List variable.")]
         [SampleUsage("{vList}")]
         [Remarks("Any type of variable other than List will cause error.")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_ListName { get; set; }
 
-        [DisplayName("List Index")]
+        [Required]
+		[DisplayName("List Index")]
         [Description("Enter the List index where the item will be removed")]
         [SampleUsage("0 || {vIndex}")]
         [Remarks("Providing an out of range index will produce an exception.")]

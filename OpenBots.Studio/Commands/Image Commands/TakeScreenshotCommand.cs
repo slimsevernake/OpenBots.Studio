@@ -4,6 +4,7 @@ using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
 using OpenBots.Core.Enums;
@@ -19,14 +20,16 @@ namespace OpenBots.Commands
     [Description("This command takes a screenshot and saves it to a specified location.")]
     public class TakeScreenshotCommand : ScriptCommand
     {
-        [DisplayName("Window Name")]
+        [Required]
+		[DisplayName("Window Name")]
         [Description("Select the name of the window to take a screenshot of.")]
         [SampleUsage("Untitled - Notepad || Current Window || {vWindow}")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_WindowName { get; set; }
 
-        [DisplayName("Image Location")]
+        [Required]
+		[DisplayName("Image Location")]
         [Description("Enter or Select the path of the folder to save the image to.")]
         [SampleUsage(@"C:\temp || {vFolderPath} || {ProjectPath}")]
         [Remarks("")]
@@ -34,7 +37,8 @@ namespace OpenBots.Commands
         [PropertyUIHelper(UIAdditionalHelperType.ShowFolderSelectionHelper)]
         public string v_FolderPath { get; set; }
 
-        [DisplayName("Image File Name")]
+        [Required]
+		[DisplayName("Image File Name")]
         [Description("Enter or Select the name of the image file.")]
         [SampleUsage("myFile.png || {vFilename}")]
         [Remarks("")]

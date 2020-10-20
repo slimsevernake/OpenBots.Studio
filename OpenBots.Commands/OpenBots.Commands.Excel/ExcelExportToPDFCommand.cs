@@ -1,5 +1,6 @@
 ﻿using Microsoft.Office.Interop.Excel;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
 using OpenBots.Core.Enums;
@@ -20,14 +21,16 @@ namespace OpenBots.Commands.Excel
     [Description("This command exports a Excel Worksheet to a PDF file.")]
     public class ExcelExportToPDFCommand : ScriptCommand
     {
-        [DisplayName("Excel Instance Name")]
+        [Required]
+		[DisplayName("Excel Instance Name")]
         [Description("Enter the unique instance that was specified in the **Create Application** command.")]
         [SampleUsage("MyExcelInstance || {vExcelInstance}")]
         [Remarks("Failure to enter the correct instance or failure to first call the **Create Application** command will cause an error.")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_InstanceName { get; set; }
 
-        [DisplayName("PDF Location")]
+        [Required]
+		[DisplayName("PDF Location")]
         [Description("Enter or Select the path of the folder to export the PDF to.")]
         [SampleUsage(@"C:\temp || {vFolderPath} || {ProjectPath}")]
         [Remarks("")]
@@ -35,14 +38,16 @@ namespace OpenBots.Commands.Excel
         [PropertyUIHelper(UIAdditionalHelperType.ShowFolderSelectionHelper)]
         public string v_FolderPath { get; set; }
 
-        [DisplayName("PDF File Name")]
+        [Required]
+		[DisplayName("PDF File Name")]
         [Description("Enter or Select the name of the PDF file.")]
         [SampleUsage("myFile.pdf || {vFilename}")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_FileName { get; set; }
 
-        [DisplayName("AutoFit Cells")]
+        [Required]
+		[DisplayName("AutoFit Cells")]
         [PropertyUISelectionOption("Yes")]
         [PropertyUISelectionOption("No")]
         [Description("Indicate whether to autofit cell sizes to fit their contents.")]
@@ -50,7 +55,8 @@ namespace OpenBots.Commands.Excel
         [Remarks("")]
         public string v_AutoFitCells { get; set; }
 
-        [DisplayName("Display Gridlines")]
+        [Required]
+		[DisplayName("Display Gridlines")]
         [PropertyUISelectionOption("Yes")]
         [PropertyUISelectionOption("No")]
         [Description("Indicate whether to display Worksheet gridlines.")]

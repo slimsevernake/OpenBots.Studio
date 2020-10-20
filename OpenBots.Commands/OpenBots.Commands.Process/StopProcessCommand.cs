@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
 using OpenBots.Core.Enums;
@@ -17,7 +18,8 @@ namespace OpenBots.Commands.Process
     [Description("This command stops a program or process.")]
     public class StopProcessCommand : ScriptCommand
     {
-        [DisplayName("Program Name or Path")]
+        [Required]
+		[DisplayName("Program Name or Path")]
         [Description("Provide a valid program name or enter a full path to the script/executable including the extension.")]
         [SampleUsage(@"notepad || excel || {vApp} || C:\temp\myapp.exe || {ProjectPath}\myapp.exe")]
         [Remarks("")]
@@ -25,7 +27,8 @@ namespace OpenBots.Commands.Process
         [PropertyUIHelper(UIAdditionalHelperType.ShowFileSelectionHelper)]
         public string v_ProgramName { get; set; }
 
-        [DisplayName("Stop Option")]
+        [Required]
+		[DisplayName("Stop Option")]
         [PropertyUISelectionOption("Close")]
         [PropertyUISelectionOption("Kill")]
         [Description("Indicate whether the program should be closed or killed.")]

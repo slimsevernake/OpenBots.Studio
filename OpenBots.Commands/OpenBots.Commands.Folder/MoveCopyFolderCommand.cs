@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
 using OpenBots.Core.Enums;
@@ -17,7 +18,8 @@ namespace OpenBots.Commands.Folder
     [Description("This command moves/copies a folder to a specified location.")]
     public class MoveCopyFolderCommand : ScriptCommand
     {
-        [DisplayName("Folder Operation Type")]
+        [Required]
+		[DisplayName("Folder Operation Type")]
         [PropertyUISelectionOption("Move Folder")]
         [PropertyUISelectionOption("Copy Folder")]
         [Description("Specify whether you intend to move or copy the folder.")]
@@ -25,7 +27,8 @@ namespace OpenBots.Commands.Folder
         [Remarks("Moving will remove the folder from the original path while Copying will not.")]
         public string v_OperationType { get; set; }
 
-        [DisplayName("Source Folder Path")]
+        [Required]
+		[DisplayName("Source Folder Path")]
         [Description("Enter or Select the path to the original folder.")]
         [SampleUsage(@"C:\temp\myfolder || {ProjectPath}\myfolder || {vOriginalFolderPath}")]
         [Remarks("{ProjectPath} is the directory path of the current project.")]
@@ -33,7 +36,8 @@ namespace OpenBots.Commands.Folder
         [PropertyUIHelper(UIAdditionalHelperType.ShowFolderSelectionHelper)] 
         public string v_SourceFolderPath { get; set; }
 
-        [DisplayName("Destination Folder Path")]
+        [Required]
+		[DisplayName("Destination Folder Path")]
         [Description("Enter or Select the destination folder path.")]
         [SampleUsage(@"C:\temp\DestinationFolder || {ProjectPath}\DestinationFolder || {vDestinationFolderPath}")]
         [Remarks("{ProjectPath} is the directory path of the current project.")]
@@ -41,7 +45,8 @@ namespace OpenBots.Commands.Folder
         [PropertyUIHelper(UIAdditionalHelperType.ShowFolderSelectionHelper)] 
         public string v_DestinationDirectory { get; set; }
 
-        [DisplayName("Create Destination Folder")]
+        [Required]
+		[DisplayName("Create Destination Folder")]
         [PropertyUISelectionOption("Yes")]
         [PropertyUISelectionOption("No")]
         [Description("Specify whether the destination directory should be created if it does not already exist.")]
@@ -49,7 +54,8 @@ namespace OpenBots.Commands.Folder
         [Remarks("")]
         public string v_CreateDirectory { get; set; }
 
-        [DisplayName("Delete Existing Folder")]
+        [Required]
+		[DisplayName("Delete Existing Folder")]
         [PropertyUISelectionOption("Yes")]
         [PropertyUISelectionOption("No")]
         [Description("Specify whether the folder should be deleted first if it already exists in the destination directory.")]

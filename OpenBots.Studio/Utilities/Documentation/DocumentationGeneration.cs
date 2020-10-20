@@ -7,6 +7,7 @@ using System.Text;
 using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace OpenBots.Studio.Utilities.Documentation
 {

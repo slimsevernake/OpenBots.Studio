@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
 using OpenBots.Core.Enums;
@@ -18,7 +19,8 @@ namespace OpenBots.Commands.Engine
     [Description("This command logs text data to either an engine file or a custom file.")]
     public class LogMessageCommand : ScriptCommand
     {
-        [DisplayName("Write Log To")]
+        [Required]
+		[DisplayName("Write Log To")]
         [Description("Specify the corresponding logging option to save logs to Engine Logs or to a custom File.")]
         [SampleUsage(@"Engine Logs || C:\MyEngineLogs.txt || {vFileVariable}")]
         [Remarks("Selecting 'Engine Logs' will result in writing execution logs in the 'Engine Logs'. " +
@@ -28,14 +30,16 @@ namespace OpenBots.Commands.Engine
         [PropertyUIHelper(UIAdditionalHelperType.ShowFileSelectionHelper)]
         public string v_LogFile { get; set; }
 
-        [DisplayName("Log Text")]
+        [Required]
+		[DisplayName("Log Text")]
         [Description("Specify the log text.")]
         [SampleUsage("Third Step is Complete || {vLogText}")]
         [Remarks("Provide only text data.")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_LogText { get; set; }
 
-        [DisplayName("Log Type")]
+        [Required]
+		[DisplayName("Log Type")]
         [PropertyUISelectionOption("Verbose")]
         [PropertyUISelectionOption("Debug")]
         [PropertyUISelectionOption("Information")]

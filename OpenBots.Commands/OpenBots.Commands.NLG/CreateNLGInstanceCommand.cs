@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
 using OpenBots.Core.Infrastructure;
@@ -17,7 +18,8 @@ namespace OpenBots.Commands.NLG
     public class CreateNLGInstanceCommand : ScriptCommand
     {
 
-        [DisplayName("NLG Instance Name")]
+        [Required]
+		[DisplayName("NLG Instance Name")]
         [Description("Enter a unique name that will represent the application instance.")]
         [SampleUsage("MyNLGInstance")]
         [Remarks("This unique name allows you to refer to the instance by name in future commands, " +

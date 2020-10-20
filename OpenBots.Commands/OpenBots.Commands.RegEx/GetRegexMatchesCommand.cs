@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
 using OpenBots.Core.Enums;
@@ -19,21 +20,24 @@ namespace OpenBots.Commands.RegEx
     [Description("This command gets all matches in a given text based on a Regex pattern.")]
     public class GetRegexMatchesCommand : ScriptCommand
     {
-        [DisplayName("Text")]
+        [Required]
+		[DisplayName("Text")]
         [Description("Select or provide text to apply Regex on.")]
         [SampleUsage("Hello || {vText}")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_InputText { get; set; }
 
-        [DisplayName("Regex Pattern")]
+        [Required]
+		[DisplayName("Regex Pattern")]
         [Description("Enter a Regex Pattern to apply to the input Text.")]
         [SampleUsage(@"^([\w\-]+) || {vPattern}")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_Regex { get; set; }
 
-        [DisplayName("Output Match List Variable")]
+        [Required]
+		[DisplayName("Output Match List Variable")]
         [Description("Create a new variable or select a variable from the list.")]
         [SampleUsage("{vUserVariable}")]
         [Remarks("Variables not pre-defined in the Variable Manager will be automatically generated at runtime.")]

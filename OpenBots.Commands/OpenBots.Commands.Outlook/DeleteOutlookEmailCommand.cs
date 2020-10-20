@@ -1,5 +1,6 @@
 ﻿using Microsoft.Office.Interop.Outlook;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
 using OpenBots.Core.Enums;
@@ -19,14 +20,16 @@ namespace OpenBots.Commands.Outlook
     public class DeleteOutlookEmailCommand : ScriptCommand
     {
 
-        [DisplayName("MailItem")]
+        [Required]
+		[DisplayName("MailItem")]
         [Description("Enter the MailItem to delete.")]
         [SampleUsage("{vMailItem}")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_MailItem { get; set; }
 
-        [DisplayName("Delete Read Emails Only")]
+        [Required]
+		[DisplayName("Delete Read Emails Only")]
         [PropertyUISelectionOption("Yes")]
         [PropertyUISelectionOption("No")]
         [Description("Specify whether to delete read email messages only.")]

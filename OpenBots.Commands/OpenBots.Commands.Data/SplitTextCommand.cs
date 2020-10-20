@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
 using OpenBots.Core.Enums;
@@ -18,21 +19,24 @@ namespace OpenBots.Commands.Data
     public class SplitTextCommand : ScriptCommand
     {
 
-        [DisplayName("Text Data")]
+        [Required]
+		[DisplayName("Text Data")]
         [Description("Provide a variable or text value.")]
         [SampleUsage("Sample text, to be splitted by comma delimiter || {vTextData}")]
         [Remarks("Providing data of a type other than a 'String' will result in an error.")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_InputText { get; set; }
 
-        [DisplayName("Text Delimiter")]
+        [Required]
+		[DisplayName("Text Delimiter")]
         [Description("Specify the character that will be used to split the text.")]
         [SampleUsage("[crLF] || [chars] || , || {vDelimiter}")]
         [Remarks("[crLF] can be used for line breaks and [chars] can be used to split each character.")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_SplitCharacter { get; set; }
 
-        [DisplayName("Output List Variable")]
+        [Required]
+		[DisplayName("Output List Variable")]
         [Description("Create a new variable or select a variable from the list.")]
         [SampleUsage("{vUserVariable}")]
         [Remarks("Variables not pre-defined in the Variable Manager will be automatically generated at runtime.")]

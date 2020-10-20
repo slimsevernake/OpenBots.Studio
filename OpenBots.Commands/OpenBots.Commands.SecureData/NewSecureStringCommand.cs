@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
 using OpenBots.Core.Enums;
@@ -17,14 +18,16 @@ namespace OpenBots.Commands.SecureData
     [Description("This command adds text as a SecureString into a variable.")]
     public class NewSecureStringCommand : ScriptCommand
     {
-        [DisplayName("Input Text")]
+        [Required]
+		[DisplayName("Input Text")]
         [Description("Enter the text for the variable.")]
         [SampleUsage("Some Text || {vText}")]
         [Remarks("You can use variables in input if you encase them within braces {vText}. You can also perform basic math operations.")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_Input { get; set; }
 
-        [DisplayName("Output SecureString Variable")]
+        [Required]
+		[DisplayName("Output SecureString Variable")]
         [Description("Create a new variable or select a variable from the list.")]
         [SampleUsage("{vUserVariable}")]
         [Remarks("Variables not pre-defined in the Variable Manager will be automatically generated at runtime.")]

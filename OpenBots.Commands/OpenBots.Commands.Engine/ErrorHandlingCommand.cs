@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Windows.Forms;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
 using OpenBots.Core.Infrastructure;
@@ -15,7 +16,8 @@ namespace OpenBots.Commands.Engine
     public class ErrorHandlingCommand : ScriptCommand
     {
 
-        [DisplayName("Error Action")]
+        [Required]
+		[DisplayName("Error Action")]
         [PropertyUISelectionOption("Stop Processing")]
         [PropertyUISelectionOption("Continue Processing")]
         [Description("Select the action to take when the bot comes across an error.")]

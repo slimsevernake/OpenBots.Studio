@@ -1,5 +1,6 @@
 ﻿using Microsoft.Office.Interop.Excel;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
 using OpenBots.Core.Enums;
@@ -18,13 +19,15 @@ namespace OpenBots.Commands.Excel
     [Description("This command appends a new Worksheet to an Excel Workbook.")]
     public class ExcelAppendSheetCommand : ScriptCommand
     {
-        [DisplayName("Excel Instance Name")]
+        [Required]
+		[DisplayName("Excel Instance Name")]
         [Description("Enter the unique instance that was specified in the **Create Application** command.")]
         [SampleUsage("MyExcelInstance")]
         [Remarks("Failure to enter the correct instance or failure to first call the **Create Application** command will cause an error.")]
         public string v_InstanceName { get; set; }
 
-        [DisplayName("Worksheet Name")]
+        [Required]
+		[DisplayName("Worksheet Name")]
         [Description("Specify the name of the new Worksheet to append.")]
         [SampleUsage("Sheet1 || {vSheet}")]
         [Remarks("")]

@@ -4,6 +4,7 @@ using System.Data;
 using System.Windows.Forms;
 using Newtonsoft.Json;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
 using OpenBots.Core.Common;
@@ -21,20 +22,23 @@ namespace OpenBots.Commands.Input
     public class SendAdvancedKeystrokesCommand : ScriptCommand
     {
 
-        [DisplayName("Window Name")]
+        [Required]
+		[DisplayName("Window Name")]
         [Description("Select the name of the window to send advanced keystrokes to.")]
         [SampleUsage("Untitled - Notepad || Current Window || {vWindow}")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_WindowName { get; set; }
 
-        [DisplayName("Keystroke Parameters")]
+        [Required]
+		[DisplayName("Keystroke Parameters")]
         [Description("Define the parameters for the keystroke actions.")]
         [SampleUsage("[Enter [Return] | Key Press (Down + Up)]")]
         [Remarks("")]
         public DataTable v_KeyActions { get; set; }
 
-        [DisplayName("Return All Keys to 'UP' Position")]
+        [Required]
+		[DisplayName("Return All Keys to 'UP' Position")]
         [PropertyUISelectionOption("Yes")]
         [PropertyUISelectionOption("No")]      
         [Description("Select whether to return all keys to the 'UP' position after execution.")]

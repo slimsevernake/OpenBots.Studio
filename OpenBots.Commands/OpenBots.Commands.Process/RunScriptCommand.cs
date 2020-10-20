@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
 using OpenBots.Core.Enums;
@@ -19,7 +20,8 @@ namespace OpenBots.Commands.Process
     public class RunScriptCommand : ScriptCommand
     {
 
-        [DisplayName("Script Path")]
+        [Required]
+		[DisplayName("Script Path")]
         [Description("Enter a fully qualified path to the script, including the script extension.")]
         [SampleUsage(@"C:\temp\myscript.ps1 || {vScriptPath} || {ProjectPath}\myscript.ps1")]
         [Remarks("This command differs from *Start Process* because this command blocks execution until the script has completed. " +
@@ -28,7 +30,8 @@ namespace OpenBots.Commands.Process
         [PropertyUIHelper(UIAdditionalHelperType.ShowFileSelectionHelper)]
         public string v_ScriptPath { get; set; }
 
-        [DisplayName("Script Type")]
+        [Required]
+		[DisplayName("Script Type")]
         [PropertyUISelectionOption("Default")]
         [PropertyUISelectionOption("Powershell")]
         [PropertyUISelectionOption("Python")]
@@ -37,7 +40,7 @@ namespace OpenBots.Commands.Process
         [Remarks("Default executes with the system default for that file type.")]
         public string v_ScriptType { get; set; }
 
-        [DisplayName("Arguments")]
+		[DisplayName("Arguments (Optional)")]
         [Description("Enter any arguments as a single string.")]
         [SampleUsage("-message Hello -t 2 || {vArguments}")]
         [Remarks("This input is optional.")]

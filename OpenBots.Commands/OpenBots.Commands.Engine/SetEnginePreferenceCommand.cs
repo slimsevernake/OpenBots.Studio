@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Windows.Forms;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
 using OpenBots.Core.Infrastructure;
@@ -14,7 +15,8 @@ namespace OpenBots.Commands.Engine
     [Description("This command sets preferences for engine behavior at runtime.")]
     public class SetEnginePreferenceCommand : ScriptCommand
     {
-        [DisplayName("Calculation Preference")]
+        [Required]
+		[DisplayName("Calculation Preference")]
         [PropertyUISelectionOption("Enable Automatic Calculations")]
         [PropertyUISelectionOption("Disable Automatic Calculations")]
         [Description("Select the appropriate calculation preference.")]

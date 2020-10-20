@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Windows.Forms;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
 using OpenBots.Core.Enums;
@@ -18,14 +19,16 @@ namespace OpenBots.Commands
     public class LoopNumberOfTimesCommand : ScriptCommand
     {
 
-        [DisplayName("Loop Count")]
+        [Required]
+		[DisplayName("Loop Count")]
         [Description("Enter the amount of times you would like to execute the encased commands.")]
         [SampleUsage("5 || {vLoopCount}")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_LoopParameter { get; set; }
 
-        [DisplayName("Start Index")]
+        [Required]
+		[DisplayName("Start Index")]
         [Description("Enter the starting index of the loop.")]
         [SampleUsage("5 || {vStartIndex}")]
         [Remarks("")]

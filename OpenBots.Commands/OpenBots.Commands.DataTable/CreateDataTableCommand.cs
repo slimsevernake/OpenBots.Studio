@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
 using OpenBots.Core.Enums;
@@ -20,14 +21,16 @@ namespace OpenBots.Commands.DataTable
     public class CreateDataTableCommand : ScriptCommand
     {
 
-        [DisplayName("Column Names")]
+        [Required]
+		[DisplayName("Column Names")]
         [Description("Enter the Column Names required for each column of data.")]
         [SampleUsage("MyColumn || {vColumn}")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public Data.DataTable v_ColumnNameDataTable { get; set; }
 
-        [DisplayName("Output DataTable Variable")]
+        [Required]
+		[DisplayName("Output DataTable Variable")]
         [Description("Create a new variable or select a variable from the list.")]
         [SampleUsage("{vUserVariable}")]
         [Remarks("Variables not pre-defined in the Variable Manager will be automatically generated at runtime.")]

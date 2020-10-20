@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Windows.Forms;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
 using OpenBots.Core.Enums;
@@ -17,21 +18,24 @@ namespace OpenBots.Commands
 
     public class QueryHTMLSourceCommand : ScriptCommand
     {
-        [DisplayName("HTML")]
+        [Required]
+		[DisplayName("HTML")]
         [Description("Enter the HTML to be queried.")]
         [SampleUsage("<!DOCTYPE html><html><head><title>Example</title></head></html> || {vMyHTML}")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_HTMLVariable { get; set; }
 
-        [DisplayName("XPath Query")]
+        [Required]
+		[DisplayName("XPath Query")]
         [Description("Enter the XPath Query and the item will be extracted.")]
         [SampleUsage("@//*[@id=\"aso_search_form_anchor\"]/div/input || {vMyXPath}")]
         [Remarks("You can use Chrome Dev Tools to click an element and copy the XPath.")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_XPathQuery { get; set; }
 
-        [DisplayName("Output Query Result Variable")]
+        [Required]
+		[DisplayName("Output Query Result Variable")]
         [Description("Create a new variable or select a variable from the list.")]
         [SampleUsage("{vUserVariable}")]
         [Remarks("Variables not pre-defined in the Variable Manager will be automatically generated at runtime.")]

@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
 using OpenBots.Core.Enums;
@@ -28,7 +29,8 @@ namespace OpenBots.Commands
     [Description("This command evaluates a logical statement to determine if the statement is 'true' or 'false' and subsequently performs action(s) based on either condition.")]
     public class BeginIfCommand : ScriptCommand
     {
-        [DisplayName("Condition Type")]
+        [Required]
+		[DisplayName("Condition Type")]
         [PropertyUISelectionOption("Value Compare")]
         [PropertyUISelectionOption("Date Compare")]
         [PropertyUISelectionOption("Variable Compare")]
@@ -47,7 +49,8 @@ namespace OpenBots.Commands
         [Remarks("")]
         public string v_IfActionType { get; set; }
 
-        [DisplayName("Additional Parameters")]
+        [Required]
+		[DisplayName("Additional Parameters")]
         [Description("Supply or Select the required comparison parameters.")]
         [SampleUsage("Param Value || {vParamValue}")]
         [Remarks("")]

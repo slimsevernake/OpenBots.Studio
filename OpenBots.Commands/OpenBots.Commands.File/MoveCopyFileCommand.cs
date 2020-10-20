@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
 using OpenBots.Core.Enums;
@@ -17,7 +18,8 @@ namespace OpenBots.Commands.File
     [Description("This command moves/copies a file to a specified destination.")]
     public class MoveCopyFileCommand : ScriptCommand
     {
-        [DisplayName("File Operation Type")]
+        [Required]
+		[DisplayName("File Operation Type")]
         [PropertyUISelectionOption("Move File")]
         [PropertyUISelectionOption("Copy File")]
         [Description("Specify whether you intend to move the file or copy the file.")]
@@ -25,7 +27,8 @@ namespace OpenBots.Commands.File
         [Remarks("Moving will remove the file from the original path while Copying will not.")]
         public string v_OperationType { get; set; }
 
-        [DisplayName("Source File Path")]
+        [Required]
+		[DisplayName("Source File Path")]
         [Description("Enter or Select the path to the file.")]
         [SampleUsage(@"C:\temp\myfile.txt || {ProjectPath}\myfile.txt || {vTextFilePath}")]
         [Remarks("{ProjectPath} is the directory path of the current project.")]
@@ -33,7 +36,8 @@ namespace OpenBots.Commands.File
         [PropertyUIHelper(UIAdditionalHelperType.ShowFileSelectionHelper)]
         public string v_SourceFilePath { get; set; }
 
-        [DisplayName("Destination File Path")]
+        [Required]
+		[DisplayName("Destination File Path")]
         [Description("Enter or Select the new (destination) path to the file.")]
         [SampleUsage(@"C:\temp\new path || {ProjectPath}\new path || {vTextFolderPath}")]
         [Remarks("{ProjectPath} is the directory path of the current project.")]
@@ -41,7 +45,8 @@ namespace OpenBots.Commands.File
         [PropertyUIHelper(UIAdditionalHelperType.ShowFolderSelectionHelper)]
         public string v_DestinationDirectory { get; set; }
 
-        [DisplayName("Create Folder")]
+        [Required]
+		[DisplayName("Create Folder")]
         [PropertyUISelectionOption("Yes")]
         [PropertyUISelectionOption("No")]
         [Description("Specify whether the directory should be created if it does not already exist.")]
@@ -49,7 +54,8 @@ namespace OpenBots.Commands.File
         [Remarks("")]
         public string v_CreateDirectory { get; set; }
 
-        [DisplayName("Overwrite File")]
+        [Required]
+		[DisplayName("Overwrite File")]
         [PropertyUISelectionOption("Yes")]
         [PropertyUISelectionOption("No")]
         [Description("Specify whether the file should be overwritten if it already exists.")]

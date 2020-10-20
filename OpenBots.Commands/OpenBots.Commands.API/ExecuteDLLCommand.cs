@@ -8,6 +8,7 @@ using OpenBots.Engine;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Data;
 using System.Drawing;
 using System.IO;
@@ -22,7 +23,8 @@ namespace OpenBots.Commands.API
     [Description("This command invokes a method of a specific class from a DLL.")]
     public class ExecuteDLLCommand : ScriptCommand
     {
-        [DisplayName("DLL File Path")]
+		[Required]
+		[DisplayName("DLL File Path")]
         [Description("Enter or Select the path to the DLL File.")]
         [SampleUsage("C:\\temp\\myfile.dll || {vDLLFilePath}")]
         [Remarks("")]
@@ -30,28 +32,31 @@ namespace OpenBots.Commands.API
         [PropertyUIHelper(UIAdditionalHelperType.ShowDLLExplorer)]
         public string v_FilePath { get; set; }
 
-        [DisplayName("Class Name")]
+        [Required]
+		[DisplayName("Class Name")]
         [Description("Provide the parent class name of the method to be invoked in the DLL.")]
         [SampleUsage("myNamespace.myClassName || {vClassName}")]
         [Remarks("Namespace should be included")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_ClassName { get; set; }
 
-        [DisplayName("Method Name")]
+        [Required]
+		[DisplayName("Method Name")]
         [Description("Provide the method name to be invoked in the DLL.")]
         [SampleUsage("GetSomething || {vMethodName}")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_MethodName { get; set; }
 
-        [DisplayName("Parameters (Optional)")]
+		[DisplayName("Parameters (Optional)")]
         [Description("Select the 'Generate Parameters' button once you have indicated a file, class, and method.")]
         [SampleUsage("")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.GenerateDLLParameters)]
         public DataTable v_MethodParameters { get; set; }
 
-        [DisplayName("Output Result Variable")]
+        [Required]
+		[DisplayName("Output Result Variable")]
         [Description("Create a new variable or select a variable from the list.")]
         [SampleUsage("{vUserVariable}")]
         [Remarks("Variables not pre-defined in the Variable Manager will be automatically generated at runtime.")]

@@ -1,5 +1,6 @@
 ﻿using Microsoft.Office.Interop.Outlook;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
 using OpenBots.Core.Enums;
@@ -19,14 +20,16 @@ namespace OpenBots.Commands.Outlook
     public class ForwardOutlookEmailCommand : ScriptCommand
     {
 
-        [DisplayName("MailItem")]
+        [Required]
+		[DisplayName("MailItem")]
         [Description("Enter the MailItem to forward.")]
         [SampleUsage("{vMailItem}")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_MailItem { get; set; }
 
-        [DisplayName("Recipient(s)")]
+        [Required]
+		[DisplayName("Recipient(s)")]
         [Description("Enter the email address(es) of the recipient(s).")]
         [SampleUsage("test@test.com || {vEmail} || test@test.com;test2@test.com || {vEmail1};{vEmail2} || {vEmails}")]
         [Remarks("Multiple recipient email addresses should be delimited by a semicolon (;).")]

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Windows.Forms;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
 using OpenBots.Core.Enums;
@@ -18,7 +19,8 @@ namespace OpenBots.Commands.Input
     public class SendMouseMoveCommand : ScriptCommand
     {
 
-        [DisplayName("X Position")]
+        [Required]
+		[DisplayName("X Position")]
         [Description("Input the new horizontal coordinate of the mouse. Starts from 0 on the left and increases going right.")]
         [SampleUsage("0 || {vXPosition}")]
         [Remarks("This number is the pixel location on screen. Maximum value should be the maximum value allowed by your resolution. For 1920x1080, the valid range would be 0-1920.")]
@@ -26,7 +28,8 @@ namespace OpenBots.Commands.Input
         [PropertyUIHelper(UIAdditionalHelperType.ShowMouseCaptureHelper)]
         public string v_XMousePosition { get; set; }
 
-        [DisplayName("Y Position")]
+        [Required]
+		[DisplayName("Y Position")]
         [Description("Input the new vertical coordinate of the mouse. Starts from 0 at the top and increases going down.")]
         [SampleUsage("0 || {vYPosition}")]
         [Remarks("This number is the pixel location on screen. Maximum value should be the maximum value allowed by your resolution. For 1920x1080, the valid range would be 0-1080.")]
@@ -34,7 +37,7 @@ namespace OpenBots.Commands.Input
         [PropertyUIHelper(UIAdditionalHelperType.ShowMouseCaptureHelper)]
         public string v_YMousePosition { get; set; }
 
-        [DisplayName("Click Type (Optional)")]
+		[DisplayName("Click Type (Optional)")]
         [PropertyUISelectionOption("None")]
         [PropertyUISelectionOption("Left Click")]
         [PropertyUISelectionOption("Middle Click")]

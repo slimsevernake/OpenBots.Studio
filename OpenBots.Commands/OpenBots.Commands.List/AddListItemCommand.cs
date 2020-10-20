@@ -1,6 +1,7 @@
 ﻿using Microsoft.Office.Interop.Outlook;
 using MimeKit;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
 using OpenBots.Core.Enums;
@@ -21,14 +22,16 @@ namespace OpenBots.Commands.List
     [Description("This command adds an item to an existing List variable.")]
     public class AddListItemCommand : ScriptCommand
     {
-        [DisplayName("List")]
+        [Required]
+		[DisplayName("List")]
         [Description("Provide a List variable.")]
         [SampleUsage("{vList}")]
         [Remarks("Any type of variable other than List will cause error.")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_ListName { get; set; }
 
-        [DisplayName("List Item")]
+        [Required]
+		[DisplayName("List Item")]
         [Description("Enter the item to add to the List.")]
         [SampleUsage("Hello || {vItem}")]
         [Remarks("List item can only be a String, DataTable, MailItem or IWebElement.")]

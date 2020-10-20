@@ -16,6 +16,7 @@ using Serilog.Events;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Diagnostics;
 using System.IO;
 using System.Windows.Forms;

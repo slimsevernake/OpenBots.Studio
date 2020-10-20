@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
 using OpenBots.Core.Enums;
@@ -17,28 +18,32 @@ namespace OpenBots.Commands.Data
     public class ReplaceTextCommand : ScriptCommand
     {
 
-        [DisplayName("Text Data")]
+        [Required]
+		[DisplayName("Text Data")]
         [Description("Provide a variable or text value.")]
         [SampleUsage("Hello John || {vTextData}")]
         [Remarks("Providing data of a type other than a 'String' will result in an error.")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_InputText { get; set; }
 
-        [DisplayName("Old Text")]
+        [Required]
+		[DisplayName("Old Text")]
         [Description("Specify the old value of the text that will be replaced.")]
         [SampleUsage("Hello || {vOldText}")]
         [Remarks("'Hello' in 'Hello John' would be targeted for replacement.")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_OldText { get; set; }
 
-        [DisplayName("New Text")]
+        [Required]
+		[DisplayName("New Text")]
         [Description("Specify the new value to replace the old value.")]
         [SampleUsage("Hi || {vNewText}")]
         [Remarks("'Hi' would be replaced with 'Hello' to form 'Hi John'.")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_NewText { get; set; }
 
-        [DisplayName("Output Text Variable")]
+        [Required]
+		[DisplayName("Output Text Variable")]
         [Description("Create a new variable or select a variable from the list.")]
         [SampleUsage("{vUserVariable}")]
         [Remarks("Variables not pre-defined in the Variable Manager will be automatically generated at runtime.")]

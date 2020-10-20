@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
 using OpenBots.Core.Enums;
@@ -18,13 +19,15 @@ namespace OpenBots.Commands
     [Description("This command retrieves information from a Selenium web browser session.")]
     public class SeleniumGetBrowserInfoCommand : ScriptCommand
     {
-        [DisplayName("Browser Instance Name")]
+        [Required]
+		[DisplayName("Browser Instance Name")]
         [Description("Enter the unique instance that was specified in the **Create Browser** command.")]
         [SampleUsage("MyBrowserInstance")]
         [Remarks("Failure to enter the correct instance name or failure to first call the **Create Browser** command will cause an error.")]
         public string v_InstanceName { get; set; }
 
-        [DisplayName("Info Property")]
+        [Required]
+		[DisplayName("Info Property")]
         [PropertyUISelectionOption("Window Title")]
         [PropertyUISelectionOption("Window URL")]
         [PropertyUISelectionOption("Current Handle ID")]
@@ -36,7 +39,8 @@ namespace OpenBots.Commands
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_InfoType { get; set; }
 
-        [DisplayName("Output Info Variable")]
+        [Required]
+		[DisplayName("Output Info Variable")]
         [Description("Create a new variable or select a variable from the list.")]
         [SampleUsage("{vUserVariable}")]
         [Remarks("Variables not pre-defined in the Variable Manager will be automatically generated at runtime.")]

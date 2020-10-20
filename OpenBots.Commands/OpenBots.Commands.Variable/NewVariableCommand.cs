@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
 using OpenBots.Core.Enums;
@@ -17,20 +18,23 @@ namespace OpenBots.Commands.Variable
     public class NewVariableCommand : ScriptCommand
     {
 
-        [DisplayName("New Variable Name")]
+        [Required]
+		[DisplayName("New Variable Name")]
         [Description("Indicate a unique reference name for later use.")]
         [SampleUsage("{vSomeVariable}")]
         [Remarks("")]
         public string v_VariableName { get; set; }
 
-        [DisplayName("Input Value")]
+        [Required]
+		[DisplayName("Input Value")]
         [Description("Enter the value for the variable.")]
         [SampleUsage("Hello || {vNum} || {vNum}+1")]
         [Remarks("You can use variables in input if you encase them within braces {vSomeValue}. You can also perform basic math operations.")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_Input { get; set; }
 
-        [DisplayName("Additional Actions")]
+        [Required]
+		[DisplayName("Additional Actions")]
         [PropertyUISelectionOption("Do Nothing If Variable Exists")]
         [PropertyUISelectionOption("Error If Variable Exists")]
         [PropertyUISelectionOption("Replace If Variable Exists")]

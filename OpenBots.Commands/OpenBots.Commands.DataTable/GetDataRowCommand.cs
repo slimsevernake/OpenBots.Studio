@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
 using OpenBots.Core.Enums;
@@ -20,21 +21,24 @@ namespace OpenBots.Commands.DataTable
     public class GetDataRowCommand : ScriptCommand
     {
 
-        [DisplayName("DataTable")]
+        [Required]
+		[DisplayName("DataTable")]
         [Description("Enter an existing DataTable to get rows from.")]
         [SampleUsage("{vDataTable}")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_DataTable { get; set; }
 
-        [DisplayName("DataRow Index")]
+        [Required]
+		[DisplayName("DataRow Index")]
         [Description("Enter a valid DataRow index value.")]
         [SampleUsage("0 || {vIndex}")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_DataRowIndex { get; set; }
 
-        [DisplayName("Output DataRow Variable")]
+        [Required]
+		[DisplayName("Output DataRow Variable")]
         [Description("Create a new variable or select a variable from the list.")]
         [SampleUsage("{vUserVariable}")]
         [Remarks("Variables not pre-defined in the Variable Manager will be automatically generated at runtime.")]

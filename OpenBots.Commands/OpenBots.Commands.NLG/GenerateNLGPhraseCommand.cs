@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
 using OpenBots.Core.Infrastructure;
@@ -16,13 +17,15 @@ namespace OpenBots.Commands.NLG
     [Description("This command produces a Natural Language Generation phrase.")]
     public class GenerateNLGPhraseCommand : ScriptCommand
     {
-        [DisplayName("NLG Instance Name")]
+        [Required]
+		[DisplayName("NLG Instance Name")]
         [Description("Enter the unique instance that was specified in the **Create NLG Instance** command.")]
         [SampleUsage("MyNLGInstance")]
         [Remarks("Failure to enter the correct instance name or failure to first call the **Create NLG Instance** command will cause an error.")]
         public string v_InstanceName { get; set; }
 
-        [DisplayName("Output Phrase Variable")]
+        [Required]
+		[DisplayName("Output Phrase Variable")]
         [Description("Create a new variable or select a variable from the list.")]
         [SampleUsage("{vUserVariable}")]
         [Remarks("Variables not pre-defined in the Variable Manager will be automatically generated at runtime.")]

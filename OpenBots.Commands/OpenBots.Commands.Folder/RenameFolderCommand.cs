@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
 using OpenBots.Core.Enums;
@@ -17,7 +18,8 @@ namespace OpenBots.Commands.Folder
     [Description("This command renames an existing folder.")]
     public class RenameFolderCommand : ScriptCommand
     {
-        [DisplayName("Folder Path")]
+        [Required]
+		[DisplayName("Folder Path")]
         [Description("Enter or Select the path to the folder.")]
         [SampleUsage(@"C:\temp\myFolder || {ProjectPath}\myfolder || {vFolderPath}")]
         [Remarks("{ProjectPath} is the directory path of the current project.")]
@@ -25,7 +27,8 @@ namespace OpenBots.Commands.Folder
         [PropertyUIHelper(UIAdditionalHelperType.ShowFolderSelectionHelper)] 
         public string v_SourceFolderPath { get; set; }
 
-        [DisplayName("New Folder Name")]
+        [Required]
+		[DisplayName("New Folder Name")]
         [Description("Specify the new folder name.")]
         [SampleUsage("New Folder Name || {vNewFolderName}")]
         [Remarks("")]

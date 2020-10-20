@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
 using OpenBots.Core.Enums;
@@ -24,13 +25,15 @@ namespace OpenBots.Commands.Database
     public class ExecuteDatabaseQueryCommand : ScriptCommand
     {
 
-        [DisplayName("Database Instance Name")]
+        [Required]
+		[DisplayName("Database Instance Name")]
         [Description("Enter the unique instance that was specified in the **Define Database Connection** command.")]
         [SampleUsage("MyBrowserInstance")]
         [Remarks("Failure to enter the correct instance name or failure to first call the **Define Database Connection** command will cause an error.")]
         public string v_InstanceName { get; set; }
 
-        [DisplayName("Define Query Execution Type")]
+        [Required]
+		[DisplayName("Define Query Execution Type")]
         [PropertyUISelectionOption("Return Dataset")]
         [PropertyUISelectionOption("Execute NonQuery")]
         [PropertyUISelectionOption("Execute Stored Procedure")]
@@ -39,21 +42,24 @@ namespace OpenBots.Commands.Database
         [Remarks("")]
         public string v_QueryType { get; set; }
 
-        [DisplayName("Query")]
+        [Required]
+		[DisplayName("Query")]
         [Description("Define the OleDb query to execute.")]
         [SampleUsage("SELECT OrderID, CustomerID FROM Orders || {vQuery}")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_Query { get; set; }
 
-        [DisplayName("Query Parameters")]
+        [Required]
+		[DisplayName("Query Parameters")]
         [Description("Define the query parameters.")]
         [SampleUsage("[STRING | @name | {vNameValue}]")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public DataTable v_QueryParameters { get; set; }
 
-        [DisplayName("Output Dataset Variable")]
+        [Required]
+		[DisplayName("Output Dataset Variable")]
         [Description("Create a new variable or select a variable from the list.")]
         [SampleUsage("{vUserVariable}")]
         [Remarks("Variables not pre-defined in the Variable Manager will be automatically generated at runtime.")]
