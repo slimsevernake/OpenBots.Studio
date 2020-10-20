@@ -51,10 +51,10 @@ namespace OpenBots.Commands.Asset
         public string v_OutputUserVariableName { get; set; }
 
         [JsonIgnore]
-        public List<Control> DownloadPathControls;
+        private List<Control> _downloadPathControls;
 
         [JsonIgnore]
-        public List<Control> OutputVariableControls;
+        private List<Control> _outputVariableControls;
 
         public GetAssetCommand()
         {
@@ -111,17 +111,17 @@ namespace OpenBots.Commands.Asset
             RenderedControls.AddRange(commandControls.CreateDefaultDropdownGroupFor("v_AssetType", this, editor));
             ((ComboBox)RenderedControls[4]).SelectedIndexChanged += AssetTypeComboBox_SelectedValueChanged;
 
-            DownloadPathControls = new List<Control>();
-            DownloadPathControls.AddRange(commandControls.CreateDefaultInputGroupFor("v_OutputDirectoryPath", this, editor));
-            foreach (var ctrl in DownloadPathControls)
+            _downloadPathControls = new List<Control>();
+            _downloadPathControls.AddRange(commandControls.CreateDefaultInputGroupFor("v_OutputDirectoryPath", this, editor));
+            foreach (var ctrl in _downloadPathControls)
                 ctrl.Visible = false;
-            RenderedControls.AddRange(DownloadPathControls);
+            RenderedControls.AddRange(_downloadPathControls);
 
-            OutputVariableControls = new List<Control>();
-            OutputVariableControls.AddRange(commandControls.CreateDefaultInputGroupFor("v_OutputUserVariableName", this, editor));
-            foreach (var ctrl in OutputVariableControls)
+            _outputVariableControls = new List<Control>();
+            _outputVariableControls.AddRange(commandControls.CreateDefaultInputGroupFor("v_OutputUserVariableName", this, editor));
+            foreach (var ctrl in _outputVariableControls)
                 ctrl.Visible = false;
-            RenderedControls.AddRange(OutputVariableControls);
+            RenderedControls.AddRange(_outputVariableControls);
 
             return RenderedControls;
         }
@@ -139,10 +139,10 @@ namespace OpenBots.Commands.Asset
         {
             if (((ComboBox)RenderedControls[4]).Text == "File")
             {
-                foreach (var ctrl in DownloadPathControls)
+                foreach (var ctrl in _downloadPathControls)
                     ctrl.Visible = true;
 
-                foreach (var ctrl in OutputVariableControls)
+                foreach (var ctrl in _outputVariableControls)
                 {
                     ctrl.Visible = false;
                     if (ctrl is TextBox)
@@ -151,14 +151,14 @@ namespace OpenBots.Commands.Asset
             }
             else
             {
-                foreach (var ctrl in DownloadPathControls)
+                foreach (var ctrl in _downloadPathControls)
                 {
                     ctrl.Visible = false;
                     if (ctrl is TextBox)
                         ((TextBox)ctrl).Clear();
                 }
 
-                foreach (var ctrl in OutputVariableControls)
+                foreach (var ctrl in _outputVariableControls)
                     ctrl.Visible = true;
             }
         }

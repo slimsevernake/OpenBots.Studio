@@ -31,10 +31,10 @@ namespace OpenBots.Commands.System
         public string v_OutputUserVariableName { get; set; }
 
         [JsonIgnore]
-        public ComboBox VariableNameComboBox;
+        private ComboBox _variableNameComboBox;
 
         [JsonIgnore]
-        public Label VariableValue;
+        private Label _variableValue;
 
         public EnvironmentVariableCommand()
         {
@@ -60,23 +60,23 @@ namespace OpenBots.Commands.System
             base.Render(editor, commandControls);
 
             var ActionNameComboBoxLabel = commandControls.CreateDefaultLabelFor("v_EnvVariableName", this);
-            VariableNameComboBox = (ComboBox)commandControls.CreateDropdownFor("v_EnvVariableName", this);
+            _variableNameComboBox = (ComboBox)commandControls.CreateDropdownFor("v_EnvVariableName", this);
 
             foreach (DictionaryEntry env in Environment.GetEnvironmentVariables())
             {
                 var envVariableKey = env.Key.ToString();
                 var envVariableValue = env.Value.ToString();
-                VariableNameComboBox.Items.Add(envVariableKey);
+                _variableNameComboBox.Items.Add(envVariableKey);
             }
 
-            VariableNameComboBox.SelectedValueChanged += VariableNameComboBox_SelectedValueChanged;
+            _variableNameComboBox.SelectedValueChanged += VariableNameComboBox_SelectedValueChanged;
             RenderedControls.Add(ActionNameComboBoxLabel);
-            RenderedControls.Add(VariableNameComboBox);
+            RenderedControls.Add(_variableNameComboBox);
 
-            VariableValue = new Label();
-            VariableValue.Font = new Font("Segoe UI Semilight", 12, FontStyle.Bold);
-            VariableValue.ForeColor = Color.White;
-            RenderedControls.Add(VariableValue);
+            _variableValue = new Label();
+            _variableValue.Font = new Font("Segoe UI Semilight", 12, FontStyle.Bold);
+            _variableValue.ForeColor = Color.White;
+            RenderedControls.Add(_variableValue);
 
             RenderedControls.AddRange(commandControls.CreateDefaultOutputGroupFor("v_OutputUserVariableName", this, editor));          
 
@@ -85,7 +85,7 @@ namespace OpenBots.Commands.System
 
         private void VariableNameComboBox_SelectedValueChanged(object sender, EventArgs e)
         {
-            var selectedValue = VariableNameComboBox.SelectedItem;
+            var selectedValue = _variableNameComboBox.SelectedItem;
 
             if (selectedValue == null)
                 return;
@@ -93,7 +93,7 @@ namespace OpenBots.Commands.System
             var variable = Environment.GetEnvironmentVariables();
             var value = variable[selectedValue];
 
-            VariableValue.Text = "[ex. " + value + "]";
+            _variableValue.Text = "[ex. " + value + "]";
         }
 
         public override string GetDisplayValue()

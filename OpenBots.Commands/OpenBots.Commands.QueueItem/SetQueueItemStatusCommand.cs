@@ -49,7 +49,7 @@ namespace OpenBots.Commands.QueueItem
         public string v_QueueItemErrorMessage { get; set; }
 
         [JsonIgnore]
-        public List<Control> ErrorMessageControls;
+        private List<Control> _errorMessageControls;
 
         public SetQueueItemStatusCommand()
         {
@@ -93,12 +93,12 @@ namespace OpenBots.Commands.QueueItem
             RenderedControls.AddRange(commandControls.CreateDefaultDropdownGroupFor("v_QueueItemStatusType", this, editor));
             ((ComboBox)RenderedControls[4]).SelectedIndexChanged += QueueItemStatusTypeComboBox_SelectedValueChanged;
 
-            ErrorMessageControls = new List<Control>();
-            ErrorMessageControls.AddRange(commandControls.CreateDefaultInputGroupFor("v_QueueItemErrorCode", this, editor));
-            ErrorMessageControls.AddRange(commandControls.CreateDefaultInputGroupFor("v_QueueItemErrorMessage", this, editor));
-            foreach (var ctrl in ErrorMessageControls)
+            _errorMessageControls = new List<Control>();
+            _errorMessageControls.AddRange(commandControls.CreateDefaultInputGroupFor("v_QueueItemErrorCode", this, editor));
+            _errorMessageControls.AddRange(commandControls.CreateDefaultInputGroupFor("v_QueueItemErrorMessage", this, editor));
+            foreach (var ctrl in _errorMessageControls)
                 ctrl.Visible = false;
-            RenderedControls.AddRange(ErrorMessageControls);
+            RenderedControls.AddRange(_errorMessageControls);
 
             return RenderedControls;
         }
@@ -115,12 +115,12 @@ namespace OpenBots.Commands.QueueItem
         {
             if (((ComboBox)RenderedControls[4]).Text != "Successful")
             {
-                foreach (var ctrl in ErrorMessageControls)
+                foreach (var ctrl in _errorMessageControls)
                     ctrl.Visible = true;
             }
             else
             {
-                foreach (var ctrl in ErrorMessageControls)
+                foreach (var ctrl in _errorMessageControls)
                 {
                     ctrl.Visible = false;
                     if (ctrl is TextBox)

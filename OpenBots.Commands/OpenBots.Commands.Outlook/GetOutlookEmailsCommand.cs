@@ -83,7 +83,7 @@ namespace OpenBots.Commands.Outlook
         public string v_OutputUserVariableName { get; set; }
 
         [JsonIgnore]
-        public List<Control> SavingControls;
+        private List<Control> _savingControls;
 
         public GetOutlookEmailsCommand()
         {
@@ -171,14 +171,14 @@ namespace OpenBots.Commands.Outlook
             RenderedControls.AddRange(commandControls.CreateDefaultDropdownGroupFor("v_SaveMessagesAndAttachments", this, editor));
             ((ComboBox)RenderedControls[11]).SelectedIndexChanged += SaveMailItemsComboBox_SelectedValueChanged;
 
-            SavingControls = new List<Control>();
-            SavingControls.AddRange(commandControls.CreateDefaultInputGroupFor("v_MessageDirectory", this, editor));
-            SavingControls.AddRange(commandControls.CreateDefaultOutputGroupFor("v_AttachmentDirectory", this, editor));
+            _savingControls = new List<Control>();
+            _savingControls.AddRange(commandControls.CreateDefaultInputGroupFor("v_MessageDirectory", this, editor));
+            _savingControls.AddRange(commandControls.CreateDefaultOutputGroupFor("v_AttachmentDirectory", this, editor));
 
-            foreach (var ctrl in SavingControls)
+            foreach (var ctrl in _savingControls)
                 ctrl.Visible = false;
 
-            RenderedControls.AddRange(SavingControls);
+            RenderedControls.AddRange(_savingControls);
 
             RenderedControls.AddRange(commandControls.CreateDefaultOutputGroupFor("v_OutputUserVariableName", this, editor));
 
@@ -218,12 +218,12 @@ namespace OpenBots.Commands.Outlook
         {
             if (((ComboBox)RenderedControls[11]).Text == "Yes")
             {
-                foreach (var ctrl in SavingControls)
+                foreach (var ctrl in _savingControls)
                     ctrl.Visible = true;
             }
             else
             {
-                foreach (var ctrl in SavingControls)
+                foreach (var ctrl in _savingControls)
                 {
                     ctrl.Visible = false;
                     if (ctrl is TextBox)

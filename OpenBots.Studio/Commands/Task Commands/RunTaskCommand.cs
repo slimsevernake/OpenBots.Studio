@@ -59,7 +59,7 @@ namespace OpenBots.Commands
         private List<ScriptVariable> _variableReturnList;
 
         [JsonIgnore]
-        public frmScriptEngine NewEngine { get; set; }
+        private frmScriptEngine _newEngine;
 
         public RunTaskCommand()
         {
@@ -104,16 +104,16 @@ namespace OpenBots.Commands
             InitializeVariableLists(currentScriptEngine);
 
             string projectPath = parentEngine.ProjectPath;
-            NewEngine = new frmScriptEngine(childTaskPath, projectPath, (frmScriptBuilder)CurrentScriptBuilder, ((frmScriptBuilder)CurrentScriptBuilder).EngineLogger,
+            _newEngine = new frmScriptEngine(childTaskPath, projectPath, (frmScriptBuilder)CurrentScriptBuilder, ((frmScriptBuilder)CurrentScriptBuilder).EngineLogger,
                 _variableList, null, currentScriptEngine.AppInstances, false, parentEngine.IsDebugMode);
     
-            NewEngine.IsChildEngine = true;
-            NewEngine.IsHiddenTaskEngine = true;
+            _newEngine.IsChildEngine = true;
+            _newEngine.IsHiddenTaskEngine = true;
 
             if (IsSteppedInto)
             {                
-                NewEngine.IsNewTaskSteppedInto = true;
-                NewEngine.IsHiddenTaskEngine = false;
+                _newEngine.IsNewTaskSteppedInto = true;
+                _newEngine.IsHiddenTaskEngine = false;
             }
 
             ((frmScriptBuilder)CurrentScriptBuilder).EngineLogger.Information("Executing Child Task: " + Path.GetFileName(childTaskPath));
@@ -121,16 +121,16 @@ namespace OpenBots.Commands
             {
                 ((frmScriptEngine)currentScriptEngine.ScriptEngineUI).TopMost = false;
             });
-            Application.Run(NewEngine);
+            Application.Run(_newEngine);
             
-            if (NewEngine.ClosingAllEngines)
+            if (_newEngine.ClosingAllEngines)
             {
                 currentScriptEngine.ScriptEngineUI.ClosingAllEngines = true;
                 currentScriptEngine.ScriptEngineUI.CloseWhenDone = true;
             }
 
             // Update Current Engine Context Post Run Task
-            UpdateCurrentEngineContext(currentScriptEngine, NewEngine.EngineInstance);
+            UpdateCurrentEngineContext(currentScriptEngine, _newEngine.EngineInstance);
 
             ((frmScriptBuilder)CurrentScriptBuilder).EngineLogger.Information("Resuming Parent Task: " + Path.GetFileName(parentTaskPath));
             if (parentEngine.IsDebugMode)
@@ -140,7 +140,7 @@ namespace OpenBots.Commands
                     parentEngine.TopMost = true;
                     parentEngine.IsHiddenTaskEngine = true;
 
-                    if ((IsSteppedInto || !NewEngine.IsHiddenTaskEngine) && !NewEngine.IsNewTaskResumed && !NewEngine.IsNewTaskCancelled)
+                    if ((IsSteppedInto || !_newEngine.IsHiddenTaskEngine) && !_newEngine.IsNewTaskResumed && !_newEngine.IsNewTaskCancelled)
                     {
                         parentEngine.CallBackForm.CurrentEngine = parentEngine;
                         parentEngine.CallBackForm.IsScriptSteppedInto = true;
@@ -154,7 +154,7 @@ namespace OpenBots.Commands
                         parentEngine.UpdateLineNumber(parentDebugLine + 1);
                         parentEngine.AddStatus("Pausing Before Execution");
                     }
-                    else if (NewEngine.IsNewTaskResumed)
+                    else if (_newEngine.IsNewTaskResumed)
                     {
                         parentEngine.CallBackForm.CurrentEngine = parentEngine;
                         parentEngine.IsNewTaskResumed = true;
@@ -163,7 +163,7 @@ namespace OpenBots.Commands
                         parentEngine.CallBackForm.IsScriptPaused = false;
                         parentEngine.ResumeParentTask();
                     }
-                    else if (NewEngine.IsNewTaskCancelled)
+                    else if (_newEngine.IsNewTaskCancelled)
                         parentEngine.uiBtnCancel_Click(null, null);
                     else //child task never stepped into
                         parentEngine.IsHiddenTaskEngine = false;

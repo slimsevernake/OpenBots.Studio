@@ -39,8 +39,6 @@ namespace OpenBots.Commands.Window
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_YWindowSize { get; set; }
 
-        [JsonIgnore]
-        public ComboBox WindowNameControl;
         public ResizeWindowCommand()
         {
             CommandName = "ResizeWindowCommand";

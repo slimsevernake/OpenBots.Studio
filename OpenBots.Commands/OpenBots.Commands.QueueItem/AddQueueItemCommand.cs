@@ -64,7 +64,7 @@ namespace OpenBots.Commands.QueueItem
         public string v_Priority { get; set; }
 
         [JsonIgnore]
-        public List<Control> JsonTypeControls;
+        private List<Control> _jsonTypeControls;
 
         public AddQueueItemCommand()
         {
@@ -112,11 +112,11 @@ namespace OpenBots.Commands.QueueItem
             RenderedControls.AddRange(commandControls.CreateDefaultDropdownGroupFor("v_QueueItemType", this, editor));
             ((ComboBox)RenderedControls[7]).SelectedIndexChanged += QueueItemTypeComboBox_SelectedValueChanged;
 
-            JsonTypeControls = new List<Control>();
-            JsonTypeControls.AddRange(commandControls.CreateDefaultInputGroupFor("v_JsonType", this, editor));
-            foreach (var ctrl in JsonTypeControls)
+            _jsonTypeControls = new List<Control>();
+            _jsonTypeControls.AddRange(commandControls.CreateDefaultInputGroupFor("v_JsonType", this, editor));
+            foreach (var ctrl in _jsonTypeControls)
                 ctrl.Visible = false;
-            RenderedControls.AddRange(JsonTypeControls);
+            RenderedControls.AddRange(_jsonTypeControls);
 
             RenderedControls.AddRange(commandControls.CreateDefaultInputGroupFor("v_QueueItemTextValue", this, editor, 100, 300));
             RenderedControls.AddRange(commandControls.CreateDefaultInputGroupFor("v_Priority", this, editor));
@@ -133,12 +133,12 @@ namespace OpenBots.Commands.QueueItem
         {
             if (((ComboBox)RenderedControls[7]).Text == "Json")
             {
-                foreach (var ctrl in JsonTypeControls)
+                foreach (var ctrl in _jsonTypeControls)
                     ctrl.Visible = true;
             }
             else
             {
-                foreach (var ctrl in JsonTypeControls)
+                foreach (var ctrl in _jsonTypeControls)
                 {
                     ctrl.Visible = false;
                     if (ctrl is TextBox)

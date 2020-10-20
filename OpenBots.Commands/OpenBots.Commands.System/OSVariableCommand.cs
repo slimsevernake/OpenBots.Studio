@@ -33,10 +33,10 @@ namespace OpenBots.Commands.System
         public string v_OutputUserVariableName { get; set; }
 
         [JsonIgnore]
-        public ComboBox VariableNameComboBox;
+        private ComboBox _variableNameComboBox;
 
         [JsonIgnore]
-        public Label VariableValue;
+        private Label _variableValue;
 
         public OSVariableCommand()
         {
@@ -75,7 +75,7 @@ namespace OpenBots.Commands.System
             base.Render(editor, commandControls);
 
             var ActionNameComboBoxLabel = commandControls.CreateDefaultLabelFor("v_OSVariableName", this);
-            VariableNameComboBox = (ComboBox)commandControls.CreateDropdownFor("v_OSVariableName", this);
+            _variableNameComboBox = (ComboBox)commandControls.CreateDropdownFor("v_OSVariableName", this);
 
             ObjectQuery wql = new ObjectQuery("SELECT * FROM Win32_OperatingSystem");
             ManagementObjectSearcher searcher = new ManagementObjectSearcher(wql);
@@ -84,17 +84,17 @@ namespace OpenBots.Commands.System
             foreach (ManagementObject result in results)
             {
                 foreach (PropertyData prop in result.Properties)
-                    VariableNameComboBox.Items.Add(prop.Name);
+                    _variableNameComboBox.Items.Add(prop.Name);
             }
 
-            VariableNameComboBox.SelectedValueChanged += VariableNameComboBox_SelectedValueChanged;
+            _variableNameComboBox.SelectedValueChanged += VariableNameComboBox_SelectedValueChanged;
             RenderedControls.Add(ActionNameComboBoxLabel);
-            RenderedControls.Add(VariableNameComboBox);
+            RenderedControls.Add(_variableNameComboBox);
 
-            VariableValue = new Label();
-            VariableValue.Font = new Font("Segoe UI Semilight", 12, FontStyle.Bold);
-            VariableValue.ForeColor = Color.White;
-            RenderedControls.Add(VariableValue);
+            _variableValue = new Label();
+            _variableValue.Font = new Font("Segoe UI Semilight", 12, FontStyle.Bold);
+            _variableValue.ForeColor = Color.White;
+            RenderedControls.Add(_variableValue);
 
             RenderedControls.AddRange(commandControls.CreateDefaultOutputGroupFor("v_OutputUserVariableName", this, editor));      
 
@@ -103,7 +103,7 @@ namespace OpenBots.Commands.System
 
         private void VariableNameComboBox_SelectedValueChanged(object sender, EventArgs e)
         {
-            var selectedValue = VariableNameComboBox.SelectedItem;
+            var selectedValue = _variableNameComboBox.SelectedItem;
 
             if (selectedValue == null)
                 return;
@@ -118,12 +118,12 @@ namespace OpenBots.Commands.System
                 {
                     if (prop.Name == selectedValue.ToString())
                     {
-                        VariableValue.Text = "[ex. " + prop.Value + "]";
+                        _variableValue.Text = "[ex. " + prop.Value + "]";
                         return;
                     }
                 }
             }
-            VariableValue.Text = "[ex. **Item not found**]";
+            _variableValue.Text = "[ex. **Item not found**]";
         }
 
         public override string GetDisplayValue()

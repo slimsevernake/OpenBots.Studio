@@ -63,7 +63,7 @@ namespace OpenBots.Commands.Word
         public string v_CloseAllInstances { get; set; }
 
         [JsonIgnore]
-        public List<Control> OpenFileControls;
+        private List<Control> _openFileControls;
 
         public WordCreateApplicationCommand()
         {
@@ -124,13 +124,13 @@ namespace OpenBots.Commands.Word
             RenderedControls.AddRange(commandControls.CreateDefaultDropdownGroupFor("v_NewOpenDocument", this, editor));
             ((ComboBox)RenderedControls[3]).SelectedIndexChanged += OpenFileComboBox_SelectedValueChanged;
 
-            OpenFileControls = new List<Control>();
-            OpenFileControls.AddRange(commandControls.CreateDefaultInputGroupFor("v_FilePath", this, editor));
+            _openFileControls = new List<Control>();
+            _openFileControls.AddRange(commandControls.CreateDefaultInputGroupFor("v_FilePath", this, editor));
 
-            foreach (var ctrl in OpenFileControls)
+            foreach (var ctrl in _openFileControls)
                 ctrl.Visible = false;
 
-            RenderedControls.AddRange(OpenFileControls);
+            RenderedControls.AddRange(_openFileControls);
 
             RenderedControls.AddRange(commandControls.CreateDefaultDropdownGroupFor("v_Visible", this, editor));
             RenderedControls.AddRange(commandControls.CreateDefaultDropdownGroupFor("v_CloseAllInstances", this, editor));
@@ -147,12 +147,12 @@ namespace OpenBots.Commands.Word
         {
             if (((ComboBox)RenderedControls[3]).Text == "Open Document")
             {
-                foreach (var ctrl in OpenFileControls)
+                foreach (var ctrl in _openFileControls)
                     ctrl.Visible = true;
             }
             else
             {
-                foreach (var ctrl in OpenFileControls)
+                foreach (var ctrl in _openFileControls)
                 {
                     ctrl.Visible = false;
                     if (ctrl is TextBox)

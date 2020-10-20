@@ -51,10 +51,10 @@ namespace OpenBots.Commands.Asset
         public string v_AssetValue { get; set; }
 
         [JsonIgnore]
-        public List<Control> UploadPathControls;
+        private List<Control> _uploadPathControls;
 
         [JsonIgnore]
-        public List<Control> AssetValueControls;
+        private List<Control> _assetValueControls;
 
         public UpdateAssetCommand()
         {
@@ -106,17 +106,17 @@ namespace OpenBots.Commands.Asset
             RenderedControls.AddRange(commandControls.CreateDefaultDropdownGroupFor("v_AssetType", this, editor));
             ((ComboBox)RenderedControls[4]).SelectedIndexChanged += AssetTypeComboBox_SelectedValueChanged;
 
-            UploadPathControls = new List<Control>();
-            UploadPathControls.AddRange(commandControls.CreateDefaultInputGroupFor("v_AssetFilePath", this, editor));
-            foreach (var ctrl in UploadPathControls)
+            _uploadPathControls = new List<Control>();
+            _uploadPathControls.AddRange(commandControls.CreateDefaultInputGroupFor("v_AssetFilePath", this, editor));
+            foreach (var ctrl in _uploadPathControls)
                 ctrl.Visible = false;
-            RenderedControls.AddRange(UploadPathControls);
+            RenderedControls.AddRange(_uploadPathControls);
 
-            AssetValueControls = new List<Control>();
-            AssetValueControls.AddRange(commandControls.CreateDefaultInputGroupFor("v_AssetValue", this, editor));
-            foreach (var ctrl in AssetValueControls)
+            _assetValueControls = new List<Control>();
+            _assetValueControls.AddRange(commandControls.CreateDefaultInputGroupFor("v_AssetValue", this, editor));
+            foreach (var ctrl in _assetValueControls)
                 ctrl.Visible = false;
-            RenderedControls.AddRange(AssetValueControls);
+            RenderedControls.AddRange(_assetValueControls);
 
             return RenderedControls;
         }
@@ -133,10 +133,10 @@ namespace OpenBots.Commands.Asset
         {
             if (((ComboBox)RenderedControls[4]).Text == "File")
             {
-                foreach (var ctrl in UploadPathControls)
+                foreach (var ctrl in _uploadPathControls)
                     ctrl.Visible = true;
 
-                foreach (var ctrl in AssetValueControls)
+                foreach (var ctrl in _assetValueControls)
                 {
                     ctrl.Visible = false;
                     if (ctrl is TextBox)
@@ -145,14 +145,14 @@ namespace OpenBots.Commands.Asset
             }
             else
             {
-                foreach (var ctrl in UploadPathControls)
+                foreach (var ctrl in _uploadPathControls)
                 {
                     ctrl.Visible = false;
                     if (ctrl is TextBox)
                         ((TextBox)ctrl).Clear();
                 }
 
-                foreach (var ctrl in AssetValueControls)
+                foreach (var ctrl in _assetValueControls)
                     ctrl.Visible = true;
             }
         }

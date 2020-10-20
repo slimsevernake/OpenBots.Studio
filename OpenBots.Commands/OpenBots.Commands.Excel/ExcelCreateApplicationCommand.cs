@@ -60,7 +60,7 @@ namespace OpenBots.Commands.Excel
         public string v_CloseAllInstances { get; set; }
 
         [JsonIgnore]
-        public List<Control> OpenFileControls;
+        private List<Control> _openFileControls;
 
         public ExcelCreateApplicationCommand()
         {
@@ -120,13 +120,13 @@ namespace OpenBots.Commands.Excel
             RenderedControls.AddRange(commandControls.CreateDefaultDropdownGroupFor("v_NewOpenWorkbook", this, editor));
             ((ComboBox)RenderedControls[3]).SelectedIndexChanged += OpenFileComboBox_SelectedValueChanged;
 
-            OpenFileControls = new List<Control>();
-            OpenFileControls.AddRange(commandControls.CreateDefaultInputGroupFor("v_FilePath", this, editor));
+            _openFileControls = new List<Control>();
+            _openFileControls.AddRange(commandControls.CreateDefaultInputGroupFor("v_FilePath", this, editor));
 
-            foreach (var ctrl in OpenFileControls)
+            foreach (var ctrl in _openFileControls)
                 ctrl.Visible = false;
 
-            RenderedControls.AddRange(OpenFileControls);
+            RenderedControls.AddRange(_openFileControls);
             
             RenderedControls.AddRange(commandControls.CreateDefaultDropdownGroupFor("v_Visible", this, editor));
             RenderedControls.AddRange(commandControls.CreateDefaultDropdownGroupFor("v_CloseAllInstances", this, editor));
@@ -143,12 +143,12 @@ namespace OpenBots.Commands.Excel
         {
             if (((ComboBox)RenderedControls[3]).Text == "Open Workbook")
             {
-                foreach (var ctrl in OpenFileControls)
+                foreach (var ctrl in _openFileControls)
                     ctrl.Visible = true;
             }
             else
             {
-                foreach (var ctrl in OpenFileControls)
+                foreach (var ctrl in _openFileControls)
                 {
                     ctrl.Visible = false;
                     if (ctrl is TextBox)

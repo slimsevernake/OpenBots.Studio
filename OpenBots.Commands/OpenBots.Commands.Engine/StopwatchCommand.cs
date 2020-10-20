@@ -50,7 +50,7 @@ namespace OpenBots.Commands.Engine
         public string v_OutputUserVariableName { get; set; }
 
         [JsonIgnore]
-        public List<Control> MeasureControls;
+        private List<Control> _measureControls;
 
         public StopwatchCommand()
         {
@@ -115,14 +115,14 @@ namespace OpenBots.Commands.Engine
             RenderedControls.AddRange(commandControls.CreateDefaultDropdownGroupFor("v_StopwatchAction", this, editor));
             ((ComboBox)RenderedControls[3]).SelectedIndexChanged += StopWatchComboBox_SelectedValueChanged;
 
-            MeasureControls = new List<Control>();
-            MeasureControls.AddRange(commandControls.CreateDefaultInputGroupFor("v_ToStringFormat", this, editor));
-            MeasureControls.AddRange(commandControls.CreateDefaultOutputGroupFor("v_OutputUserVariableName", this, editor));
+            _measureControls = new List<Control>();
+            _measureControls.AddRange(commandControls.CreateDefaultInputGroupFor("v_ToStringFormat", this, editor));
+            _measureControls.AddRange(commandControls.CreateDefaultOutputGroupFor("v_OutputUserVariableName", this, editor));
 
-            foreach (var ctrl in MeasureControls)
+            foreach (var ctrl in _measureControls)
                 ctrl.Visible = false;
 
-            RenderedControls.AddRange(MeasureControls);
+            RenderedControls.AddRange(_measureControls);
           
             return RenderedControls;
         }     
@@ -139,12 +139,12 @@ namespace OpenBots.Commands.Engine
         {
             if (((ComboBox)RenderedControls[3]).Text == "Measure Stopwatch")
             {
-                foreach (var ctrl in MeasureControls)
+                foreach (var ctrl in _measureControls)
                     ctrl.Visible = true;
             }
             else
             {
-                foreach (var ctrl in MeasureControls)
+                foreach (var ctrl in _measureControls)
                 {
                     ctrl.Visible = false;
                     if (ctrl is TextBox)

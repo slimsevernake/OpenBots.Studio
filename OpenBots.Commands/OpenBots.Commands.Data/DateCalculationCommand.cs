@@ -71,7 +71,7 @@ namespace OpenBots.Commands.Data
         public string v_OutputUserVariableName { get; set; }
 
         [JsonIgnore]
-        public List<Control> StringFormatControls;
+        private List<Control> _stringFormatControls;
 
         public DateCalculationCommand()
         {
@@ -193,13 +193,13 @@ namespace OpenBots.Commands.Data
 
             ((ComboBox)RenderedControls[4]).SelectedIndexChanged += calculationMethodComboBox_SelectedValueChanged;
 
-            StringFormatControls = new List<Control>();
-            StringFormatControls.AddRange(commandControls.CreateDefaultInputGroupFor("v_ToStringFormat", this, editor));
+            _stringFormatControls = new List<Control>();
+            _stringFormatControls.AddRange(commandControls.CreateDefaultInputGroupFor("v_ToStringFormat", this, editor));
 
-            foreach (var ctrl in StringFormatControls)
+            foreach (var ctrl in _stringFormatControls)
                 ctrl.Visible = false;
 
-            RenderedControls.AddRange(StringFormatControls);
+            RenderedControls.AddRange(_stringFormatControls);
 
             RenderedControls.AddRange(commandControls.CreateDefaultOutputGroupFor("v_OutputUserVariableName", this, editor));
 
@@ -236,7 +236,7 @@ namespace OpenBots.Commands.Data
         {
             if (!((ComboBox)RenderedControls[4]).Text.StartsWith("Get"))
             {
-                foreach (var ctrl in StringFormatControls)
+                foreach (var ctrl in _stringFormatControls)
                 {
                     ctrl.Visible = true;
                     if (ctrl is TextBox && string.IsNullOrEmpty(((TextBox)ctrl).Text))
@@ -245,7 +245,7 @@ namespace OpenBots.Commands.Data
             }
             else
             {
-                foreach (var ctrl in StringFormatControls)
+                foreach (var ctrl in _stringFormatControls)
                 {
                     ctrl.Visible = false;
                     if (ctrl is TextBox)
