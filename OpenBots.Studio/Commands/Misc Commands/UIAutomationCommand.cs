@@ -30,7 +30,7 @@ namespace OpenBots.Commands
     {
 
         [DisplayName("Window Name")]
-        [InputSpecification("Select the name of the window to automate.")]
+        [Description("Select the name of the window to automate.")]
         [SampleUsage("Untitled - Notepad || Current Window || {vWindow}")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
@@ -45,19 +45,19 @@ namespace OpenBots.Commands
         [PropertyUISelectionOption("Get Value From Element")]
         [PropertyUISelectionOption("Check If Element Exists")]
         [PropertyUISelectionOption("Wait For Element To Exist")]
-        [InputSpecification("Select the appropriate corresponding action to take once the element has been located.")]
+        [Description("Select the appropriate corresponding action to take once the element has been located.")]
         [SampleUsage("")]
         [Remarks("Selecting this field changes the parameters required in the following step.")]
         public string v_AutomationType { get; set; }
 
         [DisplayName("Element Search Parameter")]
-        [InputSpecification("Use the Element Recorder to generate a listing of potential search parameters.")]
+        [Description("Use the Element Recorder to generate a listing of potential search parameters.")]
         [SampleUsage("AutomationId || Name")]
         [Remarks("Once you have clicked on a valid window the search parameters will be populated. Select a single parameter to find the element.")]
         public DataTable v_UIASearchParameters { get; set; }
 
         [DisplayName("Action Parameters")]
-        [InputSpecification("Action Parameters will be determined based on the action settings selected.")]
+        [Description("Action Parameters will be determined based on the action settings selected.")]
         [SampleUsage("data || {vData} || *Variable Name*: {vNewVariable}")]
         [Remarks("Action Parameters range from adding offset coordinates to specifying a variable to apply element text to.")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]

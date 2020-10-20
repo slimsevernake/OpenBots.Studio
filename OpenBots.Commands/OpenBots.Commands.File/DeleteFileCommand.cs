@@ -18,7 +18,7 @@ namespace OpenBots.Commands.File
     public class DeleteFileCommand : ScriptCommand
     {
         [DisplayName("File Path")]
-        [InputSpecification("Enter or Select the path to the file.")]
+        [Description("Enter or Select the path to the file.")]
         [SampleUsage(@"C:\temp\myfile.txt || {ProjectPath}\myfile.txt || {vFilePath}")]
         [Remarks("{ProjectPath} is the directory path of the current project.")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]

@@ -22,14 +22,14 @@ namespace OpenBots.Commands.Input
     {
 
         [DisplayName("Window Name")]
-        [InputSpecification("Select the name of the window to send advanced keystrokes to.")]
+        [Description("Select the name of the window to send advanced keystrokes to.")]
         [SampleUsage("Untitled - Notepad || Current Window || {vWindow}")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_WindowName { get; set; }
 
         [DisplayName("Keystroke Parameters")]
-        [InputSpecification("Define the parameters for the keystroke actions.")]
+        [Description("Define the parameters for the keystroke actions.")]
         [SampleUsage("[Enter [Return] | Key Press (Down + Up)]")]
         [Remarks("")]
         public DataTable v_KeyActions { get; set; }
@@ -37,7 +37,7 @@ namespace OpenBots.Commands.Input
         [DisplayName("Return All Keys to 'UP' Position")]
         [PropertyUISelectionOption("Yes")]
         [PropertyUISelectionOption("No")]      
-        [InputSpecification("Select whether to return all keys to the 'UP' position after execution.")]
+        [Description("Select whether to return all keys to the 'UP' position after execution.")]
         [SampleUsage("")]
         [Remarks("")]
         public string v_KeyUpDefault { get; set; }

@@ -19,7 +19,7 @@ namespace OpenBots.Commands.File
     public class GetFilesCommand : ScriptCommand
     {
         [DisplayName("Source Folder Path")]
-        [InputSpecification("Enter or Select the path to the folder.")]
+        [Description("Enter or Select the path to the folder.")]
         [SampleUsage(@"C:\temp\myfolder || {ProjectPath}\myfolder || {vSourceFolderPath}")]
         [Remarks("{ProjectPath} is the directory path of the current project.")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
@@ -27,7 +27,7 @@ namespace OpenBots.Commands.File
         public string v_SourceFolderPath { get; set; }
 
         [DisplayName("Output File Path(s) List Variable")]
-        [InputSpecification("Create a new variable or select a variable from the list.")]
+        [Description("Create a new variable or select a variable from the list.")]
         [SampleUsage("{vUserVariable}")]
         [Remarks("Variables not pre-defined in the Variable Manager will be automatically generated at runtime.")]
         public string v_OutputUserVariableName { get; set; }

@@ -19,7 +19,7 @@ namespace OpenBots.Commands.NLG
     {
 
         [DisplayName("NLG Instance Name")]
-        [InputSpecification("Enter the unique instance that was specified in the **Create NLG Instance** command.")]
+        [Description("Enter the unique instance that was specified in the **Create NLG Instance** command.")]
         [SampleUsage("MyNLGInstance")]
         [Remarks("Failure to enter the correct instance name or failure to first call the **Create NLG Instance** command will cause an error.")]
         public string v_InstanceName { get; set; }
@@ -33,13 +33,13 @@ namespace OpenBots.Commands.NLG
         [PropertyUISelectionOption("Add Pre-Modifier")]
         [PropertyUISelectionOption("Add Front Modifier")]
         [PropertyUISelectionOption("Add Post Modifier")]
-        [InputSpecification("Select the appropriate Natural Language Generation Parameter.")]
+        [Description("Select the appropriate Natural Language Generation Parameter.")]
         [SampleUsage("")]
         [Remarks("")]
         public string v_ParameterType { get; set; }
 
         [DisplayName("Input Value")]
-        [InputSpecification("Enter the value that should be associated with the parameter")]
+        [Description("Enter the value that should be associated with the parameter")]
         [SampleUsage("Hello || {vValue}")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]

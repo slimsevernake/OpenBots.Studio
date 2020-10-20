@@ -18,7 +18,7 @@ namespace OpenBots.Commands.Data
     public class FormatDataCommand : ScriptCommand
     {        
         [DisplayName("Input Data")]
-        [InputSpecification("Specify either text or a variable that contains a date or number requiring formatting.")]
+        [Description("Specify either text or a variable that contains a date or number requiring formatting.")]
         [SampleUsage("1/1/2000 || 2500 || {DateTime.Now} || {vNumber}")]
         [Remarks("You can use known text or variables.")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
@@ -27,20 +27,20 @@ namespace OpenBots.Commands.Data
         [DisplayName("Input Data Type")]
         [PropertyUISelectionOption("Date")]
         [PropertyUISelectionOption("Number")]
-        [InputSpecification("Select the type of input data.")]
+        [Description("Select the type of input data.")]
         [SampleUsage("")]
         [Remarks("Select 'Date' if the input data is a Date or 'Number' if it is a Number. Input data of other types will result in an error.")]
         public string v_FormatType { get; set; }
 
         [DisplayName("Output Data Format")]
-        [InputSpecification("Specify the output data format.")]
+        [Description("Specify the output data format.")]
         [SampleUsage("MM/dd/yy, hh:mm:ss || C2 || D2 || {vDataFormat}")]
         [Remarks("You should specify a valid input data format; invalid formats will result in an error. 'C2' and 'D2' are Number Formats.")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_ToStringFormat { get; set; }
 
         [DisplayName("Output Text Variable")]
-        [InputSpecification("Create a new variable or select a variable from the list.")]
+        [Description("Create a new variable or select a variable from the list.")]
         [SampleUsage("{vUserVariable}")]
         [Remarks("Variables not pre-defined in the Variable Manager will be automatically generated at runtime.")]
         public string v_OutputUserVariableName { get; set; }

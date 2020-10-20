@@ -18,7 +18,7 @@ namespace OpenBots.Commands.Engine
         [DisplayName("Error Action")]
         [PropertyUISelectionOption("Stop Processing")]
         [PropertyUISelectionOption("Continue Processing")]
-        [InputSpecification("Select the action to take when the bot comes across an error.")]
+        [Description("Select the action to take when the bot comes across an error.")]
         [SampleUsage("")]
         [Remarks("**If Command** allows you to specify and test if a line number encountered an error. "+
                  "In order to use that functionality, you must specify **Continue Processing**.")]

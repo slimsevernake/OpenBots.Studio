@@ -25,7 +25,7 @@ namespace OpenBots.Commands
     {
 
         [DisplayName("Browser Instance Name")]
-        [InputSpecification("Enter a unique name that will represent the application instance.")]
+        [Description("Enter a unique name that will represent the application instance.")]
         [SampleUsage("MyBrowserInstance")]
         [Remarks("This unique name allows you to refer to the instance by name in future commands, " +
                  "ensuring that the commands you specify run against the correct application.")]
@@ -35,13 +35,13 @@ namespace OpenBots.Commands
         [PropertyUISelectionOption("Chrome")]
         [PropertyUISelectionOption("Firefox")]
         [PropertyUISelectionOption("Internet Explorer")]
-        [InputSpecification("Select the browser engine to execute the Selenium automation with.")]
+        [Description("Select the browser engine to execute the Selenium automation with.")]
         [SampleUsage("")]
         [Remarks("The recommended browser option for web automation is Chrome.")]
         public string v_EngineType { get; set; }
 
         [DisplayName("URL")]
-        [InputSpecification("Enter the URL that you want the selenium instance to navigate to.")]
+        [Description("Enter the URL that you want the selenium instance to navigate to.")]
         [SampleUsage("https://mycompany.com/orders || {vURL}")]
         [Remarks("This input is optional.")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
@@ -50,7 +50,7 @@ namespace OpenBots.Commands
         [DisplayName("Instance Tracking")]
         [PropertyUISelectionOption("Forget Instance")]
         [PropertyUISelectionOption("Keep Instance Alive")]
-        [InputSpecification("Select **Forget Instance** to forget the instance after execution finishes, " +
+        [Description("Select **Forget Instance** to forget the instance after execution finishes, " +
                             "or **Keep Instance Alive** to allow subsequent tasks to call the instance by name.")]
         [SampleUsage("")]
         [Remarks("Calling the **Close Browser** command or ending the browser session will end the instance. " +
@@ -61,13 +61,13 @@ namespace OpenBots.Commands
         [DisplayName("Window State")]
         [PropertyUISelectionOption("Normal")]
         [PropertyUISelectionOption("Maximize")]
-        [InputSpecification("Select the window state that the browser should start up with.")]
+        [Description("Select the window state that the browser should start up with.")]
         [SampleUsage("")]
         [Remarks("")]
         public string v_BrowserWindowOption { get; set; }
 
         [DisplayName("Selenium Command Line Options (Chrome)")]
-        [InputSpecification("Select options to be passed to the Selenium command.")]
+        [Description("Select options to be passed to the Selenium command.")]
         [SampleUsage("user-data-dir=c:\\users\\public\\SeleniumOpenBotsProfile || {vOptions}")]
         [Remarks("This input is optional.")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]

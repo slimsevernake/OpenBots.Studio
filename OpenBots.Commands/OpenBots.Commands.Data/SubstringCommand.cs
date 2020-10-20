@@ -18,28 +18,28 @@ namespace OpenBots.Commands.Data
     {
 
         [DisplayName("Text Data")]
-        [InputSpecification("Provide a variable or text value.")]
+        [Description("Provide a variable or text value.")]
         [SampleUsage("Sample text to extract substring from || {vTextData}")]
         [Remarks("Providing data of a type other than a 'String' will result in an error.")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_InputText { get; set; }
 
         [DisplayName("Starting Index")]
-        [InputSpecification("Indicate the starting position within the text.")]
+        [Description("Indicate the starting position within the text.")]
         [SampleUsage("0 || 1 || {vStartingIndex}")]
         [Remarks("0 for beginning, 1 for first character, n for nth character")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_StartIndex { get; set; }
 
         [DisplayName("Substring Length (Optional)")]
-        [InputSpecification("Indicate number of characters to extract.")]
+        [Description("Indicate number of characters to extract.")]
         [SampleUsage("-1 || 1 || {vSubstringLength}")]
         [Remarks("-1 to keep remainder, 1 for 1 position after start index, etc.")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_StringLength { get; set; }
 
         [DisplayName("Output Substring Variable")]
-        [InputSpecification("Create a new variable or select a variable from the list.")]
+        [Description("Create a new variable or select a variable from the list.")]
         [SampleUsage("{vUserVariable}")]
         [Remarks("Variables not pre-defined in the Variable Manager will be automatically generated at runtime.")]
         public string v_OutputUserVariableName { get; set; }

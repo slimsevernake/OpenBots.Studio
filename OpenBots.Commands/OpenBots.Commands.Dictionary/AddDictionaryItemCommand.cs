@@ -19,14 +19,14 @@ namespace OpenBots.Commands.Dictionary
     {
 
         [DisplayName("Dictionary")]
-        [InputSpecification("Select the dictionary variable to add an item to.")]
+        [Description("Select the dictionary variable to add an item to.")]
         [SampleUsage("{vMyDictionary}")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_DictionaryName { get; set; }
 
         [DisplayName("Keys and Values")]
-        [InputSpecification("Enter Keys and Values required for the dictionary.")]
+        [Description("Enter Keys and Values required for the dictionary.")]
         [SampleUsage("[FirstName | John] || [{vKey} | {vValue}]")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]

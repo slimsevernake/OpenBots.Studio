@@ -19,7 +19,7 @@ namespace OpenBots.Commands.File
     public class WaitForFileCommand : ScriptCommand
     {
         [DisplayName("File Path")]
-        [InputSpecification("Enter or Select the path to the file.")]
+        [Description("Enter or Select the path to the file.")]
         [SampleUsage(@"C:\temp\myfile.txt || {ProjectPath}\myfile.txt || {vTextFilePath}")]
         [Remarks("{ProjectPath} is the directory path of the current project.")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
@@ -27,7 +27,7 @@ namespace OpenBots.Commands.File
         public string v_FileName { get; set; }
 
         [DisplayName("Timeout")]
-        [InputSpecification("Specify how many seconds to wait for the file to exist.")]
+        [Description("Specify how many seconds to wait for the file to exist.")]
         [SampleUsage("10 || {vSeconds}")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]

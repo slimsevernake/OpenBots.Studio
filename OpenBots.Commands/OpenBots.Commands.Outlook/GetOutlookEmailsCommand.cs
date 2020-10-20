@@ -23,14 +23,14 @@ namespace OpenBots.Commands.Outlook
     {
 
         [DisplayName("Source Mail Folder Name")]
-        [InputSpecification("Enter the name of the Outlook mail folder the emails are located in.")]
+        [Description("Enter the name of the Outlook mail folder the emails are located in.")]
         [SampleUsage("Inbox || {vFolderName}")]
         [Remarks("Source folder cannot be a subfolder.")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_SourceFolder { get; set; }
 
         [DisplayName("Filter")]
-        [InputSpecification("Enter a valid Outlook filter string.")]
+        [Description("Enter a valid Outlook filter string.")]
         [SampleUsage("[Subject] = 'Hello' || [Subject] = 'Hello' and [SenderName] = 'Jane Doe' || {vFilter} || None")]
         [Remarks("*Warning* Using 'None' as the Filter will return every email in the selected Mail Folder.")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
@@ -39,7 +39,7 @@ namespace OpenBots.Commands.Outlook
         [DisplayName("Unread Only")]
         [PropertyUISelectionOption("Yes")]
         [PropertyUISelectionOption("No")]
-        [InputSpecification("Specify whether to retrieve unread email messages only.")]
+        [Description("Specify whether to retrieve unread email messages only.")]
         [SampleUsage("")]
         [Remarks("")]
         public string v_GetUnreadOnly { get; set; }
@@ -47,7 +47,7 @@ namespace OpenBots.Commands.Outlook
         [DisplayName("Mark As Read")]
         [PropertyUISelectionOption("Yes")]
         [PropertyUISelectionOption("No")]
-        [InputSpecification("Specify whether to mark retrieved emails as read.")]
+        [Description("Specify whether to mark retrieved emails as read.")]
         [SampleUsage("")]
         [Remarks("")]
         public string v_MarkAsRead { get; set; }
@@ -55,13 +55,13 @@ namespace OpenBots.Commands.Outlook
         [DisplayName("Save MailItems and Attachments")]
         [PropertyUISelectionOption("Yes")]
         [PropertyUISelectionOption("No")]
-        [InputSpecification("Specify whether to save the email attachments to a local directory.")]
+        [Description("Specify whether to save the email attachments to a local directory.")]
         [SampleUsage("")]
         [Remarks("")]
         public string v_SaveMessagesAndAttachments { get; set; }
 
         [DisplayName("Output MailItem Directory")]   
-        [InputSpecification("Enter or Select the path of the directory to store the messages in.")]
+        [Description("Enter or Select the path of the directory to store the messages in.")]
         [SampleUsage(@"C:\temp\myfolder || {vFolderPath} || {ProjectPath}\myFolder")]
         [Remarks("This input is optional and will only be used if *Save MailItems and Attachments* is set to **Yes**.")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
@@ -69,7 +69,7 @@ namespace OpenBots.Commands.Outlook
         public string v_MessageDirectory { get; set; }
 
         [DisplayName("Output Attachment Directory")]      
-        [InputSpecification("Enter or Select the path to the directory to store the attachments in.")]
+        [Description("Enter or Select the path to the directory to store the attachments in.")]
         [SampleUsage(@"C:\temp\myfolder\attachments || {vFolderPath} || {ProjectPath}\myFolder\attachments")]
         [Remarks("This input is optional and will only be used if *Save MailItems and Attachments* is set to **Yes**.")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
@@ -77,7 +77,7 @@ namespace OpenBots.Commands.Outlook
         public string v_AttachmentDirectory { get; set; }
 
         [DisplayName("Output MailItem List Variable")]
-        [InputSpecification("Create a new variable or select a variable from the list.")]
+        [Description("Create a new variable or select a variable from the list.")]
         [SampleUsage("{vUserVariable}")]
         [Remarks("Variables not pre-defined in the Variable Manager will be automatically generated at runtime.")]
         public string v_OutputUserVariableName { get; set; }

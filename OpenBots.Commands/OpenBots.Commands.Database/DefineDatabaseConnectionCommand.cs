@@ -24,21 +24,21 @@ namespace OpenBots.Commands.Database
     {
 
         [DisplayName("Database Instance Name")]
-        [InputSpecification("Enter a unique name that will represent the application instance.")]
+        [Description("Enter a unique name that will represent the application instance.")]
         [SampleUsage("MyDatabaseInstance")]
         [Remarks("This unique name allows you to refer to the instance by name in future commands, " +
                  "ensuring that the commands you specify run against the correct application.")]
         public string v_InstanceName { get; set; }
 
         [DisplayName("Connection String")]
-        [InputSpecification("Define the string to use when connecting to the OleDb database.")]
+        [Description("Define the string to use when connecting to the OleDb database.")]
         [SampleUsage("Provider=sqloledb;Data Source=myServerAddress;Initial Catalog=myDataBase;Integrated Security=SSPI; || {vConnectionString}")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_ConnectionString { get; set; }
 
         [DisplayName("Connection String Password")]
-        [InputSpecification("Define the password to use when connecting to the OleDb database.")]
+        [Description("Define the password to use when connecting to the OleDb database.")]
         [SampleUsage("password || {vPassword}")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
@@ -47,7 +47,7 @@ namespace OpenBots.Commands.Database
         [DisplayName("Test Connection Before Proceeding")]
         [PropertyUISelectionOption("Yes")]
         [PropertyUISelectionOption("No")]
-        [InputSpecification("Select the appropriate option.")]
+        [Description("Select the appropriate option.")]
         [SampleUsage("")]
         [Remarks("")]
         public string v_TestConnection { get; set; }

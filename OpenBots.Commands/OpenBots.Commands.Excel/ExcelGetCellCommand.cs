@@ -19,20 +19,20 @@ namespace OpenBots.Commands.Excel
     public class ExcelGetCellCommand : ScriptCommand
     {
         [DisplayName("Excel Instance Name")]
-        [InputSpecification("Enter the unique instance that was specified in the **Create Application** command.")]
+        [Description("Enter the unique instance that was specified in the **Create Application** command.")]
         [SampleUsage("MyExcelInstance")]
         [Remarks("Failure to enter the correct instance or failure to first call the **Create Application** command will cause an error.")]
         public string v_InstanceName { get; set; }
 
         [DisplayName("Cell Location")]
-        [InputSpecification("Enter the location of the cell to extract.")]
+        [Description("Enter the location of the cell to extract.")]
         [SampleUsage("A1 || {vCellLocation}")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_CellLocation { get; set; }
 
         [DisplayName("Output Cell Value Variable")]
-        [InputSpecification("Create a new variable or select a variable from the list.")]
+        [Description("Create a new variable or select a variable from the list.")]
         [SampleUsage("{vUserVariable}")]
         [Remarks("Variables not pre-defined in the Variable Manager will be automatically generated at runtime.")]
         public string v_OutputUserVariableName { get; set; }

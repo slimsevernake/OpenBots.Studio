@@ -21,7 +21,7 @@ namespace OpenBots.Commands
     {
 
         [DisplayName("Capture Search Image")]
-        [InputSpecification("Use the tool to capture an image that will be located on screen during execution.")]
+        [Description("Use the tool to capture an image that will be located on screen during execution.")]
         [SampleUsage("")]
         [Remarks("Images with larger color variance will be found more quickly than those with a lot of white space. \n" +
                  "For images that are primarily white space, tagging color to the top-left corner of the image and setting \n" +
@@ -30,7 +30,7 @@ namespace OpenBots.Commands
         public string v_ImageCapture { get; set; }
 
         [DisplayName("Output Image Variable")]
-        [InputSpecification("Create a new variable or select a variable from the list.")]
+        [Description("Create a new variable or select a variable from the list.")]
         [SampleUsage("vUserVariable")]
         [Remarks("Variables not pre-defined in the Variable Manager will be automatically generated at runtime.")]
         public string v_OutputUserVariableName { get; set; }

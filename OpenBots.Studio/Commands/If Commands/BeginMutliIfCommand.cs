@@ -23,7 +23,7 @@ namespace OpenBots.Commands
     public class BeginMultiIfCommand : ScriptCommand
     {
         [DisplayName("Multiple If Conditions")]
-        [InputSpecification("Add new If condition(s).")]
+        [Description("Add new If condition(s).")]
         [SampleUsage("")]
         [Remarks("All of the conditions must be true to execute the If block.")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowIfBuilder)]

@@ -21,14 +21,14 @@ namespace OpenBots.Commands.QueueItem
     public class AddQueueItemCommand : ScriptCommand
     {
         [DisplayName("Queue Name")]
-        [InputSpecification("Enter the name of the existing Queue.")]
+        [Description("Enter the name of the existing Queue.")]
         [SampleUsage("Name || {vQueueName}")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_QueueName { get; set; }
 
         [DisplayName("QueueItem Name")]
-        [InputSpecification("Enter the name of the new QueueItem.")]
+        [Description("Enter the name of the new QueueItem.")]
         [SampleUsage("Name || {vQueueItemName}")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
@@ -37,27 +37,27 @@ namespace OpenBots.Commands.QueueItem
         [DisplayName("QueueItem Type")]
         [PropertyUISelectionOption("Text")]
         [PropertyUISelectionOption("Json")]
-        [InputSpecification("Specify the type of the new QueueItem.")]
+        [Description("Specify the type of the new QueueItem.")]
         [SampleUsage("")]
         [Remarks("")]
         public string v_QueueItemType { get; set; }
 
         [DisplayName("Json Type")]
-        [InputSpecification("Specify the type of the Json.")]
+        [Description("Specify the type of the Json.")]
         [SampleUsage("Company || {vJsonType}")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_JsonType { get; set; }
 
         [DisplayName("QueueItem Value")]
-        [InputSpecification("Enter the value of the new QueueItem.")]
+        [Description("Enter the value of the new QueueItem.")]
         [SampleUsage("Value || {vQueueItemValue}")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_QueueItemTextValue { get; set; }
 
         [DisplayName("Priority")]
-        [InputSpecification("Enter a priority value between 0-100.")]
+        [Description("Enter a priority value between 0-100.")]
         [SampleUsage("100 || {vPriority}")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]

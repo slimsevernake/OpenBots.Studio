@@ -19,13 +19,13 @@ namespace OpenBots.Commands.Excel
     public class ExcelDeleteRangeCommand : ScriptCommand
     {
         [DisplayName("Excel Instance Name")]
-        [InputSpecification("Enter the unique instance that was specified in the **Create Application** command.")]
+        [Description("Enter the unique instance that was specified in the **Create Application** command.")]
         [SampleUsage("MyExcelInstance")]
         [Remarks("Failure to enter the correct instance or failure to first call the **Create Application** command will cause an error.")]
         public string v_InstanceName { get; set; }
 
         [DisplayName("Range")]
-        [InputSpecification("Enter the location of the cell or range to delete.")]
+        [Description("Enter the location of the cell or range to delete.")]
         [SampleUsage("A1 || A1:B10 || A1: || {vRange} || {vStart}:{vEnd} || {vStart}:")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
@@ -34,7 +34,7 @@ namespace OpenBots.Commands.Excel
         [DisplayName("Shift Cells Up")]
         [PropertyUISelectionOption("Yes")]
         [PropertyUISelectionOption("No")]
-        [InputSpecification("'Yes' removes the entire range. 'No' only clears the range of its cell values.")]
+        [Description("'Yes' removes the entire range. 'No' only clears the range of its cell values.")]
         [SampleUsage("")]
         [Remarks("")]
         public string v_ShiftUp { get; set; }

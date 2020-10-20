@@ -21,35 +21,35 @@ namespace OpenBots.Commands.System
     public class LaunchRemoteDesktopCommand : ScriptCommand
     {
         [DisplayName("Machine Name")]
-        [InputSpecification("Define the name of the machine to log on to.")]
+        [Description("Define the name of the machine to log on to.")]
         [SampleUsage("myMachine || {vMachineName}")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_MachineName { get; set; }
 
         [DisplayName("Username")]
-        [InputSpecification("Define the username to use when connecting to the machine.")]
+        [Description("Define the username to use when connecting to the machine.")]
         [SampleUsage("myRobot || {vUsername}")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_UserName { get; set; }
 
         [DisplayName("Password")]
-        [InputSpecification("Define the password to use when connecting to the machine.")]
+        [Description("Define the password to use when connecting to the machine.")]
         [SampleUsage("password || {vPassword}")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_Password { get; set; }
 
         [DisplayName("RDP Window Width")]
-        [InputSpecification("Define the width for the Remote Desktop Window.")]
+        [Description("Define the width for the Remote Desktop Window.")]
         [SampleUsage("1000 || {vWidth}")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_RDPWidth { get; set; }
 
         [DisplayName("RDP Window Height")]
-        [InputSpecification("Define the height for the Remote Desktop Window.")]
+        [Description("Define the height for the Remote Desktop Window.")]
         [SampleUsage("800 || {vHeight}")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]

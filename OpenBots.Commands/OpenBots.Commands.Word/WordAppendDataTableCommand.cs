@@ -20,13 +20,13 @@ namespace OpenBots.Commands.Word
     public class WordAppendDataTableCommand : ScriptCommand
     {
         [DisplayName("Word Instance Name")]
-        [InputSpecification("Enter the unique instance that was specified in the **Create Application** command.")]
+        [Description("Enter the unique instance that was specified in the **Create Application** command.")]
         [SampleUsage("MyWordInstance")]
         [Remarks("Failure to enter the correct instance or failure to first call the **Create Application** command will cause an error.")]
         public string v_InstanceName { get; set; }
 
         [DisplayName("DataTable")]
-        [InputSpecification("Enter the DataTable to append to the Document.")]
+        [Description("Enter the DataTable to append to the Document.")]
         [SampleUsage("{vDataTable}")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]

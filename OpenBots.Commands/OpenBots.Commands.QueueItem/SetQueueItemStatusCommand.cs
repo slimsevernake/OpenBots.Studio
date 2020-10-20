@@ -19,7 +19,7 @@ namespace OpenBots.Commands.QueueItem
     public class SetQueueItemStatusCommand : ScriptCommand
     {
         [DisplayName("QueueItem")]
-        [InputSpecification("Enter a QueueItem Dictionary variable.")]
+        [Description("Enter a QueueItem Dictionary variable.")]
         [SampleUsage("{vQueueItem}")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
@@ -29,20 +29,20 @@ namespace OpenBots.Commands.QueueItem
         [PropertyUISelectionOption("Successful")]
         [PropertyUISelectionOption("Failed - Should Retry")]
         [PropertyUISelectionOption("Failed - Fatal")]
-        [InputSpecification("Specify the QueueItem status type.")]
+        [Description("Specify the QueueItem status type.")]
         [SampleUsage("")]
         [Remarks("")]
         public string v_QueueItemStatusType { get; set; }
 
         [DisplayName("QueueItem Error Code (Optional)")]
-        [InputSpecification("Enter the QueueItem code.")]
+        [Description("Enter the QueueItem code.")]
         [SampleUsage("400 || {vStatusCode}")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_QueueItemErrorCode { get; set; }
 
         [DisplayName("QueueItem Error Message (Optional)")]
-        [InputSpecification("Enter the QueueItem error message.")]
+        [Description("Enter the QueueItem error message.")]
         [SampleUsage("File not found || {vStatusMessage}")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]

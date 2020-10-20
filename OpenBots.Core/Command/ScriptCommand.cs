@@ -24,13 +24,13 @@ namespace OpenBots.Core.Command
         public bool CommandEnabled { get; set; }
 
         [DisplayName("Private (Optional)")]
-        [InputSpecification("Optional field to mark the command as private (data sensitive) in order to avoid its logging.")]
+        [Description("Optional field to mark the command as private (data sensitive) in order to avoid its logging.")]
         [SampleUsage("")]
         [Remarks("")]
         public bool v_IsPrivate { get; set; }
 
         [DisplayName("Comment Field (Optional)")]
-        [InputSpecification("Optional field to enter a custom comment which could potentially describe this command or the need for this command, if required.")]
+        [Description("Optional field to enter a custom comment which could potentially describe this command or the need for this command, if required.")]
         [SampleUsage("I am using this command to ...")]
         [Remarks("Optional")]
         public string v_Comment { get; set; }

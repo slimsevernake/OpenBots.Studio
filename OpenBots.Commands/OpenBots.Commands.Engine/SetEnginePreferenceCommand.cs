@@ -17,7 +17,7 @@ namespace OpenBots.Commands.Engine
         [DisplayName("Calculation Preference")]
         [PropertyUISelectionOption("Enable Automatic Calculations")]
         [PropertyUISelectionOption("Disable Automatic Calculations")]
-        [InputSpecification("Select the appropriate calculation preference.")]
+        [Description("Select the appropriate calculation preference.")]
         [Remarks("Disabling automatic calculations will prevent the engine from interpreting strings " +
                  "with characters '+, -, *, /, =' as mathematical operations.")]
         public string v_CalculationOption { get; set; }

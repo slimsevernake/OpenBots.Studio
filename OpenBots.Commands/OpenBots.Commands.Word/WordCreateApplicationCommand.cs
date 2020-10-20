@@ -24,7 +24,7 @@ namespace OpenBots.Commands.Word
     {
 
         [DisplayName("Word Instance Name")]
-        [InputSpecification("Enter a unique name that will represent the application instance.")]
+        [Description("Enter a unique name that will represent the application instance.")]
         [SampleUsage("MyWordInstance")]
         [Remarks("This unique name allows you to refer to the instance by name in future commands, " +
                  "ensuring that the commands you specify run against the correct application.")]
@@ -33,13 +33,13 @@ namespace OpenBots.Commands.Word
         [DisplayName("New/Open Document")]
         [PropertyUISelectionOption("New Document")]
         [PropertyUISelectionOption("Open Document")]
-        [InputSpecification("Indicate whether to create a new Document or to open an existing Document.")]
+        [Description("Indicate whether to create a new Document or to open an existing Document.")]
         [SampleUsage("")]
         [Remarks("")]
         public string v_NewOpenDocument { get; set; }
 
         [DisplayName("Document File Path")]
-        [InputSpecification("Enter or Select the path to the Document file.")]
+        [Description("Enter or Select the path to the Document file.")]
         [SampleUsage(@"C:\temp\myfile.docx || {vFilePath} || {ProjectPath}\myfile.docx")]
         [Remarks("This input should only be used for opening existing Documents.")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
@@ -49,7 +49,7 @@ namespace OpenBots.Commands.Word
         [DisplayName("Visible")]
         [PropertyUISelectionOption("Yes")]
         [PropertyUISelectionOption("No")]
-        [InputSpecification("Indicate whether the Word automation should be visible or not.")]
+        [Description("Indicate whether the Word automation should be visible or not.")]
         [SampleUsage("")]
         [Remarks("")]
         public string v_Visible { get; set; }
@@ -57,7 +57,7 @@ namespace OpenBots.Commands.Word
         [DisplayName("Close All Existing Word Instances")]
         [PropertyUISelectionOption("Yes")]
         [PropertyUISelectionOption("No")]
-        [InputSpecification("Indicate whether to close any existing Word instances before executing Word Automation.")]
+        [Description("Indicate whether to close any existing Word instances before executing Word Automation.")]
         [SampleUsage("")]
         [Remarks("")]
         public string v_CloseAllInstances { get; set; }

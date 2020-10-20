@@ -86,7 +86,7 @@ namespace OpenBots.Studio.Utilities.Documentation
                 {
                     //pull attributes from property
                     var commandLabel = CleanMarkdownValue(GetPropertyValue(prop, typeof(DisplayNameAttribute)));
-                    var helpfulExplanation = CleanMarkdownValue(GetPropertyValue(prop, typeof(InputSpecification)));
+                    var helpfulExplanation = CleanMarkdownValue(GetPropertyValue(prop, typeof(DescriptionAttribute)));
                     var sampleUsage = CleanMarkdownValue(GetPropertyValue(prop, typeof(SampleUsage)));
                     var remarks = CleanMarkdownValue(GetPropertyValue(prop, typeof(Remarks)));
 
@@ -172,10 +172,10 @@ namespace OpenBots.Studio.Utilities.Documentation
                     var processedAttribute = (DisplayNameAttribute)attributeFound;
                     return processedAttribute.DisplayName;
                 }
-                else if (attributeFound is InputSpecification)
+                else if (attributeFound is DescriptionAttribute)
                 {
-                    var processedAttribute = (InputSpecification)attributeFound;
-                    return processedAttribute.Specification;
+                    var processedAttribute = (DescriptionAttribute)attributeFound;
+                    return processedAttribute.Description;
                 }
                 else if (attributeFound is SampleUsage)
                 {

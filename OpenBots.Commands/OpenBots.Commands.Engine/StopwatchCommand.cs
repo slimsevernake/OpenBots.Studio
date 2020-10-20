@@ -19,7 +19,7 @@ namespace OpenBots.Commands.Engine
     public class StopwatchCommand : ScriptCommand
     {
         [DisplayName("Stopwatch Instance Name")]
-        [InputSpecification("Enter a unique name that will represent the application instance.")]
+        [Description("Enter a unique name that will represent the application instance.")]
         [SampleUsage("MyStopwatchInstance")]
         [Remarks("This unique name allows you to refer to the instance by name in future commands, " +
                  "ensuring that the commands you specify run against the correct application.")]
@@ -31,20 +31,20 @@ namespace OpenBots.Commands.Engine
         [PropertyUISelectionOption("Restart Stopwatch")]
         [PropertyUISelectionOption("Reset Stopwatch")]
         [PropertyUISelectionOption("Measure Stopwatch")]
-        [InputSpecification("Select the appropriate stopwatch action.")]
+        [Description("Select the appropriate stopwatch action.")]
         [SampleUsage("")]
         [Remarks("")]
         public string v_StopwatchAction { get; set; }
 
         [DisplayName("String Format")]
-        [InputSpecification("Specify a DateTime string format if required.")]
+        [Description("Specify a DateTime string format if required.")]
         [SampleUsage("MM/dd/yy || hh:mm || {vFormat}")]
         [Remarks("This input is optional.")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_ToStringFormat { get; set; }
 
         [DisplayName("Output Elapsed Time Variable")]
-        [InputSpecification("Create a new variable or select a variable from the list.")]
+        [Description("Create a new variable or select a variable from the list.")]
         [SampleUsage("{vUserVariable}")]
         [Remarks("Variables not pre-defined in the Variable Manager will be automatically generated at runtime.")]
         public string v_OutputUserVariableName { get; set; }

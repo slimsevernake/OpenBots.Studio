@@ -18,7 +18,7 @@ namespace OpenBots.Commands.QueueItem
     public class ExtendQueueItemCommand : ScriptCommand
     {
         [DisplayName("QueueItem")]
-        [InputSpecification("Enter a QueueItem Dictionary variable.")]
+        [Description("Enter a QueueItem Dictionary variable.")]
         [SampleUsage("{vQueueItem}")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]

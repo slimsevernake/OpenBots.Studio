@@ -31,7 +31,7 @@ namespace OpenBots.Commands
         [PropertyUISelectionOption("NullReferenceException")]
         [PropertyUISelectionOption("OverflowException")]
         [PropertyUISelectionOption("TimeoutException")]
-        [InputSpecification("Select the appropriate exception type.")]
+        [Description("Select the appropriate exception type.")]
         [SampleUsage("")]
         [Remarks("This command will be executed if the type of the exception that occurred in the try block matches the selected exception type.")]
         public string v_ExceptionType { get; set; }

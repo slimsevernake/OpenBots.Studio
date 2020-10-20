@@ -45,13 +45,13 @@ namespace OpenBots.Commands
         [PropertyUISelectionOption("Image Element Exists")]
         [PropertyUISelectionOption("Error Occured")]
         [PropertyUISelectionOption("Error Did Not Occur")]
-        [InputSpecification("Select the necessary condition type.")]
+        [Description("Select the necessary condition type.")]
         [SampleUsage("")]
         [Remarks("")]
         public string v_LoopActionType { get; set; }
 
         [DisplayName("Additional Parameters")]
-        [InputSpecification("Supply or Select the required comparison parameters.")]
+        [Description("Supply or Select the required comparison parameters.")]
         [SampleUsage("Param Value || {vParamValue}")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]

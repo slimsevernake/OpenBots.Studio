@@ -19,7 +19,7 @@ namespace OpenBots.Commands.Input
     {
 
         [DisplayName("HTML")]
-        [InputSpecification("Define the form to be displayed using the HTML Builder.")]
+        [Description("Define the form to be displayed using the HTML Builder.")]
         [SampleUsage("")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowHTMLBuilder)]
@@ -28,7 +28,7 @@ namespace OpenBots.Commands.Input
         [DisplayName("Error On Close")]
         [PropertyUISelectionOption("Yes")]
         [PropertyUISelectionOption("No")]
-        [InputSpecification("Specify if an exception should be thrown on any result other than 'OK'.")]
+        [Description("Specify if an exception should be thrown on any result other than 'OK'.")]
         [SampleUsage("")]
         [Remarks("")]      
         public string v_ErrorOnClose { get; set; }

@@ -22,21 +22,21 @@ namespace OpenBots.Commands.List
     public class UpdateListItemCommand : ScriptCommand
     {
         [DisplayName("List")]
-        [InputSpecification("Provide a List variable.")]
+        [Description("Provide a List variable.")]
         [SampleUsage("{vList}")]
         [Remarks("Any type of variable other than List will cause error.")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_ListName { get; set; }
 
         [DisplayName("List Item")]
-        [InputSpecification("Enter the item to write to the List.")]
+        [Description("Enter the item to write to the List.")]
         [SampleUsage("Hello || {vItem}")]
         [Remarks("List item can only be a String, DataTable, MailItem or IWebElement.")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_ListItem { get; set; }
 
         [DisplayName("List Index")]
-        [InputSpecification("Enter the List index where the item will be written to.")]
+        [Description("Enter the List index where the item will be written to.")]
         [SampleUsage("0 || {vIndex}")]
         [Remarks("Providing an out of range index will produce an exception.")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]

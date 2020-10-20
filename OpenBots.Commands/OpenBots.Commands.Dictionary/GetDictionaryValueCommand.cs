@@ -18,21 +18,21 @@ namespace OpenBots.Commands.Dictionary
     {
 
         [DisplayName("Dictionary")]
-        [InputSpecification("Specify the dictionary variable to get a value from.")]
+        [Description("Specify the dictionary variable to get a value from.")]
         [SampleUsage("{vDictionary}")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_InputDictionary { get; set; }
 
         [DisplayName("Key")]
-        [InputSpecification("Specify the key to get the value for.")]
+        [Description("Specify the key to get the value for.")]
         [SampleUsage("SomeKey || {vKey}")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_Key { get; set; }
 
         [DisplayName("Output Value Variable")]
-        [InputSpecification("Create a new variable or select a variable from the list.")]
+        [Description("Create a new variable or select a variable from the list.")]
         [SampleUsage("{vUserVariable}")]
         [Remarks("Variables not pre-defined in the Variable Manager will be automatically generated at runtime.")]
         public string v_OutputUserVariableName { get; set; }

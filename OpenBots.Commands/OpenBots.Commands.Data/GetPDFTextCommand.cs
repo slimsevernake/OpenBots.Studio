@@ -22,13 +22,13 @@ namespace OpenBots.Commands.Data
         [DisplayName("Source Type")]
         [PropertyUISelectionOption("File Path")]
         [PropertyUISelectionOption("File URL")]
-        [InputSpecification("Select source type of PDF file.")]
+        [Description("Select source type of PDF file.")]
         [SampleUsage("")]
         [Remarks("Select 'File Path' if the file is locally placed or 'File URL' to read a file from a web URL.")]
         public string v_FileSourceType { get; set; }
 
         [DisplayName("File Path / URL")]
-        [InputSpecification("Specify the local path or URL to the applicable PDF file.")]
+        [Description("Specify the local path or URL to the applicable PDF file.")]
         [SampleUsage(@"C:\temp\myfile.pdf || https://temp.com/myfile.pdf || {vFilePath}")]
         [Remarks("Providing an invalid File Path/URL will result in an error.")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
@@ -36,7 +36,7 @@ namespace OpenBots.Commands.Data
         public string v_FilePath { get; set; }
 
         [DisplayName("Output Text Variable")]
-        [InputSpecification("Create a new variable or select a variable from the list.")]
+        [Description("Create a new variable or select a variable from the list.")]
         [SampleUsage("{vUserVariable}")]
         [Remarks("Variables not pre-defined in the Variable Manager will be automatically generated at runtime.")]
         public string v_OutputUserVariableName { get; set; }

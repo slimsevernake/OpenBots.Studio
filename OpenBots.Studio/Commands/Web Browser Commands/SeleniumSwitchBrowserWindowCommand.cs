@@ -18,7 +18,7 @@ namespace OpenBots.Commands
     public class SeleniumSwitchBrowserWindowCommand : ScriptCommand
     {
         [DisplayName("Browser Instance Name")]
-        [InputSpecification("Enter the unique instance that was specified in the **Create Browser** command.")]
+        [Description("Enter the unique instance that was specified in the **Create Browser** command.")]
         [SampleUsage("MyBrowserInstance")]
         [Remarks("Failure to enter the correct instance name or failure to first call the **Create Browser** command will cause an error.")]
         public string v_InstanceName { get; set; }
@@ -27,7 +27,7 @@ namespace OpenBots.Commands
         [PropertyUISelectionOption("Window URL")]
         [PropertyUISelectionOption("Window Title")]
         [PropertyUISelectionOption("Handle ID")]
-        [InputSpecification("Select an option which best fits the search type you would like to use.")]
+        [Description("Select an option which best fits the search type you would like to use.")]
         [SampleUsage("")]
         [Remarks("")]
         public string v_WindowMatchType { get; set; }
@@ -35,7 +35,7 @@ namespace OpenBots.Commands
         [DisplayName("Match Specification")]
         [PropertyUISelectionOption("Exact Match")]
         [PropertyUISelectionOption("Contains Match")]
-        [InputSpecification("Select whether the search parameter should match the window type exactly or just contain it.")]
+        [Description("Select whether the search parameter should match the window type exactly or just contain it.")]
         [SampleUsage("")]
         [Remarks("")]
         public string v_MatchSpecification { get; set; }
@@ -43,13 +43,13 @@ namespace OpenBots.Commands
         [DisplayName("Case-Sensitive")]
         [PropertyUISelectionOption("Yes")]
         [PropertyUISelectionOption("No")]
-        [InputSpecification("Select whether the search parameter is case-sensitive or not.")]
+        [Description("Select whether the search parameter is case-sensitive or not.")]
         [SampleUsage("")]
         [Remarks("")]
         public string v_CaseSensitiveMatch { get; set; }
 
         [DisplayName("Browser Search Parameter")]
-        [InputSpecification("Provide the parameter to match (ex. Window URL, Window Title, Handle ID).")]
+        [Description("Provide the parameter to match (ex. Window URL, Window Title, Handle ID).")]
         [SampleUsage("http://www.url.com || Welcome to Homepage || {vSearchData}")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]

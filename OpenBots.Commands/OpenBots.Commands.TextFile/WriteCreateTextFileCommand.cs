@@ -19,7 +19,7 @@ namespace OpenBots.Commands.TextFile
     {
 
         [DisplayName("Text File Path")]
-        [InputSpecification("Enter or select the text file path.")]
+        [Description("Enter or select the text file path.")]
         [SampleUsage(@"C:\temp\myfile.txt || {ProjectPath}\myText.txt || {vTextFilePath}")]
         [Remarks("If the selected text file does not exist, a file with the provided name and location will be created.")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
@@ -28,7 +28,7 @@ namespace OpenBots.Commands.TextFile
         public string v_FilePath { get; set; }
 
         [DisplayName("Text")]
-        [InputSpecification("Indicate the Text to write.")]
+        [Description("Indicate the Text to write.")]
         [SampleUsage("Hello World! || {vText}")]
         [Remarks("[crLF] inserts a newline.")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]       
@@ -37,7 +37,7 @@ namespace OpenBots.Commands.TextFile
         [DisplayName("Overwrite Option")]
         [PropertyUISelectionOption("Append")]
         [PropertyUISelectionOption("Overwrite")]
-        [InputSpecification("Indicate whether this command should append the text to or overwrite all existing text " +
+        [Description("Indicate whether this command should append the text to or overwrite all existing text " +
                             "in the file")]
         [SampleUsage("")]
         [Remarks("")]

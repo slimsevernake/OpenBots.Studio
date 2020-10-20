@@ -23,14 +23,14 @@ namespace OpenBots.Commands.QueueItem
     public class WorkQueueItemCommand : ScriptCommand
     {
         [DisplayName("Queue Name")]
-        [InputSpecification("Enter the name of the Queue.")]
+        [Description("Enter the name of the Queue.")]
         [SampleUsage("Name || {vQueueName}")]
         [Remarks("QueueItem Text/Json values are store in the 'DataJson' key of a QueueItem Dictionary.")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_QueueName { get; set; }
 
         [DisplayName("Output QueueItem Dictionary Variable")]
-        [InputSpecification("Create a new variable or select a variable from the list.")]
+        [Description("Create a new variable or select a variable from the list.")]
         [SampleUsage("{vUserVariable}")]
         [Remarks("Variables not pre-defined in the Variable Manager will be automatically generated at runtime.")]
         public string v_OutputUserVariableName { get; set; }

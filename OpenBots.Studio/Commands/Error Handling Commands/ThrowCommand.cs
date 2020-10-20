@@ -34,13 +34,13 @@ namespace OpenBots.Commands
         [PropertyUISelectionOption("NullReferenceException")]
         [PropertyUISelectionOption("OverflowException")]
         [PropertyUISelectionOption("TimeoutException")]
-        [InputSpecification("Select the appropriate exception type to throw.")]
+        [Description("Select the appropriate exception type to throw.")]
         [SampleUsage("")]
         [Remarks("")]
         public string v_ExceptionType { get; set; }
 
         [DisplayName("Exception Message")]
-        [InputSpecification("Enter a custom exception message.")]
+        [Description("Enter a custom exception message.")]
         [SampleUsage("A Custom Message || {vExceptionMessage}")]
         [Remarks("The selected exception with this custom message will be thrown.")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]

@@ -23,49 +23,49 @@ namespace OpenBots.Commands.Email
     {
 
         [DisplayName("MimeMessage")]
-        [InputSpecification("Enter the MimeMessage to forward.")]
+        [Description("Enter the MimeMessage to forward.")]
         [SampleUsage("{vMimeMessage}")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_SMTPMimeMessage { get; set; }
 
         [DisplayName("Host")]
-        [InputSpecification("Define the host/service name that the script should use.")]
+        [Description("Define the host/service name that the script should use.")]
         [SampleUsage("smtp.gmail.com || {vHost}")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_SMTPHost { get; set; }
 
         [DisplayName("Port")]
-        [InputSpecification("Define the port number that should be used when contacting the SMTP service.")]
+        [Description("Define the port number that should be used when contacting the SMTP service.")]
         [SampleUsage("465 || {vPort}")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_SMTPPort { get; set; }
 
         [DisplayName("Username")]
-        [InputSpecification("Define the username to use when contacting the SMTP service.")]
+        [Description("Define the username to use when contacting the SMTP service.")]
         [SampleUsage("myRobot || {vUsername}")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_SMTPUserName { get; set; }
 
         [DisplayName("Password")]
-        [InputSpecification("Define the password to use when contacting the SMTP service.")]
+        [Description("Define the password to use when contacting the SMTP service.")]
         [SampleUsage("password || {vPassword}")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_SMTPPassword { get; set; }
 
         [DisplayName("Recipient(s)")]
-        [InputSpecification("Enter the email address(es) of the recipient(s).")]
+        [Description("Enter the email address(es) of the recipient(s).")]
         [SampleUsage("test@test.com || test@test.com;test2@test.com || {vEmail} || {vEmail1};{vEmail2} || {vEmails}")]
         [Remarks("Multiple recipient email addresses should be delimited by a semicolon (;).")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_SMTPRecipients { get; set; }
 
         [DisplayName("Email Body")]
-        [InputSpecification("Enter text to be used as the email body.")]
+        [Description("Enter text to be used as the email body.")]
         [SampleUsage("Everything ran ok at {DateTime.Now}  || {vBody}")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]

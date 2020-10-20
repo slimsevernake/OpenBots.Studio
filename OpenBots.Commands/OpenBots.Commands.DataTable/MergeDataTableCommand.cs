@@ -21,14 +21,14 @@ namespace OpenBots.Commands.DataTable
     {
 
         [DisplayName("Source DataTable")]
-        [InputSpecification("Enter an existing DataTable to merge into another one.")]
+        [Description("Enter an existing DataTable to merge into another one.")]
         [SampleUsage("{vSrcDataTable}")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_SourceDataTable { get; set; }
 
         [DisplayName("Destination DataTable")]
-        [InputSpecification("Enter an existing DataTable to apply the merge operation to.")]
+        [Description("Enter an existing DataTable to apply the merge operation to.")]
         [SampleUsage("{vDestDataTable}")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
@@ -39,7 +39,7 @@ namespace OpenBots.Commands.DataTable
         [PropertyUISelectionOption("AddWithKey")]
         [PropertyUISelectionOption("Error")]
         [PropertyUISelectionOption("Ignore")]
-        [InputSpecification("Select any Missing Schema Action.")]
+        [Description("Select any Missing Schema Action.")]
         [SampleUsage("")]
         [Remarks("Specifies the action to take when adding data to the DataSet and the required DataTable or DataColumn is missing.")]
         public string v_MissingSchemaAction { get; set; }

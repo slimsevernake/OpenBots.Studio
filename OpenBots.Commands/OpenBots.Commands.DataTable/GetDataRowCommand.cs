@@ -21,21 +21,21 @@ namespace OpenBots.Commands.DataTable
     {
 
         [DisplayName("DataTable")]
-        [InputSpecification("Enter an existing DataTable to get rows from.")]
+        [Description("Enter an existing DataTable to get rows from.")]
         [SampleUsage("{vDataTable}")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_DataTable { get; set; }
 
         [DisplayName("DataRow Index")]
-        [InputSpecification("Enter a valid DataRow index value.")]
+        [Description("Enter a valid DataRow index value.")]
         [SampleUsage("0 || {vIndex}")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_DataRowIndex { get; set; }
 
         [DisplayName("Output DataRow Variable")]
-        [InputSpecification("Create a new variable or select a variable from the list.")]
+        [Description("Create a new variable or select a variable from the list.")]
         [SampleUsage("{vUserVariable}")]
         [Remarks("Variables not pre-defined in the Variable Manager will be automatically generated at runtime.")]
         public string v_OutputUserVariableName { get; set; }

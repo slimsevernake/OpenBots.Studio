@@ -21,21 +21,21 @@ namespace OpenBots.Commands.Outlook
     {
 
         [DisplayName("Recipient(s)")]
-        [InputSpecification("Enter the email address(es) of the recipient(s).")]
+        [Description("Enter the email address(es) of the recipient(s).")]
         [SampleUsage("test@test.com || test@test.com;test2@test.com || {vEmail} || {vEmail1};{vEmail2} || {vEmails}")]
         [Remarks("Multiple recipient email addresses should be delimited by a semicolon (;).")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_Recipients { get; set; }
 
         [DisplayName("Email Subject")]
-        [InputSpecification("Enter the subject of the email.")]
+        [Description("Enter the subject of the email.")]
         [SampleUsage("Hello || {vSubject}")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_Subject { get; set; }
 
         [DisplayName("Email Body")]
-        [InputSpecification("Enter text to be used as the email body.")]
+        [Description("Enter text to be used as the email body.")]
         [SampleUsage("Dear John, ... || {vBody}")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
@@ -44,12 +44,12 @@ namespace OpenBots.Commands.Outlook
         [DisplayName("Email Body Type")]
         [PropertyUISelectionOption("Plain")]
         [PropertyUISelectionOption("HTML")]
-        [InputSpecification("Select the email body format.")]
+        [Description("Select the email body format.")]
         [Remarks("")]
         public string v_BodyType { get; set; }
 
         [DisplayName("Attachment File Path(s)")]
-        [InputSpecification("Enter the file path(s) of the file(s) to attach.")]
+        [Description("Enter the file path(s) of the file(s) to attach.")]
         [SampleUsage(@"C:\temp\myFile.xlsx || {vFile} || C:\temp\myFile1.xlsx;C:\temp\myFile2.xlsx || {vFile1};{vFile2} || {vFiles}")]
         [Remarks("This input is optional. Multiple attachments should be delimited by a semicolon (;).")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]

@@ -18,7 +18,7 @@ namespace OpenBots.Commands.Window
     public class ActivateWindowCommand : ScriptCommand
     {
         [DisplayName("Window Name")]
-        [InputSpecification("Select the name of the window to activate and bring forward.")]
+        [Description("Select the name of the window to activate and bring forward.")]
         [SampleUsage("Untitled - Notepad || {vWindow}")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]

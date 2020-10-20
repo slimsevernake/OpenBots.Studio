@@ -18,13 +18,13 @@ namespace OpenBots.Commands.Variable
     {
 
         [DisplayName("New Variable Name")]
-        [InputSpecification("Indicate a unique reference name for later use.")]
+        [Description("Indicate a unique reference name for later use.")]
         [SampleUsage("{vSomeVariable}")]
         [Remarks("")]
         public string v_VariableName { get; set; }
 
         [DisplayName("Input Value")]
-        [InputSpecification("Enter the value for the variable.")]
+        [Description("Enter the value for the variable.")]
         [SampleUsage("Hello || {vNum} || {vNum}+1")]
         [Remarks("You can use variables in input if you encase them within braces {vSomeValue}. You can also perform basic math operations.")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
@@ -34,7 +34,7 @@ namespace OpenBots.Commands.Variable
         [PropertyUISelectionOption("Do Nothing If Variable Exists")]
         [PropertyUISelectionOption("Error If Variable Exists")]
         [PropertyUISelectionOption("Replace If Variable Exists")]
-        [InputSpecification("Select an action to take if the variable already exists.")]
+        [Description("Select an action to take if the variable already exists.")]
         [SampleUsage("")]
         [Remarks("")]
         public string v_IfExists { get; set; }

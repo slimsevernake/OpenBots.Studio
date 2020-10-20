@@ -20,13 +20,13 @@ namespace OpenBots.Commands.Word
     public class WordSaveDocumentAsCommand : ScriptCommand
     {
         [DisplayName("Word Instance Name")]
-        [InputSpecification("Enter the unique instance that was specified in the **Create Application** command.")]
+        [Description("Enter the unique instance that was specified in the **Create Application** command.")]
         [SampleUsage("MyWordInstance")]
         [Remarks("Failure to enter the correct instance or failure to first call the **Create Application** command will cause an error.")]
         public string v_InstanceName { get; set; }
 
         [DisplayName("Document Location")]
-        [InputSpecification("Enter or Select the path of the folder to save the Document in.")]
+        [Description("Enter or Select the path of the folder to save the Document in.")]
         [SampleUsage(@"C:\temp || {vFolderPath} || {ProjectPath}")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
@@ -34,7 +34,7 @@ namespace OpenBots.Commands.Word
         public string v_FolderPath { get; set; }
 
         [DisplayName("Document File Name")]
-        [InputSpecification("Enter or Select the name of the Document file.")]
+        [Description("Enter or Select the name of the Document file.")]
         [SampleUsage("myFile.docx || {vFilename}")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]

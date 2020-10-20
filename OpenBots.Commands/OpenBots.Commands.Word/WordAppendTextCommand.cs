@@ -19,13 +19,13 @@ namespace OpenBots.Commands.Word
     public class WordAppendTextCommand : ScriptCommand
     {
         [DisplayName("Word Instance Name")]
-        [InputSpecification("Enter the unique instance that was specified in the **Create Application** command.")]
+        [Description("Enter the unique instance that was specified in the **Create Application** command.")]
         [SampleUsage("MyWordInstance")]
         [Remarks("Failure to enter the correct instance or failure to first call the **Create Application** command will cause an error.")]
         public string v_InstanceName { get; set; }
 
         [DisplayName("Text")]
-        [InputSpecification("Enter the text to append to the Document.")]
+        [Description("Enter the text to append to the Document.")]
         [SampleUsage("Hello World || {vText}")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
@@ -37,7 +37,7 @@ namespace OpenBots.Commands.Word
         [PropertyUISelectionOption("Helvetica")]
         [PropertyUISelectionOption("Times New Roman")]
         [PropertyUISelectionOption("Verdana")]
-        [InputSpecification("Select or provide a valid font name.")]
+        [Description("Select or provide a valid font name.")]
         [SampleUsage("")]
         [Remarks("")]
         public string v_FontName { get; set; }
@@ -50,7 +50,7 @@ namespace OpenBots.Commands.Word
         [PropertyUISelectionOption("16")]
         [PropertyUISelectionOption("18")]
         [PropertyUISelectionOption("20")]
-        [InputSpecification("Select or provide a valid font size.")]
+        [Description("Select or provide a valid font size.")]
         [SampleUsage("")]
         [Remarks("")]
         public string v_FontSize { get; set; }
@@ -58,7 +58,7 @@ namespace OpenBots.Commands.Word
         [DisplayName("Bold")]
         [PropertyUISelectionOption("Yes")]
         [PropertyUISelectionOption("No")]
-        [InputSpecification("Specify whether the text font should be bold.")]
+        [Description("Specify whether the text font should be bold.")]
         [SampleUsage("")]
         [Remarks("")]
         public string v_FontBold { get; set; }
@@ -66,7 +66,7 @@ namespace OpenBots.Commands.Word
         [DisplayName("Italic")]
         [PropertyUISelectionOption("Yes")]
         [PropertyUISelectionOption("No")]
-        [InputSpecification("Specify whether the text font should be italic.")]
+        [Description("Specify whether the text font should be italic.")]
         [SampleUsage("")]
         [Remarks("")]
         public string v_FontItalic { get; set; }
@@ -74,7 +74,7 @@ namespace OpenBots.Commands.Word
         [DisplayName("Underline")]
         [PropertyUISelectionOption("Yes")]
         [PropertyUISelectionOption("No")]
-        [InputSpecification("Specify whether the text font should be underlined.")]
+        [Description("Specify whether the text font should be underlined.")]
         [SampleUsage("")]
         [Remarks("")]
         public string v_FontUnderline { get; set; }

@@ -20,7 +20,7 @@ namespace OpenBots.Commands.Asset
     public class GetAssetCommand : ScriptCommand
     {
         [DisplayName("Asset Name")]
-        [InputSpecification("Enter the name of the Asset.")]
+        [Description("Enter the name of the Asset.")]
         [SampleUsage("Name || {vAssetName}")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
@@ -31,13 +31,13 @@ namespace OpenBots.Commands.Asset
         [PropertyUISelectionOption("Number")]
         [PropertyUISelectionOption("JSON")]
         [PropertyUISelectionOption("File")]
-        [InputSpecification("Specify the type of the Asset.")]
+        [Description("Specify the type of the Asset.")]
         [SampleUsage("")]
         [Remarks("")]
         public string v_AssetType { get; set; }
 
         [DisplayName("Output Directory Path")]
-        [InputSpecification("Enter or Select the directory path to store the file in.")]
+        [Description("Enter or Select the directory path to store the file in.")]
         [SampleUsage(@"C:\temp || {vDirectoryPath} || {ProjectPath}\temp")]
         [Remarks("This input should only be used for File type Assets.")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
@@ -45,7 +45,7 @@ namespace OpenBots.Commands.Asset
         public string v_OutputDirectoryPath { get; set; }
 
         [DisplayName("Output Asset Value Variable")]
-        [InputSpecification("Create a new variable or select a variable from the list.")]
+        [Description("Create a new variable or select a variable from the list.")]
         [SampleUsage("{vUserVariable}")]
         [Remarks("Variables not pre-defined in the Variable Manager will be automatically generated at runtime.")]
         public string v_OutputUserVariableName { get; set; }

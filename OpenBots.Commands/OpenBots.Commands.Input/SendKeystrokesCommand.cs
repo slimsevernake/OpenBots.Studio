@@ -21,14 +21,14 @@ namespace OpenBots.Commands.Input
     {
 
         [DisplayName("Window Name")]
-        [InputSpecification("Select the name of the window to send keystrokes to.")]
+        [Description("Select the name of the window to send keystrokes to.")]
         [SampleUsage("Untitled - Notepad || Current Window || {vWindow}")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_WindowName { get; set; }
 
         [DisplayName("Text to Send")]
-        [InputSpecification("Enter the text to be sent to the specified window.")]
+        [Description("Enter the text to be sent to the specified window.")]
         [SampleUsage("Hello, World! || {vText}")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
@@ -38,7 +38,7 @@ namespace OpenBots.Commands.Input
         [DisplayName("Text Encrypted")]
         [PropertyUISelectionOption("Not Encrypted")]
         [PropertyUISelectionOption("Encrypted")]
-        [InputSpecification("Indicate whether the text in *Text to Send* is encrypted.")]
+        [Description("Indicate whether the text in *Text to Send* is encrypted.")]
         [SampleUsage("")]
         [Remarks("")]
         public string v_EncryptionOption { get; set; }

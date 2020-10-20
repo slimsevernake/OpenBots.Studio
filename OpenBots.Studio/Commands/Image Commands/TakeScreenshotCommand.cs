@@ -20,14 +20,14 @@ namespace OpenBots.Commands
     public class TakeScreenshotCommand : ScriptCommand
     {
         [DisplayName("Window Name")]
-        [InputSpecification("Select the name of the window to take a screenshot of.")]
+        [Description("Select the name of the window to take a screenshot of.")]
         [SampleUsage("Untitled - Notepad || Current Window || {vWindow}")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_WindowName { get; set; }
 
         [DisplayName("Image Location")]
-        [InputSpecification("Enter or Select the path of the folder to save the image to.")]
+        [Description("Enter or Select the path of the folder to save the image to.")]
         [SampleUsage(@"C:\temp || {vFolderPath} || {ProjectPath}")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
@@ -35,7 +35,7 @@ namespace OpenBots.Commands
         public string v_FolderPath { get; set; }
 
         [DisplayName("Image File Name")]
-        [InputSpecification("Enter or Select the name of the image file.")]
+        [Description("Enter or Select the name of the image file.")]
         [SampleUsage("myFile.png || {vFilename}")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]

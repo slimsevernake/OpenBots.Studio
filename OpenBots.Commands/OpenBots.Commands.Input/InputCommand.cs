@@ -25,21 +25,21 @@ namespace OpenBots.Commands.Input
     {
 
         [DisplayName("Header Name")]
-        [InputSpecification("Define the header to be displayed on the input form.")]
+        [Description("Define the header to be displayed on the input form.")]
         [SampleUsage("Please Provide Input || {vHeader}")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_InputHeader { get; set; }
 
         [DisplayName("Input Directions")]
-        [InputSpecification("Define the directions to give to the user.")]
+        [Description("Define the directions to give to the user.")]
         [SampleUsage("Directions: Please fill in the following fields || {vDirections}")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_InputDirections { get; set; }
 
         [DisplayName("Input Parameters")]
-        [InputSpecification("Define the required input parameters.")]
+        [Description("Define the required input parameters.")]
         [SampleUsage("[TextBox | Name | 500,30 | John | {vName}]")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]

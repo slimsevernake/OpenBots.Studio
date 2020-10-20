@@ -19,7 +19,7 @@ namespace OpenBots.Commands.Word
     {
 
         [DisplayName("Word Instance Name")]
-        [InputSpecification("Enter the unique instance that was specified in the **Create Application** command.")]
+        [Description("Enter the unique instance that was specified in the **Create Application** command.")]
         [SampleUsage("MyWordInstance")]
         [Remarks("Failure to enter the correct instance or failure to first call the **Create Application** command will cause an error.")]
         public string v_InstanceName { get; set; }
@@ -27,7 +27,7 @@ namespace OpenBots.Commands.Word
         [DisplayName("Save Document")]
         [PropertyUISelectionOption("Yes")]
         [PropertyUISelectionOption("No")]
-        [InputSpecification("Indicate whether the Document should be saved before closing.")]
+        [Description("Indicate whether the Document should be saved before closing.")]
         [SampleUsage("")]
         [Remarks("")]
         public string v_WordSaveOnExit { get; set; }

@@ -17,13 +17,13 @@ namespace OpenBots.Commands.NLG
     public class GenerateNLGPhraseCommand : ScriptCommand
     {
         [DisplayName("NLG Instance Name")]
-        [InputSpecification("Enter the unique instance that was specified in the **Create NLG Instance** command.")]
+        [Description("Enter the unique instance that was specified in the **Create NLG Instance** command.")]
         [SampleUsage("MyNLGInstance")]
         [Remarks("Failure to enter the correct instance name or failure to first call the **Create NLG Instance** command will cause an error.")]
         public string v_InstanceName { get; set; }
 
         [DisplayName("Output Phrase Variable")]
-        [InputSpecification("Create a new variable or select a variable from the list.")]
+        [Description("Create a new variable or select a variable from the list.")]
         [SampleUsage("{vUserVariable}")]
         [Remarks("Variables not pre-defined in the Variable Manager will be automatically generated at runtime.")]
         public string v_OutputUserVariableName { get; set; }

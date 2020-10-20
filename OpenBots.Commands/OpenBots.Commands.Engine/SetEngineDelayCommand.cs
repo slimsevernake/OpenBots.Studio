@@ -17,7 +17,7 @@ namespace OpenBots.Commands.Engine
     public class SetEngineDelayCommand : ScriptCommand
     {
         [DisplayName("Command Delay Time (Milliseconds)")]
-        [InputSpecification("Select or provide a specific amount of time in milliseconds.")]
+        [Description("Select or provide a specific amount of time in milliseconds.")]
         [SampleUsage("1000 || {vTime}")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]

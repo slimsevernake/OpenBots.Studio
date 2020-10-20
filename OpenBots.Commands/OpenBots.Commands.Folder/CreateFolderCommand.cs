@@ -18,14 +18,14 @@ namespace OpenBots.Commands.Folder
     public class CreateFolderCommand : ScriptCommand
     {
         [DisplayName("New Folder Name")]
-        [InputSpecification("Enter the name of the new folder.")]
+        [Description("Enter the name of the new folder.")]
         [SampleUsage("myFolderName || {vFolderName}")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_NewFolderName { get; set; }
 
         [DisplayName("Directory Path")]
-        [InputSpecification("Enter or Select the path to the directory to create the folder in.")]
+        [Description("Enter or Select the path to the directory to create the folder in.")]
         [SampleUsage(@"C:\temp\myfolder || {ProjectPath}\myfolder || {vTextFolderPath}")]
         [Remarks("{ProjectPath} is the directory path of the current project.")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
@@ -35,7 +35,7 @@ namespace OpenBots.Commands.Folder
         [DisplayName("Delete Existing Folder")]
         [PropertyUISelectionOption("Yes")]
         [PropertyUISelectionOption("No")]
-        [InputSpecification("Specify whether the folder should be deleted first if it already exists.")]
+        [Description("Specify whether the folder should be deleted first if it already exists.")]
         [SampleUsage("")]
         [Remarks("")]
         public string v_DeleteExisting { get; set; }

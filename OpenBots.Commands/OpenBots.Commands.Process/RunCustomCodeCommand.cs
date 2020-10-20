@@ -27,7 +27,7 @@ namespace OpenBots.Commands.Process
     {
 
         [DisplayName("C# Code")]
-        [InputSpecification("Enter the code to be executed or use the builder to create your custom C# code. "+
+        [Description("Enter the code to be executed or use the builder to create your custom C# code. "+
                             "The builder contains a Hello World template that you can use to build from.")]
         [SampleUsage("{vString}.Remove() || {vCode}")]
         [Remarks("This command only supports the standard framework classes.")]
@@ -36,14 +36,14 @@ namespace OpenBots.Commands.Process
         public string v_Code { get; set; }
 
         [DisplayName("Arguments")]
-        [InputSpecification("Enter arguments that the custom code will receive during execution, split them using commas.")]
+        [Description("Enter arguments that the custom code will receive during execution, split them using commas.")]
         [SampleUsage("hello || {vArg} || hello,world || {vArg1},{vArg2}")]
         [Remarks("This input is optional.")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_Args { get; set; }
 
         [DisplayName("Output Data Variable")]
-        [InputSpecification("Create a new variable or select a variable from the list.")]
+        [Description("Create a new variable or select a variable from the list.")]
         [SampleUsage("{vUserVariable}")]
         [Remarks("Variables not pre-defined in the Variable Manager will be automatically generated at runtime.")]
         public string v_OutputUserVariableName { get; set; }

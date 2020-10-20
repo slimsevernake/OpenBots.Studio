@@ -23,42 +23,42 @@ namespace OpenBots.Commands.Email
     public class MoveCopyIMAPEmailCommand : ScriptCommand
     {
         [DisplayName("MimeMessage")]
-        [InputSpecification("Enter the MimeMessage to move or copy.")]
+        [Description("Enter the MimeMessage to move or copy.")]
         [SampleUsage("{vMimeMessage}")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_IMAPMimeMessage { get; set; }
 
         [DisplayName("Host")]
-        [InputSpecification("Define the host/service name that the script should use.")]
+        [Description("Define the host/service name that the script should use.")]
         [SampleUsage("imap.gmail.com || {vHost}")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_IMAPHost { get; set; }
 
         [DisplayName("Port")]
-        [InputSpecification("Define the port number that should be used when contacting the IMAP service.")]
+        [Description("Define the port number that should be used when contacting the IMAP service.")]
         [SampleUsage("993 || {vPort}")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_IMAPPort { get; set; }
 
         [DisplayName("Username")]
-        [InputSpecification("Define the username to use when contacting the IMAP service.")]
+        [Description("Define the username to use when contacting the IMAP service.")]
         [SampleUsage("myRobot || {vUsername}")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_IMAPUserName { get; set; }
 
         [DisplayName("Password")]
-        [InputSpecification("Define the password to use when contacting the IMAP service.")]
+        [Description("Define the password to use when contacting the IMAP service.")]
         [SampleUsage("password || {vPassword}")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_IMAPPassword { get; set; }
 
         [DisplayName("Destination Mail Folder Name")]
-        [InputSpecification("Enter the name of the mail folder the emails are being moved/copied to.")]
+        [Description("Enter the name of the mail folder the emails are being moved/copied to.")]
         [SampleUsage("New Folder || {vFolderName}")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
@@ -67,7 +67,7 @@ namespace OpenBots.Commands.Email
         [DisplayName("Mail Operation")]
         [PropertyUISelectionOption("Move MimeMessage")]
         [PropertyUISelectionOption("Copy MimeMessage")]
-        [InputSpecification("Specify whether to move or copy the selected emails.")]
+        [Description("Specify whether to move or copy the selected emails.")]
         [SampleUsage("")]
         [Remarks("Moving will remove the emails from the original folder while copying will not.")]
         public string v_IMAPOperationType { get; set; }
@@ -75,7 +75,7 @@ namespace OpenBots.Commands.Email
         [DisplayName("Unread Only")]
         [PropertyUISelectionOption("Yes")]
         [PropertyUISelectionOption("No")]
-        [InputSpecification("Specify whether to move/copy unread email messages only.")]
+        [Description("Specify whether to move/copy unread email messages only.")]
         [SampleUsage("")]
         [Remarks("")]
         public string v_IMAPMoveCopyUnreadOnly { get; set; }

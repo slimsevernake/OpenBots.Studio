@@ -18,7 +18,7 @@ namespace OpenBots.Commands.Data
     public class ModifyStringCommand : ScriptCommand
     {
         [DisplayName("Text Data")]
-        [InputSpecification("Provide a variable or text value.")]
+        [Description("Provide a variable or text value.")]
         [SampleUsage("A sample text || {vStringVariable}")]
         [Remarks("Providing data of a type other than a 'String' will result in an error.")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
@@ -29,13 +29,13 @@ namespace OpenBots.Commands.Data
         [PropertyUISelectionOption("To Lower Case")]
         [PropertyUISelectionOption("To Base64 String")]
         [PropertyUISelectionOption("From Base64 String")]
-        [InputSpecification("Select a string function to apply to the input text or variable.")]
+        [Description("Select a string function to apply to the input text or variable.")]
         [SampleUsage("")]
         [Remarks("Each function, when applied to text data, converts it to a specific format.")]
         public string v_TextOperation { get; set; }
 
         [DisplayName("Output Text Variable")]
-        [InputSpecification("Create a new variable or select a variable from the list.")]
+        [Description("Create a new variable or select a variable from the list.")]
         [SampleUsage("{vUserVariable}")]
         [Remarks("Variables not pre-defined in the Variable Manager will be automatically generated at runtime.")]
         public string v_OutputUserVariableName { get; set; }

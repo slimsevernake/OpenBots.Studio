@@ -152,15 +152,15 @@ namespace OpenBots.UI.CustomControls
         public void CreateDefaultToolTipFor(string parameterName, ScriptCommand parent, Control label)
         {
             var variableProperties = parent.GetType().GetProperties().Where(f => f.Name == parameterName).FirstOrDefault();
-            var inputSpecificationAttributesAssigned = variableProperties.GetCustomAttributes(typeof(InputSpecification), true);
+            var inputSpecificationAttributesAssigned = variableProperties.GetCustomAttributes(typeof(DescriptionAttribute), true);
             var sampleUsageAttributesAssigned = variableProperties.GetCustomAttributes(typeof(SampleUsage), true);
             var remarksAttributesAssigned = variableProperties.GetCustomAttributes(typeof(Remarks), true);
 
             string toolTipText = "";
             if (inputSpecificationAttributesAssigned.Length > 0)
             {
-                var attribute = (InputSpecification)inputSpecificationAttributesAssigned[0];
-                toolTipText = attribute.Specification;
+                var attribute = (DescriptionAttribute)inputSpecificationAttributesAssigned[0];
+                toolTipText = attribute.Description;
             }
             if (sampleUsageAttributesAssigned.Length > 0)
             {

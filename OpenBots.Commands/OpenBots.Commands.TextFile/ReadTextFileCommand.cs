@@ -19,7 +19,7 @@ namespace OpenBots.Commands.TextFile
     {
 
         [DisplayName("Text File Path")]
-        [InputSpecification("Enter or select the path to the text file.")]
+        [Description("Enter or select the path to the text file.")]
         [SampleUsage(@"C:\temp\myfile.txt || {ProjectPath}\myText.txt || {vTextFilePath}")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
@@ -27,7 +27,7 @@ namespace OpenBots.Commands.TextFile
         public string v_FilePath { get; set; }
 
         [DisplayName("Output Text Variable")]
-        [InputSpecification("Create a new variable or select a variable from the list.")]
+        [Description("Create a new variable or select a variable from the list.")]
         [SampleUsage("{vUserVariable}")]
         [Remarks("Variables not pre-defined in the Variable Manager will be automatically generated at runtime.")]
         public string v_OutputUserVariableName { get; set; }

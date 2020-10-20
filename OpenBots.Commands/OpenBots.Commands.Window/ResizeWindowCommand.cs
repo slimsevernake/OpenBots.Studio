@@ -19,21 +19,21 @@ namespace OpenBots.Commands.Window
     public class ResizeWindowCommand : ScriptCommand
     {
         [DisplayName("Window Name")]
-        [InputSpecification("Select the name of the window to resize.")]
+        [Description("Select the name of the window to resize.")]
         [SampleUsage("Untitled - Notepad || Current Window || {vWindow}")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_WindowName { get; set; }
 
         [DisplayName("Width (Pixels)")]
-        [InputSpecification("Input the new width size of the window.")]
+        [Description("Input the new width size of the window.")]
         [SampleUsage("800 || {vWidth}")]
         [Remarks("Maximum value should be the maximum value allowed by your resolution. For 1920x1080, the valid width range would be 0-1920.")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_XWindowSize { get; set; }
 
         [DisplayName("Height (Pixels)")]
-        [InputSpecification("Input the new height size of the window.")]
+        [Description("Input the new height size of the window.")]
         [SampleUsage("500 || {vHeight}")]
         [Remarks("Maximum value should be the maximum value allowed by your resolution. For 1920x1080, the valid height range would be 0-1080.")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]

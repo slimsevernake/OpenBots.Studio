@@ -19,14 +19,14 @@ namespace OpenBots.Commands
     {
 
         [DisplayName("Loop Count")]
-        [InputSpecification("Enter the amount of times you would like to execute the encased commands.")]
+        [Description("Enter the amount of times you would like to execute the encased commands.")]
         [SampleUsage("5 || {vLoopCount}")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_LoopParameter { get; set; }
 
         [DisplayName("Start Index")]
-        [InputSpecification("Enter the starting index of the loop.")]
+        [Description("Enter the starting index of the loop.")]
         [SampleUsage("5 || {vStartIndex}")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]

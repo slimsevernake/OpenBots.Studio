@@ -23,27 +23,27 @@ namespace OpenBots.Commands.Excel
     public class ExcelSplitRangeByColumnCommand : ScriptCommand
     {
         [DisplayName("Excel Instance Name")]
-        [InputSpecification("Enter the unique instance that was specified in the **Create Application** command.")]
+        [Description("Enter the unique instance that was specified in the **Create Application** command.")]
         [SampleUsage("MyExcelInstance")]
         [Remarks("Failure to enter the correct instance or failure to first call the **Create Application** command will cause an error.")]
         public string v_InstanceName { get; set; }
 
         [DisplayName("Range")]
-        [InputSpecification("Enter the location of the range to split.")]
+        [Description("Enter the location of the range to split.")]
         [SampleUsage("A1:B10 || A1: || {vRange} || {vStart}:{vEnd} || {vStart}:")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_Range { get; set; }
 
         [DisplayName("Column to Split")]
-        [InputSpecification("Enter the name of the column you wish to split the selected range by.")]
+        [Description("Enter the name of the column you wish to split the selected range by.")]
         [SampleUsage("ColA || {vColumnName}")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_ColumnName { get; set; }
 
         [DisplayName("Split Range Output Directory")]
-        [InputSpecification("Enter or Select the new directory for the split range files.")]
+        [Description("Enter or Select the new directory for the split range files.")]
         [SampleUsage(@"C:\temp\Split Files\ || {vFolderPath} || {ProjectPath}\Split Files")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
@@ -53,13 +53,13 @@ namespace OpenBots.Commands.Excel
         [DisplayName("Output File Type")]
         [PropertyUISelectionOption("xlsx")]
         [PropertyUISelectionOption("csv")]
-        [InputSpecification("Specify the file format type for the split range files.")]
+        [Description("Specify the file format type for the split range files.")]
         [SampleUsage("")]
         [Remarks("")]
         public string v_FileType { get; set; }
 
         [DisplayName("Output DataTable List Variable")]
-        [InputSpecification("Create a new variable or select a variable from the list.")]
+        [Description("Create a new variable or select a variable from the list.")]
         [SampleUsage("{vUserVariable}")]
         [Remarks("Variables not pre-defined in the Variable Manager will be automatically generated at runtime.")]
         public string v_OutputUserVariableName { get; set; }

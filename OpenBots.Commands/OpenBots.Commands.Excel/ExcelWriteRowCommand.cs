@@ -22,20 +22,20 @@ namespace OpenBots.Commands.Excel
     {
 
         [DisplayName("Excel Instance Name")]
-        [InputSpecification("Enter the unique instance that was specified in the **Create Application** command.")]
+        [Description("Enter the unique instance that was specified in the **Create Application** command.")]
         [SampleUsage("MyExcelInstance")]
         [Remarks("Failure to enter the correct instance or failure to first call the **Create Application** command will cause an error.")]
         public string v_InstanceName { get; set; }
 
         [DisplayName("Row")]
-        [InputSpecification("Enter the text value that will be set in the selected row (Can be a DataRow).")]
+        [Description("Enter the text value that will be set in the selected row (Can be a DataRow).")]
         [SampleUsage("Hello,World || {vData1},{vData2} || {vDataRow}")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_RowToSet { get; set; }
 
         [DisplayName("Cell Location")]
-        [InputSpecification("Enter the location of the cell to write the row to.")]
+        [Description("Enter the location of the cell to write the row to.")]
         [SampleUsage("A1 || {vCellLocation}")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]

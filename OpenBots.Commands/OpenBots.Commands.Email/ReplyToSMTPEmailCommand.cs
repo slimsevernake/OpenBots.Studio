@@ -22,35 +22,35 @@ namespace OpenBots.Commands.Email
     public class ReplyToSMTPEmailCommand : ScriptCommand
     {
         [DisplayName("MimeMessage")]
-        [InputSpecification("Enter the MimeMessage to reply to.")]
+        [Description("Enter the MimeMessage to reply to.")]
         [SampleUsage("{vMimeMessage}")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_SMTPMimeMessage { get; set; }
 
         [DisplayName("Host")]
-        [InputSpecification("Define the host/service name that the script should use.")]
+        [Description("Define the host/service name that the script should use.")]
         [SampleUsage("smtp.gmail.com || {vHost}")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_SMTPHost { get; set; }
 
         [DisplayName("Port")]
-        [InputSpecification("Define the port number that should be used when contacting the SMTP service.")]
+        [Description("Define the port number that should be used when contacting the SMTP service.")]
         [SampleUsage("465 || {vPort}")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_SMTPPort { get; set; }
 
         [DisplayName("Username")]
-        [InputSpecification("Define the username to use when contacting the SMTP service.")]
+        [Description("Define the username to use when contacting the SMTP service.")]
         [SampleUsage("myRobot || {vUsername}")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_SMTPUserName { get; set; }
 
         [DisplayName("Password")]
-        [InputSpecification("Define the password to use when contacting the SMTP service.")]
+        [Description("Define the password to use when contacting the SMTP service.")]
         [SampleUsage("password || {vPassword}")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
@@ -59,20 +59,20 @@ namespace OpenBots.Commands.Email
         [DisplayName("Mail Operation")]
         [PropertyUISelectionOption("Reply")]
         [PropertyUISelectionOption("Reply All")]
-        [InputSpecification("Specify whether you intend to reply or reply all.")]
+        [Description("Specify whether you intend to reply or reply all.")]
         [SampleUsage("")]
         [Remarks("Replying will reply to only the original sender. Reply all will reply to everyone in the recipient list.")]
         public string v_SMTPOperationType { get; set; }
 
         [DisplayName("Email Body")]
-        [InputSpecification("Enter text to be used as the email body.")]
+        [Description("Enter text to be used as the email body.")]
         [SampleUsage("Everything ran ok at {DateTime.Now}  || {vBody}")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_SMTPBody { get; set; }
 
         [DisplayName("Attachment File Path(s)")]
-        [InputSpecification("Enter the file path(s) of the file(s) to attach.")]
+        [Description("Enter the file path(s) of the file(s) to attach.")]
         [SampleUsage(@"C:\temp\myFile.xlsx || {vFile} || C:\temp\myFile1.xlsx;C:\temp\myFile2.xlsx || {vFile1};{vFile2} || {vFiles}")]
         [Remarks("This input is optional. Multiple attachments should be delimited by a semicolon (;).")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]

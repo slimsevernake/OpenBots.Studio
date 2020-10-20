@@ -17,14 +17,14 @@ namespace OpenBots.Commands.Variable
     public class SetVariableCommand : ScriptCommand
     {
         [DisplayName("Input Value")]
-        [InputSpecification("Enter the input value for the variable.")]
+        [Description("Enter the input value for the variable.")]
         [SampleUsage("Hello || {vNum} || {vNum}+1")]
         [Remarks("You can use variables in input if you encase them within braces {vValue}. You can also perform basic math operations.")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_Input { get; set; }
 
         [DisplayName("Output Data Variable")]
-        [InputSpecification("Create a new variable or select a variable from the list.")]
+        [Description("Create a new variable or select a variable from the list.")]
         [SampleUsage("{vUserVariable}")]
         [Remarks("Variables not pre-defined in the Variable Manager will be automatically generated at runtime.")]
         public string v_OutputUserVariableName { get; set; }

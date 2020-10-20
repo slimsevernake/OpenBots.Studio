@@ -32,7 +32,7 @@ namespace OpenBots.Commands
     public class SurfaceAutomationCommand : ScriptCommand
     {
         [DisplayName("Capture Search Image")]
-        [InputSpecification("Use the tool to capture an image that will be located on screen during execution.")]
+        [Description("Use the tool to capture an image that will be located on screen during execution.")]
         [SampleUsage("")]
         [Remarks("Images with larger color variance will be found more quickly than those with a lot of white space. \n" +
                  "For images that are primarily white space, tagging color to the top-left corner of the image and setting \n" +
@@ -46,20 +46,20 @@ namespace OpenBots.Commands
         [PropertyUISelectionOption("Set Secure Text")]
         [PropertyUISelectionOption("Check If Image Exists")]
         [PropertyUISelectionOption("Wait For Image To Exist")]
-        [InputSpecification("Select the appropriate corresponding action to take once the image has been located.")]
+        [Description("Select the appropriate corresponding action to take once the image has been located.")]
         [SampleUsage("")]
         [Remarks("Selecting this field changes the parameters required in the following step.")]
         public string v_ImageAction { get; set; }
 
         [DisplayName("Additional Parameters")]
-        [InputSpecification("Additional Parameters will be required based on the action settings selected.")]
+        [Description("Additional Parameters will be required based on the action settings selected.")]
         [SampleUsage("data || {vData}")]
         [Remarks("Additional Parameters range from adding offset coordinates to specifying a variable to apply element text to.")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public DataTable v_ImageActionParameterTable { get; set; }
 
         [DisplayName("Accuracy (0-1)")]
-        [InputSpecification("Enter a value between 0 and 1 to set the match Accuracy. Set to 1 for a perfect match.")]
+        [Description("Enter a value between 0 and 1 to set the match Accuracy. Set to 1 for a perfect match.")]
         [SampleUsage("0.8 || 1 || {vAccuracy}")]
         [Remarks("Accuracy must be a value between 0 and 1.")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]

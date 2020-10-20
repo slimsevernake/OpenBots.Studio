@@ -27,13 +27,13 @@ namespace OpenBots.Commands.List
         [PropertyUISelectionOption("MailItem (Outlook)")]
         [PropertyUISelectionOption("MimeMessage (IMAP/SMTP)")]
         [PropertyUISelectionOption("IWebElement")]
-        [InputSpecification("Specify the data type of the List to be created.")]
+        [Description("Specify the data type of the List to be created.")]
         [SampleUsage("")]
         [Remarks("")]
         public string v_ListType { get; set; }
 
         [DisplayName("List Item(s)")]
-        [InputSpecification("Enter the item(s) to write to the List.")]
+        [Description("Enter the item(s) to write to the List.")]
         [SampleUsage("Hello || {vItem} || Hello,World || {vItem1},{vItem2}")]
         [Remarks("List item can only be a String, DataTable, MailItem or IWebElement.\n" + 
                  "Multiple items should be delimited by a comma(,). This input is optional.")]
@@ -41,7 +41,7 @@ namespace OpenBots.Commands.List
         public string v_ListItems { get; set; }
 
         [DisplayName("Output List Variable")]
-        [InputSpecification("Create a new variable or select a variable from the list.")]
+        [Description("Create a new variable or select a variable from the list.")]
         [SampleUsage("{vUserVariable}")]
         [Remarks("Variables not pre-defined in the Variable Manager will be automatically generated at runtime.")]
         public string v_OutputUserVariableName { get; set; }

@@ -21,7 +21,7 @@ namespace OpenBots.Commands.Process
     {
 
         [DisplayName("Program Name or Path")]
-        [InputSpecification("Provide a valid program name or enter a full path to the script/executable including the extension.")]
+        [Description("Provide a valid program name or enter a full path to the script/executable including the extension.")]
         [SampleUsage(@"notepad || excel || {vApp} || C:\temp\myapp.exe || {ProjectPath}\myapp.exe")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
@@ -29,7 +29,7 @@ namespace OpenBots.Commands.Process
         public string v_ProgramName { get; set; }
 
         [DisplayName("Arguments")]
-        [InputSpecification("Enter any arguments or flags if applicable.")]
+        [Description("Enter any arguments or flags if applicable.")]
         [SampleUsage("-a || -version || {vArg}")]
         [Remarks("You will need to consult documentation to determine if your executable supports arguments or flags on startup.")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
@@ -38,7 +38,7 @@ namespace OpenBots.Commands.Process
         [DisplayName("Wait For Exit")]
         [PropertyUISelectionOption("Yes")]
         [PropertyUISelectionOption("No")]
-        [InputSpecification("Indicate whether to wait for the process to be completed.")]
+        [Description("Indicate whether to wait for the process to be completed.")]
         [SampleUsage("")]
         [Remarks("")]
         public string v_WaitForExit { get; set; }

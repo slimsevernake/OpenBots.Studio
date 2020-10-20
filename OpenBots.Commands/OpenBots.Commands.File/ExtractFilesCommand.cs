@@ -22,7 +22,7 @@ namespace OpenBots.Commands.File
     public class ExtractFilesCommand : ScriptCommand
     {
         [DisplayName("Source File Path")]
-        [InputSpecification("Enter or Select the Path to the source zip file.")]
+        [Description("Enter or Select the Path to the source zip file.")]
         [SampleUsage(@"C:\temp\myfile.zip || {ProjectPath}\myfile.zip || {vFileSourcePath}")]
         [Remarks("{ProjectPath} is the directory path of the current project.")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
@@ -30,14 +30,14 @@ namespace OpenBots.Commands.File
         public string v_FilePathOrigin { get; set; }
 
         [DisplayName("Password (Optional)")]
-        [InputSpecification("Define the password to use if required to extract files.")]
+        [Description("Define the password to use if required to extract files.")]
         [SampleUsage("password || {vPassword}")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_Password { get; set; }
 
         [DisplayName("Extracted File(s) Directory Path")]
-        [InputSpecification("Enter or Select the Folder Path to move extracted file(s) to.")]
+        [Description("Enter or Select the Folder Path to move extracted file(s) to.")]
         [SampleUsage(@"C:\temp || {ProjectPath}\temp || {vFilesPath}")]
         [Remarks("{ProjectPath} is the directory path of the current project.")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
@@ -45,7 +45,7 @@ namespace OpenBots.Commands.File
         public string v_PathDestination { get; set; }
 
         [DisplayName("Output Extracted File Path(s) List Variable")]
-        [InputSpecification("Create a new variable or select a variable from the list.")]
+        [Description("Create a new variable or select a variable from the list.")]
         [SampleUsage("{vUserVariable}")]
         [Remarks("Variables not pre-defined in the Variable Manager will be automatically generated at runtime.")]
         public string v_OutputUserVariableName { get; set; }

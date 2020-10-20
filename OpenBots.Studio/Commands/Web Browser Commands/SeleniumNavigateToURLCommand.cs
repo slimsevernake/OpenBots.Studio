@@ -20,13 +20,13 @@ namespace OpenBots.Commands
     public class SeleniumNavigateToURLCommand : ScriptCommand
     {
         [DisplayName("Browser Instance Name")]
-        [InputSpecification("Enter the unique instance that was specified in the **Create Browser** command.")]
+        [Description("Enter the unique instance that was specified in the **Create Browser** command.")]
         [SampleUsage("MyBrowserInstance")]
         [Remarks("Failure to enter the correct instance name or failure to first call the **Create Browser** command will cause an error.")]
         public string v_InstanceName { get; set; }
 
         [DisplayName("URL")]
-        [InputSpecification("Enter the URL that you want the selenium instance to navigate to.")]
+        [Description("Enter the URL that you want the selenium instance to navigate to.")]
         [SampleUsage("https://mycompany.com/orders || {vURL}")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]

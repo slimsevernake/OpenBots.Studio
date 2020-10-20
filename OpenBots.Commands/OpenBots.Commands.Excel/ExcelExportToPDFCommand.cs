@@ -21,14 +21,14 @@ namespace OpenBots.Commands.Excel
     public class ExcelExportToPDFCommand : ScriptCommand
     {
         [DisplayName("Excel Instance Name")]
-        [InputSpecification("Enter the unique instance that was specified in the **Create Application** command.")]
+        [Description("Enter the unique instance that was specified in the **Create Application** command.")]
         [SampleUsage("MyExcelInstance || {vExcelInstance}")]
         [Remarks("Failure to enter the correct instance or failure to first call the **Create Application** command will cause an error.")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_InstanceName { get; set; }
 
         [DisplayName("PDF Location")]
-        [InputSpecification("Enter or Select the path of the folder to export the PDF to.")]
+        [Description("Enter or Select the path of the folder to export the PDF to.")]
         [SampleUsage(@"C:\temp || {vFolderPath} || {ProjectPath}")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
@@ -36,7 +36,7 @@ namespace OpenBots.Commands.Excel
         public string v_FolderPath { get; set; }
 
         [DisplayName("PDF File Name")]
-        [InputSpecification("Enter or Select the name of the PDF file.")]
+        [Description("Enter or Select the name of the PDF file.")]
         [SampleUsage("myFile.pdf || {vFilename}")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
@@ -45,7 +45,7 @@ namespace OpenBots.Commands.Excel
         [DisplayName("AutoFit Cells")]
         [PropertyUISelectionOption("Yes")]
         [PropertyUISelectionOption("No")]
-        [InputSpecification("Indicate whether to autofit cell sizes to fit their contents.")]
+        [Description("Indicate whether to autofit cell sizes to fit their contents.")]
         [SampleUsage("")]
         [Remarks("")]
         public string v_AutoFitCells { get; set; }
@@ -53,7 +53,7 @@ namespace OpenBots.Commands.Excel
         [DisplayName("Display Gridlines")]
         [PropertyUISelectionOption("Yes")]
         [PropertyUISelectionOption("No")]
-        [InputSpecification("Indicate whether to display Worksheet gridlines.")]
+        [Description("Indicate whether to display Worksheet gridlines.")]
         [SampleUsage("")]
         [Remarks("")]
         public string v_DisplayGridlines { get; set; }

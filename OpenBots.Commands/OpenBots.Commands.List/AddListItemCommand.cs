@@ -22,14 +22,14 @@ namespace OpenBots.Commands.List
     public class AddListItemCommand : ScriptCommand
     {
         [DisplayName("List")]
-        [InputSpecification("Provide a List variable.")]
+        [Description("Provide a List variable.")]
         [SampleUsage("{vList}")]
         [Remarks("Any type of variable other than List will cause error.")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_ListName { get; set; }
 
         [DisplayName("List Item")]
-        [InputSpecification("Enter the item to add to the List.")]
+        [Description("Enter the item to add to the List.")]
         [SampleUsage("Hello || {vItem}")]
         [Remarks("List item can only be a String, DataTable, MailItem or IWebElement.")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]

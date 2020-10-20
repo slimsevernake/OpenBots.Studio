@@ -20,7 +20,7 @@ namespace OpenBots.Commands.Data
     public class DateCalculationCommand : ScriptCommand
     {
         [DisplayName("Date")]
-        [InputSpecification("Specify either text or a variable that contains the date.")]
+        [Description("Specify either text or a variable that contains the date.")]
         [SampleUsage("1/1/2000 || {DateTime.Now}")]
         [Remarks("You can use known text or variables.")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
@@ -45,27 +45,27 @@ namespace OpenBots.Commands.Data
         [PropertyUISelectionOption("Get Previous Day")]
         [PropertyUISelectionOption("Get Previous Month")]
         [PropertyUISelectionOption("Get Previous Year")]
-        [InputSpecification("Select the date operation.")]
+        [Description("Select the date operation.")]
         [SampleUsage("")]
         [Remarks("The selected operation will be applied to the input date value and result will be stored in the output variable.")]
         public string v_CalculationMethod { get; set; }
 
         [DisplayName("Increment Value")]
-        [InputSpecification("Specify how many units to increment by.")]
+        [Description("Specify how many units to increment by.")]
         [SampleUsage("15 || {vIncrement}")]
         [Remarks("You can use negative numbers which will do the opposite, ex. Subtract Days and an increment of -5 will Add Days.")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_Increment { get; set; }
 
         [DisplayName("Date Format (Optional)")]
-        [InputSpecification("Specify the output date format.")]
+        [Description("Specify the output date format.")]
         [SampleUsage("MM/dd/yy hh:mm:ss || MM/dd/yyyy || {vDateFormat}")]
         [Remarks("You can specify either a valid DateTime, Date or Time Format; an invalid format will result in an error.")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_ToStringFormat { get; set; }
 
         [DisplayName("Output Date Variable")]
-        [InputSpecification("Create a new variable or select a variable from the list.")]
+        [Description("Create a new variable or select a variable from the list.")]
         [SampleUsage("{vUserVariable}")]
         [Remarks("Variables not pre-defined in the Variable Manager will be automatically generated at runtime.")]
         public string v_OutputUserVariableName { get; set; }

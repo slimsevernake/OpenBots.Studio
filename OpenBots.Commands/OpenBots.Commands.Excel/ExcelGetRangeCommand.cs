@@ -22,13 +22,13 @@ namespace OpenBots.Commands.Excel
     {
 
         [DisplayName("Excel Instance Name")]
-        [InputSpecification("Enter the unique instance that was specified in the **Create Application** command.")]
+        [Description("Enter the unique instance that was specified in the **Create Application** command.")]
         [SampleUsage("MyExcelInstance")]
         [Remarks("Failure to enter the correct instance or failure to first call the **Create Application** command will cause an error.")]
         public string v_InstanceName { get; set; }
 
         [DisplayName("Range")]
-        [InputSpecification("Enter the location of the range to extract.")]
+        [Description("Enter the location of the range to extract.")]
         [SampleUsage("A1:B10 || A1: || {vRange} || {vStart}:{vEnd} || {vStart}:")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
@@ -37,13 +37,13 @@ namespace OpenBots.Commands.Excel
         [DisplayName("Add Headers")]
         [PropertyUISelectionOption("Yes")]
         [PropertyUISelectionOption("No")]
-        [InputSpecification("When selected, the column headers from the specified spreadsheet range are also extracted.")]
+        [Description("When selected, the column headers from the specified spreadsheet range are also extracted.")]
         [SampleUsage("")]
         [Remarks("")]
         public string v_AddHeaders { get; set; }
 
         [DisplayName("Output DataTable Variable")]
-        [InputSpecification("Create a new variable or select a variable from the list.")]
+        [Description("Create a new variable or select a variable from the list.")]
         [SampleUsage("{vUserVariable}")]
         [Remarks("Variables not pre-defined in the Variable Manager will be automatically generated at runtime.")]
         public string v_OutputUserVariableName { get; set; }

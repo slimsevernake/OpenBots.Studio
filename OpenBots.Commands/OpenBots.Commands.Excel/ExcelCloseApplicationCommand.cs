@@ -17,7 +17,7 @@ namespace OpenBots.Commands.Excel
     public class ExcelCloseApplicationCommand : ScriptCommand
     {
         [DisplayName("Excel Instance Name")]
-        [InputSpecification("Enter the unique instance that was specified in the **Create Application** command.")]
+        [Description("Enter the unique instance that was specified in the **Create Application** command.")]
         [SampleUsage("MyExcelInstance")]
         [Remarks("Failure to enter the correct instance or failure to first call the **Create Application** command will cause an error.")]
         public string v_InstanceName { get; set; }
@@ -25,7 +25,7 @@ namespace OpenBots.Commands.Excel
         [DisplayName("Save Workbook")]
         [PropertyUISelectionOption("Yes")]
         [PropertyUISelectionOption("No")]
-        [InputSpecification("Indicate whether the Workbook should be saved before closing.")]
+        [Description("Indicate whether the Workbook should be saved before closing.")]
         [SampleUsage("")]
         [Remarks("")]
         public string v_ExcelSaveOnExit { get; set; }

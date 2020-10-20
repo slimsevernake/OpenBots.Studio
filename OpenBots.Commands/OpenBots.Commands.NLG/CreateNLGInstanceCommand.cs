@@ -18,7 +18,7 @@ namespace OpenBots.Commands.NLG
     {
 
         [DisplayName("NLG Instance Name")]
-        [InputSpecification("Enter a unique name that will represent the application instance.")]
+        [Description("Enter a unique name that will represent the application instance.")]
         [SampleUsage("MyNLGInstance")]
         [Remarks("This unique name allows you to refer to the instance by name in future commands, " +
                  "ensuring that the commands you specify run against the correct application.")]

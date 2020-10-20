@@ -18,27 +18,27 @@ namespace OpenBots.Commands
     public class SeleniumExecuteScriptCommand : ScriptCommand
     {
         [DisplayName("Browser Instance Name")]
-        [InputSpecification("Enter the unique instance that was specified in the **Create Browser** command.")]
+        [Description("Enter the unique instance that was specified in the **Create Browser** command.")]
         [SampleUsage("MyBrowserInstance")]
         [Remarks("Failure to enter the correct instance name or failure to first call the **Create Browser** command will cause an error.")]
         public string v_InstanceName { get; set; } 
 
         [DisplayName("Script Code")]
-        [InputSpecification("Enter the script code to execute.")]
+        [Description("Enter the script code to execute.")]
         [SampleUsage("arguments[0].click(); || alert('Welcome to OpenBots'); || {vScript}")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_ScriptCode { get; set; }
 
         [DisplayName("Arguments")]
-        [InputSpecification("Enter any necessary arguments.")]
+        [Description("Enter any necessary arguments.")]
         [SampleUsage("button || {vArguments}")]
         [Remarks("This input is optional.")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_Arguments { get; set; }
 
         [DisplayName("Output Data Variable")]
-        [InputSpecification("Create a new variable or select a variable from the list.")]
+        [Description("Create a new variable or select a variable from the list.")]
         [SampleUsage("{vUserVariable}")]
         [Remarks("Variables not pre-defined in the Variable Manager will be automatically generated at runtime.")]
         public string v_OutputUserVariableName { get; set; }

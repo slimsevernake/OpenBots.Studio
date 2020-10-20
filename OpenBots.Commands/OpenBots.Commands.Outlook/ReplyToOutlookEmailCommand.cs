@@ -20,7 +20,7 @@ namespace OpenBots.Commands.Outlook
     {
 
         [DisplayName("MailItem")]
-        [InputSpecification("Enter the MailItem to reply to.")]
+        [Description("Enter the MailItem to reply to.")]
         [SampleUsage("{vMailItem}")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
@@ -29,13 +29,13 @@ namespace OpenBots.Commands.Outlook
         [DisplayName("Mail Operation")]
         [PropertyUISelectionOption("Reply")]
         [PropertyUISelectionOption("Reply All")]
-        [InputSpecification("Specify whether you intend to reply or reply all.")]
+        [Description("Specify whether you intend to reply or reply all.")]
         [SampleUsage("")]
         [Remarks("Replying will reply to only the original sender. Reply all will reply to everyone in the recipient list.")]
         public string v_OperationType { get; set; }
 
         [DisplayName("Email Body")]
-        [InputSpecification("Enter text to be used as the email body.")]
+        [Description("Enter text to be used as the email body.")]
         [SampleUsage("Dear John, ... || {vBody}")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
@@ -44,12 +44,12 @@ namespace OpenBots.Commands.Outlook
         [DisplayName("Email Body Type")]
         [PropertyUISelectionOption("Plain")]
         [PropertyUISelectionOption("HTML")]
-        [InputSpecification("Select the email body format.")]
+        [Description("Select the email body format.")]
         [Remarks("")]
         public string v_BodyType { get; set; }
 
         [DisplayName("Attachment File Path(s)")]
-        [InputSpecification("Enter the file path(s) of the file(s) to attach.")]
+        [Description("Enter the file path(s) of the file(s) to attach.")]
         [SampleUsage(@"C:\temp\myFile.xlsx || {vFile} || C:\temp\myFile1.xlsx;C:\temp\myFile2.xlsx || {vFile1};{vFile2} || {vFiles}")]
         [Remarks("This input is optional. Multiple attachments should be delimited by a semicolon (;).")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]

@@ -21,7 +21,7 @@ namespace OpenBots.Commands.File
     public class CompressFilesCommand : ScriptCommand
     {
         [DisplayName("Source Directory Path")]
-        [InputSpecification("Enter or Select the Path to the source directory.")]
+        [Description("Enter or Select the Path to the source directory.")]
         [SampleUsage(@"C:\temp || {ProjectPath}\temp || {vFileSourcePath}")]
         [Remarks("{ProjectPath} is the directory path of the current project.")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
@@ -29,14 +29,14 @@ namespace OpenBots.Commands.File
         public string v_DirectoryPathOrigin { get; set; }
 
         [DisplayName("Password (Optional)")]
-        [InputSpecification("Define the password to use for file compression.")]
+        [Description("Define the password to use for file compression.")]
         [SampleUsage("password || {vPassword}")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_Password { get; set; }
 
         [DisplayName("Compressed File Directory Path")]
-        [InputSpecification("Enter or Select the Folder Path to place the compressed file in.")]
+        [Description("Enter or Select the Folder Path to place the compressed file in.")]
         [SampleUsage(@"C:\temp || {ProjectPath}\temp || {vFilesPath}")]
         [Remarks("{ProjectPath} is the directory path of the current project.")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
@@ -44,7 +44,7 @@ namespace OpenBots.Commands.File
         public string v_PathDestination { get; set; }
 
         [DisplayName("Output Compressed File Path Variable")]
-        [InputSpecification("Create a new variable or select a variable from the list.")]
+        [Description("Create a new variable or select a variable from the list.")]
         [SampleUsage("{vUserVariable}")]
         [Remarks("Variables not pre-defined in the Variable Manager will be automatically generated at runtime.")]
         public string v_OutputUserVariableName { get; set; }

@@ -19,13 +19,13 @@ namespace OpenBots.Commands.Excel
     public class ExcelSaveWorkbookAsCommand : ScriptCommand
     {
         [DisplayName("Excel Instance Name")]
-        [InputSpecification("Enter the unique instance that was specified in the **Create Application** command.")]
+        [Description("Enter the unique instance that was specified in the **Create Application** command.")]
         [SampleUsage("MyExcelInstance")]
         [Remarks("Failure to enter the correct instance or failure to first call the **Create Application** command will cause an error.")]
         public string v_InstanceName { get; set; }
 
         [DisplayName("Workbook Location")]
-        [InputSpecification("Enter or Select the path of the folder to save the Workbook to.")]
+        [Description("Enter or Select the path of the folder to save the Workbook to.")]
         [SampleUsage(@"C:\temp || {vFolderPath} || {ProjectPath}")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
@@ -33,7 +33,7 @@ namespace OpenBots.Commands.Excel
         public string v_FolderPath { get; set; }
 
         [DisplayName("Workbook File Name")]
-        [InputSpecification("Enter or Select the name of the Workbook file.")]
+        [Description("Enter or Select the name of the Workbook file.")]
         [SampleUsage("myFile.xlsx || {vFilename}")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]

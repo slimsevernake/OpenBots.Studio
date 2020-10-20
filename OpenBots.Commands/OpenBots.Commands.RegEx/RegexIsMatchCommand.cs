@@ -18,21 +18,21 @@ namespace OpenBots.Commands.RegEx
     public class RegexIsMatchCommand : ScriptCommand
     {
         [DisplayName("Text")]
-        [InputSpecification("Select or provide text to apply Regex on.")]
+        [Description("Select or provide text to apply Regex on.")]
         [SampleUsage("Hello || {vText}")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_InputText { get; set; }
 
         [DisplayName("Regex Pattern")]
-        [InputSpecification("Enter a Regex Pattern to apply to the input Text.")]
+        [Description("Enter a Regex Pattern to apply to the input Text.")]
         [SampleUsage(@"^([\w\-]+) || {vPattern}")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_Regex { get; set; }
 
         [DisplayName("Output Result Variable")]
-        [InputSpecification("Create a new variable or select a variable from the list.")]
+        [Description("Create a new variable or select a variable from the list.")]
         [SampleUsage("{vUserVariable}")]
         [Remarks("Variables not pre-defined in the Variable Manager will be automatically generated at runtime.")]
         public string v_OutputUserVariableName { get; set; }

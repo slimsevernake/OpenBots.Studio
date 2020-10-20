@@ -22,20 +22,20 @@ namespace OpenBots.Commands.Excel
     {
 
         [DisplayName("Excel Instance Name")]
-        [InputSpecification("Enter the unique instance that was specified in the **Create Application** command.")]
+        [Description("Enter the unique instance that was specified in the **Create Application** command.")]
         [SampleUsage("MyExcelInstance")]
         [Remarks("Failure to enter the correct instance or failure to first call the **Create Application** command will cause an error.")]
         public string v_InstanceName { get; set; }
 
         [DisplayName("DataTable")]
-        [InputSpecification("Enter the DataTable to write to the Worksheet.")]
+        [Description("Enter the DataTable to write to the Worksheet.")]
         [SampleUsage("{vDataTable}")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_DataTableToSet { get; set; }
 
         [DisplayName("Cell Location")]
-        [InputSpecification("Enter the location of the cell to set the DataTable at.")]
+        [Description("Enter the location of the cell to set the DataTable at.")]
         [SampleUsage("A1 || {vCellLocation}")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
@@ -44,7 +44,7 @@ namespace OpenBots.Commands.Excel
         [DisplayName("Add Headers")]
         [PropertyUISelectionOption("Yes")]
         [PropertyUISelectionOption("No")]
-        [InputSpecification("When selected, the column headers from the specified DataTable are also written.")]
+        [Description("When selected, the column headers from the specified DataTable are also written.")]
         [SampleUsage("")]
         [Remarks("")]
         public string v_AddHeaders { get; set; }

@@ -38,13 +38,13 @@ namespace OpenBots.Commands
     public class SeleniumElementActionCommand : ScriptCommand
     {
         [DisplayName("Browser Instance Name")]
-        [InputSpecification("Enter the unique instance that was specified in the **Create Browser** command.")]
+        [Description("Enter the unique instance that was specified in the **Create Browser** command.")]
         [SampleUsage("MyBrowserInstance")]
         [Remarks("Failure to enter the correct instance name or failure to first call the **Create Browser** command will cause an error.")]
         public string v_InstanceName { get; set; }
 
         [DisplayName("Element Search Parameter")]
-        [InputSpecification("Use the Element Recorder to generate a listing of potential search parameters." + 
+        [Description("Use the Element Recorder to generate a listing of potential search parameters." + 
             "Select the specific search type(s) that you want to use to isolate the element on the web page.")]
         [SampleUsage("{vSearchParameter}" +
                      "\n\tXPath : //*[@id=\"features\"]/div[2]/div/h2" +
@@ -62,7 +62,7 @@ namespace OpenBots.Commands
         [DisplayName("Element Search Option")]
         [PropertyUISelectionOption("Find Element")]
         [PropertyUISelectionOption("Find Elements")]
-        [InputSpecification("Indicate whether to search for a single or multiple elements.")]
+        [Description("Indicate whether to search for a single or multiple elements.")]
         [SampleUsage("")]
         [Remarks("")]
         public string v_SeleniumSearchOption { get; set; }
@@ -85,13 +85,13 @@ namespace OpenBots.Commands
         [PropertyUISelectionOption("Wait For Element To Exist")]
         [PropertyUISelectionOption("Switch to frame")]
         [PropertyUISelectionOption("Select Option")]
-        [InputSpecification("Select the appropriate corresponding action to take once the element has been located.")]
+        [Description("Select the appropriate corresponding action to take once the element has been located.")]
         [SampleUsage("")]
         [Remarks("Selecting this field changes the parameters required in the following step.")]
         public string v_SeleniumElementAction { get; set; }
 
         [DisplayName("Action Parameters")]
-        [InputSpecification("Action Parameters will be determined based on the action settings selected.")]
+        [Description("Action Parameters will be determined based on the action settings selected.")]
         [SampleUsage("data || {vData} || *Variable Name*: {vNewVariable}")]
         [Remarks("Action Parameters range from adding offset coordinates to specifying a variable to apply element text to.\n"+
                  "Advanced keystrokes may be set the following way: Hello[tab]World[enter]")]

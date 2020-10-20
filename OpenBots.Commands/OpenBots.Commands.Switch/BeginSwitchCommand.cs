@@ -19,7 +19,7 @@ namespace OpenBots.Commands.Switch
     {
 
         [DisplayName("Switch")]
-        [InputSpecification("This value will determine the Case block to execute.")]
+        [Description("This value will determine the Case block to execute.")]
         [SampleUsage("{vSwitch}")]
         [Remarks("This value must be a variable.")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]

@@ -20,14 +20,14 @@ namespace OpenBots.Commands.Outlook
     {
 
         [DisplayName("MailItem")]
-        [InputSpecification("Enter the MailItem to forward.")]
+        [Description("Enter the MailItem to forward.")]
         [SampleUsage("{vMailItem}")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_MailItem { get; set; }
 
         [DisplayName("Recipient(s)")]
-        [InputSpecification("Enter the email address(es) of the recipient(s).")]
+        [Description("Enter the email address(es) of the recipient(s).")]
         [SampleUsage("test@test.com || {vEmail} || test@test.com;test2@test.com || {vEmail1};{vEmail2} || {vEmails}")]
         [Remarks("Multiple recipient email addresses should be delimited by a semicolon (;).")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]

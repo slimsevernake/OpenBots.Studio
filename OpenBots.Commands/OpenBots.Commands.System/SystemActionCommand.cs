@@ -21,7 +21,7 @@ namespace OpenBots.Commands.System
         [PropertyUISelectionOption("Restart")]
         [PropertyUISelectionOption("Logoff")]
         [PropertyUISelectionOption("Lock Screen")]
-        [InputSpecification("Select a system action from one of the options.")]
+        [Description("Select a system action from one of the options.")]
         [SampleUsage("")]
         [Remarks("")]
         public string v_ActionName { get; set; }

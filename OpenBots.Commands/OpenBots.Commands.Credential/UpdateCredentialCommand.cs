@@ -19,21 +19,21 @@ namespace OpenBots.Commands.Credential
     public class UpdateCredentialCommand : ScriptCommand
     {
         [DisplayName("Credential Name")]
-        [InputSpecification("Enter the name of the Credential.")]
+        [Description("Enter the name of the Credential.")]
         [SampleUsage("Name || {vCredentialName}")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_CredentialName { get; set; }
 
         [DisplayName("Credential Username")]
-        [InputSpecification("Enter the Credential username.")]
+        [Description("Enter the Credential username.")]
         [SampleUsage("john@openbots.com || {vCredentialUsername}")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_CredentialUsername { get; set; }
 
         [DisplayName("Credential Password")]
-        [InputSpecification("Enter the Credential password.")]
+        [Description("Enter the Credential password.")]
         [SampleUsage("john@openbots.com || {vCredentialPassword}")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]

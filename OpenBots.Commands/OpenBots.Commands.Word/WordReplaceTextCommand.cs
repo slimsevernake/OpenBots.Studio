@@ -19,20 +19,20 @@ namespace OpenBots.Commands.Word
     public class WordReplaceTextCommand : ScriptCommand
     {
         [DisplayName("Word Instance Name")]
-        [InputSpecification("Enter the unique instance that was specified in the **Create Application** command.")]
+        [Description("Enter the unique instance that was specified in the **Create Application** command.")]
         [SampleUsage("MyWordInstance")]
         [Remarks("Failure to enter the correct instance or failure to first call the **Create Application** command will cause an error.")]
         public string v_InstanceName { get; set; }
 
         [DisplayName("Find")]
-        [InputSpecification("Enter the text to find.")]
+        [Description("Enter the text to find.")]
         [SampleUsage("old text || {vFindText}")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_FindText { get; set; }
 
         [DisplayName("Replace")]
-        [InputSpecification("Enter the text to replace with.")]
+        [Description("Enter the text to replace with.")]
         [SampleUsage("new text || {vReplaceText}")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]

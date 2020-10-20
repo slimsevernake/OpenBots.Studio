@@ -22,7 +22,7 @@ namespace OpenBots.Commands.Data
     public class TextExtractionCommand : ScriptCommand
     {
         [DisplayName("Text Data")]
-        [InputSpecification("Provide a variable or text value.")]
+        [Description("Provide a variable or text value.")]
         [SampleUsage("Sample text to perform text extraction on || {vTextData}")]
         [Remarks("Providing data of a type other than a 'String' will result in an error.")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
@@ -32,20 +32,20 @@ namespace OpenBots.Commands.Data
         [PropertyUISelectionOption("Extract All After Text")]
         [PropertyUISelectionOption("Extract All Before Text")]
         [PropertyUISelectionOption("Extract All Between Text")]
-        [InputSpecification("Select the type of extraction.")]
+        [Description("Select the type of extraction.")]
         [SampleUsage("")]
         [Remarks("For trailing text, use 'After Text'. For leading text, use 'Before Text'. For text between two substrings, use 'Between Text'.")]
         public string v_TextExtractionType { get; set; }
 
         [DisplayName("Extraction Parameters")]
-        [InputSpecification("Define the required extraction parameters, which is dependent on the type of extraction.")]
+        [Description("Define the required extraction parameters, which is dependent on the type of extraction.")]
         [SampleUsage("A substring from input text || {vSubstring}")]
         [Remarks("Set parameter values for each parameter name based on the extraction type.")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public DataTable v_TextExtractionTable { get; set; }
 
         [DisplayName("Output Text Variable")]
-        [InputSpecification("Create a new variable or select a variable from the list.")]
+        [Description("Create a new variable or select a variable from the list.")]
         [SampleUsage("{vUserVariable}")]
         [Remarks("Variables not pre-defined in the Variable Manager will be automatically generated at runtime.")]
         public string v_OutputUserVariableName { get; set; }

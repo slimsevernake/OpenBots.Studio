@@ -18,7 +18,7 @@ namespace OpenBots.Commands.Folder
     public class DeleteFolderCommand : ScriptCommand
     {
         [DisplayName("Folder Path")]
-        [InputSpecification("Enter or Select the path to the folder.")]
+        [Description("Enter or Select the path to the folder.")]
         [SampleUsage(@"C:\temp\myfolder || {ProjectPath}\myfolder  || {vTextFolderPath}")]
         [Remarks("{ProjectPath} is the directory path of the current project.")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]

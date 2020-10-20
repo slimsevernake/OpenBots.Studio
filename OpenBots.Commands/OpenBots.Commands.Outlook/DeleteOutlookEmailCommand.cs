@@ -20,7 +20,7 @@ namespace OpenBots.Commands.Outlook
     {
 
         [DisplayName("MailItem")]
-        [InputSpecification("Enter the MailItem to delete.")]
+        [Description("Enter the MailItem to delete.")]
         [SampleUsage("{vMailItem}")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
@@ -29,7 +29,7 @@ namespace OpenBots.Commands.Outlook
         [DisplayName("Delete Read Emails Only")]
         [PropertyUISelectionOption("Yes")]
         [PropertyUISelectionOption("No")]
-        [InputSpecification("Specify whether to delete read email messages only.")]
+        [Description("Specify whether to delete read email messages only.")]
         [SampleUsage("")]
         [Remarks("")]
         public string v_DeleteReadOnly { get; set; }

@@ -26,7 +26,7 @@ namespace OpenBots.Commands.Input
         [PropertyUISelectionOption("Middle Up")]
         [PropertyUISelectionOption("Right Up")]
         [PropertyUISelectionOption("Double Left Click")]
-        [InputSpecification("Indicate the type of click required.")]
+        [Description("Indicate the type of click required.")]
         [SampleUsage("")]
         [Remarks("You can simulate a custom click by using multiple mouse click commands in succession, adding **Pause Command** in between where required.")]
         public string v_MouseClick { get; set; }

@@ -19,7 +19,7 @@ namespace OpenBots.Commands.Input
     {
 
         [DisplayName("X Position")]
-        [InputSpecification("Input the new horizontal coordinate of the mouse. Starts from 0 on the left and increases going right.")]
+        [Description("Input the new horizontal coordinate of the mouse. Starts from 0 on the left and increases going right.")]
         [SampleUsage("0 || {vXPosition}")]
         [Remarks("This number is the pixel location on screen. Maximum value should be the maximum value allowed by your resolution. For 1920x1080, the valid range would be 0-1920.")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
@@ -27,7 +27,7 @@ namespace OpenBots.Commands.Input
         public string v_XMousePosition { get; set; }
 
         [DisplayName("Y Position")]
-        [InputSpecification("Input the new vertical coordinate of the mouse. Starts from 0 at the top and increases going down.")]
+        [Description("Input the new vertical coordinate of the mouse. Starts from 0 at the top and increases going down.")]
         [SampleUsage("0 || {vYPosition}")]
         [Remarks("This number is the pixel location on screen. Maximum value should be the maximum value allowed by your resolution. For 1920x1080, the valid range would be 0-1080.")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
@@ -46,7 +46,7 @@ namespace OpenBots.Commands.Input
         [PropertyUISelectionOption("Left Up")]
         [PropertyUISelectionOption("Middle Up")]
         [PropertyUISelectionOption("Right Up")]
-        [InputSpecification("Indicate the type of click required.")]
+        [Description("Indicate the type of click required.")]
         [SampleUsage("")]
         [Remarks("You can simulate a custom click by using multiple mouse click commands in succession, adding **Pause Command** in between where required.")]
         public string v_MouseClick { get; set; }

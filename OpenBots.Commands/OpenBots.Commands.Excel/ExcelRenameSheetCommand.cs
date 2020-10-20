@@ -19,20 +19,20 @@ namespace OpenBots.Commands.Excel
     public class ExcelRenameSheetCommand : ScriptCommand
     {
         [DisplayName("Excel Instance Name")]
-        [InputSpecification("Enter the unique instance that was specified in the **Create Application** command.")]
+        [Description("Enter the unique instance that was specified in the **Create Application** command.")]
         [SampleUsage("MyExcelInstance")]
         [Remarks("Failure to enter the correct instance or failure to first call the **Create Application** command will cause an error.")]
         public string v_InstanceName { get; set; }
 
         [DisplayName("Original Worksheet Name")]
-        [InputSpecification("Specify the name of the new Worksheet to rename.")]
+        [Description("Specify the name of the new Worksheet to rename.")]
         [SampleUsage("Sheet1 || {vSheet}")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_OriginalSheetName { get; set; }
 
         [DisplayName("New Worksheet Name")]
-        [InputSpecification("Specify the new name of the new Worksheet.")]
+        [Description("Specify the new name of the new Worksheet.")]
         [SampleUsage("Sheet1 || {vSheet}")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]

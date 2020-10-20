@@ -19,14 +19,14 @@ namespace OpenBots.Commands
     {
 
         [DisplayName("Message")]      
-        [InputSpecification("Specify any text or variable value that should be displayed on screen.")]
+        [Description("Specify any text or variable value that should be displayed on screen.")]
         [SampleUsage("Hello World || {vMyText} || Hello {vName}")]
         [Remarks("")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_Message { get; set; }
 
         [DisplayName("Close After X (Seconds)")]
-        [InputSpecification("Specify how many seconds to display the message on screen. After the specified time," + 
+        [Description("Specify how many seconds to display the message on screen. After the specified time," + 
                             "\nthe message box will be automatically closed and script will resume execution.")]
         [SampleUsage("0 || 5 || {vSeconds})")]
         [Remarks("Set value to 0 to remain open indefinitely.")]

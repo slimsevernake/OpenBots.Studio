@@ -16,7 +16,7 @@ namespace OpenBots.Commands.Switch
     {
 
         [DisplayName("Case")]
-        [InputSpecification("This block will be executed if the specified case value matches the value in the Switch Command.")]
+        [Description("This block will be executed if the specified case value matches the value in the Switch Command.")]
         [SampleUsage("1 || hello")]
         [Remarks("")]
         public string v_CaseValue { get; set; }
