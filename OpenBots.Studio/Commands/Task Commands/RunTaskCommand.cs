@@ -47,19 +47,15 @@ namespace OpenBots.Commands
         public DataTable v_VariableAssignments { get; set; }
 
         [JsonIgnore]
-        [NonSerialized]
         private CheckBox _passParameters;
 
         [JsonIgnore]
-        [NonSerialized]
         private DataGridView _assignmentsGridViewHelper;
 
         [JsonIgnore]
-        [NonSerialized]
         private List<ScriptVariable> _variableList;
 
         [JsonIgnore]
-        [NonSerialized]
         private List<ScriptVariable> _variableReturnList;
 
         [JsonIgnore]

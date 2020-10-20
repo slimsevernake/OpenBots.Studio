@@ -72,11 +72,9 @@ namespace OpenBots.Commands.API
         public string v_OutputUserVariableName { get; set; }
 
         [JsonIgnore]
-        [NonSerialized]
         private DataGridView _RESTParametersGridViewHelper;
 
         [JsonIgnore]
-        [NonSerialized]
         private DataGridView _advancedRESTParametersGridViewHelper;
 
         public ExecuteRESTAPICommand()

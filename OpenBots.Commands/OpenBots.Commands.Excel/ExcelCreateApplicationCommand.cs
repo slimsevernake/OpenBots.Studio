@@ -60,7 +60,6 @@ namespace OpenBots.Commands.Excel
         public string v_CloseAllInstances { get; set; }
 
         [JsonIgnore]
-        [NonSerialized]
         public List<Control> OpenFileControls;
 
         public ExcelCreateApplicationCommand()

@@ -50,7 +50,6 @@ namespace OpenBots.Commands.Engine
         public string v_OutputUserVariableName { get; set; }
 
         [JsonIgnore]
-        [NonSerialized]
         public List<Control> MeasureControls;
 
         public StopwatchCommand()

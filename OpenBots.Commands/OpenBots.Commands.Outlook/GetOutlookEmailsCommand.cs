@@ -83,7 +83,6 @@ namespace OpenBots.Commands.Outlook
         public string v_OutputUserVariableName { get; set; }
 
         [JsonIgnore]
-        [NonSerialized]
         public List<Control> SavingControls;
 
         public GetOutlookEmailsCommand()

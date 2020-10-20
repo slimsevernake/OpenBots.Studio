@@ -63,7 +63,6 @@ namespace OpenBots.Commands.Word
         public string v_CloseAllInstances { get; set; }
 
         [JsonIgnore]
-        [NonSerialized]
         public List<Control> OpenFileControls;
 
         public WordCreateApplicationCommand()

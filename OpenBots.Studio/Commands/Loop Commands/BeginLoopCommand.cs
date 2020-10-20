@@ -58,19 +58,15 @@ namespace OpenBots.Commands
         public DataTable v_LoopActionParameterTable { get; set; }
 
         [JsonIgnore]
-        [NonSerialized]
         private DataGridView _loopGridViewHelper;
 
         [JsonIgnore]
-        [NonSerialized]
         private ComboBox _actionDropdown;
 
         [JsonIgnore]
-        [NonSerialized]
         private List<Control> _parameterControls;
 
         [JsonIgnore]
-        [NonSerialized]
         private CommandItemControl _recorderControl;
 
         public BeginLoopCommand()

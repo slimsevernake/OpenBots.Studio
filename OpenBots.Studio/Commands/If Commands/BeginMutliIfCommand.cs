@@ -30,7 +30,6 @@ namespace OpenBots.Commands
         public DataTable v_IfConditionsTable { get; set; }
 
         [JsonIgnore]
-        [NonSerialized]
         private DataGridView _ifConditionHelper;
 
         [JsonIgnore]

@@ -60,11 +60,9 @@ namespace OpenBots.Commands.Database
         public string v_OutputUserVariableName { get; set; }
 
         [JsonIgnore]
-        [NonSerialized]
         private DataGridView _queryParametersGridView;
 
         [JsonIgnore]
-        [NonSerialized]
         private List<Control> _queryParametersControls;
 
         public ExecuteDatabaseQueryCommand()

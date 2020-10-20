@@ -41,7 +41,6 @@ namespace OpenBots.Commands.DataTable
         public Data.DataTable v_DataRowDataTable { get; set; }
 
         [JsonIgnore]
-        [NonSerialized]
         private List<CreateDataTableCommand> _dataTableCreationCommands;
 
         public AddDataRowCommand()

@@ -99,19 +99,15 @@ namespace OpenBots.Commands
         public DataTable v_WebActionParameterTable { get; set; }
 
         [JsonIgnore]
-        [NonSerialized]
         private DataGridView _actionParametersGridViewHelper;
 
         [JsonIgnore]
-        [NonSerialized]
         private ComboBox _elementActionDropdown;
 
         [JsonIgnore]
-        [NonSerialized]
         private List<Control> _actionParametersControls;
 
         [JsonIgnore]
-        [NonSerialized]
         private DataGridView _searchParametersGridViewHelper;
 
         public SeleniumElementActionCommand()

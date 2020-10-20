@@ -49,7 +49,6 @@ namespace OpenBots.Commands.QueueItem
         public string v_QueueItemErrorMessage { get; set; }
 
         [JsonIgnore]
-        [NonSerialized]
         public List<Control> ErrorMessageControls;
 
         public SetQueueItemStatusCommand()

@@ -43,7 +43,6 @@ namespace OpenBots.Commands.Input
         public string v_KeyUpDefault { get; set; }
 
         [JsonIgnore]
-        [NonSerialized]
         private DataGridView _keystrokeGridHelper;
 
         public SendAdvancedKeystrokesCommand()

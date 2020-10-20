@@ -68,15 +68,12 @@ namespace OpenBots.Commands
         public bool TestMode = false;
 
         [JsonIgnore]
-        [NonSerialized]
         private DataGridView _imageGridViewHelper;
 
         [JsonIgnore]
-        [NonSerialized]
         private ComboBox _imageActionDropdown;
 
         [JsonIgnore]
-        [NonSerialized]
         private List<Control> _imageParameterControls;
 
         public SurfaceAutomationCommand()

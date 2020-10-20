@@ -51,7 +51,6 @@ namespace OpenBots.Commands.Data
         public string v_OutputUserVariableName { get; set; }
 
         [JsonIgnore]
-        [NonSerialized]
         private DataGridView _parametersGridViewHelper;
 
         public TextExtractionCommand()

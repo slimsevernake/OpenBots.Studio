@@ -40,7 +40,6 @@ namespace OpenBots.Commands.Window
         public string v_YWindowSize { get; set; }
 
         [JsonIgnore]
-        [NonSerialized]
         public ComboBox WindowNameControl;
         public ResizeWindowCommand()
         {

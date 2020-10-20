@@ -46,11 +46,9 @@ namespace OpenBots.Commands.Input
         public DataTable v_UserInputConfig { get; set; }
 
         [JsonIgnore]
-        [NonSerialized]
         private DataGridView _userInputGridViewHelper;
 
         [JsonIgnore]
-        [NonSerialized]
         private CommandItemControl _addRowControl;
 
         public InputCommand()

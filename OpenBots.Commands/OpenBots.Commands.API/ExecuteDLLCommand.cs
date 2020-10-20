@@ -44,7 +44,6 @@ namespace OpenBots.Commands.API
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_MethodName { get; set; }
 
-        [JsonIgnore]
         [DisplayName("Parameters (Optional)")]
         [Description("Select the 'Generate Parameters' button once you have indicated a file, class, and method.")]
         [SampleUsage("")]
@@ -59,7 +58,6 @@ namespace OpenBots.Commands.API
         public string v_OutputUserVariableName { get; set; }
 
         [JsonIgnore]
-        [NonSerialized]
         private DataGridView _parametersGridViewHelper;
 
         public ExecuteDLLCommand()

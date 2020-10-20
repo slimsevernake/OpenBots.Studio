@@ -32,7 +32,6 @@ namespace OpenBots.Commands
         public DataTable v_LoopConditionsTable { get; set; }
 
         [JsonIgnore]
-        [NonSerialized]
         private DataGridView _loopConditionHelper;
 
         [JsonIgnore]
