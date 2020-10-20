@@ -68,8 +68,8 @@ namespace OpenBots.Commands.Credential
             base.Render(editor, commandControls);
 
             RenderedControls.AddRange(commandControls.CreateDefaultInputGroupFor("v_CredentialName", this, editor));
-            RenderedControls.AddRange(commandControls.CreateDefaultInputGroupFor("v_OutputUserVariableName", this, editor));
-            RenderedControls.AddRange(commandControls.CreateDefaultInputGroupFor("v_OutputUserVariableName2", this, editor));
+            RenderedControls.AddRange(commandControls.CreateDefaultOutputGroupFor("v_OutputUserVariableName", this, editor));
+            RenderedControls.AddRange(commandControls.CreateDefaultOutputGroupFor("v_OutputUserVariableName2", this, editor));
 
             return RenderedControls;
         }

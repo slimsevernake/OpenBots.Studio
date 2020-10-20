@@ -57,46 +57,10 @@ namespace OpenBots.Commands
             if (variableMessage != null)
                 type = variableMessage.GetType().FullName;
 
-            switch (type)
-            {
-                case "System.String":
-                    variableMessage = variableMessage.Replace("\\n", Environment.NewLine);
-                    break;
-                case "System.Security.SecureString":
-                    variableMessage = type + Environment.NewLine + "*Secure String*";
-                    break;
-                case "System.Data.DataTable":
-                    variableMessage = type + Environment.NewLine + CurrentScriptBuilder.ConvertDataTableToString(variableMessage);
-                    break;
-                case "System.Data.DataRow":
-                    variableMessage = type + Environment.NewLine + CurrentScriptBuilder.ConvertDataRowToString(variableMessage);
-                    break;
-                case "System.__ComObject":
-                    variableMessage = type + Environment.NewLine + CurrentScriptBuilder.ConvertMailItemToString(variableMessage);
-                    break;
-                case "MimeKit.MimeMessage":
-                    variableMessage = type + Environment.NewLine + CurrentScriptBuilder.ConvertMimeMessageToString(variableMessage);
-                    break;
-                case "OpenQA.Selenium.Remote.RemoteWebElement":
-                    variableMessage = type + Environment.NewLine + CurrentScriptBuilder.ConvertIWebElementToString(variableMessage);
-                    break;
-                case "System.Drawing.Bitmap":
-                    variableMessage = type + Environment.NewLine + CurrentScriptBuilder.ConvertBitmapToString(variableMessage);
-                    break;
-                case string a when a.Contains("System.Collections.Generic.List`1[[System.String"):
-                case string b when b.Contains("System.Collections.Generic.List`1[[System.Data.DataTable"):
-                case string c when c.Contains("System.Collections.Generic.List`1[[Microsoft.Office.Interop.Outlook.MailItem"):
-                case string d when d.Contains("System.Collections.Generic.List`1[[MimeKit.MimeMessage"):
-                case string e when e.Contains("System.Collections.Generic.List`1[[OpenQA.Selenium.IWebElement"):
-                    variableMessage = type + Environment.NewLine + CurrentScriptBuilder.ConvertListToString(variableMessage);
-                    break;
-                case "":
-                    variableMessage = "null";    
-                    break;
-                default:
-                    variableMessage = v_Message + Environment.NewLine + "*Variable Type Not Yet Supported*";
-                    break;
-            }
+            if (variableMessage is string)
+                variableMessage = variableMessage.Replace("\\n", Environment.NewLine);
+            else
+                variableMessage = type + Environment.NewLine + StringMethods.ConvertObjectToString(variableMessage);
 
             if (engine.ScriptEngineUI == null)
             {
@@ -111,7 +75,7 @@ namespace OpenBots.Commands
 
             var result = ((frmScriptEngine)engine.ScriptEngineUI).Invoke(new Action(() =>
                 {
-                    engine.ScriptEngineUI.ShowMessage(variableMessage, "MessageBox Command", DialogType.OkOnly, closeAfter);
+                    engine.ScriptEngineUI.ShowMessage(variableMessage, "MessageBox", DialogType.OkOnly, closeAfter);
                 }
             ));
 

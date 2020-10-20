@@ -41,7 +41,7 @@ namespace OpenBots.Commands.DataTable
         [PropertyUISelectionOption("Ignore")]
         [InputSpecification("Select any Missing Schema Action.")]
         [SampleUsage("")]
-        [Remarks("")]
+        [Remarks("Specifies the action to take when adding data to the DataSet and the required DataTable or DataColumn is missing.")]
         public string v_MissingSchemaAction { get; set; }
 
         public MergeDataTableCommand()

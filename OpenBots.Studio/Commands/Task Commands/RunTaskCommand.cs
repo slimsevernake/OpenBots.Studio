@@ -80,8 +80,8 @@ namespace OpenBots.Commands
             v_VariableAssignments.TableName = "RunTaskCommandInputParameters" + DateTime.Now.ToString("MMddyyhhmmss");
 
             _assignmentsGridViewHelper = new DataGridView();
-            _assignmentsGridViewHelper.AllowUserToAddRows = true;
-            _assignmentsGridViewHelper.AllowUserToDeleteRows = true;
+            _assignmentsGridViewHelper.AllowUserToAddRows = false;
+            _assignmentsGridViewHelper.AllowUserToDeleteRows = false;
             _assignmentsGridViewHelper.Size = new Size(400, 250);
             _assignmentsGridViewHelper.ColumnHeadersHeight = 30;
             _assignmentsGridViewHelper.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
@@ -239,17 +239,20 @@ namespace OpenBots.Commands
             //load variables if selected and file exists
             if (Sender.Checked && File.Exists(startFile))
             {
+                _assignmentsGridViewHelper.DataSource = v_VariableAssignments;
                 Script deserializedScript = Script.DeserializeFile(startFile);
 
                 foreach (var variable in deserializedScript.Variables)
                 {
+                    if (variable.VariableName == "ProjectPath")
+                        continue;
+
                     DataRow[] foundVariables  = v_VariableAssignments.Select("VariableName = '" + "{" + variable.VariableName + "}" + "'");
                     if (foundVariables.Length == 0)
-                        v_VariableAssignments.Rows.Add("{" + variable.VariableName + "}", variable.VariableValue, "No");
-                }
-                _assignmentsGridViewHelper.DataSource = v_VariableAssignments;
+                        v_VariableAssignments.Rows.Add("{" + variable.VariableName + "}", variable.VariableValue, "No");                   
+                }               
 
-                for (int i = 0; i < _assignmentsGridViewHelper.Rows.Count - 1; i++)
+                for (int i = 0; i < _assignmentsGridViewHelper.Rows.Count; i++)
                 {
                     DataGridViewComboBoxCell returnComboBox = new DataGridViewComboBoxCell();
                     returnComboBox.Items.Add("Yes");

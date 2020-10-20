@@ -86,7 +86,7 @@ namespace OpenBots.Core.Command
             if (string.IsNullOrEmpty(v_Comment))
                 return SelectionName;
             else
-                return SelectionName + $" [{v_Comment}]";
+                return $"{v_Comment} - " + SelectionName;
         }
 
         public virtual List<Control> Render(IfrmCommandEditor editor, ICommandControls commandControls)

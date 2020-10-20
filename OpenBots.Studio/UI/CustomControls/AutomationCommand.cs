@@ -16,6 +16,7 @@ namespace OpenBots.UI.CustomControls
         public Type CommandClass { get; set; }
         public string FullName { get; set; }
         public string ShortName { get; set; }
+        public string Description { get; set; }
         public string DisplayGroup { get; set; }
         public ScriptCommand Command { get; set; }
         public List<Control> UIControls { get; set; }
@@ -42,12 +43,13 @@ namespace OpenBots.UI.CustomControls
 
                 if (!checkBoxControlExists)
                 {
-                    FlowLayoutPanel flpCheckBox = new FlowLayoutPanel();
-                    flpCheckBox.Height = 30;
-                    flpCheckBox.FlowDirection = FlowDirection.LeftToRight;
-                    flpCheckBox.Controls.Add(commandControls.CreateCheckBoxFor("v_IsPrivate", Command));
-                    flpCheckBox.Controls.Add(commandControls.CreateDefaultLabelFor("v_IsPrivate", Command));
-                    UIControls.Add(flpCheckBox);
+                    //TODO: when using a layoutpanel, checkbox is resetting when form closes
+                    //FlowLayoutPanel flpCheckBox = new FlowLayoutPanel();
+                    //flpCheckBox.Height = 30;
+                    //flpCheckBox.FlowDirection = FlowDirection.LeftToRight;
+                    UIControls.Add(commandControls.CreateDefaultLabelFor("v_IsPrivate", Command));
+                    UIControls.Add(commandControls.CreateCheckBoxFor("v_IsPrivate", Command));
+                    //UIControls.Add(flpCheckBox);
                 }
 
                 //generate comment command if user did not generate it
@@ -75,7 +77,7 @@ namespace OpenBots.UI.CustomControls
             //preference to preload is false
             //if (UIControls is null)
             //{
-            this.RenderUIComponents(editor, commandControls);
+            RenderUIComponents(editor, commandControls);
             //}
 
             foreach (var ctrl in UIControls)

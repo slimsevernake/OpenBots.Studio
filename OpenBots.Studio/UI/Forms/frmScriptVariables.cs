@@ -26,6 +26,7 @@ namespace OpenBots.UI.Forms
     {
         public List<ScriptVariable> ScriptVariables { get; set; }
         public string ScriptName { get; set; }
+        public string LastModifiedVariableName { get; set; }
         private TreeNode _userVariableParentNode;
         private string _leadingValue = "Default Value: ";
         private string _emptyValue = "(no default value)";
@@ -34,6 +35,7 @@ namespace OpenBots.UI.Forms
         public frmScriptVariables()
         {
             InitializeComponent();
+            LastModifiedVariableName = string.Empty;
         }
         private void frmScriptVariables_Load(object sender, EventArgs e)
         {
@@ -105,6 +107,7 @@ namespace OpenBots.UI.Forms
             {
                 //add newly edited node
                 AddUserVariableNode(_userVariableParentNode, addVariableForm.txtVariableName.Text, addVariableForm.txtDefaultValue.Text);
+                LastModifiedVariableName = addVariableForm.txtVariableName.Text;
             }
         }
 
@@ -161,6 +164,7 @@ namespace OpenBots.UI.Forms
 
                 //add newly edited node
                 AddUserVariableNode(_userVariableParentNode, addVariableForm.txtVariableName.Text, addVariableForm.txtDefaultValue.Text);
+                LastModifiedVariableName = addVariableForm.txtVariableName.Text;
             }
         }
 

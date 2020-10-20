@@ -233,6 +233,16 @@ namespace OpenBots.Core.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        public static System.Drawing.Bitmap action_bar_saveall {
+            get {
+                object obj = ResourceManager.GetObject("action_bar_saveall", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         public static System.Drawing.Bitmap action_bar_saveas {
             get {
                 object obj = ResourceManager.GetObject("action-bar-saveas", resourceCulture);
@@ -246,6 +256,16 @@ namespace OpenBots.Core.Properties {
         public static System.Drawing.Bitmap action_bar_schedule {
             get {
                 object obj = ResourceManager.GetObject("action_bar_schedule", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap action_bar_shortcut {
+            get {
+                object obj = ResourceManager.GetObject("action_bar_shortcut", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

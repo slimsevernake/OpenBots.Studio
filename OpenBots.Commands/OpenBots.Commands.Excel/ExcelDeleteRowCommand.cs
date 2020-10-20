@@ -35,7 +35,7 @@ namespace OpenBots.Commands.Excel
         [PropertyDescription("Shift Cells Up")]
         [PropertyUISelectionOption("Yes")]
         [PropertyUISelectionOption("No")]
-        [InputSpecification("Indicate whether the row(s) below will be shifted up to replace the old row(s).")]
+        [InputSpecification("'Yes' removes the entire row. 'No' only clears the row of its cell values.")]
         [SampleUsage("")]
         [Remarks("")]
         public string v_ShiftUp { get; set; }

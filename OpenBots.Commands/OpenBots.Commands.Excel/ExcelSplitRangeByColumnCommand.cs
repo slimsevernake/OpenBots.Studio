@@ -170,6 +170,8 @@ namespace OpenBots.Commands.Excel
                         continue;
                     }
                     var splitExcelInstance = new Application();
+                    splitExcelInstance.DisplayAlerts = false;
+
                     Workbook newWorkBook = splitExcelInstance.Workbooks.Add(Type.Missing);
                     Worksheet newSheet = newWorkBook.ActiveSheet;
                     for (int i = 1; i < newDT.Columns.Count + 1; i++)
@@ -185,10 +187,10 @@ namespace OpenBots.Commands.Excel
                         }
                     }
 
-                    if (newName.Contains("."))
-                    {
-                        newName = newName.Replace(".", string.Empty);
-                    }
+                    if (string.IsNullOrEmpty(newName))
+                        newName = "_";
+
+                    newName = string.Join("_", newName.Split(Path.GetInvalidFileNameChars()));
 
                     if (v_FileType == "csv" && !newName.Equals(string.Empty))
                     {

@@ -72,12 +72,13 @@ namespace OpenBots.Core.Server.API_Methods
                 throw new HttpRequestException($"Status Code: {response.StatusCode} - Error Message: {response.ErrorMessage}");
         }
 
-        public static void RollbackQueueItem(RestClient client, Guid transactionKey, string error, bool isFatal)
+        public static void RollbackQueueItem(RestClient client, Guid transactionKey, string code, string error, bool isFatal)
         {
             var request = new RestRequest($"api/v1/QueueItems/Rollback", Method.PUT);
             request.RequestFormat = DataFormat.Json;
             request.AddParameter("transactionKey", transactionKey.ToString(), ParameterType.QueryString);
-            request.AddParameter("error", error, ParameterType.QueryString);
+            request.AddParameter("errorCode", code, ParameterType.QueryString);
+            request.AddParameter("errorMessage", error, ParameterType.QueryString);
             request.AddParameter("isFatal", isFatal, ParameterType.QueryString);
 
             var response = client.Execute(request);

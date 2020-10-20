@@ -12,6 +12,20 @@
 //WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 //See the License for the specific language governing permissions and
 //limitations under the License.
+using OpenBots.Core.Enums;
+using OpenBots.Core.Infrastructure;
+using OpenBots.Core.IO;
+using OpenBots.Core.Model.EngineModel;
+using OpenBots.Core.Properties;
+using OpenBots.Core.Script;
+using OpenBots.Core.Settings;
+using OpenBots.Core.UI.DTOs;
+using OpenBots.Core.UI.Forms;
+using OpenBots.Core.Utilities.CommonUtilities;
+using OpenBots.Engine;
+using OpenBots.UI.Forms.ScriptBuilder_Forms;
+using OpenBots.UI.Forms.Supplement_Forms;
+using OpenBots.Utilities;
 using Serilog.Core;
 using System;
 using System.Collections.Generic;
@@ -19,21 +33,6 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
-using OpenBots.Commands;
-using OpenBots.Core.Enums;
-using OpenBots.Core.Infrastructure;
-using OpenBots.Core.IO;
-using OpenBots.Core.Model.EngineModel;
-using OpenBots.Core.Script;
-using OpenBots.Core.Settings;
-using OpenBots.Core.UI.Forms;
-using OpenBots.Core.Utilities.CommonUtilities;
-using OpenBots.Engine;
-using OpenBots.Core.UI.DTOs;
-using OpenBots.UI.Forms.ScriptBuilder_Forms;
-using OpenBots.UI.Forms.Supplement_Forms;
-using OpenBots.Utilities;
-using OpenBots.Core.Properties;
 
 namespace OpenBots.UI.Forms
 {
@@ -64,6 +63,17 @@ namespace OpenBots.UI.Forms
         public bool IsChildEngine { get; set; }
         public Logger ScriptEngineLogger { get; set; }
         #endregion
+
+        private const int CP_NOCLOSE_BUTTON = 0x200;
+        protected override CreateParams CreateParams
+        {
+            get
+            {
+                CreateParams mdiCp = base.CreateParams;
+                mdiCp.ClassStyle = mdiCp.ClassStyle | CP_NOCLOSE_BUTTON;
+                return mdiCp;
+            }
+        }
 
         //events and methods
         #region Form Events/Methods
@@ -293,6 +303,8 @@ namespace OpenBots.UI.Forms
                 case ScriptFinishedResult.Cancelled:
                     AddStatus("Script Cancelled By User");
                     UpdateUI("debug info (cancelled)");
+                    if (IsChildEngine)
+                        CloseWhenDone = true;
                     break;
                 default:
                     break;
@@ -319,6 +331,34 @@ namespace OpenBots.UI.Forms
         private void EngineInstance_LineNumberChangedEvent(object sender, LineNumberChangedEventArgs e)
         {
             UpdateLineNumber(e.CurrentLineNumber);
+        }
+
+        private void lstSteppingCommands_DrawItem(object sender, DrawItemEventArgs e)
+        {
+            if (e.Index != -1)
+            {
+                SteppingCommandsItem item = lstSteppingCommands.Items[e.Index] as SteppingCommandsItem;
+
+                if (item != null)
+                {
+                    if ((e.State & DrawItemState.Selected) == DrawItemState.Selected)
+                    {
+                        e = new DrawItemEventArgs(e.Graphics, e.Font, e.Bounds, e.Index,
+                                                  e.State ^ DrawItemState.Selected,
+                                                  e.ForeColor, item.Color);
+
+                        e.DrawBackground();
+                        e.Graphics.DrawString(item.Text, e.Font, Brushes.White, e.Bounds);
+                    }
+                    else
+                    {
+                        e.DrawBackground();
+                        e.Graphics.DrawString(item.Text, e.Font, new SolidBrush(item.Color),
+                                              e.Bounds);
+                    }
+                    e.DrawFocusRectangle();
+                }
+            }
         }
         #endregion
 
@@ -707,34 +747,6 @@ namespace OpenBots.UI.Forms
             MessageBox.Show(((SteppingCommandsItem)lstSteppingCommands.SelectedItem).Text, "Item Status");
         }
 
-        #endregion UI Elements
-
-        private void lstSteppingCommands_DrawItem(object sender, DrawItemEventArgs e)
-        {
-            if (e.Index != -1)
-            {
-                SteppingCommandsItem item = lstSteppingCommands.Items[e.Index] as SteppingCommandsItem;
-
-                if (item != null)
-                {
-                    if ((e.State & DrawItemState.Selected) == DrawItemState.Selected)
-                    {
-                        e = new DrawItemEventArgs(e.Graphics, e.Font, e.Bounds, e.Index,
-                                                  e.State ^ DrawItemState.Selected,
-                                                  e.ForeColor, item.Color);
-
-                        e.DrawBackground();
-                        e.Graphics.DrawString(item.Text, e.Font, Brushes.White, e.Bounds);
-                    }
-                    else
-                    {
-                        e.DrawBackground();
-                        e.Graphics.DrawString(item.Text, e.Font, new SolidBrush(item.Color),
-                                              e.Bounds);
-                    }
-                    e.DrawFocusRectangle();
-                }
-            }                
-        }
+        #endregion UI Elements       
     }
 }

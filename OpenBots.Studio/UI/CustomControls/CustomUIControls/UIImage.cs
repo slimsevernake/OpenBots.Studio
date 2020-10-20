@@ -41,6 +41,7 @@ namespace OpenBots.UI.CustomControls.CustomUIControls
             uiImages.Add("GetListItemCommand", Resources.command_function);
             uiImages.Add("AddListItemCommand", Resources.command_function);
             uiImages.Add("UpdateListItemCommand", Resources.command_function);
+            uiImages.Add("RemoveListItemCommand", Resources.command_function);
             uiImages.Add("CreateListCommand", Resources.command_function);
             uiImages.Add("RunScriptCommand", Resources.command_script);
             uiImages.Add("RunCustomCodeCommand", Resources.command_script);
@@ -73,10 +74,13 @@ namespace OpenBots.UI.CustomControls.CustomUIControls
             uiImages.Add("ExcelRunMacroCommand", Resources.command_spreadsheet);
             uiImages.Add("ExcelSaveWorkbookAsCommand", Resources.command_spreadsheet);
             uiImages.Add("ExcelDeleteRowCommand", Resources.command_spreadsheet);
+            uiImages.Add("ExcelDeleteColumnCommand", Resources.command_spreadsheet);
             uiImages.Add("ExcelDeleteRangeCommand", Resources.command_spreadsheet);
             uiImages.Add("ExcelGetLastRowIndexCommand", Resources.command_spreadsheet);
             uiImages.Add("ExcelSaveWorkbookCommand", Resources.command_spreadsheet);
             uiImages.Add("ExcelActivateSheetCommand", Resources.command_spreadsheet);
+            uiImages.Add("ExcelAppendSheetCommand", Resources.command_spreadsheet);
+            uiImages.Add("ExcelRenameSheetCommand", Resources.command_spreadsheet);
             uiImages.Add("ExcelExportToPDFCommand", Resources.command_spreadsheet);
             uiImages.Add("WordCreateApplicationCommand", Resources.command_files);
             uiImages.Add("WordCloseApplicationCommand", Resources.command_files);

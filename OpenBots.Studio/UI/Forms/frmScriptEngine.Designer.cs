@@ -50,6 +50,9 @@
             // 
             // lstSteppingCommands
             // 
+            this.lstSteppingCommands.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.lstSteppingCommands.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
             this.lstSteppingCommands.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lstSteppingCommands.ForeColor = System.Drawing.SystemColors.Highlight;
@@ -58,7 +61,7 @@
             this.lstSteppingCommands.Location = new System.Drawing.Point(13, 70);
             this.lstSteppingCommands.Margin = new System.Windows.Forms.Padding(4);
             this.lstSteppingCommands.Name = "lstSteppingCommands";
-            this.lstSteppingCommands.Size = new System.Drawing.Size(899, 151);
+            this.lstSteppingCommands.Size = new System.Drawing.Size(903, 151);
             this.lstSteppingCommands.TabIndex = 0;
             this.lstSteppingCommands.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.lstSteppingCommands_DrawItem);
             this.lstSteppingCommands.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.lstSteppingCommands_MouseDoubleClick);
@@ -88,12 +91,13 @@
             this.lblMainLogo.Location = new System.Drawing.Point(1, 6);
             this.lblMainLogo.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblMainLogo.Name = "lblMainLogo";
-            this.lblMainLogo.Size = new System.Drawing.Size(509, 68);
+            this.lblMainLogo.Size = new System.Drawing.Size(407, 54);
             this.lblMainLogo.TabIndex = 4;
             this.lblMainLogo.Text = "OpenBots is executing";
             // 
             // lblKillProcNote
             // 
+            this.lblKillProcNote.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.lblKillProcNote.AutoSize = true;
             this.lblKillProcNote.BackColor = System.Drawing.Color.Transparent;
             this.lblKillProcNote.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -107,6 +111,7 @@
             // 
             // lblAction
             // 
+            this.lblAction.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.lblAction.AutoSize = true;
             this.lblAction.BackColor = System.Drawing.Color.Transparent;
             this.lblAction.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -120,14 +125,15 @@
             // 
             // uiBtnStepInto
             // 
+            this.uiBtnStepInto.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.uiBtnStepInto.BackColor = System.Drawing.Color.Transparent;
             this.uiBtnStepInto.Cursor = System.Windows.Forms.Cursors.Arrow;
             this.uiBtnStepInto.DisplayText = "Step Into";
             this.uiBtnStepInto.DisplayTextBrush = System.Drawing.Color.AliceBlue;
             this.uiBtnStepInto.Font = new System.Drawing.Font("Segoe UI", 8F);
-            this.uiBtnStepInto.Image = global::OpenBots.Core.Properties.Resources.command_step_into;
+            this.uiBtnStepInto.Image = ((System.Drawing.Image)(resources.GetObject("uiBtnStepInto.Image")));
             this.uiBtnStepInto.IsMouseOver = false;
-            this.uiBtnStepInto.Location = new System.Drawing.Point(717, 2);
+            this.uiBtnStepInto.Location = new System.Drawing.Point(723, 2);
             this.uiBtnStepInto.Margin = new System.Windows.Forms.Padding(4);
             this.uiBtnStepInto.Name = "uiBtnStepInto";
             this.uiBtnStepInto.Size = new System.Drawing.Size(64, 64);
@@ -139,14 +145,15 @@
             // 
             // uiBtnStepOver
             // 
+            this.uiBtnStepOver.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.uiBtnStepOver.BackColor = System.Drawing.Color.Transparent;
             this.uiBtnStepOver.Cursor = System.Windows.Forms.Cursors.Arrow;
             this.uiBtnStepOver.DisplayText = "Step Over";
             this.uiBtnStepOver.DisplayTextBrush = System.Drawing.Color.AliceBlue;
             this.uiBtnStepOver.Font = new System.Drawing.Font("Segoe UI", 8F);
-            this.uiBtnStepOver.Image = global::OpenBots.Core.Properties.Resources.command_step_over;
+            this.uiBtnStepOver.Image = ((System.Drawing.Image)(resources.GetObject("uiBtnStepOver.Image")));
             this.uiBtnStepOver.IsMouseOver = false;
-            this.uiBtnStepOver.Location = new System.Drawing.Point(653, 2);
+            this.uiBtnStepOver.Location = new System.Drawing.Point(659, 2);
             this.uiBtnStepOver.Margin = new System.Windows.Forms.Padding(4);
             this.uiBtnStepOver.Name = "uiBtnStepOver";
             this.uiBtnStepOver.Size = new System.Drawing.Size(64, 64);
@@ -158,14 +165,15 @@
             // 
             // uiBtnCancel
             // 
+            this.uiBtnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.uiBtnCancel.BackColor = System.Drawing.Color.Transparent;
             this.uiBtnCancel.Cursor = System.Windows.Forms.Cursors.Arrow;
             this.uiBtnCancel.DisplayText = "Cancel";
             this.uiBtnCancel.DisplayTextBrush = System.Drawing.Color.AliceBlue;
             this.uiBtnCancel.Font = new System.Drawing.Font("Segoe UI", 8F);
-            this.uiBtnCancel.Image = global::OpenBots.Core.Properties.Resources.command_cancel;
+            this.uiBtnCancel.Image = ((System.Drawing.Image)(resources.GetObject("uiBtnCancel.Image")));
             this.uiBtnCancel.IsMouseOver = false;
-            this.uiBtnCancel.Location = new System.Drawing.Point(845, 2);
+            this.uiBtnCancel.Location = new System.Drawing.Point(851, 2);
             this.uiBtnCancel.Margin = new System.Windows.Forms.Padding(4);
             this.uiBtnCancel.Name = "uiBtnCancel";
             this.uiBtnCancel.Size = new System.Drawing.Size(64, 64);
@@ -176,14 +184,15 @@
             // 
             // uiBtnPause
             // 
+            this.uiBtnPause.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.uiBtnPause.BackColor = System.Drawing.Color.Transparent;
             this.uiBtnPause.Cursor = System.Windows.Forms.Cursors.Arrow;
             this.uiBtnPause.DisplayText = "Pause";
             this.uiBtnPause.DisplayTextBrush = System.Drawing.Color.AliceBlue;
             this.uiBtnPause.Font = new System.Drawing.Font("Segoe UI", 8F);
-            this.uiBtnPause.Image = global::OpenBots.Core.Properties.Resources.command_pause;
+            this.uiBtnPause.Image = ((System.Drawing.Image)(resources.GetObject("uiBtnPause.Image")));
             this.uiBtnPause.IsMouseOver = false;
-            this.uiBtnPause.Location = new System.Drawing.Point(781, 2);
+            this.uiBtnPause.Location = new System.Drawing.Point(787, 2);
             this.uiBtnPause.Margin = new System.Windows.Forms.Padding(4);
             this.uiBtnPause.Name = "uiBtnPause";
             this.uiBtnPause.Size = new System.Drawing.Size(64, 64);
@@ -195,7 +204,7 @@
             // pbBotIcon
             // 
             this.pbBotIcon.BackColor = System.Drawing.Color.Transparent;
-            this.pbBotIcon.Image = global::OpenBots.Core.Properties.Resources.executing;
+            this.pbBotIcon.Image = ((System.Drawing.Image)(resources.GetObject("pbBotIcon.Image")));
             this.pbBotIcon.Location = new System.Drawing.Point(16, 69);
             this.pbBotIcon.Margin = new System.Windows.Forms.Padding(4);
             this.pbBotIcon.Name = "pbBotIcon";
@@ -209,8 +218,8 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.SteelBlue;
-            this.ClientSize = new System.Drawing.Size(925, 290);
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(59)))), ((int)(((byte)(59)))), ((int)(((byte)(59)))));
+            this.ClientSize = new System.Drawing.Size(929, 292);
             this.Controls.Add(this.uiBtnStepInto);
             this.Controls.Add(this.uiBtnStepOver);
             this.Controls.Add(this.lblAction);
@@ -221,11 +230,10 @@
             this.Controls.Add(this.lblCloseTimer);
             this.Controls.Add(this.lstSteppingCommands);
             this.Controls.Add(this.pbBotIcon);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Icon = OpenBots.Core.Properties.Resources.OpenBots_ico;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(5);
             this.Name = "frmScriptEngine";
-            this.Text = "Bot Engine";
+            this.Text = "OpenBots Engine";
             this.TopMost = true;
             this.Load += new System.EventHandler(this.frmProcessingStatus_Load);
             ((System.ComponentModel.ISupportInitialize)(this.uiBtnStepInto)).EndInit();

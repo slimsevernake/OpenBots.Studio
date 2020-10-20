@@ -53,6 +53,8 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
             newLstScriptActions.MouseClick += new MouseEventHandler(lstScriptActions_MouseClick);
             newLstScriptActions.MouseMove += new MouseEventHandler(lstScriptActions_MouseMove);
             newLstScriptActions.Tag = new ScriptActionTag();
+            newLstScriptActions.ShowItemToolTips = true;
+
             return newLstScriptActions;
         }
 
@@ -182,46 +184,64 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
             }
             else if (e.Control)
             {
-                switch (e.KeyCode)
+                if (e.Shift)
                 {
-                    case Keys.X:
-                        CutRows();
-                        break;
-                    case Keys.C:
-                        CopyRows();
-                        break;
-                    case Keys.V:
-                        PasteRows();
-                        break;
-                    case Keys.Z:
-                        UndoChange();
-                        break;
-                    case Keys.R:
-                        RedoChange();
-                        break;
-                    case Keys.A:
-                        foreach (ListViewItem item in _selectedTabScriptActions.Items)
-                            item.Selected = true;
-                        break;
-                    case Keys.S:
-                        if (_isSequence)
-                            uiBtnSaveSequence_Click(null, null);
-                        else
-                        {
-                            ClearSelectedListViewItems();
-                            SaveToFile(false);
-                        }                        
-                        break;
-                    case Keys.E:
-                        SetSelectedCodeToCommented(false);
-                        break;
-                    case Keys.D:
-                        SetSelectedCodeToCommented(true);
-                        break;
-                    case Keys.B:
-                        AddRemoveBreakpoint();
-                        break;
+                    switch (e.KeyCode)
+                    {
+                        case Keys.S:
+                            SaveAllFiles();
+                            break;
+                    }
                 }
+                else
+                {
+                    switch (e.KeyCode)
+                    {
+                        case Keys.X:
+                            CutRows();
+                            break;
+                        case Keys.C:
+                            CopyRows();
+                            break;
+                        case Keys.V:
+                            PasteRows();
+                            break;
+                        case Keys.Z:
+                            UndoChange();
+                            break;
+                        case Keys.R:
+                            RedoChange();
+                            break;
+                        case Keys.A:
+                            foreach (ListViewItem item in _selectedTabScriptActions.Items)
+                                item.Selected = true;
+                            break;
+                        case Keys.S:
+                            if (_isSequence)
+                                uiBtnSaveSequence_Click(null, null);
+                            else
+                            {
+                                ClearSelectedListViewItems();
+                                SaveToFile(false);
+                            }
+                            break;
+                        case Keys.E:
+                            SetSelectedCodeToCommented(false);
+                            break;
+                        case Keys.D:
+                            SetSelectedCodeToCommented(true);
+                            break;
+                        case Keys.B:
+                            AddRemoveBreakpoint();
+                            break;
+                        case Keys.K:
+                            OpenVariableManager();
+                            break;
+                        case Keys.L:
+                            OpenElementManager();
+                            break;
+                    }
+                }                
             }
         }
 
@@ -331,7 +351,7 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
                     CreateUndoSnapshot();
                     selectedCommandItem.Tag = editCommand.SelectedCommand;
                     selectedCommandItem.Text = editCommand.SelectedCommand.GetDisplayValue(); //+ "(" + cmdDetails.SelectedVariables() + ")";
-                    selectedCommandItem.SubItems.Add(editCommand.SelectedCommand.GetDisplayValue());
+                    selectedCommandItem.SubItems.Add(editCommand.SelectedCommand.GetDisplayValue());                    
                 }
 
                 if (editCommand.SelectedCommand.CommandName == "SeleniumElementActionCommand")
@@ -455,8 +475,8 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
                     _selectedTabScriptActions.Items.Add(rowItem);
                 }
 
-                ((ScriptActionTag)_selectedTabScriptActions.Tag).UndoList.RemoveAt(
-                    ((ScriptActionTag)_selectedTabScriptActions.Tag).UndoList.Count - 1);
+                ((ScriptActionTag)_selectedTabScriptActions.Tag).UndoList
+                    .RemoveAt(((ScriptActionTag)_selectedTabScriptActions.Tag).UndoList.Count - 1);
 
                 _selectedTabScriptActions.Invalidate();
             }
@@ -474,8 +494,8 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
                     _selectedTabScriptActions.Items.Add(rowItem);
                 }
 
-                ((ScriptActionTag)_selectedTabScriptActions.Tag).RedoList.RemoveAt(
-                    ((ScriptActionTag)_selectedTabScriptActions.Tag).RedoList.Count - 1);
+                ((ScriptActionTag)_selectedTabScriptActions.Tag).RedoList
+                    .RemoveAt(((ScriptActionTag)_selectedTabScriptActions.Tag).RedoList.Count - 1);
 
                 _selectedTabScriptActions.Invalidate();
             }
@@ -530,6 +550,8 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
             newCommand.ForeColor = cmdDetails.DisplayForeColor;
             newCommand.BackColor = Color.DimGray;
             newCommand.ImageIndex = _uiImages.Images.IndexOfKey(cmdDetails.GetType().Name);
+            newCommand.ToolTipText = cmdDetails.GetDisplayValue();
+
             return newCommand;
         }
         #endregion
@@ -599,7 +621,7 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
         private void AutoSizeLineNumberColumn()
         {
             //auto adjust column width based on # of commands
-            int columnWidth = (14 * _selectedTabScriptActions.Items.Count.ToString().Length);
+            int columnWidth = (20 * _selectedTabScriptActions.Items.Count.ToString().Length);
             _selectedTabScriptActions.Columns[0].Width = columnWidth;
         }
 
@@ -645,9 +667,7 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
                         //draw command icon
                         var img = _uiImages.Images[command.GetType().Name];
                         if (img != null)
-                        {
                             e.Graphics.DrawImage(img, modifiedBounds.Left, modifiedBounds.Top + 3);
-                        }
                     }                   
                     break;
                 case 2:
@@ -777,8 +797,18 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
 
         private void DeleteSelectedCode()
         {
+            SelectAllScopedCode();
+
             foreach (ListViewItem item in _selectedTabScriptActions.SelectedItems)
-            {               
+                _selectedTabScriptActions.Items.Remove(item);
+
+            _selectedTabScriptActions.Invalidate();
+        }
+
+        private void SelectAllScopedCode()
+        {
+            foreach (ListViewItem item in _selectedTabScriptActions.SelectedItems)
+            {
                 switch (((ScriptCommand)item.Tag).CommandName)
                 {
                     case "LoopCollectionCommand":
@@ -805,11 +835,6 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
                         break;
                 }
             }
-
-            foreach (ListViewItem item in _selectedTabScriptActions.SelectedItems)
-                _selectedTabScriptActions.Items.Remove(item);
-
-            _selectedTabScriptActions.Invalidate();
         }
 
         private void FindEndCommand(ListViewItem item, string endCommandName)
@@ -825,6 +850,8 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
 
         private void SetSelectedCodeToCommented(bool setCommented)
         {
+            SelectAllScopedCode();
+
             //warn if nothing was selected
             if (_selectedTabScriptActions.SelectedItems.Count == 0)
                 Notify("No code was selected!");
@@ -954,6 +981,8 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
 
             //insert command
             _selectedTabScriptActions.Items.Insert(insertionIndex, command);
+            ClearSelectedListViewItems();
+            command.Selected = true;
 
             //special types also get a following command and comment
             if ((selectedCommand.CommandName == "LoopCollectionCommand") || (selectedCommand.CommandName == "LoopContinuouslyCommand") ||

@@ -378,6 +378,32 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
             }
         }
 
+        private void SaveAllFiles()
+        {
+            TabPage currentTab = uiScriptTabControl.SelectedTab;
+            foreach (TabPage openTab in uiScriptTabControl.TabPages)
+            {
+                if (openTab.Text.Contains(" *"))
+                {
+                    uiScriptTabControl.SelectedTab = openTab;
+                    //clear selected items
+                    ClearSelectedListViewItems();
+                    SaveToFile(false); // Save & Run!
+                }
+            }
+            uiScriptTabControl.SelectedTab = currentTab;
+        }
+
+        private void saveAllToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SaveAllFiles();
+        }
+
+        private void uiBtnSaveAll_Click(object sender, EventArgs e)
+        {
+            SaveAllFiles();
+        }
+
         private void ClearSelectedListViewItems()
         {
             _selectedTabScriptActions.SelectedItems.Clear();
@@ -387,6 +413,7 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
 
         private void publishProjectToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            SaveAllFiles();
             frmPublishProject publishProject = new frmPublishProject(ScriptProjectPath, ScriptProject);
             publishProject.ShowDialog();
 
@@ -683,20 +710,12 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
                 return;
             }
 
-            TabPage currentTab = uiScriptTabControl.SelectedTab;
-            foreach (TabPage openTab in uiScriptTabControl.TabPages)
-            {
-                if (openTab.Text.Contains(" *"))
-                {
-                    uiScriptTabControl.SelectedTab = openTab;
-                    //clear selected items
-                    ClearSelectedListViewItems();
-                    SaveToFile(false); // Save & Run!
-                }
-            }
-            uiScriptTabControl.SelectedTab = currentTab;
+            SaveAllFiles();
 
             Notify("Running Script..");
+
+            if (CurrentEngine != null)
+                ((Form)CurrentEngine).Close();
 
             //initialize Logger
             switch (_appSettings.EngineSettings.LoggingSinkType)
@@ -838,6 +857,17 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
         {
             DialogResult = DialogResult.OK;
             Close();
+        }
+
+        private void shortcutMenuToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmShortcutMenu shortcutMenuForm = new frmShortcutMenu();
+            shortcutMenuForm.Show();
+        }
+
+        private void openShortcutMenuToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            shortcutMenuToolStripMenuItem_Click(sender, e);
         }
         #endregion
         #endregion

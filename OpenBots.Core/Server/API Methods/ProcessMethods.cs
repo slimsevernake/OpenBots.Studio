@@ -9,7 +9,6 @@ namespace OpenBots.Core.Server.API_Methods
         {
             var request = new RestRequest("api/v1/Processes", Method.POST);
             request.AddParameter("Name", name);
-            request.AddParameter("Status", "Published");
             request.RequestFormat = DataFormat.Json;
 
             request.AddHeader("Content-Type", "multipart/form-data"); 

@@ -146,8 +146,8 @@ namespace OpenBots.Commands
                     break;
             }
 
-            if (!string.IsNullOrEmpty(vURL.Trim()))
-            {
+            if (!string.IsNullOrEmpty(vURL.Trim()) && vURL.Trim() != "https://")
+                {
                 try
                 {
                     webDriver.Navigate().GoToUrl(vURL);

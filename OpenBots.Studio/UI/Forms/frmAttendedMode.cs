@@ -37,7 +37,7 @@ namespace OpenBots.UI.Forms
             _appSettings = new ApplicationSettings().GetOrCreateApplicationSettings();
 
             //setup file system watcher
-            attendedScriptWatcher.Path = _appSettings.ClientSettings.AttendedTasksFolder;
+            attendedScriptWatcher.Path = _projectPath;
 
             //move form to default location
             MoveToDefaultFormLocation();
@@ -54,7 +54,7 @@ namespace OpenBots.UI.Forms
 
         private void uiBtnClose_Click(object sender, EventArgs e)
         {
-            this.Close();
+            Close();
         }
 
         private void MoveToDefaultFormLocation()
@@ -63,14 +63,14 @@ namespace OpenBots.UI.Forms
             Screen myScreen = Screen.FromControl(this);
             Rectangle area = myScreen.WorkingArea;
 
-            this.Top = 0;
-            this.Left = (area.Width - this.Width) / 2;
+            Top = 0;
+            Left = (area.Width - Width) / 2;
         }
 
         private void uiBtnRun_Click(object sender, EventArgs e)
         {
             //build script path and execute
-            var scriptFilePath = Path.Combine(_appSettings.ClientSettings.AttendedTasksFolder, cboSelectedScript.Text);
+            var scriptFilePath = Path.Combine(_projectPath, cboSelectedScript.Text);
             var projectName = new DirectoryInfo(_projectPath).Name;
             //initialize Logger
             Logger engineLogger = null;
@@ -110,14 +110,17 @@ namespace OpenBots.UI.Forms
             cboSelectedScript.Items.Clear();
         
             //get script files
-            var files = Directory.GetFiles(_appSettings.ClientSettings.AttendedTasksFolder);
+            var files = Directory.GetFiles(_projectPath);
 
             //loop each file and add to potential
-            foreach (var fil in files)
+            foreach (var file in files)
             {
-                var filInfo = new FileInfo(fil);
-                cboSelectedScript.Items.Add(filInfo.Name);
+                var fileInfo = new FileInfo(file);
+                if (fileInfo.Extension == ".json")
+                    cboSelectedScript.Items.Add(fileInfo.Name);
             }
+
+            cboSelectedScript.Text = cboSelectedScript.Items[0].ToString();
         }
         #endregion
 
@@ -129,15 +132,15 @@ namespace OpenBots.UI.Forms
 
         private void tmrBackColorFlash_Tick(object sender, EventArgs e)
         {
-            if (this.BackColor == Color.FromArgb(59, 59, 59))
+            if (BackColor == Color.FromArgb(59, 59, 59))
             {
-                this.BackColor = Color.LightYellow;
+                BackColor = Color.LightYellow;
                 uiBtnClose.DisplayTextBrush = Color.Black;
                 uiBtnRun.DisplayTextBrush = Color.Black;
             }
             else
             {
-                this.BackColor = Color.FromArgb(59, 59, 59);
+                BackColor = Color.FromArgb(59, 59, 59);
                 uiBtnClose.DisplayTextBrush = Color.White;
                 uiBtnRun.DisplayTextBrush = Color.White;
             }
@@ -157,7 +160,7 @@ namespace OpenBots.UI.Forms
             if (_dragging)
             {
                 Point dif = Point.Subtract(Cursor.Position, new Size(_dragCursorPoint));
-                this.Location = Point.Add(_dragFormPoint, new Size(dif));
+                Location = Point.Add(_dragFormPoint, new Size(dif));
             }
         }
 
@@ -165,7 +168,7 @@ namespace OpenBots.UI.Forms
         {
             _dragging = true;
             _dragCursorPoint = Cursor.Position;
-            _dragFormPoint = this.Location;
+            _dragFormPoint = Location;
         }
 
         private void frmAttendedMode_MouseUp(object sender, MouseEventArgs e)

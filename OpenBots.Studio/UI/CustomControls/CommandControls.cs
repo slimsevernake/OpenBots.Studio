@@ -199,6 +199,7 @@ namespace OpenBots.UI.CustomControls
 
             inputBox.Name = parameterName;
             inputBox.KeyDown += InputBox_KeyDown;
+            inputBox.KeyPress += InputBox_KeyPress;
 
             if (parameterName == "v_Comment")
                 inputBox.Margin = new Padding(0, 0, 0, 20);
@@ -207,10 +208,32 @@ namespace OpenBots.UI.CustomControls
 
         private void InputBox_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.Modifiers == Keys.Shift && e.KeyCode == Keys.Enter)
+            TextBox inputBox = (TextBox)sender;
+            if (e.Control && e.KeyCode == Keys.K)
+            {
+                frmScriptVariables scriptVariableEditor = new frmScriptVariables
+                {
+                    ScriptVariables = _currentEditor.ScriptVariables
+                };
+
+                if (scriptVariableEditor.ShowDialog() == DialogResult.OK)
+                {
+                    _currentEditor.ScriptVariables = scriptVariableEditor.ScriptVariables;
+                    inputBox.Text = inputBox.Text.Insert(inputBox.SelectionStart, scriptVariableEditor.LastModifiedVariableName);
+                }
+
+            } 
+            else if (e.Modifiers == Keys.Shift && e.KeyCode == Keys.Enter)
                 return;
             else if (e.KeyCode == Keys.Enter)
-                _currentEditor.uiBtnAdd_Click(null, null);
+                _currentEditor.uiBtnAdd_Click(null, null);          
+        }
+
+        private void InputBox_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            //Control + K
+            if (e.KeyChar == '\v')
+                e.Handled = true;
         }
 
         public CheckBox CreateCheckBoxFor(string parameterName, ScriptCommand parent)
@@ -276,8 +299,36 @@ namespace OpenBots.UI.CustomControls
             standardComboBox.Width = 300;
             standardComboBox.Name = parameterName;
             standardComboBox.Click += StandardComboBox_Click;
+            standardComboBox.KeyDown += StandardComboBox_KeyDown;
+            standardComboBox.KeyPress += StandardComboBox_KeyPress;
 
             return standardComboBox;
+        }
+
+        private void StandardComboBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Control && e.KeyCode == Keys.K)
+            {
+                frmScriptVariables scriptVariableEditor = new frmScriptVariables
+                {
+                    ScriptVariables = _currentEditor.ScriptVariables
+                };
+
+                if (scriptVariableEditor.ShowDialog() == DialogResult.OK)
+                {
+                    _currentEditor.ScriptVariables = scriptVariableEditor.ScriptVariables;
+                    ((ComboBox)sender).Text = scriptVariableEditor.LastModifiedVariableName;
+                }
+            }
+            else if (e.KeyCode == Keys.Enter)
+                _currentEditor.uiBtnAdd_Click(null, null);
+        }
+
+        private void StandardComboBox_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            //Control + K
+            if (e.KeyChar == '\v')
+                e.Handled = true;
         }
 
         private void StandardComboBox_Click(object sender, EventArgs e)
@@ -499,15 +550,15 @@ namespace OpenBots.UI.CustomControls
                 {
                     TextBox targetTextbox = (TextBox)inputBox.Tag;
                     //concat variable name with brackets [vVariable] as engine searches for the same
-                    targetTextbox.Text = targetTextbox.Text + string.Concat("{",
-                        newVariableSelector.lstVariables.SelectedItem.ToString(), "}");
+                    targetTextbox.Text = targetTextbox.Text.Insert(targetTextbox.SelectionStart, string.Concat("{",
+                        newVariableSelector.lstVariables.SelectedItem.ToString(), "}"));
                 }
                 else if (inputBox.Tag is ComboBox)
                 {
                     ComboBox targetCombobox = (ComboBox)inputBox.Tag;
                     //concat variable name with brackets [vVariable] as engine searches for the same
-                    targetCombobox.Text = targetCombobox.Text + string.Concat("{",
-                        newVariableSelector.lstVariables.SelectedItem.ToString(), "}");
+                    targetCombobox.Text = targetCombobox.Text.Insert(targetCombobox.SelectionStart, string.Concat("{",
+                        newVariableSelector.lstVariables.SelectedItem.ToString(), "}"));
                 }
                 else if (inputBox.Tag is DataGridView)
                 {
@@ -528,9 +579,15 @@ namespace OpenBots.UI.CustomControls
 
                     targetDGV.SelectedCells[0].Value = targetDGV.SelectedCells[0].Value +
                         string.Concat("{", newVariableSelector.lstVariables.SelectedItem.ToString(), "}");
+
+                    //TODO - Insert variables at cursor position instead of at the end of a cell
+                    //targetDGV.CurrentCell = targetDGV.SelectedCells[0];
+                    //targetDGV.BeginEdit(false);
+                    //TextBox editor = (TextBox)targetDGV.EditingControl;
+                    //editor.Text = editor.Text.Insert(editor.SelectionStart, string.Concat("{",
+                    //    newVariableSelector.lstVariables.SelectedItem.ToString(), "}"));
+
                 }
-
-
             }
         }
 

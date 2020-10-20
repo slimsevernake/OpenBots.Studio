@@ -133,7 +133,6 @@ namespace OpenBots.Commands.Word
 
             RenderedControls.AddRange(OpenFileControls);
 
-            RenderedControls.AddRange(commandControls.CreateDefaultInputGroupFor("v_FilePath", this, editor));
             RenderedControls.AddRange(commandControls.CreateDefaultDropdownGroupFor("v_Visible", this, editor));
             RenderedControls.AddRange(commandControls.CreateDefaultDropdownGroupFor("v_CloseAllInstances", this, editor));
 

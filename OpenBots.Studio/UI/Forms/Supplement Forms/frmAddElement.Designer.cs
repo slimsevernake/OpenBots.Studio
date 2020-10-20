@@ -86,6 +86,7 @@ namespace OpenBots.UI.Forms.Supplement_Forms
             this.txtElementName.Name = "txtElementName";
             this.txtElementName.Size = new System.Drawing.Size(563, 32);
             this.txtElementName.TabIndex = 16;
+            this.txtElementName.Text = "<>";
             // 
             // lblDefineNameDescription
             // 

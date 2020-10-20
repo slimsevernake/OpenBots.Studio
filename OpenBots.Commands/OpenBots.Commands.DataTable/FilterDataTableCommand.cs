@@ -17,10 +17,8 @@ namespace OpenBots.Commands.DataTable
     [Serializable]
     [Group("DataTable Commands")]
     [Description("This command filters specific rows from a DataTable into a new Datatable.")]
-
     public class FilterDataTableCommand : ScriptCommand
     {
-
         [PropertyDescription("Input DataTable")]
         [InputSpecification("Enter the DataTable to filter through.")]
         [SampleUsage("{vDataTable}")]
@@ -31,7 +29,7 @@ namespace OpenBots.Commands.DataTable
         [PropertyDescription("Filter Tuple")]
         [InputSpecification("Enter a tuple containing the column name and item you would like to filter by.")]
         [SampleUsage("(ColumnName1,Item1),(ColumnName2,Item2) || ({vColumn1},{vItem1}),({vCloumn2},{vItem2}) || {vFilterTuple}")]
-        [Remarks("")]
+        [Remarks("DataRows must match all provided tuples to be included in the filtered DataTable.")]
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_SearchItem { get; set; }
 
@@ -63,24 +61,24 @@ namespace OpenBots.Commands.DataTable
             foreach (string item in listPairs)
             {
                 string temp;
-                temp = item.Trim('(');
+                temp = item.Trim().TrimStart(',').TrimStart('(');
                 var tempList = temp.Split(',');
                 t.Insert(i, Tuple.Create(tempList[0], tempList[1]));
                 i++;
             }
 
-            List<DataRow> listrows = Dt.AsEnumerable().ToList();
             List<DataRow> templist = new List<DataRow>();
 
             foreach (Tuple<string, string> tuple in t)
             {
-                foreach (DataRow item in listrows)
+                foreach (DataRow row in Dt.Rows)
                 {
-                    if (item[tuple.Item1] != null)
+                    if (row[tuple.Item1] != null)
                     {
-                        if (item[tuple.Item1].ToString() == tuple.Item2.ToString())
+                        if (row[tuple.Item1].ToString() == tuple.Item2.ToString() && !templist.Contains(row))
                         {
-                            templist.Add(item);
+                            //outputDT.Rows.Remove(row);
+                            templist.Add(row);
                         }
                     }
                 }
@@ -88,15 +86,15 @@ namespace OpenBots.Commands.DataTable
 
             Data.DataTable outputDT = new Data.DataTable();
             int x = 0;
+
             foreach(DataColumn column in Dt.Columns)
             {
                 outputDT.Columns.Add(Dt.Columns[x].ToString());
                 x++;
             }
+
             foreach (DataRow item in templist)
-            {
                 outputDT.Rows.Add(item.ItemArray);
-            }
 
             outputDT.StoreInUserVariable(engine, v_OutputUserVariableName);
         }

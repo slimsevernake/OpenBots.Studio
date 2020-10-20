@@ -24,7 +24,7 @@ namespace OpenBots.Commands.Excel
         [Remarks("Failure to enter the correct instance or failure to first call the **Create Application** command will cause an error.")]
         public string v_InstanceName { get; set; }
 
-        [PropertyDescription("Worksheet")]
+        [PropertyDescription("Worksheet Name")]
         [InputSpecification("Specify the Worksheet within the Workbook to activate.")]
         [SampleUsage("Sheet1 || {vSheet}")]
         [Remarks("")]
@@ -43,11 +43,11 @@ namespace OpenBots.Commands.Excel
         public override void RunCommand(object sender)
         {
             var engine = (AutomationEngineInstance)sender;
-            string vSheetToDelete = v_SheetName.ConvertUserVariableToString(engine);
+            string vSheetToActivate = v_SheetName.ConvertUserVariableToString(engine);
 
             var excelObject = v_InstanceName.GetAppInstance(engine);
             var excelInstance = (Application)excelObject;      
-            var workSheet = excelInstance.Sheets[vSheetToDelete] as Worksheet;
+            var workSheet = excelInstance.Sheets[vSheetToActivate] as Worksheet;
             workSheet.Select(); 
         }
 

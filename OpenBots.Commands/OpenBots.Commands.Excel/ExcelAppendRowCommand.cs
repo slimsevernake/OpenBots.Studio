@@ -45,7 +45,11 @@ namespace OpenBots.Commands.Excel
         public override void RunCommand(object sender)
         {
             var engine = (AutomationEngineInstance)sender;
-            var vRow = v_RowToSet.ConvertUserVariableToObject(engine);
+            dynamic vRow = v_RowToSet.ConvertUserVariableToString(engine);
+
+            if (vRow == v_RowToSet && v_RowToSet.StartsWith("{") && v_RowToSet.EndsWith("}"))
+                vRow = v_RowToSet.ConvertUserVariableToObject(engine);
+
             var excelObject = v_InstanceName.GetAppInstance(engine);
             var excelInstance = (Application)excelObject;
             Worksheet excelSheet = excelInstance.ActiveSheet;

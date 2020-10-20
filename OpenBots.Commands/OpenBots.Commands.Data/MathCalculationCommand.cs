@@ -62,39 +62,39 @@ namespace OpenBots.Commands.Data
 
             //get variablized string
             var variableMath = v_MathExpression.ConvertUserVariableToString(engine);
-
-            try
-            {
-                var decimalSeparator = v_DecimalSeparator.ConvertUserVariableToString(engine);
-                var thousandSeparator = v_ThousandSeparator.ConvertUserVariableToString(engine);
-
-                //remove thousandths markers
+            var thousandSeparator = v_ThousandSeparator.ConvertUserVariableToString(engine);
+            var decimalSeparator = v_DecimalSeparator.ConvertUserVariableToString(engine);
+                
+            //remove thousandths markers
+            if (!string.IsNullOrEmpty(thousandSeparator))
                 variableMath = variableMath.Replace(thousandSeparator, "");
 
-                //check decimal seperator
-                if (decimalSeparator != ".")
-                {
-                    variableMath = variableMath.Replace(decimalSeparator, ".");
-                }
+            //check decimal seperator
+            if (decimalSeparator != "." && !string.IsNullOrEmpty(decimalSeparator))
+                variableMath = variableMath.Replace(decimalSeparator, ".");
 
-                //perform compute
-                DataTable dt = new DataTable();
-                var result = dt.Compute(variableMath, "");
+            //perform compute
+            DataTable dt = new DataTable();
+            string result = dt.Compute(variableMath, "").ToString();
 
-                //restore decimal seperator
-                if (decimalSeparator != ".")
-                {
-                    result = result.ToString().Replace(".", decimalSeparator);
-                }
-               
-                //store string in variable
-                result.ToString().StoreInUserVariable(engine, v_OutputUserVariableName);
-            }
-            catch (Exception ex)
+            //restore thousandths markers
+            if (!string.IsNullOrEmpty(thousandSeparator))
             {
-                //throw exception is math calc failed
-                throw ex;
+                result = double.Parse(result).ToString("N");
+                result = result.Replace(",", thousandSeparator);
             }
+
+            //restore decimal seperator
+            if (decimalSeparator != "." && !string.IsNullOrEmpty(decimalSeparator))
+            {
+                var lastIndex = result.LastIndexOf(".");
+
+                if (lastIndex != -1)
+                    result = result.Remove(lastIndex, 1).Insert(lastIndex, decimalSeparator);
+            }
+               
+            //store string in variable
+            result.ToString().StoreInUserVariable(engine, v_OutputUserVariableName);           
         }
 
         public override List<Control> Render(IfrmCommandEditor editor, ICommandControls commandControls)

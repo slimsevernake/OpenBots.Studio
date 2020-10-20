@@ -325,11 +325,8 @@ namespace OpenBots.Engine
                 throw new Exception("Child Script Failed");
 
             //bypass comments
-            if (parentCommand.CommandName == "AddCodeCommentCommand" || parentCommand.IsCommented)
-            {
-                ReportProgress($"Skipping Line {parentCommand.LineNumber}: {(parentCommand.v_IsPrivate ? _privateCommandLog : parentCommand.GetDisplayValue().ConvertUserVariableToString(this))}", parentCommand.LogLevel);
+            if (parentCommand.CommandName == "AddCodeCommentCommand" || parentCommand.IsCommented)             
                 return;
-            }
 
             //report intended execution
             if (parentCommand.CommandName != "LogMessageCommand")
@@ -346,12 +343,13 @@ namespace OpenBots.Engine
                     (parentCommand.CommandName == "BeginRetryCommand" || (parentCommand.CommandName == "BeginSwitchCommand")))
                 {
                     //run the command and pass bgw/command as this command will recursively call this method for sub commands
-                    command.IsExceptionIgnored = true;
+                    //TODO: Make sure that removing these lines doesn't create any other issues
+                    //command.IsExceptionIgnored = true;
                     parentCommand.RunCommand(this, command);
                 }
                 else if (parentCommand.CommandName == "SequenceCommand")
                 {
-                    command.IsExceptionIgnored = true;
+                    //command.IsExceptionIgnored = true;
                     parentCommand.RunCommand(this, command);
                 }
                 else if (parentCommand.CommandName == "StopCurrentTaskCommand")
