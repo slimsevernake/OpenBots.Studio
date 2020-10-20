@@ -22,9 +22,7 @@ namespace OpenBots.Core.Script
         public ScriptAction AddAdditionalAction(ScriptCommand scriptCommand)
         {
             if (AdditionalScriptCommands == null)
-            {
                 AdditionalScriptCommands = new List<ScriptAction>();
-            }
 
             ScriptAction newExecutionCommand = new ScriptAction() { ScriptCommand = scriptCommand };
             AdditionalScriptCommands.Add(newExecutionCommand);

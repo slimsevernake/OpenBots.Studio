@@ -1,14 +1,12 @@
 ﻿using Newtonsoft.Json;
-using Serilog.Events;
-using System;
-using System.Collections.Generic;
-using System.Threading;
-using System.Windows.Forms;
 using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Infrastructure;
 using OpenBots.Core.Script;
+using Serilog.Events;
+using System;
+using System.Collections.Generic;
 using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
+using System.Windows.Forms;
 
 namespace OpenBots.Core.Command
 {
@@ -16,9 +14,9 @@ namespace OpenBots.Core.Command
     {
         public string CommandID { get; set; }
         public string CommandName { get; set; }
-        public bool IsCommented { get; set; }
         public string SelectionName { get; set; }
         public int LineNumber { get; set; }
+        public bool IsCommented { get; set; }
         public bool PauseBeforeExecution { get; set; }
         public bool CommandEnabled { get; set; }
 
