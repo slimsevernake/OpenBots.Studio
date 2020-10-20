@@ -59,7 +59,6 @@ namespace OpenBots.Studio.Utilities.Documentation
                 ScriptCommand instantiatedCommand = (ScriptCommand)Activator.CreateInstance(commandClass);
                 var groupName = GetClassValue(commandClass, typeof(Group));
                 var classDescription = GetClassValue(commandClass, typeof(Description));
-                var usesDescription = GetClassValue(commandClass, typeof(UsesDescription));
                 var commandName = instantiatedCommand.SelectionName;
 
                 stringBuilder = new StringBuilder();
@@ -76,11 +75,6 @@ namespace OpenBots.Studio.Utilities.Documentation
                 //append more
                 stringBuilder.AppendLine("## What does this command do?");
                 stringBuilder.AppendLine(classDescription);
-                stringBuilder.AppendLine(Environment.NewLine);
-
-                //more
-                stringBuilder.AppendLine("## When would I want to use this command?");
-                stringBuilder.AppendLine(usesDescription);
                 stringBuilder.AppendLine(Environment.NewLine);
 
                 //build parameter table based on required user inputs
@@ -238,11 +232,6 @@ namespace OpenBots.Studio.Utilities.Documentation
                 {
                     var processedAttribute = (Description)attributeFound;
                     return processedAttribute.CommandFunctionalDescription;
-                }
-                else if (attributeFound is UsesDescription)
-                {
-                    var processedAttribute = (UsesDescription)attributeFound;
-                    return processedAttribute.Description;
                 }
             }
 

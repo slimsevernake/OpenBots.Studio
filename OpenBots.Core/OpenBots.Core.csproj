@@ -132,8 +132,6 @@
     <Compile Include="App\GlobalAppInstances.cs" />
     <Compile Include="Attributes\ClassAttributes\Description.cs" />
     <Compile Include="Attributes\ClassAttributes\Group.cs" />
-    <Compile Include="Attributes\ClassAttributes\ImplementationDescription.cs" />
-    <Compile Include="Attributes\ClassAttributes\UsesDescription.cs" />
     <Compile Include="Attributes\PropertyAttributes\InputSpecification.cs" />
     <Compile Include="Attributes\PropertyAttributes\PropertyDescription.cs" />
     <Compile Include="Attributes\PropertyAttributes\PropertySelectionChangeEvent.cs" />
