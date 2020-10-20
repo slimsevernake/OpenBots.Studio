@@ -39,8 +39,7 @@ namespace OpenBots.Commands.QueueItem
         {
             CommandName = "WorkQueueItemCommand";
             SelectionName = "Work QueueItem";
-            CommandEnabled = true;
-            
+            CommandEnabled = true;          
         }
 
         public override void RunCommand(object sender)

@@ -17,8 +17,7 @@ namespace OpenBots.Commands
         {
             CommandName = "FinallyCommand";
             SelectionName = "Finally";
-            CommandEnabled = true;
-            
+            CommandEnabled = true;            
         }
 
         public override void RunCommand(object sender, ScriptAction parentCommand)

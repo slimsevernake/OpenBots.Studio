@@ -17,8 +17,7 @@ namespace OpenBots.Commands
             DefaultPause = 0;
             CommandName = "ExitLoopCommand";
             SelectionName = "Exit Loop";
-            CommandEnabled = true;
-            
+            CommandEnabled = true;        
         }
 
         public override List<Control> Render(IfrmCommandEditor editor, ICommandControls commandControls)

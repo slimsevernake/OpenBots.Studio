@@ -40,8 +40,7 @@ namespace OpenBots.Commands.System
         {
             CommandName = "EnvironmentVariableCommand";
             SelectionName = "Environment Variable";
-            CommandEnabled = true;
-            
+            CommandEnabled = true;          
         }
 
         public override void RunCommand(object sender)

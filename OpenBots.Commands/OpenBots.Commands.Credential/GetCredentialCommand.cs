@@ -41,8 +41,7 @@ namespace OpenBots.Commands.Credential
         {
             CommandName = "GetCredentialCommand";
             SelectionName = "Get Credential";
-            CommandEnabled = true;
-            
+            CommandEnabled = true;          
         }
 
         public override void RunCommand(object sender)

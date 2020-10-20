@@ -35,8 +35,7 @@ namespace OpenBots.Commands.Data
         {
             CommandName = "ParseJSONArrayCommand";
             SelectionName = "Parse JSON Array";
-            CommandEnabled = true;
-            
+            CommandEnabled = true;            
         }
 
         public override void RunCommand(object sender)

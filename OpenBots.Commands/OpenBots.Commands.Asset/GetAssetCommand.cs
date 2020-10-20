@@ -60,8 +60,7 @@ namespace OpenBots.Commands.Asset
         {
             CommandName = "GetAssetCommand";
             SelectionName = "Get Asset";
-            CommandEnabled = true;
-            
+            CommandEnabled = true;           
             v_AssetType = "Text";
         }
 

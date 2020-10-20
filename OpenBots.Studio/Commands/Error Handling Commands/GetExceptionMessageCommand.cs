@@ -27,8 +27,7 @@ namespace OpenBots.Commands
         {
             CommandName = "GetExceptionMessageCommand";
             SelectionName = "Get Exception Message";
-            CommandEnabled = true;
-            
+            CommandEnabled = true;            
         }
 
         public override void RunCommand(object sender)

@@ -28,8 +28,7 @@ namespace OpenBots.Commands
             CommandName = "SeleniumCloseBrowserCommand";
             SelectionName = "Close Browser";
             v_InstanceName = "DefaultBrowser";
-            CommandEnabled = true;
-            
+            CommandEnabled = true;           
         }
 
         public override void RunCommand(object sender)

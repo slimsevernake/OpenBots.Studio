@@ -36,8 +36,7 @@ namespace OpenBots.Commands.File
         {
             CommandName = "RenameFileCommand";
             SelectionName = "Rename File";
-            CommandEnabled = true;
-            
+            CommandEnabled = true;          
         }
 
         public override void RunCommand(object sender)

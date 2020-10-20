@@ -33,8 +33,7 @@ namespace OpenBots.Commands.Data
         {
             CommandName = "GetWordCountCommand";
             SelectionName = "Get Word Count";
-            CommandEnabled = true;
-            
+            CommandEnabled = true;           
         }
 
         public override void RunCommand(object sender)

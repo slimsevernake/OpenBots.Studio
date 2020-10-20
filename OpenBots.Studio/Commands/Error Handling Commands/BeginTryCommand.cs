@@ -20,8 +20,7 @@ namespace OpenBots.Commands
         {
             CommandName = "BeginTryCommand";
             SelectionName = "Try";
-            CommandEnabled = true;
-            
+            CommandEnabled = true;           
         }
 
         public override void RunCommand(object sender, ScriptAction parentCommand)

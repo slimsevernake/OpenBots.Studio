@@ -43,8 +43,7 @@ namespace OpenBots.Commands.Credential
         {
             CommandName = "UpdateCredentialCommand";
             SelectionName = "Update Credential";
-            CommandEnabled = true;
-            
+            CommandEnabled = true;           
         }
 
         public override void RunCommand(object sender)

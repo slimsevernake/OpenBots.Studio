@@ -43,8 +43,7 @@ namespace OpenBots.Commands.DataTable
         {
             CommandName = "FilterDataTableCommand";
             SelectionName = "Filter DataTable";
-            CommandEnabled = true;
-            
+            CommandEnabled = true;          
         }
 
         public override void RunCommand(object sender)

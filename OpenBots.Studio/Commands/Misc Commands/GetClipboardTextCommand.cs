@@ -27,8 +27,7 @@ namespace OpenBots.Commands
         {
             CommandName = "GetClipboardTextCommand";
             SelectionName = "Get Clipboard Text";
-            CommandEnabled = true;
-            
+            CommandEnabled = true;          
         }
 
         public override void RunCommand(object sender)

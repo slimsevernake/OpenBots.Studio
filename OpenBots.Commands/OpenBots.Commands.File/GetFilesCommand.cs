@@ -36,8 +36,7 @@ namespace OpenBots.Commands.File
         {
             CommandName = "GetFilesCommand";
             SelectionName = "Get Files";
-            CommandEnabled = true;
-            
+            CommandEnabled = true;          
         }
 
         public override void RunCommand(object sender)

@@ -48,8 +48,7 @@ namespace OpenBots.Commands.Data
         {
             CommandName = "MathCalculationCommand";
             SelectionName = "Math Calculation";
-            CommandEnabled = true;
-            
+            CommandEnabled = true;           
 
             v_MathExpression = "(2 + 5) * 3";
             v_DecimalSeparator = ".";

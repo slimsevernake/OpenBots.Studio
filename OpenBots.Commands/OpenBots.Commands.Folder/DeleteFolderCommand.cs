@@ -29,8 +29,7 @@ namespace OpenBots.Commands.Folder
         {
             CommandName = "DeleteFolderCommand";
             SelectionName = "Delete Folder";
-            CommandEnabled = true;
-            
+            CommandEnabled = true;          
         }
 
         public override void RunCommand(object sender)

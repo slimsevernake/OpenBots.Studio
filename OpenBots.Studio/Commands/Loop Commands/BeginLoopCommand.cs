@@ -73,8 +73,7 @@ namespace OpenBots.Commands
         {
             CommandName = "BeginLoopCommand";
             SelectionName = "Begin Loop";
-            CommandEnabled = true;
-            
+            CommandEnabled = true;         
 
             //define parameter table
             v_LoopActionParameterTable = new DataTable

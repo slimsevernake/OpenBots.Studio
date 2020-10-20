@@ -16,8 +16,7 @@ namespace OpenBots.Commands
         {
             CommandName = "StopCurrentTaskCommand";
             SelectionName = "Stop Current Task";
-            CommandEnabled = true;
-            
+            CommandEnabled = true;           
         }
 
         public override void RunCommand(object sender)

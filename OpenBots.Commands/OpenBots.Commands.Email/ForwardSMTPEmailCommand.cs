@@ -75,8 +75,7 @@ namespace OpenBots.Commands.Email
         {
             CommandName = "ForwardSMTPEmailCommand";
             SelectionName = "Forward SMTP Email";
-            CommandEnabled = true;
-            
+            CommandEnabled = true;           
         }
 
         public override void RunCommand(object sender)

@@ -43,8 +43,7 @@ namespace OpenBots.Commands.RegEx
         {
             CommandName = "GetRegexMatchesCommand";
             SelectionName = "Get Regex Matches";
-            CommandEnabled = true;
-            
+            CommandEnabled = true;          
         }
 
         public override void RunCommand(object sender)

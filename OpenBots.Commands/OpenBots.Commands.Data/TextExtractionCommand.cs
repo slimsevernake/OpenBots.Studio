@@ -57,8 +57,7 @@ namespace OpenBots.Commands.Data
         {
             CommandName = "TextExtractionCommand";
             SelectionName = "Text Extraction";
-            CommandEnabled = true;
-            
+            CommandEnabled = true;          
 
             //define parameter table
             v_TextExtractionTable = new DataTable

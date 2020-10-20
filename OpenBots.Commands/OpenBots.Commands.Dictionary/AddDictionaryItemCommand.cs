@@ -36,8 +36,7 @@ namespace OpenBots.Commands.Dictionary
         {
             CommandName = "AddDictionaryItemCommand";
             SelectionName = "Add Dictionary Item";
-            CommandEnabled = true;
-            
+            CommandEnabled = true;        
 
             //initialize Datatable
             v_ColumnNameDataTable = new DataTable

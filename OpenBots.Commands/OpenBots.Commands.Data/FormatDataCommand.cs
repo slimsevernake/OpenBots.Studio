@@ -51,7 +51,6 @@ namespace OpenBots.Commands.Data
             SelectionName = "Format Data";
             CommandEnabled = true;
             
-
             v_InputData = "{DateTime.Now}";
             v_FormatType = "Date";
             v_ToStringFormat = "MM/dd/yyyy";

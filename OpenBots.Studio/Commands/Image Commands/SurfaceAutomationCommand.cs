@@ -80,8 +80,7 @@ namespace OpenBots.Commands
         {
             CommandName = "SurfaceAutomationCommand";
             SelectionName = "Surface Automation";
-            CommandEnabled = true;
-            
+            CommandEnabled = true;          
            
             v_MatchAccuracy = "0.8";
 

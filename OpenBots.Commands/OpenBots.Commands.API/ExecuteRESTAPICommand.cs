@@ -84,7 +84,6 @@ namespace OpenBots.Commands.API
             CommandEnabled = true;
             
             v_RequestFormat = "Json";
-
             v_RESTParameters = new DataTable();
             v_RESTParameters.Columns.Add("Parameter Type");
             v_RESTParameters.Columns.Add("Parameter Name");

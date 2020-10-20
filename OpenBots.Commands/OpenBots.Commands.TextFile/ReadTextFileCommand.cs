@@ -36,8 +36,7 @@ namespace OpenBots.Commands.TextFile
         {
             CommandName = "ReadTextFileCommand";
             SelectionName = "Read Text File";
-            CommandEnabled = true;
-            
+            CommandEnabled = true;           
         }
 
         public override void RunCommand(object sender)

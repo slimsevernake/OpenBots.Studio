@@ -42,8 +42,7 @@ namespace OpenBots.Commands.System
         {
             CommandName = "OSVariableCommand";
             SelectionName = "OS Variable";
-            CommandEnabled = true;
-            
+            CommandEnabled = true;          
         }
 
         public override void RunCommand(object sender)

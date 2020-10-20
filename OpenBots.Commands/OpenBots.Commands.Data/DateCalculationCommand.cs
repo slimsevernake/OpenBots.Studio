@@ -79,7 +79,6 @@ namespace OpenBots.Commands.Data
             SelectionName = "Date Calculation";
             CommandEnabled = true;
             
-
             v_InputDate = "{DateTime.Now}";
             v_CalculationMethod = "Add Second(s)";
             v_ToStringFormat = "MM/dd/yyyy hh:mm:ss";

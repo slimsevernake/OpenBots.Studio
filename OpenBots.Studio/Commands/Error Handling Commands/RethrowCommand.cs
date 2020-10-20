@@ -16,8 +16,7 @@ namespace OpenBots.Commands
         {
             CommandName = "RethrowCommand";
             SelectionName = "Rethrow";
-            CommandEnabled = true;
-            
+            CommandEnabled = true;          
         }
 
         public override void RunCommand(object sender)

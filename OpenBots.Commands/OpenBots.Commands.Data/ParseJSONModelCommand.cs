@@ -42,8 +42,7 @@ namespace OpenBots.Commands.Data
         {
             CommandName = "ParseJSONModelCommand";
             SelectionName = "Parse JSON Model";
-            CommandEnabled = true;
-            
+            CommandEnabled = true;          
 
             v_ParseObjects = new DataTable();
             v_ParseObjects.Columns.Add("Json Selector");

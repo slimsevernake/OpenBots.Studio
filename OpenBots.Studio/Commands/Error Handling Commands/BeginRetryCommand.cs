@@ -59,8 +59,7 @@ namespace OpenBots.Commands
         {
             CommandName = "BeginRetryCommand";
             SelectionName = "Begin Retry";
-            CommandEnabled = true;
-            
+            CommandEnabled = true;          
 
             v_IfConditionsTable = new DataTable();
             v_IfConditionsTable.TableName = DateTime.Now.ToString("MultiIfConditionTable" + DateTime.Now.ToString("MMddyy.hhmmss"));

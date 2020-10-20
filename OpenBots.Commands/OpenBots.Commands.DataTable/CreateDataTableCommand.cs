@@ -39,7 +39,6 @@ namespace OpenBots.Commands.DataTable
             SelectionName = "Create DataTable";
             CommandEnabled = true;
             
-
             //initialize data table
             v_ColumnNameDataTable = new Data.DataTable
             {

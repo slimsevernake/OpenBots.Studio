@@ -46,8 +46,7 @@ namespace OpenBots.Commands.List
         {
             CommandName = "UpdateListItemCommand";
             SelectionName = "Update List Item";
-            CommandEnabled = true;
-            
+            CommandEnabled = true;         
         }
 
         public override void RunCommand(object sender)

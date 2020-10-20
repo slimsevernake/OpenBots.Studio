@@ -17,9 +17,9 @@ namespace OpenBots.Commands
             DefaultPause = 0;
             CommandName = "EndIfCommand";
             SelectionName = "End If";
-            CommandEnabled = true;
-            
+            CommandEnabled = true;            
         }
+
         public override List<Control> Render(IfrmCommandEditor editor, ICommandControls commandControls)
         {
             base.Render(editor, commandControls);

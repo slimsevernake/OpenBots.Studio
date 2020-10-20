@@ -38,8 +38,7 @@ namespace OpenBots.Commands
             DefaultPause = 0;
             CommandName = "PerformOCRCommand";
             SelectionName = "Perform OCR";
-            CommandEnabled = true;
-            
+            CommandEnabled = true;            
         }
 
         public override void RunCommand(object sender)

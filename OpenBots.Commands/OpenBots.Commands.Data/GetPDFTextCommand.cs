@@ -45,8 +45,7 @@ namespace OpenBots.Commands.Data
         {
             CommandName = "GetPDFTextCommand";
             SelectionName = "Get PDF Text";
-            CommandEnabled = true;
-            
+            CommandEnabled = true;            
         }
 
         public override void RunCommand(object sender)

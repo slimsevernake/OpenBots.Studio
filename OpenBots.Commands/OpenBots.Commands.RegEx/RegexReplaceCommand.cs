@@ -49,8 +49,7 @@ namespace OpenBots.Commands.RegEx
         {
             CommandName = "RegexReplaceCommand";
             SelectionName = "Regex Replace";
-            CommandEnabled = true;
-            
+            CommandEnabled = true;          
         }
 
         public override void RunCommand(object sender)
