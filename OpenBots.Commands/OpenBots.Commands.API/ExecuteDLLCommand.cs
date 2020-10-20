@@ -63,6 +63,7 @@ namespace OpenBots.Commands.API
         public string v_OutputUserVariableName { get; set; }
 
         [JsonIgnore]
+		[Browsable(false)]
         private DataGridView _parametersGridViewHelper;
 
         public ExecuteDLLCommand()

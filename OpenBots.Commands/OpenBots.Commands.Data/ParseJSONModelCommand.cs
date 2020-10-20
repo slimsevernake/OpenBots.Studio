@@ -39,6 +39,7 @@ namespace OpenBots.Commands.Data
         public DataTable v_ParseObjects { get; set; }
 
         [JsonIgnore]
+		[Browsable(false)]
         private DataGridView _parseObjectsGridViewHelper;
 
         public ParseJSONModelCommand()

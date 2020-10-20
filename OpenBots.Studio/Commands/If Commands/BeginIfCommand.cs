@@ -58,15 +58,19 @@ namespace OpenBots.Commands
         public DataTable v_IfActionParameterTable { get; set; }
 
         [JsonIgnore]
+		[Browsable(false)]
         private DataGridView _ifGridViewHelper;
 
         [JsonIgnore]
+		[Browsable(false)]
         private ComboBox _actionDropdown;
 
         [JsonIgnore]
+		[Browsable(false)]
         private List<Control> _parameterControls;
 
         [JsonIgnore]
+		[Browsable(false)]
         private CommandItemControl _recorderControl;
 
         public BeginIfCommand()

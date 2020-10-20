@@ -92,6 +92,7 @@ namespace OpenBots.Commands.Outlook
         public string v_OutputUserVariableName { get; set; }
 
         [JsonIgnore]
+		[Browsable(false)]
         private List<Control> _savingControls;
 
         public GetOutlookEmailsCommand()

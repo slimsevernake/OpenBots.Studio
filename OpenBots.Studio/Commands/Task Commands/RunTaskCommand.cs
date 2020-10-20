@@ -51,18 +51,23 @@ namespace OpenBots.Commands
         public DataTable v_VariableAssignments { get; set; }
 
         [JsonIgnore]
+		[Browsable(false)]
         private CheckBox _passParameters;
 
         [JsonIgnore]
+		[Browsable(false)]
         private DataGridView _assignmentsGridViewHelper;
 
         [JsonIgnore]
+		[Browsable(false)]
         private List<ScriptVariable> _variableList;
 
         [JsonIgnore]
+		[Browsable(false)]
         private List<ScriptVariable> _variableReturnList;
 
         [JsonIgnore]
+		[Browsable(false)]
         private frmScriptEngine _newEngine;
 
         public RunTaskCommand()

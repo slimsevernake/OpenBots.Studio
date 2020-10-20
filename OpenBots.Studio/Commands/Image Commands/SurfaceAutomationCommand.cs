@@ -71,15 +71,19 @@ namespace OpenBots.Commands
         public string v_MatchAccuracy { get; set; }
 
         [JsonIgnore]
+		[Browsable(false)]
         public bool TestMode { get; set; } = false;
 
         [JsonIgnore]
+		[Browsable(false)]
         private DataGridView _imageGridViewHelper;
 
         [JsonIgnore]
+		[Browsable(false)]
         private ComboBox _imageActionDropdown;
 
         [JsonIgnore]
+		[Browsable(false)]
         private List<Control> _imageParameterControls;
 
         public SurfaceAutomationCommand()

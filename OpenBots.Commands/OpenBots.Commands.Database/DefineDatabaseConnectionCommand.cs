@@ -58,9 +58,11 @@ namespace OpenBots.Commands.Database
         public string v_TestConnection { get; set; }
 
         [JsonIgnore]
+		[Browsable(false)]
         private TextBox _connectionString;
 
         [JsonIgnore]
+		[Browsable(false)]
         private TextBox _connectionStringPassword;
 
         public DefineDatabaseConnectionCommand()

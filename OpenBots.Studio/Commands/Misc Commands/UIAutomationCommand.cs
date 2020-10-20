@@ -69,15 +69,19 @@ namespace OpenBots.Commands
         public DataTable v_UIAActionParameters { get; set; }
 
         [JsonIgnore]
+		[Browsable(false)]
         private ComboBox _automationTypeControl;
 
         [JsonIgnore]
+		[Browsable(false)]
         private DataGridView _searchParametersGridViewHelper;
 
         [JsonIgnore]
+		[Browsable(false)]
         private DataGridView _actionParametersGridViewHelper;
 
         [JsonIgnore]
+		[Browsable(false)]
         private List<Control> _actionParametersControls;
 
         public UIAutomationCommand()

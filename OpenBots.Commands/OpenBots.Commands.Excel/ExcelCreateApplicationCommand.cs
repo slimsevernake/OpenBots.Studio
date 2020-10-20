@@ -66,6 +66,7 @@ namespace OpenBots.Commands.Excel
         public string v_CloseAllInstances { get; set; }
 
         [JsonIgnore]
+		[Browsable(false)]
         private List<Control> _openFileControls;
 
         public ExcelCreateApplicationCommand()

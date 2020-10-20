@@ -71,6 +71,7 @@ namespace OpenBots.Commands.QueueItem
         public string v_Priority { get; set; }
 
         [JsonIgnore]
+		[Browsable(false)]
         private List<Control> _jsonTypeControls;
 
         public AddQueueItemCommand()

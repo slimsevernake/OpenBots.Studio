@@ -56,9 +56,11 @@ namespace OpenBots.Commands.Asset
         public string v_AssetValue { get; set; }
 
         [JsonIgnore]
+		[Browsable(false)]
         private List<Control> _uploadPathControls;
 
         [JsonIgnore]
+		[Browsable(false)]
         private List<Control> _assetValueControls;
 
         public UpdateAssetCommand()

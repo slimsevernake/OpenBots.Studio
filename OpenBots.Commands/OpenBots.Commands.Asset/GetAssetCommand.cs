@@ -56,9 +56,11 @@ namespace OpenBots.Commands.Asset
         public string v_OutputUserVariableName { get; set; }
 
         [JsonIgnore]
+		[Browsable(false)]
         private List<Control> _downloadPathControls;
 
         [JsonIgnore]
+		[Browsable(false)]
         private List<Control> _outputVariableControls;
 
         public GetAssetCommand()

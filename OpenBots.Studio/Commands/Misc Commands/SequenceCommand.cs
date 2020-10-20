@@ -15,6 +15,7 @@ namespace OpenBots.Commands
     [Description("This command groups multiple actions together.")]
     public class SequenceCommand : ScriptCommand
     {
+        [Browsable(false)]
         public List<ScriptCommand> ScriptActions = new List<ScriptCommand>();
 
         public SequenceCommand()

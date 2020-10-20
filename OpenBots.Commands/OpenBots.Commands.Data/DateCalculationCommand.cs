@@ -76,6 +76,7 @@ namespace OpenBots.Commands.Data
         public string v_OutputUserVariableName { get; set; }
 
         [JsonIgnore]
+		[Browsable(false)]
         private List<Control> _stringFormatControls;
 
         public DateCalculationCommand()

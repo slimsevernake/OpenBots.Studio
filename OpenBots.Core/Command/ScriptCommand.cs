@@ -12,12 +12,25 @@ namespace OpenBots.Core.Command
 {
     public abstract class ScriptCommand
     {
+        [Browsable(false)]
         public string CommandID { get; set; }
+
+        [Browsable(false)]
         public string CommandName { get; set; }
+
+        [Browsable(false)]
         public string SelectionName { get; set; }
+
+        [Browsable(false)]
         public int LineNumber { get; set; }
+
+        [Browsable(false)]
         public bool IsCommented { get; set; }
+
+        [Browsable(false)]
         public bool PauseBeforeExecution { get; set; }
+
+        [Browsable(false)]
         public bool CommandEnabled { get; set; }
 
 		[DisplayName("Private (Optional)")]
@@ -33,15 +46,19 @@ namespace OpenBots.Core.Command
         public string v_Comment { get; set; }
 
         [JsonIgnore]
+		[Browsable(false)]
         public List<Control> RenderedControls;      
 
         [JsonIgnore]
+		[Browsable(false)]
         public bool IsSteppedInto { get; set; }
 
         [JsonIgnore]
+		[Browsable(false)]
         public IfrmScriptBuilder CurrentScriptBuilder { get; set; }
 
         [JsonIgnore]
+		[Browsable(false)]
         public LogEventLevel LogLevel { get; set; } = LogEventLevel.Information;
 
         public ScriptCommand()

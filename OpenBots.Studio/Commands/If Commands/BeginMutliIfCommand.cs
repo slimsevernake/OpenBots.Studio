@@ -32,12 +32,15 @@ namespace OpenBots.Commands
         public DataTable v_IfConditionsTable { get; set; }
 
         [JsonIgnore]
+		[Browsable(false)]
         private DataGridView _ifConditionHelper;
 
         [JsonIgnore]
+		[Browsable(false)]
         private List<ScriptVariable> _scriptVariables { get; set; }
 
         [JsonIgnore]
+		[Browsable(false)]
         private List<ScriptElement> _scriptElements { get; set; }
 
         public BeginMultiIfCommand()

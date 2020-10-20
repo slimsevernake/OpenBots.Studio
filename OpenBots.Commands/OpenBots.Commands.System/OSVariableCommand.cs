@@ -36,9 +36,11 @@ namespace OpenBots.Commands.System
         public string v_OutputUserVariableName { get; set; }
 
         [JsonIgnore]
+		[Browsable(false)]
         private ComboBox _variableNameComboBox;
 
         [JsonIgnore]
+		[Browsable(false)]
         private Label _variableValue;
 
         public OSVariableCommand()

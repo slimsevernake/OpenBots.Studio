@@ -34,12 +34,15 @@ namespace OpenBots.Commands
         public DataTable v_LoopConditionsTable { get; set; }
 
         [JsonIgnore]
+		[Browsable(false)]
         private DataGridView _loopConditionHelper;
 
         [JsonIgnore]
+		[Browsable(false)]
         private List<ScriptVariable> _scriptVariables;
 
         [JsonIgnore]
+		[Browsable(false)]
         private List<ScriptElement> _scriptElements;
 
         public BeginMultiLoopCommand()
