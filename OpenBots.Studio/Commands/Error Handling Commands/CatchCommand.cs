@@ -38,9 +38,6 @@ namespace OpenBots.Commands
         [Remarks("This command will be executed if the type of the exception that occurred in the try block matches the selected exception type.")]
         public string v_ExceptionType { get; set; }
 
-        public string ErrorMessage { get; set; }
-        public string StackTrace { get; set; }
-
         public CatchCommand()
         {
             CommandName = "CatchCommand";

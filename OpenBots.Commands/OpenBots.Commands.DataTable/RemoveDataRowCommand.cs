@@ -51,7 +51,8 @@ namespace OpenBots.Commands.DataTable
         {
             CommandName = "RemoveDataRowCommand";
             SelectionName = "Remove DataRow";
-            CommandEnabled = true;            
+            CommandEnabled = true;
+            v_AndOr = "And";
         }
 
         public override void RunCommand(object sender)

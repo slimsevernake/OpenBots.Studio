@@ -70,7 +70,8 @@ namespace OpenBots.Commands
         [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
         public string v_MatchAccuracy { get; set; }
 
-        public bool TestMode = false;
+        [JsonIgnore]
+        public bool TestMode { get; set; } = false;
 
         [JsonIgnore]
         private DataGridView _imageGridViewHelper;

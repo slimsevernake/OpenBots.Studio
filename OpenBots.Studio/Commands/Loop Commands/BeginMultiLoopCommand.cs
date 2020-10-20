@@ -37,10 +37,10 @@ namespace OpenBots.Commands
         private DataGridView _loopConditionHelper;
 
         [JsonIgnore]
-        private List<ScriptVariable> _scriptVariables { get; set; }
+        private List<ScriptVariable> _scriptVariables;
 
         [JsonIgnore]
-        private List<ScriptElement> _scriptElements { get; set; }
+        private List<ScriptElement> _scriptElements;
 
         public BeginMultiLoopCommand()
         {
