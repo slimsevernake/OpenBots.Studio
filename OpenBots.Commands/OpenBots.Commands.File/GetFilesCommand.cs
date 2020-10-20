@@ -1,4 +1,4 @@
-﻿using OpenBots.Core.Attributes.ClassAttributes;
+﻿using System.ComponentModel;
 using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
 using OpenBots.Core.Enums;
@@ -14,7 +14,7 @@ using System.Windows.Forms;
 namespace OpenBots.Commands.File
 {
     [Serializable]
-    [Group("File Operation Commands")]
+    [Category("File Operation Commands")]
     [Description("This command returns a list of file paths from a specified location.")]
     public class GetFilesCommand : ScriptCommand
     {

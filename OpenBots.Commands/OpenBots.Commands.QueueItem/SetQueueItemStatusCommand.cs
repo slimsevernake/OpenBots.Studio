@@ -1,5 +1,5 @@
 ﻿using Newtonsoft.Json;
-using OpenBots.Core.Attributes.ClassAttributes;
+using System.ComponentModel;
 using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
 using OpenBots.Core.Enums;
@@ -14,7 +14,7 @@ using System.Windows.Forms;
 namespace OpenBots.Commands.QueueItem
 {
     [Serializable]
-    [Group("QueueItem Commands")]
+    [Category("QueueItem Commands")]
     [Description("This command updates the status of a QueueItem in an existing Queue in OpenBots Server.")]
     public class SetQueueItemStatusCommand : ScriptCommand
     {

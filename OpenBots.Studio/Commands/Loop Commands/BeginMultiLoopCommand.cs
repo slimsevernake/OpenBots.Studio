@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Windows.Forms;
-using OpenBots.Core.Attributes.ClassAttributes;
+using System.ComponentModel;
 using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
 using OpenBots.Core.Enums;
@@ -18,7 +18,7 @@ using OpenBots.Utilities;
 namespace OpenBots.Commands
 {
     [Serializable]
-    [Group("Loop Commands")]
+    [Category("Loop Commands")]
     [Description("This command evaluates a group of specified logical statements and executes the contained commands repeatedly (in loop) " +
         "until the result of the logical statements becomes false.")]
     public class BeginMultiLoopCommand : ScriptCommand

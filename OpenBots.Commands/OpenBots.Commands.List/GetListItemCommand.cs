@@ -2,7 +2,7 @@
 using MimeKit;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using OpenBots.Core.Attributes.ClassAttributes;
+using System.ComponentModel;
 using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
 using OpenBots.Core.Enums;
@@ -18,7 +18,7 @@ using System.Windows.Forms;
 namespace OpenBots.Commands.List
 {
     [Serializable]
-    [Group("List Commands")]
+    [Category("List Commands")]
     [Description("This command returns an item (having a specific index) from a List.")]
     public class GetListItemCommand : ScriptCommand
     {

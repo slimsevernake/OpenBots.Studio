@@ -6,7 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using Newtonsoft.Json;
-using OpenBots.Core.Attributes.ClassAttributes;
+using System.ComponentModel;
 using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
 using OpenBots.Core.Enums;
@@ -20,7 +20,7 @@ using OpenBots.UI.Forms.ScriptBuilder_Forms;
 namespace OpenBots.Commands
 {
     [Serializable]
-    [Group("Task Commands")]
+    [Category("Task Commands")]
     [Description("This command executes a Task.")]
     public class RunTaskCommand : ScriptCommand
     {

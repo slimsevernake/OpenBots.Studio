@@ -17,7 +17,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using OpenBots.Core.Command;
-using OpenBots.Core.Attributes.ClassAttributes;
+using System.ComponentModel;
 
 namespace OpenBots.Studio.Utilities.Common
 {
@@ -35,7 +35,7 @@ namespace OpenBots.Studio.Utilities.Common
                                           .Where(t => t.IsAbstract == false)
                                           .Where(t => t.BaseType.Name == "ScriptCommand")
                                           .Where(t => CommandEnabled(t))
-                                          .GroupBy(t => t.GetCustomAttribute(typeof(Group)))
+                                          .GroupBy(t => t.GetCustomAttribute(typeof(CategoryAttribute)))
                                           .ToList();
 
             return groupedCommands;

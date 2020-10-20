@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
-using OpenBots.Core.Attributes.ClassAttributes;
+using System.ComponentModel;
 using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
 using OpenBots.Core.Infrastructure;
@@ -10,7 +10,7 @@ using OpenBots.Core.User32;
 namespace OpenBots.Commands.Input
 {
     [Serializable]
-    [Group("Input Commands")]
+    [Category("Input Commands")]
     [Description("This command simulates a mouse click of a given type.")]
     public class SendMouseClickCommand : ScriptCommand
     {

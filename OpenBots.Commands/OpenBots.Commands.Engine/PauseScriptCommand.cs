@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Threading;
 using System.Windows.Forms;
-using OpenBots.Core.Attributes.ClassAttributes;
+using System.ComponentModel;
 using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
 using OpenBots.Core.Enums;
@@ -13,7 +13,7 @@ using OpenBots.Engine;
 namespace OpenBots.Commands.Engine
 {
     [Serializable]
-    [Group("Engine Commands")]
+    [Category("Engine Commands")]
     [Description("This command pauses the script for a set amount of time specified in milliseconds.")]
     public class PauseScriptCommand : ScriptCommand
     {

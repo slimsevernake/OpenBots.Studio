@@ -4,10 +4,9 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
-using OpenBots.Core.Attributes.ClassAttributes;
 using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
-
+using System.ComponentModel;
 
 namespace OpenBots.Studio.Utilities.Documentation
 {
@@ -57,8 +56,8 @@ namespace OpenBots.Studio.Utilities.Documentation
             {
                 //instantiate and pull properties from command class
                 ScriptCommand instantiatedCommand = (ScriptCommand)Activator.CreateInstance(commandClass);
-                var groupName = GetClassValue(commandClass, typeof(Group));
-                var classDescription = GetClassValue(commandClass, typeof(Description));
+                var groupName = GetClassValue(commandClass, typeof(CategoryAttribute));
+                var classDescription = GetClassValue(commandClass, typeof(DescriptionAttribute));
                 var commandName = instantiatedCommand.SelectionName;
 
                 stringBuilder = new StringBuilder();
@@ -223,15 +222,15 @@ namespace OpenBots.Studio.Utilities.Documentation
             {
                 var attributeFound = attribute[0];
 
-                if (attributeFound is Group)
+                if (attributeFound is CategoryAttribute)
                 {
-                    var processedAttribute = (Group)attributeFound;
-                    return processedAttribute.Name;
+                    var processedAttribute = (CategoryAttribute)attributeFound;
+                    return processedAttribute.Category;
                 }
-                else if (attributeFound is Description)
+                else if (attributeFound is DescriptionAttribute)
                 {
-                    var processedAttribute = (Description)attributeFound;
-                    return processedAttribute.CommandFunctionalDescription;
+                    var processedAttribute = (DescriptionAttribute)attributeFound;
+                    return processedAttribute.Description;
                 }
             }
 

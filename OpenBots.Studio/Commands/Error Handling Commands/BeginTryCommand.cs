@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
-using OpenBots.Core.Attributes.ClassAttributes;
+using System.ComponentModel;
 using OpenBots.Core.Command;
 using OpenBots.Core.Infrastructure;
 using OpenBots.Core.Script;
@@ -11,7 +11,7 @@ using OpenBots.Engine;
 namespace OpenBots.Commands
 {
     [Serializable]
-    [Group("Error Handling Commands")]
+    [Category("Error Handling Commands")]
     [Description("This command defines a try/catch block which will execute the associated catch block if any " +
                  "exceptions are thrown.")]
     public class BeginTryCommand : ScriptCommand

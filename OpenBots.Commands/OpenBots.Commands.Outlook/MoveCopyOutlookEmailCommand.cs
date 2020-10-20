@@ -1,5 +1,5 @@
 ﻿using Microsoft.Office.Interop.Outlook;
-using OpenBots.Core.Attributes.ClassAttributes;
+using System.ComponentModel;
 using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
 using OpenBots.Core.Enums;
@@ -14,7 +14,7 @@ using Application = Microsoft.Office.Interop.Outlook.Application;
 namespace OpenBots.Commands.Outlook
 {
     [Serializable]
-    [Group("Outlook Commands")]
+    [Category("Outlook Commands")]
     [Description("This command moves or copies a selected email in Outlook.")]
 
     public class MoveCopyOutlookEmailCommand : ScriptCommand

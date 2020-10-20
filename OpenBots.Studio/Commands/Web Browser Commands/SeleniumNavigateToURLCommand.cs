@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Windows.Forms;
-using OpenBots.Core.Attributes.ClassAttributes;
+using System.ComponentModel;
 using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
 using OpenBots.Core.Enums;
@@ -15,7 +15,7 @@ using OpenBots.Engine;
 namespace OpenBots.Commands
 {
     [Serializable]
-    [Group("Web Browser Commands")]
+    [Category("Web Browser Commands")]
     [Description("This command allows you to navigate a Selenium web browser session to a given URL or resource.")]
     public class SeleniumNavigateToURLCommand : ScriptCommand
     {

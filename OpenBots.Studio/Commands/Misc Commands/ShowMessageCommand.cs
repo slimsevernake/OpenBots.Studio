@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
-using OpenBots.Core.Attributes.ClassAttributes;
+using System.ComponentModel;
 using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
 using OpenBots.Core.Enums;
@@ -13,7 +13,7 @@ using OpenBots.UI.Forms;
 namespace OpenBots.Commands
 {
     [Serializable]
-    [Group("Misc Commands")]
+    [Category("Misc Commands")]
     [Description("This command displays a message to the user.")]
     public class ShowMessageCommand : ScriptCommand
     {

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
-using OpenBots.Core.Attributes.ClassAttributes;
+using System.ComponentModel;
 using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
 using OpenBots.Core.Enums;
@@ -13,7 +13,7 @@ using OpenBots.Engine;
 namespace OpenBots.Commands.Window
 {
     [Serializable]
-    [Group("Window Commands")]
+    [Category("Window Commands")]
     [Description("This command closes an open window.")]
     public class CloseWindowCommand : ScriptCommand
     {

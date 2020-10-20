@@ -7,7 +7,7 @@ using System.Security;
 using System.Threading;
 using System.Windows.Automation;
 using System.Windows.Forms;
-using OpenBots.Core.Attributes.ClassAttributes;
+using System.ComponentModel;
 using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
 using OpenBots.Core.Enums;
@@ -24,7 +24,7 @@ using Newtonsoft.Json;
 namespace OpenBots.Commands
 {
     [Serializable]
-    [Group("Misc Commands")]
+    [Category("Misc Commands")]
     [Description("This Command automates an element in a targeted window.")]
     public class UIAutomationCommand : ScriptCommand
     {

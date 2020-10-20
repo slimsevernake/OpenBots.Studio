@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Windows.Forms;
-using OpenBots.Core.Attributes.ClassAttributes;
+using System.ComponentModel;
 using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
 using OpenBots.Core.Enums;
@@ -18,7 +18,7 @@ using OpenBots.Utilities;
 namespace OpenBots.Commands
 {
     [Serializable]
-    [Group("If Commands")]
+    [Category("If Commands")]
     [Description("This command evaluates a group of combined logical statements to determine if the combined result of the statements is 'true' or 'false' and subsequently performs action(s) based on the result.")]
     public class BeginMultiIfCommand : ScriptCommand
     {

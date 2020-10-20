@@ -1,5 +1,5 @@
 ﻿using Microsoft.Office.Interop.Excel;
-using OpenBots.Core.Attributes.ClassAttributes;
+using System.ComponentModel;
 using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
 using OpenBots.Core.Enums;
@@ -17,7 +17,7 @@ using DataTable = System.Data.DataTable;
 namespace OpenBots.Commands.Excel
 {
     [Serializable]
-    [Group("Excel Commands")]
+    [Category("Excel Commands")]
     [Description("This command reads an Excel Config Worksheet and stores it in a Dictionary.")]
     public class LoadDictionaryCommand : ScriptCommand
     {

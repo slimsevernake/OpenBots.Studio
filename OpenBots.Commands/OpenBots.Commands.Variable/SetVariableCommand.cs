@@ -1,4 +1,4 @@
-﻿using OpenBots.Core.Attributes.ClassAttributes;
+﻿using System.ComponentModel;
 using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
 using OpenBots.Core.Enums;
@@ -12,7 +12,7 @@ using System.Windows.Forms;
 namespace OpenBots.Commands.Variable
 {
     [Serializable]
-    [Group("Variable Commands")]
+    [Category("Variable Commands")]
     [Description("This command modifies a variable.")]
     public class SetVariableCommand : ScriptCommand
     {

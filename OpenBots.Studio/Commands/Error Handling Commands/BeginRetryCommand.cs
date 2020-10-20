@@ -5,7 +5,7 @@ using System.Data;
 using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
-using OpenBots.Core.Attributes.ClassAttributes;
+using System.ComponentModel;
 using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
 using OpenBots.Core.Enums;
@@ -20,7 +20,7 @@ using OpenBots.Utilities;
 namespace OpenBots.Commands
 {
     [Serializable]
-    [Group("Error Handling Commands")]
+    [Category("Error Handling Commands")]
     [Description("This command defines a retry block which will retry the contained commands as long as the condition is not met or " +
         "an error is thrown.")]
     public class BeginRetryCommand : ScriptCommand

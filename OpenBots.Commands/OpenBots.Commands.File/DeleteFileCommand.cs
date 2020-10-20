@@ -1,4 +1,4 @@
-﻿using OpenBots.Core.Attributes.ClassAttributes;
+﻿using System.ComponentModel;
 using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
 using OpenBots.Core.Enums;
@@ -13,7 +13,7 @@ using IO = System.IO;
 namespace OpenBots.Commands.File
 {
     [Serializable]
-    [Group("File Operation Commands")]
+    [Category("File Operation Commands")]
     [Description("This command deletes a file from a specified destination.")]
     public class DeleteFileCommand : ScriptCommand
     {

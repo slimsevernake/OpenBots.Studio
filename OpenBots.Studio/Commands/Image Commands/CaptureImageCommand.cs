@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
-using OpenBots.Core.Attributes.ClassAttributes;
+using System.ComponentModel;
 using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
 using OpenBots.Core.Common;
@@ -15,7 +15,7 @@ using OpenBots.UI.CustomControls.CustomUIControls;
 namespace OpenBots.Commands
 {
     [Serializable]
-    [Group("Image Commands")]
+    [Category("Image Commands")]
     [Description("This command captures an image on screen and stores it as a Bitmap variable.")]
     public class CaptureImageCommand : ScriptCommand
     {

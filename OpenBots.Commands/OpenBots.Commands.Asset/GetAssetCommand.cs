@@ -1,5 +1,4 @@
 ﻿using Newtonsoft.Json;
-using OpenBots.Core.Attributes.ClassAttributes;
 using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
 using OpenBots.Core.Enums;
@@ -11,11 +10,12 @@ using OpenBots.Engine;
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
+using System.ComponentModel;
 
 namespace OpenBots.Commands.Asset
 {
     [Serializable]
-    [Group("Asset Commands")]
+    [Category("Asset Commands")]
     [Description("This command gets an Asset from OpenBots Server.")]
     public class GetAssetCommand : ScriptCommand
     {

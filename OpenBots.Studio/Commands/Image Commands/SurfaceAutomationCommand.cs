@@ -9,7 +9,7 @@ using System.Security;
 using System.Threading;
 using System.Windows.Forms;
 using Newtonsoft.Json;
-using OpenBots.Core.Attributes.ClassAttributes;
+using System.ComponentModel;
 using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
 using OpenBots.Core.Common;
@@ -27,7 +27,7 @@ using WindowsInput;
 namespace OpenBots.Commands
 {
     [Serializable]
-    [Group("Image Commands")]
+    [Category("Image Commands")]
     [Description("This command attempts to find and perform an action on an existing image on screen.")]
     public class SurfaceAutomationCommand : ScriptCommand
     {

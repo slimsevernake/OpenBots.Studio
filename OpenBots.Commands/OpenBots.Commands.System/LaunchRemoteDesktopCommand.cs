@@ -1,5 +1,5 @@
 ﻿using OpenBots.Commands.System.Forms;
-using OpenBots.Core.Attributes.ClassAttributes;
+using System.ComponentModel;
 using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
 using OpenBots.Core.Enums;
@@ -16,7 +16,7 @@ using System.Windows.Forms;
 namespace OpenBots.Commands.System
 {
     [Serializable]
-    [Group("System Commands")]
+    [Category("System Commands")]
     [Description("This command launches a remote desktop session.")]
     public class LaunchRemoteDesktopCommand : ScriptCommand
     {

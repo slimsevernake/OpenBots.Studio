@@ -5,18 +5,18 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Windows.Forms;
-using OpenBots.Core.Attributes.ClassAttributes;
 using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
 using OpenBots.Core.Enums;
 using OpenBots.Core.Infrastructure;
 using OpenBots.Core.Utilities.CommonUtilities;
 using OpenBots.Engine;
+using System.ComponentModel;
 
 namespace OpenBots.Commands.API
 {
     [Serializable]
-    [Group("API Commands")]
+    [Category("API Commands")]
     [Description("This command calls a REST API with a specific HTTP method.")]
 
     public class ExecuteRESTAPICommand : ScriptCommand

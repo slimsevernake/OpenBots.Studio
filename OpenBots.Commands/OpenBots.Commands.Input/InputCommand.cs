@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Drawing;
 using System.Windows.Forms;
-using OpenBots.Core.Attributes.ClassAttributes;
+using System.ComponentModel;
 using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
 using OpenBots.Core.Common;
@@ -19,7 +19,7 @@ using OpenBots.Commands.Input.Forms;
 namespace OpenBots.Commands.Input
 {
     [Serializable]
-    [Group("Input Commands")]
+    [Category("Input Commands")]
     [Description("This command provides the user with a form to input and store a collection of data.")]
     public class InputCommand : ScriptCommand
     {

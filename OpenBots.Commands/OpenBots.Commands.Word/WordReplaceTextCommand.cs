@@ -1,5 +1,5 @@
 ﻿using Microsoft.Office.Interop.Word;
-using OpenBots.Core.Attributes.ClassAttributes;
+using System.ComponentModel;
 using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
 using OpenBots.Core.Enums;
@@ -14,7 +14,7 @@ using Application = Microsoft.Office.Interop.Word.Application;
 namespace OpenBots.Commands.Word
 {
     [Serializable]
-    [Group("Word Commands")]
+    [Category("Word Commands")]
     [Description("This command replaces specific text in a Word Document.")]
     public class WordReplaceTextCommand : ScriptCommand
     {

@@ -1,5 +1,5 @@
 ﻿using Newtonsoft.Json;
-using OpenBots.Core.Attributes.ClassAttributes;
+using System.ComponentModel;
 using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
 using OpenBots.Core.Enums;
@@ -12,13 +12,12 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text.RegularExpressions;
-using System.Windows.Forms;
-using Group = OpenBots.Core.Attributes.ClassAttributes.Group;
+using System.Windows.Forms;
 
 namespace OpenBots.Commands.Data
 {
     [Serializable]
-    [Group("Data Commands")]
+    [Category("Data Commands")]
     [Description("This command performs advanced text extraction.")]
     public class TextExtractionCommand : ScriptCommand
     {

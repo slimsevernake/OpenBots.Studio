@@ -1,4 +1,4 @@
-﻿using OpenBots.Core.Attributes.ClassAttributes;
+﻿using System.ComponentModel;
 using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
 using OpenBots.Core.Infrastructure;
@@ -11,7 +11,7 @@ using System.Windows.Forms;
 namespace OpenBots.Commands.NLG
 {
     [Serializable]
-    [Group("NLG Commands")]
+    [Category("NLG Commands")]
     [Description("This command closes a Natural Language Generation Instance.")]
     public class CloseNLGInstanceCommand : ScriptCommand
     {

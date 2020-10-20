@@ -1,6 +1,6 @@
 ﻿using Microsoft.Office.Interop.Outlook;
 using Newtonsoft.Json;
-using OpenBots.Core.Attributes.ClassAttributes;
+using System.ComponentModel;
 using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
 using OpenBots.Core.Enums;
@@ -16,7 +16,7 @@ using Application = Microsoft.Office.Interop.Outlook.Application;
 namespace OpenBots.Commands.Outlook
 {
     [Serializable]
-    [Group("Outlook Commands")]
+    [Category("Outlook Commands")]
     [Description("This command gets selected emails and their attachments from Outlook.")]
 
     public class GetOutlookEmailsCommand : ScriptCommand

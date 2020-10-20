@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
-using OpenBots.Core.Attributes.ClassAttributes;
+using System.ComponentModel;
 using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
 using OpenBots.Core.Enums;
@@ -15,7 +15,7 @@ using OpenBots.Engine;
 namespace OpenBots.Commands
 {
     [Serializable]
-    [Group("Image Commands")]
+    [Category("Image Commands")]
     [Description("This command takes a screenshot and saves it to a specified location.")]
     public class TakeScreenshotCommand : ScriptCommand
     {

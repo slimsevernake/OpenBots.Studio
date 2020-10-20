@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
-using OpenBots.Core.Attributes.ClassAttributes;
+using System.ComponentModel;
 using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
 using OpenBots.Core.Enums;
@@ -13,7 +13,7 @@ using OpenBots.Engine;
 namespace OpenBots.Commands
 {
     [Serializable]
-    [Group("Loop Commands")]
+    [Category("Loop Commands")]
     [Description("This command repeats the subsequent actions a specified number of times.")]
     public class LoopNumberOfTimesCommand : ScriptCommand
     {

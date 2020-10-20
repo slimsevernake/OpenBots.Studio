@@ -1,5 +1,5 @@
 ﻿using Microsoft.Office.Interop.Excel;
-using OpenBots.Core.Attributes.ClassAttributes;
+using System.ComponentModel;
 using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
 using OpenBots.Core.Enums;
@@ -15,7 +15,7 @@ using Application = Microsoft.Office.Interop.Excel.Application;
 namespace OpenBots.Commands.Excel
 {
     [Serializable]
-    [Group("Excel Commands")]
+    [Category("Excel Commands")]
     [Description("This command appends a cell to the first column after the last row in an Excel Worksheet.")]
     public class ExcelAppendCellCommand : ScriptCommand
     {

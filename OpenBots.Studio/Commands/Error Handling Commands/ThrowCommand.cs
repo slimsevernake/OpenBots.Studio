@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Windows.Forms;
-using OpenBots.Core.Attributes.ClassAttributes;
+using System.ComponentModel;
 using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
 using OpenBots.Core.Enums;
@@ -13,7 +13,7 @@ using OpenBots.Engine;
 namespace OpenBots.Commands
 {
     [Serializable]
-    [Group("Error Handling Commands")]
+    [Category("Error Handling Commands")]
     [Description("This command throws an exception during script execution.")]
     public class ThrowCommand : ScriptCommand
     {

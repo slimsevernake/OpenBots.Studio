@@ -6,7 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using OpenBots.Core.Attributes.ClassAttributes;
+using System.ComponentModel;
 using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
 using OpenBots.Core.Enums;
@@ -24,7 +24,7 @@ using Newtonsoft.Json;
 namespace OpenBots.Commands
 {
     [Serializable]
-    [Group("Loop Commands")]
+    [Category("Loop Commands")]
     [Description("This command evaluates a specified logical statement and executes the contained commands repeatedly (in loop) " +
         "until that logical statement becomes false.")]
     public class BeginLoopCommand : ScriptCommand

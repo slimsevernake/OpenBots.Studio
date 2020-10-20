@@ -1,5 +1,4 @@
-﻿using OpenBots.Core.Attributes.ClassAttributes;
-using OpenBots.Core.Attributes.PropertyAttributes;
+﻿using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
 using OpenBots.Core.Enums;
 using OpenBots.Core.Infrastructure;
@@ -10,11 +9,12 @@ using System;
 using System.Collections.Generic;
 using System.Security;
 using System.Windows.Forms;
+using System.ComponentModel;
 
 namespace OpenBots.Commands.Credential
 {
     [Serializable]
-    [Group("Credential Commands")]
+    [Category("Credential Commands")]
     [Description("This command gets a Credential from OpenBots Server.")]
     public class GetCredentialCommand : ScriptCommand
     {

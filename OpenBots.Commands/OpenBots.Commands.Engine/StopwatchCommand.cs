@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Windows.Forms;
 using Newtonsoft.Json;
-using OpenBots.Core.Attributes.ClassAttributes;
+using System.ComponentModel;
 using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
 using OpenBots.Core.Enums;
@@ -14,7 +14,7 @@ using OpenBots.Engine;
 namespace OpenBots.Commands.Engine
 {
     [Serializable]
-    [Group("Engine Commands")]
+    [Category("Engine Commands")]
     [Description("This command measures time elapsed during the execution of the process.")]
     public class StopwatchCommand : ScriptCommand
     {

@@ -14,7 +14,7 @@ using System.Security;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Windows.Forms;
-using OpenBots.Core.Attributes.ClassAttributes;
+using System.ComponentModel;
 using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
 using OpenBots.Core.Enums;
@@ -25,7 +25,6 @@ using OpenBots.Engine;
 using OpenBots.Core.Properties;
 using OpenBots.Core.UI.Controls;
 using OpenBots.UI.Forms.Supplement_Forms;
-using Group = OpenBots.Core.Attributes.ClassAttributes.Group;
 using HtmlDocument = HtmlAgilityPack.HtmlDocument;
 using OpenQA.Selenium.Interactions;
 using Newtonsoft.Json;
@@ -34,7 +33,7 @@ using OpenBots.Core.User32;
 namespace OpenBots.Commands
 {
     [Serializable]
-    [Group("Web Browser Commands")]
+    [Category("Web Browser Commands")]
     [Description("This command performs an element action in a Selenium web browser session.")]
     public class SeleniumElementActionCommand : ScriptCommand
     {

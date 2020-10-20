@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
-using OpenBots.Core.Attributes.ClassAttributes;
+using System.ComponentModel;
 using OpenBots.Core.Command;
 using OpenBots.Core.Infrastructure;
 
 namespace OpenBots.Commands
 {
     [Serializable]
-    [Group("Task Commands")]
+    [Category("Task Commands")]
     [Description("This command stops the currently running task.")]
     public class StopCurrentTaskCommand : ScriptCommand
     {

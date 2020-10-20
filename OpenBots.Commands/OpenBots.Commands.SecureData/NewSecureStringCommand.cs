@@ -1,4 +1,4 @@
-﻿using OpenBots.Core.Attributes.ClassAttributes;
+﻿using System.ComponentModel;
 using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
 using OpenBots.Core.Enums;
@@ -13,7 +13,7 @@ using System.Windows.Forms;
 namespace OpenBots.Commands.SecureData
 {
     [Serializable]
-    [Group("Secure Data Commands")]
+    [Category("Secure Data Commands")]
     [Description("This command adds text as a SecureString into a variable.")]
     public class NewSecureStringCommand : ScriptCommand
     {

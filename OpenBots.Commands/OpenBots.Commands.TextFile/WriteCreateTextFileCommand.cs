@@ -1,4 +1,4 @@
-﻿using OpenBots.Core.Attributes.ClassAttributes;
+﻿using System.ComponentModel;
 using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
 using OpenBots.Core.Enums;
@@ -13,7 +13,7 @@ using System.Windows.Forms;
 namespace OpenBots.Commands.TextFile
 {
     [Serializable]
-    [Group("Text File Commands")]
+    [Category("Text File Commands")]
     [Description("This command writes specified data to an existing or newly created text file.")]
     public class WriteCreateTextFileCommand : ScriptCommand
     {

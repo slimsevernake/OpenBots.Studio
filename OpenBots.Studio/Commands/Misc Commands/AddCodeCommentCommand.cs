@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
-using OpenBots.Core.Attributes.ClassAttributes;
+using System.ComponentModel;
 using OpenBots.Core.Command;
 using OpenBots.Core.Infrastructure;
 
 namespace OpenBots.Commands
 {
     [Serializable]
-    [Group("Misc Commands")]
+    [Category("Misc Commands")]
     [Description("This command adds an in-line comment to the script.")]
     public class AddCodeCommentCommand : ScriptCommand
     {

@@ -22,7 +22,6 @@ using OpenBots.Core.Utilities.CommandUtilities;
 using OpenBots.UI.CustomControls.CustomUIControls;
 using OpenBots.UI.Forms;
 using OpenBots.UI.Forms.Supplement_Forms;
-using Group = OpenBots.Core.Attributes.ClassAttributes.Group;
 
 namespace OpenBots.UI.CustomControls
 {

@@ -1,4 +1,4 @@
-﻿using OpenBots.Core.Attributes.ClassAttributes;
+﻿using System.ComponentModel;
 using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
 using OpenBots.Core.Enums;
@@ -14,7 +14,7 @@ using Diagnostics = System.Diagnostics;
 namespace OpenBots.Commands.Process
 {
     [Serializable]
-    [Group("Programs/Process Commands")]
+    [Category("Programs/Process Commands")]
     [Description("This command starts a program or process.")]
 
     public class StartProcessCommand : ScriptCommand

@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
-using OpenBots.Core.Attributes.ClassAttributes;
+using System.ComponentModel;
 using OpenBots.Core.Command;
 using OpenBots.Core.Infrastructure;
 
 namespace OpenBots.Commands
 {
     [Serializable]
-    [Group("If Commands")]
+    [Category("If Commands")]
     [Description("This command signifies the exit point of If action(s) and is required for all the Begin If commands.")]
     public class EndIfCommand : ScriptCommand
     {

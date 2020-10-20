@@ -1,5 +1,5 @@
 ﻿using Newtonsoft.Json;
-using OpenBots.Core.Attributes.ClassAttributes;
+using System.ComponentModel;
 using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
 using OpenBots.Core.Enums;
@@ -18,7 +18,7 @@ using System.Windows.Forms;
 namespace OpenBots.Commands.Database
 {
     [Serializable]
-    [Group("Database Commands")]
+    [Category("Database Commands")]
     [Description("This command connects to an OleDb database.")]
     public class DefineDatabaseConnectionCommand : ScriptCommand
     {

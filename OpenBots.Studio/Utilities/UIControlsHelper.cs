@@ -5,7 +5,7 @@ using System.Linq;
 using System.Reflection;
 using System.Threading;
 using System.Windows.Forms;
-using OpenBots.Core.Attributes.ClassAttributes;
+using System.ComponentModel;
 using OpenBots.Core.Command;
 using OpenBots.Core.Settings;
 using OpenBots.UI.CustomControls;
@@ -79,12 +79,12 @@ namespace OpenBots.Utilities
             //Loop through each class
             foreach (var commandClass in commandClasses)
             {
-                var groupingAttribute = commandClass.GetCustomAttributes(typeof(Group), true);
+                var groupingAttribute = commandClass.GetCustomAttributes(typeof(CategoryAttribute), true);
                 string groupAttribute = "";
                 if (groupingAttribute.Length > 0)
                 {
-                    var attributeFound = (Group)groupingAttribute[0];
-                    groupAttribute = attributeFound.Name;
+                    var attributeFound = (CategoryAttribute)groupingAttribute[0];
+                    groupAttribute = attributeFound.Category;
                 }
 
                 //Instantiate Class
@@ -116,11 +116,11 @@ namespace OpenBots.Utilities
 
         static string GetDescription(Type type)
         {
-            var descriptions = (Description[])type.GetCustomAttributes(typeof(Description), true);
+            var descriptions = (DescriptionAttribute[])type.GetCustomAttributes(typeof(DescriptionAttribute), true);
 
             if (descriptions.Length == 0)
                 return string.Empty;
-            return descriptions[0].CommandFunctionalDescription;
+            return descriptions[0].Description;
         }
     }
 }

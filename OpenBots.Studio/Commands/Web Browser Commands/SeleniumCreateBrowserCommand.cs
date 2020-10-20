@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Windows.Forms;
 using OpenBots.Core.App;
-using OpenBots.Core.Attributes.ClassAttributes;
+using System.ComponentModel;
 using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
 using OpenBots.Core.Enums;
@@ -18,7 +18,7 @@ using OpenBots.Engine;
 namespace OpenBots.Commands
 {
     [Serializable]
-    [Group("Web Browser Commands")]
+    [Category("Web Browser Commands")]
     [Description("This command creates a new Selenium web browser session which enables automation for websites.")]
 
     public class SeleniumCreateBrowserCommand : ScriptCommand

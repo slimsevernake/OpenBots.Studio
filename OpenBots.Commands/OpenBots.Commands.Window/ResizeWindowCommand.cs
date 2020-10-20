@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Windows.Forms;
 using Newtonsoft.Json;
-using OpenBots.Core.Attributes.ClassAttributes;
+using System.ComponentModel;
 using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
 using OpenBots.Core.Enums;
@@ -14,7 +14,7 @@ using OpenBots.Engine;
 namespace OpenBots.Commands.Window
 {
     [Serializable]
-    [Group("Window Commands")]
+    [Category("Window Commands")]
     [Description("This command resizes an open window to a specified size.")]
     public class ResizeWindowCommand : ScriptCommand
     {

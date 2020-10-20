@@ -1,6 +1,6 @@
 ﻿using Microsoft.Office.Interop.Outlook;
 using MimeKit;
-using OpenBots.Core.Attributes.ClassAttributes;
+using System.ComponentModel;
 using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
 using OpenBots.Core.Enums;
@@ -17,7 +17,7 @@ using Exception = System.Exception;
 namespace OpenBots.Commands.List
 {
     [Serializable]
-    [Group("List Commands")]
+    [Category("List Commands")]
     [Description("This command adds an item to an existing List variable.")]
     public class AddListItemCommand : ScriptCommand
     {

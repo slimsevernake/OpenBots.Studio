@@ -1,4 +1,4 @@
-﻿using OpenBots.Core.Attributes.ClassAttributes;
+﻿using System.ComponentModel;
 using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
 using OpenBots.Core.Enums;
@@ -15,7 +15,7 @@ using Data = System.Data;
 namespace OpenBots.Commands.DataTable
 {
     [Serializable]
-    [Group("DataTable Commands")]
+    [Category("DataTable Commands")]
     [Description("This command filters specific rows from a DataTable into a new Datatable.")]
     public class FilterDataTableCommand : ScriptCommand
     {

@@ -1,4 +1,4 @@
-﻿using OpenBots.Core.Attributes.ClassAttributes;
+﻿using System.ComponentModel;
 using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
 using OpenBots.Core.Enums;
@@ -12,7 +12,7 @@ using System.Windows.Forms;
 namespace OpenBots.Commands.Data
 {
     [Serializable]
-    [Group("Data Commands")]
+    [Category("Data Commands")]
     [Description("This command returns the count of all words in a string.")]
     public class GetWordCountCommand : ScriptCommand
     {

@@ -6,7 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using OpenBots.Core.Attributes.ClassAttributes;
+using System.ComponentModel;
 using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
 using OpenBots.Core.Enums;
@@ -24,7 +24,7 @@ using Newtonsoft.Json;
 namespace OpenBots.Commands
 {
     [Serializable]
-    [Group("If Commands")]
+    [Category("If Commands")]
     [Description("This command evaluates a logical statement to determine if the statement is 'true' or 'false' and subsequently performs action(s) based on either condition.")]
     public class BeginIfCommand : ScriptCommand
     {

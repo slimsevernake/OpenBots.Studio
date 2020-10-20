@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
-using OpenBots.Core.Attributes.ClassAttributes;
+using System.ComponentModel;
 using OpenBots.Core.Command;
 using OpenBots.Core.Infrastructure;
 using OpenBots.Core.Script;
@@ -10,7 +10,7 @@ using OpenBots.Engine;
 namespace OpenBots.Commands
 {
     [Serializable]
-    [Group("Loop Commands")]
+    [Category("Loop Commands")]
     [Description("This command repeats the execution of subsequent actions continuously.")]
     public class LoopContinuouslyCommand : ScriptCommand
     {

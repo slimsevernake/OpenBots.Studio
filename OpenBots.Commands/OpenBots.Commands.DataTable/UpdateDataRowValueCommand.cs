@@ -1,4 +1,4 @@
-﻿using OpenBots.Core.Attributes.ClassAttributes;
+﻿using System.ComponentModel;
 using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
 using OpenBots.Core.Enums;
@@ -13,7 +13,7 @@ using System.Windows.Forms;
 namespace OpenBots.Commands.DataTable
 {
     [Serializable]
-    [Group("DataTable Commands")]
+    [Category("DataTable Commands")]
     [Description("This command updates a Value in a DataRow at a specified column name/index.")]
 
     public class UpdateDataRowValueCommand : ScriptCommand

@@ -1,5 +1,5 @@
 ﻿using Newtonsoft.Json;
-using OpenBots.Core.Attributes.ClassAttributes;
+using System.ComponentModel;
 using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
 using OpenBots.Core.Infrastructure;
@@ -9,12 +9,13 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Management;
-using System.Windows.Forms;
+using System.Windows.Forms;
+
 
 namespace OpenBots.Commands.System
 {
     [Serializable]
-    [Group("System Commands")]
+    [Category("System Commands")]
     [Description("This command exclusively selects an OS variable.")]
     public class OSVariableCommand : ScriptCommand
     {

@@ -1,6 +1,6 @@
 ﻿using MailKit.Net.Smtp;
 using MimeKit;
-using OpenBots.Core.Attributes.ClassAttributes;
+using System.ComponentModel;
 using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
 using OpenBots.Core.Enums;
@@ -17,7 +17,7 @@ using System.Windows.Forms;
 namespace OpenBots.Commands.Email
 {
     [Serializable]
-    [Group("Email Commands")]
+    [Category("Email Commands")]
     [Description("This command replies to a selected email using SMTP protocol.")]
     public class ReplyToSMTPEmailCommand : ScriptCommand
     {

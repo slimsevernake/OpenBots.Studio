@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
-using OpenBots.Core.Attributes.ClassAttributes;
+using System.ComponentModel;
 using OpenBots.Core.Command;
 using OpenBots.Core.Infrastructure;
 
 namespace OpenBots.Commands.Switch
 {
     [Serializable]
-    [Group("Switch Commands")]
+    [Category("Switch Commands")]
     [Description("This command specifies the end of a switch block.")]
     public class EndSwitchCommand : ScriptCommand
     {

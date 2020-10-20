@@ -1,4 +1,4 @@
-﻿using OpenBots.Core.Attributes.ClassAttributes;
+﻿using System.ComponentModel;
 using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
 using OpenBots.Core.Enums;
@@ -13,7 +13,7 @@ using System.Windows.Forms;
 namespace OpenBots.Commands.Dictionary
 {
     [Serializable]
-    [Group("Dictionary Commands")]
+    [Category("Dictionary Commands")]
     [Description("This command adds an item (key and value pair) to a Dictionary.")]
     public class AddDictionaryItemCommand : ScriptCommand
     {

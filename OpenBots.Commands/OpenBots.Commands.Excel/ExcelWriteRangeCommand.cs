@@ -1,5 +1,5 @@
 ﻿using Microsoft.Office.Interop.Excel;
-using OpenBots.Core.Attributes.ClassAttributes;
+using System.ComponentModel;
 using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
 using OpenBots.Core.Enums;
@@ -12,12 +12,11 @@ using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using Application = Microsoft.Office.Interop.Excel.Application;
 using DataTable = System.Data.DataTable;
-using Group = OpenBots.Core.Attributes.ClassAttributes.Group;
 
 namespace OpenBots.Commands.Excel
 {
     [Serializable]
-    [Group("Excel Commands")]
+    [Category("Excel Commands")]
     [Description("This command writes a DataTable to an Excel Worksheet starting from a specific cell address.")]
     public class ExcelWriteRangeCommand : ScriptCommand
     {

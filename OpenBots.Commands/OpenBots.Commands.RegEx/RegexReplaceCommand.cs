@@ -1,4 +1,4 @@
-﻿using OpenBots.Core.Attributes.ClassAttributes;
+﻿using System.ComponentModel;
 using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
 using OpenBots.Core.Enums;
@@ -9,12 +9,11 @@ using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
-using Group = OpenBots.Core.Attributes.ClassAttributes.Group;
 
 namespace OpenBots.Commands.RegEx
 {
     [Serializable]
-    [Group("Regex Commands")]
+    [Category("Regex Commands")]
     [Description("This command replaces all the matches in a given text based on a Regex pattern.")]
     public class RegexReplaceCommand : ScriptCommand
     {

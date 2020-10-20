@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
-using OpenBots.Core.Attributes.ClassAttributes;
+using System.ComponentModel;
 using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
 using OpenBots.Core.Infrastructure;
@@ -9,7 +9,7 @@ using OpenBots.Core.Infrastructure;
 namespace OpenBots.Commands
 {
     [Serializable]
-    [Group("Error Handling Commands")]
+    [Category("Error Handling Commands")]
     [Description("This command defines a catch block whose commands will execute if an exception is thrown from the " +
                  "associated try.")]
     public class CatchCommand : ScriptCommand

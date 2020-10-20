@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Threading;
 using System.Windows.Forms;
-using OpenBots.Core.Attributes.ClassAttributes;
+using System.ComponentModel;
 using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
 using OpenBots.Core.Enums;
@@ -15,7 +15,7 @@ using OpenBots.Engine;
 namespace OpenBots.Commands.Input
 {
     [Serializable]
-    [Group("Input Commands")]
+    [Category("Input Commands")]
     [Description("This command sends keystrokes to a targeted window.")]
     public class SendKeystrokesCommand : ScriptCommand
     {

@@ -1,5 +1,5 @@
 ﻿using Microsoft.Office.Interop.Word;
-using OpenBots.Core.Attributes.ClassAttributes;
+using System.ComponentModel;
 using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
 using OpenBots.Core.Enums;
@@ -11,12 +11,11 @@ using System.Collections.Generic;
 using System.Windows.Forms;
 using Application = Microsoft.Office.Interop.Word.Application;
 using DataTable = System.Data.DataTable;
-using Group = OpenBots.Core.Attributes.ClassAttributes.Group;
 
 namespace OpenBots.Commands.Word
 {
     [Serializable]
-    [Group("Word Commands")]
+    [Category("Word Commands")]
     [Description("This command appends a DataTable to a Word Document.")]
     public class WordAppendDataTableCommand : ScriptCommand
     {

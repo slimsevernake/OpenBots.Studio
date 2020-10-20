@@ -1,5 +1,5 @@
 ﻿using Newtonsoft.Json;
-using OpenBots.Core.Attributes.ClassAttributes;
+using System.ComponentModel;
 using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
 using OpenBots.Core.Enums;
@@ -17,7 +17,7 @@ namespace OpenBots.Commands.Word
 {
 
     [Serializable]
-    [Group("Word Commands")]
+    [Category("Word Commands")]
     [Description("This command creates a Word Instance.")]
 
     public class WordCreateApplicationCommand : ScriptCommand

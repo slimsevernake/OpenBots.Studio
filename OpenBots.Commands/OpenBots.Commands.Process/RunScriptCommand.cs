@@ -1,4 +1,4 @@
-﻿using OpenBots.Core.Attributes.ClassAttributes;
+﻿using System.ComponentModel;
 using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
 using OpenBots.Core.Enums;
@@ -13,7 +13,7 @@ using Diagnostics = System.Diagnostics;
 namespace OpenBots.Commands.Process
 {
     [Serializable]
-    [Group("Programs/Process Commands")]
+    [Category("Programs/Process Commands")]
     [Description("This command runs a script or program and waits for it to exit before proceeding.")]
 
     public class RunScriptCommand : ScriptCommand

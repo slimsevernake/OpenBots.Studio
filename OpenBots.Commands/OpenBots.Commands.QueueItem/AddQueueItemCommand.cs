@@ -1,5 +1,5 @@
 ﻿using Newtonsoft.Json;
-using OpenBots.Core.Attributes.ClassAttributes;
+using System.ComponentModel;
 using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
 using OpenBots.Core.Enums;
@@ -16,7 +16,7 @@ using QueueItemModel = OpenBots.Core.Server.Models.QueueItem;
 namespace OpenBots.Commands.QueueItem
 {
     [Serializable]
-    [Group("QueueItem Commands")]
+    [Category("QueueItem Commands")]
     [Description("This command adds a QueueItem to an existing Queue in OpenBots Server.")]
     public class AddQueueItemCommand : ScriptCommand
     {

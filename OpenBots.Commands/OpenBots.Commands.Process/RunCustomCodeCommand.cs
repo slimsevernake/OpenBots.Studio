@@ -1,4 +1,4 @@
-﻿using OpenBots.Core.Attributes.ClassAttributes;
+﻿using System.ComponentModel;
 using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
 using OpenBots.Core.Common;
@@ -16,12 +16,11 @@ using System.Reflection;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using Diagnostics = System.Diagnostics;
-using Group = OpenBots.Core.Attributes.ClassAttributes.Group;
 
 namespace OpenBots.Commands.Process
 {
     [Serializable]
-    [Group("Programs/Process Commands")]
+    [Category("Programs/Process Commands")]
     [Description("This command runs custom C# code. The code in this command is compiled and run at runtime when this command is invoked.")]
 
     public class RunCustomCodeCommand : ScriptCommand

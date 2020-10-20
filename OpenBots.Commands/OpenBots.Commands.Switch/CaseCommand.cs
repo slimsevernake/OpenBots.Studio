@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
-using OpenBots.Core.Attributes.ClassAttributes;
+using System.ComponentModel;
 using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
 using OpenBots.Core.Infrastructure;
@@ -9,7 +9,7 @@ using OpenBots.Core.Infrastructure;
 namespace OpenBots.Commands.Switch
 {
     [Serializable]
-    [Group("Switch Commands")]
+    [Category("Switch Commands")]
     [Description("This command defines a case block whose commands will execute if the value specified in the "+
                  "case is equal to that of the preceding Switch Command.")]
     public class CaseCommand : ScriptCommand

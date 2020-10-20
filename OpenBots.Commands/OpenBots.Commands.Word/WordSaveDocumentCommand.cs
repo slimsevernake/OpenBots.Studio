@@ -1,4 +1,4 @@
-﻿using OpenBots.Core.Attributes.ClassAttributes;
+﻿using System.ComponentModel;
 using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
 using OpenBots.Core.Infrastructure;
@@ -12,7 +12,7 @@ using Application = Microsoft.Office.Interop.Word.Application;
 namespace OpenBots.Commands.Word
 {
     [Serializable]
-    [Group("Word Commands")]
+    [Category("Word Commands")]
     [Description("This command saves a Word Document.")]
     public class WordSaveDocumentCommand : ScriptCommand
     {

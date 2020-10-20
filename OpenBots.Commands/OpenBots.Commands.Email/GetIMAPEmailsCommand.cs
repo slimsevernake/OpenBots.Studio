@@ -2,7 +2,7 @@
 using MailKit.Net.Imap;
 using MailKit.Search;
 using MimeKit;
-using OpenBots.Core.Attributes.ClassAttributes;
+using System.ComponentModel;
 using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
 using OpenBots.Core.Enums;
@@ -20,7 +20,7 @@ using System.Windows.Forms;
 namespace OpenBots.Commands.Email
 {
     [Serializable]
-    [Group("Email Commands")]
+    [Category("Email Commands")]
     [Description("This command gets selected emails and their attachments using IMAP protocol.")]
 
     public class GetIMAPEmailsCommand : ScriptCommand

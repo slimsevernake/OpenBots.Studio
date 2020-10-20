@@ -1,4 +1,4 @@
-﻿using OpenBots.Core.Attributes.ClassAttributes;
+﻿using System.ComponentModel;
 using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
 using OpenBots.Core.Enums;
@@ -13,7 +13,7 @@ using System.Windows.Forms;
 namespace OpenBots.Commands.NLG
 {
     [Serializable]
-    [Group("NLG Commands")]
+    [Category("NLG Commands")]
     [Description("This command defines a Natural Language Generation parameter.")]
     public class SetNLGParameterCommand : ScriptCommand
     {

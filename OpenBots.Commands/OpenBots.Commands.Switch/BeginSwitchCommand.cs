@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
-using OpenBots.Core.Attributes.ClassAttributes;
+using System.ComponentModel;
 using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
 using OpenBots.Core.Enums;
@@ -13,7 +13,7 @@ using OpenBots.Engine;
 namespace OpenBots.Commands.Switch
 {
     [Serializable]
-    [Group("Switch Commands")]
+    [Category("Switch Commands")]
     [Description("This command defines a switch/case block which will execute the associated case block if the specified value is a match.")]
     public class BeginSwitchCommand : ScriptCommand
     {

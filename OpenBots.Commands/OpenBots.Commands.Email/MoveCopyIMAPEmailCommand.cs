@@ -1,7 +1,7 @@
 ﻿using MailKit;
 using MailKit.Net.Imap;
 using MimeKit;
-using OpenBots.Core.Attributes.ClassAttributes;
+using System.ComponentModel;
 using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
 using OpenBots.Core.Enums;
@@ -13,11 +13,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Authentication;
 using System.Threading;
-using System.Windows.Forms;
+using System.Windows.Forms;
+
 namespace OpenBots.Commands.Email
 {
     [Serializable]
-    [Group("Email Commands")]
+    [Category("Email Commands")]
     [Description("This command moves or copies a selected email using IMAP protocol.")]
     public class MoveCopyIMAPEmailCommand : ScriptCommand
     {
