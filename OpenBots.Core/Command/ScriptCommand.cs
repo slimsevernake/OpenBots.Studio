@@ -3,7 +3,6 @@ using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Infrastructure;
 using OpenBots.Core.Script;
 using Serilog.Events;
-using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Windows.Forms;
@@ -12,9 +11,6 @@ namespace OpenBots.Core.Command
 {
     public abstract class ScriptCommand
     {
-        [Browsable(false)]
-        public string CommandID { get; set; }
-
         [Browsable(false)]
         public string CommandName { get; set; }
 
@@ -65,13 +61,6 @@ namespace OpenBots.Core.Command
         {
             CommandEnabled = false;
             IsCommented = false;
-            GenerateID();
-        }
-
-        public void GenerateID()
-        {
-            var id = Guid.NewGuid();
-            CommandID = id.ToString();
         }
 
         public virtual void RunCommand(object sender)
