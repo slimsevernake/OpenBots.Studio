@@ -50,7 +50,7 @@ namespace OpenBots.Commands.Input
             CommandName = "SendAdvancedKeystrokesCommand";
             SelectionName = "Send Advanced Keystrokes";
             CommandEnabled = true;
-            CustomRendering = true;
+            
 
             v_KeyActions = new DataTable();
             v_KeyActions.Columns.Add("Key");

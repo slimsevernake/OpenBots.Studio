@@ -45,7 +45,7 @@ namespace OpenBots.Commands.Data
             CommandName = "ModifyStringCommand";
             SelectionName = "Modify String";
             CommandEnabled = true;
-            CustomRendering = true;
+            
         }
 
         public override void RunCommand(object sender)

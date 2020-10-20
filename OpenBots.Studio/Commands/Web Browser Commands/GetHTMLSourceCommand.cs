@@ -45,7 +45,7 @@ namespace OpenBots.Commands
             CommandName = "GetHTMLSourceCommand";
             SelectionName = "Get HTML Source";
             CommandEnabled = true;
-            CustomRendering = true;
+            
         }
 
         public override void RunCommand(object sender)

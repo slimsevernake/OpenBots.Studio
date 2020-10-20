@@ -38,7 +38,7 @@ namespace OpenBots.Commands.File
             CommandName = "WaitForFileCommand";
             SelectionName = "Wait For File";
             CommandEnabled = true;
-            CustomRendering = true;
+            
         }
 
         public override void RunCommand(object sender)

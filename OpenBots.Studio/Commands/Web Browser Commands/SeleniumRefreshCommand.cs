@@ -27,7 +27,7 @@ namespace OpenBots.Commands
             CommandName = "SeleniumRefreshCommand";
             SelectionName = "Refresh";
             CommandEnabled = true;
-            CustomRendering = true;
+            
             v_InstanceName = "DefaultBrowser";
         }
 

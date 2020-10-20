@@ -29,7 +29,7 @@ namespace OpenBots.Commands.NLG
             CommandName = "CreateNLGInstanceCommand";
             SelectionName = "Create NLG Instance";
             CommandEnabled = true;
-            CustomRendering = true;
+            
             v_InstanceName = "DefaultNLG";
         }
 

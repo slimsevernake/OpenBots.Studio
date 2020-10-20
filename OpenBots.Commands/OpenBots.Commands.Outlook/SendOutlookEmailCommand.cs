@@ -61,7 +61,7 @@ namespace OpenBots.Commands.Outlook
             CommandName = "SendOutlookEmailCommand";
             SelectionName = "Send Outlook Email";
             CommandEnabled = true;
-            CustomRendering = true;
+            
             v_BodyType = "Plain";
         }
 

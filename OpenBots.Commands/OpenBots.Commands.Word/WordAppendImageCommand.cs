@@ -37,7 +37,7 @@ namespace OpenBots.Commands.Word
             CommandName = "WordAppendImageCommand";
             SelectionName = "Append Image";
             CommandEnabled = true;
-            CustomRendering = true;
+            
             v_InstanceName = "DefaultWord";
         }
 

@@ -31,7 +31,7 @@ namespace OpenBots.Commands.System
             CommandName = "SystemActionCommand";
             SelectionName = "System Action";
             CommandEnabled = true;
-            CustomRendering = true;
+            
             v_ActionName = "Shutdown";
         }
 

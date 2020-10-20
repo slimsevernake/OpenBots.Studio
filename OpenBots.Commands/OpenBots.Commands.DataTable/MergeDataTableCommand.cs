@@ -49,7 +49,7 @@ namespace OpenBots.Commands.DataTable
             CommandName = "MergeDataTableCommand";
             SelectionName = "Merge DataTable";
             CommandEnabled = true;
-            CustomRendering = true;
+            
             v_MissingSchemaAction = "Add";
         }
 

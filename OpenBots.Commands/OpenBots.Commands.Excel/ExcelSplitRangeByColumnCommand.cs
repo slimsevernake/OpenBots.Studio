@@ -69,7 +69,7 @@ namespace OpenBots.Commands.Excel
             CommandName = "ExcelSplitRangeByColumnCommand";
             SelectionName = "Split Range By Column";
             CommandEnabled = true;
-            CustomRendering = true;
+            
             v_InstanceName = "DefaultExcel";
             v_FileType = "xlsx";
             v_Range = "A1:";

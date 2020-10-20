@@ -38,7 +38,7 @@ namespace OpenBots.Commands
             CommandName = "MessageBoxCommand";
             SelectionName = "Show Message";
             CommandEnabled = true;          
-            CustomRendering = true;
+            
             v_AutoCloseAfter = "0";
         }
 

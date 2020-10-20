@@ -63,7 +63,7 @@ namespace OpenBots.Commands.Excel
             CommandName = "ExcelExportToPDFCommand";
             SelectionName = "Export To PDF";
             CommandEnabled = true;
-            CustomRendering = true;
+            
             v_InstanceName = "DefaultExcel";
             v_AutoFitCells = "Yes";
             v_DisplayGridlines = "Yes";

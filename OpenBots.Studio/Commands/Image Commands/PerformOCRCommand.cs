@@ -39,7 +39,7 @@ namespace OpenBots.Commands
             CommandName = "PerformOCRCommand";
             SelectionName = "Perform OCR";
             CommandEnabled = true;
-            CustomRendering = true;
+            
         }
 
         public override void RunCommand(object sender)

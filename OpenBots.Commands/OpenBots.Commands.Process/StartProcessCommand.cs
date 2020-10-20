@@ -48,7 +48,7 @@ namespace OpenBots.Commands.Process
             CommandName = "StartProcessCommand";
             SelectionName = "Start Process";
             CommandEnabled = true;
-            CustomRendering = true;
+            
             v_WaitForExit = "No";
         }
 

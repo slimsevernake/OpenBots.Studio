@@ -72,7 +72,7 @@ namespace OpenBots.Commands.Email
             CommandName = "DeleteIMAPEmailCommand";
             SelectionName = "Delete IMAP Email";
             CommandEnabled = true;
-            CustomRendering = true;
+            
             v_IMAPDeleteReadOnly = "Yes";
         }
 

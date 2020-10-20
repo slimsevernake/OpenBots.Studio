@@ -62,7 +62,7 @@ namespace OpenBots.Commands.File
             CommandName = "MoveCopyFileCommand";
             SelectionName = "Move/Copy File";
             CommandEnabled = true;
-            CustomRendering = true;
+            
             v_CreateDirectory = "Yes";
             v_OverwriteFile = "Yes";
         }

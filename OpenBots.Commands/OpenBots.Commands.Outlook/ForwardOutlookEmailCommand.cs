@@ -38,7 +38,7 @@ namespace OpenBots.Commands.Outlook
             CommandName = "ForwardOutlookEmailCommand";
             SelectionName = "Forward Outlook Email";
             CommandEnabled = true;
-            CustomRendering = true;
+            
         }
 
         public override void RunCommand(object sender)

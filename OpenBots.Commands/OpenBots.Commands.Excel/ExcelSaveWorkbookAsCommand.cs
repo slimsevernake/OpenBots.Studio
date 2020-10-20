@@ -44,7 +44,7 @@ namespace OpenBots.Commands.Excel
             CommandName = "ExcelSaveWorkbookAsCommand";
             SelectionName = "Save Workbook As";
             CommandEnabled = true;
-            CustomRendering = true;
+            
             v_InstanceName = "DefaultExcel";
         }
 

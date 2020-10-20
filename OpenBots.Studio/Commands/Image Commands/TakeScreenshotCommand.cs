@@ -46,7 +46,7 @@ namespace OpenBots.Commands
             CommandName = "TakeScreenshotCommand";
             SelectionName = "Take Screenshot";
             CommandEnabled = true;
-            CustomRendering = true;
+            
             v_WindowName = "Current Window";
         }
 

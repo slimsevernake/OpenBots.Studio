@@ -60,7 +60,7 @@ namespace OpenBots.Commands
             CommandName = "SeleniumSwitchBrowserWindowCommand";
             SelectionName = "Switch Browser Window";  
             CommandEnabled = true;
-            CustomRendering = true;
+            
             v_InstanceName = "DefaultBrowser";
             v_WindowMatchType = "Window URL";
             v_MatchSpecification = "Exact Match";

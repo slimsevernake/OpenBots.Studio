@@ -26,7 +26,7 @@ namespace OpenBots.Commands.NLG
             CommandName = "CloseNLGInstanceCommand";
             SelectionName = "Close NLG Instance";
             CommandEnabled = true;
-            CustomRendering = true;
+            
             v_InstanceName = "DefaultNLG";
         }
 

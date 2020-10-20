@@ -26,7 +26,7 @@ namespace OpenBots.Commands.Switch
             CommandName = "CaseCommand";
             SelectionName = "Case";
             CommandEnabled = true;
-            CustomRendering = true;
+            
         }
 
         public override void RunCommand(object sender)

@@ -65,7 +65,6 @@ namespace OpenBots.Commands.API
             CommandName = "ExecuteDLLCommand";
             SelectionName = "Execute DLL";
             CommandEnabled = true;
-            CustomRendering = true;
 
             v_MethodParameters = new DataTable();
             v_MethodParameters.Columns.Add("Parameter Name");

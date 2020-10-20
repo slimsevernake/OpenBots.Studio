@@ -17,7 +17,7 @@ namespace OpenBots.Commands.Switch
             CommandName = "EndSwitchCommand";
             SelectionName = "End Switch";
             CommandEnabled = true;
-            CustomRendering = true;
+            
         }
 
         public override void RunCommand(object sender)

@@ -54,7 +54,7 @@ namespace OpenBots.Commands.Excel
             CommandName = "ExcelWriteRangeCommand";
             SelectionName = "Write Range";
             CommandEnabled = true;
-            CustomRendering = true;
+            
             v_InstanceName = "DefaultExcel";
             v_AddHeaders = "Yes";
             v_CellLocation = "A1";

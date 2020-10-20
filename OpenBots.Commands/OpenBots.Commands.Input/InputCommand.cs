@@ -56,7 +56,7 @@ namespace OpenBots.Commands.Input
             CommandName = "InputCommand";
             SelectionName = "Prompt for Input";
             CommandEnabled = true;
-            CustomRendering = true;
+            
 
             v_UserInputConfig = new DataTable();
             v_UserInputConfig.TableName = DateTime.Now.ToString("UserInputParamTable" + DateTime.Now.ToString("MMddyy.hhmmss"));

@@ -36,7 +36,7 @@ namespace OpenBots.Commands.Excel
             CommandName = "ExcelActivateSheetCommand";
             SelectionName = "Activate Sheet";
             CommandEnabled = true;
-            CustomRendering = true;
+            
             v_InstanceName = "DefaultExcel";
         }
 

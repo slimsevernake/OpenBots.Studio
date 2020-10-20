@@ -43,7 +43,7 @@ namespace OpenBots.Commands.Data
             CommandName = "SplitTextCommand";
             SelectionName = "Split Text";
             CommandEnabled = true;
-            CustomRendering = true;
+            
         }
 
         public override void RunCommand(object sender)

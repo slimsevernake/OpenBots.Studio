@@ -22,7 +22,7 @@ namespace OpenBots.Commands
             CommandName = "SequenceCommand";
             SelectionName = "Sequence Command";
             CommandEnabled = true;
-            CustomRendering = true;
+            
         }
 
         public override void RunCommand(object sender, ScriptAction parentCommand)

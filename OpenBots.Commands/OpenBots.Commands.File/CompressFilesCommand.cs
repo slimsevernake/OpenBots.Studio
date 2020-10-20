@@ -54,7 +54,7 @@ namespace OpenBots.Commands.File
             CommandName = "CompressFilesCommand";
             SelectionName = "Compress Files";
             CommandEnabled = true;
-            CustomRendering = true;
+            
         }
 
         public override void RunCommand(object sender)

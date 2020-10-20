@@ -52,7 +52,7 @@ namespace OpenBots.Commands.DataTable
             CommandName = "GetDataRowValueCommand";
             SelectionName = "Get DataRow Value";
             CommandEnabled = true;
-            CustomRendering = true;
+            
             v_Option = "Column Index";
         }
 

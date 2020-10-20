@@ -47,7 +47,7 @@ namespace OpenBots.Commands
             CommandName = "SeleniumGetBrowserInfoCommand";
             SelectionName = "Get Browser Info";
             CommandEnabled = true;
-            CustomRendering = true;
+            
             v_InstanceName = "DefaultBrowser";
         }
 

@@ -45,7 +45,7 @@ namespace OpenBots.Commands.Window
             CommandName = "MoveWindowCommand";
             SelectionName = "Move Window";
             CommandEnabled = true;
-            CustomRendering = true;
+            
             v_WindowName = "Current Window";
             v_XMousePosition = "0";
             v_YMousePosition = "0";

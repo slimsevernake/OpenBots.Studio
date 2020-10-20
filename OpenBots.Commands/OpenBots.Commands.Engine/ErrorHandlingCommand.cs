@@ -29,7 +29,7 @@ namespace OpenBots.Commands.Engine
             CommandName = "ErrorHandlingCommand";
             SelectionName = "Error Handling";
             CommandEnabled = true;
-            CustomRendering = true;
+            
             v_ErrorHandlingAction = "Stop Processing";
         }
 

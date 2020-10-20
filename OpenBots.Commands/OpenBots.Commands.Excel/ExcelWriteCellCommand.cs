@@ -43,7 +43,7 @@ namespace OpenBots.Commands.Excel
             CommandName = "ExcelWriteCellCommand";
             SelectionName = "Write Cell";
             CommandEnabled = true;
-            CustomRendering = true;
+            
             v_InstanceName = "DefaultExcel";
             v_CellLocation = "A1";
         }

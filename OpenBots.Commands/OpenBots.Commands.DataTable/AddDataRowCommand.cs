@@ -48,7 +48,7 @@ namespace OpenBots.Commands.DataTable
             CommandName = "AddDataRowCommand";
             SelectionName = "Add DataRow";
             CommandEnabled = true;
-            CustomRendering = true;
+            
 
             //initialize data table
             v_DataRowDataTable = new Data.DataTable

@@ -83,7 +83,7 @@ namespace OpenBots.Commands.Email
             CommandName = "SendSMTPEmailCommand";
             SelectionName = "Send SMTP Email";
             CommandEnabled = true;
-            CustomRendering = true;
+            
         }
 
         public override void RunCommand(object sender)

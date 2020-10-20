@@ -38,7 +38,7 @@ namespace OpenBots.Commands.Excel
             CommandName = "ExcelAppendRowCommand";
             SelectionName = "Append Row";
             CommandEnabled = true;
-            CustomRendering = true;
+            
             v_InstanceName = "DefaultExcel";
         }
 

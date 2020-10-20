@@ -42,7 +42,7 @@ namespace OpenBots.Commands.Excel
             CommandName = "ExcelGetCellCommand";
             SelectionName = "Get Cell";
             CommandEnabled = true;
-            CustomRendering = true;
+            
             v_InstanceName = "DefaultExcel";
         }
 

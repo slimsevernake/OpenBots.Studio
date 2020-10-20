@@ -78,7 +78,7 @@ namespace OpenBots.Commands
             CommandName = "SeleniumCreateBrowserCommand";
             SelectionName = "Create Browser";
             CommandEnabled = true;
-            CustomRendering = true;
+            
             v_InstanceName = "DefaultBrowser";
             v_InstanceTracking = "Forget Instance";
             v_BrowserWindowOption = "Maximize";

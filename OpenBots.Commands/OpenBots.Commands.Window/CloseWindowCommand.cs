@@ -29,7 +29,7 @@ namespace OpenBots.Commands.Window
             CommandName = "CloseWindowCommand";
             SelectionName = "Close Window";
             CommandEnabled = true;
-            CustomRendering = true;
+            
             v_WindowName = "Current Window";          
         }
 

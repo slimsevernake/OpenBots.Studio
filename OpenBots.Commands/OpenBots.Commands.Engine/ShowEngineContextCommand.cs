@@ -29,7 +29,7 @@ namespace OpenBots.Commands.Engine
             CommandName = "ShowEngineContextCommand";
             SelectionName = "Show Engine Context";
             CommandEnabled = true;
-            CustomRendering = true;
+            
             v_AutoCloseAfter = "0";
         }
 

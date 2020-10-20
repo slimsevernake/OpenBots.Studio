@@ -27,7 +27,7 @@ namespace OpenBots.Commands
             CommandName = "SeleniumNavigateForwardCommand";
             SelectionName = "Navigate Forward";
             CommandEnabled = true;
-            CustomRendering = true;
+            
             v_InstanceName = "DefaultBrowser";
         }
 

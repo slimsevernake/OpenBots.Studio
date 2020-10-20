@@ -43,7 +43,7 @@ namespace OpenBots.Commands.RegEx
             CommandName = "RegexSplitCommand";
             SelectionName = "Regex Split";
             CommandEnabled = true;
-            CustomRendering = true;
+            
         }
 
         public override void RunCommand(object sender)

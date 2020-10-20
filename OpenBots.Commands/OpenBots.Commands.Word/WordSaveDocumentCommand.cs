@@ -27,7 +27,7 @@ namespace OpenBots.Commands.Word
             CommandName = "WordSaveDocumentCommand";
             SelectionName = "Save Document";
             CommandEnabled = true;
-            CustomRendering = true;
+            
             v_InstanceName = "DefaultWord";
         }
 

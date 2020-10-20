@@ -55,7 +55,7 @@ namespace OpenBots.Commands.Outlook
             CommandName = "MoveCopyOutlookEmailCommand";
             SelectionName = "Move/Copy Outlook Email";
             CommandEnabled = true;
-            CustomRendering = true;
+            
             v_OperationType = "Move MailItem";
             v_MoveCopyUnreadOnly = "Yes";
         }

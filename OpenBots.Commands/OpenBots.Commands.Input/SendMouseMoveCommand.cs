@@ -56,7 +56,7 @@ namespace OpenBots.Commands.Input
             CommandName = "SendMouseMoveCommand";
             SelectionName = "Send Mouse Move";
             CommandEnabled = true;
-            CustomRendering = true;
+            
             v_XMousePosition = "0";
             v_YMousePosition = "0";
             v_MouseClick = "None";

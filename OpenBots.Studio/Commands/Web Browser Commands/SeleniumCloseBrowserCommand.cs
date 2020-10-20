@@ -29,7 +29,7 @@ namespace OpenBots.Commands
             SelectionName = "Close Browser";
             v_InstanceName = "DefaultBrowser";
             CommandEnabled = true;
-            CustomRendering = true;
+            
         }
 
         public override void RunCommand(object sender)

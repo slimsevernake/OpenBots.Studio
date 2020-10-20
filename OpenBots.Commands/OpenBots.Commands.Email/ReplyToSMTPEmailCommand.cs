@@ -84,7 +84,7 @@ namespace OpenBots.Commands.Email
             CommandName = "ReplyToSMTPEmailCommand";
             SelectionName = "Reply To SMTP Email";
             CommandEnabled = true;
-            CustomRendering = true;
+            
             v_SMTPOperationType = "Reply";
         }
 

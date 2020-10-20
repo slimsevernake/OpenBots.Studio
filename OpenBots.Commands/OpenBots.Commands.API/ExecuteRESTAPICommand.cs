@@ -82,7 +82,7 @@ namespace OpenBots.Commands.API
             CommandName = "ExecuteRESTAPICommand";
             SelectionName = "Execute REST API";
             CommandEnabled = true;
-            CustomRendering = true;
+            
             v_RequestFormat = "Json";
 
             v_RESTParameters = new DataTable();

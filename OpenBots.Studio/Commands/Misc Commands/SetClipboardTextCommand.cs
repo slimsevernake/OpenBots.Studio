@@ -30,7 +30,7 @@ namespace OpenBots.Commands
             CommandName = "SetClipboardTextCommand";
             SelectionName = "Set Clipboard Text";
             CommandEnabled = true;
-            CustomRendering = true;
+            
         }
 
         public override void RunCommand(object sender)

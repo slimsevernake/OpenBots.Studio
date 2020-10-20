@@ -51,7 +51,7 @@ namespace OpenBots.Commands
             CommandName = "ThrowCommand";
             SelectionName = "Throw";
             CommandEnabled = true;
-            CustomRendering = true;
+            
             v_ExceptionType = "Exception";
         }
 

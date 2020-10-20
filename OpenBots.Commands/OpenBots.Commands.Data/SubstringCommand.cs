@@ -49,7 +49,7 @@ namespace OpenBots.Commands.Data
             CommandName = "SubstringCommand";
             SelectionName = "Substring";
             CommandEnabled = true;
-            CustomRendering = true;
+            
             v_StringLength = "-1";
         }
 

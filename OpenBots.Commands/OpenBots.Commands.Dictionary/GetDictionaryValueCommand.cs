@@ -42,7 +42,7 @@ namespace OpenBots.Commands.Dictionary
             CommandName = "GetDictionaryValueCommand";
             SelectionName = "Get Dictionary Value";
             CommandEnabled = true;
-            CustomRendering = true;
+            
         }
 
         public override void RunCommand(object sender)

@@ -21,7 +21,7 @@ namespace OpenBots.Commands
             CommandName = "BeginTryCommand";
             SelectionName = "Try";
             CommandEnabled = true;
-            CustomRendering = true;
+            
         }
 
         public override void RunCommand(object sender, ScriptAction parentCommand)

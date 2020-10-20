@@ -18,7 +18,7 @@ namespace OpenBots.Commands
             CommandName = "NextLoopCommand";
             SelectionName = "Next Loop";
             CommandEnabled = true;
-            CustomRendering = true;
+            
         }
 
         public override List<Control> Render(IfrmCommandEditor editor, ICommandControls commandControls)

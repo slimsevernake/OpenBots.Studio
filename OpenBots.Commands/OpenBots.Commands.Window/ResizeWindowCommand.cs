@@ -44,7 +44,7 @@ namespace OpenBots.Commands.Window
             CommandName = "ResizeWindowCommand";
             SelectionName = "Resize Window";
             CommandEnabled = true;
-            CustomRendering = true;
+            
             v_WindowName = "Current Window";
         }
 

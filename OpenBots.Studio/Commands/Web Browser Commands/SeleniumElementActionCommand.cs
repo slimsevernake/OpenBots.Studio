@@ -116,7 +116,7 @@ namespace OpenBots.Commands
             SelectionName = "Element Action";
             v_InstanceName = "DefaultBrowser";
             CommandEnabled = true;
-            CustomRendering = true;
+            
             v_SeleniumSearchOption = "Find Element";
 
             v_WebActionParameterTable = new DataTable

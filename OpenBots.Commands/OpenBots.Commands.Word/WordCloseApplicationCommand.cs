@@ -37,7 +37,7 @@ namespace OpenBots.Commands.Word
             CommandName = "WordCloseApplicationCommand";
             SelectionName = "Close Word Application";
             CommandEnabled = true;
-            CustomRendering = true;
+            
             v_InstanceName = "DefaultWord";
             v_WordSaveOnExit = "Yes";
         }

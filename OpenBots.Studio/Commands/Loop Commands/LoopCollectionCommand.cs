@@ -42,7 +42,7 @@ namespace OpenBots.Commands
             CommandName = "LoopCollectionCommand";
             SelectionName = "Loop Collection";
             CommandEnabled = true;
-            CustomRendering = true;
+            
         }
 
         public override void RunCommand(object sender, ScriptAction parentCommand)

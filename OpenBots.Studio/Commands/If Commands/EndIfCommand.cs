@@ -18,7 +18,7 @@ namespace OpenBots.Commands
             CommandName = "EndIfCommand";
             SelectionName = "End If";
             CommandEnabled = true;
-            CustomRendering = true;
+            
         }
         public override List<Control> Render(IfrmCommandEditor editor, ICommandControls commandControls)
         {

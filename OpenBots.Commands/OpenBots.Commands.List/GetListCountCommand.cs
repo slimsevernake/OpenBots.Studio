@@ -40,7 +40,7 @@ namespace OpenBots.Commands.List
             CommandName = "GetListCountCommand";
             SelectionName = "Get List Count";
             CommandEnabled = true;
-            CustomRendering = true;
+            
         }
 
         public override void RunCommand(object sender)

@@ -44,7 +44,7 @@ namespace OpenBots.Commands.Excel
             CommandName = "ExcelDeleteRangeCommand";
             SelectionName = "Delete Range";
             CommandEnabled = true;
-            CustomRendering = true;
+            
             v_InstanceName = "DefaultExcel";
             v_ShiftUp = "Yes";
         }

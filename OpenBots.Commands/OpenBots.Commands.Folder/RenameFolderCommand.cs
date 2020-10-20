@@ -37,7 +37,7 @@ namespace OpenBots.Commands.Folder
             CommandName = "RenameFolderCommand";
             SelectionName = "Rename Folder";
             CommandEnabled = true;
-            CustomRendering = true;
+            
         }
 
         public override void RunCommand(object sender)

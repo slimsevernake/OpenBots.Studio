@@ -33,7 +33,7 @@ namespace OpenBots.Commands.NLG
             CommandName = "GenerateNLGPhraseCommand";
             SelectionName = "Generate NLG Phrase";
             CommandEnabled = true;
-            CustomRendering = true;
+            
             v_InstanceName = "DefaultNLG";
         }
 

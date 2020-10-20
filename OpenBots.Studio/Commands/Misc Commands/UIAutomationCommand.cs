@@ -80,7 +80,7 @@ namespace OpenBots.Commands
             CommandName = "UIAutomationCommand";
             SelectionName = "UI Automation";
             CommandEnabled = true;
-            CustomRendering = true;
+            
 
             //set up search parameter table
             v_UIASearchParameters = new DataTable();

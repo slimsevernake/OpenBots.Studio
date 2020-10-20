@@ -61,7 +61,7 @@ namespace OpenBots.Commands.Excel
             CommandName = "LoadDictionaryCommand";
             SelectionName = "Load Dictionary";
             CommandEnabled = true;
-            CustomRendering = true;
+            
             v_KeyColumn = "Name";
             v_ValueColumn = "Value";
         }

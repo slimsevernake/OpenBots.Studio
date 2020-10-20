@@ -40,7 +40,7 @@ namespace OpenBots.Commands
             CommandName = "CaptureImageCommand";
             SelectionName = "Capture Image";
             CommandEnabled = true;
-            CustomRendering = true;
+            
         }
 
         public override void RunCommand(object sender)

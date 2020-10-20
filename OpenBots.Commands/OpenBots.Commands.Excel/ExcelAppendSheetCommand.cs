@@ -36,7 +36,7 @@ namespace OpenBots.Commands.Excel
             CommandName = "ExcelAppendSheetCommand";
             SelectionName = "Append Sheet";
             CommandEnabled = true;
-            CustomRendering = true;
+            
             v_InstanceName = "DefaultExcel";
         }
 

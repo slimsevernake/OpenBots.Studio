@@ -35,7 +35,7 @@ namespace OpenBots.Commands.SecureData
             CommandName = "NewSecureStringCommand";
             SelectionName = "New SecureString";
             CommandEnabled = true;
-            CustomRendering = true;
+            
         }
 
         public override void RunCommand(object sender)

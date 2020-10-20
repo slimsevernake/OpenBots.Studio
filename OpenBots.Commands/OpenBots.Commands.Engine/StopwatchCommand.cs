@@ -57,7 +57,7 @@ namespace OpenBots.Commands.Engine
             CommandName = "StopwatchCommand";
             SelectionName = "Stopwatch";
             CommandEnabled = true;
-            CustomRendering = true;
+            
             v_InstanceName = "DefaultStopwatch";
             v_StopwatchAction = "Start Stopwatch";
         }

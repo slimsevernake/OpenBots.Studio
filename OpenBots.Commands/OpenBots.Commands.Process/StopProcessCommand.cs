@@ -38,7 +38,7 @@ namespace OpenBots.Commands.Process
             CommandName = "StopProgramCommand";
             SelectionName = "Stop Process";
             CommandEnabled = true;
-            CustomRendering = true;
+            
             v_StopOption = "Kill";
         }
 

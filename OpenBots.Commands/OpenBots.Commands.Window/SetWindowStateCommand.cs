@@ -38,7 +38,7 @@ namespace OpenBots.Commands.Window
             CommandName = "SetWindowStateCommand";
             SelectionName = "Set Window State";
             CommandEnabled = true;
-            CustomRendering = true;
+            
             v_WindowName = "Current Window";
             v_WindowState = "Maximize";
         }

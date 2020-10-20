@@ -48,7 +48,7 @@ namespace OpenBots.Commands.TextFile
             CommandName = "WriteCreateTextFileCommand";
             SelectionName = "Write/Create Text File";
             CommandEnabled = true;
-            CustomRendering = true;
+            
             v_Overwrite = "Append";
         }
 

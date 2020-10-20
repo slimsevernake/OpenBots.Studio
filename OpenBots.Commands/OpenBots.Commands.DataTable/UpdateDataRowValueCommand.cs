@@ -53,7 +53,7 @@ namespace OpenBots.Commands.DataTable
             CommandName = "UpdateDataRowValueCommand";
             SelectionName = "Update DataRow Value";
             CommandEnabled = true;
-            CustomRendering = true;
+            
             v_Option = "Column Index";
         }
 

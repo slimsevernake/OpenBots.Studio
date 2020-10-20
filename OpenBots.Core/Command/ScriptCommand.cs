@@ -2,7 +2,6 @@
 using Serilog.Events;
 using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Threading;
 using System.Windows.Forms;
 using OpenBots.Core.Attributes.PropertyAttributes;
@@ -36,12 +35,6 @@ namespace OpenBots.Core.Command
         public string v_Comment { get; set; }
 
         [JsonIgnore]
-        public bool CustomRendering { get; set; }
-
-        [JsonIgnore]
-        public Color DisplayForeColor { get; set; }
-
-        [JsonIgnore]
         public List<Control> RenderedControls;
         
         [JsonIgnore]
@@ -58,11 +51,9 @@ namespace OpenBots.Core.Command
 
         public ScriptCommand()
         {
-            DisplayForeColor = Color.SteelBlue;
             CommandEnabled = false;
             DefaultPause = 0;
             IsCommented = false;
-            CustomRendering = false;
             GenerateID();
         }
 
@@ -91,12 +82,6 @@ namespace OpenBots.Core.Command
         }
 
         public virtual List<Control> Render(IfrmCommandEditor editor, ICommandControls commandControls)
-        {
-            RenderedControls = new List<Control>();
-            return RenderedControls;
-        }
-
-        public virtual List<Control> Render()
         {
             RenderedControls = new List<Control>();
             return RenderedControls;

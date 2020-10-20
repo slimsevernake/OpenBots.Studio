@@ -90,7 +90,7 @@ namespace OpenBots.Commands.Outlook
             CommandName = "GetOutlookEmailsCommand";
             SelectionName = "Get Outlook Emails";
             CommandEnabled = true;
-            CustomRendering = true;
+            
             v_SourceFolder = "Inbox";
             v_GetUnreadOnly = "No";
             v_MarkAsRead = "Yes";

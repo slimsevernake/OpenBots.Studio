@@ -53,7 +53,7 @@ namespace OpenBots.Commands.Excel
             CommandName = "ExcelGetRangeCommand";
             SelectionName = "Get Range";
             CommandEnabled = true;
-            CustomRendering = true;
+            
             v_InstanceName = "DefaultExcel";
             v_AddHeaders = "Yes";
             v_Range = "A1:";

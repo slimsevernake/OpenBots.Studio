@@ -45,7 +45,7 @@ namespace OpenBots.Commands.Excel
             CommandName = "ExcelDeleteRowCommand";
             SelectionName = "Delete Row";
             CommandEnabled = true;
-            CustomRendering = true;
+            
             v_InstanceName = "DefaultExcel";
             v_ShiftUp = "Yes";
         }

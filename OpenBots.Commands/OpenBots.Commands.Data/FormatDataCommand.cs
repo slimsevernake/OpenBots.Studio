@@ -50,7 +50,7 @@ namespace OpenBots.Commands.Data
             CommandName = "FormatDataCommand";
             SelectionName = "Format Data";
             CommandEnabled = true;
-            CustomRendering = true;
+            
 
             v_InputData = "{DateTime.Now}";
             v_FormatType = "Date";

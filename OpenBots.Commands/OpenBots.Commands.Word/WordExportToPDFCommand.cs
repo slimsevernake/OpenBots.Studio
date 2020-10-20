@@ -46,7 +46,7 @@ namespace OpenBots.Commands.Word
             CommandName = "WordExportToPDFCommand";
             SelectionName = "Export To PDF";
             CommandEnabled = true;
-            CustomRendering = true;
+            
             v_InstanceName = "DefaultWord";
         }
 

@@ -28,7 +28,7 @@ namespace OpenBots.Commands.Engine
             CommandName = "SetEngineDelayCommand";
             SelectionName = "Set Engine Delay";
             CommandEnabled = true;
-            CustomRendering = true;
+            
             v_EngineDelay = "250";
         }
 

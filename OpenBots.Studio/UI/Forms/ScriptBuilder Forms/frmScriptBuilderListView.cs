@@ -547,7 +547,7 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
             newCommand.SubItems.Add(cmdDetails.GetDisplayValue());
             //cmdDetails.RenderedControls = null;
             newCommand.Tag = cmdDetails;
-            newCommand.ForeColor = cmdDetails.DisplayForeColor;
+            newCommand.ForeColor = Color.SteelBlue;
             newCommand.BackColor = Color.DimGray;
             newCommand.ImageIndex = _uiImages.Images.IndexOfKey(cmdDetails.GetType().Name);
             newCommand.ToolTipText = cmdDetails.GetDisplayValue();

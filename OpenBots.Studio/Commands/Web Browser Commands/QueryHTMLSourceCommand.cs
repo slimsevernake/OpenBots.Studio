@@ -42,7 +42,7 @@ namespace OpenBots.Commands
             CommandName = "QueryHTMLSourceCommand";
             SelectionName = "Query HTML Source";
             CommandEnabled = true;
-            CustomRendering = true;
+            
         }
 
         public override void RunCommand(object sender)

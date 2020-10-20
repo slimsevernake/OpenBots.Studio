@@ -52,7 +52,7 @@ namespace OpenBots.Commands.Engine
             CommandName = "LogMessageCommand";
             SelectionName = "Log Message";
             CommandEnabled = true;
-            CustomRendering = true;
+            
             v_LogFile = "Engine Logs";
             v_LogType = "Information";
         }

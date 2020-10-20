@@ -45,7 +45,7 @@ namespace OpenBots.Commands.Excel
             CommandName = "ExcelDeleteColumnCommand";
             SelectionName = "Delete Column";
             CommandEnabled = true;
-            CustomRendering = true;
+            
             v_InstanceName = "DefaultExcel";
             v_ShiftLeft = "Yes";
         }

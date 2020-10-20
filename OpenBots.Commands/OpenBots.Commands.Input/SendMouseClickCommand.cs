@@ -36,7 +36,7 @@ namespace OpenBots.Commands.Input
             CommandName = "SendMouseClickCommand";
             SelectionName = "Send Mouse Click";
             CommandEnabled = true;
-            CustomRendering = true;
+            
             v_MouseClick = "Left Click";
         }
 

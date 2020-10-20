@@ -48,7 +48,7 @@ namespace OpenBots.Commands
             CommandName = "SeleniumExecuteScriptCommand";
             SelectionName = "Execute Script";
             CommandEnabled = true;
-            CustomRendering = true;
+            
             v_InstanceName = "DefaultBrowser";
         }
 

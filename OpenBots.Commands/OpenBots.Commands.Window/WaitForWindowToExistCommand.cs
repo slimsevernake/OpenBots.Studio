@@ -37,7 +37,7 @@ namespace OpenBots.Commands.Window
             CommandName = "WaitForWindowToExistCommand";
             SelectionName = "Wait For Window To Exist";
             CommandEnabled = true;
-            CustomRendering = true;
+            
             v_WindowName = "Current Window";
             v_Timeout = "30";
         }

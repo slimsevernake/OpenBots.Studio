@@ -30,7 +30,7 @@ namespace OpenBots.Commands.Switch
             CommandName = "BeginSwitchCommand";
             SelectionName = "Switch";
             CommandEnabled = true;
-            CustomRendering = true;
+            
         }
 
         public override void RunCommand(object sender, ScriptAction parentCommand)

@@ -36,7 +36,7 @@ namespace OpenBots.Commands.Excel
             CommandName = "ExcelRunMacroCommand";
             SelectionName = "Run Macro";
             CommandEnabled = true;
-            CustomRendering = true;
+            
             v_InstanceName = "DefaultExcel";
         }
 

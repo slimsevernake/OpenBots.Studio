@@ -37,7 +37,7 @@ namespace OpenBots.Commands.DataTable
             CommandName = "GetDataRowCountCommand";
             SelectionName = "Get DataRow Count";
             CommandEnabled = true;
-            CustomRendering = true;
+            
         }
 
         public override void RunCommand(object sender)

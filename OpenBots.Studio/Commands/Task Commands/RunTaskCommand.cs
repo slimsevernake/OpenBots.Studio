@@ -66,7 +66,7 @@ namespace OpenBots.Commands
             CommandName = "RunTaskCommand";
             SelectionName = "Run Task";
             CommandEnabled = true;
-            CustomRendering = true;
+            
             v_taskPath = "{ProjectPath}";
 
             v_VariableAssignments = new DataTable();

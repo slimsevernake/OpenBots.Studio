@@ -50,7 +50,7 @@ namespace OpenBots.Commands.NLG
             CommandName = "SetNLGParameterCommand";
             SelectionName = "Set NLG Parameter";
             CommandEnabled = true;
-            CustomRendering = true;
+            
             v_InstanceName = "DefaultNLG";
             v_ParameterType = "Set Subject";
         }

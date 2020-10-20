@@ -27,7 +27,7 @@ namespace OpenBots.Commands.Engine
             CommandName = "SetEnginePreferenceCommand";
             SelectionName = "Set Engine Preference";
             CommandEnabled = true;
-            CustomRendering = true;
+            
             v_CalculationOption = "Enable Automatic Calculations";
         }
 

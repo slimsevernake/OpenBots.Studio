@@ -29,7 +29,7 @@ namespace OpenBots.Commands.Engine
             CommandName = "PauseScriptCommand";
             SelectionName = "Pause Script";
             CommandEnabled = true;
-            CustomRendering = true;
+            
             v_PauseLength = "1000";
         }
 

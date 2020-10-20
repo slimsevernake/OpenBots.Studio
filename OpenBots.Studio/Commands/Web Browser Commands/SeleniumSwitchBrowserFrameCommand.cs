@@ -46,7 +46,7 @@ namespace OpenBots.Commands
             CommandName = "SeleniumSwitchBrowserFrameCommand";
             SelectionName = "Switch Browser Frame";
             CommandEnabled = true;
-            CustomRendering = true;
+            
             v_InstanceName = "DefaultBrowser";
             v_SelectionType = "Index";
             v_FrameParameter = "0";

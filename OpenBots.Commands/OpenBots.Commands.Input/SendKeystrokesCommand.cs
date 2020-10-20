@@ -48,7 +48,7 @@ namespace OpenBots.Commands.Input
             CommandName = "SendKeystrokesCommand";
             SelectionName = "Send Keystrokes";
             CommandEnabled = true;
-            CustomRendering = true;
+            
 
             v_WindowName = "Current Window";
             v_EncryptionOption = "Not Encrypted";

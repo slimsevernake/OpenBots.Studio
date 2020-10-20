@@ -44,7 +44,7 @@ namespace OpenBots.Commands.Variable
             CommandName = "NewVariableCommand";
             SelectionName = "New Variable";
             CommandEnabled = true;
-            CustomRendering = true;
+            
             v_IfExists = "Error If Variable Exists";
         }
 

@@ -43,7 +43,6 @@ namespace OpenBots.Commands.Word
             CommandName = "WordReplaceTextCommand";
             SelectionName = "Replace Text";
             CommandEnabled = true;
-            CustomRendering = true;
             v_InstanceName = "DefaultWord";
         }
         public override void RunCommand(object sender)

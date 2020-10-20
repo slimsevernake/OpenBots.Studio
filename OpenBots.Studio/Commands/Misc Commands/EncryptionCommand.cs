@@ -51,7 +51,7 @@ namespace OpenBots.Commands
             CommandName = "EncryptionCommand";
             SelectionName = "Encryption Command";
             CommandEnabled = true;
-            CustomRendering = true;
+            
             v_EncryptionType = "Encrypt";
         }
 

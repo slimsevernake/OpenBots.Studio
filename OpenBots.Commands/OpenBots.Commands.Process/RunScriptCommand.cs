@@ -49,7 +49,7 @@ namespace OpenBots.Commands.Process
             CommandName = "RunScriptCommand";
             SelectionName = "Run Script";
             CommandEnabled = true;
-            CustomRendering = true;
+            
             v_ScriptType = "Default";
         }
 

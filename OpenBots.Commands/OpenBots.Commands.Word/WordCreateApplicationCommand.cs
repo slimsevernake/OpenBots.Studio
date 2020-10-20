@@ -70,7 +70,7 @@ namespace OpenBots.Commands.Word
             CommandName = "WordCreateApplicationCommand";
             SelectionName = "Create Word Application";
             CommandEnabled = true;
-            CustomRendering = true;
+            
             v_InstanceName = "DefaultWord";
             v_NewOpenDocument = "New Document";
             v_Visible = "No";

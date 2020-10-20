@@ -37,7 +37,7 @@ namespace OpenBots.Commands.Word
             CommandName = "WordAppendDataTableCommand";
             SelectionName = "Append DataTable";
             CommandEnabled = true;
-            CustomRendering = true;
+            
             v_InstanceName = "DefaultWord";
         }
         public override void RunCommand(object sender)

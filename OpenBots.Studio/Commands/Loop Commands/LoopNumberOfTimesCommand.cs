@@ -37,7 +37,7 @@ namespace OpenBots.Commands
             CommandName = "LoopNumberOfTimesCommand";
             SelectionName = "Loop Number Of Times";
             CommandEnabled = true;
-            CustomRendering = true;
+            
             v_LoopStart = "0";
         }
 

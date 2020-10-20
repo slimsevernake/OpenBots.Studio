@@ -55,7 +55,7 @@ namespace OpenBots.Commands.File
             CommandName = "ExtractFilesCommand";
             SelectionName = "Extract Files";
             CommandEnabled = true;
-            CustomRendering = true;
+            
         }
 
         public override void RunCommand(object sender)

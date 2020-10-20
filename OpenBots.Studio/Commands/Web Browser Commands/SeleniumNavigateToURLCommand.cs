@@ -37,7 +37,7 @@ namespace OpenBots.Commands
             CommandName = "SeleniumNavigateToURLCommand";
             SelectionName = "Navigate to URL";
             CommandEnabled = true;
-            CustomRendering = true;
+            
             v_InstanceName = "DefaultBrowser";
             v_URL = "https://";
         }

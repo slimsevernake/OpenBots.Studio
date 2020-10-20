@@ -53,7 +53,7 @@ namespace OpenBots.Commands.Process
             CommandName = "RunCustomCodeCommand";
             SelectionName = "Run Custom Code";
             CommandEnabled = true;
-            CustomRendering = true;
+            
         }
 
         public override void RunCommand(object sender)

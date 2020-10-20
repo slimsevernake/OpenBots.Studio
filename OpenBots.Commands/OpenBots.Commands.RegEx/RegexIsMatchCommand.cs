@@ -42,7 +42,7 @@ namespace OpenBots.Commands.RegEx
             CommandName = "RegexIsMatchCommand";
             SelectionName = "Regex IsMatch";
             CommandEnabled = true;
-            CustomRendering = true;
+            
         }
 
         public override void RunCommand(object sender)

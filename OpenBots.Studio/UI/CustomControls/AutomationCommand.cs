@@ -29,46 +29,35 @@ namespace OpenBots.UI.CustomControls
             }
 
             UIControls = new List<Control>();
-            if (Command.CustomRendering)
+
+            var renderedControls = Command.Render(editorForm, commandControls);
+
+            foreach (var ctrl in renderedControls)
             {
-                var renderedControls = Command.Render(editorForm, commandControls);
-
-                foreach (var ctrl in renderedControls)
-                {
-                    UIControls.Add(ctrl);
-                }
-
-                //generate Private Checkbox (Control) if user did not add it
-                var checkBoxControlExists = renderedControls.Any(f => f.Name == "v_IsPrivate");
-
-                if (!checkBoxControlExists)
-                {
-                    //TODO: when using a layoutpanel, checkbox is resetting when form closes
-                    //FlowLayoutPanel flpCheckBox = new FlowLayoutPanel();
-                    //flpCheckBox.Height = 30;
-                    //flpCheckBox.FlowDirection = FlowDirection.LeftToRight;
-                    UIControls.Add(commandControls.CreateDefaultLabelFor("v_IsPrivate", Command));
-                    UIControls.Add(commandControls.CreateCheckBoxFor("v_IsPrivate", Command));
-                    //UIControls.Add(flpCheckBox);
-                }
-
-                //generate comment command if user did not generate it
-                var commentControlExists = renderedControls.Any(f => f.Name == "v_Comment");
-
-                if (!commentControlExists)
-                {
-                    UIControls.Add(commandControls.CreateDefaultLabelFor("v_Comment", Command));
-                    UIControls.Add(commandControls.CreateDefaultInputFor("v_Comment", Command, 100, 300));
-                }
+                UIControls.Add(ctrl);
             }
-            else
+
+            //generate Private Checkbox (Control) if user did not add it
+            var checkBoxControlExists = renderedControls.Any(f => f.Name == "v_IsPrivate");
+
+            if (!checkBoxControlExists)
             {
-                var label = new Label();
-                label.ForeColor = Color.Red;
-                label.AutoSize = true;
-                label.Font = new Font("Segoe UI", 18, FontStyle.Bold);
-                label.Text = "Command not enabled for custom rendering!";
-                UIControls.Add(label);
+                //TODO: when using a layoutpanel, checkbox is resetting when form closes
+                //FlowLayoutPanel flpCheckBox = new FlowLayoutPanel();
+                //flpCheckBox.Height = 30;
+                //flpCheckBox.FlowDirection = FlowDirection.LeftToRight;
+                UIControls.Add(commandControls.CreateDefaultLabelFor("v_IsPrivate", Command));
+                UIControls.Add(commandControls.CreateCheckBoxFor("v_IsPrivate", Command));
+                //UIControls.Add(flpCheckBox);
+            }
+
+            //generate comment command if user did not generate it
+            var commentControlExists = renderedControls.Any(f => f.Name == "v_Comment");
+
+            if (!commentControlExists)
+            {
+                UIControls.Add(commandControls.CreateDefaultLabelFor("v_Comment", Command));
+                UIControls.Add(commandControls.CreateDefaultInputFor("v_Comment", Command, 100, 300));
             }
         }
 

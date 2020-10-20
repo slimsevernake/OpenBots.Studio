@@ -85,7 +85,7 @@ namespace OpenBots.Commands.Email
             CommandName = "MoveCopyIMAPEmailCommand";
             SelectionName = "Move/Copy IMAP Email";
             CommandEnabled = true;
-            CustomRendering = true;
+            
             v_IMAPOperationType = "Move MimeMessage";
             v_IMAPMoveCopyUnreadOnly = "Yes";
         }

@@ -119,7 +119,7 @@ namespace OpenBots.Commands.Email
             CommandName = "GetIMAPEmailsCommand";
             SelectionName = "Get IMAP Emails";
             CommandEnabled = true;
-            CustomRendering = true;
+            
             v_IMAPSourceFolder = "INBOX";
             v_IMAPGetUnreadOnly = "No";
             v_IMAPMarkAsRead = "Yes";

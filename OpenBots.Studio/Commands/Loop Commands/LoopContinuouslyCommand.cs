@@ -19,7 +19,7 @@ namespace OpenBots.Commands
             CommandName = "LoopContinuouslyCommand";
             SelectionName = "Loop Continuously";
             CommandEnabled = true;
-            CustomRendering = true;
+            
         }
 
         public override void RunCommand(object sender, ScriptAction parentCommand)

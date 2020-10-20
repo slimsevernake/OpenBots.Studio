@@ -51,7 +51,7 @@ namespace OpenBots.Commands.List
             CommandName = "CreateListCommand";
             SelectionName = "Create List";
             CommandEnabled = true;
-            CustomRendering = true;
+            
             v_ListType = "String";
         }
 

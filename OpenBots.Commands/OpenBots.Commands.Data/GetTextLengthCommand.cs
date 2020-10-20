@@ -35,7 +35,7 @@ namespace OpenBots.Commands.Data
             CommandName = "GetTextLengthCommand";
             SelectionName = "Get Text Length";
             CommandEnabled = true;
-            CustomRendering = true;
+            
         }
 
         public override void RunCommand(object sender)

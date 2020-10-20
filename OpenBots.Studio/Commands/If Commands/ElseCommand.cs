@@ -18,7 +18,7 @@ namespace OpenBots.Commands
             CommandName = "ElseCommand";
             SelectionName = "Else";
             CommandEnabled = true;
-            CustomRendering = true;
+            
         }
 
         public override List<Control> Render(IfrmCommandEditor editor, ICommandControls commandControls)

@@ -61,7 +61,7 @@ namespace OpenBots.Commands.Asset
             CommandName = "UpdateAssetCommand";
             SelectionName = "Update Asset";
             CommandEnabled = true;
-            CustomRendering = true;
+            
             v_AssetType = "Text";
         }
 

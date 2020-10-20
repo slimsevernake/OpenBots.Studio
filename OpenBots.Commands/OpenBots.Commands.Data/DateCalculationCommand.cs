@@ -78,7 +78,7 @@ namespace OpenBots.Commands.Data
             CommandName = "DateCalculationCommand";
             SelectionName = "Date Calculation";
             CommandEnabled = true;
-            CustomRendering = true;
+            
 
             v_InputDate = "{DateTime.Now}";
             v_CalculationMethod = "Add Second(s)";

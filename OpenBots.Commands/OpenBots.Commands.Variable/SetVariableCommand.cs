@@ -33,8 +33,7 @@ namespace OpenBots.Commands.Variable
         {
             CommandName = "SetVariableCommand";
             SelectionName = "Set Variable";
-            CommandEnabled = true;
-            CustomRendering = true;
+            CommandEnabled = true;          
         }
 
         public override void RunCommand(object sender)

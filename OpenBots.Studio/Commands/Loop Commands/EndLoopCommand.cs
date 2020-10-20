@@ -19,7 +19,7 @@ namespace OpenBots.Commands
             CommandName = "EndLoopCommand";
             SelectionName = "End Loop";
             CommandEnabled = true;
-            CustomRendering = true;
+            
         }
 
         public override List<Control> Render(IfrmCommandEditor editor, ICommandControls commandControls)

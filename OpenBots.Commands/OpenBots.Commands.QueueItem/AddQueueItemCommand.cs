@@ -71,7 +71,7 @@ namespace OpenBots.Commands.QueueItem
             CommandName = "AddQueueItemCommand";
             SelectionName = "Add QueueItem";
             CommandEnabled = true;
-            CustomRendering = true;
+            
             v_QueueItemType = "Text";
             v_Priority = "100";
         }

@@ -45,7 +45,7 @@ namespace OpenBots.Commands
             CommandName = "BeginMultiLoopCommand";
             SelectionName = "Begin Multi Loop";
             CommandEnabled = true;
-            CustomRendering = true;
+            
 
             v_LoopConditionsTable = new DataTable();
             v_LoopConditionsTable.TableName = DateTime.Now.ToString("MultiLoopConditionTable" + DateTime.Now.ToString("MMddyy.hhmmss"));

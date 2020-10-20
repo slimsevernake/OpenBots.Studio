@@ -44,7 +44,7 @@ namespace OpenBots.Commands
             CommandName = "CatchCommand";
             SelectionName = "Catch";
             CommandEnabled = true;
-            CustomRendering = true;
+            
             v_ExceptionType = "Exception";
         }
 

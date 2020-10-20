@@ -29,7 +29,7 @@ namespace OpenBots.Commands.Window
             CommandName = "ActivateWindowCommand";
             SelectionName = "Activate Window";
             CommandEnabled = true;
-            CustomRendering = true;
+            
         }
 
         public override void RunCommand(object sender)

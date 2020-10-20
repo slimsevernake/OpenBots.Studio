@@ -29,7 +29,7 @@ namespace OpenBots.Commands.QueueItem
             CommandName = "ExtendQueueItemCommand";
             SelectionName = "Extend QueueItem";
             CommandEnabled = true;
-            CustomRendering = true;
+            
         }
 
         public override void RunCommand(object sender)

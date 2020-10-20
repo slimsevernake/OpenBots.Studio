@@ -84,7 +84,7 @@ namespace OpenBots.Commands.Word
             CommandName = "WordAppendTextCommand";
             SelectionName = "Append Text";
             CommandEnabled = true;
-            CustomRendering = true;
+            
             v_InstanceName = "DefaultWord";
             v_FontName = "Calibri";
             v_FontSize = "11";

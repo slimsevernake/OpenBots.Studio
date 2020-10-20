@@ -63,7 +63,7 @@ namespace OpenBots.Commands.Database
             CommandName = "DefineDatabaseConnectionCommand";
             SelectionName = "Define Database Connection";
             CommandEnabled = true;
-            CustomRendering = true;
+            
             v_InstanceName = "DefaultDatabase";
             v_TestConnection = "Yes";
         }

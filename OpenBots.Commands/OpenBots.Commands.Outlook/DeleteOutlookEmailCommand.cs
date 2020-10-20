@@ -39,7 +39,7 @@ namespace OpenBots.Commands.Outlook
             CommandName = "DeleteOutlookEmailCommand";
             SelectionName = "Delete Outlook Email";
             CommandEnabled = true;
-            CustomRendering = true;
+            
             v_DeleteReadOnly = "Yes";
         }
 

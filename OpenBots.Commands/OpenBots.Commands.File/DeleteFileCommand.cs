@@ -30,7 +30,7 @@ namespace OpenBots.Commands.File
             CommandName = "DeleteFileCommand";
             SelectionName = "Delete File";
             CommandEnabled = true;
-            CustomRendering = true;
+            
         }
 
         public override void RunCommand(object sender)

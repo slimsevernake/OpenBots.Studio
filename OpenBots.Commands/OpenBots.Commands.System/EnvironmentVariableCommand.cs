@@ -41,7 +41,7 @@ namespace OpenBots.Commands.System
             CommandName = "EnvironmentVariableCommand";
             SelectionName = "Environment Variable";
             CommandEnabled = true;
-            CustomRendering = true;
+            
         }
 
         public override void RunCommand(object sender)

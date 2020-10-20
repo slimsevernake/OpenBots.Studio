@@ -34,7 +34,6 @@ namespace OpenBots.Commands.Word
             CommandName = "WordReadDocumentCommand";
             SelectionName = "Read Document";
             CommandEnabled = true;
-            CustomRendering = true;
             v_InstanceName = "DefaultWord";
         }
 

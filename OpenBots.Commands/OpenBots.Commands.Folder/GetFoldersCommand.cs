@@ -37,7 +37,7 @@ namespace OpenBots.Commands.Folder
             CommandName = "GetFoldersCommand";
             SelectionName = "Get Folders";
             CommandEnabled = true;
-            CustomRendering = true;
+            
         }
 
         public override void RunCommand(object sender)

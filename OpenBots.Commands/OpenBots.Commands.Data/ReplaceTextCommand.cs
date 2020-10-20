@@ -49,7 +49,7 @@ namespace OpenBots.Commands.Data
             CommandName = "ReplaceTextCommand";
             SelectionName = "Replace Text";
             CommandEnabled = true;
-            CustomRendering = true;
+            
         }
 
         public override void RunCommand(object sender)

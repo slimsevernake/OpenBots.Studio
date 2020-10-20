@@ -56,7 +56,7 @@ namespace OpenBots.Commands.QueueItem
             CommandName = "SetQueueItemStatusCommand";
             SelectionName = "Set QueueItem Status";
             CommandEnabled = true;
-            CustomRendering = true;
+            
             v_QueueItemStatusType = "Successful";
         }
 

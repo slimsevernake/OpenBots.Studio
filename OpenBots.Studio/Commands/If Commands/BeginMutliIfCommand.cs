@@ -43,7 +43,7 @@ namespace OpenBots.Commands
             CommandName = "BeginMultiIfCommand";
             SelectionName = "Begin Multi If";
             CommandEnabled = true;
-            CustomRendering = true;
+            
 
             v_IfConditionsTable = new DataTable();
             v_IfConditionsTable.TableName = DateTime.Now.ToString("MultiIfConditionTable" + DateTime.Now.ToString("MMddyy.hhmmss"));

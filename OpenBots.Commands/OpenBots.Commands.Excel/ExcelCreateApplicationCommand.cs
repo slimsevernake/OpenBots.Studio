@@ -67,7 +67,7 @@ namespace OpenBots.Commands.Excel
             CommandName = "ExcelCreateApplicationCommand";
             SelectionName = "Create Excel Application";
             CommandEnabled = true;
-            CustomRendering = true;
+            
             v_InstanceName = "DefaultExcel";
             v_NewOpenWorkbook = "New Workbook";
             v_Visible = "No";

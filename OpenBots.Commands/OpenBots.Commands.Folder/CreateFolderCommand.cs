@@ -45,7 +45,7 @@ namespace OpenBots.Commands.Folder
             CommandName = "CreateFolderCommand";
             SelectionName = "Create Folder";
             CommandEnabled = true;
-            CustomRendering = true;
+            
         }
 
         public override void RunCommand(object sender)

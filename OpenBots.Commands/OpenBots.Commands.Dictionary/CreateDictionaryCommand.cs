@@ -36,7 +36,7 @@ namespace OpenBots.Commands.Dictionary
             CommandName = "CreateDictionaryCommand";
             SelectionName = "Create Dictionary";
             CommandEnabled = true;
-            CustomRendering = true;
+            
 
             //initialize Datatable
             v_ColumnNameDataTable = new DataTable

@@ -17,7 +17,7 @@ namespace OpenBots.Commands
             CommandName = "EndTryCommand";
             SelectionName = "End Try";
             CommandEnabled = true;
-            CustomRendering = true;
+            
         }
 
         public override void RunCommand(object sender)
