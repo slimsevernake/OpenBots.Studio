@@ -15,7 +15,7 @@ namespace OpenBots.Commands.Excel
 {
     [Serializable]
     [Group("Excel Commands")]
-    [Description("This command activates a specific Worksheet in an Excel Workbook.")]
+    [Description("This command renames a specific Worksheet in an Excel Workbook.")]
     public class ExcelRenameSheetCommand : ScriptCommand
     {
         [PropertyDescription("Excel Instance Name")]

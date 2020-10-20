@@ -18,7 +18,7 @@ namespace OpenBots.Commands.List
 {
     [Serializable]
     [Group("List Commands")]
-    [Description("This command updates an item in an existing List variable at a specified index.")]
+    [Description("This command removes an item from an existing List variable at a specified index.")]
     public class RemoveListItemCommand : ScriptCommand
     {
         [PropertyDescription("List")]

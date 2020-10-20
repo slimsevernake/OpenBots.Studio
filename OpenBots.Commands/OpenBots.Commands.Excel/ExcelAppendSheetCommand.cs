@@ -15,7 +15,7 @@ namespace OpenBots.Commands.Excel
 {
     [Serializable]
     [Group("Excel Commands")]
-    [Description("This command activates a specific Worksheet in an Excel Workbook.")]
+    [Description("This command appends a new Worksheet to an Excel Workbook.")]
     public class ExcelAppendSheetCommand : ScriptCommand
     {
         [PropertyDescription("Excel Instance Name")]
