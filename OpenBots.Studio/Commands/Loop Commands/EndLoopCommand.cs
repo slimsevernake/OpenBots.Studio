@@ -1,9 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Windows.Forms;
-using System.ComponentModel;
-using OpenBots.Core.Command;
+﻿using OpenBots.Core.Command;
 using OpenBots.Core.Infrastructure;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Windows.Forms;
 
 namespace OpenBots.Commands
 {

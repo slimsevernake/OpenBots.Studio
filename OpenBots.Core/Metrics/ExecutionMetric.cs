@@ -1,6 +1,6 @@
-﻿using System;
+﻿using OpenBots.Core.Model.EngineModel;
+using System;
 using System.Collections.Generic;
-using OpenBots.Core.Model.EngineModel;
 
 namespace OpenBots.Core.Metrics
 {

@@ -1,15 +1,14 @@
-﻿using System;
+﻿using OpenBots.Core.Command;
+using OpenBots.Core.Settings;
+using OpenBots.UI.CustomControls;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Threading;
 using System.Windows.Forms;
-using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
-using OpenBots.Core.Command;
-using OpenBots.Core.Settings;
-using OpenBots.UI.CustomControls;
 
 namespace OpenBots.Utilities
 {

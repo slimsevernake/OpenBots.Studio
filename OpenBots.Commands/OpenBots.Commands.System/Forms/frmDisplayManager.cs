@@ -1,15 +1,11 @@
-﻿using System;
-using System.Windows.Forms;
-using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
-using System.Data;
-using System.Linq;
-using OpenBots.Core.Enums;
-using OpenBots.Core.UI.Forms;
-using OpenBots.Commands.System.Forms;
-using OpenBots.Commands.System.Library.Enums;
+﻿using OpenBots.Commands.System.Library.Enums;
 using OpenBots.Commands.System.Library.EventArgs;
 using OpenBots.Core.UI.DTOs;
+using OpenBots.Core.UI.Forms;
+using System;
+using System.ComponentModel;
+using System.Data;
+using System.Linq;
 
 namespace OpenBots.Commands.System.Forms
 {

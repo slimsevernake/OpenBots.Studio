@@ -1,16 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
-using System.Data;
-using System.Diagnostics;
-using System.Drawing;
-using System.IO;
-using System.Linq;
-using System.Reflection;
-using System.Threading;
-using System.Windows.Forms;
-using OpenBots.Commands;
+﻿using OpenBots.Commands;
 using OpenBots.Commands.API;
 using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
@@ -24,6 +12,16 @@ using OpenBots.Core.Utilities.CommandUtilities;
 using OpenBots.UI.CustomControls.CustomUIControls;
 using OpenBots.UI.Forms;
 using OpenBots.UI.Forms.Supplement_Forms;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Diagnostics;
+using System.Drawing;
+using System.Linq;
+using System.Reflection;
+using System.Threading;
+using System.Windows.Forms;
 
 namespace OpenBots.UI.CustomControls
 {

@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Windows.Forms;
-using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
-using OpenBots.Core.Attributes.PropertyAttributes;
+﻿using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
 using OpenBots.Core.Common;
 using OpenBots.Core.Enums;
@@ -12,6 +6,12 @@ using OpenBots.Core.Infrastructure;
 using OpenBots.Core.Utilities.CommonUtilities;
 using OpenBots.Engine;
 using OpenBots.UI.CustomControls.CustomUIControls;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
+using System.Drawing;
+using System.Windows.Forms;
 
 namespace OpenBots.Commands
 {

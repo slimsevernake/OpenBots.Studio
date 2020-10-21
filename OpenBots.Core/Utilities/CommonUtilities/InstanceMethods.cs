@@ -1,5 +1,5 @@
-﻿using System;
-using OpenBots.Core.Infrastructure;
+﻿using OpenBots.Core.Infrastructure;
+using System;
 
 namespace OpenBots.Core.Utilities.CommonUtilities
 {

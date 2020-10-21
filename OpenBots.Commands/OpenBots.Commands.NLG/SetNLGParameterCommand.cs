@@ -1,6 +1,4 @@
-﻿using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
-using OpenBots.Core.Attributes.PropertyAttributes;
+﻿using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
 using OpenBots.Core.Enums;
 using OpenBots.Core.Infrastructure;
@@ -9,6 +7,8 @@ using OpenBots.Engine;
 using SimpleNLG;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Windows.Forms;
 
 namespace OpenBots.Commands.NLG

@@ -10,79 +10,79 @@ using System.Windows.Forms;
 namespace OpenBots.Core.Command
 {
     public abstract class ScriptCommand
-    {
-        [Browsable(false)]
-        public string CommandName { get; set; }
+	{
+		[Browsable(false)]
+		public string CommandName { get; set; }
 
-        [Browsable(false)]
-        public string SelectionName { get; set; }
+		[Browsable(false)]
+		public string SelectionName { get; set; }
 
-        [Browsable(false)]
-        public int LineNumber { get; set; }
+		[Browsable(false)]
+		public int LineNumber { get; set; }
 
-        [Browsable(false)]
-        public bool IsCommented { get; set; }
+		[Browsable(false)]
+		public bool IsCommented { get; set; }
 
-        [Browsable(false)]
-        public bool PauseBeforeExecution { get; set; }
+		[Browsable(false)]
+		public bool PauseBeforeExecution { get; set; }
 
-        [Browsable(false)]
-        public bool CommandEnabled { get; set; }
+		[Browsable(false)]
+		public bool CommandEnabled { get; set; }
 
 		[DisplayName("Private (Optional)")]
-        [Description("Optional field to mark the command as private (data sensitive) in order to avoid its logging.")]
-        [SampleUsage("")]
-        [Remarks("")]
-        public bool v_IsPrivate { get; set; }
+		[Description("Optional field to mark the command as private (data sensitive) in order to avoid its logging.")]
+		[SampleUsage("")]
+		[Remarks("")]
+		public bool v_IsPrivate { get; set; }
 
 		[DisplayName("Comment Field (Optional)")]
-        [Description("Optional field to enter a custom comment which could potentially describe this command or the need for this command, if required.")]
-        [SampleUsage("I am using this command to ...")]
-        [Remarks("Optional")]
-        public string v_Comment { get; set; }
+		[Description("Optional field to enter a custom comment which could potentially describe this command or the need for this command, if required.")]
+		[SampleUsage("I am using this command to ...")]
+		[Remarks("Optional")]
+		public string v_Comment { get; set; }
 
-        [JsonIgnore]
+		[JsonIgnore]
 		[Browsable(false)]
-        public List<Control> RenderedControls;      
+		public List<Control> RenderedControls;      
 
-        [JsonIgnore]
+		[JsonIgnore]
 		[Browsable(false)]
-        public bool IsSteppedInto { get; set; }
+		public bool IsSteppedInto { get; set; }
 
-        [JsonIgnore]
+		[JsonIgnore]
 		[Browsable(false)]
-        public IfrmScriptBuilder CurrentScriptBuilder { get; set; }
+		public IfrmScriptBuilder CurrentScriptBuilder { get; set; }
 
-        [JsonIgnore]
+		[JsonIgnore]
 		[Browsable(false)]
-        public LogEventLevel LogLevel { get; set; } = LogEventLevel.Information;
+		public LogEventLevel LogLevel { get; set; } = LogEventLevel.Information;
 
-        public ScriptCommand()
-        {
-            CommandEnabled = false;
-            IsCommented = false;
-        }
+		public ScriptCommand()
+		{
+			CommandEnabled = false;
+			IsCommented = false;
+		}
 
-        public virtual void RunCommand(object sender)
-        {
-        }
+		public virtual void RunCommand(object sender)
+		{
+		}
 
-        public virtual void RunCommand(object sender, ScriptAction command)
-        {
-        }
+		public virtual void RunCommand(object sender, ScriptAction command)
+		{
+		}
 
-        public virtual string GetDisplayValue()
-        {
-            if (string.IsNullOrEmpty(v_Comment))
-                return SelectionName;
-            else
-                return $"{v_Comment} - " + SelectionName;
-        }
+		public virtual string GetDisplayValue()
+		{
+			if (string.IsNullOrEmpty(v_Comment))
+				return SelectionName;
+			else
+				return $"{v_Comment} - " + SelectionName;
+		}
 
-        public virtual List<Control> Render(IfrmCommandEditor editor, ICommandControls commandControls)
-        {
-            RenderedControls = new List<Control>();
-            return RenderedControls;
-        }
-    }
+		public virtual List<Control> Render(IfrmCommandEditor editor, ICommandControls commandControls)
+		{
+			RenderedControls = new List<Control>();
+			return RenderedControls;
+		}
+	}
 }

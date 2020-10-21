@@ -1,6 +1,6 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Net;
-using Newtonsoft.Json;
 using System.Windows.Forms;
 namespace OpenBots.Utilities
 {

@@ -1,7 +1,7 @@
-﻿using Serilog.Events;
+﻿using OpenBots.Core.Enums;
+using Serilog.Events;
 using System;
 using System.Windows.Forms;
-using OpenBots.Core.Enums;
 
 namespace OpenBots.Core.Settings
 {

@@ -1,7 +1,7 @@
-﻿using System;
-using System.IO;
-using OpenBots.Core.Enums;
+﻿using OpenBots.Core.Enums;
 using OpenBots.Core.Settings;
+using System;
+using System.IO;
 
 namespace OpenBots.Core.IO
 {

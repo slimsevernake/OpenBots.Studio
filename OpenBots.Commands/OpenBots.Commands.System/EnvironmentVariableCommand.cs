@@ -1,6 +1,4 @@
 ﻿using Newtonsoft.Json;
-using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
 using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
 using OpenBots.Core.Infrastructure;
@@ -9,6 +7,8 @@ using OpenBots.Engine;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Drawing;
 using System.Windows.Forms;
 

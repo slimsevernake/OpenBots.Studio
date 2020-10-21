@@ -1,5 +1,5 @@
-﻿using System.Windows.Forms;
-using OpenBots.Core.Utilities.FormsUtilities;
+﻿using OpenBots.Core.Utilities.FormsUtilities;
+using System.Windows.Forms;
 
 namespace OpenBots.UI.CustomControls.CustomUIControls
 {

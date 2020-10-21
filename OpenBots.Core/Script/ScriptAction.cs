@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using OpenBots.Core.Command;
+using System.Collections.Generic;
+using System.ComponentModel;
 
 namespace OpenBots.Core.Script
 {

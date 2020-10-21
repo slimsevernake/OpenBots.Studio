@@ -1,7 +1,5 @@
 ﻿using Microsoft.Office.Interop.Outlook;
 using MimeKit;
-using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
 using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
 using OpenBots.Core.Enums;
@@ -11,6 +9,8 @@ using OpenBots.Engine;
 using OpenQA.Selenium;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Data;
 using System.Windows.Forms;
 using Exception = System.Exception;

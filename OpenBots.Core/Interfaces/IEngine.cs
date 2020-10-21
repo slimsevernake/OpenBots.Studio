@@ -1,13 +1,12 @@
-﻿using Newtonsoft.Json;
+﻿using OpenBots.Core.Command;
+using OpenBots.Core.Model.EngineModel;
+using OpenBots.Core.Script;
+using OpenBots.Core.Settings;
 using RestSharp;
 using Serilog.Core;
 using System;
 using System.Collections.Generic;
 using System.Data;
-using OpenBots.Core.Command;
-using OpenBots.Core.Model.EngineModel;
-using OpenBots.Core.Script;
-using OpenBots.Core.Settings;
 
 namespace OpenBots.Core.Infrastructure
 {

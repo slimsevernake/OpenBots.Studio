@@ -1,4 +1,15 @@
-﻿using System;
+﻿using OpenBots.Commands;
+using OpenBots.Commands.Window;
+using OpenBots.Core.Command;
+using OpenBots.Core.Common;
+using OpenBots.Core.Enums;
+using OpenBots.Core.Settings;
+using OpenBots.Core.UI.Forms;
+using OpenBots.Core.User32;
+using OpenBots.UI.Forms.ScriptBuilder_Forms;
+using OpenBots.UI.Supplement_Forms;
+using OpenBots.Utilities;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Diagnostics;
@@ -7,18 +18,7 @@ using System.Text;
 using System.Windows;
 using System.Windows.Automation;
 using System.Windows.Forms;
-using OpenBots.Commands;
-using OpenBots.Core.Command;
-using OpenBots.Core.Common;
-using OpenBots.Core.Enums;
-using OpenBots.Core.Settings;
-using OpenBots.Core.User32;
-using OpenBots.UI.Forms.ScriptBuilder_Forms;
-using OpenBots.UI.Supplement_Forms;
-using OpenBots.Utilities;
 using Enums = OpenBots.Core.Enums;
-using OpenBots.Core.UI.Forms;
-using OpenBots.Commands.Window;
 
 namespace OpenBots.UI.Forms.Supplement_Forms
 {

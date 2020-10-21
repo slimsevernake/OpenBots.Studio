@@ -1,12 +1,4 @@
 ﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Threading;
-using System.Windows.Forms;
-using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
 using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
 using OpenBots.Core.Enums;
@@ -17,6 +9,14 @@ using OpenBots.Core.Utilities.CommonUtilities;
 using OpenBots.Engine;
 using OpenBots.UI.Forms;
 using OpenBots.Utilities;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
+using System.Data;
+using System.Linq;
+using System.Threading;
+using System.Windows.Forms;
 
 namespace OpenBots.Commands
 {

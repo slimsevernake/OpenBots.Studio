@@ -1,9 +1,4 @@
-﻿using Microsoft.Office.Interop.Outlook;
-using MimeKit;
-using OpenQA.Selenium;
-using System.Data;
-using System.Drawing;
-using System.Windows.Forms;
+﻿using System.Windows.Forms;
 
 namespace OpenBots.Core.Infrastructure
 {

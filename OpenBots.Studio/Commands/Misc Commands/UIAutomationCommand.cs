@@ -1,5 +1,19 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using OpenBots.Core.Attributes.PropertyAttributes;
+using OpenBots.Core.Command;
+using OpenBots.Core.Enums;
+using OpenBots.Core.Infrastructure;
+using OpenBots.Core.Properties;
+using OpenBots.Core.UI.Controls;
+using OpenBots.Core.User32;
+using OpenBots.Core.Utilities.CommandUtilities;
+using OpenBots.Core.Utilities.CommonUtilities;
+using OpenBots.Engine;
+using OpenBots.UI.Forms.Supplement_Forms;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Data;
 using System.Drawing;
 using System.Linq;
@@ -7,20 +21,6 @@ using System.Security;
 using System.Threading;
 using System.Windows.Automation;
 using System.Windows.Forms;
-using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
-using OpenBots.Core.Attributes.PropertyAttributes;
-using OpenBots.Core.Command;
-using OpenBots.Core.Enums;
-using OpenBots.Core.Infrastructure;
-using OpenBots.Core.User32;
-using OpenBots.Core.Utilities.CommandUtilities;
-using OpenBots.Core.Utilities.CommonUtilities;
-using OpenBots.Engine;
-using OpenBots.Core.Properties;
-using OpenBots.Core.UI.Controls;
-using OpenBots.UI.Forms.Supplement_Forms;
-using Newtonsoft.Json;
 
 namespace OpenBots.Commands
 {

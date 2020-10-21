@@ -8,9 +8,9 @@ using OpenBots.Core.Utilities.CommonUtilities;
 using OpenBots.Engine;
 using System;
 using System.Collections.Generic;
-using System.Windows.Forms;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.Windows.Forms;
 
 namespace OpenBots.Commands.Asset
 {

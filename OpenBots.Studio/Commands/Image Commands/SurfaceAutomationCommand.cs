@@ -1,16 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Drawing;
-using System.Drawing.Imaging;
-using System.IO;
-using System.Linq;
-using System.Security;
-using System.Threading;
-using System.Windows.Forms;
-using Newtonsoft.Json;
-using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
+﻿using Newtonsoft.Json;
 using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
 using OpenBots.Core.Common;
@@ -23,6 +11,18 @@ using OpenBots.Engine;
 using OpenBots.UI.CustomControls.CustomUIControls;
 using OpenBots.UI.Forms.Supplement_Forms;
 using OpenBots.Utilities;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
+using System.Data;
+using System.Drawing;
+using System.Drawing.Imaging;
+using System.IO;
+using System.Linq;
+using System.Security;
+using System.Threading;
+using System.Windows.Forms;
 using WindowsInput;
 
 namespace OpenBots.Commands

@@ -13,14 +13,13 @@
 //See the License for the specific language governing permissions and
 //limitations under the License.
 using mshtml;
+using OpenBots.Core.UI.Forms;
+using OpenBots.Core.User32;
 using SHDocVw;
 using System;
 using System.Data;
 using System.Reflection;
 using System.Windows.Forms;
-using OpenBots.Commands;
-using OpenBots.Core.UI.Forms;
-using OpenBots.Core.User32;
 
 namespace OpenBots.UI.Forms.Supplement_Forms
 {

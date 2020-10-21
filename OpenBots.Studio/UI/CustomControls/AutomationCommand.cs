@@ -1,13 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Windows.Forms;
-using OpenBots.Core.Command;
+﻿using OpenBots.Core.Command;
 using OpenBots.Core.Enums;
 using OpenBots.Core.Infrastructure;
-using OpenBots.UI.Forms;
 using OpenBots.Core.UI.Controls;
+using OpenBots.UI.Forms;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Windows.Forms;
 
 namespace OpenBots.UI.CustomControls
 {

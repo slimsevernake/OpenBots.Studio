@@ -1,8 +1,8 @@
 ﻿using Newtonsoft.Json;
-using System;
-using System.IO;
 using OpenBots.Core.Enums;
 using OpenBots.Core.IO;
+using System;
+using System.IO;
 
 namespace OpenBots.Core.Settings
 {

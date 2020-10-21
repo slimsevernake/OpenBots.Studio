@@ -1,19 +1,19 @@
 ﻿using Newtonsoft.Json;
+using OpenBots.Commands;
+using OpenBots.Commands.Switch;
+using OpenBots.Core.Command;
+using OpenBots.Core.Common;
+using OpenBots.Core.Enums;
+using OpenBots.Core.Properties;
+using OpenBots.Core.UI.DTOs;
+using OpenBots.UI.CustomControls.CustomUIControls;
+using OpenBots.UI.Forms.Supplement_Forms;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
-using OpenBots.Commands;
-using OpenBots.Core.Command;
-using OpenBots.Core.Common;
-using OpenBots.Core.Enums;
-using OpenBots.Core.Properties;
-using OpenBots.UI.CustomControls.CustomUIControls;
-using OpenBots.Core.UI.DTOs;
-using OpenBots.UI.Forms.Supplement_Forms;
-using OpenBots.Commands.Switch;
 
 namespace OpenBots.UI.Forms.ScriptBuilder_Forms
 {
