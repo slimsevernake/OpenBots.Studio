@@ -25,7 +25,8 @@ namespace OpenBots.Commands.NLG
         public string v_InstanceName { get; set; }
 
         [Required]
-		[DisplayName("Output Phrase Variable")]
+        [Editable(false)]
+        [DisplayName("Output Phrase Variable")]
         [Description("Create a new variable or select a variable from the list.")]
         [SampleUsage("{vUserVariable}")]
         [Remarks("Variables not pre-defined in the Variable Manager will be automatically generated at runtime.")]

@@ -41,7 +41,8 @@ namespace OpenBots.Commands.Data
         public string v_DecimalSeparator { get; set; }
 
         [Required]
-		[DisplayName("Output Result Variable")]
+        [Editable(false)]
+        [DisplayName("Output Result Variable")]
         [Description("Create a new variable or select a variable from the list.")]
         [SampleUsage("{vUserVariable}")]
         [Remarks("Variables not pre-defined in the Variable Manager will be automatically generated at runtime.")]

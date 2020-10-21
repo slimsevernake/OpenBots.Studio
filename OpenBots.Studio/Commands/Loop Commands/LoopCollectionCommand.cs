@@ -34,7 +34,8 @@ namespace OpenBots.Commands
         public string v_LoopParameter { get; set; }
 
         [Required]
-		[DisplayName("Output Collection Item Variable")]
+        [Editable(false)]
+        [DisplayName("Output Collection Item Variable")]
         [Description("Create a new variable or select a variable from the list.")]
         [SampleUsage("{vUserVariable}")]
         [Remarks("Variables not pre-defined in the Variable Manager will be automatically generated at runtime.")]

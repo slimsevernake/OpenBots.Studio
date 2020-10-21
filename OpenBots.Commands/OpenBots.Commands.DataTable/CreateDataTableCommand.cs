@@ -30,7 +30,8 @@ namespace OpenBots.Commands.DataTable
         public Data.DataTable v_ColumnNameDataTable { get; set; }
 
         [Required]
-		[DisplayName("Output DataTable Variable")]
+        [Editable(false)]
+        [DisplayName("Output DataTable Variable")]
         [Description("Create a new variable or select a variable from the list.")]
         [SampleUsage("{vUserVariable}")]
         [Remarks("Variables not pre-defined in the Variable Manager will be automatically generated at runtime.")]

@@ -45,7 +45,8 @@ namespace OpenBots.Commands
         public string v_PassPhrase { get; set; }
 
         [Required]
-		[DisplayName("Output Result Variable")]
+        [Editable(false)]
+        [DisplayName("Output Result Variable")]
         [Description("Create a new variable or select a variable from the list.")]
         [SampleUsage("{vUserVariable}")]
         [Remarks("Variables not pre-defined in the Variable Manager will be automatically generated at runtime.")]

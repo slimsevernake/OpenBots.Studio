@@ -121,7 +121,8 @@ namespace OpenBots.Commands.Email
         public string v_IMAPAttachmentDirectory { get; set; }
 
         [Required]
-		[DisplayName("Output MimeMessage List Variable")]
+        [Editable(false)]
+        [DisplayName("Output MimeMessage List Variable")]
         [Description("Create a new variable or select a variable from the list.")]
         [SampleUsage("vUserVariable")]
         [Remarks("Variables not pre-defined in the Variable Manager will be automatically generated at runtime.")]

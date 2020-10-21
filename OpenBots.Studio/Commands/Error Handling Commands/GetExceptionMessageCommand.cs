@@ -19,6 +19,7 @@ namespace OpenBots.Commands
     {
 
         [Required]
+        [Editable(false)]
 		[DisplayName("Output Exception Message Variable")]
         [Description("Create a new variable or select a variable from the list.")]
         [SampleUsage("{vUserVariable}")]

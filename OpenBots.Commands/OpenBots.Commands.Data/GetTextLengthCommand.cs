@@ -27,7 +27,8 @@ namespace OpenBots.Commands.Data
         public string v_InputValue { get; set; }
 
         [Required]
-		[DisplayName("Output Length Variable")]
+        [Editable(false)]
+        [DisplayName("Output Length Variable")]
         [Description("Create a new variable or select a variable from the list.")]
         [SampleUsage("{vUserVariable}")]
         [Remarks("Variables not pre-defined in the Variable Manager will be automatically generated at runtime.")]

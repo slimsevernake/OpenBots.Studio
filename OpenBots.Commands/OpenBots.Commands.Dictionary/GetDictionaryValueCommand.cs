@@ -35,7 +35,8 @@ namespace OpenBots.Commands.Dictionary
         public string v_Key { get; set; }
 
         [Required]
-		[DisplayName("Output Value Variable")]
+        [Editable(false)]
+        [DisplayName("Output Value Variable")]
         [Description("Create a new variable or select a variable from the list.")]
         [SampleUsage("{vUserVariable}")]
         [Remarks("Variables not pre-defined in the Variable Manager will be automatically generated at runtime.")]

@@ -40,7 +40,8 @@ namespace OpenBots.Commands.List
         public string v_ItemIndex { get; set; }
 
         [Required]
-		[DisplayName("Output List Item Variable")]
+        [Editable(false)]
+        [DisplayName("Output List Item Variable")]
         [Description("Create a new variable or select a variable from the list.")]
         [SampleUsage("{vUserVariable}")]
         [Remarks("Variables not pre-defined in the Variable Manager will be automatically generated at runtime.")]

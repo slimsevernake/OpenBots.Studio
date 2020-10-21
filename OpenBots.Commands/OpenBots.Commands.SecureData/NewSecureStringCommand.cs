@@ -27,7 +27,8 @@ namespace OpenBots.Commands.SecureData
         public string v_Input { get; set; }
 
         [Required]
-		[DisplayName("Output SecureString Variable")]
+        [Editable(false)]
+        [DisplayName("Output SecureString Variable")]
         [Description("Create a new variable or select a variable from the list.")]
         [SampleUsage("{vUserVariable}")]
         [Remarks("Variables not pre-defined in the Variable Manager will be automatically generated at runtime.")]

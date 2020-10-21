@@ -27,7 +27,8 @@ namespace OpenBots.Commands.System
         public string v_EnvVariableName { get; set; }
 
         [Required]
-		[DisplayName("Output Environment Variable")]
+        [Editable(false)]
+        [DisplayName("Output Environment Variable")]
         [Description("Create a new variable or select a variable from the list.")]
         [SampleUsage("{vUserVariable}")]
         [Remarks("Variables not pre-defined in the Variable Manager will be automatically generated at runtime.")]

@@ -59,7 +59,8 @@ namespace OpenBots.Commands.Database
         public DataTable v_QueryParameters { get; set; }
 
         [Required]
-		[DisplayName("Output Dataset Variable")]
+        [Editable(false)]
+        [DisplayName("Output Dataset Variable")]
         [Description("Create a new variable or select a variable from the list.")]
         [SampleUsage("{vUserVariable}")]
         [Remarks("Variables not pre-defined in the Variable Manager will be automatically generated at runtime.")]

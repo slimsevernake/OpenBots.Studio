@@ -32,7 +32,8 @@ namespace OpenBots.Commands.QueueItem
         public string v_QueueName { get; set; }
 
         [Required]
-		[DisplayName("Output QueueItem Dictionary Variable")]
+        [Editable(false)]
+        [DisplayName("Output QueueItem Dictionary Variable")]
         [Description("Create a new variable or select a variable from the list.")]
         [SampleUsage("{vUserVariable}")]
         [Remarks("Variables not pre-defined in the Variable Manager will be automatically generated at runtime.")]

@@ -85,7 +85,8 @@ namespace OpenBots.Commands.Outlook
         public string v_AttachmentDirectory { get; set; }
 
         [Required]
-		[DisplayName("Output MailItem List Variable")]
+        [Editable(false)]
+        [DisplayName("Output MailItem List Variable")]
         [Description("Create a new variable or select a variable from the list.")]
         [SampleUsage("{vUserVariable}")]
         [Remarks("Variables not pre-defined in the Variable Manager will be automatically generated at runtime.")]

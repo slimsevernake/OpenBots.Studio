@@ -28,14 +28,16 @@ namespace OpenBots.Commands.Credential
         public string v_CredentialName { get; set; }
 
         [Required]
-		[DisplayName("Output Username Variable")]
+        [Editable(false)]
+        [DisplayName("Output Username Variable")]
         [Description("Create a new variable or select a variable from the list.")]
         [SampleUsage("{vUserVariable}")]
         [Remarks("Variables not pre-defined in the Variable Manager will be automatically generated at runtime.")]
         public string v_OutputUserVariableName { get; set; }
 
         [Required]
-		[DisplayName("Output Password Variable")]
+        [Editable(false)]
+        [DisplayName("Output Password Variable")]
         [Description("Create a new variable or select a variable from the list.")]
         [SampleUsage("{vUserVariable}")]
         [Remarks("Variables not pre-defined in the Variable Manager will be automatically generated at runtime.")]

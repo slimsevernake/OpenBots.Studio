@@ -47,7 +47,8 @@ namespace OpenBots.Commands.File
         public string v_PathDestination { get; set; }
 
         [Required]
-		[DisplayName("Output Compressed File Path Variable")]
+        [Editable(false)]
+        [DisplayName("Output Compressed File Path Variable")]
         [Description("Create a new variable or select a variable from the list.")]
         [SampleUsage("{vUserVariable}")]
         [Remarks("Variables not pre-defined in the Variable Manager will be automatically generated at runtime.")]

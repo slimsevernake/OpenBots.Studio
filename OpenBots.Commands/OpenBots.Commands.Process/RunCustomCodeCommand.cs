@@ -45,7 +45,8 @@ namespace OpenBots.Commands.Process
         public string v_Args { get; set; }
 
         [Required]
-		[DisplayName("Output Data Variable")]
+        [Editable(false)]
+        [DisplayName("Output Data Variable")]
         [Description("Create a new variable or select a variable from the list.")]
         [SampleUsage("{vUserVariable}")]
         [Remarks("Variables not pre-defined in the Variable Manager will be automatically generated at runtime.")]

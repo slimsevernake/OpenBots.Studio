@@ -29,7 +29,8 @@ namespace OpenBots.Commands.File
         public string v_SourceFolderPath { get; set; }
 
         [Required]
-		[DisplayName("Output File Path(s) List Variable")]
+        [Editable(false)]
+        [DisplayName("Output File Path(s) List Variable")]
         [Description("Create a new variable or select a variable from the list.")]
         [SampleUsage("{vUserVariable}")]
         [Remarks("Variables not pre-defined in the Variable Manager will be automatically generated at runtime.")]

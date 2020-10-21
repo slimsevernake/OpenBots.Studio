@@ -32,7 +32,8 @@ namespace OpenBots.Commands
         public string v_ImageCapture { get; set; }
 
         [Required]
-		[DisplayName("Output Image Variable")]
+        [Editable(false)]
+        [DisplayName("Output Image Variable")]
         [Description("Create a new variable or select a variable from the list.")]
         [SampleUsage("vUserVariable")]
         [Remarks("Variables not pre-defined in the Variable Manager will be automatically generated at runtime.")]

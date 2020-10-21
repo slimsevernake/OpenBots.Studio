@@ -47,7 +47,8 @@ namespace OpenBots.Commands.Engine
         public string v_ToStringFormat { get; set; }
 
         [Required]
-		[DisplayName("Output Elapsed Time Variable")]
+        [Editable(false)]
+        [DisplayName("Output Elapsed Time Variable")]
         [Description("Create a new variable or select a variable from the list.")]
         [SampleUsage("{vUserVariable}")]
         [Remarks("Variables not pre-defined in the Variable Manager will be automatically generated at runtime.")]
