@@ -23,7 +23,7 @@ namespace OpenBots.Commands.Data
         [Description("Provide a variable or text value.")]
         [SampleUsage("Hello John || {vTextData}")]
         [Remarks("Providing data of a type other than a 'String' will result in an error.")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
+        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
         public string v_InputText { get; set; }
 
         [Required]
@@ -31,7 +31,7 @@ namespace OpenBots.Commands.Data
         [Description("Specify the old value of the text that will be replaced.")]
         [SampleUsage("Hello || {vOldText}")]
         [Remarks("'Hello' in 'Hello John' would be targeted for replacement.")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
+        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
         public string v_OldText { get; set; }
 
         [Required]
@@ -39,7 +39,7 @@ namespace OpenBots.Commands.Data
         [Description("Specify the new value to replace the old value.")]
         [SampleUsage("Hi || {vNewText}")]
         [Remarks("'Hi' would be replaced with 'Hello' to form 'Hi John'.")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
+        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
         public string v_NewText { get; set; }
 
         [Required]

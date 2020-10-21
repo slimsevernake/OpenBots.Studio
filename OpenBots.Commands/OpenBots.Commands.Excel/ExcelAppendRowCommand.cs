@@ -33,7 +33,7 @@ namespace OpenBots.Commands.Excel
         [Description("Enter the text value that will be set in the appended row (Can be a DataRow).")]
         [SampleUsage("Hello,World || {vData1},{vData2} || {vDataRow}")]
         [Remarks("")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
+        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
         public string v_RowToSet { get; set; }
 
         public ExcelAppendRowCommand()

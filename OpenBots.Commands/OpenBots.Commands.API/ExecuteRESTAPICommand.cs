@@ -27,7 +27,7 @@ namespace OpenBots.Commands.API
         [Description("Provide the base URL of the API.")]
         [SampleUsage("https://example.com || {vMyUrl}")]
         [Remarks("")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
+        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
         public string v_BaseURL { get; set; }
 
         [Required]
@@ -35,7 +35,7 @@ namespace OpenBots.Commands.API
         [Description("Define any API endpoint which contains the full URL.")]
         [SampleUsage("/v2/getUser/1 || {vMyUrl}")]
         [Remarks("")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
+        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
         public string v_APIEndPoint { get; set; }
 
         [Required]

@@ -27,7 +27,7 @@ namespace OpenBots.Commands.List
         [Description("Provide a List variable.")]
         [SampleUsage("{vList}")]
         [Remarks("Any type of variable other than List will cause error.")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
+        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
         public string v_ListName { get; set; }
 
         [Required]
@@ -35,7 +35,7 @@ namespace OpenBots.Commands.List
         [Description("Enter the item to write to the List.")]
         [SampleUsage("Hello || {vItem}")]
         [Remarks("List item can only be a String, DataTable, MailItem or IWebElement.")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
+        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
         public string v_ListItem { get; set; }
 
         [Required]
@@ -43,7 +43,7 @@ namespace OpenBots.Commands.List
         [Description("Enter the List index where the item will be written to.")]
         [SampleUsage("0 || {vIndex}")]
         [Remarks("Providing an out of range index will produce an exception.")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
+        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
         public string v_ListIndex { get; set; }
 
         public UpdateListItemCommand()

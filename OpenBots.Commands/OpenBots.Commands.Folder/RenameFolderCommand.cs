@@ -23,8 +23,8 @@ namespace OpenBots.Commands.Folder
         [Description("Enter or Select the path to the folder.")]
         [SampleUsage(@"C:\temp\myFolder || {ProjectPath}\myfolder || {vFolderPath}")]
         [Remarks("{ProjectPath} is the directory path of the current project.")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowFolderSelectionHelper)] 
+        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
+        [Editor("ShowFolderSelectionHelper", typeof(UIAdditionalHelperType))] 
         public string v_SourceFolderPath { get; set; }
 
         [Required]
@@ -32,7 +32,7 @@ namespace OpenBots.Commands.Folder
         [Description("Specify the new folder name.")]
         [SampleUsage("New Folder Name || {vNewFolderName}")]
         [Remarks("")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
+        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
         public string v_NewName { get; set; }
 
         public RenameFolderCommand()

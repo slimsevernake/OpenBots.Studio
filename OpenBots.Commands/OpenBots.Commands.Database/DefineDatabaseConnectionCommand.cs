@@ -37,7 +37,7 @@ namespace OpenBots.Commands.Database
         [Description("Define the string to use when connecting to the OleDb database.")]
         [SampleUsage("Provider=sqloledb;Data Source=myServerAddress;Initial Catalog=myDataBase;Integrated Security=SSPI; || {vConnectionString}")]
         [Remarks("")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
+        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
         public string v_ConnectionString { get; set; }
 
         [Required]
@@ -45,7 +45,7 @@ namespace OpenBots.Commands.Database
         [Description("Define the password to use when connecting to the OleDb database.")]
         [SampleUsage("password || {vPassword}")]
         [Remarks("")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
+        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
         public string v_ConnectionStringPassword { get; set; }
 
         [Required]

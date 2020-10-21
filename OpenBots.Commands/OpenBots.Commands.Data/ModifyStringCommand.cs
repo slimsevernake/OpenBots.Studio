@@ -23,7 +23,7 @@ namespace OpenBots.Commands.Data
         [Description("Provide a variable or text value.")]
         [SampleUsage("A sample text || {vStringVariable}")]
         [Remarks("Providing data of a type other than a 'String' will result in an error.")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
+        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
         public string v_InputText { get; set; }
 
         [Required]

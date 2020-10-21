@@ -26,7 +26,7 @@ namespace OpenBots.Commands.Excel
         [Description("Enter the unique instance that was specified in the **Create Application** command.")]
         [SampleUsage("MyExcelInstance || {vExcelInstance}")]
         [Remarks("Failure to enter the correct instance or failure to first call the **Create Application** command will cause an error.")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
+        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
         public string v_InstanceName { get; set; }
 
         [Required]
@@ -34,8 +34,8 @@ namespace OpenBots.Commands.Excel
         [Description("Enter or Select the path of the folder to export the PDF to.")]
         [SampleUsage(@"C:\temp || {vFolderPath} || {ProjectPath}")]
         [Remarks("")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowFolderSelectionHelper)]
+        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
+        [Editor("ShowFolderSelectionHelper", typeof(UIAdditionalHelperType))]
         public string v_FolderPath { get; set; }
 
         [Required]
@@ -43,7 +43,7 @@ namespace OpenBots.Commands.Excel
         [Description("Enter or Select the name of the PDF file.")]
         [SampleUsage("myFile.pdf || {vFilename}")]
         [Remarks("")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
+        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
         public string v_FileName { get; set; }
 
         [Required]

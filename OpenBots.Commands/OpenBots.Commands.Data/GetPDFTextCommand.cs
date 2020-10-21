@@ -34,8 +34,8 @@ namespace OpenBots.Commands.Data
         [Description("Specify the local path or URL to the applicable PDF file.")]
         [SampleUsage(@"C:\temp\myfile.pdf || https://temp.com/myfile.pdf || {vFilePath}")]
         [Remarks("Providing an invalid File Path/URL will result in an error.")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowFileSelectionHelper)]
+        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
+        [Editor("ShowFileSelectionHelper", typeof(UIAdditionalHelperType))]
         public string v_FilePath { get; set; }
 
         [Required]

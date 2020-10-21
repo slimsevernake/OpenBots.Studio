@@ -25,7 +25,7 @@ namespace OpenBots.Commands.Outlook
         [Description("Enter the MailItem to forward.")]
         [SampleUsage("{vMailItem}")]
         [Remarks("")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
+        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
         public string v_MailItem { get; set; }
 
         [Required]
@@ -33,7 +33,7 @@ namespace OpenBots.Commands.Outlook
         [Description("Enter the email address(es) of the recipient(s).")]
         [SampleUsage("test@test.com || {vEmail} || test@test.com;test2@test.com || {vEmail1};{vEmail2} || {vEmails}")]
         [Remarks("Multiple recipient email addresses should be delimited by a semicolon (;).")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
+        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
         public string v_Recipients { get; set; }
 
         public ForwardOutlookEmailCommand()

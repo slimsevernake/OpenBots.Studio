@@ -24,7 +24,7 @@ namespace OpenBots.Commands.Dictionary
         [Description("Enter the Keys and Values required for the new dictionary.")]
         [SampleUsage("[FirstName | John] || [{vKey} | {vValue}]")]
         [Remarks("")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
+        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
         public DataTable v_ColumnNameDataTable { get; set; }
 
         [Required]

@@ -31,7 +31,7 @@ namespace OpenBots.Commands
         [Description("Enter or provide the number of retries.")]
         [SampleUsage("3 || {vRetryCount}")]
         [Remarks("")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
+        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
         public string v_RetryCount { get; set; }
 
         [Required]
@@ -39,7 +39,7 @@ namespace OpenBots.Commands
         [Description("Enter or provide the amount of time (in seconds) between each retry.")]
         [SampleUsage("5 || {vRetryInterval}")]
         [Remarks("")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
+        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
         public string v_RetryInterval { get; set; }
 
         [Required]
@@ -47,7 +47,7 @@ namespace OpenBots.Commands
         [Description("Add a condition.")]
         [SampleUsage("")]
         [Remarks("Items in the retry scope will be executed if the condition doesn't satisfy.")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowIfBuilder)]
+        [Editor("ShowIfBuilder", typeof(UIAdditionalHelperType))]
         public DataTable v_IfConditionsTable { get; set; }
 
         [JsonIgnore]

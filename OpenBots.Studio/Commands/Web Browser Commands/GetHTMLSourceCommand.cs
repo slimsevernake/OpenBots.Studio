@@ -25,7 +25,7 @@ namespace OpenBots.Commands
         [Description("Enter a valid URL that you want to collect data from.")]
         [SampleUsage("http://mycompany.com/news || {vCompany}")]
         [Remarks("")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
+        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
         public string v_WebRequestURL { get; set; }
 
         [Required]

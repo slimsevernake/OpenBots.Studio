@@ -25,7 +25,7 @@ namespace OpenBots.Commands.Outlook
         [Description("Enter the MailItem to reply to.")]
         [SampleUsage("{vMailItem}")]
         [Remarks("")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
+        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
         public string v_MailItem { get; set; }
 
         [Required]
@@ -42,7 +42,7 @@ namespace OpenBots.Commands.Outlook
         [Description("Enter text to be used as the email body.")]
         [SampleUsage("Dear John, ... || {vBody}")]
         [Remarks("")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
+        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
         public string v_Body { get; set; }
 
         [Required]
@@ -57,8 +57,8 @@ namespace OpenBots.Commands.Outlook
         [Description("Enter the file path(s) of the file(s) to attach.")]
         [SampleUsage(@"C:\temp\myFile.xlsx || {vFile} || C:\temp\myFile1.xlsx;C:\temp\myFile2.xlsx || {vFile1};{vFile2} || {vFiles}")]
         [Remarks("This input is optional. Multiple attachments should be delimited by a semicolon (;).")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowFileSelectionHelper)]
+        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
+        [Editor("ShowFileSelectionHelper", typeof(UIAdditionalHelperType))]
         public string v_Attachments { get; set; }
 
         public ReplyToOutlookEmailCommand()

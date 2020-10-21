@@ -24,8 +24,8 @@ namespace OpenBots.Commands.File
         [Description("Enter or Select the path to the file.")]
         [SampleUsage(@"C:\temp\myfile.txt || {ProjectPath}\myfile.txt || {vTextFilePath}")]
         [Remarks("{ProjectPath} is the directory path of the current project.")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowFileSelectionHelper)]
+        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
+        [Editor("ShowFileSelectionHelper", typeof(UIAdditionalHelperType))]
         public string v_FileName { get; set; }
 
         [Required]
@@ -33,7 +33,7 @@ namespace OpenBots.Commands.File
         [Description("Specify how many seconds to wait for the file to exist.")]
         [SampleUsage("10 || {vSeconds}")]
         [Remarks("")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
+        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
         public string v_WaitTime { get; set; }
 
         public WaitForFileCommand()

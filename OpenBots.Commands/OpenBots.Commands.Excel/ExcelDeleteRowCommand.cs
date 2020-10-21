@@ -32,7 +32,7 @@ namespace OpenBots.Commands.Excel
         [Description("Enter the number of the row to be deleted.")]
         [SampleUsage("1 || {vRowNumber}")]
         [Remarks("")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
+        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
         public string v_RowNumber { get; set; }
 
         [Required]

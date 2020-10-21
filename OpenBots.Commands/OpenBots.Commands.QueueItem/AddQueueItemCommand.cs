@@ -26,7 +26,7 @@ namespace OpenBots.Commands.QueueItem
         [Description("Enter the name of the existing Queue.")]
         [SampleUsage("Name || {vQueueName}")]
         [Remarks("")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
+        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
         public string v_QueueName { get; set; }
 
         [Required]
@@ -34,7 +34,7 @@ namespace OpenBots.Commands.QueueItem
         [Description("Enter the name of the new QueueItem.")]
         [SampleUsage("Name || {vQueueItemName}")]
         [Remarks("")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
+        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
         public string v_QueueItemName { get; set; }
       
         [Required]
@@ -51,7 +51,7 @@ namespace OpenBots.Commands.QueueItem
         [Description("Specify the type of the Json.")]
         [SampleUsage("Company || {vJsonType}")]
         [Remarks("")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
+        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
         public string v_JsonType { get; set; }
 
         [Required]
@@ -59,7 +59,7 @@ namespace OpenBots.Commands.QueueItem
         [Description("Enter the value of the new QueueItem.")]
         [SampleUsage("Value || {vQueueItemValue}")]
         [Remarks("")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
+        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
         public string v_QueueItemTextValue { get; set; }
 
         [Required]
@@ -67,7 +67,7 @@ namespace OpenBots.Commands.QueueItem
         [Description("Enter a priority value between 0-100.")]
         [SampleUsage("100 || {vPriority}")]
         [Remarks("")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
+        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
         public string v_Priority { get; set; }
 
         [JsonIgnore]

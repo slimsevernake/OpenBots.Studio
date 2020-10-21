@@ -24,8 +24,8 @@ namespace OpenBots.Commands.File
         [Description("Enter or Select the path to the folder.")]
         [SampleUsage(@"C:\temp\myfolder || {ProjectPath}\myfolder || {vSourceFolderPath}")]
         [Remarks("{ProjectPath} is the directory path of the current project.")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowFolderSelectionHelper)]
+        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
+        [Editor("ShowFolderSelectionHelper", typeof(UIAdditionalHelperType))]
         public string v_SourceFolderPath { get; set; }
 
         [Required]

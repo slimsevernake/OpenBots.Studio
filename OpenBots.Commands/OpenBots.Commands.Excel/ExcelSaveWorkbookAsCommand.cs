@@ -31,8 +31,8 @@ namespace OpenBots.Commands.Excel
         [Description("Enter or Select the path of the folder to save the Workbook to.")]
         [SampleUsage(@"C:\temp || {vFolderPath} || {ProjectPath}")]
         [Remarks("")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowFolderSelectionHelper)]
+        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
+        [Editor("ShowFolderSelectionHelper", typeof(UIAdditionalHelperType))]
         public string v_FolderPath { get; set; }
 
         [Required]
@@ -40,7 +40,7 @@ namespace OpenBots.Commands.Excel
         [Description("Enter or Select the name of the Workbook file.")]
         [SampleUsage("myFile.xlsx || {vFilename}")]
         [Remarks("")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
+        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
         public string v_FileName { get; set; }
 
         public ExcelSaveWorkbookAsCommand()

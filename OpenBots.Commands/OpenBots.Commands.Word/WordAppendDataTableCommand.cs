@@ -32,7 +32,7 @@ namespace OpenBots.Commands.Word
         [Description("Enter the DataTable to append to the Document.")]
         [SampleUsage("{vDataTable}")]
         [Remarks("")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
+        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
         public string v_DataTable { get; set; }
 
         public WordAppendDataTableCommand()

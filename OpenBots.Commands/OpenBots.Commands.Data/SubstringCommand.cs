@@ -23,7 +23,7 @@ namespace OpenBots.Commands.Data
         [Description("Provide a variable or text value.")]
         [SampleUsage("Sample text to extract substring from || {vTextData}")]
         [Remarks("Providing data of a type other than a 'String' will result in an error.")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
+        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
         public string v_InputText { get; set; }
 
         [Required]
@@ -31,14 +31,14 @@ namespace OpenBots.Commands.Data
         [Description("Indicate the starting position within the text.")]
         [SampleUsage("0 || 1 || {vStartingIndex}")]
         [Remarks("0 for beginning, 1 for first character, n for nth character")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
+        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
         public string v_StartIndex { get; set; }
 
 		[DisplayName("Substring Length (Optional)")]
         [Description("Indicate number of characters to extract.")]
         [SampleUsage("-1 || 1 || {vSubstringLength}")]
         [Remarks("-1 to keep remainder, 1 for 1 position after start index, etc.")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
+        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
         public string v_StringLength { get; set; }
 
         [Required]

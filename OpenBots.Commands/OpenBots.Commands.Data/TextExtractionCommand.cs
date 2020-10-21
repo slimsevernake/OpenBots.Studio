@@ -27,7 +27,7 @@ namespace OpenBots.Commands.Data
         [Description("Provide a variable or text value.")]
         [SampleUsage("Sample text to perform text extraction on || {vTextData}")]
         [Remarks("Providing data of a type other than a 'String' will result in an error.")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
+        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
         public string v_InputText { get; set; }
 
         [Required]
@@ -45,7 +45,7 @@ namespace OpenBots.Commands.Data
         [Description("Define the required extraction parameters, which is dependent on the type of extraction.")]
         [SampleUsage("A substring from input text || {vSubstring}")]
         [Remarks("Set parameter values for each parameter name based on the extraction type.")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
+        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
         public DataTable v_TextExtractionTable { get; set; }
 
         [Required]

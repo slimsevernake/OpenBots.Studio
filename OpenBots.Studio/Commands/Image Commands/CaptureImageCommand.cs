@@ -28,7 +28,7 @@ namespace OpenBots.Commands
         [Remarks("Images with larger color variance will be found more quickly than those with a lot of white space. \n" +
                  "For images that are primarily white space, tagging color to the top-left corner of the image and setting \n" +
                  "the relative click position will produce faster results.")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowImageCaptureHelper)]
+        [Editor("ShowImageCaptureHelper", typeof(UIAdditionalHelperType))]
         public string v_ImageCapture { get; set; }
 
         [Required]

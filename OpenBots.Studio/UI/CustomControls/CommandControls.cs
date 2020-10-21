@@ -342,7 +342,7 @@ namespace OpenBots.UI.CustomControls
             IfrmCommandEditor editor)
         {
             var variableProperties = parent.GetType().GetProperties().Where(f => f.Name == parameterName).FirstOrDefault();
-            var propertyUIHelpers = variableProperties.GetCustomAttributes(typeof(PropertyUIHelper), true);
+            var propertyUIHelpers = variableProperties.GetCustomAttributes(typeof(EditorAttribute), true);
             var controlList = new List<Control>();
 
             if (propertyUIHelpers.Count() == 0)
@@ -350,7 +350,7 @@ namespace OpenBots.UI.CustomControls
                 return controlList;
             }
 
-            foreach (PropertyUIHelper attrib in propertyUIHelpers)
+            foreach (EditorAttribute attrib in propertyUIHelpers)
             {
                 CommandItemControl helperControl = new CommandItemControl();
                 helperControl.Padding = new Padding(10, 0, 0, 0);
@@ -358,9 +358,9 @@ namespace OpenBots.UI.CustomControls
                 helperControl.Font = new Font("Segoe UI Semilight", 10);
                 helperControl.Name = parameterName + "_helper";
                 helperControl.Tag = targetControls.FirstOrDefault();
-                helperControl.HelperType = attrib.AdditionalHelper;
+                helperControl.HelperType = (UIAdditionalHelperType)Enum.Parse(typeof(UIAdditionalHelperType), attrib.EditorTypeName, true);
 
-                switch (attrib.AdditionalHelper)
+                switch (helperControl.HelperType)
                 {
                     case UIAdditionalHelperType.ShowVariableHelper:
                         //show variable selector

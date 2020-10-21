@@ -23,8 +23,8 @@ namespace OpenBots.Commands.File
         [Description("Enter or Select the path to the file.")]
         [SampleUsage(@"C:\temp\myfile.txt || {ProjectPath}\myfile.txt || {vFilePath}")]
         [Remarks("{ProjectPath} is the directory path of the current project.")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowFileSelectionHelper)]
+        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
+        [Editor("ShowFileSelectionHelper", typeof(UIAdditionalHelperType))]
         public string v_SourceFilePath { get; set; }
 
         public DeleteFileCommand()

@@ -32,7 +32,7 @@ namespace OpenBots.Commands.Email
         [Description("Define the host/service name that the script should use.")]
         [SampleUsage("imap.gmail.com || {vHost}")]
         [Remarks("")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
+        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
         public string v_IMAPHost { get; set; }
 
         [Required]
@@ -40,7 +40,7 @@ namespace OpenBots.Commands.Email
         [Description("Define the port number that should be used when contacting the IMAP service.")]
         [SampleUsage("993 || {vPort}")]
         [Remarks("")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
+        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
         public string v_IMAPPort { get; set; }
 
         [Required]
@@ -48,7 +48,7 @@ namespace OpenBots.Commands.Email
         [Description("Define the username to use when contacting the IMAP service.")]
         [SampleUsage("myRobot || {vUsername}")]
         [Remarks("")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
+        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
         public string v_IMAPUserName { get; set; }
 
         [Required]
@@ -56,7 +56,7 @@ namespace OpenBots.Commands.Email
         [Description("Define the password to use when contacting the IMAP service.")]
         [SampleUsage("password || {vPassword}")]
         [Remarks("")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
+        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
         public string v_IMAPPassword { get; set; }
 
         [Required]
@@ -64,7 +64,7 @@ namespace OpenBots.Commands.Email
         [Description("Enter the name of the mail folder the emails are located in.")]
         [SampleUsage("Inbox || {vFolderName}")]
         [Remarks("")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
+        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
         public string v_IMAPSourceFolder { get; set; }
 
         [Required]
@@ -72,7 +72,7 @@ namespace OpenBots.Commands.Email
         [Description("Enter a valid filter string.")]
         [SampleUsage("Hello World || myRobot@company.com || {vFilter} || None")]
         [Remarks("*Warning* Using 'None' as the Filter will return every email in the selected Mail Folder.")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
+        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
         public string v_IMAPFilter { get; set; }
 
         [Required]
@@ -107,8 +107,8 @@ namespace OpenBots.Commands.Email
         [Description("Enter or Select the path of the directory to store the messages in.")]
         [SampleUsage(@"C:\temp\myfolder || {vFolderPath} || {ProjectPath}\myFolder")]
         [Remarks("This input is optional and will only be used if *Save MimeMessages and Attachments* is set to **Yes**.")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowFolderSelectionHelper)]
+        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
+        [Editor("ShowFolderSelectionHelper", typeof(UIAdditionalHelperType))]
         public string v_IMAPMessageDirectory { get; set; }
 
         [Required]
@@ -116,8 +116,8 @@ namespace OpenBots.Commands.Email
         [Description("Enter or Select the path to the directory to store the attachments in.")]
         [SampleUsage(@"C:\temp\myfolder\attachments || {vFolderPath} || {ProjectPath}\myFolder\attachments")]
         [Remarks("This input is optional and will only be used if *Save MimeMessages and Attachments* is set to **Yes**.")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowFolderSelectionHelper)]
+        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
+        [Editor("ShowFolderSelectionHelper", typeof(UIAdditionalHelperType))]
         public string v_IMAPAttachmentDirectory { get; set; }
 
         [Required]

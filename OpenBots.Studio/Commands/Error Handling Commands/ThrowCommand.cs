@@ -46,7 +46,7 @@ namespace OpenBots.Commands
         [Description("Enter a custom exception message.")]
         [SampleUsage("A Custom Message || {vExceptionMessage}")]
         [Remarks("The selected exception with this custom message will be thrown.")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
+        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
         public string v_ExceptionMessage { get; set; }
 
         public ThrowCommand()

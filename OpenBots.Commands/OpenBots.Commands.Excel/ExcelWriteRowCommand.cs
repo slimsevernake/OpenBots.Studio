@@ -34,7 +34,7 @@ namespace OpenBots.Commands.Excel
         [Description("Enter the text value that will be set in the selected row (Can be a DataRow).")]
         [SampleUsage("Hello,World || {vData1},{vData2} || {vDataRow}")]
         [Remarks("")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
+        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
         public string v_RowToSet { get; set; }
 
         [Required]
@@ -42,7 +42,7 @@ namespace OpenBots.Commands.Excel
         [Description("Enter the location of the cell to write the row to.")]
         [SampleUsage("A1 || {vCellLocation}")]
         [Remarks("")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
+        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
         public string v_CellLocation { get; set; }
 
         public ExcelWriteRowCommand()

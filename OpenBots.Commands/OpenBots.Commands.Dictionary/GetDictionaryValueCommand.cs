@@ -23,7 +23,7 @@ namespace OpenBots.Commands.Dictionary
         [Description("Specify the dictionary variable to get a value from.")]
         [SampleUsage("{vDictionary}")]
         [Remarks("")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
+        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
         public string v_InputDictionary { get; set; }
 
         [Required]
@@ -31,7 +31,7 @@ namespace OpenBots.Commands.Dictionary
         [Description("Specify the key to get the value for.")]
         [SampleUsage("SomeKey || {vKey}")]
         [Remarks("")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
+        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
         public string v_Key { get; set; }
 
         [Required]

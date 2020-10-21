@@ -31,7 +31,7 @@ namespace OpenBots.Commands.Excel
         [Description("Enter the name of the macro as it exists in the Worksheet.")]
         [SampleUsage("Macro1 || {vMacro}")]
         [Remarks("")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
+        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
         public string v_MacroName { get; set; }
 
         public ExcelRunMacroCommand()

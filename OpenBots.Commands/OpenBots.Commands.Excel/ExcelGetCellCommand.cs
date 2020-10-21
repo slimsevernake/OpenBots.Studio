@@ -31,7 +31,7 @@ namespace OpenBots.Commands.Excel
         [Description("Enter the location of the cell to extract.")]
         [SampleUsage("A1 || {vCellLocation}")]
         [Remarks("")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
+        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
         public string v_CellLocation { get; set; }
 
         [Required]

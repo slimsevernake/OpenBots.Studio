@@ -30,7 +30,7 @@ namespace OpenBots.Commands.Variable
         [Description("Enter the value for the variable.")]
         [SampleUsage("Hello || {vNum} || {vNum}+1")]
         [Remarks("You can use variables in input if you encase them within braces {vSomeValue}. You can also perform basic math operations.")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
+        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
         public string v_Input { get; set; }
 
         [Required]

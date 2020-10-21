@@ -24,7 +24,7 @@ namespace OpenBots.Commands
         [Description("Select or provide the text to set on the clipboard.")]
         [SampleUsage("Hello || {vTextToSet}")]
         [Remarks("")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
+        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
         public string v_TextToSet { get; set; }
 
         public SetClipboardTextCommand()

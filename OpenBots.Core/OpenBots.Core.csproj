@@ -130,8 +130,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App\GlobalAppInstances.cs" />
-    <Compile Include="Attributes\PropertyAttributes\PropertySelectionChangeEvent.cs" />
-    <Compile Include="Attributes\PropertyAttributes\PropertyUIHelper.cs" />
     <Compile Include="Attributes\PropertyAttributes\PropertyUISelectionOption.cs" />
     <Compile Include="Attributes\PropertyAttributes\Remarks.cs" />
     <Compile Include="Attributes\PropertyAttributes\SampleUsage.cs" />

@@ -24,9 +24,9 @@ namespace OpenBots.Commands.TextFile
         [Description("Enter or select the text file path.")]
         [SampleUsage(@"C:\temp\myfile.txt || {ProjectPath}\myText.txt || {vTextFilePath}")]
         [Remarks("If the selected text file does not exist, a file with the provided name and location will be created.")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowFolderSelectionHelper)]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowFileSelectionHelper)]
+        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
+        [Editor("ShowFolderSelectionHelper", typeof(UIAdditionalHelperType))]
+        [Editor("ShowFileSelectionHelper", typeof(UIAdditionalHelperType))]
         public string v_FilePath { get; set; }
 
         [Required]
@@ -34,7 +34,7 @@ namespace OpenBots.Commands.TextFile
         [Description("Indicate the Text to write.")]
         [SampleUsage("Hello World! || {vText}")]
         [Remarks("[crLF] inserts a newline.")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]       
+        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]       
         public string v_TextToWrite { get; set; }
 
         [Required]

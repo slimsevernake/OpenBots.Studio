@@ -31,7 +31,7 @@ namespace OpenBots.Commands.Excel
         [Description("Specify the name of the new Worksheet to rename.")]
         [SampleUsage("Sheet1 || {vSheet}")]
         [Remarks("")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
+        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
         public string v_OriginalSheetName { get; set; }
 
         [Required]
@@ -39,7 +39,7 @@ namespace OpenBots.Commands.Excel
         [Description("Specify the new name of the new Worksheet.")]
         [SampleUsage("Sheet1 || {vSheet}")]
         [Remarks("")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
+        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
         public string v_NewSheetName { get; set; }
 
         public ExcelRenameSheetCommand()

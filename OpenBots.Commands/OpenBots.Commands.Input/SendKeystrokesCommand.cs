@@ -26,7 +26,7 @@ namespace OpenBots.Commands.Input
         [Description("Select the name of the window to send keystrokes to.")]
         [SampleUsage("Untitled - Notepad || Current Window || {vWindow}")]
         [Remarks("")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
+        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
         public string v_WindowName { get; set; }
 
         [Required]
@@ -34,8 +34,8 @@ namespace OpenBots.Commands.Input
         [Description("Enter the text to be sent to the specified window.")]
         [SampleUsage("Hello, World! || {vText}")]
         [Remarks("")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowEncryptionHelper)]
+        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
+        [Editor("ShowEncryptionHelper", typeof(UIAdditionalHelperType))]
         public string v_TextToSend { get; set; }
 
         [Required]

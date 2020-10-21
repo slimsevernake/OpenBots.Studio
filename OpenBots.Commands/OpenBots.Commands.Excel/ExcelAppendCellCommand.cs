@@ -32,7 +32,7 @@ namespace OpenBots.Commands.Excel
         [Description("Enter the text value that will be set in the appended cell.")]
         [SampleUsage("Hello World || {vText}")]
         [Remarks("")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
+        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
         public string v_TextToSet { get; set; }
 
         public ExcelAppendCellCommand()

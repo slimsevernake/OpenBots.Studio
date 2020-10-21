@@ -25,7 +25,7 @@ namespace OpenBots.Commands.Data
         [Description("Specify either text or a variable that contains the date.")]
         [SampleUsage("1/1/2000 || {DateTime.Now}")]
         [Remarks("You can use known text or variables.")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
+        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
         public string v_InputDate { get; set; }
 
         [Required]
@@ -58,14 +58,14 @@ namespace OpenBots.Commands.Data
         [Description("Specify how many units to increment by.")]
         [SampleUsage("15 || {vIncrement}")]
         [Remarks("You can use negative numbers which will do the opposite, ex. Subtract Days and an increment of -5 will Add Days.")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
+        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
         public string v_Increment { get; set; }
 
 		[DisplayName("Date Format (Optional)")]
         [Description("Specify the output date format.")]
         [SampleUsage("MM/dd/yy hh:mm:ss || MM/dd/yyyy || {vDateFormat}")]
         [Remarks("You can specify either a valid DateTime, Date or Time Format; an invalid format will result in an error.")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
+        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
         public string v_ToStringFormat { get; set; }
 
         [Required]

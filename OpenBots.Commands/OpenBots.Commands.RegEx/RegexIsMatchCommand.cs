@@ -23,7 +23,7 @@ namespace OpenBots.Commands.RegEx
         [Description("Select or provide text to apply Regex on.")]
         [SampleUsage("Hello || {vText}")]
         [Remarks("")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
+        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
         public string v_InputText { get; set; }
 
         [Required]
@@ -31,7 +31,7 @@ namespace OpenBots.Commands.RegEx
         [Description("Enter a Regex Pattern to apply to the input Text.")]
         [SampleUsage(@"^([\w\-]+) || {vPattern}")]
         [Remarks("")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
+        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
         public string v_Regex { get; set; }
 
         [Required]

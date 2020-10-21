@@ -24,7 +24,7 @@ namespace OpenBots.Commands.Asset
         [Description("Enter the name of the Asset.")]
         [SampleUsage("Name || {vAssetName}")]
         [Remarks("")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
+        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
         public string v_AssetName { get; set; }
 
         [Required]
@@ -43,8 +43,8 @@ namespace OpenBots.Commands.Asset
         [Description("Enter or Select the path of the file to upload.")]
         [SampleUsage(@"C:\temp\myfile.txt || {vFilePath} || {ProjectPath}\myfile.txt")]
         [Remarks("This input should only be used for File type Assets.")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowFileSelectionHelper)]
+        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
+        [Editor("ShowFileSelectionHelper", typeof(UIAdditionalHelperType))]
         public string v_AssetFilePath { get; set; }
 
         [Required]
@@ -52,7 +52,7 @@ namespace OpenBots.Commands.Asset
         [Description("Enter the new value of the Asset.")]
         [SampleUsage("John || {vAssetValue}")]
         [Remarks("")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
+        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
         public string v_AssetValue { get; set; }
 
         [JsonIgnore]

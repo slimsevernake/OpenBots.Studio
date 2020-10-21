@@ -47,7 +47,7 @@ namespace OpenBots.Commands.Database
         [Description("Define the OleDb query to execute.")]
         [SampleUsage("SELECT OrderID, CustomerID FROM Orders || {vQuery}")]
         [Remarks("")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
+        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
         public string v_Query { get; set; }
 
         [Required]
@@ -55,7 +55,7 @@ namespace OpenBots.Commands.Database
         [Description("Define the query parameters.")]
         [SampleUsage("[STRING | @name | {vNameValue}]")]
         [Remarks("")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
+        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
         public DataTable v_QueryParameters { get; set; }
 
         [Required]

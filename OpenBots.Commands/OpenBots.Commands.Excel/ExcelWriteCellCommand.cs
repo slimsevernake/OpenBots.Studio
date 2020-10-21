@@ -31,7 +31,7 @@ namespace OpenBots.Commands.Excel
         [Description("Enter the text value that will be set in the selected cell.")]
         [SampleUsage("Hello World || {vText}")]
         [Remarks("")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
+        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
         public string v_TextToSet { get; set; }
 
         [Required]
@@ -39,7 +39,7 @@ namespace OpenBots.Commands.Excel
         [Description("Enter the location of the cell to set the text value.")]
         [SampleUsage("A1 || {vCellLocation}")]
         [Remarks("")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
+        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
         public string v_CellLocation { get; set; }
 
         public ExcelWriteCellCommand()

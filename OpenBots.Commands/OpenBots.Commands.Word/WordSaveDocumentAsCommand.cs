@@ -32,8 +32,8 @@ namespace OpenBots.Commands.Word
         [Description("Enter or Select the path of the folder to save the Document in.")]
         [SampleUsage(@"C:\temp || {vFolderPath} || {ProjectPath}")]
         [Remarks("")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowFolderSelectionHelper)]
+        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
+        [Editor("ShowFolderSelectionHelper", typeof(UIAdditionalHelperType))]
         public string v_FolderPath { get; set; }
 
         [Required]
@@ -41,7 +41,7 @@ namespace OpenBots.Commands.Word
         [Description("Enter or Select the name of the Document file.")]
         [SampleUsage("myFile.docx || {vFilename}")]
         [Remarks("")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
+        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
         public string v_FileName { get; set; }
 
         public WordSaveDocumentAsCommand()

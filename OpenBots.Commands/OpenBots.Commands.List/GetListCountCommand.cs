@@ -28,7 +28,7 @@ namespace OpenBots.Commands.List
         [Description("Provide a List variable.")]
         [SampleUsage("{vList}")]
         [Remarks("Providing any type of variable other than a List will result in an error.")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
+        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
         public string v_ListName { get; set; }
 
         [Required]

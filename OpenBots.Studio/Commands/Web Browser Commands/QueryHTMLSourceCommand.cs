@@ -23,7 +23,7 @@ namespace OpenBots.Commands
         [Description("Enter the HTML to be queried.")]
         [SampleUsage("<!DOCTYPE html><html><head><title>Example</title></head></html> || {vMyHTML}")]
         [Remarks("")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
+        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
         public string v_HTMLVariable { get; set; }
 
         [Required]
@@ -31,7 +31,7 @@ namespace OpenBots.Commands
         [Description("Enter the XPath Query and the item will be extracted.")]
         [SampleUsage("@//*[@id=\"aso_search_form_anchor\"]/div/input || {vMyXPath}")]
         [Remarks("You can use Chrome Dev Tools to click an element and copy the XPath.")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
+        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
         public string v_XPathQuery { get; set; }
 
         [Required]

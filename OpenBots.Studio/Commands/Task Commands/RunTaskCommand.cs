@@ -30,8 +30,8 @@ namespace OpenBots.Commands
         [Description("Enter or select a valid path to the Task file.")]
         [SampleUsage(@"C:\temp\mytask.json || {vScriptPath} || {ProjectPath}\mytask.json")]
         [Remarks("")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowFileSelectionHelper)]
+        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
+        [Editor("ShowFileSelectionHelper", typeof(UIAdditionalHelperType))]
         public string v_taskPath { get; set; }
 
         [Required]
@@ -47,7 +47,7 @@ namespace OpenBots.Commands
         [SampleUsage("Hello World || {vVariableValue}")]
         [Remarks("For inputs, set VariableReturn to *No*. For outputs, set VariableReturn to *Yes*. " +
                  "Failure to assign a VariableReturn value will result in an error.")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
+        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
         public DataTable v_VariableAssignments { get; set; }
 
         [JsonIgnore]

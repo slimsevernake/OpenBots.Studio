@@ -24,7 +24,7 @@ namespace OpenBots.Commands
         [Description("Enter the amount of times you would like to execute the encased commands.")]
         [SampleUsage("5 || {vLoopCount}")]
         [Remarks("")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
+        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
         public string v_LoopParameter { get; set; }
 
         [Required]
@@ -32,7 +32,7 @@ namespace OpenBots.Commands
         [Description("Enter the starting index of the loop.")]
         [SampleUsage("5 || {vStartIndex}")]
         [Remarks("")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
+        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
         public string v_LoopStart { get; set; }
 
         public LoopNumberOfTimesCommand()

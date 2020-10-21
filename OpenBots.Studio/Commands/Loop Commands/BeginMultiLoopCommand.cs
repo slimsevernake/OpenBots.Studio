@@ -30,7 +30,7 @@ namespace OpenBots.Commands
         [Description("Add new Loop condition(s).")]
         [SampleUsage("")]
         [Remarks("All of the conditions must be true to execute the loop block.")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowLoopBuilder)]
+        [Editor("ShowLoopBuilder", typeof(UIAdditionalHelperType))]
         public DataTable v_LoopConditionsTable { get; set; }
 
         [JsonIgnore]

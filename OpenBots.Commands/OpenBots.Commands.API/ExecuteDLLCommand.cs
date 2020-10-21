@@ -28,8 +28,8 @@ namespace OpenBots.Commands.API
         [Description("Enter or Select the path to the DLL File.")]
         [SampleUsage("C:\\temp\\myfile.dll || {vDLLFilePath}")]
         [Remarks("")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowDLLExplorer)]
+        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
+        [Editor("ShowDLLExplorer", typeof(UIAdditionalHelperType))]
         public string v_FilePath { get; set; }
 
         [Required]
@@ -37,7 +37,7 @@ namespace OpenBots.Commands.API
         [Description("Provide the parent class name of the method to be invoked in the DLL.")]
         [SampleUsage("myNamespace.myClassName || {vClassName}")]
         [Remarks("Namespace should be included")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
+        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
         public string v_ClassName { get; set; }
 
         [Required]
@@ -45,14 +45,14 @@ namespace OpenBots.Commands.API
         [Description("Provide the method name to be invoked in the DLL.")]
         [SampleUsage("GetSomething || {vMethodName}")]
         [Remarks("")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
+        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
         public string v_MethodName { get; set; }
 
 		[DisplayName("Parameters (Optional)")]
         [Description("Select the 'Generate Parameters' button once you have indicated a file, class, and method.")]
         [SampleUsage("")]
         [Remarks("")]
-        [PropertyUIHelper(UIAdditionalHelperType.GenerateDLLParameters)]
+        [Editor("GenerateDLLParameters", typeof(UIAdditionalHelperType))]
         public DataTable v_MethodParameters { get; set; }
 
         [Required]

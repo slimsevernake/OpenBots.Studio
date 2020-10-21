@@ -27,15 +27,15 @@ namespace OpenBots.Commands.File
         [Description("Enter or Select the Path to the source zip file.")]
         [SampleUsage(@"C:\temp\myfile.zip || {ProjectPath}\myfile.zip || {vFileSourcePath}")]
         [Remarks("{ProjectPath} is the directory path of the current project.")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowFileSelectionHelper)]
+        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
+        [Editor("ShowFileSelectionHelper", typeof(UIAdditionalHelperType))]
         public string v_FilePathOrigin { get; set; }
 
 		[DisplayName("Password (Optional)")]
         [Description("Define the password to use if required to extract files.")]
         [SampleUsage("password || {vPassword}")]
         [Remarks("")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
+        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
         public string v_Password { get; set; }
 
         [Required]
@@ -43,8 +43,8 @@ namespace OpenBots.Commands.File
         [Description("Enter or Select the Folder Path to move extracted file(s) to.")]
         [SampleUsage(@"C:\temp || {ProjectPath}\temp || {vFilesPath}")]
         [Remarks("{ProjectPath} is the directory path of the current project.")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowFolderSelectionHelper)]
+        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
+        [Editor("ShowFolderSelectionHelper", typeof(UIAdditionalHelperType))]
         public string v_PathDestination { get; set; }
 
         [Required]

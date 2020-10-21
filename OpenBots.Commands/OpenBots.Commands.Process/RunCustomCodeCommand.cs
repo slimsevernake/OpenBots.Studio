@@ -33,15 +33,15 @@ namespace OpenBots.Commands.Process
                             "The builder contains a Hello World template that you can use to build from.")]
         [SampleUsage("{vString}.Remove() || {vCode}")]
         [Remarks("This command only supports the standard framework classes.")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowCodeBuilder)]
+        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
+        [Editor("ShowCodeBuilder", typeof(UIAdditionalHelperType))]
         public string v_Code { get; set; }
 
 		[DisplayName("Arguments (Optional)")]
         [Description("Enter arguments that the custom code will receive during execution, split them using commas.")]
         [SampleUsage("hello || {vArg} || hello,world || {vArg1},{vArg2}")]
         [Remarks("This input is optional.")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
+        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
         public string v_Args { get; set; }
 
         [Required]

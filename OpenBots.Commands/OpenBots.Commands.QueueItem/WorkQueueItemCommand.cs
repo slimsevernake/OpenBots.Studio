@@ -28,7 +28,7 @@ namespace OpenBots.Commands.QueueItem
         [Description("Enter the name of the Queue.")]
         [SampleUsage("Name || {vQueueName}")]
         [Remarks("QueueItem Text/Json values are store in the 'DataJson' key of a QueueItem Dictionary.")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
+        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
         public string v_QueueName { get; set; }
 
         [Required]

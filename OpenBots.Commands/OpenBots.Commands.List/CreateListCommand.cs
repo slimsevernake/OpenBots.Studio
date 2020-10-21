@@ -39,7 +39,7 @@ namespace OpenBots.Commands.List
         [SampleUsage("Hello || {vItem} || Hello,World || {vItem1},{vItem2}")]
         [Remarks("List item can only be a String, DataTable, MailItem or IWebElement.\n" + 
                  "Multiple items should be delimited by a comma(,). This input is optional.")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
+        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
         public string v_ListItems { get; set; }
 
         [Required]

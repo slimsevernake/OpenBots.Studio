@@ -23,7 +23,7 @@ namespace OpenBots.Commands.QueueItem
         [Description("Enter a QueueItem Dictionary variable.")]
         [SampleUsage("{vQueueItem}")]
         [Remarks("")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
+        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
         public string v_QueueItem { get; set; }
 
         public ExtendQueueItemCommand()

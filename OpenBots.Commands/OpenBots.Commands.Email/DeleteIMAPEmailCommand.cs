@@ -30,7 +30,7 @@ namespace OpenBots.Commands.Email
         [Description("Enter the MimeMessage to delete.")]
         [SampleUsage("{vMimeMessage}")]
         [Remarks("")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
+        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
         public string v_IMAPMimeMessage { get; set; }
 
         [Required]
@@ -38,7 +38,7 @@ namespace OpenBots.Commands.Email
         [Description("Define the host/service name that the script should use.")]
         [SampleUsage("imap.gmail.com || {vHost}")]
         [Remarks("")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
+        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
         public string v_IMAPHost { get; set; }
 
         [Required]
@@ -46,7 +46,7 @@ namespace OpenBots.Commands.Email
         [Description("Define the port number that should be used when contacting the IMAP service.")]
         [SampleUsage("993 || {vPort}")]
         [Remarks("")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
+        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
         public string v_IMAPPort { get; set; }
 
         [Required]
@@ -54,7 +54,7 @@ namespace OpenBots.Commands.Email
         [Description("Define the username to use when contacting the IMAP service.")]
         [SampleUsage("myRobot || {vUsername}")]
         [Remarks("")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
+        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
         public string v_IMAPUserName { get; set; }
 
         [Required]
@@ -62,7 +62,7 @@ namespace OpenBots.Commands.Email
         [Description("Define the password to use when contacting the IMAP service.")]
         [SampleUsage("password || {vPassword}")]
         [Remarks("")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
+        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
         public string v_IMAPPassword { get; set; }
 
         [Required]

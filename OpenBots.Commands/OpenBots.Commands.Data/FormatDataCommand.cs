@@ -23,7 +23,7 @@ namespace OpenBots.Commands.Data
         [Description("Specify either text or a variable that contains a date or number requiring formatting.")]
         [SampleUsage("1/1/2000 || 2500 || {DateTime.Now} || {vNumber}")]
         [Remarks("You can use known text or variables.")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
+        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
         public string v_InputData { get; set; }
 
         [Required]
@@ -40,7 +40,7 @@ namespace OpenBots.Commands.Data
         [Description("Specify the output data format.")]
         [SampleUsage("MM/dd/yy, hh:mm:ss || C2 || D2 || {vDataFormat}")]
         [Remarks("You should specify a valid input data format; invalid formats will result in an error. 'C2' and 'D2' are Number Formats.")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
+        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
         public string v_ToStringFormat { get; set; }
 
         [Required]

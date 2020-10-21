@@ -31,7 +31,7 @@ namespace OpenBots.Commands.Word
         [Description("Enter the text to append to the Document.")]
         [SampleUsage("Hello World || {vText}")]
         [Remarks("")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
+        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
         public string v_TextToSet { get; set; }
 
         [Required]

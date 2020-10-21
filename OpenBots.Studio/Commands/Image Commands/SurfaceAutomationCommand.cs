@@ -39,7 +39,7 @@ namespace OpenBots.Commands
         [Remarks("Images with larger color variance will be found more quickly than those with a lot of white space. \n" +
                  "For images that are primarily white space, tagging color to the top-left corner of the image and setting \n" +
                  "the relative click position will produce faster results.")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowImageCaptureHelper)]
+        [Editor("ShowImageCaptureHelper", typeof(UIAdditionalHelperType))]
         public string v_ImageCapture { get; set; }
 
         [Required]
@@ -59,7 +59,7 @@ namespace OpenBots.Commands
         [Description("Additional Parameters will be required based on the action settings selected.")]
         [SampleUsage("data || {vData}")]
         [Remarks("Additional Parameters range from adding offset coordinates to specifying a variable to apply element text to.")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
+        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
         public DataTable v_ImageActionParameterTable { get; set; }
 
         [Required]
@@ -67,7 +67,7 @@ namespace OpenBots.Commands
         [Description("Enter a value between 0 and 1 to set the match Accuracy. Set to 1 for a perfect match.")]
         [SampleUsage("0.8 || 1 || {vAccuracy}")]
         [Remarks("Accuracy must be a value between 0 and 1.")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
+        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
         public string v_MatchAccuracy { get; set; }
 
         [JsonIgnore]

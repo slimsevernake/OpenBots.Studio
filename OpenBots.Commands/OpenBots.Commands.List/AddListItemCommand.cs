@@ -27,7 +27,7 @@ namespace OpenBots.Commands.List
         [Description("Provide a List variable.")]
         [SampleUsage("{vList}")]
         [Remarks("Any type of variable other than List will cause error.")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
+        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
         public string v_ListName { get; set; }
 
         [Required]
@@ -35,7 +35,7 @@ namespace OpenBots.Commands.List
         [Description("Enter the item to add to the List.")]
         [SampleUsage("Hello || {vItem}")]
         [Remarks("List item can only be a String, DataTable, MailItem or IWebElement.")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
+        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
         public string v_ListItem { get; set; }
 
         public AddListItemCommand()

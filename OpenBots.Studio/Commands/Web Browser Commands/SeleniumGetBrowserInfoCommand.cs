@@ -36,7 +36,7 @@ namespace OpenBots.Commands
         [Description("Indicate which info property to retrieve.")]
         [SampleUsage("")]
         [Remarks("")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
+        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
         public string v_InfoType { get; set; }
 
         [Required]

@@ -59,7 +59,7 @@ namespace OpenBots.Commands
                      "\n\tLink Text: https://www.mylink.com/"
                     )]
         [Remarks("If multiple parameters are enabled, an attempt will be made to find the element(s) that match(es) all the selected parameters.")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowElementHelper)] 
+        [Editor("ShowElementHelperBuilder", typeof(UIAdditionalHelperType))]
         public DataTable v_SeleniumSearchParameters { get; set; }
 
         [Required]
@@ -101,7 +101,7 @@ namespace OpenBots.Commands
         [SampleUsage("data || {vData} || *Variable Name*: {vNewVariable}")]
         [Remarks("Action Parameters range from adding offset coordinates to specifying a variable to apply element text to.\n"+
                  "Advanced keystrokes may be set the following way: Hello[tab]World[enter]")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
+        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
         public DataTable v_WebActionParameterTable { get; set; }
 
         [JsonIgnore]

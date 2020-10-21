@@ -28,7 +28,7 @@ namespace OpenBots.Commands
         [Description("Add new If condition(s).")]
         [SampleUsage("")]
         [Remarks("All of the conditions must be true to execute the If block.")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowIfBuilder)]
+        [Editor("ShowIfBuilder", typeof(UIAdditionalHelperType))]
         public DataTable v_IfConditionsTable { get; set; }
 
         [JsonIgnore]

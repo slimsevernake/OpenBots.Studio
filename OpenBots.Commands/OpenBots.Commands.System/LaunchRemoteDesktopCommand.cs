@@ -26,7 +26,7 @@ namespace OpenBots.Commands.System
         [Description("Define the name of the machine to log on to.")]
         [SampleUsage("myMachine || {vMachineName}")]
         [Remarks("")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
+        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
         public string v_MachineName { get; set; }
 
         [Required]
@@ -34,7 +34,7 @@ namespace OpenBots.Commands.System
         [Description("Define the username to use when connecting to the machine.")]
         [SampleUsage("myRobot || {vUsername}")]
         [Remarks("")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
+        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
         public string v_UserName { get; set; }
 
         [Required]
@@ -42,7 +42,7 @@ namespace OpenBots.Commands.System
         [Description("Define the password to use when connecting to the machine.")]
         [SampleUsage("password || {vPassword}")]
         [Remarks("")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
+        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
         public string v_Password { get; set; }
 
         [Required]
@@ -50,7 +50,7 @@ namespace OpenBots.Commands.System
         [Description("Define the width for the Remote Desktop Window.")]
         [SampleUsage("1000 || {vWidth}")]
         [Remarks("")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
+        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
         public string v_RDPWidth { get; set; }
 
         [Required]
@@ -58,7 +58,7 @@ namespace OpenBots.Commands.System
         [Description("Define the height for the Remote Desktop Window.")]
         [SampleUsage("800 || {vHeight}")]
         [Remarks("")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
+        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
         public string v_RDPHeight { get; set; }
 
         public LaunchRemoteDesktopCommand()

@@ -33,7 +33,7 @@ namespace OpenBots.Commands
         [Description("Select or provide the text to encrypt/decrypt.")]
         [SampleUsage("Hello || {vText}")]
         [Remarks("")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
+        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
         public string v_InputValue { get; set; }
 
         [Required]
@@ -41,7 +41,7 @@ namespace OpenBots.Commands
         [Description("Select or provide a pass phrase for encryption/decryption.")]
         [SampleUsage("OPENBOTS || {vPassPhrase}")]
         [Remarks("If decrypting, provide the pass phrase used to encypt the original text.")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
+        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
         public string v_PassPhrase { get; set; }
 
         [Required]

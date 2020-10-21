@@ -32,7 +32,7 @@ namespace OpenBots.Commands.DataTable
         [Description("Enter an existing DataTable to add a DataRow to.")]
         [SampleUsage("{vDataTable}")]
         [Remarks("")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
+        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
         public string v_DataTable { get; set; }
 
         [Required]
@@ -40,7 +40,7 @@ namespace OpenBots.Commands.DataTable
         [Description("Enter Column Names and Data for each column in the DataRow.")]
         [SampleUsage("[ First Name | John ] || [ {vColumn} | {vData} ]")]
         [Remarks("")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
+        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
         public Data.DataTable v_DataRowDataTable { get; set; }
 
         [JsonIgnore]

@@ -27,7 +27,7 @@ namespace OpenBots.Commands.List
         [Description("Provide a List variable.")]
         [SampleUsage("{vList}")]
         [Remarks("Any type of variable other than List will cause error.")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
+        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
         public string v_ListName { get; set; }
 
         [Required]
@@ -35,7 +35,7 @@ namespace OpenBots.Commands.List
         [Description("Enter the List index where the item will be removed")]
         [SampleUsage("0 || {vIndex}")]
         [Remarks("Providing an out of range index will produce an exception.")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
+        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
         public string v_ListIndex { get; set; }
 
         public RemoveListItemCommand()

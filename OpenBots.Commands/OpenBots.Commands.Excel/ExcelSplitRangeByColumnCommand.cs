@@ -35,7 +35,7 @@ namespace OpenBots.Commands.Excel
         [Description("Enter the location of the range to split.")]
         [SampleUsage("A1:B10 || A1: || {vRange} || {vStart}:{vEnd} || {vStart}:")]
         [Remarks("")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
+        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
         public string v_Range { get; set; }
 
         [Required]
@@ -43,7 +43,7 @@ namespace OpenBots.Commands.Excel
         [Description("Enter the name of the column you wish to split the selected range by.")]
         [SampleUsage("ColA || {vColumnName}")]
         [Remarks("")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
+        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
         public string v_ColumnName { get; set; }
 
         [Required]
@@ -51,8 +51,8 @@ namespace OpenBots.Commands.Excel
         [Description("Enter or Select the new directory for the split range files.")]
         [SampleUsage(@"C:\temp\Split Files\ || {vFolderPath} || {ProjectPath}\Split Files")]
         [Remarks("")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowFolderSelectionHelper)]
+        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
+        [Editor("ShowFolderSelectionHelper", typeof(UIAdditionalHelperType))]
         public string v_OutputDirectory { get; set; }
 
         [Required]

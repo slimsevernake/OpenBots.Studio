@@ -27,7 +27,7 @@ namespace OpenBots.Commands.Data
         [Description("Provide a variable or JSON object value.")]
         [SampleUsage("{\"rect\":{\"length\":10, \"width\":5}} || {vJsonObject}")]
         [Remarks("Providing data of a type other than a 'JSON Object' will result in an error.")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
+        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
         public string v_JsonObject { get; set; }
 
         [Required]
@@ -35,7 +35,7 @@ namespace OpenBots.Commands.Data
         [Description("Specify JSON Selector(s) (JPath) and Output Variable(s).")]
         [SampleUsage("[$.rect.length | vOutputList] || [{Selector} | {vOutputList}]")]
         [Remarks("'$.rect.length' is a JSON Selector to query on an inputted JSON Object and store its results in {vOutputList}.")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
+        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
         public DataTable v_ParseObjects { get; set; }
 
         [JsonIgnore]

@@ -46,8 +46,8 @@ namespace OpenBots.Commands.Word
         [Description("Enter or Select the path to the Document file.")]
         [SampleUsage(@"C:\temp\myfile.docx || {vFilePath} || {ProjectPath}\myfile.docx")]
         [Remarks("This input should only be used for opening existing Documents.")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowFileSelectionHelper)]
+        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
+        [Editor("ShowFileSelectionHelper", typeof(UIAdditionalHelperType))]
         public string v_FilePath { get; set; }
 
         [Required]

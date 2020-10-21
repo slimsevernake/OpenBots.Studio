@@ -25,7 +25,7 @@ namespace OpenBots.Commands
         [Description("Select the name of the window to take a screenshot of.")]
         [SampleUsage("Untitled - Notepad || Current Window || {vWindow}")]
         [Remarks("")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
+        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
         public string v_WindowName { get; set; }
 
         [Required]
@@ -33,8 +33,8 @@ namespace OpenBots.Commands
         [Description("Enter or Select the path of the folder to save the image to.")]
         [SampleUsage(@"C:\temp || {vFolderPath} || {ProjectPath}")]
         [Remarks("")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowFolderSelectionHelper)]
+        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
+        [Editor("ShowFolderSelectionHelper", typeof(UIAdditionalHelperType))]
         public string v_FolderPath { get; set; }
 
         [Required]
@@ -42,7 +42,7 @@ namespace OpenBots.Commands
         [Description("Enter or Select the name of the image file.")]
         [SampleUsage("myFile.png || {vFilename}")]
         [Remarks("")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
+        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
         public string v_FileName { get; set; }
 
         public TakeScreenshotCommand()

@@ -26,7 +26,7 @@ namespace OpenBots.Commands.Outlook
         [Description("Enter the MailItem to move or copy.")]
         [SampleUsage("{vMailItem}")]
         [Remarks("")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
+        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
         public string v_MailItem { get; set; }
 
         [Required]
@@ -34,7 +34,7 @@ namespace OpenBots.Commands.Outlook
         [Description("Enter the name of the Outlook mail folder the emails are being moved/copied to.")]
         [SampleUsage("New Folder || {vFolderName}")]
         [Remarks("Destination folder cannot be a subfolder.")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
+        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
         public string v_DestinationFolder { get; set; }
 
         [Required]

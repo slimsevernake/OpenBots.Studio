@@ -24,7 +24,7 @@ namespace OpenBots.Commands.Input
         [Description("Define the form to be displayed using the HTML Builder.")]
         [SampleUsage("")]
         [Remarks("")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowHTMLBuilder)]
+        [Editor("ShowHTMLBuilder", typeof(UIAdditionalHelperType))]
         public string v_InputHTML { get; set; }
 
         [Required]

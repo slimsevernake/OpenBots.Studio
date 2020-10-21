@@ -23,7 +23,7 @@ namespace OpenBots.Commands.Window
         [Description("Select the name of the window to set.")]
         [SampleUsage("Untitled - Notepad || Current Window || {vWindow}")]
         [Remarks("")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
+        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
         public string v_WindowName { get; set; }
 
         [Required]

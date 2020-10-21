@@ -24,7 +24,7 @@ namespace OpenBots.Commands.Dictionary
         [Description("Select the dictionary variable to add an item to.")]
         [SampleUsage("{vMyDictionary}")]
         [Remarks("")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
+        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
         public string v_DictionaryName { get; set; }
 
         [Required]
@@ -32,7 +32,7 @@ namespace OpenBots.Commands.Dictionary
         [Description("Enter Keys and Values required for the dictionary.")]
         [SampleUsage("[FirstName | John] || [{vKey} | {vValue}]")]
         [Remarks("")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
+        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
         public DataTable v_ColumnNameDataTable { get; set; }
 
         public AddDictionaryItemCommand()

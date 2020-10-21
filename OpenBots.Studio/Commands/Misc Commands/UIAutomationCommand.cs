@@ -35,7 +35,7 @@ namespace OpenBots.Commands
         [Description("Select the name of the window to automate.")]
         [SampleUsage("Untitled - Notepad || Current Window || {vWindow}")]
         [Remarks("")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
+        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
         public string v_WindowName { get; set; }
 
         [Required]
@@ -65,7 +65,7 @@ namespace OpenBots.Commands
         [Description("Action Parameters will be determined based on the action settings selected.")]
         [SampleUsage("data || {vData} || *Variable Name*: {vNewVariable}")]
         [Remarks("Action Parameters range from adding offset coordinates to specifying a variable to apply element text to.")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
+        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
         public DataTable v_UIAActionParameters { get; set; }
 
         [JsonIgnore]

@@ -58,7 +58,7 @@ namespace OpenBots.Commands
         [Description("Provide the parameter to match (ex. Window URL, Window Title, Handle ID).")]
         [SampleUsage("http://www.url.com || Welcome to Homepage || {vSearchData}")]
         [Remarks("")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
+        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
         public string v_MatchParameter { get; set; }
 
         public SeleniumSwitchBrowserWindowCommand()

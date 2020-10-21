@@ -31,7 +31,7 @@ namespace OpenBots.Commands.Excel
         [Description("Specify the name of the new Worksheet to append.")]
         [SampleUsage("Sheet1 || {vSheet}")]
         [Remarks("")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
+        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
         public string v_SheetName { get; set; }
 
         public ExcelAppendSheetCommand()

@@ -43,7 +43,7 @@ namespace OpenBots.Commands.Engine
         [Description("Specify a DateTime string format if required.")]
         [SampleUsage("MM/dd/yy || hh:mm || {vFormat}")]
         [Remarks("This input is optional.")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
+        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
         public string v_ToStringFormat { get; set; }
 
         [Required]

@@ -25,7 +25,7 @@ namespace OpenBots.Commands.DataTable
         [Description("Enter an existing DataTable.")]
         [SampleUsage("{vDataTable}")]
         [Remarks("")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
+        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
         public string v_DataTable { get; set; }
 
         [Required]

@@ -28,7 +28,7 @@ namespace OpenBots.Commands.Outlook
         [Description("Enter the name of the Outlook mail folder the emails are located in.")]
         [SampleUsage("Inbox || {vFolderName}")]
         [Remarks("Source folder cannot be a subfolder.")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
+        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
         public string v_SourceFolder { get; set; }
 
         [Required]
@@ -36,7 +36,7 @@ namespace OpenBots.Commands.Outlook
         [Description("Enter a valid Outlook filter string.")]
         [SampleUsage("[Subject] = 'Hello' || [Subject] = 'Hello' and [SenderName] = 'Jane Doe' || {vFilter} || None")]
         [Remarks("*Warning* Using 'None' as the Filter will return every email in the selected Mail Folder.")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
+        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
         public string v_Filter { get; set; }
 
         [Required]
@@ -71,8 +71,8 @@ namespace OpenBots.Commands.Outlook
         [Description("Enter or Select the path of the directory to store the messages in.")]
         [SampleUsage(@"C:\temp\myfolder || {vFolderPath} || {ProjectPath}\myFolder")]
         [Remarks("This input is optional and will only be used if *Save MailItems and Attachments* is set to **Yes**.")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowFolderSelectionHelper)]
+        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
+        [Editor("ShowFolderSelectionHelper", typeof(UIAdditionalHelperType))]
         public string v_MessageDirectory { get; set; }
 
         [Required]
@@ -80,8 +80,8 @@ namespace OpenBots.Commands.Outlook
         [Description("Enter or Select the path to the directory to store the attachments in.")]
         [SampleUsage(@"C:\temp\myfolder\attachments || {vFolderPath} || {ProjectPath}\myFolder\attachments")]
         [Remarks("This input is optional and will only be used if *Save MailItems and Attachments* is set to **Yes**.")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowFolderSelectionHelper)]
+        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
+        [Editor("ShowFolderSelectionHelper", typeof(UIAdditionalHelperType))]
         public string v_AttachmentDirectory { get; set; }
 
         [Required]

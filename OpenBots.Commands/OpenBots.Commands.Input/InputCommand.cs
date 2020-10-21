@@ -30,7 +30,7 @@ namespace OpenBots.Commands.Input
         [Description("Define the header to be displayed on the input form.")]
         [SampleUsage("Please Provide Input || {vHeader}")]
         [Remarks("")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
+        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
         public string v_InputHeader { get; set; }
 
         [Required]
@@ -38,7 +38,7 @@ namespace OpenBots.Commands.Input
         [Description("Define the directions to give to the user.")]
         [SampleUsage("Directions: Please fill in the following fields || {vDirections}")]
         [Remarks("")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
+        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
         public string v_InputDirections { get; set; }
 
         [Required]
@@ -46,7 +46,7 @@ namespace OpenBots.Commands.Input
         [Description("Define the required input parameters.")]
         [SampleUsage("[TextBox | Name | 500,30 | John | {vName}]")]
         [Remarks("")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
+        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
         public DataTable v_UserInputConfig { get; set; }
 
         [JsonIgnore]

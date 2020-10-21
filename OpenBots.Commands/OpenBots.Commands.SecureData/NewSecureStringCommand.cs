@@ -23,7 +23,7 @@ namespace OpenBots.Commands.SecureData
         [Description("Enter the text for the variable.")]
         [SampleUsage("Some Text || {vText}")]
         [Remarks("You can use variables in input if you encase them within braces {vText}. You can also perform basic math operations.")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
+        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
         public string v_Input { get; set; }
 
         [Required]

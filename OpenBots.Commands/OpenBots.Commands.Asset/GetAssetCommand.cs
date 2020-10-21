@@ -25,7 +25,7 @@ namespace OpenBots.Commands.Asset
         [Description("Enter the name of the Asset.")]
         [SampleUsage("Name || {vAssetName}")]
         [Remarks("")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
+        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
         public string v_AssetName { get; set; }
 
         [Required]
@@ -44,8 +44,8 @@ namespace OpenBots.Commands.Asset
         [Description("Enter or Select the directory path to store the file in.")]
         [SampleUsage(@"C:\temp || {vDirectoryPath} || {ProjectPath}\temp")]
         [Remarks("This input should only be used for File type Assets.")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowFolderSelectionHelper)]
+        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
+        [Editor("ShowFolderSelectionHelper", typeof(UIAdditionalHelperType))]
         public string v_OutputDirectoryPath { get; set; }
 
         [Required]

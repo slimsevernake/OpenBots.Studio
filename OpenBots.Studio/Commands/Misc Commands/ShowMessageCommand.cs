@@ -24,7 +24,7 @@ namespace OpenBots.Commands
         [Description("Specify any text or variable value that should be displayed on screen.")]
         [SampleUsage("Hello World || {vMyText} || Hello {vName}")]
         [Remarks("")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
+        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
         public string v_Message { get; set; }
 
         [Required]
@@ -33,7 +33,7 @@ namespace OpenBots.Commands
                             "\nthe message box will be automatically closed and script will resume execution.")]
         [SampleUsage("0 || 5 || {vSeconds})")]
         [Remarks("Set value to 0 to remain open indefinitely.")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
+        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
         public string v_AutoCloseAfter { get; set; }
 
         public ShowMessageCommand()

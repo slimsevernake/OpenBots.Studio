@@ -27,8 +27,8 @@ namespace OpenBots.Commands.Excel
         [Description("Enter or Select the path to the Workbook file.")]
         [SampleUsage(@"C:\temp\myfile.xlsx || {vFilePath} || {ProjectPath}\myfile.xlsx")]
         [Remarks("This command does not require Excel to be opened. A snapshot will be taken of the workbook as it exists at the time this command runs.")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowFileSelectionHelper)]
+        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
+        [Editor("ShowFileSelectionHelper", typeof(UIAdditionalHelperType))]
         public string v_FilePath { get; set; }
 
         [Required]
@@ -36,7 +36,7 @@ namespace OpenBots.Commands.Excel
         [Description("Indicate the Worksheet to be retrieved.")]
         [SampleUsage("Sheet1 || {vSheet}")]
         [Remarks("")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
+        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
         public string v_SheetName { get; set; }
 
         [Required]
@@ -44,7 +44,7 @@ namespace OpenBots.Commands.Excel
         [Description("Enter the name of the column to be loaded as Dictionary Keys.")]
         [SampleUsage("Name || {vKeyColumn}")]
         [Remarks("")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
+        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
         public string v_KeyColumn { get; set; }
 
         [Required]
@@ -52,7 +52,7 @@ namespace OpenBots.Commands.Excel
         [Description("Enter the name of the column to be loaded as Dictionary Values.")]
         [SampleUsage("Value || {vValueColumn}")]
         [Remarks("")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
+        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
         public string v_ValueColumn { get; set; }
 
         [Required]

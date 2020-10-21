@@ -30,14 +30,14 @@ namespace OpenBots.Commands
         [Description("Enter the script code to execute.")]
         [SampleUsage("arguments[0].click(); || alert('Welcome to OpenBots'); || {vScript}")]
         [Remarks("")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
+        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
         public string v_ScriptCode { get; set; }
 
 		[DisplayName("Arguments (Optional)")]
         [Description("Enter any necessary arguments.")]
         [SampleUsage("button || {vArguments}")]
         [Remarks("This input is optional.")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
+        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
         public string v_Arguments { get; set; }
 
         [Required]

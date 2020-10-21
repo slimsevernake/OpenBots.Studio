@@ -25,7 +25,7 @@ namespace OpenBots.Commands.DataTable
         [Description("Enter an existing DataRow to add values to.")]
         [SampleUsage("{vDataRow}")]
         [Remarks("")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
+        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
         public string v_DataRow { get; set; }
 
         [Required]
@@ -42,7 +42,7 @@ namespace OpenBots.Commands.DataTable
         [Description("Enter a valid DataRow index or column name.")]
         [SampleUsage("0 || {vIndex} || Column1 || {vColumnName}")]
         [Remarks("")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
+        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
         public string v_DataValueIndex { get; set; }
 
         [Required]
@@ -50,7 +50,7 @@ namespace OpenBots.Commands.DataTable
         [Description("Enter the value to write to the DataRow cell.")]
         [SampleUsage("value || {vValue}")]
         [Remarks("")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
+        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
         public string v_DataRowValue { get; set; }
 
         public UpdateDataRowValueCommand()

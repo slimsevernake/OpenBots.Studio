@@ -34,7 +34,7 @@ namespace OpenBots.Commands.Excel
         [Description("Enter the DataTable to write to the Worksheet.")]
         [SampleUsage("{vDataTable}")]
         [Remarks("")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
+        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
         public string v_DataTableToSet { get; set; }
 
         [Required]
@@ -42,7 +42,7 @@ namespace OpenBots.Commands.Excel
         [Description("Enter the location of the cell to set the DataTable at.")]
         [SampleUsage("A1 || {vCellLocation}")]
         [Remarks("")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
+        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
         public string v_CellLocation { get; set; }
 
         [Required]

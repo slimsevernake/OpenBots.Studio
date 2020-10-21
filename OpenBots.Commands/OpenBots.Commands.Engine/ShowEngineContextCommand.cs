@@ -23,7 +23,7 @@ namespace OpenBots.Commands.Engine
                             "\nthe message box will be automatically closed and script will resume execution.")]
         [SampleUsage("0 || 5 || {vSeconds})")]
         [Remarks("Set value to 0 to remain open indefinitely.")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
+        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
         public string v_AutoCloseAfter { get; set; }
 
         public ShowEngineContextCommand()

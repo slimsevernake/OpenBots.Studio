@@ -24,7 +24,7 @@ namespace OpenBots.Commands.Window
         [Description("Select the name of the window to wait for.")]
         [SampleUsage("Untitled - Notepad || Current Window || {vWindow}")]
         [Remarks("")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
+        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
         public string v_WindowName { get; set; }
 
         [Required]
@@ -32,7 +32,7 @@ namespace OpenBots.Commands.Window
         [Description("Specify how many seconds to wait before throwing an exception.")]
         [SampleUsage("30 || {vSeconds}")]
         [Remarks("")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
+        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
         public string v_Timeout { get; set; }
 
         public WaitForWindowToExistCommand()

@@ -32,8 +32,8 @@ namespace OpenBots.Commands.Folder
         [Description("Enter or Select the path to the original folder.")]
         [SampleUsage(@"C:\temp\myfolder || {ProjectPath}\myfolder || {vOriginalFolderPath}")]
         [Remarks("{ProjectPath} is the directory path of the current project.")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowFolderSelectionHelper)] 
+        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
+        [Editor("ShowFolderSelectionHelper", typeof(UIAdditionalHelperType))] 
         public string v_SourceFolderPath { get; set; }
 
         [Required]
@@ -41,8 +41,8 @@ namespace OpenBots.Commands.Folder
         [Description("Enter or Select the destination folder path.")]
         [SampleUsage(@"C:\temp\DestinationFolder || {ProjectPath}\DestinationFolder || {vDestinationFolderPath}")]
         [Remarks("{ProjectPath} is the directory path of the current project.")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowFolderSelectionHelper)] 
+        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
+        [Editor("ShowFolderSelectionHelper", typeof(UIAdditionalHelperType))] 
         public string v_DestinationDirectory { get; set; }
 
         [Required]

@@ -30,7 +30,7 @@ namespace OpenBots.Commands
         [SampleUsage("{vMyCollection}")]
         [Remarks("If the collection is a DataTable then the output item will be a DataRow and its column value can be accessed using the " +
             "dot operator like {vDataRow.ColumnName}.")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
+        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
         public string v_LoopParameter { get; set; }
 
         [Required]

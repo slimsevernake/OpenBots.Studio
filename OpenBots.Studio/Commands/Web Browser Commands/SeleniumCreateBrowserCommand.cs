@@ -47,7 +47,7 @@ namespace OpenBots.Commands
         [Description("Enter the URL that you want the selenium instance to navigate to.")]
         [SampleUsage("https://mycompany.com/orders || {vURL}")]
         [Remarks("This input is optional.")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
+        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
         public string v_URL { get; set; }
 
         [Required]
@@ -75,7 +75,7 @@ namespace OpenBots.Commands
         [Description("Select options to be passed to the Selenium command.")]
         [SampleUsage("user-data-dir=c:\\users\\public\\SeleniumOpenBotsProfile || {vOptions}")]
         [Remarks("This input is optional.")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
+        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
         public string v_SeleniumOptions { get; set; }
 
         public SeleniumCreateBrowserCommand()

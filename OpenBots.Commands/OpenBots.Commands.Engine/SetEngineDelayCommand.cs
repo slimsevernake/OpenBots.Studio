@@ -22,7 +22,7 @@ namespace OpenBots.Commands.Engine
         [Description("Select or provide a specific amount of time in milliseconds.")]
         [SampleUsage("1000 || {vTime}")]
         [Remarks("")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
+        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
         public string v_EngineDelay { get; set; }
 
         public SetEngineDelayCommand()

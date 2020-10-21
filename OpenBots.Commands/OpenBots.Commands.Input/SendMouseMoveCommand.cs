@@ -24,8 +24,8 @@ namespace OpenBots.Commands.Input
         [Description("Input the new horizontal coordinate of the mouse. Starts from 0 on the left and increases going right.")]
         [SampleUsage("0 || {vXPosition}")]
         [Remarks("This number is the pixel location on screen. Maximum value should be the maximum value allowed by your resolution. For 1920x1080, the valid range would be 0-1920.")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowMouseCaptureHelper)]
+        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
+        [Editor("ShowMouseCaptureHelper", typeof(UIAdditionalHelperType))]
         public string v_XMousePosition { get; set; }
 
         [Required]
@@ -33,8 +33,8 @@ namespace OpenBots.Commands.Input
         [Description("Input the new vertical coordinate of the mouse. Starts from 0 at the top and increases going down.")]
         [SampleUsage("0 || {vYPosition}")]
         [Remarks("This number is the pixel location on screen. Maximum value should be the maximum value allowed by your resolution. For 1920x1080, the valid range would be 0-1080.")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowMouseCaptureHelper)]
+        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
+        [Editor("ShowMouseCaptureHelper", typeof(UIAdditionalHelperType))]
         public string v_YMousePosition { get; set; }
 
 		[DisplayName("Click Type (Optional)")]

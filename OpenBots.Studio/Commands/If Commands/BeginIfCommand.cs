@@ -54,7 +54,7 @@ namespace OpenBots.Commands
         [Description("Supply or Select the required comparison parameters.")]
         [SampleUsage("Param Value || {vParamValue}")]
         [Remarks("")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
+        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
         public DataTable v_IfActionParameterTable { get; set; }
 
         [JsonIgnore]

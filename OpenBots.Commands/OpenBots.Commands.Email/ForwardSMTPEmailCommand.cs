@@ -28,7 +28,7 @@ namespace OpenBots.Commands.Email
         [Description("Enter the MimeMessage to forward.")]
         [SampleUsage("{vMimeMessage}")]
         [Remarks("")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
+        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
         public string v_SMTPMimeMessage { get; set; }
 
         [Required]
@@ -36,7 +36,7 @@ namespace OpenBots.Commands.Email
         [Description("Define the host/service name that the script should use.")]
         [SampleUsage("smtp.gmail.com || {vHost}")]
         [Remarks("")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
+        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
         public string v_SMTPHost { get; set; }
 
         [Required]
@@ -44,7 +44,7 @@ namespace OpenBots.Commands.Email
         [Description("Define the port number that should be used when contacting the SMTP service.")]
         [SampleUsage("465 || {vPort}")]
         [Remarks("")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
+        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
         public string v_SMTPPort { get; set; }
 
         [Required]
@@ -52,7 +52,7 @@ namespace OpenBots.Commands.Email
         [Description("Define the username to use when contacting the SMTP service.")]
         [SampleUsage("myRobot || {vUsername}")]
         [Remarks("")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
+        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
         public string v_SMTPUserName { get; set; }
 
         [Required]
@@ -60,7 +60,7 @@ namespace OpenBots.Commands.Email
         [Description("Define the password to use when contacting the SMTP service.")]
         [SampleUsage("password || {vPassword}")]
         [Remarks("")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
+        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
         public string v_SMTPPassword { get; set; }
 
         [Required]
@@ -68,7 +68,7 @@ namespace OpenBots.Commands.Email
         [Description("Enter the email address(es) of the recipient(s).")]
         [SampleUsage("test@test.com || test@test.com;test2@test.com || {vEmail} || {vEmail1};{vEmail2} || {vEmails}")]
         [Remarks("Multiple recipient email addresses should be delimited by a semicolon (;).")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
+        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
         public string v_SMTPRecipients { get; set; }
 
         [Required]
@@ -76,7 +76,7 @@ namespace OpenBots.Commands.Email
         [Description("Enter text to be used as the email body.")]
         [SampleUsage("Everything ran ok at {DateTime.Now}  || {vBody}")]
         [Remarks("")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
+        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
         public string v_SMTPBody { get; set; }
 
         public ForwardSMTPEmailCommand()

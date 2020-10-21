@@ -32,7 +32,7 @@ namespace OpenBots.Commands.Excel
         [Description("Enter the letter of the column to check.")]
         [SampleUsage("A || {vColumnLetter}")]
         [Remarks("")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
+        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
         public string v_ColumnLetter { get; set; }
 
         [Required]

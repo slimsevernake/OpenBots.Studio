@@ -23,7 +23,7 @@ namespace OpenBots.Commands.Window
         [Description("Select the name of the window to activate and bring forward.")]
         [SampleUsage("Untitled - Notepad || {vWindow}")]
         [Remarks("")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
+        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
         public string v_WindowName { get; set; }
 
         public ActivateWindowCommand()

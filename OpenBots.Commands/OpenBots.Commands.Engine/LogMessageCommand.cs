@@ -26,8 +26,8 @@ namespace OpenBots.Commands.Engine
         [Remarks("Selecting 'Engine Logs' will result in writing execution logs in the 'Engine Logs'. " +
             "The current Date and Time will be automatically appended to a local file if a custom file name is provided. " +
             "Logs are all saved in the OpenBots Studio Root Folder in the 'Logs' folder.")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowFileSelectionHelper)]
+        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
+        [Editor("ShowFileSelectionHelper", typeof(UIAdditionalHelperType))]
         public string v_LogFile { get; set; }
 
         [Required]
@@ -35,7 +35,7 @@ namespace OpenBots.Commands.Engine
         [Description("Specify the log text.")]
         [SampleUsage("Third Step is Complete || {vLogText}")]
         [Remarks("Provide only text data.")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
+        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
         public string v_LogText { get; set; }
 
         [Required]

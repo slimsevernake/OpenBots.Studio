@@ -24,7 +24,7 @@ namespace OpenBots.Commands.Data
         [Description("Provide a variable or JSON array value.")]
         [SampleUsage("[{\"rect\":{\"length\":10, \"width\":5}}] || {vArrayVariable}")]
         [Remarks("Providing data of a type other than a 'JSON Array' will result in an error.")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
+        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
         public string v_JsonArrayName { get; set; }
 
         [Required]

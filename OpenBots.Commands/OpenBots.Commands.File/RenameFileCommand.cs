@@ -23,8 +23,8 @@ namespace OpenBots.Commands.File
         [Description("Enter or Select the path to the file.")]
         [SampleUsage(@"C:\temp\myfile.txt || {ProjectPath}\myfile.txt || {vTextFilePath}")]
         [Remarks("{ProjectPath} is the directory path of the current project.")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowFileSelectionHelper)] 
+        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
+        [Editor("ShowFileSelectionHelper", typeof(UIAdditionalHelperType))] 
         public string v_SourceFilePath { get; set; }
 
         [Required]
@@ -32,7 +32,7 @@ namespace OpenBots.Commands.File
         [Description("Specify new file name with extension.")]
         [SampleUsage("newfile.txt || {vNewFileName}")]
         [Remarks("Changing the file extension will not automatically convert files.")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
+        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
         public string v_NewName { get; set; }
 
         public RenameFileCommand()

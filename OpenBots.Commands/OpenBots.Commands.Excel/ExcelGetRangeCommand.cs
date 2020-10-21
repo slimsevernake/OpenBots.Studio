@@ -34,7 +34,7 @@ namespace OpenBots.Commands.Excel
         [Description("Enter the location of the range to extract.")]
         [SampleUsage("A1:B10 || A1: || {vRange} || {vStart}:{vEnd} || {vStart}:")]
         [Remarks("")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
+        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
         public string v_Range { get; set; }   
 
         [Required]

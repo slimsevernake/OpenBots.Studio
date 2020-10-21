@@ -46,7 +46,7 @@ namespace OpenBots.Commands.NLG
         [Description("Enter the value that should be associated with the parameter")]
         [SampleUsage("Hello || {vValue}")]
         [Remarks("")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
+        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
         public string v_Parameter { get; set; }
 
         public SetNLGParameterCommand()

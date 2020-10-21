@@ -42,7 +42,7 @@ namespace OpenBots.Commands
         [Description("Provide the parameter to match (ex. Index, Name or ID).")]
         [SampleUsage("1 || name || {vSearchData}")]
         [Remarks("")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
+        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
         public string v_FrameParameter { get; set; }
 
         public SeleniumSwitchBrowserFrameCommand()

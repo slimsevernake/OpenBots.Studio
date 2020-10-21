@@ -26,7 +26,7 @@ namespace OpenBots.Commands.DataTable
         [Description("Enter an existing DataTable to get rows from.")]
         [SampleUsage("{vDataTable}")]
         [Remarks("")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
+        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
         public string v_DataTable { get; set; }
 
         [Required]
@@ -34,7 +34,7 @@ namespace OpenBots.Commands.DataTable
         [Description("Enter a valid DataRow index value.")]
         [SampleUsage("0 || {vIndex}")]
         [Remarks("")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
+        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
         public string v_DataRowIndex { get; set; }
 
         [Required]

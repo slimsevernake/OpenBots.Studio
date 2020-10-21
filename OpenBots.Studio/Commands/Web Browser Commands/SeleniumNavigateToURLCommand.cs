@@ -32,7 +32,7 @@ namespace OpenBots.Commands
         [Description("Enter the URL that you want the selenium instance to navigate to.")]
         [SampleUsage("https://mycompany.com/orders || {vURL}")]
         [Remarks("")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
+        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
         public string v_URL { get; set; }
 
         public SeleniumNavigateToURLCommand()

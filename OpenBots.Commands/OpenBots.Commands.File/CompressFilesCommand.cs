@@ -26,15 +26,15 @@ namespace OpenBots.Commands.File
         [Description("Enter or Select the Path to the source directory.")]
         [SampleUsage(@"C:\temp || {ProjectPath}\temp || {vFileSourcePath}")]
         [Remarks("{ProjectPath} is the directory path of the current project.")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowFolderSelectionHelper)]
+        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
+        [Editor("ShowFolderSelectionHelper", typeof(UIAdditionalHelperType))]
         public string v_DirectoryPathOrigin { get; set; }
 
 		[DisplayName("Password (Optional)")]
         [Description("Define the password to use for file compression.")]
         [SampleUsage("password || {vPassword}")]
         [Remarks("")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
+        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
         public string v_Password { get; set; }
 
         [Required]
@@ -42,8 +42,8 @@ namespace OpenBots.Commands.File
         [Description("Enter or Select the Folder Path to place the compressed file in.")]
         [SampleUsage(@"C:\temp || {ProjectPath}\temp || {vFilesPath}")]
         [Remarks("{ProjectPath} is the directory path of the current project.")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowFolderSelectionHelper)]
+        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
+        [Editor("ShowFolderSelectionHelper", typeof(UIAdditionalHelperType))]
         public string v_PathDestination { get; set; }
 
         [Required]

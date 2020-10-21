@@ -23,7 +23,7 @@ namespace OpenBots.Commands.Folder
         [Description("Enter the name of the new folder.")]
         [SampleUsage("myFolderName || {vFolderName}")]
         [Remarks("")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
+        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
         public string v_NewFolderName { get; set; }
 
         [Required]
@@ -31,8 +31,8 @@ namespace OpenBots.Commands.Folder
         [Description("Enter or Select the path to the directory to create the folder in.")]
         [SampleUsage(@"C:\temp\myfolder || {ProjectPath}\myfolder || {vTextFolderPath}")]
         [Remarks("{ProjectPath} is the directory path of the current project.")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowFolderSelectionHelper)] 
+        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
+        [Editor("ShowFolderSelectionHelper", typeof(UIAdditionalHelperType))] 
         public string v_DestinationDirectory { get; set; }
 
         [Required]

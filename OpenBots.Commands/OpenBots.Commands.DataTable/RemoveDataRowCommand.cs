@@ -27,7 +27,7 @@ namespace OpenBots.Commands.DataTable
         [Description("Enter an existing DataTable.")]
         [SampleUsage("{vDataTable}")]
         [Remarks("")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
+        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
         public string v_DataTable { get; set; }
 
         [Required]
@@ -35,7 +35,7 @@ namespace OpenBots.Commands.DataTable
         [Description("Enter a tuple containing the column name and item you would like to remove.")]
         [SampleUsage("(ColumnName1,Item1),(ColumnName2,Item2) || ({vColumn1},{vItem1}),({vCloumn2},{vItem2}) || {vRemovalTuple}")]
         [Remarks("")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
+        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
         public string v_SearchItem { get; set; }
 
         [Required]

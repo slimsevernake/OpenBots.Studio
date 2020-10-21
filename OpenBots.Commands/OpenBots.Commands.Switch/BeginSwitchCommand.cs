@@ -24,7 +24,7 @@ namespace OpenBots.Commands.Switch
         [Description("This value will determine the Case block to execute.")]
         [SampleUsage("{vSwitch}")]
         [Remarks("This value must be a variable.")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
+        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
         public string v_SwitchValue { get; set; }
 
         public BeginSwitchCommand()

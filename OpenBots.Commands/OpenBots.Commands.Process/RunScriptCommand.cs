@@ -26,8 +26,8 @@ namespace OpenBots.Commands.Process
         [SampleUsage(@"C:\temp\myscript.ps1 || {vScriptPath} || {ProjectPath}\myscript.ps1")]
         [Remarks("This command differs from *Start Process* because this command blocks execution until the script has completed. " +
                  "If you do not want to stop while the script executes, consider using *Start Process* instead.")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowFileSelectionHelper)]
+        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
+        [Editor("ShowFileSelectionHelper", typeof(UIAdditionalHelperType))]
         public string v_ScriptPath { get; set; }
 
         [Required]
@@ -44,7 +44,7 @@ namespace OpenBots.Commands.Process
         [Description("Enter any arguments as a single string.")]
         [SampleUsage("-message Hello -t 2 || {vArguments}")]
         [Remarks("This input is optional.")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
+        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
         public string v_ScriptArgs { get; set; }
 
         public RunScriptCommand()

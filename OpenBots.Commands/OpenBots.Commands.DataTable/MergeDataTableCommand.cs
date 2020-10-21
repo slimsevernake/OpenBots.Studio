@@ -26,7 +26,7 @@ namespace OpenBots.Commands.DataTable
         [Description("Enter an existing DataTable to merge into another one.")]
         [SampleUsage("{vSrcDataTable}")]
         [Remarks("")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
+        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
         public string v_SourceDataTable { get; set; }
 
         [Required]
@@ -34,7 +34,7 @@ namespace OpenBots.Commands.DataTable
         [Description("Enter an existing DataTable to apply the merge operation to.")]
         [SampleUsage("{vDestDataTable}")]
         [Remarks("")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
+        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
         public string v_DestinationDataTable { get; set; }
 
         [Required]
