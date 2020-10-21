@@ -13,85 +13,85 @@ using System.Windows.Forms;
 
 namespace OpenBots.Commands
 {
-    [Serializable]
-    [Category("Misc Commands")]
-    [Description("This command encrypts or decrypts text.")]
-    public class EncryptionCommand : ScriptCommand
-    {
+	[Serializable]
+	[Category("Misc Commands")]
+	[Description("This command encrypts or decrypts text.")]
+	public class EncryptionCommand : ScriptCommand
+	{
 
-        [Required]
+		[Required]
 		[DisplayName("Encryption Action")]
-        [PropertyUISelectionOption("Encrypt")]
-        [PropertyUISelectionOption("Decrypt")]
-        [Description("Select the appropriate action to take.")]
-        [SampleUsage("")]
-        [Remarks("")]
-        public string v_EncryptionType { get; set; }
+		[PropertyUISelectionOption("Encrypt")]
+		[PropertyUISelectionOption("Decrypt")]
+		[Description("Select the appropriate action to take.")]
+		[SampleUsage("")]
+		[Remarks("")]
+		public string v_EncryptionType { get; set; }
 
-        [Required]
+		[Required]
 		[DisplayName("Text")]
-        [Description("Select or provide the text to encrypt/decrypt.")]
-        [SampleUsage("Hello || {vText}")]
-        [Remarks("")]
-        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
-        public string v_InputValue { get; set; }
+		[Description("Select or provide the text to encrypt/decrypt.")]
+		[SampleUsage("Hello || {vText}")]
+		[Remarks("")]
+		[Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
+		public string v_InputValue { get; set; }
 
-        [Required]
+		[Required]
 		[DisplayName("Pass Phrase")]
-        [Description("Select or provide a pass phrase for encryption/decryption.")]
-        [SampleUsage("OPENBOTS || {vPassPhrase}")]
-        [Remarks("If decrypting, provide the pass phrase used to encypt the original text.")]
-        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
-        public string v_PassPhrase { get; set; }
+		[Description("Select or provide a pass phrase for encryption/decryption.")]
+		[SampleUsage("OPENBOTS || {vPassPhrase}")]
+		[Remarks("If decrypting, provide the pass phrase used to encypt the original text.")]
+		[Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
+		public string v_PassPhrase { get; set; }
 
-        [Required]
-        [Editable(false)]
-        [DisplayName("Output Result Variable")]
-        [Description("Create a new variable or select a variable from the list.")]
-        [SampleUsage("{vUserVariable}")]
-        [Remarks("Variables not pre-defined in the Variable Manager will be automatically generated at runtime.")]
-        public string v_OutputUserVariableName { get; set; }
+		[Required]
+		[Editable(false)]
+		[DisplayName("Output Result Variable")]
+		[Description("Create a new variable or select a variable from the list.")]
+		[SampleUsage("{vUserVariable}")]
+		[Remarks("Variables not pre-defined in the Variable Manager will be automatically generated at runtime.")]
+		public string v_OutputUserVariableName { get; set; }
 
-        public EncryptionCommand()
-        {
-            CommandName = "EncryptionCommand";
-            SelectionName = "Encryption Command";
-            CommandEnabled = true;
-            
-            v_EncryptionType = "Encrypt";
-        }
+		public EncryptionCommand()
+		{
+			CommandName = "EncryptionCommand";
+			SelectionName = "Encryption Command";
+			CommandEnabled = true;
+			
+			v_EncryptionType = "Encrypt";
+		}
 
-        public override void RunCommand(object sender)
-        {
-            var engine = (AutomationEngineInstance)sender;
+		public override void RunCommand(object sender)
+		{
+			var engine = (AutomationEngineInstance)sender;
 
-            var variableInput = v_InputValue.ConvertUserVariableToString(engine);
-            var passphrase = v_PassPhrase.ConvertUserVariableToString(engine);
+			var variableInput = v_InputValue.ConvertUserVariableToString(engine);
+			var passphrase = v_PassPhrase.ConvertUserVariableToString(engine);
 
-            string resultData = "";
-            if (v_EncryptionType == "Encrypt")
-                resultData = EncryptionServices.EncryptString(variableInput, passphrase);
-            else if (v_EncryptionType == "Decrypt")
-                resultData = EncryptionServices.DecryptString(variableInput, passphrase);
+			string resultData = "";
+			if (v_EncryptionType == "Encrypt")
+				resultData = EncryptionServices.EncryptString(variableInput, passphrase);
+			else if (v_EncryptionType == "Decrypt")
+				resultData = EncryptionServices.DecryptString(variableInput, passphrase);
 
-            resultData.StoreInUserVariable(engine, v_OutputUserVariableName);
-        }
+			resultData.StoreInUserVariable(engine, v_OutputUserVariableName);
+		}
 
-        public override List<Control> Render(IfrmCommandEditor editor, ICommandControls commandControls)
-        {
-            base.Render(editor, commandControls);
+		public override List<Control> Render(IfrmCommandEditor editor, ICommandControls commandControls)
+		{
+			base.Render(editor, commandControls);
 
-            RenderedControls.AddRange(commandControls.CreateDefaultDropdownGroupFor("v_EncryptionType", this, editor));
-            RenderedControls.AddRange(commandControls.CreateDefaultInputGroupFor("v_InputValue", this, editor));
-            RenderedControls.AddRange(commandControls.CreateDefaultPasswordInputGroupFor("v_PassPhrase", this, editor));
-            RenderedControls.AddRange(commandControls.CreateDefaultOutputGroupFor("v_OutputUserVariableName", this, editor));
+			RenderedControls.AddRange(commandControls.CreateDefaultDropdownGroupFor("v_EncryptionType", this, editor));
+			RenderedControls.AddRange(commandControls.CreateDefaultInputGroupFor("v_InputValue", this, editor));
+			RenderedControls.AddRange(commandControls.CreateDefaultPasswordInputGroupFor("v_PassPhrase", this, editor));
+			RenderedControls.AddRange(commandControls.CreateDefaultOutputGroupFor("v_OutputUserVariableName", this, editor));
 
-            return RenderedControls;
-        }
+			return RenderedControls;
+		}
 
-        public override string GetDisplayValue()
-        {
-            return base.GetDisplayValue() + $" [{v_EncryptionType} '{v_InputValue}' - Store Result in '{v_OutputUserVariableName}']";
-        }
-    }
+		public override string GetDisplayValue()
+		{
+			return base.GetDisplayValue() + $" [{v_EncryptionType} '{v_InputValue}' - Store Result in '{v_OutputUserVariableName}']";
+		}
+	}
 }

@@ -13,60 +13,60 @@ using Application = Microsoft.Office.Interop.Word.Application;
 
 namespace OpenBots.Commands.Word
 {
-    [Serializable]
-    [Category("Word Commands")]
-    [Description("This command extracts text from a Word Document.")]
-    public class WordReadDocumentCommand : ScriptCommand
-    {
-        [Required]
+	[Serializable]
+	[Category("Word Commands")]
+	[Description("This command extracts text from a Word Document.")]
+	public class WordReadDocumentCommand : ScriptCommand
+	{
+		[Required]
 		[DisplayName("Word Instance Name")]
-        [Description("Enter the unique instance that was specified in the **Create Application** command.")]
-        [SampleUsage("MyWordInstance")]
-        [Remarks("Failure to enter the correct instance or failure to first call the **Create Application** command will cause an error.")]
-        public string v_InstanceName { get; set; }
+		[Description("Enter the unique instance that was specified in the **Create Application** command.")]
+		[SampleUsage("MyWordInstance")]
+		[Remarks("Failure to enter the correct instance or failure to first call the **Create Application** command will cause an error.")]
+		public string v_InstanceName { get; set; }
 
-        [Required]
-        [Editable(false)]
-        [DisplayName("Output Text Variable")]
-        [Description("Create a new variable or select a variable from the list.")]
-        [SampleUsage("{vUserVariable}")]
-        [Remarks("Variables not pre-defined in the Variable Manager will be automatically generated at runtime.")]
-        public string v_OutputUserVariableName { get; set; }
+		[Required]
+		[Editable(false)]
+		[DisplayName("Output Text Variable")]
+		[Description("Create a new variable or select a variable from the list.")]
+		[SampleUsage("{vUserVariable}")]
+		[Remarks("Variables not pre-defined in the Variable Manager will be automatically generated at runtime.")]
+		public string v_OutputUserVariableName { get; set; }
 
-        public WordReadDocumentCommand()
-        {
-            CommandName = "WordReadDocumentCommand";
-            SelectionName = "Read Document";
-            CommandEnabled = true;
-            v_InstanceName = "DefaultWord";
-        }
+		public WordReadDocumentCommand()
+		{
+			CommandName = "WordReadDocumentCommand";
+			SelectionName = "Read Document";
+			CommandEnabled = true;
+			v_InstanceName = "DefaultWord";
+		}
 
-        public override void RunCommand(object sender)
-        {
-            var engine = (AutomationEngineInstance)sender;
-            var wordObject = v_InstanceName.GetAppInstance(engine);
+		public override void RunCommand(object sender)
+		{
+			var engine = (AutomationEngineInstance)sender;
+			var wordObject = v_InstanceName.GetAppInstance(engine);
 
-            Application wordInstance = (Application)wordObject;
-            Document wordDocument = wordInstance.ActiveDocument;
+			Application wordInstance = (Application)wordObject;
+			Document wordDocument = wordInstance.ActiveDocument;
 
-            //store text in variable
-            string textFromDocument = wordDocument.Content.Text;
-            textFromDocument.StoreInUserVariable(engine, v_OutputUserVariableName);
-        }
+			//store text in variable
+			string textFromDocument = wordDocument.Content.Text;
+			textFromDocument.StoreInUserVariable(engine, v_OutputUserVariableName);
+		}
 
-        public override List<Control> Render(IfrmCommandEditor editor, ICommandControls commandControls)
-        {
-            base.Render(editor, commandControls);
+		public override List<Control> Render(IfrmCommandEditor editor, ICommandControls commandControls)
+		{
+			base.Render(editor, commandControls);
 
-            RenderedControls.AddRange(commandControls.CreateDefaultInputGroupFor("v_InstanceName", this, editor));
-            RenderedControls.AddRange(commandControls.CreateDefaultOutputGroupFor("v_OutputUserVariableName", this, editor));
+			RenderedControls.AddRange(commandControls.CreateDefaultInputGroupFor("v_InstanceName", this, editor));
+			RenderedControls.AddRange(commandControls.CreateDefaultOutputGroupFor("v_OutputUserVariableName", this, editor));
 
-            return RenderedControls;
-        }
+			return RenderedControls;
+		}
 
-        public override string GetDisplayValue()
-        {
-            return base.GetDisplayValue() + $" [Store Text in '{v_OutputUserVariableName}' - Instance Name '{v_InstanceName}']";
-        }
-    }
+		public override string GetDisplayValue()
+		{
+			return base.GetDisplayValue() + $" [Store Text in '{v_OutputUserVariableName}' - Instance Name '{v_InstanceName}']";
+		}
+	}
 }

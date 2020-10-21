@@ -16,164 +16,164 @@ using System.Windows.Forms;
 
 namespace OpenBots.Commands.Input
 {
-    [Serializable]
-    [Category("Input Commands")]
-    [Description("This command sends advanced keystrokes to a targeted window.")]
-    public class SendAdvancedKeystrokesCommand : ScriptCommand
-    {
+	[Serializable]
+	[Category("Input Commands")]
+	[Description("This command sends advanced keystrokes to a targeted window.")]
+	public class SendAdvancedKeystrokesCommand : ScriptCommand
+	{
 
-        [Required]
+		[Required]
 		[DisplayName("Window Name")]
-        [Description("Select the name of the window to send advanced keystrokes to.")]
-        [SampleUsage("Untitled - Notepad || Current Window || {vWindow}")]
-        [Remarks("")]
-        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
-        public string v_WindowName { get; set; }
+		[Description("Select the name of the window to send advanced keystrokes to.")]
+		[SampleUsage("Untitled - Notepad || Current Window || {vWindow}")]
+		[Remarks("")]
+		[Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
+		public string v_WindowName { get; set; }
 
-        [Required]
+		[Required]
 		[DisplayName("Keystroke Parameters")]
-        [Description("Define the parameters for the keystroke actions.")]
-        [SampleUsage("[Enter [Return] | Key Press (Down + Up)]")]
-        [Remarks("")]
-        public DataTable v_KeyActions { get; set; }
+		[Description("Define the parameters for the keystroke actions.")]
+		[SampleUsage("[Enter [Return] | Key Press (Down + Up)]")]
+		[Remarks("")]
+		public DataTable v_KeyActions { get; set; }
 
-        [Required]
+		[Required]
 		[DisplayName("Return All Keys to 'UP' Position")]
-        [PropertyUISelectionOption("Yes")]
-        [PropertyUISelectionOption("No")]      
-        [Description("Select whether to return all keys to the 'UP' position after execution.")]
-        [SampleUsage("")]
-        [Remarks("")]
-        public string v_KeyUpDefault { get; set; }
+		[PropertyUISelectionOption("Yes")]
+		[PropertyUISelectionOption("No")]      
+		[Description("Select whether to return all keys to the 'UP' position after execution.")]
+		[SampleUsage("")]
+		[Remarks("")]
+		public string v_KeyUpDefault { get; set; }
 
-        [JsonIgnore]
+		[JsonIgnore]
 		[Browsable(false)]
-        private DataGridView _keystrokeGridHelper;
+		private DataGridView _keystrokeGridHelper;
 
-        public SendAdvancedKeystrokesCommand()
-        {
-            CommandName = "SendAdvancedKeystrokesCommand";
-            SelectionName = "Send Advanced Keystrokes";
-            CommandEnabled = true;
-            
+		public SendAdvancedKeystrokesCommand()
+		{
+			CommandName = "SendAdvancedKeystrokesCommand";
+			SelectionName = "Send Advanced Keystrokes";
+			CommandEnabled = true;
+			
 
-            v_KeyActions = new DataTable();
-            v_KeyActions.Columns.Add("Key");
-            v_KeyActions.Columns.Add("Action");
-            v_KeyActions.TableName = "SendAdvancedKeyStrokesCommand" + DateTime.Now.ToString("MMddyy.hhmmss");
+			v_KeyActions = new DataTable();
+			v_KeyActions.Columns.Add("Key");
+			v_KeyActions.Columns.Add("Action");
+			v_KeyActions.TableName = "SendAdvancedKeyStrokesCommand" + DateTime.Now.ToString("MMddyy.hhmmss");
 
-            v_WindowName = "Current Window";
-            v_KeyUpDefault = "Yes";
-        }
+			v_WindowName = "Current Window";
+			v_KeyUpDefault = "Yes";
+		}
 
-        public override void RunCommand(object sender)
-        {
-            var engine = (AutomationEngineInstance)sender;
-            var variableWindowName = v_WindowName.ConvertUserVariableToString(engine);
+		public override void RunCommand(object sender)
+		{
+			var engine = (AutomationEngineInstance)sender;
+			var variableWindowName = v_WindowName.ConvertUserVariableToString(engine);
 
-            //activate anything except current window
-            if (variableWindowName != "Current Window")
-                User32Functions.ActivateWindow(variableWindowName);
+			//activate anything except current window
+			if (variableWindowName != "Current Window")
+				User32Functions.ActivateWindow(variableWindowName);
 
-            //track all keys down
-            var keysDown = new List<Keys>();
+			//track all keys down
+			var keysDown = new List<Keys>();
 
-            //run each selected item
-            foreach (DataRow rw in v_KeyActions.Rows)
-            {
-                //get key name
-                var keyName = rw.Field<string>("Key");
+			//run each selected item
+			foreach (DataRow rw in v_KeyActions.Rows)
+			{
+				//get key name
+				var keyName = rw.Field<string>("Key");
 
-                //get key action
-                var action = rw.Field<string>("Action");
+				//get key action
+				var action = rw.Field<string>("Action");
 
-                //parse OEM key name
-                string oemKeyString = keyName.Split('[', ']')[1];
+				//parse OEM key name
+				string oemKeyString = keyName.Split('[', ']')[1];
 
-                var oemKeyName = (Keys)Enum.Parse(typeof(Keys), oemKeyString);
-           
-                //"Key Press (Down + Up)", "Key Down", "Key Up"
-                switch (action)
-                {
-                    case "Key Press (Down + Up)":
-                        //simulate press
-                        User32Functions.KeyDown(oemKeyName);
-                        User32Functions.KeyUp(oemKeyName);
-                        
-                        //key returned to UP position so remove if we added it to the keys down list
-                        if (keysDown.Contains(oemKeyName))
-                            keysDown.Remove(oemKeyName);
-                        break;
-                    case "Key Down":
-                        //simulate down
-                        User32Functions.KeyDown(oemKeyName);
+				var oemKeyName = (Keys)Enum.Parse(typeof(Keys), oemKeyString);
+		   
+				//"Key Press (Down + Up)", "Key Down", "Key Up"
+				switch (action)
+				{
+					case "Key Press (Down + Up)":
+						//simulate press
+						User32Functions.KeyDown(oemKeyName);
+						User32Functions.KeyUp(oemKeyName);
+						
+						//key returned to UP position so remove if we added it to the keys down list
+						if (keysDown.Contains(oemKeyName))
+							keysDown.Remove(oemKeyName);
+						break;
+					case "Key Down":
+						//simulate down
+						User32Functions.KeyDown(oemKeyName);
 
-                        //track via keys down list
-                        if (!keysDown.Contains(oemKeyName))
-                            keysDown.Add(oemKeyName);
-                        break;
-                    case "Key Up":
-                        //simulate up
-                        User32Functions.KeyUp(oemKeyName);
+						//track via keys down list
+						if (!keysDown.Contains(oemKeyName))
+							keysDown.Add(oemKeyName);
+						break;
+					case "Key Up":
+						//simulate up
+						User32Functions.KeyUp(oemKeyName);
 
-                        //remove from key down
-                        if (keysDown.Contains(oemKeyName))
-                            keysDown.Remove(oemKeyName);
-                        break;
-                    default:
-                        break;
-                }
-            }
+						//remove from key down
+						if (keysDown.Contains(oemKeyName))
+							keysDown.Remove(oemKeyName);
+						break;
+					default:
+						break;
+				}
+			}
 
-            //return key to up position if requested
-            if (v_KeyUpDefault == "Yes")
-            {
-                foreach (var key in keysDown)
-                    User32Functions.KeyUp(key);
-            }       
-        }
+			//return key to up position if requested
+			if (v_KeyUpDefault == "Yes")
+			{
+				foreach (var key in keysDown)
+					User32Functions.KeyUp(key);
+			}       
+		}
 
-        public override List<Control> Render(IfrmCommandEditor editor, ICommandControls commandControls)
-        {
-            base.Render(editor, commandControls);
+		public override List<Control> Render(IfrmCommandEditor editor, ICommandControls commandControls)
+		{
+			base.Render(editor, commandControls);
 
-            RenderedControls.AddRange(commandControls.CreateDefaultWindowControlGroupFor("v_WindowName", this, editor));
+			RenderedControls.AddRange(commandControls.CreateDefaultWindowControlGroupFor("v_WindowName", this, editor));
 
-            _keystrokeGridHelper = new DataGridView();
-            _keystrokeGridHelper.DataBindings.Add("DataSource", this, "v_KeyActions", false, DataSourceUpdateMode.OnPropertyChanged);
-            _keystrokeGridHelper.AllowUserToDeleteRows = true;
-            _keystrokeGridHelper.AutoGenerateColumns = false;
-            _keystrokeGridHelper.Width = 500;
-            _keystrokeGridHelper.Height = 140;
+			_keystrokeGridHelper = new DataGridView();
+			_keystrokeGridHelper.DataBindings.Add("DataSource", this, "v_KeyActions", false, DataSourceUpdateMode.OnPropertyChanged);
+			_keystrokeGridHelper.AllowUserToDeleteRows = true;
+			_keystrokeGridHelper.AutoGenerateColumns = false;
+			_keystrokeGridHelper.Width = 500;
+			_keystrokeGridHelper.Height = 140;
 
-            DataGridViewComboBoxColumn propertyName = new DataGridViewComboBoxColumn();
-            propertyName.DataSource = Common.GetAvailableKeys();
-            propertyName.HeaderText = "Selected Key";
-            propertyName.DataPropertyName = "Key";
-            _keystrokeGridHelper.Columns.Add(propertyName);
+			DataGridViewComboBoxColumn propertyName = new DataGridViewComboBoxColumn();
+			propertyName.DataSource = Common.GetAvailableKeys();
+			propertyName.HeaderText = "Selected Key";
+			propertyName.DataPropertyName = "Key";
+			_keystrokeGridHelper.Columns.Add(propertyName);
 
-            DataGridViewComboBoxColumn propertyValue = new DataGridViewComboBoxColumn();
-            propertyValue.DataSource = new List<string> { "Key Press (Down + Up)", "Key Down", "Key Up" };
-            propertyValue.HeaderText = "Selected Action";
-            propertyValue.DataPropertyName = "Action";
-            _keystrokeGridHelper.Columns.Add(propertyValue);
+			DataGridViewComboBoxColumn propertyValue = new DataGridViewComboBoxColumn();
+			propertyValue.DataSource = new List<string> { "Key Press (Down + Up)", "Key Down", "Key Up" };
+			propertyValue.HeaderText = "Selected Action";
+			propertyValue.DataPropertyName = "Action";
+			_keystrokeGridHelper.Columns.Add(propertyValue);
 
-            _keystrokeGridHelper.ColumnHeadersHeight = 30;
-            _keystrokeGridHelper.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            _keystrokeGridHelper.AllowUserToAddRows = true;
-            _keystrokeGridHelper.AllowUserToDeleteRows = true;
+			_keystrokeGridHelper.ColumnHeadersHeight = 30;
+			_keystrokeGridHelper.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+			_keystrokeGridHelper.AllowUserToAddRows = true;
+			_keystrokeGridHelper.AllowUserToDeleteRows = true;
 
-            RenderedControls.Add(commandControls.CreateDefaultLabelFor("v_KeyActions", this));
-            RenderedControls.Add(_keystrokeGridHelper);
+			RenderedControls.Add(commandControls.CreateDefaultLabelFor("v_KeyActions", this));
+			RenderedControls.Add(_keystrokeGridHelper);
 
-            RenderedControls.AddRange(commandControls.CreateDefaultDropdownGroupFor("v_KeyUpDefault", this, editor));
+			RenderedControls.AddRange(commandControls.CreateDefaultDropdownGroupFor("v_KeyUpDefault", this, editor));
 
-            return RenderedControls;
-        }
-     
-        public override string GetDisplayValue()
-        {
-            return base.GetDisplayValue() + $" [Window '{v_WindowName}']";
-        }
-    }
+			return RenderedControls;
+		}
+	 
+		public override string GetDisplayValue()
+		{
+			return base.GetDisplayValue() + $" [Window '{v_WindowName}']";
+		}
+	}
 }

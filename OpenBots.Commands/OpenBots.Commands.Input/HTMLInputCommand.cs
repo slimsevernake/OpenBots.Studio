@@ -13,88 +13,88 @@ using System.Windows.Forms;
 
 namespace OpenBots.Commands.Input
 {
-    [Serializable]
-    [Category("Input Commands")]
-    [Description("This command provides the user with an HTML form to input and store a collection of data.")]
-    public class HTMLInputCommand : ScriptCommand
-    {
+	[Serializable]
+	[Category("Input Commands")]
+	[Description("This command provides the user with an HTML form to input and store a collection of data.")]
+	public class HTMLInputCommand : ScriptCommand
+	{
 
-        [Required]
+		[Required]
 		[DisplayName("HTML")]
-        [Description("Define the form to be displayed using the HTML Builder.")]
-        [SampleUsage("")]
-        [Remarks("")]
-        [Editor("ShowHTMLBuilder", typeof(UIAdditionalHelperType))]
-        public string v_InputHTML { get; set; }
+		[Description("Define the form to be displayed using the HTML Builder.")]
+		[SampleUsage("")]
+		[Remarks("")]
+		[Editor("ShowHTMLBuilder", typeof(UIAdditionalHelperType))]
+		public string v_InputHTML { get; set; }
 
-        [Required]
+		[Required]
 		[DisplayName("Error On Close")]
-        [PropertyUISelectionOption("Yes")]
-        [PropertyUISelectionOption("No")]
-        [Description("Specify if an exception should be thrown on any result other than 'OK'.")]
-        [SampleUsage("")]
-        [Remarks("")]      
-        public string v_ErrorOnClose { get; set; }
+		[PropertyUISelectionOption("Yes")]
+		[PropertyUISelectionOption("No")]
+		[Description("Specify if an exception should be thrown on any result other than 'OK'.")]
+		[SampleUsage("")]
+		[Remarks("")]      
+		public string v_ErrorOnClose { get; set; }
 
-        public HTMLInputCommand()
-        {
-            CommandName = "HTMLInputCommand";
-            SelectionName = "Prompt for HTML Input";
-            CommandEnabled = true;
-            
-            v_InputHTML = Resources.HTMLInputSample;
-            v_ErrorOnClose = "No";
-        }
+		public HTMLInputCommand()
+		{
+			CommandName = "HTMLInputCommand";
+			SelectionName = "Prompt for HTML Input";
+			CommandEnabled = true;
+			
+			v_InputHTML = Resources.HTMLInputSample;
+			v_ErrorOnClose = "No";
+		}
 
-        public override void RunCommand(object sender)
-        {
-            var engine = (AutomationEngineInstance)sender;
+		public override void RunCommand(object sender)
+		{
+			var engine = (AutomationEngineInstance)sender;
 
-            if (engine.ScriptEngineUI == null)
-            {
-                engine.ReportProgress("HTML UserInput Supported With UI Only");
-                MessageBox.Show("HTML UserInput Supported With UI Only", "UserInput Command", 
-                                MessageBoxButtons.OK, MessageBoxIcon.Information);
-                return;
-            }
+			if (engine.ScriptEngineUI == null)
+			{
+				engine.ReportProgress("HTML UserInput Supported With UI Only");
+				MessageBox.Show("HTML UserInput Supported With UI Only", "UserInput Command", 
+								MessageBoxButtons.OK, MessageBoxIcon.Information);
+				return;
+			}
 
-            //invoke ui for data collection
-            var result = ((Form)engine.ScriptEngineUI).Invoke(new Action(() =>
-            {
-                //sample for temp testing
-                var htmlInput = v_InputHTML.ConvertUserVariableToString(engine);
+			//invoke ui for data collection
+			var result = ((Form)engine.ScriptEngineUI).Invoke(new Action(() =>
+			{
+				//sample for temp testing
+				var htmlInput = v_InputHTML.ConvertUserVariableToString(engine);
 
-                var variables = engine.ScriptEngineUI.ShowHTMLInput(htmlInput);
+				var variables = engine.ScriptEngineUI.ShowHTMLInput(htmlInput);
 
-                //if user selected Ok then process variables
-                //null result means user cancelled/closed
-                if (variables != null)
-                {
-                    //store each one into context
-                    foreach (var variable in variables)
-                        variable.VariableValue.ToString().StoreInUserVariable(engine, variable.VariableName);
-                }
-                else if (v_ErrorOnClose == "Yes")
-                {
-                    throw new Exception("Input Form was closed by the user");
-                }
-            }
-            ));
-        }
+				//if user selected Ok then process variables
+				//null result means user cancelled/closed
+				if (variables != null)
+				{
+					//store each one into context
+					foreach (var variable in variables)
+						variable.VariableValue.ToString().StoreInUserVariable(engine, variable.VariableName);
+				}
+				else if (v_ErrorOnClose == "Yes")
+				{
+					throw new Exception("Input Form was closed by the user");
+				}
+			}
+			));
+		}
 
-        public override List<Control> Render(IfrmCommandEditor editor, ICommandControls commandControls)
-        {
-            base.Render(editor, commandControls);
+		public override List<Control> Render(IfrmCommandEditor editor, ICommandControls commandControls)
+		{
+			base.Render(editor, commandControls);
 
-            RenderedControls.AddRange(commandControls.CreateDefaultInputGroupFor("v_InputHTML", this, editor));
-            RenderedControls.AddRange(commandControls.CreateDefaultDropdownGroupFor("v_ErrorOnClose", this, editor));
-            
-            return RenderedControls;
-        }
+			RenderedControls.AddRange(commandControls.CreateDefaultInputGroupFor("v_InputHTML", this, editor));
+			RenderedControls.AddRange(commandControls.CreateDefaultDropdownGroupFor("v_ErrorOnClose", this, editor));
+			
+			return RenderedControls;
+		}
 
-        public override string GetDisplayValue()
-        {
-            return base.GetDisplayValue();
-        }
-    }
+		public override string GetDisplayValue()
+		{
+			return base.GetDisplayValue();
+		}
+	}
 }

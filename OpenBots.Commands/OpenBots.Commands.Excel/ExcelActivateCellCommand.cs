@@ -14,60 +14,60 @@ using Application = Microsoft.Office.Interop.Excel.Application;
 
 namespace OpenBots.Commands.Excel
 {
-    [Serializable]
-    [Category("Excel Commands")]
-    [Description("This command activates a specific cell in an Excel Worksheet.")]
+	[Serializable]
+	[Category("Excel Commands")]
+	[Description("This command activates a specific cell in an Excel Worksheet.")]
 
-    public class ExcelActivateCellCommand : ScriptCommand
-    {
-        [Required]
+	public class ExcelActivateCellCommand : ScriptCommand
+	{
+		[Required]
 		[DisplayName("Excel Instance Name")]
-        [Description("Enter the unique instance that was specified in the **Create Application** command.")]
-        [SampleUsage("MyExcelInstance")]
-        [Remarks("Failure to enter the correct instance or failure to first call the **Create Application** command will cause an error.")]
-        public string v_InstanceName { get; set; }
+		[Description("Enter the unique instance that was specified in the **Create Application** command.")]
+		[SampleUsage("MyExcelInstance")]
+		[Remarks("Failure to enter the correct instance or failure to first call the **Create Application** command will cause an error.")]
+		public string v_InstanceName { get; set; }
 
-        [Required]
+		[Required]
 		[DisplayName("Cell Location")]
-        [Description("Enter the location of the cell to activate.")]
-        [SampleUsage("A1 || {vCellLocation}")]
-        [Remarks("")]
-        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
-        public string v_CellLocation { get; set; }
+		[Description("Enter the location of the cell to activate.")]
+		[SampleUsage("A1 || {vCellLocation}")]
+		[Remarks("")]
+		[Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
+		public string v_CellLocation { get; set; }
 
-        public ExcelActivateCellCommand()
-        {
-            CommandName = "ExcelActivateCellCommand";
-            SelectionName = "Activate Cell";
-            CommandEnabled = true;
-            
-            v_InstanceName = "DefaultExcel";
-        }
+		public ExcelActivateCellCommand()
+		{
+			CommandName = "ExcelActivateCellCommand";
+			SelectionName = "Activate Cell";
+			CommandEnabled = true;
+			
+			v_InstanceName = "DefaultExcel";
+		}
 
-        public override void RunCommand(object sender)
-        {
-            var engine = (AutomationEngineInstance)sender;
-            var excelObject = v_InstanceName.GetAppInstance(engine);
-            var vLocation = v_CellLocation.ConvertUserVariableToString(engine);
-            var excelInstance = (Application)excelObject;
+		public override void RunCommand(object sender)
+		{
+			var engine = (AutomationEngineInstance)sender;
+			var excelObject = v_InstanceName.GetAppInstance(engine);
+			var vLocation = v_CellLocation.ConvertUserVariableToString(engine);
+			var excelInstance = (Application)excelObject;
 
-            Worksheet excelSheet = excelInstance.ActiveSheet;
-            excelSheet.Range[vLocation].Select();           
-        }
+			Worksheet excelSheet = excelInstance.ActiveSheet;
+			excelSheet.Range[vLocation].Select();           
+		}
 
-        public override List<Control> Render(IfrmCommandEditor editor, ICommandControls commandControls)
-        {
-            base.Render(editor, commandControls);
+		public override List<Control> Render(IfrmCommandEditor editor, ICommandControls commandControls)
+		{
+			base.Render(editor, commandControls);
 
-            RenderedControls.AddRange(commandControls.CreateDefaultInputGroupFor("v_InstanceName", this, editor));
-            RenderedControls.AddRange(commandControls.CreateDefaultInputGroupFor("v_CellLocation", this, editor));
+			RenderedControls.AddRange(commandControls.CreateDefaultInputGroupFor("v_InstanceName", this, editor));
+			RenderedControls.AddRange(commandControls.CreateDefaultInputGroupFor("v_CellLocation", this, editor));
 
-            return RenderedControls;
-        }
+			return RenderedControls;
+		}
 
-        public override string GetDisplayValue()
-        {
-            return base.GetDisplayValue() + $" [Activate '{v_CellLocation}' - Instance Name '{v_InstanceName}']";
-        }
-    }
+		public override string GetDisplayValue()
+		{
+			return base.GetDisplayValue() + $" [Activate '{v_CellLocation}' - Instance Name '{v_InstanceName}']";
+		}
+	}
 }

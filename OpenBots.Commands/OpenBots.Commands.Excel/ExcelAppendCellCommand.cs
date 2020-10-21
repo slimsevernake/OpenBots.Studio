@@ -15,62 +15,62 @@ using Application = Microsoft.Office.Interop.Excel.Application;
 
 namespace OpenBots.Commands.Excel
 {
-    [Serializable]
-    [Category("Excel Commands")]
-    [Description("This command appends a cell to the first column after the last row in an Excel Worksheet.")]
-    public class ExcelAppendCellCommand : ScriptCommand
-    {
-        [Required]
+	[Serializable]
+	[Category("Excel Commands")]
+	[Description("This command appends a cell to the first column after the last row in an Excel Worksheet.")]
+	public class ExcelAppendCellCommand : ScriptCommand
+	{
+		[Required]
 		[DisplayName("Excel Instance Name")]
-        [Description("Enter the unique instance that was specified in the **Create Application** command.")]
-        [SampleUsage("MyExcelInstance")]
-        [Remarks("Failure to enter the correct instance or failure to first call the **Create Application** command will cause an error.")]
-        public string v_InstanceName { get; set; }
+		[Description("Enter the unique instance that was specified in the **Create Application** command.")]
+		[SampleUsage("MyExcelInstance")]
+		[Remarks("Failure to enter the correct instance or failure to first call the **Create Application** command will cause an error.")]
+		public string v_InstanceName { get; set; }
 
-        [Required]
+		[Required]
 		[DisplayName("Cell Value")]
-        [Description("Enter the text value that will be set in the appended cell.")]
-        [SampleUsage("Hello World || {vText}")]
-        [Remarks("")]
-        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
-        public string v_TextToSet { get; set; }
+		[Description("Enter the text value that will be set in the appended cell.")]
+		[SampleUsage("Hello World || {vText}")]
+		[Remarks("")]
+		[Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
+		public string v_TextToSet { get; set; }
 
-        public ExcelAppendCellCommand()
-        {
-            CommandName = "ExcelAppendCellCommand";
-            SelectionName = "Append Cell";
-            CommandEnabled = true;
-            
-            v_InstanceName = "DefaultExcel";
-        }
+		public ExcelAppendCellCommand()
+		{
+			CommandName = "ExcelAppendCellCommand";
+			SelectionName = "Append Cell";
+			CommandEnabled = true;
+			
+			v_InstanceName = "DefaultExcel";
+		}
 
-        public override void RunCommand(object sender)
-        {
-            var engine = (AutomationEngineInstance)sender;
-            var excelObject = v_InstanceName.GetAppInstance(engine);
-            var excelInstance = (Application)excelObject;
-            Worksheet excelSheet = excelInstance.ActiveSheet;
+		public override void RunCommand(object sender)
+		{
+			var engine = (AutomationEngineInstance)sender;
+			var excelObject = v_InstanceName.GetAppInstance(engine);
+			var excelInstance = (Application)excelObject;
+			Worksheet excelSheet = excelInstance.ActiveSheet;
   
-            var lastUsedRow = excelSheet.Cells.Find("*", Missing.Value, Missing.Value, Missing.Value, XlSearchOrder.xlByRows, 
-                                                    XlSearchDirection.xlPrevious, false, Missing.Value, Missing.Value).Row;
-            var targetAddress = "A" + (lastUsedRow + 1);
-            var vTargetText = v_TextToSet.ConvertUserVariableToString(engine);
-            excelSheet.Range[targetAddress].Value = vTargetText;
-        }
+			var lastUsedRow = excelSheet.Cells.Find("*", Missing.Value, Missing.Value, Missing.Value, XlSearchOrder.xlByRows, 
+													XlSearchDirection.xlPrevious, false, Missing.Value, Missing.Value).Row;
+			var targetAddress = "A" + (lastUsedRow + 1);
+			var vTargetText = v_TextToSet.ConvertUserVariableToString(engine);
+			excelSheet.Range[targetAddress].Value = vTargetText;
+		}
 
-        public override List<Control> Render(IfrmCommandEditor editor, ICommandControls commandControls)
-        {
-            base.Render(editor, commandControls);
+		public override List<Control> Render(IfrmCommandEditor editor, ICommandControls commandControls)
+		{
+			base.Render(editor, commandControls);
 
-            RenderedControls.AddRange(commandControls.CreateDefaultInputGroupFor("v_InstanceName", this, editor));
-            RenderedControls.AddRange(commandControls.CreateDefaultInputGroupFor("v_TextToSet", this, editor));
+			RenderedControls.AddRange(commandControls.CreateDefaultInputGroupFor("v_InstanceName", this, editor));
+			RenderedControls.AddRange(commandControls.CreateDefaultInputGroupFor("v_TextToSet", this, editor));
 
-            return RenderedControls;
-        }
+			return RenderedControls;
+		}
 
-        public override string GetDisplayValue()
-        {
-            return base.GetDisplayValue() + $" [Append '{v_TextToSet}' - Instance Name '{v_InstanceName}']";
-        }
-    }
+		public override string GetDisplayValue()
+		{
+			return base.GetDisplayValue() + $" [Append '{v_TextToSet}' - Instance Name '{v_InstanceName}']";
+		}
+	}
 }

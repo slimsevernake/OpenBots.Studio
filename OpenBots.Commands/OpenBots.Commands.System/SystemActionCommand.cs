@@ -11,65 +11,65 @@ using System.Windows.Forms;
 
 namespace OpenBots.Commands.System
 {
-    [Serializable]
-    [Category("System Commands")]
-    [Description("This command performs a system action.")]
-    public class SystemActionCommand : ScriptCommand
-    {
+	[Serializable]
+	[Category("System Commands")]
+	[Description("This command performs a system action.")]
+	public class SystemActionCommand : ScriptCommand
+	{
 
-        [Required]
+		[Required]
 		[DisplayName("System Action")]
-        [PropertyUISelectionOption("Shutdown")]
-        [PropertyUISelectionOption("Restart")]
-        [PropertyUISelectionOption("Logoff")]
-        [PropertyUISelectionOption("Lock Screen")]
-        [Description("Select a system action from one of the options.")]
-        [SampleUsage("")]
-        [Remarks("")]
-        public string v_ActionName { get; set; }
+		[PropertyUISelectionOption("Shutdown")]
+		[PropertyUISelectionOption("Restart")]
+		[PropertyUISelectionOption("Logoff")]
+		[PropertyUISelectionOption("Lock Screen")]
+		[Description("Select a system action from one of the options.")]
+		[SampleUsage("")]
+		[Remarks("")]
+		public string v_ActionName { get; set; }
 
-        public SystemActionCommand()
-        {
-            CommandName = "SystemActionCommand";
-            SelectionName = "System Action";
-            CommandEnabled = true;
-            
-            v_ActionName = "Shutdown";
-        }
+		public SystemActionCommand()
+		{
+			CommandName = "SystemActionCommand";
+			SelectionName = "System Action";
+			CommandEnabled = true;
+			
+			v_ActionName = "Shutdown";
+		}
 
-        public override void RunCommand(object sender)
-        {
-            switch (v_ActionName)
-            {
-                case "Shutdown":
-                    Process.Start("shutdown", "/s /t 0");
-                    break;
-                case "Restart":
-                    Process.Start("shutdown", "/r /t 0");
-                    break;
-                case "Logoff":
-                    User32Functions.WindowsLogOff();
-                    break;
-                case "Lock Screen":
-                    User32Functions.LockWorkStation();
-                    break;
-                default:
-                    break;
-            }
-        }
+		public override void RunCommand(object sender)
+		{
+			switch (v_ActionName)
+			{
+				case "Shutdown":
+					Process.Start("shutdown", "/s /t 0");
+					break;
+				case "Restart":
+					Process.Start("shutdown", "/r /t 0");
+					break;
+				case "Logoff":
+					User32Functions.WindowsLogOff();
+					break;
+				case "Lock Screen":
+					User32Functions.LockWorkStation();
+					break;
+				default:
+					break;
+			}
+		}
 
-        public override List<Control> Render(IfrmCommandEditor editor, ICommandControls commandControls)
-        {
-            base.Render(editor, commandControls);
+		public override List<Control> Render(IfrmCommandEditor editor, ICommandControls commandControls)
+		{
+			base.Render(editor, commandControls);
 
-            RenderedControls.AddRange(commandControls.CreateDefaultDropdownGroupFor("v_ActionName", this, editor));
+			RenderedControls.AddRange(commandControls.CreateDefaultDropdownGroupFor("v_ActionName", this, editor));
 
-            return RenderedControls;
-        }
+			return RenderedControls;
+		}
 
-        public override string GetDisplayValue()
-        {
-            return base.GetDisplayValue() + $" [{v_ActionName}]";
-        }
-    }
+		public override string GetDisplayValue()
+		{
+			return base.GetDisplayValue() + $" [{v_ActionName}]";
+		}
+	}
 }

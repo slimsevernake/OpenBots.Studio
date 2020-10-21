@@ -14,71 +14,71 @@ using Data = System.Data;
 
 namespace OpenBots.Commands.DataTable
 {
-    [Serializable]
-    [Category("DataTable Commands")]
-    [Description("This command creates a DataTable with the Column Names provided.")]
+	[Serializable]
+	[Category("DataTable Commands")]
+	[Description("This command creates a DataTable with the Column Names provided.")]
 
-    public class CreateDataTableCommand : ScriptCommand
-    {
+	public class CreateDataTableCommand : ScriptCommand
+	{
 
-        [Required]
+		[Required]
 		[DisplayName("Column Names")]
-        [Description("Enter the Column Names required for each column of data.")]
-        [SampleUsage("MyColumn || {vColumn}")]
-        [Remarks("")]
-        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
-        public Data.DataTable v_ColumnNameDataTable { get; set; }
+		[Description("Enter the Column Names required for each column of data.")]
+		[SampleUsage("MyColumn || {vColumn}")]
+		[Remarks("")]
+		[Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
+		public Data.DataTable v_ColumnNameDataTable { get; set; }
 
-        [Required]
-        [Editable(false)]
-        [DisplayName("Output DataTable Variable")]
-        [Description("Create a new variable or select a variable from the list.")]
-        [SampleUsage("{vUserVariable}")]
-        [Remarks("Variables not pre-defined in the Variable Manager will be automatically generated at runtime.")]
-        public string v_OutputUserVariableName { get; set; }
+		[Required]
+		[Editable(false)]
+		[DisplayName("Output DataTable Variable")]
+		[Description("Create a new variable or select a variable from the list.")]
+		[SampleUsage("{vUserVariable}")]
+		[Remarks("Variables not pre-defined in the Variable Manager will be automatically generated at runtime.")]
+		public string v_OutputUserVariableName { get; set; }
 
-        public CreateDataTableCommand()
-        {
-            CommandName = "CreateDataTableCommand";
-            SelectionName = "Create DataTable";
-            CommandEnabled = true;
-            
-            //initialize data table
-            v_ColumnNameDataTable = new Data.DataTable
-            {
-                TableName = "ColumnNamesDataTable" + DateTime.Now.ToString("MMddyy.hhmmss")
-            };
+		public CreateDataTableCommand()
+		{
+			CommandName = "CreateDataTableCommand";
+			SelectionName = "Create DataTable";
+			CommandEnabled = true;
+			
+			//initialize data table
+			v_ColumnNameDataTable = new Data.DataTable
+			{
+				TableName = "ColumnNamesDataTable" + DateTime.Now.ToString("MMddyy.hhmmss")
+			};
 
-            v_ColumnNameDataTable.Columns.Add("Column Name");
-        }
+			v_ColumnNameDataTable.Columns.Add("Column Name");
+		}
 
-        public override void RunCommand(object sender)
-        {
-            var engine = (AutomationEngineInstance)sender;
+		public override void RunCommand(object sender)
+		{
+			var engine = (AutomationEngineInstance)sender;
 
-            Data.DataTable Dt = new Data.DataTable();
+			Data.DataTable Dt = new Data.DataTable();
 
-            foreach(DataRow rwColumnName in v_ColumnNameDataTable.Rows)
-            {
-                Dt.Columns.Add(rwColumnName.Field<string>("Column Name").ConvertUserVariableToString(engine));
-            }
+			foreach(DataRow rwColumnName in v_ColumnNameDataTable.Rows)
+			{
+				Dt.Columns.Add(rwColumnName.Field<string>("Column Name").ConvertUserVariableToString(engine));
+			}
 
-            Dt.StoreInUserVariable(engine, v_OutputUserVariableName);
-        }
+			Dt.StoreInUserVariable(engine, v_OutputUserVariableName);
+		}
 
-        public override List<Control> Render(IfrmCommandEditor editor, ICommandControls commandControls)
-        {
-            base.Render(editor, commandControls);
+		public override List<Control> Render(IfrmCommandEditor editor, ICommandControls commandControls)
+		{
+			base.Render(editor, commandControls);
 
-            RenderedControls.AddRange(commandControls.CreateDataGridViewGroupFor("v_ColumnNameDataTable", this, editor));
-            RenderedControls.AddRange(commandControls.CreateDefaultOutputGroupFor("v_OutputUserVariableName", this, editor));
+			RenderedControls.AddRange(commandControls.CreateDataGridViewGroupFor("v_ColumnNameDataTable", this, editor));
+			RenderedControls.AddRange(commandControls.CreateDefaultOutputGroupFor("v_OutputUserVariableName", this, editor));
 
-            return RenderedControls;
-        }
+			return RenderedControls;
+		}
 
-        public override string GetDisplayValue()
-        {
-            return base.GetDisplayValue() + $" [With {v_ColumnNameDataTable.Rows.Count} Column(s) - Store DataTable in '{v_OutputUserVariableName}']";
-        }
-    }
+		public override string GetDisplayValue()
+		{
+			return base.GetDisplayValue() + $" [With {v_ColumnNameDataTable.Rows.Count} Column(s) - Store DataTable in '{v_OutputUserVariableName}']";
+		}
+	}
 }

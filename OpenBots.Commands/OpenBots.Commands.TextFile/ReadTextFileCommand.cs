@@ -13,7 +13,7 @@ using System.Windows.Forms;
 
 namespace OpenBots.Commands.TextFile
 {
-    [Serializable]
+	[Serializable]
 	[Category("Text File Commands")]
 	[Description("This command reads text data from a text file and stores it in a variable.")]
 	public class ReadTextFileCommand : ScriptCommand

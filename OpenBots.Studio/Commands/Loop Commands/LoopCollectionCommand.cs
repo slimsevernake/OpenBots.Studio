@@ -19,137 +19,137 @@ using System.Windows.Forms;
 
 namespace OpenBots.Commands
 {
-    [Serializable]
-    [Category("Loop Commands")]
-    [Description("This command iterates over a collection to let user perform actions on the collection items.")]
-    public class LoopCollectionCommand : ScriptCommand
-    {
-        [Required]
+	[Serializable]
+	[Category("Loop Commands")]
+	[Description("This command iterates over a collection to let user perform actions on the collection items.")]
+	public class LoopCollectionCommand : ScriptCommand
+	{
+		[Required]
 		[DisplayName("Input Collection")]
-        [Description("Provide a collection variable.")]
-        [SampleUsage("{vMyCollection}")]
-        [Remarks("If the collection is a DataTable then the output item will be a DataRow and its column value can be accessed using the " +
-            "dot operator like {vDataRow.ColumnName}.")]
-        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
-        public string v_LoopParameter { get; set; }
+		[Description("Provide a collection variable.")]
+		[SampleUsage("{vMyCollection}")]
+		[Remarks("If the collection is a DataTable then the output item will be a DataRow and its column value can be accessed using the " +
+			"dot operator like {vDataRow.ColumnName}.")]
+		[Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
+		public string v_LoopParameter { get; set; }
 
-        [Required]
-        [Editable(false)]
-        [DisplayName("Output Collection Item Variable")]
-        [Description("Create a new variable or select a variable from the list.")]
-        [SampleUsage("{vUserVariable}")]
-        [Remarks("Variables not pre-defined in the Variable Manager will be automatically generated at runtime.")]
-        public string v_OutputUserVariableName { get; set; }
+		[Required]
+		[Editable(false)]
+		[DisplayName("Output Collection Item Variable")]
+		[Description("Create a new variable or select a variable from the list.")]
+		[SampleUsage("{vUserVariable}")]
+		[Remarks("Variables not pre-defined in the Variable Manager will be automatically generated at runtime.")]
+		public string v_OutputUserVariableName { get; set; }
 
-        public LoopCollectionCommand()
-        {
-            CommandName = "LoopCollectionCommand";
-            SelectionName = "Loop Collection";
-            CommandEnabled = true;           
-        }
+		public LoopCollectionCommand()
+		{
+			CommandName = "LoopCollectionCommand";
+			SelectionName = "Loop Collection";
+			CommandEnabled = true;           
+		}
 
-        public override void RunCommand(object sender, ScriptAction parentCommand)
-        {
-            LoopCollectionCommand loopCommand = (LoopCollectionCommand)parentCommand.ScriptCommand;
-            var engine = (AutomationEngineInstance)sender;
+		public override void RunCommand(object sender, ScriptAction parentCommand)
+		{
+			LoopCollectionCommand loopCommand = (LoopCollectionCommand)parentCommand.ScriptCommand;
+			var engine = (AutomationEngineInstance)sender;
 
-            int loopTimes;
-            var complexVariable = v_LoopParameter.ConvertUserVariableToObject(engine);           
+			int loopTimes;
+			var complexVariable = v_LoopParameter.ConvertUserVariableToObject(engine);           
 
-            //if still null then throw exception
-            if (complexVariable == null)
-            {
-                throw new System.Exception("Complex Variable '" + v_LoopParameter + 
-                    "' not found. Ensure the variable exists before attempting to modify it.");
-            }
+			//if still null then throw exception
+			if (complexVariable == null)
+			{
+				throw new System.Exception("Complex Variable '" + v_LoopParameter + 
+					"' not found. Ensure the variable exists before attempting to modify it.");
+			}
 
-            dynamic listToLoop;
-            if (complexVariable is List<string>)
-            {
-                listToLoop = (List<string>)complexVariable;
-            }
-            else if (complexVariable is List<IWebElement>)
-            {
-                listToLoop = (List<IWebElement>)complexVariable;
-            }
-            else if (complexVariable is DataTable)
-            {
-                listToLoop = ((DataTable)complexVariable).Rows;
-            }
-            else if (complexVariable is List<MailItem>)
-            {
-                listToLoop = (List<MailItem>)complexVariable;
-            }
-            else if (complexVariable is List<MimeMessage>)
-            {
-                listToLoop = (List<MimeMessage>)complexVariable;
-            }
-            else if ((complexVariable.ToString().StartsWith("[")) && 
-                (complexVariable.ToString().EndsWith("]")) && 
-                (complexVariable.ToString().Contains(",")))
-            {
-                //automatically handle if user has given a json array
-                JArray jsonArray = JsonConvert.DeserializeObject(complexVariable.ToString()) as JArray;
+			dynamic listToLoop;
+			if (complexVariable is List<string>)
+			{
+				listToLoop = (List<string>)complexVariable;
+			}
+			else if (complexVariable is List<IWebElement>)
+			{
+				listToLoop = (List<IWebElement>)complexVariable;
+			}
+			else if (complexVariable is DataTable)
+			{
+				listToLoop = ((DataTable)complexVariable).Rows;
+			}
+			else if (complexVariable is List<MailItem>)
+			{
+				listToLoop = (List<MailItem>)complexVariable;
+			}
+			else if (complexVariable is List<MimeMessage>)
+			{
+				listToLoop = (List<MimeMessage>)complexVariable;
+			}
+			else if ((complexVariable.ToString().StartsWith("[")) && 
+				(complexVariable.ToString().EndsWith("]")) && 
+				(complexVariable.ToString().Contains(",")))
+			{
+				//automatically handle if user has given a json array
+				JArray jsonArray = JsonConvert.DeserializeObject(complexVariable.ToString()) as JArray;
 
-               var itemList = new List<string>();
-                foreach (var item in jsonArray)
-                {
-                    var value = (JValue)item;
-                    itemList.Add(value.ToString());
-                }
+			   var itemList = new List<string>();
+				foreach (var item in jsonArray)
+				{
+					var value = (JValue)item;
+					itemList.Add(value.ToString());
+				}
 
-                itemList.StoreInUserVariable(engine, v_LoopParameter);
-                listToLoop = itemList;
-            }
-            else
-                throw new System.Exception("Complex Variable List Type<T> Not Supported");
+				itemList.StoreInUserVariable(engine, v_LoopParameter);
+				listToLoop = itemList;
+			}
+			else
+				throw new System.Exception("Complex Variable List Type<T> Not Supported");
 
-            loopTimes = listToLoop.Count;
+			loopTimes = listToLoop.Count;
 
-            for (int i = 0; i < loopTimes; i++)
-            {
-                engine.ReportProgress("Starting Loop Number " + (i + 1) + "/" + loopTimes + " From Line " + loopCommand.LineNumber);
-                
-                ((object)listToLoop[i]).StoreInUserVariable(engine, v_OutputUserVariableName);
+			for (int i = 0; i < loopTimes; i++)
+			{
+				engine.ReportProgress("Starting Loop Number " + (i + 1) + "/" + loopTimes + " From Line " + loopCommand.LineNumber);
+				
+				((object)listToLoop[i]).StoreInUserVariable(engine, v_OutputUserVariableName);
 
-                foreach (var cmd in parentCommand.AdditionalScriptCommands)
-                {
-                    if (engine.IsCancellationPending)
-                        return;
+				foreach (var cmd in parentCommand.AdditionalScriptCommands)
+				{
+					if (engine.IsCancellationPending)
+						return;
 
-                    engine.ExecuteCommand(cmd);
+					engine.ExecuteCommand(cmd);
 
-                    if (engine.CurrentLoopCancelled)
-                    {
-                        engine.ReportProgress("Exiting Loop From Line " + loopCommand.LineNumber);
-                        engine.CurrentLoopCancelled = false;
-                        return;
-                    }
+					if (engine.CurrentLoopCancelled)
+					{
+						engine.ReportProgress("Exiting Loop From Line " + loopCommand.LineNumber);
+						engine.CurrentLoopCancelled = false;
+						return;
+					}
 
-                    if (engine.CurrentLoopContinuing)
-                    {
-                        engine.ReportProgress("Continuing Next Loop From Line " + loopCommand.LineNumber);
-                        engine.CurrentLoopContinuing = false;
-                        break;
-                    }
-                }
+					if (engine.CurrentLoopContinuing)
+					{
+						engine.ReportProgress("Continuing Next Loop From Line " + loopCommand.LineNumber);
+						engine.CurrentLoopContinuing = false;
+						break;
+					}
+				}
 
-                engine.ReportProgress("Finished Loop From Line " + loopCommand.LineNumber);
-            }
-        }
+				engine.ReportProgress("Finished Loop From Line " + loopCommand.LineNumber);
+			}
+		}
 
-        public override List<Control> Render(IfrmCommandEditor editor, ICommandControls commandControls)
-        {
-            base.Render(editor, commandControls);
+		public override List<Control> Render(IfrmCommandEditor editor, ICommandControls commandControls)
+		{
+			base.Render(editor, commandControls);
 
-            RenderedControls.AddRange(commandControls.CreateDefaultInputGroupFor("v_LoopParameter", this, editor));
-            RenderedControls.AddRange(commandControls.CreateDefaultOutputGroupFor("v_OutputUserVariableName", this, editor));
-            return RenderedControls;
-        }
+			RenderedControls.AddRange(commandControls.CreateDefaultInputGroupFor("v_LoopParameter", this, editor));
+			RenderedControls.AddRange(commandControls.CreateDefaultOutputGroupFor("v_OutputUserVariableName", this, editor));
+			return RenderedControls;
+		}
 
-        public override string GetDisplayValue()
-        {
-            return $"Loop Collection '{v_LoopParameter}' - Store Collection Item in '{v_OutputUserVariableName}'";
-        }
-    }
+		public override string GetDisplayValue()
+		{
+			return $"Loop Collection '{v_LoopParameter}' - Store Collection Item in '{v_OutputUserVariableName}'";
+		}
+	}
 }

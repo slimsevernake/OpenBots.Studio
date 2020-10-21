@@ -13,51 +13,51 @@ using System.Windows.Forms;
 
 namespace OpenBots.Commands.Window
 {
-    [Serializable]
-    [Category("Window Commands")]
-    [Description("This command closes an open window.")]
-    public class CloseWindowCommand : ScriptCommand
-    {
-        [Required]
+	[Serializable]
+	[Category("Window Commands")]
+	[Description("This command closes an open window.")]
+	public class CloseWindowCommand : ScriptCommand
+	{
+		[Required]
 		[DisplayName("Window Name")]
-        [Description("Select the name of the window to close.")]
-        [SampleUsage("Untitled - Notepad || Current Window || {vWindow}")]
-        [Remarks("")]
-        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
-        public string v_WindowName { get; set; }
+		[Description("Select the name of the window to close.")]
+		[SampleUsage("Untitled - Notepad || Current Window || {vWindow}")]
+		[Remarks("")]
+		[Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
+		public string v_WindowName { get; set; }
 
-        public CloseWindowCommand()
-        {
-            CommandName = "CloseWindowCommand";
-            SelectionName = "Close Window";
-            CommandEnabled = true;
-            
-            v_WindowName = "Current Window";          
-        }
+		public CloseWindowCommand()
+		{
+			CommandName = "CloseWindowCommand";
+			SelectionName = "Close Window";
+			CommandEnabled = true;
+			
+			v_WindowName = "Current Window";          
+		}
 
-        public override void RunCommand(object sender)
-        {
-            var engine = (AutomationEngineInstance)sender;
-            string windowName = v_WindowName.ConvertUserVariableToString(engine);
-            var targetWindows = User32Functions.FindTargetWindows(windowName);
+		public override void RunCommand(object sender)
+		{
+			var engine = (AutomationEngineInstance)sender;
+			string windowName = v_WindowName.ConvertUserVariableToString(engine);
+			var targetWindows = User32Functions.FindTargetWindows(windowName);
 
-            //loop each window
-            foreach (var targetedWindow in targetWindows)
-                User32Functions.CloseWindow(targetedWindow);
-        }
+			//loop each window
+			foreach (var targetedWindow in targetWindows)
+				User32Functions.CloseWindow(targetedWindow);
+		}
 
-        public override List<Control> Render(IfrmCommandEditor editor, ICommandControls commandControls)
-        {
-            base.Render(editor, commandControls);
+		public override List<Control> Render(IfrmCommandEditor editor, ICommandControls commandControls)
+		{
+			base.Render(editor, commandControls);
 
-            RenderedControls.AddRange(commandControls.CreateDefaultWindowControlGroupFor("v_WindowName", this, editor));
+			RenderedControls.AddRange(commandControls.CreateDefaultWindowControlGroupFor("v_WindowName", this, editor));
 
-            return RenderedControls;
-        }
+			return RenderedControls;
+		}
 
-        public override string GetDisplayValue()
-        {
-            return base.GetDisplayValue() + $" [Window '{v_WindowName}']";
-        }
-    }
+		public override string GetDisplayValue()
+		{
+			return base.GetDisplayValue() + $" [Window '{v_WindowName}']";
+		}
+	}
 }

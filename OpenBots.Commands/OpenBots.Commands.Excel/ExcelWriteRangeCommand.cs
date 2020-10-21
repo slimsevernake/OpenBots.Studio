@@ -16,136 +16,136 @@ using DataTable = System.Data.DataTable;
 
 namespace OpenBots.Commands.Excel
 {
-    [Serializable]
-    [Category("Excel Commands")]
-    [Description("This command writes a DataTable to an Excel Worksheet starting from a specific cell address.")]
-    public class ExcelWriteRangeCommand : ScriptCommand
-    {
+	[Serializable]
+	[Category("Excel Commands")]
+	[Description("This command writes a DataTable to an Excel Worksheet starting from a specific cell address.")]
+	public class ExcelWriteRangeCommand : ScriptCommand
+	{
 
-        [Required]
+		[Required]
 		[DisplayName("Excel Instance Name")]
-        [Description("Enter the unique instance that was specified in the **Create Application** command.")]
-        [SampleUsage("MyExcelInstance")]
-        [Remarks("Failure to enter the correct instance or failure to first call the **Create Application** command will cause an error.")]
-        public string v_InstanceName { get; set; }
+		[Description("Enter the unique instance that was specified in the **Create Application** command.")]
+		[SampleUsage("MyExcelInstance")]
+		[Remarks("Failure to enter the correct instance or failure to first call the **Create Application** command will cause an error.")]
+		public string v_InstanceName { get; set; }
 
-        [Required]
+		[Required]
 		[DisplayName("DataTable")]
-        [Description("Enter the DataTable to write to the Worksheet.")]
-        [SampleUsage("{vDataTable}")]
-        [Remarks("")]
-        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
-        public string v_DataTableToSet { get; set; }
+		[Description("Enter the DataTable to write to the Worksheet.")]
+		[SampleUsage("{vDataTable}")]
+		[Remarks("")]
+		[Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
+		public string v_DataTableToSet { get; set; }
 
-        [Required]
+		[Required]
 		[DisplayName("Cell Location")]
-        [Description("Enter the location of the cell to set the DataTable at.")]
-        [SampleUsage("A1 || {vCellLocation}")]
-        [Remarks("")]
-        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
-        public string v_CellLocation { get; set; }
+		[Description("Enter the location of the cell to set the DataTable at.")]
+		[SampleUsage("A1 || {vCellLocation}")]
+		[Remarks("")]
+		[Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
+		public string v_CellLocation { get; set; }
 
-        [Required]
+		[Required]
 		[DisplayName("Add Headers")]
-        [PropertyUISelectionOption("Yes")]
-        [PropertyUISelectionOption("No")]
-        [Description("When selected, the column headers from the specified DataTable are also written.")]
-        [SampleUsage("")]
-        [Remarks("")]
-        public string v_AddHeaders { get; set; }
+		[PropertyUISelectionOption("Yes")]
+		[PropertyUISelectionOption("No")]
+		[Description("When selected, the column headers from the specified DataTable are also written.")]
+		[SampleUsage("")]
+		[Remarks("")]
+		public string v_AddHeaders { get; set; }
 
-        public ExcelWriteRangeCommand()
-        {
-            CommandName = "ExcelWriteRangeCommand";
-            SelectionName = "Write Range";
-            CommandEnabled = true;
-            
-            v_InstanceName = "DefaultExcel";
-            v_AddHeaders = "Yes";
-            v_CellLocation = "A1";
-        }
+		public ExcelWriteRangeCommand()
+		{
+			CommandName = "ExcelWriteRangeCommand";
+			SelectionName = "Write Range";
+			CommandEnabled = true;
+			
+			v_InstanceName = "DefaultExcel";
+			v_AddHeaders = "Yes";
+			v_CellLocation = "A1";
+		}
 
-        public override void RunCommand(object sender)
-        {
-            var engine = (AutomationEngineInstance)sender;
-            var vTargetAddress = v_CellLocation.ConvertUserVariableToString(engine);
-            var excelObject = v_InstanceName.GetAppInstance(engine);
+		public override void RunCommand(object sender)
+		{
+			var engine = (AutomationEngineInstance)sender;
+			var vTargetAddress = v_CellLocation.ConvertUserVariableToString(engine);
+			var excelObject = v_InstanceName.GetAppInstance(engine);
 
-            var excelInstance = (Application)excelObject;
-            var excelSheet = (Worksheet)excelInstance.ActiveSheet;
+			var excelInstance = (Application)excelObject;
+			var excelSheet = (Worksheet)excelInstance.ActiveSheet;
 
-            DataTable Dt = (DataTable)v_DataTableToSet.ConvertUserVariableToObject(engine);
-            if (string.IsNullOrEmpty(vTargetAddress) || vTargetAddress.Contains(":")) 
-                throw new Exception("Cell Location is invalid or empty");
-          
-            var numberOfRow = Regex.Match(vTargetAddress, @"\d+").Value;
-            vTargetAddress = Regex.Replace(vTargetAddress, @"[\d-]", string.Empty);
-            vTargetAddress = vTargetAddress.ToUpperInvariant();
+			DataTable Dt = (DataTable)v_DataTableToSet.ConvertUserVariableToObject(engine);
+			if (string.IsNullOrEmpty(vTargetAddress) || vTargetAddress.Contains(":")) 
+				throw new Exception("Cell Location is invalid or empty");
+		  
+			var numberOfRow = Regex.Match(vTargetAddress, @"\d+").Value;
+			vTargetAddress = Regex.Replace(vTargetAddress, @"[\d-]", string.Empty);
+			vTargetAddress = vTargetAddress.ToUpperInvariant();
 
-            int sum = 0;
+			int sum = 0;
 
-            for (int i = 0; i < vTargetAddress.Length; i++)
-            {   
-                sum *= 26;
-                sum += (vTargetAddress[i] - 'A' + 1);
-            }
+			for (int i = 0; i < vTargetAddress.Length; i++)
+			{   
+				sum *= 26;
+				sum += (vTargetAddress[i] - 'A' + 1);
+			}
 
-            if (v_AddHeaders == "Yes")
-            {
-                //Write column names
-                string columnName;
-                for (int j = 0; j < Dt.Columns.Count; j++)
-                {
-                    if (Dt.Columns[j].ColumnName == "null")                    
-                        columnName = string.Empty;                  
-                    else                    
-                        columnName = Dt.Columns[j].ColumnName;
-                    
-                    excelSheet.Cells[int.Parse(numberOfRow), j + sum] = columnName;
-                }
+			if (v_AddHeaders == "Yes")
+			{
+				//Write column names
+				string columnName;
+				for (int j = 0; j < Dt.Columns.Count; j++)
+				{
+					if (Dt.Columns[j].ColumnName == "null")                    
+						columnName = string.Empty;                  
+					else                    
+						columnName = Dt.Columns[j].ColumnName;
+					
+					excelSheet.Cells[int.Parse(numberOfRow), j + sum] = columnName;
+				}
 
-                for (int i = 0; i < Dt.Rows.Count; i++)
-                {
-                    for (int j = 0; j < Dt.Columns.Count; j++)
-                    {
-                        if (Dt.Rows[i][j].ToString() == "null")
-                        {
-                            Dt.Rows[i][j] = string.Empty;
-                        }
-                        excelSheet.Cells[i + int.Parse(numberOfRow) + 1, j + sum] = Dt.Rows[i][j].ToString();
-                    }
-                }
-            }
-            else { 
-                for (int i = 0; i < Dt.Rows.Count; i++)
-                {
-                    for (int j = 0; j < Dt.Columns.Count; j++)
-                    {
-                        if (Dt.Rows[i][j].ToString() == "null")
-                        {
-                            Dt.Rows[i][j] = string.Empty;
-                        }
-                        excelSheet.Cells[i + int.Parse(numberOfRow), j + sum] = Dt.Rows[i][j].ToString();
-                    }
-                }
-            }
-        }
+				for (int i = 0; i < Dt.Rows.Count; i++)
+				{
+					for (int j = 0; j < Dt.Columns.Count; j++)
+					{
+						if (Dt.Rows[i][j].ToString() == "null")
+						{
+							Dt.Rows[i][j] = string.Empty;
+						}
+						excelSheet.Cells[i + int.Parse(numberOfRow) + 1, j + sum] = Dt.Rows[i][j].ToString();
+					}
+				}
+			}
+			else { 
+				for (int i = 0; i < Dt.Rows.Count; i++)
+				{
+					for (int j = 0; j < Dt.Columns.Count; j++)
+					{
+						if (Dt.Rows[i][j].ToString() == "null")
+						{
+							Dt.Rows[i][j] = string.Empty;
+						}
+						excelSheet.Cells[i + int.Parse(numberOfRow), j + sum] = Dt.Rows[i][j].ToString();
+					}
+				}
+			}
+		}
 
-        public override List<Control> Render(IfrmCommandEditor editor, ICommandControls commandControls)
-        {
-            base.Render(editor, commandControls);
+		public override List<Control> Render(IfrmCommandEditor editor, ICommandControls commandControls)
+		{
+			base.Render(editor, commandControls);
 
-            RenderedControls.AddRange(commandControls.CreateDefaultInputGroupFor("v_InstanceName", this, editor));
-            RenderedControls.AddRange(commandControls.CreateDefaultInputGroupFor("v_DataTableToSet", this, editor));
-            RenderedControls.AddRange(commandControls.CreateDefaultInputGroupFor("v_CellLocation", this, editor));
-            RenderedControls.AddRange(commandControls.CreateDefaultDropdownGroupFor("v_AddHeaders", this, editor));
+			RenderedControls.AddRange(commandControls.CreateDefaultInputGroupFor("v_InstanceName", this, editor));
+			RenderedControls.AddRange(commandControls.CreateDefaultInputGroupFor("v_DataTableToSet", this, editor));
+			RenderedControls.AddRange(commandControls.CreateDefaultInputGroupFor("v_CellLocation", this, editor));
+			RenderedControls.AddRange(commandControls.CreateDefaultDropdownGroupFor("v_AddHeaders", this, editor));
 
-            return RenderedControls;
-        }
+			return RenderedControls;
+		}
 
-        public override string GetDisplayValue()
-        {
-            return base.GetDisplayValue() + $" [Write '{v_DataTableToSet}' to Cell '{v_CellLocation}' - Instance Name '{v_InstanceName}']";
-        }        
-    }
+		public override string GetDisplayValue()
+		{
+			return base.GetDisplayValue() + $" [Write '{v_DataTableToSet}' to Cell '{v_CellLocation}' - Instance Name '{v_InstanceName}']";
+		}        
+	}
 }

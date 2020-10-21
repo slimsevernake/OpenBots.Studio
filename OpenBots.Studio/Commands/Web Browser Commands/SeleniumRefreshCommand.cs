@@ -12,48 +12,48 @@ using System.Windows.Forms;
 
 namespace OpenBots.Commands
 {
-    [Serializable]
-    [Category("Web Browser Commands")]
-    [Description("This command refreshes a Selenium web browser session.")]
-    public class SeleniumRefreshCommand : ScriptCommand
-    {
-        [Required]
+	[Serializable]
+	[Category("Web Browser Commands")]
+	[Description("This command refreshes a Selenium web browser session.")]
+	public class SeleniumRefreshCommand : ScriptCommand
+	{
+		[Required]
 		[DisplayName("Browser Instance Name")]
-        [Description("Enter the unique instance that was specified in the **Create Browser** command.")]
-        [SampleUsage("MyBrowserInstance")]
-        [Remarks("Failure to enter the correct instance name or failure to first call the **Create Browser** command will cause an error.")]
-        public string v_InstanceName { get; set; }
+		[Description("Enter the unique instance that was specified in the **Create Browser** command.")]
+		[SampleUsage("MyBrowserInstance")]
+		[Remarks("Failure to enter the correct instance name or failure to first call the **Create Browser** command will cause an error.")]
+		public string v_InstanceName { get; set; }
 
-        public SeleniumRefreshCommand()
-        {
-            CommandName = "SeleniumRefreshCommand";
-            SelectionName = "Refresh";
-            CommandEnabled = true;
-            
-            v_InstanceName = "DefaultBrowser";
-        }
+		public SeleniumRefreshCommand()
+		{
+			CommandName = "SeleniumRefreshCommand";
+			SelectionName = "Refresh";
+			CommandEnabled = true;
+			
+			v_InstanceName = "DefaultBrowser";
+		}
 
-        public override void RunCommand(object sender)
-        {
-            var engine = (AutomationEngineInstance)sender;
-            var browserObject = v_InstanceName.GetAppInstance(engine);
+		public override void RunCommand(object sender)
+		{
+			var engine = (AutomationEngineInstance)sender;
+			var browserObject = v_InstanceName.GetAppInstance(engine);
 
-            var seleniumInstance = (IWebDriver)browserObject;
-            seleniumInstance.Navigate().Refresh();
-        }
+			var seleniumInstance = (IWebDriver)browserObject;
+			seleniumInstance.Navigate().Refresh();
+		}
 
-        public override List<Control> Render(IfrmCommandEditor editor, ICommandControls commandControls)
-        {
-            base.Render(editor, commandControls);
+		public override List<Control> Render(IfrmCommandEditor editor, ICommandControls commandControls)
+		{
+			base.Render(editor, commandControls);
 
-            RenderedControls.AddRange(commandControls.CreateDefaultInputGroupFor("v_InstanceName", this, editor));
+			RenderedControls.AddRange(commandControls.CreateDefaultInputGroupFor("v_InstanceName", this, editor));
 
-            return RenderedControls;
-        }
+			return RenderedControls;
+		}
 
-        public override string GetDisplayValue()
-        {
-            return base.GetDisplayValue() + $" [Instance Name {v_InstanceName}']";
-        }
-    }
+		public override string GetDisplayValue()
+		{
+			return base.GetDisplayValue() + $" [Instance Name {v_InstanceName}']";
+		}
+	}
 }

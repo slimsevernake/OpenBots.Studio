@@ -17,74 +17,74 @@ using Exception = System.Exception;
 
 namespace OpenBots.Commands.List
 {
-    [Serializable]
-    [Category("List Commands")]
-    [Description("This command removes an item from an existing List variable at a specified index.")]
-    public class RemoveListItemCommand : ScriptCommand
-    {
-        [Required]
+	[Serializable]
+	[Category("List Commands")]
+	[Description("This command removes an item from an existing List variable at a specified index.")]
+	public class RemoveListItemCommand : ScriptCommand
+	{
+		[Required]
 		[DisplayName("List")]
-        [Description("Provide a List variable.")]
-        [SampleUsage("{vList}")]
-        [Remarks("Any type of variable other than List will cause error.")]
-        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
-        public string v_ListName { get; set; }
+		[Description("Provide a List variable.")]
+		[SampleUsage("{vList}")]
+		[Remarks("Any type of variable other than List will cause error.")]
+		[Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
+		public string v_ListName { get; set; }
 
-        [Required]
+		[Required]
 		[DisplayName("List Index")]
-        [Description("Enter the List index where the item will be removed")]
-        [SampleUsage("0 || {vIndex}")]
-        [Remarks("Providing an out of range index will produce an exception.")]
-        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
-        public string v_ListIndex { get; set; }
+		[Description("Enter the List index where the item will be removed")]
+		[SampleUsage("0 || {vIndex}")]
+		[Remarks("Providing an out of range index will produce an exception.")]
+		[Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
+		public string v_ListIndex { get; set; }
 
-        public RemoveListItemCommand()
-        {
-            CommandName = "RemoveListItemCommand";
-            SelectionName = "Remove List Item";
-            CommandEnabled = true;           
-        }
+		public RemoveListItemCommand()
+		{
+			CommandName = "RemoveListItemCommand";
+			SelectionName = "Remove List Item";
+			CommandEnabled = true;           
+		}
 
-        public override void RunCommand(object sender)
-        {
-            //get sending instance
-            var engine = (AutomationEngineInstance)sender;
+		public override void RunCommand(object sender)
+		{
+			//get sending instance
+			var engine = (AutomationEngineInstance)sender;
 
-            var vListVariable = v_ListName.ConvertUserVariableToObject(engine);
-            var vListIndex = int.Parse(v_ListIndex.ConvertUserVariableToString(engine));
+			var vListVariable = v_ListName.ConvertUserVariableToObject(engine);
+			var vListIndex = int.Parse(v_ListIndex.ConvertUserVariableToString(engine));
 
-            if (vListVariable != null)
-            {
-                if (vListVariable is List<string>)
-                    ((List<string>)vListVariable).RemoveAt(vListIndex);
-                else if (vListVariable is List<DataTable>)
-                    ((List<DataTable>)vListVariable).RemoveAt(vListIndex);
-                else if (vListVariable is List<MailItem>)
-                    ((List<MailItem>)vListVariable).RemoveAt(vListIndex);
-                else if (vListVariable is List<MimeMessage>)
-                    ((List<MimeMessage>)vListVariable).RemoveAt(vListIndex);
-                else if (vListVariable is List<IWebElement>)
-                    ((List<IWebElement>)vListVariable).RemoveAt(vListIndex);
-                else
-                    throw new Exception("Complex Variable List Type<T> Not Supported");
-            }
-            else
-                throw new Exception("Attempted to write data to a variable, but the variable was not found. Enclose variables within braces, ex. {vVariable}");
-        }
+			if (vListVariable != null)
+			{
+				if (vListVariable is List<string>)
+					((List<string>)vListVariable).RemoveAt(vListIndex);
+				else if (vListVariable is List<DataTable>)
+					((List<DataTable>)vListVariable).RemoveAt(vListIndex);
+				else if (vListVariable is List<MailItem>)
+					((List<MailItem>)vListVariable).RemoveAt(vListIndex);
+				else if (vListVariable is List<MimeMessage>)
+					((List<MimeMessage>)vListVariable).RemoveAt(vListIndex);
+				else if (vListVariable is List<IWebElement>)
+					((List<IWebElement>)vListVariable).RemoveAt(vListIndex);
+				else
+					throw new Exception("Complex Variable List Type<T> Not Supported");
+			}
+			else
+				throw new Exception("Attempted to write data to a variable, but the variable was not found. Enclose variables within braces, ex. {vVariable}");
+		}
 
-        public override List<Control> Render(IfrmCommandEditor editor, ICommandControls commandControls)
-        {
-            base.Render(editor, commandControls);
+		public override List<Control> Render(IfrmCommandEditor editor, ICommandControls commandControls)
+		{
+			base.Render(editor, commandControls);
 
-            RenderedControls.AddRange(commandControls.CreateDefaultInputGroupFor("v_ListName", this, editor));
-            RenderedControls.AddRange(commandControls.CreateDefaultInputGroupFor("v_ListIndex", this, editor));
+			RenderedControls.AddRange(commandControls.CreateDefaultInputGroupFor("v_ListName", this, editor));
+			RenderedControls.AddRange(commandControls.CreateDefaultInputGroupFor("v_ListIndex", this, editor));
 
-            return RenderedControls;
-        }
+			return RenderedControls;
+		}
 
-        public override string GetDisplayValue()
-        {
-            return base.GetDisplayValue() + $" [Remove Item from List '{v_ListName}' at Index '{v_ListIndex}']";
-        }
-    }
+		public override string GetDisplayValue()
+		{
+			return base.GetDisplayValue() + $" [Remove Item from List '{v_ListName}' at Index '{v_ListIndex}']";
+		}
+	}
 }

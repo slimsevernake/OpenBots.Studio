@@ -14,64 +14,64 @@ using System.Windows.Forms;
 
 namespace OpenBots.Commands
 {
-    [Serializable]
-    [Category("Image Commands")]
-    [Description("This command extracts text from an image file.")]
-    public class PerformOCRCommand : ScriptCommand
-    {
+	[Serializable]
+	[Category("Image Commands")]
+	[Description("This command extracts text from an image file.")]
+	public class PerformOCRCommand : ScriptCommand
+	{
 
-        [Required]
+		[Required]
 		[DisplayName("Image File Path")]
-        [Description("Select the image to perform OCR text extraction on.")]
-        [SampleUsage(@"C:\temp\myimages.png || {ProjectPath}\myimages.png || {vImageFile}")]
-        [Remarks("")]
-        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
-        [Editor("ShowFileSelectionHelper", typeof(UIAdditionalHelperType))]
-        public string v_FilePath { get; set; }
+		[Description("Select the image to perform OCR text extraction on.")]
+		[SampleUsage(@"C:\temp\myimages.png || {ProjectPath}\myimages.png || {vImageFile}")]
+		[Remarks("")]
+		[Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
+		[Editor("ShowFileSelectionHelper", typeof(UIAdditionalHelperType))]
+		public string v_FilePath { get; set; }
 
-        [Required]
-        [Editable(false)]
-        [DisplayName("Output OCR Result Variable")]
-        [Description("Create a new variable or select a variable from the list.")]
-        [SampleUsage("{vUserVariable}")]
-        [Remarks("Variables not pre-defined in the Variable Manager will be automatically generated at runtime.")]
-        public string v_OutputUserVariableName { get; set; }
+		[Required]
+		[Editable(false)]
+		[DisplayName("Output OCR Result Variable")]
+		[Description("Create a new variable or select a variable from the list.")]
+		[SampleUsage("{vUserVariable}")]
+		[Remarks("Variables not pre-defined in the Variable Manager will be automatically generated at runtime.")]
+		public string v_OutputUserVariableName { get; set; }
 
-        public PerformOCRCommand()
-        {
-            CommandName = "PerformOCRCommand";
-            SelectionName = "Perform OCR";
-            CommandEnabled = true;            
-        }
+		public PerformOCRCommand()
+		{
+			CommandName = "PerformOCRCommand";
+			SelectionName = "Perform OCR";
+			CommandEnabled = true;            
+		}
 
-        public override void RunCommand(object sender)
-        {
-            var engine = (AutomationEngineInstance)sender;
-            var vFilePath = v_FilePath.ConvertUserVariableToString(engine);
+		public override void RunCommand(object sender)
+		{
+			var engine = (AutomationEngineInstance)sender;
+			var vFilePath = v_FilePath.ConvertUserVariableToString(engine);
 
-            OneNoteOCR ocrEngine = new OneNoteOCR();
-            OCRText[] ocrTextArray = ocrEngine.OcrTexts(vFilePath).ToArray();
+			OneNoteOCR ocrEngine = new OneNoteOCR();
+			OCRText[] ocrTextArray = ocrEngine.OcrTexts(vFilePath).ToArray();
 
-            string endResult = "";
-            foreach (var text in ocrTextArray)
-                endResult += text.Text;
+			string endResult = "";
+			foreach (var text in ocrTextArray)
+				endResult += text.Text;
 
-            endResult.StoreInUserVariable(engine, v_OutputUserVariableName);
-        }
+			endResult.StoreInUserVariable(engine, v_OutputUserVariableName);
+		}
 
-        public override List<Control> Render(IfrmCommandEditor editor, ICommandControls commandControls)
-        {
-            base.Render(editor, commandControls);
+		public override List<Control> Render(IfrmCommandEditor editor, ICommandControls commandControls)
+		{
+			base.Render(editor, commandControls);
 
-            RenderedControls.AddRange(commandControls.CreateDefaultInputGroupFor("v_FilePath", this, editor));
-            RenderedControls.AddRange(commandControls.CreateDefaultOutputGroupFor("v_OutputUserVariableName", this, editor));
+			RenderedControls.AddRange(commandControls.CreateDefaultInputGroupFor("v_FilePath", this, editor));
+			RenderedControls.AddRange(commandControls.CreateDefaultOutputGroupFor("v_OutputUserVariableName", this, editor));
 
-            return RenderedControls;
-        }
+			return RenderedControls;
+		}
 
-        public override string GetDisplayValue()
-        {
-            return base.GetDisplayValue() + $" [File '{v_FilePath}' - Store OCR Result in '{v_OutputUserVariableName}']";
-        }
-    }
+		public override string GetDisplayValue()
+		{
+			return base.GetDisplayValue() + $" [File '{v_FilePath}' - Store OCR Result in '{v_OutputUserVariableName}']";
+		}
+	}
 }

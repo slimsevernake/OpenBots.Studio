@@ -13,79 +13,79 @@ using System.Windows.Forms;
 
 namespace OpenBots.Commands.Data
 {
-    [Serializable]
-    [Category("Data Commands")]
-    [Description("This command parses a JSON array into a list.")]
-    public class ParseJSONArrayCommand : ScriptCommand
-    {
+	[Serializable]
+	[Category("Data Commands")]
+	[Description("This command parses a JSON array into a list.")]
+	public class ParseJSONArrayCommand : ScriptCommand
+	{
 
-        [Required]
+		[Required]
 		[DisplayName("JSON Array")]
-        [Description("Provide a variable or JSON array value.")]
-        [SampleUsage("[{\"rect\":{\"length\":10, \"width\":5}}] || {vArrayVariable}")]
-        [Remarks("Providing data of a type other than a 'JSON Array' will result in an error.")]
-        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
-        public string v_JsonArrayName { get; set; }
+		[Description("Provide a variable or JSON array value.")]
+		[SampleUsage("[{\"rect\":{\"length\":10, \"width\":5}}] || {vArrayVariable}")]
+		[Remarks("Providing data of a type other than a 'JSON Array' will result in an error.")]
+		[Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
+		public string v_JsonArrayName { get; set; }
 
-        [Required]
-        [Editable(false)]
-        [DisplayName("Output List Variable")]
-        [Description("Create a new variable or select a variable from the list.")]
-        [SampleUsage("{vUserVariable}")]
-        [Remarks("Variables not pre-defined in the Variable Manager will be automatically generated at runtime.")]
-        public string v_OutputUserVariableName { get; set; }
+		[Required]
+		[Editable(false)]
+		[DisplayName("Output List Variable")]
+		[Description("Create a new variable or select a variable from the list.")]
+		[SampleUsage("{vUserVariable}")]
+		[Remarks("Variables not pre-defined in the Variable Manager will be automatically generated at runtime.")]
+		public string v_OutputUserVariableName { get; set; }
 
-        public ParseJSONArrayCommand()
-        {
-            CommandName = "ParseJSONArrayCommand";
-            SelectionName = "Parse JSON Array";
-            CommandEnabled = true;            
-        }
+		public ParseJSONArrayCommand()
+		{
+			CommandName = "ParseJSONArrayCommand";
+			SelectionName = "Parse JSON Array";
+			CommandEnabled = true;            
+		}
 
-        public override void RunCommand(object sender)
-        {
-            var engine = (AutomationEngineInstance)sender;
+		public override void RunCommand(object sender)
+		{
+			var engine = (AutomationEngineInstance)sender;
 
-            //get variablized input
-            var variableInput = v_JsonArrayName.ConvertUserVariableToString(engine);
+			//get variablized input
+			var variableInput = v_JsonArrayName.ConvertUserVariableToString(engine);
 
-            //create objects
-            JArray arr;
-            List<string> resultList = new List<string>();
+			//create objects
+			JArray arr;
+			List<string> resultList = new List<string>();
 
-            //parse json
-            try
-            {
-                arr = JArray.Parse(variableInput);
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Error Occured Selecting Tokens: " + ex.ToString());
-            }
+			//parse json
+			try
+			{
+				arr = JArray.Parse(variableInput);
+			}
+			catch (Exception ex)
+			{
+				throw new Exception("Error Occured Selecting Tokens: " + ex.ToString());
+			}
  
-            //add results to result list since list<string> is supported
-            foreach (var result in arr)
-            {
-                resultList.Add(result.ToString());
-            }
+			//add results to result list since list<string> is supported
+			foreach (var result in arr)
+			{
+				resultList.Add(result.ToString());
+			}
 
-            resultList.StoreInUserVariable(engine, v_OutputUserVariableName);           
-        }
+			resultList.StoreInUserVariable(engine, v_OutputUserVariableName);           
+		}
 
-        public override List<Control> Render(IfrmCommandEditor editor, ICommandControls commandControls)
-        {
-            base.Render(editor, commandControls);
+		public override List<Control> Render(IfrmCommandEditor editor, ICommandControls commandControls)
+		{
+			base.Render(editor, commandControls);
 
-            //create standard group controls
-            RenderedControls.AddRange(commandControls.CreateDefaultInputGroupFor("v_JsonArrayName", this, editor));
-            RenderedControls.AddRange(commandControls.CreateDefaultOutputGroupFor("v_OutputUserVariableName", this, editor));
+			//create standard group controls
+			RenderedControls.AddRange(commandControls.CreateDefaultInputGroupFor("v_JsonArrayName", this, editor));
+			RenderedControls.AddRange(commandControls.CreateDefaultOutputGroupFor("v_OutputUserVariableName", this, editor));
 
-            return RenderedControls;
-        }
+			return RenderedControls;
+		}
 
-        public override string GetDisplayValue()
-        {
-            return base.GetDisplayValue() + $" [Parse '{v_JsonArrayName}' - Store List in '{v_OutputUserVariableName}']";
-        }
-    }
+		public override string GetDisplayValue()
+		{
+			return base.GetDisplayValue() + $" [Parse '{v_JsonArrayName}' - Store List in '{v_OutputUserVariableName}']";
+		}
+	}
 }

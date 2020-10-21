@@ -13,92 +13,92 @@ using System.Windows.Forms;
 
 namespace OpenBots.Commands.DataTable
 {
-    [Serializable]
-    [Category("DataTable Commands")]
-    [Description("This command updates a Value in a DataRow at a specified column name/index.")]
+	[Serializable]
+	[Category("DataTable Commands")]
+	[Description("This command updates a Value in a DataRow at a specified column name/index.")]
 
-    public class UpdateDataRowValueCommand : ScriptCommand
-    {
+	public class UpdateDataRowValueCommand : ScriptCommand
+	{
 
-        [Required]
+		[Required]
 		[DisplayName("DataRow")]
-        [Description("Enter an existing DataRow to add values to.")]
-        [SampleUsage("{vDataRow}")]
-        [Remarks("")]
-        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
-        public string v_DataRow { get; set; }
+		[Description("Enter an existing DataRow to add values to.")]
+		[SampleUsage("{vDataRow}")]
+		[Remarks("")]
+		[Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
+		public string v_DataRow { get; set; }
 
-        [Required]
+		[Required]
 		[DisplayName("Search Option")]
-        [PropertyUISelectionOption("Column Name")]
-        [PropertyUISelectionOption("Column Index")]
-        [Description("Select whether the DataRow value should be found by column index or column name.")]
-        [SampleUsage("")]
-        [Remarks("")]
-        public string v_Option { get; set; }
+		[PropertyUISelectionOption("Column Name")]
+		[PropertyUISelectionOption("Column Index")]
+		[Description("Select whether the DataRow value should be found by column index or column name.")]
+		[SampleUsage("")]
+		[Remarks("")]
+		public string v_Option { get; set; }
 
-        [Required]
+		[Required]
 		[DisplayName("Search Value")]
-        [Description("Enter a valid DataRow index or column name.")]
-        [SampleUsage("0 || {vIndex} || Column1 || {vColumnName}")]
-        [Remarks("")]
-        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
-        public string v_DataValueIndex { get; set; }
+		[Description("Enter a valid DataRow index or column name.")]
+		[SampleUsage("0 || {vIndex} || Column1 || {vColumnName}")]
+		[Remarks("")]
+		[Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
+		public string v_DataValueIndex { get; set; }
 
-        [Required]
+		[Required]
 		[DisplayName("Cell Value")]
-        [Description("Enter the value to write to the DataRow cell.")]
-        [SampleUsage("value || {vValue}")]
-        [Remarks("")]
-        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
-        public string v_DataRowValue { get; set; }
+		[Description("Enter the value to write to the DataRow cell.")]
+		[SampleUsage("value || {vValue}")]
+		[Remarks("")]
+		[Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
+		public string v_DataRowValue { get; set; }
 
-        public UpdateDataRowValueCommand()
-        {
-            CommandName = "UpdateDataRowValueCommand";
-            SelectionName = "Update DataRow Value";
-            CommandEnabled = true;
-            
-            v_Option = "Column Index";
-        }
+		public UpdateDataRowValueCommand()
+		{
+			CommandName = "UpdateDataRowValueCommand";
+			SelectionName = "Update DataRow Value";
+			CommandEnabled = true;
+			
+			v_Option = "Column Index";
+		}
 
-        public override void RunCommand(object sender)
-        {
-            var engine = (AutomationEngineInstance)sender;
-            var dataRowValue = v_DataRowValue.ConvertUserVariableToString(engine);
+		public override void RunCommand(object sender)
+		{
+			var engine = (AutomationEngineInstance)sender;
+			var dataRowValue = v_DataRowValue.ConvertUserVariableToString(engine);
 
-            var dataRowVariable = v_DataRow.ConvertUserVariableToObject(engine);
-            DataRow dataRow = (DataRow)dataRowVariable;
+			var dataRowVariable = v_DataRow.ConvertUserVariableToObject(engine);
+			DataRow dataRow = (DataRow)dataRowVariable;
 
-            var valueIndex = v_DataValueIndex.ConvertUserVariableToString(engine);
+			var valueIndex = v_DataValueIndex.ConvertUserVariableToString(engine);
 
-            if (v_Option == "Column Index")
-            {
-                int index = int.Parse(valueIndex);
-                dataRow[index] = dataRowValue;
-            }
-            else if (v_Option == "Column Name")
-            {
-                string index = valueIndex;
-                dataRow.SetField(index, dataRowValue);
-            }
-        }
+			if (v_Option == "Column Index")
+			{
+				int index = int.Parse(valueIndex);
+				dataRow[index] = dataRowValue;
+			}
+			else if (v_Option == "Column Name")
+			{
+				string index = valueIndex;
+				dataRow.SetField(index, dataRowValue);
+			}
+		}
 
-        public override List<Control> Render(IfrmCommandEditor editor, ICommandControls commandControls)
-        {
-            base.Render(editor, commandControls);
+		public override List<Control> Render(IfrmCommandEditor editor, ICommandControls commandControls)
+		{
+			base.Render(editor, commandControls);
 
-            RenderedControls.AddRange(commandControls.CreateDefaultInputGroupFor("v_DataRow", this, editor));
-            RenderedControls.AddRange(commandControls.CreateDefaultDropdownGroupFor("v_Option", this, editor));
-            RenderedControls.AddRange(commandControls.CreateDefaultInputGroupFor("v_DataValueIndex", this, editor));
-            RenderedControls.AddRange(commandControls.CreateDefaultInputGroupFor("v_DataRowValue", this, editor));
+			RenderedControls.AddRange(commandControls.CreateDefaultInputGroupFor("v_DataRow", this, editor));
+			RenderedControls.AddRange(commandControls.CreateDefaultDropdownGroupFor("v_Option", this, editor));
+			RenderedControls.AddRange(commandControls.CreateDefaultInputGroupFor("v_DataValueIndex", this, editor));
+			RenderedControls.AddRange(commandControls.CreateDefaultInputGroupFor("v_DataRowValue", this, editor));
 
-            return RenderedControls;
-        }
+			return RenderedControls;
+		}
 
-        public override string GetDisplayValue()
-        {
-            return base.GetDisplayValue() + $" [Write '{v_DataRowValue}' to Column '{v_DataValueIndex}' in '{v_DataRow}']";
-        }       
-    }
+		public override string GetDisplayValue()
+		{
+			return base.GetDisplayValue() + $" [Write '{v_DataRowValue}' to Column '{v_DataValueIndex}' in '{v_DataRow}']";
+		}       
+	}
 }

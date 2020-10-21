@@ -15,126 +15,126 @@ using IO = System.IO;
 
 namespace OpenBots.Commands.File
 {
-    [Serializable]
-    [Category("File Operation Commands")]
-    [Description("This command compresses file(s) from a directory into a Zip file.")]
-    public class CompressFilesCommand : ScriptCommand
-    {
-        [Required]
+	[Serializable]
+	[Category("File Operation Commands")]
+	[Description("This command compresses file(s) from a directory into a Zip file.")]
+	public class CompressFilesCommand : ScriptCommand
+	{
+		[Required]
 		[DisplayName("Source Directory Path")]
-        [Description("Enter or Select the Path to the source directory.")]
-        [SampleUsage(@"C:\temp || {ProjectPath}\temp || {vFileSourcePath}")]
-        [Remarks("{ProjectPath} is the directory path of the current project.")]
-        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
-        [Editor("ShowFolderSelectionHelper", typeof(UIAdditionalHelperType))]
-        public string v_DirectoryPathOrigin { get; set; }
+		[Description("Enter or Select the Path to the source directory.")]
+		[SampleUsage(@"C:\temp || {ProjectPath}\temp || {vFileSourcePath}")]
+		[Remarks("{ProjectPath} is the directory path of the current project.")]
+		[Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
+		[Editor("ShowFolderSelectionHelper", typeof(UIAdditionalHelperType))]
+		public string v_DirectoryPathOrigin { get; set; }
 
 		[DisplayName("Password (Optional)")]
-        [Description("Define the password to use for file compression.")]
-        [SampleUsage("password || {vPassword}")]
-        [Remarks("")]
-        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
-        public string v_Password { get; set; }
+		[Description("Define the password to use for file compression.")]
+		[SampleUsage("password || {vPassword}")]
+		[Remarks("")]
+		[Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
+		public string v_Password { get; set; }
 
-        [Required]
+		[Required]
 		[DisplayName("Compressed File Directory Path")]
-        [Description("Enter or Select the Folder Path to place the compressed file in.")]
-        [SampleUsage(@"C:\temp || {ProjectPath}\temp || {vFilesPath}")]
-        [Remarks("{ProjectPath} is the directory path of the current project.")]
-        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
-        [Editor("ShowFolderSelectionHelper", typeof(UIAdditionalHelperType))]
-        public string v_PathDestination { get; set; }
+		[Description("Enter or Select the Folder Path to place the compressed file in.")]
+		[SampleUsage(@"C:\temp || {ProjectPath}\temp || {vFilesPath}")]
+		[Remarks("{ProjectPath} is the directory path of the current project.")]
+		[Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
+		[Editor("ShowFolderSelectionHelper", typeof(UIAdditionalHelperType))]
+		public string v_PathDestination { get; set; }
 
-        [Required]
-        [Editable(false)]
-        [DisplayName("Output Compressed File Path Variable")]
-        [Description("Create a new variable or select a variable from the list.")]
-        [SampleUsage("{vUserVariable}")]
-        [Remarks("Variables not pre-defined in the Variable Manager will be automatically generated at runtime.")]
-        public string v_OutputUserVariableName { get; set; }
+		[Required]
+		[Editable(false)]
+		[DisplayName("Output Compressed File Path Variable")]
+		[Description("Create a new variable or select a variable from the list.")]
+		[SampleUsage("{vUserVariable}")]
+		[Remarks("Variables not pre-defined in the Variable Manager will be automatically generated at runtime.")]
+		public string v_OutputUserVariableName { get; set; }
 
-        public CompressFilesCommand()
-        {
-            CommandName = "CompressFilesCommand";
-            SelectionName = "Compress Files";
-            CommandEnabled = true;        
-        }
+		public CompressFilesCommand()
+		{
+			CommandName = "CompressFilesCommand";
+			SelectionName = "Compress Files";
+			CommandEnabled = true;        
+		}
 
-        public override void RunCommand(object sender)
-        {
-            var engine = (AutomationEngineInstance)sender;
-            //get variable path to source file
-            var vSourceDirectoryPathOrigin = v_DirectoryPathOrigin.ConvertUserVariableToString(engine);
+		public override void RunCommand(object sender)
+		{
+			var engine = (AutomationEngineInstance)sender;
+			//get variable path to source file
+			var vSourceDirectoryPathOrigin = v_DirectoryPathOrigin.ConvertUserVariableToString(engine);
 
-            // get file path to destination files
-            var vFilePathDestination = v_PathDestination.ConvertUserVariableToString(engine);
+			// get file path to destination files
+			var vFilePathDestination = v_PathDestination.ConvertUserVariableToString(engine);
 
-            // get password to extract files
-            var vPassword = v_Password.ConvertUserVariableToString(engine);
+			// get password to extract files
+			var vPassword = v_Password.ConvertUserVariableToString(engine);
 
-            string[] filenames = Directory.GetFiles(vSourceDirectoryPathOrigin);
+			string[] filenames = Directory.GetFiles(vSourceDirectoryPathOrigin);
 
-            string sourceDirectoryName = new DirectoryInfo(vSourceDirectoryPathOrigin).Name;
-            string compressedFileName = Path.Combine(vFilePathDestination, sourceDirectoryName + ".zip");
-            using (ZipOutputStream OutputStream = new ZipOutputStream(IO.File.Create(compressedFileName)))
-            {
-                // Define a password for the file (if provided)
-                OutputStream.Password = vPassword;
+			string sourceDirectoryName = new DirectoryInfo(vSourceDirectoryPathOrigin).Name;
+			string compressedFileName = Path.Combine(vFilePathDestination, sourceDirectoryName + ".zip");
+			using (ZipOutputStream OutputStream = new ZipOutputStream(IO.File.Create(compressedFileName)))
+			{
+				// Define a password for the file (if provided)
+				OutputStream.Password = vPassword;
 
-                // Define the compression level
-                // 0 - store only to 9 - means best compression
-                OutputStream.SetLevel(9);
+				// Define the compression level
+				// 0 - store only to 9 - means best compression
+				OutputStream.SetLevel(9);
 
-                byte[] buffer = new byte[4096];
+				byte[] buffer = new byte[4096];
 
-                foreach (string file in filenames)
-                {
+				foreach (string file in filenames)
+				{
 
-                    ZipEntry entry = new ZipEntry(Path.GetFileName(file));
-                    entry.DateTime = DateTime.Now;
-                    OutputStream.PutNextEntry(entry);
+					ZipEntry entry = new ZipEntry(Path.GetFileName(file));
+					entry.DateTime = DateTime.Now;
+					OutputStream.PutNextEntry(entry);
 
-                    using (FileStream fs = IO.File.OpenRead(file))
-                    {
-                        int sourceBytes;
+					using (FileStream fs = IO.File.OpenRead(file))
+					{
+						int sourceBytes;
 
-                        do
-                        {
-                            sourceBytes = fs.Read(buffer, 0, buffer.Length);
-                            OutputStream.Write(buffer, 0, sourceBytes);
-                        } while (sourceBytes > 0);
-                    }
-                }
+						do
+						{
+							sourceBytes = fs.Read(buffer, 0, buffer.Length);
+							OutputStream.Write(buffer, 0, sourceBytes);
+						} while (sourceBytes > 0);
+					}
+				}
 
-                // Finish is important to ensure trailing information for a Zip file is appended.  Without this
-                // the created file would be invalid.
-                OutputStream.Finish();
+				// Finish is important to ensure trailing information for a Zip file is appended.  Without this
+				// the created file would be invalid.
+				OutputStream.Finish();
 
-                // Close is important to wrap things up and unlock the file.
-                OutputStream.Close();                     
-            }
+				// Close is important to wrap things up and unlock the file.
+				OutputStream.Close();                     
+			}
 
-            //Add File Path to the output variable
-            compressedFileName.StoreInUserVariable(engine, v_OutputUserVariableName);
-        }
+			//Add File Path to the output variable
+			compressedFileName.StoreInUserVariable(engine, v_OutputUserVariableName);
+		}
 
-        public override List<Control> Render(IfrmCommandEditor editor, ICommandControls commandControls)
-        {
-            base.Render(editor, commandControls);
+		public override List<Control> Render(IfrmCommandEditor editor, ICommandControls commandControls)
+		{
+			base.Render(editor, commandControls);
 
-            //create standard group controls
-            RenderedControls.AddRange(commandControls.CreateDefaultInputGroupFor("v_DirectoryPathOrigin", this, editor));
-            RenderedControls.AddRange(commandControls.CreateDefaultPasswordInputGroupFor("v_Password", this, editor));
-            RenderedControls.AddRange(commandControls.CreateDefaultInputGroupFor("v_PathDestination", this, editor));
-            RenderedControls.AddRange(commandControls.CreateDefaultOutputGroupFor("v_OutputUserVariableName", this, editor));
+			//create standard group controls
+			RenderedControls.AddRange(commandControls.CreateDefaultInputGroupFor("v_DirectoryPathOrigin", this, editor));
+			RenderedControls.AddRange(commandControls.CreateDefaultPasswordInputGroupFor("v_Password", this, editor));
+			RenderedControls.AddRange(commandControls.CreateDefaultInputGroupFor("v_PathDestination", this, editor));
+			RenderedControls.AddRange(commandControls.CreateDefaultOutputGroupFor("v_OutputUserVariableName", this, editor));
 
-            return RenderedControls;
-        }
+			return RenderedControls;
+		}
 
-        public override string GetDisplayValue()
-        {
-            return base.GetDisplayValue() + $" [Compress From '{v_DirectoryPathOrigin}' to '{v_PathDestination}' - " +
-                $"Store Compressed File Path in '{v_OutputUserVariableName}']";
-        }
-    }
+		public override string GetDisplayValue()
+		{
+			return base.GetDisplayValue() + $" [Compress From '{v_DirectoryPathOrigin}' to '{v_PathDestination}' - " +
+				$"Store Compressed File Path in '{v_OutputUserVariableName}']";
+		}
+	}
 }

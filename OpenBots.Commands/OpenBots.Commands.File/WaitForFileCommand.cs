@@ -14,76 +14,76 @@ using IO = System.IO;
 
 namespace OpenBots.Commands.File
 {
-    [Serializable]
-    [Category("File Operation Commands")]
-    [Description("This command waits for a file to exist at a specified destination.")]
-    public class WaitForFileCommand : ScriptCommand
-    {
-        [Required]
+	[Serializable]
+	[Category("File Operation Commands")]
+	[Description("This command waits for a file to exist at a specified destination.")]
+	public class WaitForFileCommand : ScriptCommand
+	{
+		[Required]
 		[DisplayName("File Path")]
-        [Description("Enter or Select the path to the file.")]
-        [SampleUsage(@"C:\temp\myfile.txt || {ProjectPath}\myfile.txt || {vTextFilePath}")]
-        [Remarks("{ProjectPath} is the directory path of the current project.")]
-        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
-        [Editor("ShowFileSelectionHelper", typeof(UIAdditionalHelperType))]
-        public string v_FileName { get; set; }
+		[Description("Enter or Select the path to the file.")]
+		[SampleUsage(@"C:\temp\myfile.txt || {ProjectPath}\myfile.txt || {vTextFilePath}")]
+		[Remarks("{ProjectPath} is the directory path of the current project.")]
+		[Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
+		[Editor("ShowFileSelectionHelper", typeof(UIAdditionalHelperType))]
+		public string v_FileName { get; set; }
 
-        [Required]
+		[Required]
 		[DisplayName("Timeout")]
-        [Description("Specify how many seconds to wait for the file to exist.")]
-        [SampleUsage("10 || {vSeconds}")]
-        [Remarks("")]
-        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
-        public string v_WaitTime { get; set; }
+		[Description("Specify how many seconds to wait for the file to exist.")]
+		[SampleUsage("10 || {vSeconds}")]
+		[Remarks("")]
+		[Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
+		public string v_WaitTime { get; set; }
 
-        public WaitForFileCommand()
-        {
-            CommandName = "WaitForFileCommand";
-            SelectionName = "Wait For File";
-            CommandEnabled = true;         
-        }
+		public WaitForFileCommand()
+		{
+			CommandName = "WaitForFileCommand";
+			SelectionName = "Wait For File";
+			CommandEnabled = true;         
+		}
 
-        public override void RunCommand(object sender)
-        {
-            var engine = (AutomationEngineInstance)sender;
-            //convert items to variables
-            var fileName = v_FileName.ConvertUserVariableToString(engine);
-            var pauseTime = int.Parse(v_WaitTime.ConvertUserVariableToString(engine));
+		public override void RunCommand(object sender)
+		{
+			var engine = (AutomationEngineInstance)sender;
+			//convert items to variables
+			var fileName = v_FileName.ConvertUserVariableToString(engine);
+			var pauseTime = int.Parse(v_WaitTime.ConvertUserVariableToString(engine));
 
-            //determine when to stop waiting based on user config
-            var stopWaiting = DateTime.Now.AddSeconds(pauseTime);
+			//determine when to stop waiting based on user config
+			var stopWaiting = DateTime.Now.AddSeconds(pauseTime);
 
-            //initialize flag for file found
-            var fileFound = false;
+			//initialize flag for file found
+			var fileFound = false;
 
-            //while file has not been found
-            while (!fileFound)
-            {
-                //if file exists at the file path
-                if (IO.File.Exists(fileName))
-                    fileFound = true;
+			//while file has not been found
+			while (!fileFound)
+			{
+				//if file exists at the file path
+				if (IO.File.Exists(fileName))
+					fileFound = true;
 
-                //test if we should exit and throw exception
-                if (DateTime.Now > stopWaiting)
-                    throw new Exception("File was not found in time!");
+				//test if we should exit and throw exception
+				if (DateTime.Now > stopWaiting)
+					throw new Exception("File was not found in time!");
 
-                //put thread to sleep before iterating
-                Thread.Sleep(100);
-            }
-        }
+				//put thread to sleep before iterating
+				Thread.Sleep(100);
+			}
+		}
 
-        public override List<Control> Render(IfrmCommandEditor editor, ICommandControls commandControls)
-        {
-            base.Render(editor, commandControls);
+		public override List<Control> Render(IfrmCommandEditor editor, ICommandControls commandControls)
+		{
+			base.Render(editor, commandControls);
 
-            RenderedControls.AddRange(commandControls.CreateDefaultInputGroupFor("v_FileName", this, editor));
-            RenderedControls.AddRange(commandControls.CreateDefaultInputGroupFor("v_WaitTime", this, editor));
-            return RenderedControls;
-        }
+			RenderedControls.AddRange(commandControls.CreateDefaultInputGroupFor("v_FileName", this, editor));
+			RenderedControls.AddRange(commandControls.CreateDefaultInputGroupFor("v_WaitTime", this, editor));
+			return RenderedControls;
+		}
 
-        public override string GetDisplayValue()
-        {
-            return base.GetDisplayValue() + $" [Wait '{v_WaitTime}' Seconds for File '{v_FileName}' to Exist]";
-        }
-    }
+		public override string GetDisplayValue()
+		{
+			return base.GetDisplayValue() + $" [Wait '{v_WaitTime}' Seconds for File '{v_FileName}' to Exist]";
+		}
+	}
 }
