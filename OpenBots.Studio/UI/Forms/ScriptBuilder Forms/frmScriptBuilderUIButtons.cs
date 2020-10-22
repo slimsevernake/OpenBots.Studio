@@ -515,7 +515,10 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
 
             foreach (ScriptAction item in commandDetails)
             {
-                _selectedTabScriptActions.Items.Add(CreateScriptCommandListViewItem(item.ScriptCommand));
+                if (item.ScriptCommand != null)
+                    _selectedTabScriptActions.Items.Add(CreateScriptCommandListViewItem(item.ScriptCommand));
+                else
+                    _selectedTabScriptActions.Items.Add(CreateScriptCommandListViewItem(new BrokenCodeCommentCommand{ v_Comment = item.SerializationError}));
                 if (item.AdditionalScriptCommands?.Count > 0)
                     PopulateExecutionCommands(item.AdditionalScriptCommands);
             }

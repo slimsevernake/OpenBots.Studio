@@ -325,6 +325,7 @@
     <Compile Include="Commands\Error Handling Commands\BeginRetryCommand.cs" />
     <Compile Include="Commands\Error Handling Commands\EndRetryCommand.cs" />
     <Compile Include="Commands\Error Handling Commands\RethrowCommand.cs" />
+    <Compile Include="Commands\Misc Commands\BrokenCodeCommentCommand.cs" />
     <Compile Include="Commands\Misc Commands\ShowMessageCommand.cs" />
     <Compile Include="Commands\Misc Commands\UIAutomationCommand.cs" />
     <Compile Include="Commands\Task Commands\RunTaskCommand.cs" />
@@ -793,7 +794,6 @@
     <Content Include="OpenBots-ico.ico" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Sample Scripts\" />
     <Folder Include="UI\DTOs\" />
     <Folder Include="UI\FormEventArgs\" />
   </ItemGroup>

@@ -14,12 +14,17 @@
 //limitations under the License.
 
 using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 using OpenBots.Core.Command;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using Formatting = Newtonsoft.Json.Formatting;
+using ErrorEventArgs = Newtonsoft.Json.Serialization.ErrorEventArgs;
+using System;
+using System.Text;
+using System.Reflection;
 
 namespace OpenBots.Core.Script
 {
@@ -37,11 +42,12 @@ namespace OpenBots.Core.Script
         /// Contains user-selected commands
         /// </summary>
         public List<ScriptAction> Commands;
-        private string FileName { get; set; }
+        public string Version { get; set; }
 
         public Script()
         {
             Variables = new List<ScriptVariable>();
+            Elements = new List<ScriptElement>();
             Commands = new List<ScriptAction>();
         }
 
@@ -67,13 +73,14 @@ namespace OpenBots.Core.Script
         {
             var script = new Script();
 
-            script.FileName = Path.GetFileName(scriptFilePath);
-
             //save variables to file
             script.Variables = scriptVariables;
 
             //save elements to file
             script.Elements = scriptElements;
+
+            //set version to current application version
+            script.Version = Application.ProductVersion;
 
             //save listview tags to command list
             int lineNumber = 1;
@@ -157,32 +164,54 @@ namespace OpenBots.Core.Script
         /// <summary>
         /// Deserializes a valid JSON file back into user-defined commands
         /// </summary>
-        public static Script DeserializeFile(string scriptFilePath)
+        public static Script DeserializeFile(string filePath, string newVersion = "")
         {
-            using (StreamReader file = File.OpenText(scriptFilePath))
+            var serializerSettings = new JsonSerializerSettings()
             {
-                var serializerSettings = new JsonSerializerSettings()
-                {
-                    TypeNameHandling = TypeNameHandling.Objects
-                };
+                TypeNameHandling = TypeNameHandling.Objects,
+                Error = HandleDeserializationError
+            };
 
-                JsonSerializer serializer = JsonSerializer.Create(serializerSettings);
-                Script deserializedData = (Script)serializer.Deserialize(file, typeof(Script));
+            Script deserializedData = JsonConvert.DeserializeObject<Script>(File.ReadAllText(filePath), serializerSettings);
 
-                //update ProjectPath variable
-                var projectPathVariable = deserializedData.Variables.Where(v => v.VariableName == "ProjectPath").SingleOrDefault();
-                if (projectPathVariable == null)
-                {
-                    projectPathVariable = new ScriptVariable
-                    {
-                        VariableName = "ProjectPath",
-                        VariableValue = "Value Provided at Runtime"
-                    };
-                    deserializedData.Variables.Add(projectPathVariable);
-                }
+            if (!string.IsNullOrEmpty(newVersion))
+                deserializedData.Version = newVersion;
 
-                return deserializedData;
+            Version deserializedScriptVersion;
+            if (deserializedData.Version != null)
+                deserializedScriptVersion = new Version(deserializedData.Version);
+            else
+                deserializedScriptVersion = new Version("0.0.0.0");
+
+            //if deserialized Script version is lower than than the current application version
+            if (deserializedScriptVersion.CompareTo(new Version(Application.ProductVersion)) < 0)
+            {
+                deserializedData = ConvertToLatestVersion(filePath, deserializedScriptVersion.ToString());
             }
+
+            //update ProjectPath variable
+            var projectPathVariable = deserializedData.Variables.Where(v => v.VariableName == "ProjectPath").SingleOrDefault();
+
+            if (projectPathVariable != null)
+                deserializedData.Variables.Remove(projectPathVariable);
+
+            projectPathVariable = new ScriptVariable
+            {
+                VariableName = "ProjectPath",
+                VariableValue = "Value Provided at Runtime"
+            };
+            deserializedData.Variables.Add(projectPathVariable);
+
+
+            return deserializedData;
+        }
+
+        public static void HandleDeserializationError(object sender, ErrorEventArgs e)
+        {
+            var currentError = e.ErrorContext.Error.Message;
+            if (e.CurrentObject is ScriptAction)
+                ((ScriptAction)e.CurrentObject).SerializationError = currentError;
+            e.ErrorContext.Handled = true;
         }
 
         /// <summary>
@@ -191,6 +220,52 @@ namespace OpenBots.Core.Script
         public static Script DeserializeJsonString(string jsonScript)
         {
             return JsonConvert.DeserializeObject<Script>(jsonScript);
+        }
+
+        public static Script ConvertToLatestVersion(string filePath, string version)
+        {
+            Script currentScript = null;
+
+            switch (version)
+            {
+                case "0.0.0.0":
+                //case "1.0.6.0":
+                    currentScript = ConvertTo1070(filePath);
+                    break;
+                //future conversions
+                case "1.0.7.0":
+                    currentScript = ConvertTo1080(filePath);
+                    break;
+            }
+ 
+            return currentScript;
+        }
+
+        public static Script ConvertTo1070(string filePath)
+        {
+            string scriptText = File.ReadAllText(filePath);
+
+            //broken after 1.0.5.0
+            scriptText = scriptText.Replace("OpenBots.Commands.ErrorHandlingCommand, OpenBots.Studio", "OpenBots.Commands.Engine.ErrorHandlingCommand, OpenBots.Commands.Engine");
+            scriptText = scriptText.Replace("OpenBots.Commands.LogMessageCommand, OpenBots.Studio", "OpenBots.Commands.Engine.LogMessageCommand, OpenBots.Commands.Engine");
+            scriptText = scriptText.Replace("OpenBots.Commands.PauseScriptCommand, OpenBots.Studio", "OpenBots.Commands.Engine.PauseScriptCommand, OpenBots.Commands.Engine");
+            scriptText = scriptText.Replace("OpenBots.Commands.SetEngineDelayCommand, OpenBots.Studio", "OpenBots.Commands.Engine.SetEngineDelayCommand, OpenBots.Commands.Engine");
+            scriptText = scriptText.Replace("OpenBots.Commands.SetEnginePreferenceCommand, OpenBots.Studio", "OpenBots.Commands.Engine.SetEnginePreferenceCommand, OpenBots.Commands.Engine");
+            scriptText = scriptText.Replace("OpenBots.Commands.ShowEngineContextCommand, OpenBots.Studio", "OpenBots.Commands.Engine.ShowEngineContextCommand, OpenBots.Commands.Engine");
+            scriptText = scriptText.Replace("OpenBots.Commands.StopwatchCommand, OpenBots.Studio", "OpenBots.Commands.Engine.StopwatchCommand, OpenBots.Commands.Engine");          
+
+            File.WriteAllText(filePath, scriptText);
+            return DeserializeFile(filePath, "1.0.7.0");
+        }
+
+        public static Script ConvertTo1080(string filePath)
+        {
+            string scriptText = File.ReadAllText(filePath);
+
+            //do conversion here 
+
+            File.WriteAllText(filePath, scriptText);
+            return DeserializeFile(filePath, "1.0.8.0");
         }
     }
 }

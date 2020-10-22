@@ -16,6 +16,7 @@ namespace OpenBots.UI.CustomControls.CustomUIControls
             uiImages.Add("PauseScriptCommand", Resources.command_pause);
             uiImages.Add("SetEngineDelayCommand", Resources.command_pause);
             uiImages.Add("AddCodeCommentCommand", Resources.command_comment);
+            uiImages.Add("BrokenCodeCommentCommand", Resources.command_comment);
             uiImages.Add("ActivateWindowCommand", Resources.command_window);
             uiImages.Add("MoveWindowCommand", Resources.command_window);
             uiImages.Add("SetWindowStateCommand", Resources.command_window);

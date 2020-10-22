@@ -260,6 +260,9 @@ namespace OpenBots.Engine
             //get command
             ScriptCommand parentCommand = command.ScriptCommand;
 
+            if (parentCommand == null)
+                return;
+
             if (ScriptEngineUI != null && (parentCommand.CommandName == "RunTaskCommand" || parentCommand.CommandName == "MessageBoxCommand"))
                 parentCommand.CurrentScriptBuilder = ScriptEngineUI.CallBackForm;
 
@@ -324,7 +327,7 @@ namespace OpenBots.Engine
                 throw new Exception("Child Script Failed");
 
             //bypass comments
-            if (parentCommand.CommandName == "AddCodeCommentCommand" || parentCommand.IsCommented)             
+            if (parentCommand.CommandName == "AddCodeCommentCommand" || parentCommand.CommandName == "BrokenCodeCommentCommand" || parentCommand.IsCommented)             
                 return;
 
             //report intended execution
