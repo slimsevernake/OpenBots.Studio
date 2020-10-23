@@ -1,5 +1,6 @@
 {
     "Replace": {
+        "__comment1__": "Version 1.0.3.0", 
         "taskt" : "OpenBots",
         "OpenBots\\.Commands\\.ExecuteDLLCommand, OpenBots\\.Studio": "OpenBots.Commands.API.ExecuteDLLCommand, OpenBots.Commands.API",
         "OpenBots\\.Commands\\.ExecuteRESTAPICommand, OpenBots\\.Studio" : "OpenBots.Commands.API.ExecuteRESTAPICommand, OpenBots.Commands.API",
@@ -130,6 +131,9 @@
         "OpenBots\\.Commands\\.WordReadDocumentCommand, OpenBots\\.Commands": "OpenBots.Commands.Word.WordReadDocumentCommand, OpenBots.Commands.Word",
         "OpenBots\\.Commands\\.WordReplaceTextCommand, OpenBots\\.Commands": "OpenBots.Commands.Word.WordReplaceTextCommand, OpenBots.Commands.Word",
         "OpenBots\\.Commands\\.WordSaveDocumentCommand, OpenBots\\.Commands": "OpenBots.Commands.Word.WordSaveDocumentCommand, OpenBots.Commands.Word",
-        "OpenBots\\.Commands\\.WordSaveDocumentAsCommand, OpenBots\\.Commands": "OpenBots.Commands.Word.WordSaveDocumentAsCommand, OpenBots.Commands.Word"
+        "OpenBots\\.Commands\\.WordSaveDocumentAsCommand, OpenBots\\.Commands": "OpenBots.Commands.Word.WordSaveDocumentAsCommand, OpenBots.Commands.Word",
+
+        "__comment2__": "Version 1.0.4.0", 
+        "OpenBots\\.Commands\\.TextFile\\.WriteTextFileCommand": "OpenBots.Commands.TextFile.WriteCreateTextFileCommand"
     }
   }
