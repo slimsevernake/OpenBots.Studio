@@ -12,15 +12,17 @@
 //WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 //See the License for the specific language governing permissions and
 //limitations under the License.
-using OpenBots.Core.UI.Forms;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 using System.Windows.Forms;
+using Newtonsoft.Json;
+using OpenBots.Core.Server.User;
 
 namespace OpenBots.UI.Forms.Supplement_Forms
 {
-    public partial class frmAbout : UIForm
+    public partial class frmAbout : Form
     {
         public frmAbout()
         {
@@ -31,8 +33,30 @@ namespace OpenBots.UI.Forms.Supplement_Forms
         {
             DateTime buildDate = File.GetLastWriteTime(Assembly.GetExecutingAssembly().Location);
 
-            lblAppVersion.Text = "version: " + new Version(Application.ProductVersion);
-            lblBuildDate.Text = "build date: " + buildDate.ToString("MM.dd.yyyy");
-        }       
+            lblAppVersion.Text = $"Version: {Application.ProductVersion}";
+            lblBuildDate.Text = $"Build Date: {buildDate:MM-dd-yyyy}";
+            lblMachineName.Text = $"Machine Name: {MachineInfo.MachineName}";
+            lblIPAddress.Text = $"IP Address: {MachineInfo.IPAddress}";
+            lblMacAddress.Text = $"Mac Address: {MachineInfo.GetMacAddress()}";
+
+            string agentSettingsPath = Environment.GetEnvironmentVariable("OpenBots_Agent_Config_Path", EnvironmentVariableTarget.Machine);
+
+            if (agentSettingsPath == null)
+                lblServer.Text = "Server: Agent settings file not found";
+
+            else
+            {
+                string agentSettingsText = File.ReadAllText(agentSettingsPath);
+                var settings = JsonConvert.DeserializeObject<Dictionary<string, string>>(agentSettingsText);
+
+                string agentId = settings["AgentId"];
+                string serverURL = settings["OpenBotsServerUrl"];
+
+                if (string.IsNullOrEmpty(agentId))
+                    lblServer.Text = "Server: Agent is not connected";
+                else
+                    lblServer.Text = $"Server: {serverURL}";
+            }           
+        }
     }
 }

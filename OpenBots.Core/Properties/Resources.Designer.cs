@@ -63,6 +63,16 @@ namespace OpenBots.Core.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        public static System.Drawing.Bitmap about_background {
+            get {
+                object obj = ResourceManager.GetObject("about_background", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         public static System.Drawing.Bitmap action_bar_add_command {
             get {
                 object obj = ResourceManager.GetObject("action_bar_add_command", resourceCulture);
@@ -1086,6 +1096,16 @@ namespace OpenBots.Core.Properties {
         public static System.Drawing.Bitmap OpenBots_splash {
             get {
                 object obj = ResourceManager.GetObject("OpenBots_splash", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap openbots_splash2 {
+            get {
+                object obj = ResourceManager.GetObject("openbots_splash2", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

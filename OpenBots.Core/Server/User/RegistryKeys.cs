@@ -1,4 +1,4 @@
-﻿namespace OpenBots.Core.Server.UserRegistry
+﻿namespace OpenBots.Core.Server.User
 {
     public class RegistryKeys
     {

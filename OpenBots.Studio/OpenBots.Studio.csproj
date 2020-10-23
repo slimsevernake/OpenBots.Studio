@@ -797,6 +797,7 @@
     <Content Include="OpenBots-ico.ico" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Resources\" />
     <Folder Include="UI\DTOs\" />
     <Folder Include="UI\FormEventArgs\" />
   </ItemGroup>

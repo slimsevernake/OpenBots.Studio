@@ -1,5 +1,5 @@
 ﻿using Newtonsoft.Json;
-using OpenBots.Core.Server.UserRegistry;
+using OpenBots.Core.Server.User;
 using RestSharp;
 using RestSharp.Serialization.Json;
 using System;

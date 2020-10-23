@@ -240,6 +240,12 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
                         case Keys.L:
                             OpenElementManager();
                             break;
+                        case Keys.M:
+                            shortcutMenuToolStripMenuItem_Click(null, null);
+                            break;
+                        case Keys.O:
+                            aboutOpenBotsToolStripMenuItem_Click(null, null);
+                            break;
                     }
                 }                
             }
