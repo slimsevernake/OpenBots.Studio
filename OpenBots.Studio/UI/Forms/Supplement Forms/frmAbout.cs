@@ -14,7 +14,6 @@
 //limitations under the License.
 using OpenBots.Core.UI.Forms;
 using System;
-using System.Diagnostics;
 using System.IO;
 using System.Reflection;
 using System.Windows.Forms;
@@ -34,56 +33,6 @@ namespace OpenBots.UI.Forms.Supplement_Forms
 
             lblAppVersion.Text = "version: " + new Version(Application.ProductVersion);
             lblBuildDate.Text = "build date: " + buildDate.ToString("MM.dd.yyyy");
-        }
-
-        private void lblOneNote_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            Process.Start("https://github.com/ignatandrei/OneNoteOCR");
-        }
-
-        private void lblSelenium_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            Process.Start("https://github.com/SeleniumHQ/selenium");
-        }
-
-        private void lblTaskScheduler_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            Process.Start("https://github.com/dahall/TaskScheduler");
-        }
-
-        private void lblLog4Net_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            Process.Start("https://github.com/dahall/TaskScheduler");
-        }
-
-        private void lblHTMLAgilityPack_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            Process.Start("https://www.nuget.org/packages/HtmlAgilityPack/");
-        }
-
-        private void lblIMAPX_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            Process.Start("https://github.com/azanov/imapx");
-        }
-
-        private void lblJetBrainsAnnotations_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            Process.Start("https://www.nuget.org/packages/JetBrains.Annotations/");
-        }
-
-        private void lblNewtonSoft_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            Process.Start("https://www.nuget.org/packages/newtonsoft.json/");
-        }
-
-        private void lblSuperSocketClientEngine_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            Process.Start("https://github.com/kerryjiang/SuperSocket.ClientEngine");
-        }
-
-        private void lblWebSocket4Net_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            Process.Start("https://github.com/kerryjiang/WebSocket4Net");
-        }
+        }       
     }
 }

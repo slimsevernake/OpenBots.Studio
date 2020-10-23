@@ -28,7 +28,7 @@ namespace OpenBots.Commands
 
         public override string GetDisplayValue()
         {
-            return $"XX Broken ['{v_Comment}']";
+            return $"Broken ['{v_Comment}']";
         }
     }
 }

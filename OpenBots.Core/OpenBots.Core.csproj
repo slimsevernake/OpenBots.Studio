@@ -285,6 +285,7 @@
     <Content Include="Resources\Icons\Commands\command-begin-multi-if.png" />
     <Content Include="Resources\Icons\Commands\command-begin-switch.png" />
     <Content Include="Resources\Icons\Commands\command-breakpoint.png" />
+    <None Include="Resources\Icons\Commands\command-broken.png" />
     <Content Include="Resources\Icons\Commands\command-camera.png" />
     <Content Include="Resources\Icons\Commands\command-cancel.png" />
     <Content Include="Resources\Icons\Commands\command-case.png" />

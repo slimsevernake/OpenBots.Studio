@@ -115,14 +115,12 @@
         "OpenBots\\.Commands\\.WriteTextFileCommand, OpenBots\\.Commands": "OpenBots.Commands.TextFile.WriteCreateTextFileCommand, OpenBots.Commands.TextFile",
         "OpenBots\\.Commands\\.NewVariableCommand, OpenBots\\.Commands": "OpenBots.Commands.Variable.NewVariableCommand, OpenBots.Commands.Variable",
         "OpenBots\\.Commands\\.SetVariableCommand, OpenBots\\.Commands": "OpenBots.Commands.Variable.SetVariableCommand, OpenBots.Commands.Variable",
-
         "OpenBots\\.Commands\\.ActivateWindowCommand, OpenBots\\.Studio": "OpenBots.Commands.Window.ActivateWindowCommand, OpenBots.Commands.Window",
         "OpenBots\\.Commands\\.CloseWindowCommand, OpenBots\\.Studio": "OpenBots.Commands.Window.CloseWindowCommand, OpenBots.Commands.Window",
         "OpenBots\\.Commands\\.MoveWindowCommand, OpenBots\\.Studio": "OpenBots.Commands.Window.MoveWindowCommand, OpenBots.Commands.Window",
         "OpenBots\\.Commands\\.ResizeWindowCommand, OpenBots\\.Studio": "OpenBots.Commands.Window.ResizeWindowCommand, OpenBots.Commands.Window",
         "OpenBots\\.Commands\\.SetWindowStateCommand, OpenBots\\.Studio": "OpenBots.Commands.Window.SetWindowStateCommand, OpenBots.Commands.Window",
         "OpenBots\\.Commands\\.WaitForWindowToExistCommand, OpenBots\\.Studio": "OpenBots.Commands.Window.WaitForWindowToExistCommand, OpenBots.Commands.Window",
-
         "OpenBots\\.Commands\\.WordAppendDataTableCommand, OpenBots\\.Commands": "OpenBots.Commands.Word.WordAppendDataTableCommand, OpenBots.Commands.Word",
         "OpenBots\\.Commands\\.WordAppendImageCommand, OpenBots\\.Commands": "OpenBots.Commands.Word.WordAppendImageCommand, OpenBots.Commands.Word",
         "OpenBots\\.Commands\\.WordAppendTextCommand, OpenBots\\.Commands": "OpenBots.Commands.Word.WordAppendTextCommand, OpenBots.Commands.Word",
@@ -133,6 +131,5 @@
         "OpenBots\\.Commands\\.WordReplaceTextCommand, OpenBots\\.Commands": "OpenBots.Commands.Word.WordReplaceTextCommand, OpenBots.Commands.Word",
         "OpenBots\\.Commands\\.WordSaveDocumentCommand, OpenBots\\.Commands": "OpenBots.Commands.Word.WordSaveDocumentCommand, OpenBots.Commands.Word",
         "OpenBots\\.Commands\\.WordSaveDocumentAsCommand, OpenBots\\.Commands": "OpenBots.Commands.Word.WordSaveDocumentAsCommand, OpenBots.Commands.Word"
-
     }
   }

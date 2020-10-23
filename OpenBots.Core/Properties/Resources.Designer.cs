@@ -8,10 +8,10 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace OpenBots.Core.Properties
-{
-
-
+namespace OpenBots.Core.Properties {
+    using System;
+    
+    
     /// <summary>
     ///   A strongly-typed resource class, for looking up localized strings, etc.
     /// </summary>
@@ -386,6 +386,16 @@ namespace OpenBots.Core.Properties
         public static System.Drawing.Bitmap command_breakpoint {
             get {
                 object obj = ResourceManager.GetObject("command_breakpoint", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap command_broken {
+            get {
+                object obj = ResourceManager.GetObject("command_broken", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

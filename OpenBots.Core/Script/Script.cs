@@ -164,7 +164,7 @@ namespace OpenBots.Core.Script
         /// <summary>
         /// Deserializes a valid JSON file back into user-defined commands
         /// </summary>
-        public static Script DeserializeFile(string filePath)
+        public static Script DeserializeFile(string filePath, bool isDialogResultYes = false)
         {
             var serializerSettings = new JsonSerializerSettings()
             {
@@ -190,7 +190,12 @@ namespace OpenBots.Core.Script
             //if deserialized Script version is lower than than the current application version
             if (deserializedScriptVersion.CompareTo(new Version(Application.ProductVersion)) < 0)
             {
-                deserializedData = ConvertToLatestVersion(filePath, deserializedScriptVersion.ToString());
+                var dialogResult = MessageBox.Show($"Attempting to open a Script file from OpenBots Studio {deserializedScriptVersion}. " +
+                                                   $"Would you like to attempt to convert this Script to {Application.ProductVersion}?", 
+                                                   "Convert Script", MessageBoxButtons.YesNo);
+
+                if (dialogResult == DialogResult.Yes || isDialogResultYes)
+                    deserializedData = ConvertToLatestVersion(filePath, deserializedScriptVersion.ToString());
             }
 
             //update ProjectPath variable
@@ -245,7 +250,7 @@ namespace OpenBots.Core.Script
                 scriptText = Regex.Replace(scriptText, ((JProperty)(x)).Name, ((JProperty)(x)).Value.ToString());
                 
             File.WriteAllText(filePath, scriptText);
-            return DeserializeFile(filePath);
+            return DeserializeFile(filePath, true);
         }        
     }
 }
