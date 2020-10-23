@@ -13,6 +13,7 @@
 //See the License for the specific language governing permissions and
 //limitations under the License.
 
+using OpenBots.Core.Enums;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -22,7 +23,6 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
 using System.Windows.Forms;
-using OpenBots.Core.Enums;
 
 namespace OpenBots.Core.User32
 {

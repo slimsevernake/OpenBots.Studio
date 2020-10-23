@@ -1,12 +1,12 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using OpenBots.Core.Enums;
+using OpenBots.Core.IO;
+using OpenBots.Core.Model.EngineModel;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using OpenBots.Core.Enums;
-using OpenBots.Core.IO;
-using OpenBots.Core.Model.EngineModel;
 
 namespace OpenBots.Core.Metrics
 {

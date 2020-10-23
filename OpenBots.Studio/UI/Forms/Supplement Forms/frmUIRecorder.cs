@@ -1,15 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using OpenBots.Commands;
+﻿using OpenBots.Commands;
+using OpenBots.Commands.Input;
 using OpenBots.Core.Command;
-using OpenBots.Core.Settings;
 using OpenBots.Core.Properties;
-using OpenBots.UI.Forms;
+using OpenBots.Core.Settings;
+using OpenBots.Core.UI.Forms;
 using OpenBots.UI.Forms.ScriptBuilder_Forms;
 using OpenBots.Utilities;
-using OpenBots.Core.UI.Forms;
-using OpenBots.Commands.Input;
+using System;
+using System.Collections.Generic;
+using System.Drawing;
 
 namespace OpenBots.UI.Supplement_Forms
 {

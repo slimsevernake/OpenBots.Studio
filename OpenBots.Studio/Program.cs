@@ -12,18 +12,18 @@
 //WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 //See the License for the specific language governing permissions and
 //limitations under the License.
-using Serilog.Core;
-using System;
-using System.Diagnostics;
-using System.IO;
-using System.Runtime.InteropServices;
-using System.Windows.Forms;
 using OpenBots.Core.Enums;
 using OpenBots.Core.IO;
 using OpenBots.Core.Utilities.CommonUtilities;
 using OpenBots.UI.Forms;
 using OpenBots.UI.Forms.ScriptBuilder_Forms;
 using OpenBots.UI.Forms.Supplement_Forms;
+using Serilog.Core;
+using System;
+using System.Diagnostics;
+using System.IO;
+using System.Runtime.InteropServices;
+using System.Windows.Forms;
 
 namespace OpenBots
 {

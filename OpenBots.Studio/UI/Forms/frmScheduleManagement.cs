@@ -13,15 +13,15 @@
 //See the License for the specific language governing permissions and
 //limitations under the License.
 using Microsoft.Win32.TaskScheduler;
+using OpenBots.Core.Enums;
+using OpenBots.Core.IO;
+using OpenBots.Core.UI.Forms;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
 using System.Reflection;
 using System.Windows.Forms;
-using OpenBots.Core.Enums;
-using OpenBots.Core.IO;
-using OpenBots.Core.UI.Forms;
 
 namespace OpenBots.UI.Forms
 {

@@ -1,14 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Windows.Forms;
-using OpenBots.Core.Attributes.ClassAttributes;
-using OpenBots.Core.Command;
+﻿using OpenBots.Core.Command;
 using OpenBots.Core.Infrastructure;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Windows.Forms;
 
 namespace OpenBots.Commands
 {
     [Serializable]
-    [Group("Error Handling Commands")]
+    [Category("Error Handling Commands")]
     [Description("This command rethrows an exception caught in a catch block.")]
     public class RethrowCommand : ScriptCommand
     {
@@ -16,8 +16,7 @@ namespace OpenBots.Commands
         {
             CommandName = "RethrowCommand";
             SelectionName = "Rethrow";
-            CommandEnabled = true;
-            CustomRendering = true;
+            CommandEnabled = true;          
         }
 
         public override void RunCommand(object sender)

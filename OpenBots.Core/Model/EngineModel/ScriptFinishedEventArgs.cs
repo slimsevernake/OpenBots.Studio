@@ -1,5 +1,5 @@
-﻿using System;
-using OpenBots.Core.Enums;
+﻿using OpenBots.Core.Enums;
+using System;
 
 namespace OpenBots.Core.Model.EngineModel
 {

@@ -1,14 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Windows.Forms;
-using OpenBots.Core.Attributes.ClassAttributes;
-using OpenBots.Core.Command;
+﻿using OpenBots.Core.Command;
 using OpenBots.Core.Infrastructure;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Windows.Forms;
 
 namespace OpenBots.Commands
 {
     [Serializable]
-    [Group("Error Handling Commands")]
+    [Category("Error Handling Commands")]
     [Description("This command specifies the end of a try/catch block.")]
     public class EndTryCommand : ScriptCommand
     {
@@ -16,8 +16,7 @@ namespace OpenBots.Commands
         {
             CommandName = "EndTryCommand";
             SelectionName = "End Try";
-            CommandEnabled = true;
-            CustomRendering = true;
+            CommandEnabled = true;          
         }
 
         public override void RunCommand(object sender)

@@ -1,18 +1,17 @@
-﻿using System;
+﻿using OpenBots.Commands.Engine;
+using OpenBots.Commands.Input;
+using OpenBots.Commands.Window;
+using OpenBots.Core.Command;
+using OpenBots.Core.Common;
+using OpenBots.Core.Enums;
+using OpenBots.Core.User32;
+using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Windows.Forms;
-using OpenBots.Core.Command;
-using OpenBots.Commands;
-using OpenBots.Core.User32;
-using System.Data;
-using OpenBots.Core.Common;
-using OpenBots.Core.Enums;
-using OpenBots.Commands.Input;
-using OpenBots.Commands.Window;
-using OpenBots.Commands.Engine;
 
 namespace OpenBots.Utilities
 {

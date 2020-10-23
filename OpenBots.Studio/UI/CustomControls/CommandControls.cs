@@ -1,14 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Diagnostics;
-using System.Drawing;
-using System.IO;
-using System.Linq;
-using System.Reflection;
-using System.Threading;
-using System.Windows.Forms;
-using OpenBots.Commands;
+﻿using OpenBots.Commands;
 using OpenBots.Commands.API;
 using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
@@ -22,7 +12,16 @@ using OpenBots.Core.Utilities.CommandUtilities;
 using OpenBots.UI.CustomControls.CustomUIControls;
 using OpenBots.UI.Forms;
 using OpenBots.UI.Forms.Supplement_Forms;
-using Group = OpenBots.Core.Attributes.ClassAttributes.Group;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Diagnostics;
+using System.Drawing;
+using System.Linq;
+using System.Reflection;
+using System.Threading;
+using System.Windows.Forms;
 
 namespace OpenBots.UI.CustomControls
 {
@@ -128,13 +127,13 @@ namespace OpenBots.UI.CustomControls
         {
             var variableProperties = parent.GetType().GetProperties().Where(f => f.Name == parameterName).FirstOrDefault();
 
-            var propertyAttributesAssigned = variableProperties.GetCustomAttributes(typeof(PropertyDescription), true);
+            var propertyAttributesAssigned = variableProperties.GetCustomAttributes(typeof(DisplayNameAttribute), true);
 
             Label inputLabel = new Label();
             if (propertyAttributesAssigned.Length > 0)
             {
-                var attribute = (PropertyDescription)propertyAttributesAssigned[0];
-                inputLabel.Text = attribute.Description;
+                var attribute = (DisplayNameAttribute)propertyAttributesAssigned[0];
+                inputLabel.Text = attribute.DisplayName;
             }
             else
             {
@@ -152,15 +151,15 @@ namespace OpenBots.UI.CustomControls
         public void CreateDefaultToolTipFor(string parameterName, ScriptCommand parent, Control label)
         {
             var variableProperties = parent.GetType().GetProperties().Where(f => f.Name == parameterName).FirstOrDefault();
-            var inputSpecificationAttributesAssigned = variableProperties.GetCustomAttributes(typeof(InputSpecification), true);
+            var inputSpecificationAttributesAssigned = variableProperties.GetCustomAttributes(typeof(DescriptionAttribute), true);
             var sampleUsageAttributesAssigned = variableProperties.GetCustomAttributes(typeof(SampleUsage), true);
             var remarksAttributesAssigned = variableProperties.GetCustomAttributes(typeof(Remarks), true);
 
             string toolTipText = "";
             if (inputSpecificationAttributesAssigned.Length > 0)
             {
-                var attribute = (InputSpecification)inputSpecificationAttributesAssigned[0];
-                toolTipText = attribute.Specification;
+                var attribute = (DescriptionAttribute)inputSpecificationAttributesAssigned[0];
+                toolTipText = attribute.Description;
             }
             if (sampleUsageAttributesAssigned.Length > 0)
             {
@@ -341,7 +340,7 @@ namespace OpenBots.UI.CustomControls
             IfrmCommandEditor editor)
         {
             var variableProperties = parent.GetType().GetProperties().Where(f => f.Name == parameterName).FirstOrDefault();
-            var propertyUIHelpers = variableProperties.GetCustomAttributes(typeof(PropertyUIHelper), true);
+            var propertyUIHelpers = variableProperties.GetCustomAttributes(typeof(EditorAttribute), true);
             var controlList = new List<Control>();
 
             if (propertyUIHelpers.Count() == 0)
@@ -349,7 +348,7 @@ namespace OpenBots.UI.CustomControls
                 return controlList;
             }
 
-            foreach (PropertyUIHelper attrib in propertyUIHelpers)
+            foreach (EditorAttribute attrib in propertyUIHelpers)
             {
                 CommandItemControl helperControl = new CommandItemControl();
                 helperControl.Padding = new Padding(10, 0, 0, 0);
@@ -357,9 +356,9 @@ namespace OpenBots.UI.CustomControls
                 helperControl.Font = new Font("Segoe UI Semilight", 10);
                 helperControl.Name = parameterName + "_helper";
                 helperControl.Tag = targetControls.FirstOrDefault();
-                helperControl.HelperType = attrib.AdditionalHelper;
+                helperControl.HelperType = (UIAdditionalHelperType)Enum.Parse(typeof(UIAdditionalHelperType), attrib.EditorTypeName, true);
 
-                switch (attrib.AdditionalHelper)
+                switch (helperControl.HelperType)
                 {
                     case UIAdditionalHelperType.ShowVariableHelper:
                         //show variable selector

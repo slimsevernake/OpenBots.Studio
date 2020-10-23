@@ -1,4 +1,14 @@
 ﻿using Newtonsoft.Json;
+using OpenBots.Core.App;
+using OpenBots.Core.Command;
+using OpenBots.Core.Enums;
+using OpenBots.Core.Infrastructure;
+using OpenBots.Core.IO;
+using OpenBots.Core.Model.EngineModel;
+using OpenBots.Core.Script;
+using OpenBots.Core.Settings;
+using OpenBots.Core.Utilities.CommonUtilities;
+using OpenBots.Engine.Enums;
 using RestSharp;
 using Serilog.Core;
 using Serilog.Events;
@@ -11,16 +21,6 @@ using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
-using OpenBots.Core.App;
-using OpenBots.Core.Command;
-using OpenBots.Core.Enums;
-using OpenBots.Core.Infrastructure;
-using OpenBots.Core.IO;
-using OpenBots.Core.Model.EngineModel;
-using OpenBots.Core.Script;
-using OpenBots.Core.Settings;
-using OpenBots.Core.Utilities.CommonUtilities;
-using OpenBots.Engine.Enums;
 
 namespace OpenBots.Engine
 {
@@ -43,7 +43,6 @@ namespace OpenBots.Engine
         private bool _isScriptSteppedInto { get; set; }
         private bool _isScriptSteppedOverBeforeException { get; set; }
         private bool _isScriptSteppedIntoBeforeException { get; set; }
-        [JsonIgnore]
         public IfrmScriptEngine ScriptEngineUI { get; set; }
         private Stopwatch _stopWatch { get; set; }
         private EngineStatus _currentStatus { get; set; }

@@ -1,17 +1,17 @@
 ﻿using Microsoft.VisualBasic;
+using Newtonsoft.Json;
+using OpenBots.Commands;
+using OpenBots.Core.Script;
+using OpenBots.UI.CustomControls.CustomUIControls;
+using OpenBots.UI.Forms.Supplement_Forms;
+using OpenBots.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
-using OpenBots.Commands;
-using OpenBots.Core.Script;
-using OpenBots.UI.CustomControls.CustomUIControls;
-using OpenBots.UI.Forms.Supplement_Forms;
-using OpenBots.Utilities;
 using VBFileSystem = Microsoft.VisualBasic.FileIO.FileSystem;
-using Newtonsoft.Json;
 
 namespace OpenBots.UI.Forms.ScriptBuilder_Forms
 {

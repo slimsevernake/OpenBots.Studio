@@ -1,9 +1,9 @@
-﻿using Serilog.Core;
+﻿using OpenBots.Core.Enums;
+using OpenBots.Core.Script;
+using Serilog.Core;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
-using OpenBots.Core.Enums;
-using OpenBots.Core.Script;
 
 namespace OpenBots.Core.Infrastructure
 {

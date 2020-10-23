@@ -1,104 +1,88 @@
 ﻿using Newtonsoft.Json;
-using Serilog.Events;
-using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Threading;
-using System.Windows.Forms;
 using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Infrastructure;
 using OpenBots.Core.Script;
+using Serilog.Events;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Windows.Forms;
 
 namespace OpenBots.Core.Command
 {
     public abstract class ScriptCommand
-    {
-        public string CommandID { get; set; }
-        public string CommandName { get; set; }
-        public bool IsCommented { get; set; }
-        public string SelectionName { get; set; }
-        public int DefaultPause { get; set; }
-        public int LineNumber { get; set; }
-        public bool PauseBeforeExecution { get; set; }
-        public bool CommandEnabled { get; set; }
+	{
+		[Browsable(false)]
+		public string CommandName { get; set; }
 
-        [PropertyDescription("Private (Optional)")]
-        [InputSpecification("Optional field to mark the command as private (data sensitive) in order to avoid its logging.")]
-        [SampleUsage("")]
-        [Remarks("")]
-        public bool v_IsPrivate { get; set; }
+		[Browsable(false)]
+		public string SelectionName { get; set; }
 
-        [PropertyDescription("Comment Field (Optional)")]
-        [InputSpecification("Optional field to enter a custom comment which could potentially describe this command or the need for this command, if required.")]
-        [SampleUsage("I am using this command to ...")]
-        [Remarks("Optional")]
-        public string v_Comment { get; set; }
+		[Browsable(false)]
+		public int LineNumber { get; set; }
 
-        [JsonIgnore]
-        public bool CustomRendering { get; set; }
+		[Browsable(false)]
+		public bool IsCommented { get; set; }
 
-        [JsonIgnore]
-        public Color DisplayForeColor { get; set; }
+		[Browsable(false)]
+		public bool PauseBeforeExecution { get; set; }
 
-        [JsonIgnore]
-        public List<Control> RenderedControls;
-        
-        [JsonIgnore]
-        public Dictionary<string, object> PropertyValues;
+		[Browsable(false)]
+		public bool CommandEnabled { get; set; }
 
-        [JsonIgnore]
-        public bool IsSteppedInto { get; set; }
+		[DisplayName("Private (Optional)")]
+		[Description("Optional field to mark the command as private (data sensitive) in order to avoid its logging.")]
+		[SampleUsage("")]
+		[Remarks("")]
+		public bool v_IsPrivate { get; set; }
 
-        [JsonIgnore]
-        public IfrmScriptBuilder CurrentScriptBuilder { get; set; }
+		[DisplayName("Comment Field (Optional)")]
+		[Description("Optional field to enter a custom comment which could potentially describe this command or the need for this command, if required.")]
+		[SampleUsage("I am using this command to ...")]
+		[Remarks("Optional")]
+		public string v_Comment { get; set; }
 
-        [JsonIgnore]
-        public LogEventLevel LogLevel { get; set; } = LogEventLevel.Information;
+		[JsonIgnore]
+		[Browsable(false)]
+		public List<Control> RenderedControls;      
 
-        public ScriptCommand()
-        {
-            DisplayForeColor = Color.SteelBlue;
-            CommandEnabled = false;
-            DefaultPause = 0;
-            IsCommented = false;
-            CustomRendering = false;
-            GenerateID();
-        }
+		[JsonIgnore]
+		[Browsable(false)]
+		public bool IsSteppedInto { get; set; }
 
-        public void GenerateID()
-        {
-            var id = Guid.NewGuid();
-            CommandID = id.ToString();
-        }
+		[JsonIgnore]
+		[Browsable(false)]
+		public IfrmScriptBuilder CurrentScriptBuilder { get; set; }
 
-        public virtual void RunCommand(object sender)
-        {
-            Thread.Sleep(DefaultPause);
-        }
+		[JsonIgnore]
+		[Browsable(false)]
+		public LogEventLevel LogLevel { get; set; } = LogEventLevel.Information;
 
-        public virtual void RunCommand(object sender, ScriptAction command)
-        {
-            Thread.Sleep(DefaultPause);
-        }
+		public ScriptCommand()
+		{
+			CommandEnabled = false;
+			IsCommented = false;
+		}
 
-        public virtual string GetDisplayValue()
-        {
-            if (string.IsNullOrEmpty(v_Comment))
-                return SelectionName;
-            else
-                return $"{v_Comment} - " + SelectionName;
-        }
+		public virtual void RunCommand(object sender)
+		{
+		}
 
-        public virtual List<Control> Render(IfrmCommandEditor editor, ICommandControls commandControls)
-        {
-            RenderedControls = new List<Control>();
-            return RenderedControls;
-        }
+		public virtual void RunCommand(object sender, ScriptAction command)
+		{
+		}
 
-        public virtual List<Control> Render()
-        {
-            RenderedControls = new List<Control>();
-            return RenderedControls;
-        }
-    }
+		public virtual string GetDisplayValue()
+		{
+			if (string.IsNullOrEmpty(v_Comment))
+				return SelectionName;
+			else
+				return $"{v_Comment} - " + SelectionName;
+		}
+
+		public virtual List<Control> Render(IfrmCommandEditor editor, ICommandControls commandControls)
+		{
+			RenderedControls = new List<Control>();
+			return RenderedControls;
+		}
+	}
 }

@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using OpenBots.Core.Command;
+using System.Collections.Generic;
 using System.Windows.Forms;
-using OpenBots.Core.Command;
 
 namespace OpenBots.Core.Infrastructure
 {

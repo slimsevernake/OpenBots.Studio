@@ -1,28 +1,28 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Windows.Forms;
-using OpenBots.Core.Attributes.ClassAttributes;
-using OpenBots.Core.Command;
+﻿using OpenBots.Core.Command;
 using OpenBots.Core.Infrastructure;
 using OpenBots.Core.Script;
 using OpenBots.Engine;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Linq;
+using System.Windows.Forms;
 
 namespace OpenBots.Commands
 {
     [Serializable]
-    [Group("Misc Commands")]
+    [Category("Misc Commands")]
     [Description("This command groups multiple actions together.")]
     public class SequenceCommand : ScriptCommand
     {
+        [Browsable(false)]
         public List<ScriptCommand> ScriptActions = new List<ScriptCommand>();
 
         public SequenceCommand()
         {
             CommandName = "SequenceCommand";
             SelectionName = "Sequence Command";
-            CommandEnabled = true;
-            CustomRendering = true;
+            CommandEnabled = true;            
         }
 
         public override void RunCommand(object sender, ScriptAction parentCommand)

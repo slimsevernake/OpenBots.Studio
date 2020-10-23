@@ -1,241 +1,242 @@
 ﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Drawing;
-using System.IO;
-using System.Linq;
-using System.Reflection;
-using System.Windows.Forms;
-using OpenBots.Core.Attributes.ClassAttributes;
 using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
 using OpenBots.Core.Enums;
 using OpenBots.Core.Infrastructure;
 using OpenBots.Core.Utilities.CommonUtilities;
 using OpenBots.Engine;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
+using System.Data;
+using System.Drawing;
+using System.IO;
+using System.Linq;
+using System.Reflection;
+using System.Windows.Forms;
 
 namespace OpenBots.Commands.API
 {
+	[Serializable]
+	[Category("API Commands")]
+	[Description("This command invokes a method of a specific class from a DLL.")]
+	public class ExecuteDLLCommand : ScriptCommand
+	{
+		[Required]
+		[DisplayName("DLL File Path")]
+		[Description("Enter or Select the path to the DLL File.")]
+		[SampleUsage("C:\\temp\\myfile.dll || {vDLLFilePath}")]
+		[Remarks("")]
+		[Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
+		[Editor("ShowDLLExplorer", typeof(UIAdditionalHelperType))]
+		public string v_FilePath { get; set; }
 
-    [Serializable]
-    [Group("API Commands")]
-    [Description("This command invokes a method of a specific class from a DLL.")]
+		[Required]
+		[DisplayName("Class Name")]
+		[Description("Provide the parent class name of the method to be invoked in the DLL.")]
+		[SampleUsage("myNamespace.myClassName || {vClassName}")]
+		[Remarks("Namespace should be included")]
+		[Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
+		public string v_ClassName { get; set; }
 
-    public class ExecuteDLLCommand : ScriptCommand
-    {
+		[Required]
+		[DisplayName("Method Name")]
+		[Description("Provide the method name to be invoked in the DLL.")]
+		[SampleUsage("GetSomething || {vMethodName}")]
+		[Remarks("")]
+		[Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
+		public string v_MethodName { get; set; }
 
-        [PropertyDescription("DLL File Path")]
-        [InputSpecification("Enter or Select the path to the DLL File.")]
-        [SampleUsage("C:\\temp\\myfile.dll || {vDLLFilePath}")]
-        [Remarks("")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowDLLExplorer)]
-        public string v_FilePath { get; set; }
+		[DisplayName("Parameters (Optional)")]
+		[Description("Select the 'Generate Parameters' button once you have indicated a file, class, and method.")]
+		[SampleUsage("")]
+		[Remarks("")]
+		[Editor("GenerateDLLParameters", typeof(UIAdditionalHelperType))]
+		public DataTable v_MethodParameters { get; set; }
 
-        [PropertyDescription("Class Name")]
-        [InputSpecification("Provide the parent class name of the method to be invoked in the DLL.")]
-        [SampleUsage("myNamespace.myClassName || {vClassName}")]
-        [Remarks("Namespace should be included")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
-        public string v_ClassName { get; set; }
+		[Required]
+		[Editable(false)]
+		[DisplayName("Output Result Variable")]
+		[Description("Create a new variable or select a variable from the list.")]
+		[SampleUsage("{vUserVariable}")]
+		[Remarks("Variables not pre-defined in the Variable Manager will be automatically generated at runtime.")]
+		public string v_OutputUserVariableName { get; set; }
 
-        [PropertyDescription("Method Name")]
-        [InputSpecification("Provide the method name to be invoked in the DLL.")]
-        [SampleUsage("GetSomething || {vMethodName}")]
-        [Remarks("")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
-        public string v_MethodName { get; set; }
+		[JsonIgnore]
+		[Browsable(false)]
+		private DataGridView _parametersGridViewHelper;
 
-        [JsonIgnore]
-        [PropertyDescription("Parameters (Optional)")]
-        [InputSpecification("Select the 'Generate Parameters' button once you have indicated a file, class, and method.")]
-        [SampleUsage("")]
-        [Remarks("")]
-        [PropertyUIHelper(UIAdditionalHelperType.GenerateDLLParameters)]
-        public DataTable v_MethodParameters { get; set; }
+		public ExecuteDLLCommand()
+		{
+			CommandName = "ExecuteDLLCommand";
+			SelectionName = "Execute DLL";
+			CommandEnabled = true;
 
-        [PropertyDescription("Output Result Variable")]
-        [InputSpecification("Create a new variable or select a variable from the list.")]
-        [SampleUsage("{vUserVariable}")]
-        [Remarks("Variables not pre-defined in the Variable Manager will be automatically generated at runtime.")]
-        public string v_OutputUserVariableName { get; set; }
+			v_MethodParameters = new DataTable();
+			v_MethodParameters.Columns.Add("Parameter Name");
+			v_MethodParameters.Columns.Add("Parameter Value");
+			v_MethodParameters.TableName = DateTime.Now.ToString("MethodParameterTable" + DateTime.Now.ToString("MMddyy.hhmmss"));
 
-        [JsonIgnore]
-        [NonSerialized]
-        private DataGridView _parametersGridViewHelper;
+			_parametersGridViewHelper = new DataGridView();
+			_parametersGridViewHelper.AllowUserToAddRows = true;
+			_parametersGridViewHelper.AllowUserToDeleteRows = true;
+			_parametersGridViewHelper.Size = new Size(350, 125);
+			_parametersGridViewHelper.ColumnHeadersHeight = 30;
+			_parametersGridViewHelper.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+			_parametersGridViewHelper.DataBindings.Add("DataSource", this, "v_MethodParameters", false, DataSourceUpdateMode.OnPropertyChanged);
+		}
 
-        public ExecuteDLLCommand()
-        {
-            CommandName = "ExecuteDLLCommand";
-            SelectionName = "Execute DLL";
-            CommandEnabled = true;
-            CustomRendering = true;
+		public override void RunCommand(object sender)
+		{
+			var engine = (AutomationEngineInstance)sender;
+			//get file path
+			var filePath = v_FilePath.ConvertUserVariableToString(engine);
+			var className = v_ClassName.ConvertUserVariableToString(engine);
+			var methodName = v_MethodName.ConvertUserVariableToString(engine);
 
-            v_MethodParameters = new DataTable();
-            v_MethodParameters.Columns.Add("Parameter Name");
-            v_MethodParameters.Columns.Add("Parameter Value");
-            v_MethodParameters.TableName = DateTime.Now.ToString("MethodParameterTable" + DateTime.Now.ToString("MMddyy.hhmmss"));
+			//if file path does not exist
+			if (!File.Exists(filePath))
+			{
+				throw new FileNotFoundException("DLL was not found at " + filePath);
+			}
 
-            _parametersGridViewHelper = new DataGridView();
-            _parametersGridViewHelper.AllowUserToAddRows = true;
-            _parametersGridViewHelper.AllowUserToDeleteRows = true;
-            _parametersGridViewHelper.Size = new Size(350, 125);
-            _parametersGridViewHelper.ColumnHeadersHeight = 30;
-            _parametersGridViewHelper.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            _parametersGridViewHelper.DataBindings.Add("DataSource", this, "v_MethodParameters", false, DataSourceUpdateMode.OnPropertyChanged);
-        }
+			//Load Assembly
+			Assembly requiredAssembly = Assembly.LoadFrom(filePath);
 
-        public override void RunCommand(object sender)
-        {
-            var engine = (AutomationEngineInstance)sender;
-            //get file path
-            var filePath = v_FilePath.ConvertUserVariableToString(engine);
-            var className = v_ClassName.ConvertUserVariableToString(engine);
-            var methodName = v_MethodName.ConvertUserVariableToString(engine);
+			//get type
+			Type t = requiredAssembly.GetType(className);
 
-            //if file path does not exist
-            if (!File.Exists(filePath))
-            {
-                throw new FileNotFoundException("DLL was not found at " + filePath);
-            }
+			//get all methods
+			MethodInfo[] availableMethods = t.GetMethods(BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly);
 
-            //Load Assembly
-            Assembly requiredAssembly = Assembly.LoadFrom(filePath);
+			//get method
+			MethodInfo m = availableMethods.Where(f => f.ToString() == methodName).FirstOrDefault();
 
-            //get type
-            Type t = requiredAssembly.GetType(className);
+			//create instance
+			var instance = requiredAssembly.CreateInstance(className);
 
-            //get all methods
-            MethodInfo[] availableMethods = t.GetMethods(BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly);
+			//check for parameters
+			var reqdParams = m.GetParameters();
 
-            //get method
-            MethodInfo m = availableMethods.Where(f => f.ToString() == methodName).FirstOrDefault();
+			//handle parameters
+			object result;
+			if (reqdParams.Length > 0)
+			{
+				//create parameter list
+				var parameters = new List<object>();
 
-            //create instance
-            var instance = requiredAssembly.CreateInstance(className);
+				//get parameter and add to list
+				foreach (var param in reqdParams)
+				{
+					//declare parameter name
+					var paramName = param.Name;
 
-            //check for parameters
-            var reqdParams = m.GetParameters();
+					//get parameter value
+					var requiredParameterValue = v_MethodParameters.AsEnumerable()
+																   .Where(rws => rws.Field<string>("Parameter Name") == paramName)
+																   .Select(rws => rws.Field<string>("Parameter Value"))
+																   .FirstOrDefault()
+																   .ConvertUserVariableToString(engine);
 
-            //handle parameters
-            object result;
-            if (reqdParams.Length > 0)
-            {
-                //create parameter list
-                var parameters = new List<object>();
+					dynamic parseResult;
+					//check namespace and convert
+					if (param.ParameterType.IsArray)
+					{
+						parseResult = requiredParameterValue.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+					}
+					else
+					{
+						switch (param.ParameterType.FullName)
+						{
+							case "System.Int32":
+								parseResult = int.Parse(requiredParameterValue);
+								break;
+							case "System.Int64":
+								parseResult = long.Parse(requiredParameterValue);
+								break;
+							case "System.Double":
+								parseResult = double.Parse(requiredParameterValue);
+								break;
+							case "System.Boolean":
+								parseResult = bool.Parse(requiredParameterValue);
+								break;
+							case "System.Decimal":
+								parseResult = decimal.Parse(requiredParameterValue);
+								break;
+							case "System.Single":
+								parseResult = float.Parse(requiredParameterValue);
+								break;
+							case "System.Char":
+								parseResult = char.Parse(requiredParameterValue);
+								break;
+							case "System.String":
+								parseResult = requiredParameterValue;
+								break;
+							case "System.DateTime":
+								parseResult = DateTime.Parse(requiredParameterValue);
+								break;
+							default:
+								throw new NotImplementedException("Only system parameter types are supported!");
+						}
+					}
+					parameters.Add(parseResult);
+				}
 
-                //get parameter and add to list
-                foreach (var param in reqdParams)
-                {
-                    //declare parameter name
-                    var paramName = param.Name;
+				//invoke
+				result = m.Invoke(instance, parameters.ToArray());
+			}
+			else
+			{
+				//invoke
+				result = m.Invoke(instance, null);
+			}
 
-                    //get parameter value
-                    var requiredParameterValue = v_MethodParameters.AsEnumerable()
-                                                                   .Where(rws => rws.Field<string>("Parameter Name") == paramName)
-                                                                   .Select(rws => rws.Field<string>("Parameter Value"))
-                                                                   .FirstOrDefault()
-                                                                   .ConvertUserVariableToString(engine);
+			//check return type
+			var returnType = result.GetType();
 
-                    dynamic parseResult;
-                    //check namespace and convert
-                    if (param.ParameterType.IsArray)
-                    {
-                        parseResult = requiredParameterValue.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
-                    }
-                    else
-                    {
-                        switch (param.ParameterType.FullName)
-                        {
-                            case "System.Int32":
-                                parseResult = int.Parse(requiredParameterValue);
-                                break;
-                            case "System.Int64":
-                                parseResult = long.Parse(requiredParameterValue);
-                                break;
-                            case "System.Double":
-                                parseResult = double.Parse(requiredParameterValue);
-                                break;
-                            case "System.Boolean":
-                                parseResult = bool.Parse(requiredParameterValue);
-                                break;
-                            case "System.Decimal":
-                                parseResult = decimal.Parse(requiredParameterValue);
-                                break;
-                            case "System.Single":
-                                parseResult = float.Parse(requiredParameterValue);
-                                break;
-                            case "System.Char":
-                                parseResult = char.Parse(requiredParameterValue);
-                                break;
-                            case "System.String":
-                                parseResult = requiredParameterValue;
-                                break;
-                            case "System.DateTime":
-                                parseResult = DateTime.Parse(requiredParameterValue);
-                                break;
-                            default:
-                                throw new NotImplementedException("Only system parameter types are supported!");
-                        }
-                    }
-                    parameters.Add(parseResult);
-                }
+			//check namespace
+			if (returnType.Namespace != "System" || returnType.IsArray)
+			{
+				//conversion of type is required due to type being a complex object
 
-                //invoke
-                result = m.Invoke(instance, parameters.ToArray());
-            }
-            else
-            {
-                //invoke
-                result = m.Invoke(instance, null);
-            }
+				//set json settings
+				JsonSerializerSettings settings = new JsonSerializerSettings();
+				settings.Error = (serializer, err) => {
+					err.ErrorContext.Handled = true;
+				};
 
-            //check return type
-            var returnType = result.GetType();
+				//set indent
+				settings.Formatting = Formatting.Indented;
 
-            //check namespace
-            if (returnType.Namespace != "System" || returnType.IsArray)
-            {
-                //conversion of type is required due to type being a complex object
+				//convert to json
+				result = JsonConvert.SerializeObject(result, settings);
+			}
 
-                //set json settings
-                JsonSerializerSettings settings = new JsonSerializerSettings();
-                settings.Error = (serializer, err) => {
-                    err.ErrorContext.Handled = true;
-                };
+			//store result in variable
+			result.ToString().StoreInUserVariable(engine, v_OutputUserVariableName);
+		}
 
-                //set indent
-                settings.Formatting = Formatting.Indented;
+		public override List<Control> Render(IfrmCommandEditor editor, ICommandControls commandControls)
+		{
+			base.Render(editor, commandControls);
 
-                //convert to json
-                result = JsonConvert.SerializeObject(result, settings);
-            }
+			RenderedControls.AddRange(commandControls.CreateDefaultInputGroupFor("v_FilePath", this, editor));
+			RenderedControls.AddRange(commandControls.CreateDefaultInputGroupFor("v_ClassName", this, editor));
+			RenderedControls.AddRange(commandControls.CreateDefaultInputGroupFor("v_MethodName", this, editor));
 
-            //store result in variable
-            result.ToString().StoreInUserVariable(engine, v_OutputUserVariableName);
-        }
+			RenderedControls.Add(commandControls.CreateDefaultLabelFor("v_MethodParameters", this));
+			RenderedControls.AddRange(commandControls.CreateUIHelpersFor("v_MethodParameters", this, new Control[] { _parametersGridViewHelper }, editor));
+			RenderedControls.Add(_parametersGridViewHelper);
 
-        public override List<Control> Render(IfrmCommandEditor editor, ICommandControls commandControls)
-        {
-            base.Render(editor, commandControls);
+			RenderedControls.AddRange(commandControls.CreateDefaultOutputGroupFor("v_OutputUserVariableName", this, editor));
 
-            RenderedControls.AddRange(commandControls.CreateDefaultInputGroupFor("v_FilePath", this, editor));
-            RenderedControls.AddRange(commandControls.CreateDefaultInputGroupFor("v_ClassName", this, editor));
-            RenderedControls.AddRange(commandControls.CreateDefaultInputGroupFor("v_MethodName", this, editor));
+			return RenderedControls;
+		}
 
-            RenderedControls.Add(commandControls.CreateDefaultLabelFor("v_MethodParameters", this));
-            RenderedControls.AddRange(commandControls.CreateUIHelpersFor("v_MethodParameters", this, new Control[] { _parametersGridViewHelper }, editor));
-            RenderedControls.Add(_parametersGridViewHelper);
-
-            RenderedControls.AddRange(commandControls.CreateDefaultOutputGroupFor("v_OutputUserVariableName", this, editor));
-
-            return RenderedControls;
-        }
-
-        public override string GetDisplayValue()
-        {
-            return base.GetDisplayValue() + $" [Call Method '{v_MethodName}' in '{v_ClassName}' - Store Result in '{v_OutputUserVariableName}']";
-        }
-    }
+		public override string GetDisplayValue()
+		{
+			return base.GetDisplayValue() + $" [Call Method '{v_MethodName}' in '{v_ClassName}' - Store Result in '{v_OutputUserVariableName}']";
+		}
+	}
 }

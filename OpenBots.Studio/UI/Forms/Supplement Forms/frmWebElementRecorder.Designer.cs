@@ -1,6 +1,4 @@
-﻿using System.Drawing;
-
-namespace OpenBots.UI.Forms.Supplement_Forms
+﻿namespace OpenBots.UI.Forms.Supplement_Forms
 {
     partial class frmWebElementRecorder
     {

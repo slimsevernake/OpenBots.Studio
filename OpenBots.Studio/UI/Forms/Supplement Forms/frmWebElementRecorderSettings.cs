@@ -1,8 +1,7 @@
-﻿using System;
+﻿using OpenBots.Core.UI.Forms;
+using System;
 using System.Data;
 using System.Windows.Forms;
-using OpenBots.UI.Forms;
-using OpenBots.Core.UI.Forms;
 
 namespace OpenBots.UI.Supplement_Forms
 {

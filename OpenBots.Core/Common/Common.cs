@@ -13,20 +13,18 @@
 //See the License for the specific language governing permissions and
 //limitations under the License.
 using Newtonsoft.Json;
+using OpenBots.Core.Enums;
+using OpenBots.Core.IO;
+using OpenBots.Core.Script;
+using OpenBots.Core.User32;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
-using System.Linq;
 using System.Reflection;
 using System.Windows.Forms;
-using OpenBots.Core.Command;
-using OpenBots.Core.Enums;
-using OpenBots.Core.IO;
-using OpenBots.Core.Script;
-using OpenBots.Core.User32;
 
 namespace OpenBots.Core.Common
 {

@@ -14,12 +14,12 @@
 //limitations under the License.
 
 using Newtonsoft.Json;
+using OpenBots.Core.Command;
 using System.Collections.Generic;
 using System.IO;
-using System.Windows.Forms;
-using OpenBots.Core.Command;
-using Formatting = Newtonsoft.Json.Formatting;
 using System.Linq;
+using System.Windows.Forms;
+using Formatting = Newtonsoft.Json.Formatting;
 
 namespace OpenBots.Core.Script
 {

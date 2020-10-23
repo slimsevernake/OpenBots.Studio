@@ -12,13 +12,6 @@
 //WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 //See the License for the specific language governing permissions and
 //limitations under the License.
-using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Reflection;
-using System.Windows.Forms;
 using OpenBots.Commands;
 using OpenBots.Core.Command;
 using OpenBots.Core.Common;
@@ -28,6 +21,13 @@ using OpenBots.Core.Script;
 using OpenBots.Core.UI.Forms;
 using OpenBots.UI.CustomControls;
 using OpenBots.UI.CustomControls.CustomUIControls;
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Reflection;
+using System.Windows.Forms;
 
 namespace OpenBots.UI.Forms
 {

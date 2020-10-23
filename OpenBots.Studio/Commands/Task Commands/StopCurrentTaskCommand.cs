@@ -1,14 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Windows.Forms;
-using OpenBots.Core.Attributes.ClassAttributes;
-using OpenBots.Core.Command;
+﻿using OpenBots.Core.Command;
 using OpenBots.Core.Infrastructure;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Windows.Forms;
 
 namespace OpenBots.Commands
 {
     [Serializable]
-    [Group("Task Commands")]
+    [Category("Task Commands")]
     [Description("This command stops the currently running task.")]
     public class StopCurrentTaskCommand : ScriptCommand
     {
@@ -16,8 +16,7 @@ namespace OpenBots.Commands
         {
             CommandName = "StopCurrentTaskCommand";
             SelectionName = "Stop Current Task";
-            CommandEnabled = true;
-            CustomRendering = true;
+            CommandEnabled = true;           
         }
 
         public override void RunCommand(object sender)

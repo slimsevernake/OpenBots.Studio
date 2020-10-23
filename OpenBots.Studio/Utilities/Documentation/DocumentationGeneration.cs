@@ -1,13 +1,12 @@
-﻿using System;
+﻿using OpenBots.Core.Attributes.PropertyAttributes;
+using OpenBots.Core.Command;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
-using OpenBots.Core.Attributes.ClassAttributes;
-using OpenBots.Core.Attributes.PropertyAttributes;
-using OpenBots.Core.Command;
-
 
 namespace OpenBots.Studio.Utilities.Documentation
 {
@@ -57,9 +56,8 @@ namespace OpenBots.Studio.Utilities.Documentation
             {
                 //instantiate and pull properties from command class
                 ScriptCommand instantiatedCommand = (ScriptCommand)Activator.CreateInstance(commandClass);
-                var groupName = GetClassValue(commandClass, typeof(Group));
-                var classDescription = GetClassValue(commandClass, typeof(Description));
-                var usesDescription = GetClassValue(commandClass, typeof(UsesDescription));
+                var groupName = GetClassValue(commandClass, typeof(CategoryAttribute));
+                var classDescription = GetClassValue(commandClass, typeof(DescriptionAttribute));
                 var commandName = instantiatedCommand.SelectionName;
 
                 stringBuilder = new StringBuilder();
@@ -78,11 +76,6 @@ namespace OpenBots.Studio.Utilities.Documentation
                 stringBuilder.AppendLine(classDescription);
                 stringBuilder.AppendLine(Environment.NewLine);
 
-                //more
-                stringBuilder.AppendLine("## When would I want to use this command?");
-                stringBuilder.AppendLine(usesDescription);
-                stringBuilder.AppendLine(Environment.NewLine);
-
                 //build parameter table based on required user inputs
                 stringBuilder.AppendLine("## Command Parameters");
                 stringBuilder.AppendLine("| Parameter Question   	| What to input  	|  Sample Data 	| Remarks  	|");
@@ -92,8 +85,8 @@ namespace OpenBots.Studio.Utilities.Documentation
                 foreach (var prop in commandClass.GetProperties().Where(f => f.Name.StartsWith("v_")).ToList())
                 {
                     //pull attributes from property
-                    var commandLabel = CleanMarkdownValue(GetPropertyValue(prop, typeof(PropertyDescription)));
-                    var helpfulExplanation = CleanMarkdownValue(GetPropertyValue(prop, typeof(InputSpecification)));
+                    var commandLabel = CleanMarkdownValue(GetPropertyValue(prop, typeof(DisplayNameAttribute)));
+                    var helpfulExplanation = CleanMarkdownValue(GetPropertyValue(prop, typeof(DescriptionAttribute)));
                     var sampleUsage = CleanMarkdownValue(GetPropertyValue(prop, typeof(SampleUsage)));
                     var remarks = CleanMarkdownValue(GetPropertyValue(prop, typeof(Remarks)));
 
@@ -174,15 +167,15 @@ namespace OpenBots.Studio.Utilities.Documentation
             {
                 var attributeFound = attribute[0];
 
-                if (attributeFound is PropertyDescription)
+                if (attributeFound is DisplayNameAttribute)
                 {
-                    var processedAttribute = (PropertyDescription)attributeFound;
-                    return processedAttribute.Description;
+                    var processedAttribute = (DisplayNameAttribute)attributeFound;
+                    return processedAttribute.DisplayName;
                 }
-                else if (attributeFound is InputSpecification)
+                else if (attributeFound is DescriptionAttribute)
                 {
-                    var processedAttribute = (InputSpecification)attributeFound;
-                    return processedAttribute.Specification;
+                    var processedAttribute = (DescriptionAttribute)attributeFound;
+                    return processedAttribute.Description;
                 }
                 else if (attributeFound is SampleUsage)
                 {
@@ -229,19 +222,14 @@ namespace OpenBots.Studio.Utilities.Documentation
             {
                 var attributeFound = attribute[0];
 
-                if (attributeFound is Group)
+                if (attributeFound is CategoryAttribute)
                 {
-                    var processedAttribute = (Group)attributeFound;
-                    return processedAttribute.Name;
+                    var processedAttribute = (CategoryAttribute)attributeFound;
+                    return processedAttribute.Category;
                 }
-                else if (attributeFound is Description)
+                else if (attributeFound is DescriptionAttribute)
                 {
-                    var processedAttribute = (Description)attributeFound;
-                    return processedAttribute.CommandFunctionalDescription;
-                }
-                else if (attributeFound is UsesDescription)
-                {
-                    var processedAttribute = (UsesDescription)attributeFound;
+                    var processedAttribute = (DescriptionAttribute)attributeFound;
                     return processedAttribute.Description;
                 }
             }

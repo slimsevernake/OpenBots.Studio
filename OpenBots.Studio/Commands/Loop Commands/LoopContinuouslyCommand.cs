@@ -1,16 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Windows.Forms;
-using OpenBots.Core.Attributes.ClassAttributes;
-using OpenBots.Core.Command;
+﻿using OpenBots.Core.Command;
 using OpenBots.Core.Infrastructure;
 using OpenBots.Core.Script;
 using OpenBots.Engine;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Windows.Forms;
 
 namespace OpenBots.Commands
 {
     [Serializable]
-    [Group("Loop Commands")]
+    [Category("Loop Commands")]
     [Description("This command repeats the execution of subsequent actions continuously.")]
     public class LoopContinuouslyCommand : ScriptCommand
     {
@@ -18,8 +18,7 @@ namespace OpenBots.Commands
         {
             CommandName = "LoopContinuouslyCommand";
             SelectionName = "Loop Continuously";
-            CommandEnabled = true;
-            CustomRendering = true;
+            CommandEnabled = true;           
         }
 
         public override void RunCommand(object sender, ScriptAction parentCommand)

@@ -1,9 +1,9 @@
-﻿using System;
+﻿using OpenBots.Core.Script;
+using OpenBots.UI.CustomControls.CustomUIControls;
+using System;
 using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
-using OpenBots.Core.Script;
-using OpenBots.UI.CustomControls.CustomUIControls;
 
 namespace OpenBots.UI.Forms.ScriptBuilder_Forms
 {

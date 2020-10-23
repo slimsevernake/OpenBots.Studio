@@ -241,11 +241,6 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
                 {
                     TreeNode subNode = new TreeNode(subcmd.ShortName);
                     subNode.ToolTipText = subcmd.Description;
-
-                    if (!subcmd.Command.CustomRendering)
-                    {
-                        subNode.ForeColor = Color.Red;
-                    }
                     newGroup.Nodes.Add(subNode);
                 }
 

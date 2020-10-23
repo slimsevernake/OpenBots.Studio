@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
-using OpenBots.Core.Command;
+﻿using OpenBots.Core.Command;
 using OpenBots.Core.Enums;
 using OpenBots.Core.Script;
+using System.Collections.Generic;
 
 namespace OpenBots.Core.Infrastructure
 {

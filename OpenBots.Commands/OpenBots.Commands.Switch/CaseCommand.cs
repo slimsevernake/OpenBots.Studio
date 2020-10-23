@@ -1,54 +1,55 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Windows.Forms;
-using OpenBots.Core.Attributes.ClassAttributes;
-using OpenBots.Core.Attributes.PropertyAttributes;
+﻿using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
 using OpenBots.Core.Infrastructure;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
+using System.Windows.Forms;
 
 namespace OpenBots.Commands.Switch
 {
-    [Serializable]
-    [Group("Switch Commands")]
-    [Description("This command defines a case block whose commands will execute if the value specified in the "+
-                 "case is equal to that of the preceding Switch Command.")]
-    public class CaseCommand : ScriptCommand
-    {
+	[Serializable]
+	[Category("Switch Commands")]
+	[Description("This command defines a case block whose commands will execute if the value specified in the "+
+				 "case is equal to that of the preceding Switch Command.")]
+	public class CaseCommand : ScriptCommand
+	{
 
-        [PropertyDescription("Case")]
-        [InputSpecification("This block will be executed if the specified case value matches the value in the Switch Command.")]
-        [SampleUsage("1 || hello")]
-        [Remarks("")]
-        public string v_CaseValue { get; set; }
+		[Required]
+		[DisplayName("Case")]
+		[Description("This block will be executed if the specified case value matches the value in the Switch Command.")]
+		[SampleUsage("1 || hello")]
+		[Remarks("")]
+		public string v_CaseValue { get; set; }
 
-        public CaseCommand()
-        {
-            CommandName = "CaseCommand";
-            SelectionName = "Case";
-            CommandEnabled = true;
-            CustomRendering = true;
-        }
+		public CaseCommand()
+		{
+			CommandName = "CaseCommand";
+			SelectionName = "Case";
+			CommandEnabled = true;           
+		}
 
-        public override void RunCommand(object sender)
-        {
-            //no execution required, used as a marker by the Automation Engine
-        }
+		public override void RunCommand(object sender)
+		{
+			//no execution required, used as a marker by the Automation Engine
+		}
 
-        public override List<Control> Render(IfrmCommandEditor editor, ICommandControls commandControls)
-        {
-            base.Render(editor, commandControls);
+		public override List<Control> Render(IfrmCommandEditor editor, ICommandControls commandControls)
+		{
+			base.Render(editor, commandControls);
 
-            RenderedControls.AddRange(commandControls.CreateDefaultInputGroupFor("v_CaseValue", this, editor));
+			RenderedControls.AddRange(commandControls.CreateDefaultInputGroupFor("v_CaseValue", this, editor));
 
-            return RenderedControls;
-        }
+			return RenderedControls;
+		}
 
-        public override string GetDisplayValue()
-        {
-            if (v_CaseValue == "Default")
-                return "Default:";
-            else
-                return base.GetDisplayValue() + $" {v_CaseValue}:";
-        }
-    }
+		public override string GetDisplayValue()
+		{
+			if (v_CaseValue == "Default")
+				return "Default:";
+			else
+				return base.GetDisplayValue() + $" {v_CaseValue}:";
+		}
+	}
 }

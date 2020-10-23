@@ -1,15 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Windows.Forms;
-using OpenBots.Core.Attributes.ClassAttributes;
-using OpenBots.Core.Command;
+﻿using OpenBots.Core.Command;
 using OpenBots.Core.Infrastructure;
 using OpenBots.Core.Script;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Windows.Forms;
 
 namespace OpenBots.Commands
 {
     [Serializable]
-    [Group("Error Handling Commands")]
+    [Category("Error Handling Commands")]
     [Description("This command defines a block of commands which are always executed after a try/catch block.")]
     public class FinallyCommand : ScriptCommand
     {
@@ -17,8 +17,7 @@ namespace OpenBots.Commands
         {
             CommandName = "FinallyCommand";
             SelectionName = "Finally";
-            CommandEnabled = true;
-            CustomRendering = true;
+            CommandEnabled = true;            
         }
 
         public override void RunCommand(object sender, ScriptAction parentCommand)

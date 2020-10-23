@@ -1,14 +1,14 @@
-﻿using Serilog.Core;
+﻿using OpenBots.Core.Enums;
+using OpenBots.Core.IO;
+using OpenBots.Core.Settings;
+using OpenBots.Core.UI.Forms;
+using OpenBots.Core.Utilities.CommonUtilities;
+using Serilog.Core;
 using System;
 using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
-using OpenBots.Core.Enums;
-using OpenBots.Core.IO;
-using OpenBots.Core.Settings;
-using OpenBots.Core.Utilities.CommonUtilities;
-using OpenBots.Core.UI.Forms;
 
 namespace OpenBots.UI.Forms
 {

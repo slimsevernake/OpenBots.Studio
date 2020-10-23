@@ -12,6 +12,15 @@
 //WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 //See the License for the specific language governing permissions and
 //limitations under the License.
+using OpenBots.Core.Enums;
+using OpenBots.Core.IO;
+using OpenBots.Core.Metrics;
+using OpenBots.Core.Settings;
+using OpenBots.Core.UI.Forms;
+using OpenBots.Studio.Utilities.Documentation;
+using OpenBots.UI.Forms.ScriptBuilder_Forms;
+using OpenBots.UI.Forms.Supplement_Forms;
+using OpenBots.Utilities;
 using Serilog.Events;
 using System;
 using System.Collections.Generic;
@@ -19,15 +28,6 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Windows.Forms;
-using OpenBots.Core.Enums;
-using OpenBots.Core.IO;
-using OpenBots.Core.Metrics;
-using OpenBots.Core.Settings;
-using OpenBots.Core.UI.Forms;
-using OpenBots.UI.Forms.ScriptBuilder_Forms;
-using OpenBots.UI.Forms.Supplement_Forms;
-using OpenBots.Utilities;
-using OpenBots.Studio.Utilities.Documentation;
 
 namespace OpenBots.UI.Forms
 {

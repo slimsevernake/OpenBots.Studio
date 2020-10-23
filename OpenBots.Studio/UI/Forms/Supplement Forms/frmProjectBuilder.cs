@@ -1,10 +1,10 @@
-﻿using System;
+﻿using OpenBots.Core.Enums;
+using OpenBots.Core.IO;
+using OpenBots.Core.UI.Forms;
+using System;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
-using OpenBots.Core.Enums;
-using OpenBots.Core.IO;
-using OpenBots.Core.UI.Forms;
 
 namespace OpenBots.UI.Forms.Supplement_Forms
 {
