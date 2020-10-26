@@ -8,6 +8,8 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.Diagnostics;
+using System.IO;
 using System.Windows.Forms;
 using Diagnostics = System.Diagnostics;
 
@@ -48,8 +50,12 @@ namespace OpenBots.Commands.Process
 		public override void RunCommand(object sender)
 		{
 			var engine = (AutomationEngineInstance)sender;
-			string shortName = v_ProgramName.ConvertUserVariableToString(engine);
-			var processes = Diagnostics.Process.GetProcessesByName(shortName);
+			string vProgramName = v_ProgramName.ConvertUserVariableToString(engine);
+
+			if (File.Exists(vProgramName))
+				vProgramName = Path.GetFileNameWithoutExtension(vProgramName);
+
+			var processes = Diagnostics.Process.GetProcessesByName(vProgramName);
 
 			foreach (var prc in processes)
 			{
@@ -58,6 +64,7 @@ namespace OpenBots.Commands.Process
 				else if (v_StopOption == "Kill")
 					prc.Kill();
 			}
+					
 		}
 
 		public override List<Control> Render(IfrmCommandEditor editor, ICommandControls commandControls)
