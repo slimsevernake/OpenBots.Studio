@@ -59,7 +59,7 @@ namespace OpenBots.Commands
 					 "\n\tLink Text: https://www.mylink.com/"
 					)]
 		[Remarks("If multiple parameters are enabled, an attempt will be made to find the element(s) that match(es) all the selected parameters.")]
-		[Editor("ShowElementHelperBuilder", typeof(UIAdditionalHelperType))]
+		[Editor("ShowElementHelper", typeof(UIAdditionalHelperType))]
 		public DataTable v_SeleniumSearchParameters { get; set; }
 
 		[Required]
