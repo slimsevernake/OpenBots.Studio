@@ -744,7 +744,7 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
                         commandNameBrush = Brushes.MediumSeaGreen;
                         commandBackgroundBrush = Brushes.Honeydew;
                     }
-                    else if ((command.CommandName == "BrokenCodeCommentCommand") || (command.IsCommented))
+                    else if ((command.CommandName == "BrokenCodeCommentCommand"))
                     {
                         //comments and commented command coloring
                         commandNameBrush = Brushes.Black;
