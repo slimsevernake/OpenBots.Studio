@@ -222,7 +222,12 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
 
             foreach (ListViewItem item in _selectedTabScriptActions.Items)
             {
-                if ((item.Tag is LoopCollectionCommand) || (item.Tag is LoopContinuouslyCommand) ||
+                if(item.Tag is BrokenCodeCommentCommand)
+                {
+                    Notify("Please verify that all broken code has been removed or replaced.");
+                    return;
+                }
+                else if ((item.Tag is LoopCollectionCommand) || (item.Tag is LoopContinuouslyCommand) ||
                     (item.Tag is LoopNumberOfTimesCommand) || (item.Tag is BeginLoopCommand) ||
                     (item.Tag is BeginMultiLoopCommand))
                 {

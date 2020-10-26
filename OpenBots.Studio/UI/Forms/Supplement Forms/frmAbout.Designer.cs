@@ -89,7 +89,7 @@
             this.lblSpecialThanks.Size = new System.Drawing.Size(836, 71);
             this.lblSpecialThanks.TabIndex = 7;
             this.lblSpecialThanks.Text = "To all of the community members and projects that make this software possible. \r\n" +
-    "And a special thanks to Jason Bayldon for TaskT that inspired this.\r\n";
+    "And a special thanks to Jason Bayldon for Taskt that inspired this.\r\n";
             // 
             // lblMachineName
             // 
