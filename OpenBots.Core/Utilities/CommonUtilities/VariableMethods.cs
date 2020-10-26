@@ -3,6 +3,7 @@ using OpenBots.Core.Script;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Globalization;
 using System.Linq;
 using System.Net;
 using System.Security;
@@ -172,7 +173,8 @@ namespace OpenBots.Core.Utilities.CommonUtilities
 
                 //bypass math for types that are dates
                 DateTime dateTest;
-                if (DateTime.TryParse(str, out dateTest) && (str.Split('/').Length == 3 || str.Split('-').Length == 3))
+                if ((DateTime.TryParse(str, out dateTest) || DateTime.TryParse(str, CultureInfo.CreateSpecificCulture("es-ES"), DateTimeStyles.AssumeUniversal, out dateTest))
+                    && (str.Split('/').Length == 3 || str.Split('-').Length == 3))
                     return str;
 
                 //test if math is required

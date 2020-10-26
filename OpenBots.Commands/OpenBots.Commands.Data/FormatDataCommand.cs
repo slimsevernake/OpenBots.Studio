@@ -21,8 +21,8 @@ namespace OpenBots.Commands.Data
 		[Required]
 		[DisplayName("Input Data")]
 		[Description("Specify either text or a variable that contains a date or number requiring formatting.")]
-		[SampleUsage("1/1/2000 || 2500 || {DateTime.Now} || {vNumber}")]
-		[Remarks("You can use known text or variables.")]
+		[SampleUsage("1/1/2000 || {vDate} || {DateTime.Now} || 2500 ||{vNumber}")]
+		[Remarks("Utilize the *Create DateTime* command to provide a DateTime variable")]
 		[Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
 		public string v_InputData { get; set; }
 
@@ -65,40 +65,51 @@ namespace OpenBots.Commands.Data
 		public override void RunCommand(object sender)
 		{
 			var engine = (AutomationEngineInstance)sender;
-
-			//get variablized string
-			var variableString = v_InputData.ConvertUserVariableToString(engine);
-
-			//get formatting
 			var formatting = v_ToStringFormat.ConvertUserVariableToString(engine);
 
+			DateTime variableDate = DateTime.Now;
+			string variableString = "";
+			object variableObject;
+
+			try
+            {
+				variableObject = v_InputData.ConvertUserVariableToObject(engine);
+				if (variableObject is DateTime)
+					variableDate = (DateTime)variableObject;
+				else
+					throw new InvalidDataException("Variable is not a valid DateTime object");
+			}
+            catch(Exception ex)
+            {
+				if (ex is InvalidDataException)
+					throw ex;
+				variableString = v_InputData.ConvertUserVariableToString(engine);
+            }
+			
 			string formattedString = "";
 			switch (v_FormatType)
 			{
 				case "Date":
-					if (DateTime.TryParse(variableString, out var parsedDate))
+					if (!string.IsNullOrEmpty(variableString))
 					{
-						formattedString = parsedDate.ToString(formatting);
-					}
+						if (DateTime.TryParse(variableString, out var parsedDate))
+							formattedString = parsedDate.ToString(formatting);
+					}						
+					else
+						formattedString = variableDate.ToString(formatting);
 					break;
 				case "Number":
 					if (Decimal.TryParse(variableString, out var parsedDecimal))
-					{
 						formattedString = parsedDecimal.ToString(formatting);
-					}
 					break;
 				default:
 					throw new Exception("Formatter Type Not Supported: " + v_FormatType);
 			}
 
-			if (formattedString == "")
-			{
-				throw new InvalidDataException("Unable to convert '" + variableString + "' to type '" + v_FormatType + "'");
-			}
+			if (string.IsNullOrEmpty(formattedString))
+				throw new InvalidDataException("Unable to convert '" + v_InputData + "' to type '" + v_FormatType + "'");
 			else
-			{
 				formattedString.StoreInUserVariable(engine, v_OutputUserVariableName);
-			}
 		}
 
 		public override List<Control> Render(IfrmCommandEditor editor, ICommandControls commandControls)

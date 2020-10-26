@@ -378,12 +378,27 @@ namespace OpenBots.Commands
 								  where rw.Field<string>("Parameter Name") == "Value2"
 								  select rw.Field<string>("Parameter Value")).FirstOrDefault());
 
-				value1 = value1.ConvertUserVariableToString(engine);
-				value2 = value2.ConvertUserVariableToString(engine);
-
 				DateTime dt1, dt2;
-				dt1 = DateTime.Parse(value1);
-				dt2 = DateTime.Parse(value2);
+				try
+				{
+					dt1 = (DateTime)value1.ConvertUserVariableToObject(engine);
+				}
+				catch (Exception)
+				{
+					value1 = value1.ConvertUserVariableToString(engine);
+					dt1 = DateTime.Parse(value1);
+				}
+
+				try
+				{
+					dt2 = (DateTime)value2.ConvertUserVariableToObject(engine);
+				}
+				catch (Exception)
+				{
+					value2 = value2.ConvertUserVariableToString(engine);
+					dt2 = DateTime.Parse(value2);
+				}
+
 				switch (operand)
 				{
 					case "is equal to":

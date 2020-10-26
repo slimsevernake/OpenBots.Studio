@@ -23,7 +23,7 @@ namespace OpenBots.Commands.Data
 		[Required]
 		[DisplayName("Date")]
 		[Description("Specify either text or a variable that contains the date.")]
-		[SampleUsage("1/1/2000 || {DateTime.Now}")]
+		[SampleUsage("1/1/2000 || {vDate} || {DateTime.Now}")]
 		[Remarks("You can use known text or variables.")]
 		[Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
 		public string v_InputDate { get; set; }
@@ -95,15 +95,32 @@ namespace OpenBots.Commands.Data
 		{
 			var engine = (AutomationEngineInstance)sender;
 
-			//get variablized string
-			var variableDateTime = v_InputDate.ConvertUserVariableToString(engine);
 			var formatting = v_ToStringFormat.ConvertUserVariableToString(engine);
 			var variableIncrement = v_Increment.ConvertUserVariableToString(engine);
 
-			//convert to date time
+
 			DateTime requiredDateTime;
-			if (!DateTime.TryParse(variableDateTime, out requiredDateTime))
-				throw new InvalidDataException("Date was unable to be parsed - " + variableDateTime);
+			string variableString;
+			object variableObject;
+			try
+			{
+				variableObject = v_InputDate.ConvertUserVariableToObject(engine);
+				if (variableObject is DateTime)
+					requiredDateTime = (DateTime)variableObject;
+				else
+					throw new InvalidDataException("Variable is not a valid DateTime object");
+			}
+			catch (Exception ex)
+			{
+				if (ex is InvalidDataException)
+					throw ex;
+
+				variableString = v_InputDate.ConvertUserVariableToString(engine);
+
+				//convert to date time				
+				if (!DateTime.TryParse(variableString, out requiredDateTime))
+					throw new InvalidDataException("Date was unable to be parsed - " + variableString);
+			}
 
 			//get increment value
 			double requiredInterval;

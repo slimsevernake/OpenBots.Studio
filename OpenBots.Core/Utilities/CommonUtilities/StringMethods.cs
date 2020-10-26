@@ -59,6 +59,8 @@ namespace OpenBots.Core.Utilities.CommonUtilities
             {
                 case "System.String":
                     return obj.ToString();
+                case "System.DateTime":
+                    return obj.ToString();
                 case "System.Security.SecureString":
                     return "*Secure String*";
                 case "System.Data.DataTable":

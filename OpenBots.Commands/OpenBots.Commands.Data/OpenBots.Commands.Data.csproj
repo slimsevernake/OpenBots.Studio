@@ -47,6 +47,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CreateDateTimeCommand.cs" />
     <Compile Include="DateCalculationCommand.cs" />
     <Compile Include="FormatDataCommand.cs" />
     <Compile Include="GetPDFTextCommand.cs" />

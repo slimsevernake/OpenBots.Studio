@@ -31,7 +31,8 @@ namespace OpenBots.UI.CustomControls.CustomUIControls
             uiImages.Add("NewSecureStringCommand", Resources.command_password);
             uiImages.Add("FormatDataCommand", Resources.command_function);
             uiImages.Add("ModifyStringCommand", Resources.command_function);
-            uiImages.Add("DateCalculationCommand", Resources.command_function);
+            uiImages.Add("DateCalculationCommand", Resources.command_stopwatch);
+            uiImages.Add("CreateDateTimeCommand", Resources.command_stopwatch);
             uiImages.Add("MathCalculationCommand", Resources.command_function);
             uiImages.Add("TextExtractionCommand", Resources.command_function);
             uiImages.Add("GetPDFTextCommand", Resources.command_function);
