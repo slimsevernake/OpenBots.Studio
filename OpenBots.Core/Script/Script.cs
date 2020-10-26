@@ -236,19 +236,21 @@ namespace OpenBots.Core.Script
             string scriptText = File.ReadAllText(filePath);
 
             if (version == "0.0.0.0")
-            {
-                int lastIndex = scriptText.LastIndexOf('\r');
-                scriptText = scriptText.Insert(lastIndex, ",\r\n  \"Version\": \"1.0.7.0\"");
-            }
+                scriptText = scriptText.Insert(scriptText.LastIndexOf('\r'), ",\r\n  \"Version\": \"1.0.7.0\"");
 
-            var conversionFilePath = Path.Combine(Directory.GetParent(Assembly.GetExecutingAssembly().Location).FullName, "Supplementary Files", "Conversion Files", version + ".json");
+            var conversionFilePath = Path.Combine(Directory.GetParent(Assembly.GetExecutingAssembly().Location).FullName, 
+                                                  "Supplementary Files", "Conversion Files", version + ".json");
+
             string conversionFileText = File.ReadAllText(conversionFilePath);
-
             JObject conversionObject = JObject.Parse(conversionFileText);
 
             foreach (var x in conversionObject["Replace"])
+            {
+                if (((JProperty)(x)).Name.StartsWith("__comment"))
+                    continue;
                 scriptText = Regex.Replace(scriptText, ((JProperty)(x)).Name, ((JProperty)(x)).Value.ToString());
-                
+            }
+                               
             File.WriteAllText(filePath, scriptText);
             return DeserializeFile(filePath, true);
         }        
