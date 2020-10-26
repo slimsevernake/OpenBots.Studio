@@ -1,5 +1,5 @@
 ﻿using Newtonsoft.Json;
-using OpenBots.Core.Server.UserRegistry;
+using OpenBots.Core.Server.User;
 using RestSharp;
 using RestSharp.Serialization.Json;
 using System;
@@ -12,8 +12,9 @@ namespace OpenBots.Core.Server.API_Methods
     public class AuthMethods
     {
         public static RestClient GetAuthToken()
-        {
-            string agentSettingsPath = Environment.GetEnvironmentVariable("OpenBots_Agent_Config_Path", EnvironmentVariableTarget.Machine);
+        {           
+            string agentSettingsPath = Path.Combine(Environment.GetEnvironmentVariable("OpenBots_Agent_Data_Path", 
+                                                    EnvironmentVariableTarget.Machine), "OpenBots.settings");
 
             if (agentSettingsPath == null)
                 throw new Exception("Agent settings file not found");

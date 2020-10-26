@@ -29,6 +29,8 @@ namespace OpenBots.UI.Forms.Supplement_Forms
             lvShortcutMenu.Items.Add(new ListViewItem(new string[] { "Save All Script Files", "Ctrl + Shift + S" }));
             lvShortcutMenu.Items.Add(new ListViewItem(new string[] { "Open Variable Manager", "Ctrl + K" }));
             lvShortcutMenu.Items.Add(new ListViewItem(new string[] { "Open Element Manager", "Ctrl + L" }));
+            lvShortcutMenu.Items.Add(new ListViewItem(new string[] { "Open About", "Ctrl + O" }));
+            lvShortcutMenu.Items.Add(new ListViewItem(new string[] { "Open Shortcut Menu", "Ctrl + M" }));
 
             ColorListViewHeader(ref lvShortcutMenu, Color.FromArgb(20, 136, 204), Color.White, new Font("Segoe UI", 10, FontStyle.Bold));
         }

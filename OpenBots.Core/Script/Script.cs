@@ -14,11 +14,16 @@
 //limitations under the License.
 
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using OpenBots.Core.Command;
-using System.Collections.Generic;
+using System;
+using System .Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
+using ErrorEventArgs = Newtonsoft.Json.Serialization.ErrorEventArgs;
 using Formatting = Newtonsoft.Json.Formatting;
 
 namespace OpenBots.Core.Script
@@ -37,11 +42,12 @@ namespace OpenBots.Core.Script
         /// Contains user-selected commands
         /// </summary>
         public List<ScriptAction> Commands;
-        private string FileName { get; set; }
+        public string Version { get; set; }
 
         public Script()
         {
             Variables = new List<ScriptVariable>();
+            Elements = new List<ScriptElement>();
             Commands = new List<ScriptAction>();
         }
 
@@ -67,13 +73,14 @@ namespace OpenBots.Core.Script
         {
             var script = new Script();
 
-            script.FileName = Path.GetFileName(scriptFilePath);
-
             //save variables to file
             script.Variables = scriptVariables;
 
             //save elements to file
             script.Elements = scriptElements;
+
+            //set version to current application version
+            script.Version = Application.ProductVersion;
 
             //save listview tags to command list
             int lineNumber = 1;
@@ -157,32 +164,63 @@ namespace OpenBots.Core.Script
         /// <summary>
         /// Deserializes a valid JSON file back into user-defined commands
         /// </summary>
-        public static Script DeserializeFile(string scriptFilePath)
+        public static Script DeserializeFile(string filePath, bool isDialogResultYes = false)
         {
-            using (StreamReader file = File.OpenText(scriptFilePath))
+            var serializerSettings = new JsonSerializerSettings()
             {
-                var serializerSettings = new JsonSerializerSettings()
-                {
-                    TypeNameHandling = TypeNameHandling.Objects
-                };
+                TypeNameHandling = TypeNameHandling.Objects,
+                Error = HandleDeserializationError
+            };
 
-                JsonSerializer serializer = JsonSerializer.Create(serializerSettings);
-                Script deserializedData = (Script)serializer.Deserialize(file, typeof(Script));
+            Script deserializedData = JsonConvert.DeserializeObject<Script>(File.ReadAllText(filePath), serializerSettings);
+            Version deserializedScriptVersion;
 
-                //update ProjectPath variable
-                var projectPathVariable = deserializedData.Variables.Where(v => v.VariableName == "ProjectPath").SingleOrDefault();
-                if (projectPathVariable == null)
-                {
-                    projectPathVariable = new ScriptVariable
-                    {
-                        VariableName = "ProjectPath",
-                        VariableValue = "Value Provided at Runtime"
-                    };
-                    deserializedData.Variables.Add(projectPathVariable);
-                }
+            if (deserializedData != null)
+            {
+                if (deserializedData.Version == null)
+                    deserializedData.Version = "0.0.0.0";
 
-                return deserializedData;
+                deserializedScriptVersion = new Version(deserializedData.Version);
             }
+            else
+            {
+                deserializedScriptVersion = new Version("0.0.0.0");
+            }
+
+            //if deserialized Script version is lower than than the current application version
+            if (deserializedScriptVersion.CompareTo(new Version(Application.ProductVersion)) < 0)
+            {
+                var dialogResult = MessageBox.Show($"Attempting to open a Script file from OpenBots Studio {deserializedScriptVersion}. " +
+                                                   $"Would you like to attempt to convert this Script to {Application.ProductVersion}?", 
+                                                   "Convert Script", MessageBoxButtons.YesNo);
+
+                if (dialogResult == DialogResult.Yes || isDialogResultYes)
+                    deserializedData = ConvertToLatestVersion(filePath, deserializedScriptVersion.ToString());
+            }
+
+            //update ProjectPath variable
+            var projectPathVariable = deserializedData.Variables.Where(v => v.VariableName == "ProjectPath").SingleOrDefault();
+
+            if (projectPathVariable != null)
+                deserializedData.Variables.Remove(projectPathVariable);
+
+            projectPathVariable = new ScriptVariable
+            {
+                VariableName = "ProjectPath",
+                VariableValue = "Value Provided at Runtime"
+            };
+            deserializedData.Variables.Add(projectPathVariable);
+
+
+            return deserializedData;
+        }
+
+        public static void HandleDeserializationError(object sender, ErrorEventArgs e)
+        {
+            var currentError = e.ErrorContext.Error.Message;
+            if (e.CurrentObject is ScriptAction)
+                ((ScriptAction)e.CurrentObject).SerializationError = currentError;
+            e.ErrorContext.Handled = true;
         }
 
         /// <summary>
@@ -192,5 +230,29 @@ namespace OpenBots.Core.Script
         {
             return JsonConvert.DeserializeObject<Script>(jsonScript);
         }
+
+        public static Script ConvertToLatestVersion(string filePath, string version)
+        {
+            string scriptText = File.ReadAllText(filePath);
+
+            if (version == "0.0.0.0")
+                scriptText = scriptText.Insert(scriptText.LastIndexOf('\r'), ",\r\n  \"Version\": \"1.0.7.0\"");
+
+            var conversionFilePath = Path.Combine(Directory.GetParent(Assembly.GetExecutingAssembly().Location).FullName, 
+                                                  "Supplementary Files", "Conversion Files", version + ".json");
+
+            string conversionFileText = File.ReadAllText(conversionFilePath);
+            JObject conversionObject = JObject.Parse(conversionFileText);
+
+            foreach (var x in conversionObject["Replace"])
+            {
+                if (((JProperty)(x)).Name.StartsWith("__comment"))
+                    continue;
+                scriptText = Regex.Replace(scriptText, ((JProperty)(x)).Name, ((JProperty)(x)).Value.ToString());
+            }
+                               
+            File.WriteAllText(filePath, scriptText);
+            return DeserializeFile(filePath, true);
+        }        
     }
 }

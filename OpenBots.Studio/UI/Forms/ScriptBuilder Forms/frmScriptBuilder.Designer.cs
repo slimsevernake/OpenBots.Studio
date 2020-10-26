@@ -411,6 +411,7 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
             // openShortcutMenuToolStripMenuItem
             // 
             this.openShortcutMenuToolStripMenuItem.Name = "openShortcutMenuToolStripMenuItem";
+            this.openShortcutMenuToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.M)));
             this.openShortcutMenuToolStripMenuItem.Size = new System.Drawing.Size(328, 28);
             this.openShortcutMenuToolStripMenuItem.Text = "Open Shortcut Menu";
             this.openShortcutMenuToolStripMenuItem.Click += new System.EventHandler(this.openShortcutMenuToolStripMenuItem_Click);
@@ -1704,7 +1705,7 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
             this.scheduleToolStripMenuItem.ForeColor = System.Drawing.Color.White;
             this.scheduleToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("scheduleToolStripMenuItem.Image")));
             this.scheduleToolStripMenuItem.Name = "scheduleToolStripMenuItem";
-            this.scheduleToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.scheduleToolStripMenuItem.Size = new System.Drawing.Size(188, 26);
             this.scheduleToolStripMenuItem.Text = "Schedule";
             this.scheduleToolStripMenuItem.Click += new System.EventHandler(this.scheduleToolStripMenuItem_Click);
             // 
@@ -1713,7 +1714,7 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
             this.shortcutMenuToolStripMenuItem.ForeColor = System.Drawing.Color.White;
             this.shortcutMenuToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("shortcutMenuToolStripMenuItem.Image")));
             this.shortcutMenuToolStripMenuItem.Name = "shortcutMenuToolStripMenuItem";
-            this.shortcutMenuToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.shortcutMenuToolStripMenuItem.Size = new System.Drawing.Size(188, 26);
             this.shortcutMenuToolStripMenuItem.Text = "Shortcut Menu";
             this.shortcutMenuToolStripMenuItem.Click += new System.EventHandler(this.shortcutMenuToolStripMenuItem_Click);
             // 
@@ -1785,7 +1786,6 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
             // 
             // tsSearchBox
             // 
-            this.tsSearchBox.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.tsSearchBox.Name = "tsSearchBox";
             this.tsSearchBox.Size = new System.Drawing.Size(124, 34);
             this.tsSearchBox.Visible = false;

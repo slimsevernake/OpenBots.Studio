@@ -38,7 +38,7 @@
             this.BackColor = System.Drawing.Color.Black;
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.ClientSize = new System.Drawing.Size(667, 615);
+            this.ClientSize = new System.Drawing.Size(903, 603);
             this.DoubleBuffered = true;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -47,7 +47,6 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Welcome to OpenBots Studio!";
             this.TopMost = true;
-            this.TransparencyKey = System.Drawing.Color.Black;
             this.Load += new System.EventHandler(this.frmSplash_Load);
             this.ResumeLayout(false);
 

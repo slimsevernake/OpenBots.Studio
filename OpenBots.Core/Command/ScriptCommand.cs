@@ -10,7 +10,7 @@ using System.Windows.Forms;
 
 namespace OpenBots.Core.Command
 {
-    public abstract class ScriptCommand
+	public abstract class ScriptCommand
 	{
 		[Browsable(false)]
 		public string CommandID { get; set; }

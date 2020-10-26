@@ -240,6 +240,12 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
                         case Keys.L:
                             OpenElementManager();
                             break;
+                        case Keys.M:
+                            shortcutMenuToolStripMenuItem_Click(null, null);
+                            break;
+                        case Keys.O:
+                            aboutOpenBotsToolStripMenuItem_Click(null, null);
+                            break;
                     }
                 }                
             }
@@ -737,6 +743,12 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
                         //comments and commented command coloring
                         commandNameBrush = Brushes.MediumSeaGreen;
                         commandBackgroundBrush = Brushes.Honeydew;
+                    }
+                    else if ((command.CommandName == "BrokenCodeCommentCommand"))
+                    {
+                        //comments and commented command coloring
+                        commandNameBrush = Brushes.Black;
+                        commandBackgroundBrush = Brushes.DarkGray;
                     }
                     else
                     {

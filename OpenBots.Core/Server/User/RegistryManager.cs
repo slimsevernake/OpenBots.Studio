@@ -1,7 +1,7 @@
 ﻿using Microsoft.Win32;
 using System;
 
-namespace OpenBots.Core.Server.UserRegistry
+namespace OpenBots.Core.Server.User
 {
     public class RegistryManager
     {
