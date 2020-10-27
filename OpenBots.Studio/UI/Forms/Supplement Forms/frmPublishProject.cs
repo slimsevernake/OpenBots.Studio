@@ -103,6 +103,7 @@ namespace OpenBots.UI.Supplement_Forms
                 NotificationMessage = $"'{_projectName}' published successfully";
 
                 try {
+                    lblError.Text = $"Publishing {_projectName} to the server...";
                     var client = AuthMethods.GetAuthToken();
                     ProcessMethods.UploadProcess(client, _projectName, nugetFilePath);
                 }

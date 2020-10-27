@@ -222,7 +222,12 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
 
             foreach (ListViewItem item in _selectedTabScriptActions.Items)
             {
-                if ((item.Tag is LoopCollectionCommand) || (item.Tag is LoopContinuouslyCommand) ||
+                if(item.Tag is BrokenCodeCommentCommand)
+                {
+                    Notify("Please verify that all broken code has been removed or replaced.");
+                    return;
+                }
+                else if ((item.Tag is LoopCollectionCommand) || (item.Tag is LoopContinuouslyCommand) ||
                     (item.Tag is LoopNumberOfTimesCommand) || (item.Tag is BeginLoopCommand) ||
                     (item.Tag is BeginMultiLoopCommand))
                 {
@@ -515,7 +520,10 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
 
             foreach (ScriptAction item in commandDetails)
             {
-                _selectedTabScriptActions.Items.Add(CreateScriptCommandListViewItem(item.ScriptCommand));
+                if (item.ScriptCommand != null)
+                    _selectedTabScriptActions.Items.Add(CreateScriptCommandListViewItem(item.ScriptCommand));
+                else
+                    _selectedTabScriptActions.Items.Add(CreateScriptCommandListViewItem(new BrokenCodeCommentCommand{ v_Comment = item.SerializationError}));
                 if (item.AdditionalScriptCommands?.Count > 0)
                     PopulateExecutionCommands(item.AdditionalScriptCommands);
             }

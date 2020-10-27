@@ -12,16 +12,17 @@
 //WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 //See the License for the specific language governing permissions and
 //limitations under the License.
-using OpenBots.Core.UI.Forms;
 using System;
-using System.Diagnostics;
+using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 using System.Windows.Forms;
+using Newtonsoft.Json;
+using OpenBots.Core.Server.User;
 
 namespace OpenBots.UI.Forms.Supplement_Forms
 {
-    public partial class frmAbout : UIForm
+    public partial class frmAbout : Form
     {
         public frmAbout()
         {
@@ -32,58 +33,33 @@ namespace OpenBots.UI.Forms.Supplement_Forms
         {
             DateTime buildDate = File.GetLastWriteTime(Assembly.GetExecutingAssembly().Location);
 
-            lblAppVersion.Text = "version: " + new Version(Application.ProductVersion);
-            lblBuildDate.Text = "build date: " + buildDate.ToString("MM.dd.yyyy");
-        }
+            lblAppVersion.Text = $"Version: {Application.ProductVersion}";
+            lblBuildDate.Text = $"Build Date: {buildDate:MM-dd-yyyy}";
+            lblMachineName.Text = $"Machine Name: {MachineInfo.MachineName}";
+            lblIPAddress.Text = $"IP Address: {MachineInfo.IPAddress}";
+            lblMacAddress.Text = $"Mac Address: {MachineInfo.GetMacAddress()}";
 
-        private void lblOneNote_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            Process.Start("https://github.com/ignatandrei/OneNoteOCR");
-        }
+            if (EnvironmentSettings.GetEnvironmentVariable() == null)
+                lblServer.Text = "Server: Agent environment variable not found";
 
-        private void lblSelenium_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            Process.Start("https://github.com/SeleniumHQ/selenium");
-        }
+            string agentSettingsPath = Path.Combine(EnvironmentSettings.GetEnvironmentVariable(), EnvironmentSettings.SettingsFileName);
 
-        private void lblTaskScheduler_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            Process.Start("https://github.com/dahall/TaskScheduler");
-        }
+            if (agentSettingsPath == null || !File.Exists(agentSettingsPath))
+                lblServer.Text = "Server: Agent settings file not found";
 
-        private void lblLog4Net_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            Process.Start("https://github.com/dahall/TaskScheduler");
-        }
+            else
+            {
+                string agentSettingsText = File.ReadAllText(agentSettingsPath);
+                var settings = JsonConvert.DeserializeObject<Dictionary<string, string>>(agentSettingsText);
 
-        private void lblHTMLAgilityPack_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            Process.Start("https://www.nuget.org/packages/HtmlAgilityPack/");
-        }
+                string agentId = settings["AgentId"];
+                string serverURL = settings["OpenBotsServerUrl"];
 
-        private void lblIMAPX_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            Process.Start("https://github.com/azanov/imapx");
-        }
-
-        private void lblJetBrainsAnnotations_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            Process.Start("https://www.nuget.org/packages/JetBrains.Annotations/");
-        }
-
-        private void lblNewtonSoft_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            Process.Start("https://www.nuget.org/packages/newtonsoft.json/");
-        }
-
-        private void lblSuperSocketClientEngine_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            Process.Start("https://github.com/kerryjiang/SuperSocket.ClientEngine");
-        }
-
-        private void lblWebSocket4Net_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            Process.Start("https://github.com/kerryjiang/WebSocket4Net");
+                if (string.IsNullOrEmpty(agentId))
+                    lblServer.Text = "Server: Agent is not connected";
+                else
+                    lblServer.Text = $"Server: {serverURL}";
+            }           
         }
     }
 }
