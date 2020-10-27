@@ -285,7 +285,7 @@ namespace OpenBots.Commands
 			newEngine.VariableList = _variableList;
 			newEngine.AppInstances = currentScriptEngine.AppInstances;
 			currentScriptEngine.EngineLogger.Information("Executing Child Task: " + Path.GetFileName(childTaskPath));
-			newEngine.ExecuteScriptAsync(childTaskPath, currentScriptEngine.GetProjectPath());
+			newEngine.ExecuteScriptSync(childTaskPath, currentScriptEngine.GetProjectPath());
 
 			UpdateCurrentEngineContext(currentScriptEngine, newEngine);
 

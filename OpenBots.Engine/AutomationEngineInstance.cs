@@ -93,6 +93,12 @@ namespace OpenBots.Engine
             ErrorHandlingAction = string.Empty;
         }
 
+        public void ExecuteScriptSync(string filePath, string projectPath)
+        {
+            EngineLogger.Information("Client requesting to execute script independently");
+            ExecuteScript(filePath, true, projectPath);
+        }
+
         public void ExecuteScriptAsync(IfrmScriptEngine scriptEngine, string filePath, string projectPath, List<ScriptVariable> variables = null, 
                                        List<ScriptElement> elements = null, Dictionary<string, object> appInstances = null)
         {
