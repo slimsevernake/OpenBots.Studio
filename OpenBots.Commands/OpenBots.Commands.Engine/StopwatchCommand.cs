@@ -101,7 +101,7 @@ namespace OpenBots.Commands.Engine
 					//check elapsed which gives measure
 					stopwatch = (Stopwatch)engine.AppInstances[v_InstanceName];
 					string elapsedTime;
-					if (string.IsNullOrEmpty(format.Trim()))
+					if (string.IsNullOrEmpty(format))
 						elapsedTime = stopwatch.Elapsed.ToString();
 					else
 						elapsedTime = stopwatch.Elapsed.ToString(format);
