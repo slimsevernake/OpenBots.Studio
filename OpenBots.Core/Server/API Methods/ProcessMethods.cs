@@ -32,8 +32,6 @@ namespace OpenBots.Core.Server.API_Methods
             Guid processId = CreateProcess(client, name);
             var request = new RestRequest("api/v1/Processes/{id}/update", Method.POST);
             request.AddUrlSegment("id", processId.ToString());
-            request.AddParameter("Name", name);
-            request.AddParameter("OrganizationId", "");
             request.RequestFormat = DataFormat.Json;
 
             request.AddHeader("Content-Type", "multipart/form-data"); 
