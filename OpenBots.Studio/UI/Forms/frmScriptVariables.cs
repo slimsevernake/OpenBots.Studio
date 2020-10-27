@@ -53,7 +53,8 @@ namespace OpenBots.UI.Forms
             //add each item to parent
             foreach (var item in variables)
             {
-                AddUserVariableNode(parentNode, "{" + item.VariableName + "}", (string)item.VariableValue);
+                if (item.VariableName != "ProjectPath")
+                    AddUserVariableNode(parentNode, "{" + item.VariableName + "}", (string)item.VariableValue);
             }
 
             //add parent to treeview

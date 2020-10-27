@@ -89,7 +89,7 @@ namespace OpenBots.Commands.Data
 
 		public override string GetDisplayValue()
 		{
-			return base.GetDisplayValue() + $" [Replace '{v_OldText}' With '{v_NewText}'- Store Text in '{v_InputText}']";
+			return base.GetDisplayValue() + $" [Replace '{v_OldText}' With '{v_NewText}'- Store Text in '{v_OutputUserVariableName}']";
 		}
 	}
 }
