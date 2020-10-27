@@ -709,7 +709,7 @@ namespace OpenBots.Commands
 			else if (v_IfActionType == "Image Element Exists")
 			{
 				string imageName = (from rw in v_IfActionParameterTable.AsEnumerable()
-									where rw.Field<string>("Parameter Name") == "Captured Image"
+									where rw.Field<string>("Parameter Name") == "Captured Image Variable"
 									select rw.Field<string>("Parameter Value")).FirstOrDefault();
 				double accuracy;
 				try
@@ -1008,7 +1008,7 @@ namespace OpenBots.Commands
 
 					if (sender != null)
 					{
-						actionParameters.Rows.Add("Captured Image", "");
+						actionParameters.Rows.Add("Captured Image Variable", "");
 						actionParameters.Rows.Add("Accuracy (0-1)", "0.8");
 						actionParameters.Rows.Add("True When", "It Does Exist");
 						ifActionParameterBox.DataSource = actionParameters;
