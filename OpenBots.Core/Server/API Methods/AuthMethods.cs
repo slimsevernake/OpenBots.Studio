@@ -13,10 +13,12 @@ namespace OpenBots.Core.Server.API_Methods
     {
         public static RestClient GetAuthToken()
         {           
-            string agentSettingsPath = Path.Combine(Environment.GetEnvironmentVariable("OpenBots_Agent_Data_Path", 
-                                                    EnvironmentVariableTarget.Machine), "OpenBots.settings");
+            if (EnvironmentSettings.GetEnvironmentVariable() == null)
+                throw new Exception("Agent environment variable not found");
 
-            if (agentSettingsPath == null)
+            string agentSettingsPath = Path.Combine(EnvironmentSettings.GetEnvironmentVariable(), EnvironmentSettings.SettingsFileName);
+
+            if (agentSettingsPath == null || !File.Exists(agentSettingsPath))
                 throw new Exception("Agent settings file not found");
 
             string agentSettingsText = File.ReadAllText(agentSettingsPath);
