@@ -36,8 +36,8 @@ namespace OpenBots.Commands.Data
 
 		[DisplayName("Substring Length (Optional)")]
 		[Description("Indicate number of characters to extract.")]
-		[SampleUsage("-1 || 1 || {vSubstringLength}")]
-		[Remarks("-1 to keep remainder, 1 for 1 position after start index, etc.")]
+		[SampleUsage("1 || {vSubstringLength}")]
+		[Remarks("1 for 1 position after start index, etc.")]
 		[Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
 		public string v_StringLength { get; set; }
 
@@ -54,8 +54,6 @@ namespace OpenBots.Commands.Data
 			CommandName = "SubstringCommand";
 			SelectionName = "Substring";
 			CommandEnabled = true;
-			
-			v_StringLength = "-1";
 		}
 
 		public override void RunCommand(object sender)
@@ -63,12 +61,13 @@ namespace OpenBots.Commands.Data
 			var engine = (AutomationEngineInstance)sender;
 			var inputText = v_InputText.ConvertUserVariableToString(engine);
 			var startIndex = int.Parse(v_StartIndex.ConvertUserVariableToString(engine));
-			var stringLength = int.Parse(v_StringLength.ConvertUserVariableToString(engine));
+			var stringLength = v_StringLength.ConvertUserVariableToString(engine);
 
 			//apply substring
-			if (stringLength >= 0)
+			if (!string.IsNullOrEmpty(stringLength))
 			{
-				inputText = inputText.Substring(startIndex, stringLength);
+				int length = int.Parse(stringLength);
+				inputText = inputText.Substring(startIndex, length);
 			}
 			else
 			{
