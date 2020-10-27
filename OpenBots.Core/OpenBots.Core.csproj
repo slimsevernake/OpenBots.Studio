@@ -181,6 +181,7 @@
     <Compile Include="Server\Models\NamedEntity.cs" />
     <Compile Include="Server\Models\Queue.cs" />
     <Compile Include="Server\Models\QueueItem.cs" />
+    <Compile Include="Server\User\EnvironmentSettings.cs" />
     <Compile Include="Server\User\MachineInfo.cs" />
     <Compile Include="Server\User\RegistryKeys.cs" />
     <Compile Include="Server\User\RegistryManager.cs" />

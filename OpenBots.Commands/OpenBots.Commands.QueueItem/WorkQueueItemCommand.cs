@@ -5,6 +5,7 @@ using OpenBots.Core.Enums;
 using OpenBots.Core.Infrastructure;
 using OpenBots.Core.Server.API_Methods;
 using OpenBots.Core.Server.Models;
+using OpenBots.Core.Server.User;
 using OpenBots.Core.Utilities.CommonUtilities;
 using OpenBots.Engine;
 using System;
@@ -55,7 +56,7 @@ namespace OpenBots.Commands.QueueItem
 			var client = AuthMethods.GetAuthToken();
 
 
-			string agentSettingsPath = Environment.GetEnvironmentVariable("OpenBots_Agent_Config_Path", EnvironmentVariableTarget.Machine);
+			string agentSettingsPath = Path.Combine(EnvironmentSettings.GetEnvironmentVariable(), EnvironmentSettings.SettingsFileName);
 
 			if (agentSettingsPath == null)
 				throw new Exception("Agent settings file not found");

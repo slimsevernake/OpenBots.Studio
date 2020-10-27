@@ -39,7 +39,7 @@ namespace OpenBots.UI.Forms.Supplement_Forms
             lblIPAddress.Text = $"IP Address: {MachineInfo.IPAddress}";
             lblMacAddress.Text = $"Mac Address: {MachineInfo.GetMacAddress()}";
 
-            string agentSettingsPath = Environment.GetEnvironmentVariable("OpenBots_Agent_Config_Path", EnvironmentVariableTarget.Machine);
+            string agentSettingsPath = Path.Combine(EnvironmentSettings.GetEnvironmentVariable(), EnvironmentSettings.SettingsFileName);
 
             if (agentSettingsPath == null)
                 lblServer.Text = "Server: Agent settings file not found";
