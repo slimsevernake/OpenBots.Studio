@@ -13,6 +13,9 @@ namespace OpenBots.Core.Server.API_Methods
     {
         public static RestClient GetAuthToken()
         {           
+            if (EnvironmentSettings.GetEnvironmentVariable() == null)
+                throw new Exception("Agent environment variable not found");
+
             string agentSettingsPath = Path.Combine(EnvironmentSettings.GetEnvironmentVariable(), EnvironmentSettings.SettingsFileName);
 
             if (agentSettingsPath == null || !File.Exists(agentSettingsPath))
