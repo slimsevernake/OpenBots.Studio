@@ -104,6 +104,8 @@ namespace OpenBots.Commands
 			}
 
 			var childTaskPath = v_taskPath.ConvertUserVariableToString(currentScriptEngine);
+			if (!File.Exists(childTaskPath))
+				throw new FileNotFoundException("Task file was not found");
 
 			frmScriptEngine parentEngine = (frmScriptEngine)currentScriptEngine.ScriptEngineUI;
 			string parentTaskPath = currentScriptEngine.ScriptEngineUI.FilePath;
