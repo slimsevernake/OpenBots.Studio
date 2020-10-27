@@ -349,7 +349,7 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
 
         private void frmScriptBuilder_Shown(object sender, EventArgs e)
         {
-            Program.SplashForm.Hide();
+            Program.SplashForm.Close();
 
             if (_editMode)
                 return;
