@@ -30,7 +30,7 @@ namespace OpenBots.Core.Server.API_Methods
         public static void UploadProcess(RestClient client, string name, string filePath)
         {
             Guid processId = CreateProcess(client, name);
-            var request = new RestRequest("api/v1/Processes/{id}/update", Method.POST);
+            var request = new RestRequest("api/v1/Processes/{id}/upload", Method.POST);
             request.AddUrlSegment("id", processId.ToString());
             request.RequestFormat = DataFormat.Json;
 
