@@ -143,7 +143,6 @@
     <Compile Include="Interfaces\IfrmScriptEngine.cs" />
     <Compile Include="Interfaces\IEngine.cs" />
     <Compile Include="IO\Folders.cs" />
-    <Compile Include="IO\JavaInterface.cs" />
     <Compile Include="Metrics\ExecutionMetric.cs" />
     <Compile Include="Metrics\Metric.cs" />
     <Compile Include="Model\EngineModel\LineNumberChangedEventArgs.cs" />
@@ -252,7 +251,6 @@
   <ItemGroup>
     <Content Include="Resources\Dependencies\7z.dll" />
     <Content Include="Resources\Dependencies\7z.exe" />
-    <None Include="Resources\Dependencies\openbots-ExtractPDFText.jar" />
     <Content Include="Resources\Icons\ActionBar\action-bar-add-command.png" />
     <Content Include="Resources\Icons\ActionBar\action-bar-clear.png" />
     <Content Include="Resources\Icons\ActionBar\action-bar-debug.png" />

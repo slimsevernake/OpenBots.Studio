@@ -1,4 +1,6 @@
-﻿using OpenBots.Core.Attributes.PropertyAttributes;
+﻿using iText.Kernel.Pdf;
+using iText.Kernel.Pdf.Canvas.Parser;
+using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
 using OpenBots.Core.Enums;
 using OpenBots.Core.Infrastructure;
@@ -50,7 +52,8 @@ namespace OpenBots.Commands.Data
 		{
 			CommandName = "GetPDFTextCommand";
 			SelectionName = "Get PDF Text";
-			CommandEnabled = true;            
+			CommandEnabled = true;
+			v_FileSourceType = "File Path";
 		}
 
 		public override void RunCommand(object sender)
@@ -68,9 +71,7 @@ namespace OpenBots.Commands.Data
 
 				//check if directory does not exist then create directory
 				if (!Directory.Exists(tempDir))
-				{
 					Directory.CreateDirectory(tempDir);
-				}
 
 				// Create webClient to download the file for extraction
 				var webclient = new WebClient();
@@ -79,32 +80,25 @@ namespace OpenBots.Commands.Data
 
 				// check if file is downloaded successfully
 				if (File.Exists(tempFile))
-				{
 					vSourceFilePath = tempFile;
-				}
 
 				// Free not needed resources
-				uri = null;
 				if (webclient != null)
-				{
 					webclient.Dispose();
-					webclient = null;
-				}
 			}
 
 			// Check if file exists before proceeding
 			if (!File.Exists(vSourceFilePath))
-			{
 				throw new FileNotFoundException("Could not find file: " + vSourceFilePath);
+
+			PdfDocument pdfDoc = new PdfDocument(new PdfReader(vSourceFilePath));
+			string result = string.Empty;
+			for (int page = 1; page <= pdfDoc.GetNumberOfPages(); page++)
+			{
+				result += PdfTextExtractor.GetTextFromPage(pdfDoc.GetPage(page));
 			}
+			pdfDoc.Close();
 
-			//create process interface
-			JavaInterface javaInterface = new JavaInterface();
-
-			//get output from process
-			var result = ExtractPDFText(javaInterface, vSourceFilePath);
-
-			//apply to variable
 			result.StoreInUserVariable(engine, v_OutputUserVariableName);
 		}
 
@@ -123,33 +117,6 @@ namespace OpenBots.Commands.Data
 		public override string GetDisplayValue()
 		{
 			return base.GetDisplayValue() + $" [Extract Text From '{v_FilePath}' - Store Text in '{v_OutputUserVariableName}']";
-		}
-
-		public string ExtractPDFText(JavaInterface javaInterface, string pdfFilePath)
-		{
-			//create pdf path
-			var pdfPath = "\"" + pdfFilePath + "\"";
-
-			//create args
-			var args = string.Join(" ", pdfPath);
-
-			//create interface process
-			var javaProcess = javaInterface.Create("OpenBots-ExtractPDFText.jar", args);
-
-			//run command line
-			javaProcess.Start();
-
-			//track output
-			var output = javaProcess.StandardOutput.ReadToEnd();
-
-			//wait for exist
-			javaProcess.WaitForExit();
-
-			//close and dispose
-			javaProcess.Close();
-
-			//return data
-			return output;
 		}
 	}
 }
