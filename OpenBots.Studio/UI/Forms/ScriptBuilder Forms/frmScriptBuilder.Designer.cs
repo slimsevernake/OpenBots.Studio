@@ -89,7 +89,7 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
             this.uiBtnAddVariable = new OpenBots.Core.UI.Controls.UIPictureButton();
             this.pnlStatus = new System.Windows.Forms.Panel();
             this.splitContainerStudioControls = new OpenBots.UI.CustomControls.CustomUIControls.UISplitContainer();
-            this.uiPaneTabs = new OpenBots.UI.CustomControls.CustomUIControls.UITabControl();
+            this.uiPaneTabs = new System.Windows.Forms.TabControl();
             this.tpProject = new System.Windows.Forms.TabPage();
             this.tlpProject = new System.Windows.Forms.TableLayoutPanel();
             this.tvProject = new OpenBots.UI.CustomControls.CustomUIControls.UITreeView();
@@ -2037,7 +2037,7 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
         private ToolStripMenuItem tsSearchResult;
         private Panel pnlDivider;
         private CustomControls.CustomUIControls.UISplitContainer splitContainerStudioControls;
-        private CustomControls.CustomUIControls.UITabControl uiPaneTabs;
+        private TabControl uiPaneTabs;
         private TabPage tpProject;
         private CustomControls.CustomUIControls.UITreeView tvProject;
         private TabPage tpCommands;

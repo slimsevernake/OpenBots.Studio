@@ -116,7 +116,22 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
         private bool _isDisplaying;
         private string _notificationText;
         public IfrmScriptEngine CurrentEngine { get; set; }
-        public bool IsScriptRunning { get; set; }
+        private bool _isScriptRunning;
+        public bool IsScriptRunning
+        {
+            get
+            {
+                return _isScriptRunning;
+            }
+            set
+            {
+                _isScriptRunning = value;
+                if (_isScriptRunning)
+                    uiScriptTabControl.AllowDrop = false;
+                else
+                    uiScriptTabControl.AllowDrop = true;
+            }
+        }
         public bool IsScriptPaused { get; set; }
         public bool IsScriptSteppedOver { get; set; }
         public bool IsScriptSteppedInto { get; set; }
