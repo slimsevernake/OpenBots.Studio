@@ -297,7 +297,7 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
                 }
 
                 //apply editor style format
-                newBuilder.ApplyEditorFormat();
+                newBuilder.ApplyEditorFormat(sequence.v_Comment);
 
                 newBuilder._parentBuilder = this;
 
@@ -317,6 +317,7 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
 
                     //apply new list to existing sequence
                     sequence.ScriptActions = updatedList;
+                    sequence.v_Comment = newBuilder.Text;
 
                     //update label
                     selectedCommandItem.Text = sequence.GetDisplayValue();
@@ -369,15 +370,16 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
             }
         }
 
-        private void ApplyEditorFormat()
+        private void ApplyEditorFormat(string formText)
         {
             _editMode = true;
             _isSequence = true;
-            Text = "edit sequence";
+            Text = formText;
             _selectedTabScriptActions.Invalidate();
             pnlCommandHelper.Hide();
             grpSaveClose.Location = new Point(5, grpFileActions.Location.Y - 10);
             uiBtnRestart.Hide();
+            uiBtnRenameSequence.Show();
             uiBtnSaveSequence.Show();
             grpSaveClose.Show();
             grpSaveClose.Text = string.Empty;

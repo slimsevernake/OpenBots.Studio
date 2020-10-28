@@ -868,6 +868,16 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
             Close();
         }
 
+        private void uiBtnRenameSequence_Click(object sender, EventArgs e)
+        {
+            frmInputBox renameSequence = new frmInputBox("New Sequence Name", "Rename Sequence");
+            renameSequence.txtInput.Text = Text;
+            renameSequence.ShowDialog();
+
+            if (renameSequence.DialogResult == DialogResult.OK)
+                Text = renameSequence.txtInput.Text;
+        }
+
         private void shortcutMenuToolStripMenuItem_Click(object sender, EventArgs e)
         {
             frmShortcutMenu shortcutMenuForm = new frmShortcutMenu();
