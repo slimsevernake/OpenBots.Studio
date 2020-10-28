@@ -102,10 +102,7 @@ namespace OpenBots.UI.Supplement_Forms
             {
                 v_Comment = sequenceComment
             };
-            outputList.Insert(0, commentCommand);
-
-            if (_appSettings.ClientSettings.InsertCommandsInline && IsCommandItemSelected)
-                outputList.Reverse();               
+            outputList.Insert(0, commentCommand);              
 
             foreach (var cmd in outputList)
                 CallBackForm.AddCommandToListView(cmd);

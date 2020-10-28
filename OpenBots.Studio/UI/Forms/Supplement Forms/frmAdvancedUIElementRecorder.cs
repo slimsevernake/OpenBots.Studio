@@ -445,16 +445,8 @@ namespace OpenBots.UI.Forms.Supplement_Forms
                 v_Comment = sequenceComment
             };
 
-            if (_appSettings.ClientSettings.InsertCommandsInline && IsCommandItemSelected)
-            {
-                CallBackForm.AddCommandToListView(sequenceCommand);
-                CallBackForm.AddCommandToListView(commentCommand);
-            }
-            else
-            {
-                CallBackForm.AddCommandToListView(commentCommand);
-                CallBackForm.AddCommandToListView(sequenceCommand);
-            }
+            CallBackForm.AddCommandToListView(commentCommand);
+            CallBackForm.AddCommandToListView(sequenceCommand);
         }
 
         private void frmThickAppElementRecorder_FormClosing(object sender, FormClosingEventArgs e)
