@@ -62,6 +62,7 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
             this.lblTotalResults = new System.Windows.Forms.Label();
             this.txtScriptSearch = new System.Windows.Forms.TextBox();
             this.grpSaveClose = new OpenBots.UI.CustomControls.CustomUIControls.UIGroupBox();
+            this.uiBtnRenameSequence = new OpenBots.Core.UI.Controls.UIPictureButton();
             this.uiBtnRestart = new OpenBots.Core.UI.Controls.UIPictureButton();
             this.uiBtnClose = new OpenBots.Core.UI.Controls.UIPictureButton();
             this.uiBtnSaveSequence = new OpenBots.Core.UI.Controls.UIPictureButton();
@@ -164,13 +165,13 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
             this.tsmiCloseTab = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiCloseAllButThis = new System.Windows.Forms.ToolStripMenuItem();
             this.cmsProjectMainFolderActions = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.uiBtnRenameSequence = new OpenBots.Core.UI.Controls.UIPictureButton();
             this.cmsProjectFolderActions.SuspendLayout();
             this.cmsScriptActions.SuspendLayout();
             this.pnlControlContainer.SuspendLayout();
             this.grpSearch.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbSearch)).BeginInit();
             this.grpSaveClose.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.uiBtnRenameSequence)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.uiBtnRestart)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.uiBtnClose)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.uiBtnSaveSequence)).BeginInit();
@@ -221,7 +222,6 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
             this.cmsProjectFileActions.SuspendLayout();
             this.cmsScriptTabActions.SuspendLayout();
             this.cmsProjectMainFolderActions.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.uiBtnRenameSequence)).BeginInit();
             this.SuspendLayout();
             // 
             // cmsProjectFolderActions
@@ -534,6 +534,25 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
             this.grpSaveClose.TitleFont = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.grpSaveClose.TitleForeColor = System.Drawing.Color.GhostWhite;
             this.grpSaveClose.TitleHatchStyle = System.Drawing.Drawing2D.HatchStyle.Horizontal;
+            // 
+            // uiBtnRenameSequence
+            // 
+            this.uiBtnRenameSequence.BackColor = System.Drawing.Color.Transparent;
+            this.uiBtnRenameSequence.Cursor = System.Windows.Forms.Cursors.Arrow;
+            this.uiBtnRenameSequence.DisplayText = "Rename";
+            this.uiBtnRenameSequence.DisplayTextBrush = System.Drawing.Color.AliceBlue;
+            this.uiBtnRenameSequence.Font = new System.Drawing.Font("Segoe UI", 8F);
+            this.uiBtnRenameSequence.Image = ((System.Drawing.Image)(resources.GetObject("uiBtnRenameSequence.Image")));
+            this.uiBtnRenameSequence.IsMouseOver = false;
+            this.uiBtnRenameSequence.Location = new System.Drawing.Point(120, 24);
+            this.uiBtnRenameSequence.Margin = new System.Windows.Forms.Padding(4);
+            this.uiBtnRenameSequence.Name = "uiBtnRenameSequence";
+            this.uiBtnRenameSequence.Size = new System.Drawing.Size(60, 62);
+            this.uiBtnRenameSequence.TabIndex = 20;
+            this.uiBtnRenameSequence.TabStop = false;
+            this.uiBtnRenameSequence.Text = "Rename";
+            this.uiBtnRenameSequence.Visible = false;
+            this.uiBtnRenameSequence.Click += new System.EventHandler(this.uiBtnRenameSequence_Click);
             // 
             // uiBtnRestart
             // 
@@ -1226,6 +1245,7 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
             // 
             // tvCommands
             // 
+            this.tvCommands.AllowDrop = true;
             this.tvCommands.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(59)))), ((int)(((byte)(59)))), ((int)(((byte)(59)))));
             this.tvCommands.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.tvCommands.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -1238,6 +1258,7 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
             this.tvCommands.ShowNodeToolTips = true;
             this.tvCommands.Size = new System.Drawing.Size(308, 594);
             this.tvCommands.TabIndex = 9;
+            this.tvCommands.ItemDrag += new System.Windows.Forms.ItemDragEventHandler(this.tvCommands_ItemDrag);
             this.tvCommands.DoubleClick += new System.EventHandler(this.tvCommands_DoubleClick);
             this.tvCommands.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tvCommands_KeyPress);
             // 
@@ -1791,6 +1812,7 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
             // 
             // tsSearchBox
             // 
+            this.tsSearchBox.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.tsSearchBox.Name = "tsSearchBox";
             this.tsSearchBox.Size = new System.Drawing.Size(124, 34);
             this.tsSearchBox.Visible = false;
@@ -1918,25 +1940,6 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
             this.cmsProjectMainFolderActions.Name = "cmsProjectMainFolderActions";
             this.cmsProjectMainFolderActions.Size = new System.Drawing.Size(199, 88);
             // 
-            // uiBtnRenameSequence
-            // 
-            this.uiBtnRenameSequence.BackColor = System.Drawing.Color.Transparent;
-            this.uiBtnRenameSequence.Cursor = System.Windows.Forms.Cursors.Arrow;
-            this.uiBtnRenameSequence.DisplayText = "Rename";
-            this.uiBtnRenameSequence.DisplayTextBrush = System.Drawing.Color.AliceBlue;
-            this.uiBtnRenameSequence.Font = new System.Drawing.Font("Segoe UI", 8F);
-            this.uiBtnRenameSequence.Image = ((System.Drawing.Image)(resources.GetObject("uiBtnRenameSequence.Image")));
-            this.uiBtnRenameSequence.IsMouseOver = false;
-            this.uiBtnRenameSequence.Location = new System.Drawing.Point(120, 24);
-            this.uiBtnRenameSequence.Margin = new System.Windows.Forms.Padding(4);
-            this.uiBtnRenameSequence.Name = "uiBtnRenameSequence";
-            this.uiBtnRenameSequence.Size = new System.Drawing.Size(60, 62);
-            this.uiBtnRenameSequence.TabIndex = 20;
-            this.uiBtnRenameSequence.TabStop = false;
-            this.uiBtnRenameSequence.Text = "Rename";
-            this.uiBtnRenameSequence.Visible = false;
-            this.uiBtnRenameSequence.Click += new System.EventHandler(this.uiBtnRenameSequence_Click);
-            // 
             // frmScriptBuilder
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
@@ -1962,6 +1965,7 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
             this.grpSearch.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbSearch)).EndInit();
             this.grpSaveClose.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.uiBtnRenameSequence)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.uiBtnRestart)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.uiBtnClose)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.uiBtnSaveSequence)).EndInit();
@@ -2016,7 +2020,6 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
             this.cmsProjectFileActions.ResumeLayout(false);
             this.cmsScriptTabActions.ResumeLayout(false);
             this.cmsProjectMainFolderActions.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.uiBtnRenameSequence)).EndInit();
             this.ResumeLayout(false);
 
         }

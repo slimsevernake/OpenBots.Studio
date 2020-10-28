@@ -578,6 +578,11 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
             }
         }
 
+        private void tvCommands_ItemDrag(object sender, ItemDragEventArgs e)
+        {
+            tvCommands.DoDragDrop(e.Item, DragDropEffects.Copy);
+        }
+
         public void CopyTreeView(TreeView originalTreeView, TreeView copiedTreeView)
         {
             TreeNode copiedTreeNode;
@@ -692,7 +697,7 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
             LinkLabel senderLink = (LinkLabel)sender;
             OpenFile(Path.Combine(Folders.GetFolder(FolderType.ScriptsFolder), senderLink.Text));
         }
-        #endregion     
+        #endregion       
     }
 }
 

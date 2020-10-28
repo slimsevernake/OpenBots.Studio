@@ -75,94 +75,96 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
                     //The data from the drag source is moved to the target.
                     e.Effect = DragDropEffects.Move;
                 }
+                else if (e.Data.GetFormats()[i].Equals("System.Windows.Forms.TreeNode"))
+                    e.Effect = DragDropEffects.Copy;
             }
         }
 
         private void lstScriptActions_DragDrop(object sender, DragEventArgs e)
         {
-            //Return if the items are not selected in the ListView control.
-            if (_selectedTabScriptActions.SelectedItems.Count == 0)
-            {
-                return;
-            }
-
-            CreateUndoSnapshot();
-
             //Returns the location of the mouse pointer in the ListView control.
             Point cp = _selectedTabScriptActions.PointToClient(new Point(e.X, e.Y));
             //Obtain the item that is located at the specified location of the mouse pointer.
             ListViewItem dragToItem = _selectedTabScriptActions.GetItemAt(cp.X, cp.Y);
-            if (dragToItem == null)
+
+            if (e.Data.GetDataPresent("System.Windows.Forms.TreeNode", false))
             {
-                return;
+                var commandName = ((TreeNode)e.Data.GetData("System.Windows.Forms.TreeNode")).Text;
+                ScriptCommand newCommand = _automationCommands.Where(x => x.ShortName == commandName).Select(x => x.Command).FirstOrDefault();
+                if (dragToItem != null)
+                    AddCommandToListView(newCommand, dragToItem.Index);
+                else
+                    AddCommandToListView(newCommand, _selectedTabScriptActions.Items.Count);
             }
-
-            //drag and drop for sequence
-            if ((dragToItem.Tag is SequenceCommand) && (_appSettings.ClientSettings.EnableSequenceDragDrop))
+            else
             {
-                //sequence command for drag drop
-                var sequence = (SequenceCommand)dragToItem.Tag;
-
-                //add command to script actions
-                for (int i = 0; i <= _selectedTabScriptActions.SelectedItems.Count - 1; i++)
-                {
-                    var command = (ScriptCommand)_selectedTabScriptActions.SelectedItems[i].Tag;
-                    sequence.ScriptActions.Add(command);
-                }
-
-                //remove originals
-                for (int i = _selectedTabScriptActions.SelectedItems.Count - 1; i >= 0; i--)
-                {
-                    _selectedTabScriptActions.Items.Remove(_selectedTabScriptActions.SelectedItems[i]);
-                }
-
-                //return back
-                return;
-            }
-
-            //Obtain the index of the item at the mouse pointer.
-            int dragIndex = dragToItem.Index;
-
-            //foreach (ListViewItem command in _selectedTabScriptActions.SelectedItems)
-            //{
-            //    if (command.Tag is EndLoopCommand)
-            //    {
-            //        for (int i = 0; i < dragIndex; i++)
-            //        {
-            //            if (_selectedTabScriptActions.Items[i].Tag is BeginLoopCommand)
-            //            {
-            //            }
-            //        }
-            //    }
-            //}
-
-            ListViewItem[] sel = new ListViewItem[_selectedTabScriptActions.SelectedItems.Count];
-            for (int i = 0; i <= _selectedTabScriptActions.SelectedItems.Count - 1; i++)
-            {
-                sel[i] = _selectedTabScriptActions.SelectedItems[i];
-            }
-            for (int i = 0; i < sel.GetLength(0); i++)
-            {
-                //Obtain the ListViewItem to be dragged to the target location.
-                ListViewItem dragItem = sel[i];
-                int itemIndex = dragIndex;
-                if (itemIndex == dragItem.Index)
+                //Return if the items are not selected in the ListView control.
+                if (_selectedTabScriptActions.SelectedItems.Count == 0)
                 {
                     return;
                 }
-                if (dragItem.Index < itemIndex)
-                    itemIndex++;
-                else
-                    itemIndex = dragIndex + i;
 
-                //Insert the item at the mouse pointer.
-                ListViewItem insertItem = (ListViewItem)dragItem.Clone();
-                _selectedTabScriptActions.Items.Insert(itemIndex, insertItem);
-                //Removes the item from the initial location while
-                //the item is moved to the new location.
-                _selectedTabScriptActions.Items.Remove(dragItem);
-                //FormatCommandListView();
-                _selectedTabScriptActions.Invalidate();
+                CreateUndoSnapshot();
+              
+                if (dragToItem == null)
+                {
+                    return;
+                }
+
+                //drag and drop for sequence
+                if ((dragToItem.Tag is SequenceCommand) && (_appSettings.ClientSettings.EnableSequenceDragDrop))
+                {
+                    //sequence command for drag drop
+                    var sequence = (SequenceCommand)dragToItem.Tag;
+
+                    //add command to script actions
+                    for (int i = 0; i <= _selectedTabScriptActions.SelectedItems.Count - 1; i++)
+                    {
+                        var command = (ScriptCommand)_selectedTabScriptActions.SelectedItems[i].Tag;
+                        sequence.ScriptActions.Add(command);
+                    }
+
+                    //remove originals
+                    for (int i = _selectedTabScriptActions.SelectedItems.Count - 1; i >= 0; i--)
+                    {
+                        _selectedTabScriptActions.Items.Remove(_selectedTabScriptActions.SelectedItems[i]);
+                    }
+
+                    //return back
+                    return;
+                }
+
+                //Obtain the index of the item at the mouse pointer.
+                int dragIndex = dragToItem.Index;
+
+                ListViewItem[] sel = new ListViewItem[_selectedTabScriptActions.SelectedItems.Count];
+                for (int i = 0; i <= _selectedTabScriptActions.SelectedItems.Count - 1; i++)
+                {
+                    sel[i] = _selectedTabScriptActions.SelectedItems[i];
+                }
+                for (int i = 0; i < sel.GetLength(0); i++)
+                {
+                    //Obtain the ListViewItem to be dragged to the target location.
+                    ListViewItem dragItem = sel[i];
+                    int itemIndex = dragIndex;
+                    if (itemIndex == dragItem.Index)
+                    {
+                        return;
+                    }
+                    if (dragItem.Index < itemIndex)
+                        itemIndex++;
+                    else
+                        itemIndex = dragIndex + i;
+
+                    //Insert the item at the mouse pointer.
+                    ListViewItem insertItem = (ListViewItem)dragItem.Clone();
+                    _selectedTabScriptActions.Items.Insert(itemIndex, insertItem);
+                    //Removes the item from the initial location while
+                    //the item is moved to the new location.
+                    _selectedTabScriptActions.Items.Remove(dragItem);
+                    //FormatCommandListView();
+                    _selectedTabScriptActions.Invalidate();
+                }
             }
         }
 
@@ -971,7 +973,7 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
             commandList.ForEach(x => _parentBuilder.AddCommandToListView(x));
         }
 
-        public void AddCommandToListView(ScriptCommand selectedCommand)
+        public void AddCommandToListView(ScriptCommand selectedCommand, int index = -1)
         {
             if (pnlCommandHelper.Visible)
             {
@@ -981,17 +983,30 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
             else if(!uiScriptTabControl.SelectedTab.Controls[0].Visible)
                 uiScriptTabControl.SelectedTab.Controls[0].Show();
 
-            var command = CreateScriptCommandListViewItem(selectedCommand);
+            ListViewItem command;
 
-            //insert to end by default
-            var insertionIndex = _selectedTabScriptActions.Items.Count;
+            //valid command verification for drag/dropped commands
+            if (selectedCommand != null)
+                command = CreateScriptCommandListViewItem(selectedCommand);
+            else
+                return;
 
-            //verify setting to insert inline is selected and if an item is currently selected
-            if ((_appSettings.ClientSettings.InsertCommandsInline) && (_selectedTabScriptActions.SelectedItems.Count > 0))
+            int insertionIndex;
+
+            if (index == -1)
             {
-                //insert inline
-                insertionIndex = _selectedTabScriptActions.SelectedItems[0].Index + 1;
+                //insert to end by default
+                insertionIndex = _selectedTabScriptActions.Items.Count;
+
+                //verify setting to insert inline is selected and if an item is currently selected
+                if ((_appSettings.ClientSettings.InsertCommandsInline) && (_selectedTabScriptActions.SelectedItems.Count > 0))
+                {
+                    //insert inline
+                    insertionIndex = _selectedTabScriptActions.SelectedItems[0].Index + 1;
+                }
             }
+            else
+                insertionIndex = index;           
 
             //insert command
             _selectedTabScriptActions.Items.Insert(insertionIndex, command);
