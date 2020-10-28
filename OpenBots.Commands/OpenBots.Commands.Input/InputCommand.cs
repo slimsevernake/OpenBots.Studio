@@ -57,6 +57,18 @@ namespace OpenBots.Commands.Input
 		[Browsable(false)]
 		private CommandItemControl _addRowControl;
 
+		[JsonIgnore]
+		[Browsable(false)]
+		private int _indexOfItemUnderMouseToDrag = -1;
+
+		[JsonIgnore]
+		[Browsable(false)]
+		private int _indexOfItemUnderMouseToDrop = -1;
+
+		[JsonIgnore]
+		[Browsable(false)]
+		private Rectangle _dragBoxFromMouseDown = Rectangle.Empty;
+
 		public InputCommand()
 		{
 			CommandName = "InputCommand";
@@ -172,6 +184,12 @@ namespace OpenBots.Commands.Input
 			_userInputGridViewHelper.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
 			_userInputGridViewHelper.AllowUserToAddRows = false;
 			_userInputGridViewHelper.AllowUserToDeleteRows = true;
+			_userInputGridViewHelper.AllowDrop = true;
+			_userInputGridViewHelper.MouseDown += UserInputGridViewHelper_MouseDown;
+			_userInputGridViewHelper.MouseUp += UserInputGridViewHelper_MouseUp;
+			_userInputGridViewHelper.MouseMove += UserInputGridViewHelper_MouseMove;
+			_userInputGridViewHelper.DragOver += UserInputGridViewHelper_DragOver;
+			_userInputGridViewHelper.DragDrop += UserInputGridViewHelper_DragDrop;
 
 			_addRowControl = new CommandItemControl();
 			_addRowControl.Padding = new Padding(10, 0, 0, 0);
@@ -236,6 +254,77 @@ namespace OpenBots.Commands.Input
 			}
 			else
 				return null;
+		}
+
+		private void UserInputGridViewHelper_MouseDown(object sender, MouseEventArgs e)
+		{
+			var hitTest = _userInputGridViewHelper.HitTest(e.X, e.Y);
+			if (hitTest.Type != DataGridViewHitTestType.Cell)
+				return;
+
+			_indexOfItemUnderMouseToDrag = hitTest.RowIndex;
+			if (_indexOfItemUnderMouseToDrag > -1)
+			{
+				Size dragSize = SystemInformation.DragSize;
+				_dragBoxFromMouseDown = new Rectangle(new Point(e.X - (dragSize.Width / 2), e.Y - (dragSize.Height / 2)), dragSize);
+			}
+			else
+				_dragBoxFromMouseDown = Rectangle.Empty;
+		}
+
+		private void UserInputGridViewHelper_MouseUp(object sender, MouseEventArgs e)
+		{
+			_dragBoxFromMouseDown = Rectangle.Empty;
+		}
+
+		private void UserInputGridViewHelper_MouseMove(object sender, MouseEventArgs e)
+		{
+			if ((e.Button & MouseButtons.Left) != MouseButtons.Left)
+				return;
+			if (_dragBoxFromMouseDown == Rectangle.Empty || _dragBoxFromMouseDown.Contains(e.X, e.Y))
+				return;
+			if (_indexOfItemUnderMouseToDrag < 0)
+				return;
+
+			var row = _userInputGridViewHelper.Rows[_indexOfItemUnderMouseToDrag];
+			_userInputGridViewHelper.DoDragDrop(row, DragDropEffects.All);
+
+			//Clear	
+			_userInputGridViewHelper.ClearSelection();
+			//Set	
+			if (_indexOfItemUnderMouseToDrop > -1)
+				_userInputGridViewHelper.Rows[_indexOfItemUnderMouseToDrop].Selected = true;
+		}
+
+		private void UserInputGridViewHelper_DragOver(object sender, DragEventArgs e)
+		{
+			Point p = _userInputGridViewHelper.PointToClient(new Point(e.X, e.Y));
+			var hitTest = _userInputGridViewHelper.HitTest(p.X, p.Y);
+			if (hitTest.Type != DataGridViewHitTestType.Cell || hitTest.RowIndex == _indexOfItemUnderMouseToDrag)
+			{
+				e.Effect = DragDropEffects.None;
+				return;
+			}
+			e.Effect = DragDropEffects.Move;
+		}
+
+		private void UserInputGridViewHelper_DragDrop(object sender, DragEventArgs e)
+		{
+			Point p = _userInputGridViewHelper.PointToClient(new Point(e.X, e.Y));
+			var hitTest = _userInputGridViewHelper.HitTest(p.X, p.Y);
+			if (hitTest.Type != DataGridViewHitTestType.Cell || hitTest.RowIndex == _indexOfItemUnderMouseToDrag + 1)
+				return;
+
+			_indexOfItemUnderMouseToDrop = hitTest.RowIndex;
+
+			var tempRow = v_UserInputConfig.NewRow();
+			tempRow.ItemArray = v_UserInputConfig.Rows[_indexOfItemUnderMouseToDrag].ItemArray;
+			v_UserInputConfig.Rows.RemoveAt(_indexOfItemUnderMouseToDrag);
+
+			if (_indexOfItemUnderMouseToDrag < _indexOfItemUnderMouseToDrop)
+				_indexOfItemUnderMouseToDrop--;
+
+			v_UserInputConfig.Rows.InsertAt(tempRow, _indexOfItemUnderMouseToDrop);
 		}
 	}
 }
