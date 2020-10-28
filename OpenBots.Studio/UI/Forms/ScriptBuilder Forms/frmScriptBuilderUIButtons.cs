@@ -11,6 +11,7 @@ using OpenBots.UI.Supplement_Forms;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
@@ -147,7 +148,7 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
 
                     if (deserializedScript.Commands.Count == 0)
                     {
-                        Notify("Error Parsing File: Commands not found!");
+                        Notify("Error Parsing File: Commands not found!", Color.Red);
                     }
 
                     //update file path and reflect in title bar
@@ -168,12 +169,12 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
                     uiScriptTabControl.SelectedTab.Text = scriptFileInfo.Name.Replace(".json", "");
 
                     //notify
-                    Notify("Script Loaded Successfully!");
+                    Notify("Script Loaded Successfully!", Color.White);
                 }
                 catch (Exception ex)
                 {
                     //signal an error has happened
-                    Notify("An Error Occured: " + ex.Message);
+                    Notify("An Error Occured: " + ex.Message, Color.Red);
                 }
             }           
         }
@@ -210,7 +211,7 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
         {
             if (_selectedTabScriptActions.Items.Count == 0)
             {
-                Notify("You must have at least 1 automation command to save.");
+                Notify("You must have at least 1 automation command to save.", Color.Yellow);
                 return;
             }
 
@@ -224,7 +225,7 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
             {
                 if(item.Tag is BrokenCodeCommentCommand)
                 {
-                    Notify("Please verify that all broken code has been removed or replaced.");
+                    Notify("Please verify that all broken code has been removed or replaced.", Color.Yellow);
                     return;
                 }
                 else if ((item.Tag is LoopCollectionCommand) || (item.Tag is LoopContinuouslyCommand) ||
@@ -273,32 +274,32 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
                 //end loop was found first
                 if (beginLoopValidationCount < 0)
                 {
-                    Notify("Please verify the ordering of your loops.");
+                    Notify("Please verify the ordering of your loops.", Color.Yellow);
                     return;
                 }
 
                 //end if was found first
                 if (beginIfValidationCount < 0)
                 {
-                    Notify("Please verify the ordering of your ifs.");
+                    Notify("Please verify the ordering of your ifs.", Color.Yellow);
                     return;
                 }
 
                 if (tryCatchValidationCount < 0)
                 {
-                    Notify("Please verify the ordering of your try/catch blocks.");
+                    Notify("Please verify the ordering of your try/catch blocks.", Color.Yellow);
                     return;
                 }
 
                 if (retryValidationCount < 0)
                 {
-                    Notify("Please verify the ordering of your retry blocks.");
+                    Notify("Please verify the ordering of your retry blocks.", Color.Yellow);
                     return;
                 }
 
                 if (beginSwitchValidationCount < 0)
                 {
-                    Notify("Please verify the ordering of your switch/case blocks.");
+                    Notify("Please verify the ordering of your switch/case blocks.", Color.Yellow);
                     return;
                 }
             }
@@ -306,32 +307,32 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
             //extras were found
             if (beginLoopValidationCount != 0)
             {
-                Notify("Please verify the ordering of your loops.");
+                Notify("Please verify the ordering of your loops.", Color.Yellow);
                 return;
             }
 
             //extras were found
             if (beginIfValidationCount != 0)
             {
-                Notify("Please verify the ordering of your ifs.");
+                Notify("Please verify the ordering of your ifs.", Color.Yellow);
                 return;
             }
 
             if (tryCatchValidationCount != 0)
             {
-                Notify("Please verify the ordering of your try/catch blocks.");
+                Notify("Please verify the ordering of your try/catch blocks.", Color.Yellow);
                 return;
             }
 
             if (retryValidationCount != 0)
             {
-                Notify("Please verify the ordering of your retry blocks.");
+                Notify("Please verify the ordering of your retry blocks.", Color.Yellow);
                 return;
             }
 
             if (beginSwitchValidationCount != 0)
             {
-                Notify("Please verify the ordering of your switch/case blocks.");
+                Notify("Please verify the ordering of your switch/case blocks.", Color.Yellow);
                 return;
             }
 
@@ -350,7 +351,7 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
 
                 if (!saveFileDialog.FileName.ToString().Contains(ScriptProjectPath))
                 {
-                    Notify("An Error Occured: Attempted to save script outside of project directory");
+                    Notify("An Error Occured: Attempted to save script outside of project directory", Color.Red);
                     return;
                 }
 
@@ -366,7 +367,7 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
                 var exportedScript = Script.SerializeScript(_selectedTabScriptActions.Items, _scriptVariables, _scriptElements, ScriptFilePath);
                 uiScriptTabControl.SelectedTab.Text = uiScriptTabControl.SelectedTab.Text.Replace(" *", "");
                 //show success dialog
-                Notify("File has been saved successfully!");
+                Notify("File has been saved successfully!", Color.White);
 
                 try
                 {
@@ -374,12 +375,12 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
                 }
                 catch (Exception ex)
                 {
-                    Notify(ex.Message);
+                    Notify(ex.Message, Color.Red);
                 }              
             }
             catch (Exception ex)
             {
-                Notify("An Error Occured: " + ex.Message);
+                Notify("An Error Occured: " + ex.Message, Color.Red);
             }
         }
 
@@ -423,7 +424,7 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
             publishProject.ShowDialog();
 
             if (publishProject.DialogResult == DialogResult.OK)
-                Notify(publishProject.NotificationMessage);
+                Notify(publishProject.NotificationMessage, Color.White);
         }
 
         private void uiBtnPublishProject_Click(object sender, EventArgs e)
@@ -470,7 +471,7 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
 
                 if (deserializedScript.Commands.Count == 0)
                 {
-                    Notify("Error Parsing File: Commands not found!");
+                    Notify("Error Parsing File: Commands not found!", Color.Red);
                 }
 
                 //variables for comments
@@ -506,12 +507,12 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
 
                 //format listview
                 //notify
-                Notify("Script Imported Successfully!");
+                Notify("Script Imported Successfully!", Color.White);
             }
             catch (Exception ex)
             {
                 //signal an error has happened
-                Notify("An Error Occured: " + ex.Message);
+                Notify("An Error Occured: " + ex.Message, Color.Red);
             }
         }
 
@@ -708,19 +709,19 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
         {
             if (_selectedTabScriptActions.Items.Count == 0)
             {
-                Notify("You must first build the script by adding commands!");
+                Notify("You must first build the script by adding commands!", Color.Yellow);
                 return;
             }
 
             if (ScriptFilePath == null)
             {
-                Notify("You must first save your script before you can run it!");
+                Notify("You must first save your script before you can run it!", Color.Yellow);
                 return;
             }
 
             SaveAllFiles();
 
-            Notify("Running Script..");
+            Notify("Running Script..", Color.White);
 
             if (CurrentEngine != null)
                 ((Form)CurrentEngine).Close();

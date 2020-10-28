@@ -411,7 +411,7 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
                     _selectedTabScriptActions.Items.Remove(item);
                 }
 
-                Notify(_rowsSelectedForCopy.Count + " item(s) cut to clipboard!");
+                Notify(_rowsSelectedForCopy.Count + " item(s) cut to clipboard!", Color.White);
             }
         }
 
@@ -436,7 +436,7 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
                     _rowsSelectedForCopy.Add(item);
                 }
 
-                Notify(_rowsSelectedForCopy.Count + " item(s) copied to clipboard!");
+                Notify(_rowsSelectedForCopy.Count + " item(s) copied to clipboard!", Color.White);
             }
         }
 
@@ -465,7 +465,7 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
                 }
 
                 _selectedTabScriptActions.Invalidate();
-                Notify(_rowsSelectedForCopy.Count + " item(s) pasted!");
+                Notify(_rowsSelectedForCopy.Count + " item(s) pasted!", Color.White);
             }
         }
 
@@ -866,7 +866,7 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
 
             //warn if nothing was selected
             if (_selectedTabScriptActions.SelectedItems.Count == 0)
-                Notify("No code was selected!");
+                Notify("No code was selected!", Color.Yellow);
             else
                 CreateUndoSnapshot();
 
@@ -885,7 +885,7 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
         {
             //warn if nothing was selected
             if (_selectedTabScriptActions.SelectedItems.Count == 0)
-                Notify("No code was selected!");
+                Notify("No code was selected!", Color.Yellow);
             else
                 CreateUndoSnapshot();
 
@@ -1057,8 +1057,14 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
 
         private void pnlStatus_Paint(object sender, PaintEventArgs e)
         {
-            e.Graphics.DrawString(_notificationText, pnlStatus.Font, Brushes.White, 30, 4);
+            e.Graphics.DrawString(_notificationText, pnlStatus.Font, new SolidBrush(_notificationColor), 30, 4);
             e.Graphics.DrawImage(Resources.OpenBots_icon, 5, 3, 20, 20);
+            _notificationPaintedText = _notificationText;
+        }
+
+        private void pnlStatus_DoubleClick(object sender, EventArgs e)
+        {
+            MessageBox.Show(_notificationPaintedText);
         }
         #endregion
 

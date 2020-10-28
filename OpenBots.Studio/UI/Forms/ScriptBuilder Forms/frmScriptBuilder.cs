@@ -111,10 +111,12 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
                     CreateDebugTab();
             }
         }
-        private List<string> _notificationList = new List<string>();
+        private List<Tuple<string, Color>> _notificationList = new List<Tuple<string, Color>>();
         private DateTime _notificationExpires;
         private bool _isDisplaying;
         private string _notificationText;
+        private Color _notificationColor;
+        private string _notificationPaintedText;
         public IfrmScriptEngine CurrentEngine { get; set; }
         private bool _isScriptRunning;
         public bool IsScriptRunning
@@ -370,7 +372,7 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
                 return;
 
             AddProject();
-            Notify("Welcome! Press 'Add Command' to get started!");
+            Notify("Welcome! Press 'Add Command' to get started!", Color.White);
         }
 
         private void pnlControlContainer_Paint(object sender, PaintEventArgs e)
@@ -439,18 +441,19 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
                 var itemToDisplay = _notificationList[0];
                 _notificationList.RemoveAt(0);
                 _notificationExpires = DateTime.Now.AddSeconds(2);
-                ShowNotification(itemToDisplay);
+                ShowNotification(itemToDisplay.Item1, itemToDisplay.Item2);
             }
         }
 
-        public void Notify(string notificationText)
+        public void Notify(string notificationText, Color notificationColor)
         {
-            _notificationList.Add(notificationText);
+            _notificationList.Add(new Tuple<string,Color>(notificationText, notificationColor));
         }
 
-        private void ShowNotification(string textToDisplay)
+        private void ShowNotification(string textToDisplay, Color textColor)
         {
             _notificationText = textToDisplay;
+            _notificationColor = textColor;
             //lblStatus.Left = 20;
             //lblStatus.Text = textToDisplay;
 
@@ -494,7 +497,7 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
                 v_XMousePosition = (Cursor.Position.X + 1).ToString(),
                 v_YMousePosition = (Cursor.Position.Y + 1).ToString()
             };
-            Notify("Anti-Idle Triggered");
+            Notify("Anti-Idle Triggered", Color.White);
         }
 
         private void notifyTray_MouseDoubleClick(object sender, MouseEventArgs e)
@@ -689,7 +692,7 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
             LinkLabel senderLink = (LinkLabel)sender;
             OpenFile(Path.Combine(Folders.GetFolder(FolderType.ScriptsFolder), senderLink.Text));
         }
-        #endregion       
+        #endregion        
     }
 }
 

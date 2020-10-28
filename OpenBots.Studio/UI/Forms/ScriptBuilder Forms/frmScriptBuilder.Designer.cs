@@ -1008,6 +1008,7 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
             this.pnlStatus.Size = new System.Drawing.Size(1598, 39);
             this.pnlStatus.TabIndex = 3;
             this.pnlStatus.Paint += new System.Windows.Forms.PaintEventHandler(this.pnlStatus_Paint);
+            this.pnlStatus.DoubleClick += new System.EventHandler(this.pnlStatus_DoubleClick);
             // 
             // splitContainerStudioControls
             // 
@@ -1283,6 +1284,7 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
             // 
             // uiScriptTabControl
             // 
+            this.uiScriptTabControl.AllowDrop = true;
             this.uiScriptTabControl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.uiScriptTabControl.Font = new System.Drawing.Font("Segoe UI Semibold", 10F, System.Drawing.FontStyle.Bold);
             this.uiScriptTabControl.Location = new System.Drawing.Point(0, 0);
@@ -1786,6 +1788,7 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
             // 
             // tsSearchBox
             // 
+            this.tsSearchBox.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.tsSearchBox.Name = "tsSearchBox";
             this.tsSearchBox.Size = new System.Drawing.Size(124, 34);
             this.tsSearchBox.Visible = false;

@@ -45,7 +45,7 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
             }
             catch (Exception ex)
             {
-                Notify("An Error Occured: " + ex.Message);
+                Notify("An Error Occured: " + ex.Message, Color.Red);
             }
         }
 
