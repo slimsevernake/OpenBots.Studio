@@ -379,25 +379,30 @@ namespace OpenBots.Commands
 								  select rw.Field<string>("Parameter Value")).FirstOrDefault());
 
 				DateTime dt1, dt2;
-				try
-				{
-					dt1 = (DateTime)value1.ConvertUserVariableToObject(engine);
-				}
-				catch (Exception)
-				{
-					value1 = value1.ConvertUserVariableToString(engine);
-					dt1 = DateTime.Parse(value1);
-				}
 
-				try
-				{
-					dt2 = (DateTime)value2.ConvertUserVariableToObject(engine);
-				}
-				catch (Exception)
-				{
-					value2 = value2.ConvertUserVariableToString(engine);
-					dt2 = DateTime.Parse(value2);
-				}
+				dynamic input1 = value1.ConvertUserVariableToString(engine);
+
+				if (input1 == value1 && input1.StartsWith("{") && input1.EndsWith("}"))
+					input1 = value1.ConvertUserVariableToObject(engine);
+
+				if (input1 is DateTime)
+					dt1 = (DateTime)input1;
+				else if (input1 is string)
+					dt1 = DateTime.Parse((string)input1);
+				else
+					throw new InvalidDataException("Value1 is not a valid DateTime");
+
+				dynamic input2 = value2.ConvertUserVariableToString(engine);
+
+				if (input2 == value2 && input2.StartsWith("{") && input2.EndsWith("}"))
+					input2 = value2.ConvertUserVariableToObject(engine);
+
+				if (input2 is DateTime)
+					dt2 = (DateTime)input2;
+				else if (input2 is string)
+					dt2 = DateTime.Parse((string)input2);
+				else
+					throw new InvalidDataException("Value2 is not a valid DateTime");
 
 				switch (operand)
 				{

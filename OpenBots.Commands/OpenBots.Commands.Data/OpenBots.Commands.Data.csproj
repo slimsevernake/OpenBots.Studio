@@ -85,7 +85,7 @@
   <ItemGroup>
     <Compile Include="CreateDateTimeCommand.cs" />
     <Compile Include="DateCalculationCommand.cs" />
-    <Compile Include="FormatDataCommand.cs" />
+    <Compile Include="FormatDateCommand.cs" />
     <Compile Include="GetPDFTextCommand.cs" />
     <Compile Include="GetTextLengthCommand.cs" />
     <Compile Include="GetWordCountCommand.cs" />
