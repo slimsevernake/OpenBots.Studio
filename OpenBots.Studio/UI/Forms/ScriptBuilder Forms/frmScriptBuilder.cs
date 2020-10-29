@@ -131,7 +131,14 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
                 if (_isScriptRunning)
                     uiScriptTabControl.AllowDrop = false;
                 else
-                    uiScriptTabControl.AllowDrop = true;
+                    try
+                    {
+                        uiScriptTabControl.AllowDrop = true;
+                    }
+                    catch (Exception)
+                    {
+                        //DragDrop registration did not succeed
+                    }
             }
         }
         public bool IsScriptPaused { get; set; }
@@ -420,6 +427,9 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
         #region Bottom Notification Panel
         private void tmrNotify_Tick(object sender, EventArgs e)
         {
+            if (CurrentEngine == null)
+                IsScriptRunning = false;
+
             if (_appSettings ==  null)
             {
                 return;

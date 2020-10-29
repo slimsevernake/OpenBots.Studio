@@ -97,6 +97,9 @@ namespace OpenBots.Core.Utilities.CommonUtilities
 
             stringBuilder.Append("[[");
 
+            if (dt.Columns.Count == 0)
+                return stringBuilder.Append("]]").ToString();
+
             for (int i = 0; i < dt.Columns.Count - 1; i++)
                 stringBuilder.AppendFormat("{0}, ", dt.Columns[i].ColumnName);
 
