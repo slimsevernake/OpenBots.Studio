@@ -631,9 +631,19 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
                             childNodefound = true;
                         }
                     }
-                    if (!childNodefound)
+                    if (!childNodefound && !(parentNodeCopy.Text.ToLower().Contains(txtCommandSearch.Text.ToLower())))
                     {
                         tvCommands.Nodes.Remove(searchedParentNode);
+                    }
+                    else if (parentNodeCopy.Text.ToLower().Contains(txtCommandSearch.Text.ToLower()))
+                    {
+                        searchedParentNode.Nodes.Clear();
+                        foreach (TreeNode childNodeCopy in parentNodeCopy.Nodes)
+                        {
+                            var searchedChildNode = new TreeNode(childNodeCopy.Text);
+                            searchedChildNode.ToolTipText = childNodeCopy.ToolTipText;
+                            searchedParentNode.Nodes.Add(searchedChildNode);
+                        }
                     }
                     childNodefound = false;
                 }
