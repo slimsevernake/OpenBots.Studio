@@ -236,7 +236,7 @@ namespace OpenBots.Core.Script
             string scriptText = File.ReadAllText(filePath);
 
             if (version == "0.0.0.0")
-                scriptText = scriptText.Insert(scriptText.LastIndexOf('\r'), ",\r\n  \"Version\": \"1.0.7.0\"");
+                scriptText = scriptText.Insert(scriptText.LastIndexOf('\r'), ",\r\n  \"Version\": \"1.1.0.0\"");
 
             var conversionFilePath = Path.Combine(Directory.GetParent(Assembly.GetExecutingAssembly().Location).FullName, 
                                                   "Supplementary Files", "Conversion Files", version + ".json");
