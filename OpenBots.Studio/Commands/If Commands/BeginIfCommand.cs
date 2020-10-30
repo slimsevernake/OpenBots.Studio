@@ -188,20 +188,20 @@ namespace OpenBots.Commands
 									  where rw.Field<string>("Parameter Name") == "Value2"
 									  select rw.Field<string>("Parameter Value")).FirstOrDefault());
 
-					return "If (" + value1 + " " + operand + " " + value2 + ")";
+					return $"If ('{value1}' {operand} '{value2}')";
 
 				case "Variable Has Value":
 					string variableName = ((from rw in v_IfActionParameterTable.AsEnumerable()
 									  where rw.Field<string>("Parameter Name") == "Variable Name"
 									  select rw.Field<string>("Parameter Value")).FirstOrDefault());
 
-					return "If (Variable " + variableName + " Has Value)";
+					return $"If (Variable '{variableName}' Has Value)";
 				case "Variable Is Numeric":
 					string varName = ((from rw in v_IfActionParameterTable.AsEnumerable()
 											where rw.Field<string>("Parameter Name") == "Variable Name"
 											select rw.Field<string>("Parameter Value")).FirstOrDefault());
 
-					return "If (Variable " + varName + " Is Numeric)";
+					return $"If (Variable '{varName}' Is Numeric)";
 
 				case "Error Occured":
 
@@ -209,14 +209,14 @@ namespace OpenBots.Commands
 										  where rw.Field<string>("Parameter Name") == "Line Number"
 										  select rw.Field<string>("Parameter Value")).FirstOrDefault());
 
-					return "If (Error Occured on Line Number " + lineNumber + ")";
+					return $"If (Error Occured on Line Number '{lineNumber}')";
 				case "Error Did Not Occur":
 
 					string lineNum = ((from rw in v_IfActionParameterTable.AsEnumerable()
 										  where rw.Field<string>("Parameter Name") == "Line Number"
 										  select rw.Field<string>("Parameter Value")).FirstOrDefault());
 
-					return "If (Error Did Not Occur on Line Number " + lineNum + ")";
+					return $"If (Error Did Not Occur on Line Number '{lineNum}')";
 				case "Window Name Exists":
 				case "Active Window Name Is":
 
@@ -224,7 +224,7 @@ namespace OpenBots.Commands
 										  where rw.Field<string>("Parameter Name") == "Window Name"
 										  select rw.Field<string>("Parameter Value")).FirstOrDefault());
 
-					return "If " + v_IfActionType + " [Name: " + windowName + "]";
+					return $"If {v_IfActionType} [Window Name '{windowName}']";
 				case "File Exists":
 
 					string filePath = ((from rw in v_IfActionParameterTable.AsEnumerable()
@@ -236,9 +236,9 @@ namespace OpenBots.Commands
 											   select rw.Field<string>("Parameter Value")).FirstOrDefault());
 
 					if (fileCompareType == "It Does Not Exist")
-						return "If File Does Not Exist [File: " + filePath + "]";
+						return $"If File Does Not Exist [File '{filePath}']";
 					else
-						return "If File Exists [File: " + filePath + "]";
+						return $"If File Exists [File '{filePath}']";
 
 				case "Folder Exists":
 
@@ -251,9 +251,9 @@ namespace OpenBots.Commands
 											   select rw.Field<string>("Parameter Value")).FirstOrDefault());
 
 					if (folderCompareType == "It Does Not Exist")
-						return "If Folder Does Not [Folder: " + folderPath + "]";
+						return $"If Folder Does Not [Folder '{folderPath}']";
 					else
-						return "If Folder Exists [Folder: " + folderPath + "]";
+						return $"If Folder Exists [Folder '{folderPath}']";
 
 				case "Web Element Exists":
 
@@ -271,9 +271,9 @@ namespace OpenBots.Commands
 												 select rw.Field<string>("Parameter Value")).FirstOrDefault());
 
 					if (webElementCompareType == "It Does Not Exist")
-						return "If Web Element Does Not Exist [" + searchMethod + ": " + parameterName + "]";
+						return $"If Web Element Does Not Exist [{searchMethod} '{parameterName}']";
 					else
-						return "If Web Element Exists [" + searchMethod + ": " + parameterName + "]";
+						return $"If Web Element Exists [{searchMethod} '{parameterName}']";
 
 				case "GUI Element Exists":
 
@@ -291,9 +291,9 @@ namespace OpenBots.Commands
 													 select rw.Field<string>("Parameter Value")).FirstOrDefault());
 
 					if (guiElementCompareType == "It Does Not Exist")
-						return "If GUI Element Does Not Exist [Find " + guiSearch + " Element In " + guiWindowName + "]";
+						return $"If GUI Element Does Not Exist [Find '{guiSearch}' Element In '{guiWindowName}']";
 					else
-						return "If GUI Element Exists [Find " + guiSearch + " Element In " + guiWindowName + "]";
+						return $"If GUI Element Exists [Find '{guiSearch}' Element In '{guiWindowName}']";
 
 				case "Image Element Exists":
 					string imageCompareType = (from rw in v_IfActionParameterTable.AsEnumerable()
@@ -301,9 +301,9 @@ namespace OpenBots.Commands
 											   select rw.Field<string>("Parameter Value")).FirstOrDefault();
 
 					if (imageCompareType == "It Does Not Exist")
-						return "If Image Does Not Exist on Screen";
+						return $"If Image Does Not Exist on Screen";
 					else
-						return "If Image Exists on Screen";
+						return $"If Image Exists on Screen";
 				case "App Instance Exists":
 					string instanceName = ((from rw in v_IfActionParameterTable.AsEnumerable()
 											 where rw.Field<string>("Parameter Name") == "Instance Name"
@@ -314,9 +314,9 @@ namespace OpenBots.Commands
 											   select rw.Field<string>("Parameter Value")).FirstOrDefault();
 
 					if (instanceCompareType == "It Does Not Exist")
-						return "If App Instance Does Not Exist [Find " + instanceName + "]";
+						return $"If App Instance Does Not Exist [Instance Name '{instanceName}']";
 					else
-						return "If App Instance Exists [Find " + instanceName + "]";
+						return $"If App Instance Exists [Instance Name '{instanceName}']";
 				default:
 					return "If ...";
 			}
@@ -770,7 +770,7 @@ namespace OpenBots.Commands
 			}
 			else if (v_IfActionType == "App Instance Exists")
 			{
-				string InstanceName = (from rw in v_IfActionParameterTable.AsEnumerable()
+				string instanceName = (from rw in v_IfActionParameterTable.AsEnumerable()
 									where rw.Field<string>("Parameter Name") == "Instance Name"
 									select rw.Field<string>("Parameter Value")).FirstOrDefault();
 				
@@ -779,12 +779,7 @@ namespace OpenBots.Commands
 											  where rw.Field<string>("Parameter Name") == "True When"
 											  select rw.Field<string>("Parameter Value")).FirstOrDefault();
 
-				bool instanceExists = InstanceName.InstanceExists(engine);
-
-				if (instanceExists)
-					ifResult = true;
-				else
-					ifResult = false;
+				ifResult = instanceName.InstanceExists(engine);
 
 				if (trueWhenImageExists == "It Does Not Exist")
 					ifResult = !ifResult;
@@ -1083,6 +1078,18 @@ namespace OpenBots.Commands
 			}
 		}
 
+		private void IfGridViewHelper_MouseEnter(object sender, EventArgs e)
+		{
+			try
+			{
+				ifAction_SelectionChangeCommitted(null, null);
+			}
+			catch (Exception)
+			{
+				ifAction_SelectionChangeCommitted(sender, e);
+			}           
+		}
+
 		private void ShowIfElementRecorder(object sender, EventArgs e)
 		{
 			//get command reference
@@ -1111,18 +1118,6 @@ namespace OpenBots.Commands
 			ifActionBox.Rows[0].Cells[1].Value = newElementRecorder.cboWindowTitle.Text;
 
 			MessageBox.Show(sb.ToString());
-		}
-
-		private void IfGridViewHelper_MouseEnter(object sender, EventArgs e)
-		{
-			try
-			{
-				ifAction_SelectionChangeCommitted(null, null);
-			}
-			catch (Exception)
-			{
-				ifAction_SelectionChangeCommitted(sender, e);
-			}           
 		}
 	}
 }
