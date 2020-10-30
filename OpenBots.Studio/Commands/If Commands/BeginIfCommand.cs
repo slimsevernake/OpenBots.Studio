@@ -43,6 +43,7 @@ namespace OpenBots.Commands
 		[PropertyUISelectionOption("Web Element Exists")]
 		[PropertyUISelectionOption("GUI Element Exists")]
 		[PropertyUISelectionOption("Image Element Exists")]
+		[PropertyUISelectionOption("App Instance Exists")]
 		[PropertyUISelectionOption("Error Occured")]
 		[PropertyUISelectionOption("Error Did Not Occur")]
 		[Description("Select the necessary condition type.")]
@@ -303,6 +304,19 @@ namespace OpenBots.Commands
 						return "If Image Does Not Exist on Screen";
 					else
 						return "If Image Exists on Screen";
+				case "App Instance Exists":
+					string instanceName = ((from rw in v_IfActionParameterTable.AsEnumerable()
+											 where rw.Field<string>("Parameter Name") == "Instance Name"
+											 select rw.Field<string>("Parameter Value")).FirstOrDefault());
+
+					string instanceCompareType = (from rw in v_IfActionParameterTable.AsEnumerable()
+											   where rw.Field<string>("Parameter Name") == "True When"
+											   select rw.Field<string>("Parameter Value")).FirstOrDefault();
+
+					if (instanceCompareType == "It Does Not Exist")
+						return "If App Instance Does Not Exist [Find " + instanceName + "]";
+					else
+						return "If App Instance Exists [Find " + instanceName + "]";
 				default:
 					return "If ...";
 			}
@@ -754,6 +768,27 @@ namespace OpenBots.Commands
 				if (trueWhenImageExists == "It Does Not Exist")
 					ifResult = !ifResult;
 			}
+			else if (v_IfActionType == "App Instance Exists")
+			{
+				string InstanceName = (from rw in v_IfActionParameterTable.AsEnumerable()
+									where rw.Field<string>("Parameter Name") == "Instance Name"
+									select rw.Field<string>("Parameter Value")).FirstOrDefault();
+				
+
+				string trueWhenImageExists = (from rw in v_IfActionParameterTable.AsEnumerable()
+											  where rw.Field<string>("Parameter Name") == "True When"
+											  select rw.Field<string>("Parameter Value")).FirstOrDefault();
+
+				bool instanceExists = InstanceName.InstanceExists(engine);
+
+				if (instanceExists)
+					ifResult = true;
+				else
+					ifResult = false;
+
+				if (trueWhenImageExists == "It Does Not Exist")
+					ifResult = !ifResult;
+			}
 			else
 			{
 				throw new Exception("If type not recognized!");
@@ -1025,6 +1060,23 @@ namespace OpenBots.Commands
 
 					//assign cell as a combobox
 					ifActionParameterBox.Rows[2].Cells[1] = comparisonComboBox;
+					break;
+				case "App Instance Exists":
+					ifActionParameterBox.Visible = true;
+
+					if (sender != null)
+					{
+						actionParameters.Rows.Add("Instance Name", "");
+						actionParameters.Rows.Add("True When", "It Does Exist");
+						ifActionParameterBox.DataSource = actionParameters;
+					}
+
+					comparisonComboBox = new DataGridViewComboBoxCell();
+					comparisonComboBox.Items.Add("It Does Exist");
+					comparisonComboBox.Items.Add("It Does Not Exist");
+
+					//assign cell as a combobox
+					ifActionParameterBox.Rows[1].Cells[1] = comparisonComboBox;
 					break;
 				default:
 					break;

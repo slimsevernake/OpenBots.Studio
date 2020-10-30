@@ -1,4 +1,5 @@
 ﻿using OpenBots.Core.Infrastructure;
+using Microsoft.Office.Interop.Excel;
 using System;
 
 namespace OpenBots.Core.Utilities.CommonUtilities
@@ -54,6 +55,30 @@ namespace OpenBots.Core.Utilities.CommonUtilities
             catch (Exception ex)
             {
                 throw ex;
+            }
+        }
+
+        public static bool InstanceExists(this string instanceName, IEngine engine)
+        {
+            try
+            {
+                if (engine.AppInstances.TryGetValue(instanceName, out object appObject))
+                {
+                    string appstring = appObject.ToString();
+                    Type appType = appObject.GetType();
+                    var prop = appType.GetProperties();
+
+                    if (appType.ToString() == "Microsoft.Office.Interop.Excel.ApplicationClass")
+                    {
+                        
+                    }
+                        return true;
+                }
+                return false;                    
+            }
+            catch (Exception)
+            {
+                return false;
             }
         }
     }
