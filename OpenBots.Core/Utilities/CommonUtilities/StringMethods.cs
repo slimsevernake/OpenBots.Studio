@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 
 namespace OpenBots.Core.Utilities.CommonUtilities
@@ -55,40 +56,49 @@ namespace OpenBots.Core.Utilities.CommonUtilities
             if (obj != null)
                 type = obj.GetType().FullName;
 
-            switch (type)
+            try
             {
-                case "System.String":
-                    return obj.ToString();
-                case "System.DateTime":
-                    return obj.ToString();
-                case "System.Security.SecureString":
-                    return "*Secure String*";
-                case "System.Data.DataTable":
-                    return ConvertDataTableToString((DataTable)obj);
-                case "System.Data.DataRow":
-                    return ConvertDataRowToString((DataRow)obj);
-                case "System.__ComObject":
-                    return ConvertMailItemToString((MailItem)obj);
-                case "MimeKit.MimeMessage":
-                    return ConvertMimeMessageToString((MimeMessage)obj);
-                case "OpenQA.Selenium.Remote.RemoteWebElement":
-                    return ConvertIWebElementToString((IWebElement)obj);
-                case "System.Drawing.Bitmap":
-                    return ConvertBitmapToString((Bitmap)obj);
-                case string a when a.Contains("System.Collections.Generic.List`1[[System.String"):
-                case string b when b.Contains("System.Collections.Generic.List`1[[System.Data.DataTable"):
-                case string c when c.Contains("System.Collections.Generic.List`1[[Microsoft.Office.Interop.Outlook.MailItem"):
-                case string d when d.Contains("System.Collections.Generic.List`1[[MimeKit.MimeMessage"):
-                case string e when e.Contains("System.Collections.Generic.List`1[[OpenQA.Selenium.IWebElement"):
-                    return ConvertListToString(obj);
-                case string a when a.Contains("System.Collections.Generic.Dictionary`2[[System.String") && a.Contains("],[System.String"):
-                case string b when b.Contains("System.Collections.Generic.Dictionary`2[[System.String") && b.Contains("],[System.Object"):
-                    return ConvertDictionaryToString(obj);
-                case "":
-                    return "null";
-                default:
-                    return "*Type Not Yet Supported*";
+                switch (type)
+                {
+                    case "System.String":
+                        return obj.ToString();
+                    case "System.DateTime":
+                        return obj.ToString();
+                    case "System.Security.SecureString":
+                        return "*Secure String*";
+                    case "System.Data.DataTable":
+                        return ConvertDataTableToString((DataTable)obj);
+                    case "System.Data.DataRow":
+                        return ConvertDataRowToString((DataRow)obj);
+                    case "System.__ComObject":
+                        return ConvertMailItemToString((MailItem)obj);
+                    case "MimeKit.MimeMessage":
+                        return ConvertMimeMessageToString((MimeMessage)obj);
+                    case "OpenQA.Selenium.Remote.RemoteWebElement":
+                        return ConvertIWebElementToString((IWebElement)obj);
+                    case "System.Drawing.Bitmap":
+                        return ConvertBitmapToString((Bitmap)obj);
+                    case string a when a.Contains("System.Collections.Generic.List`1[[System.String"):
+                    case string b when b.Contains("System.Collections.Generic.List`1[[System.Data.DataTable"):
+                    case string c when c.Contains("System.Collections.Generic.List`1[[Microsoft.Office.Interop.Outlook.MailItem"):
+                    case string d when d.Contains("System.Collections.Generic.List`1[[MimeKit.MimeMessage"):
+                    case string e when e.Contains("System.Collections.Generic.List`1[[OpenQA.Selenium.IWebElement"):
+                        return ConvertListToString(obj);
+                    case string a when a.Contains("System.Collections.Generic.Dictionary`2[[System.String") && a.Contains("],[System.String"):
+                    case string b when b.Contains("System.Collections.Generic.Dictionary`2[[System.String") && b.Contains("],[System.Object"):
+                        return ConvertDictionaryToString(obj);
+                    case "":
+                        return "null";
+                    default:
+                        return "*Type Not Yet Supported*";
+                }
+                
             }
+            catch (System.Exception ex)
+            {
+                return $"Error converting {type} to string - {ex.Message}";
+            }
+            
         }
 
         public static string ConvertDataTableToString(DataTable dt)
