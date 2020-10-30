@@ -10,6 +10,7 @@ using OpenBots.Core.Settings;
 using OpenBots.Core.Utilities.CommonUtilities;
 using OpenBots.Engine.Enums;
 using RestSharp;
+using Serilog;
 using Serilog.Core;
 using Serilog.Events;
 using System;
@@ -620,6 +621,7 @@ namespace OpenBots.Engine
                     summaryLogger.Dispose();
             }
 
+            Log.CloseAndFlush();
             ScriptFinishedEvent?.Invoke(this, args);
         }
 
