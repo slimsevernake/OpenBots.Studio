@@ -89,8 +89,15 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
 
             if (e.Data.GetDataPresent("System.Windows.Forms.TreeNode", false))
             {
-                var commandName = ((TreeNode)e.Data.GetData("System.Windows.Forms.TreeNode")).Text;
-                ScriptCommand newCommand = _automationCommands.Where(x => x.ShortName == commandName).Select(x => x.Command).FirstOrDefault();
+                TreeNode commandNode = ((TreeNode)e.Data.GetData("System.Windows.Forms.TreeNode"));
+
+                if (commandNode.Nodes.Count != 0)
+                    return;
+
+                var commandName = commandNode.Text;
+                var commandGroupName = commandNode.Parent.Text;
+                ScriptCommand newCommand = _automationCommands.Where(x => x.ShortName == commandName && x.DisplayGroup == commandGroupName)
+                                                              .Select(x => x.Command).FirstOrDefault();
                 if (dragToItem != null)
                     AddCommandToListView(newCommand, dragToItem.Index);
                 else
