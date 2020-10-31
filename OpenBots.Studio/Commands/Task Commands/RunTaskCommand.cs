@@ -9,6 +9,7 @@ using OpenBots.Engine;
 using OpenBots.UI.Forms;
 using OpenBots.UI.Forms.ScriptBuilder_Forms;
 using Serilog;
+using Serilog.Core;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -284,10 +285,11 @@ namespace OpenBots.Commands
 			//create variable list
 			InitializeVariableLists(currentScriptEngine);
 
-			var newEngine = new AutomationEngineInstance((Serilog.Core.Logger)Log.Logger);
+			var newEngine = new AutomationEngineInstance((Logger)Log.Logger);
 			newEngine.VariableList = _variableList;
 			newEngine.AppInstances = currentScriptEngine.AppInstances;
 			newEngine.IsServerChildExecution = true;
+
 			Log.Information("Executing Child Task: " + Path.GetFileName(childTaskPath));
 			newEngine.ExecuteScriptSync(childTaskPath, currentScriptEngine.GetProjectPath());
 
