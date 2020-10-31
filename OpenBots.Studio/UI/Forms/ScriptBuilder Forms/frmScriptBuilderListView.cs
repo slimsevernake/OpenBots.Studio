@@ -98,6 +98,8 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
                 var commandGroupName = commandNode.Parent.Text;
                 ScriptCommand newCommand = _automationCommands.Where(x => x.ShortName == commandName && x.DisplayGroup == commandGroupName)
                                                               .Select(x => x.Command).FirstOrDefault();
+
+                CreateUndoSnapshot();
                 if (dragToItem != null)
                     AddCommandToListView(newCommand, dragToItem.Index);
                 else

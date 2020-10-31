@@ -748,5 +748,11 @@ namespace OpenBots.UI.Forms
         }
 
         #endregion UI Elements       
+
+        private void frmScriptEngine_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (CallBackForm != null && !IsChildEngine)
+                CallBackForm.IsScriptRunning = false;
+        }
     }
 }

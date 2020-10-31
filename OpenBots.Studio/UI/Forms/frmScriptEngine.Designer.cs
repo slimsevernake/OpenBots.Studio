@@ -235,6 +235,7 @@
             this.Name = "frmScriptEngine";
             this.Text = "OpenBots Engine";
             this.TopMost = true;
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmScriptEngine_FormClosing);
             this.Load += new System.EventHandler(this.frmProcessingStatus_Load);
             ((System.ComponentModel.ISupportInitialize)(this.uiBtnStepInto)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.uiBtnStepOver)).EndInit();

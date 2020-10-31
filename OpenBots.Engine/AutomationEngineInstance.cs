@@ -318,7 +318,13 @@ namespace OpenBots.Engine
                     _isScriptSteppedInto = false;
                     break;
                 }
-               
+
+                if (((Form)ScriptEngineUI).IsDisposed)
+                {
+                    IsCancellationPending = true;
+                    break;
+                }
+                                  
                 //wait
                 Thread.Sleep(1000);
             }
