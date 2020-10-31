@@ -63,7 +63,7 @@
             this.lvShortcutMenu.HideSelection = false;
             this.lvShortcutMenu.Location = new System.Drawing.Point(12, 61);
             this.lvShortcutMenu.Name = "lvShortcutMenu";
-            this.lvShortcutMenu.Size = new System.Drawing.Size(605, 545);
+            this.lvShortcutMenu.Size = new System.Drawing.Size(605, 603);
             this.lvShortcutMenu.TabIndex = 3;
             this.lvShortcutMenu.UseCompatibleStateImageBehavior = false;
             this.lvShortcutMenu.View = System.Windows.Forms.View.Details;
@@ -82,7 +82,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(629, 618);
+            this.ClientSize = new System.Drawing.Size(629, 676);
             this.Controls.Add(this.lvShortcutMenu);
             this.Controls.Add(this.lblShortcutMenu);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;

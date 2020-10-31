@@ -257,6 +257,9 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
                         case Keys.O:
                             aboutOpenBotsToolStripMenuItem_Click(null, null);
                             break;
+                        case Keys.Back:
+                            clearAllToolStripMenuItem_Click(null, null);
+                            break;
                     }
                 }                
             }

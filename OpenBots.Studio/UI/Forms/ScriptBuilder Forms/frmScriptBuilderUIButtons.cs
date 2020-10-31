@@ -661,6 +661,11 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
             }
         }
 
+        private void clearAllToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            uiBtnClearAll_Click(sender, e);
+        }
+
         private void uiBtnClearAll_Click(object sender, EventArgs e)
         {
             CreateUndoSnapshot();
