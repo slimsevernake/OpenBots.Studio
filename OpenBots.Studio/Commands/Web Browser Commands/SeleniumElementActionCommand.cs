@@ -104,6 +104,14 @@ namespace OpenBots.Commands
 		[Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
 		public DataTable v_WebActionParameterTable { get; set; }
 
+		[Required]
+		[DisplayName("Timeout (Seconds)")]
+		[Description("Specify how many seconds to wait before throwing an exception.")]
+		[SampleUsage("30 || {vSeconds}")]
+		[Remarks("")]
+		[Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
+		public string v_Timeout { get; set; }
+
 		[JsonIgnore]
 		[Browsable(false)]
 		private DataGridView _actionParametersGridViewHelper;
@@ -128,6 +136,7 @@ namespace OpenBots.Commands
 			CommandEnabled = true;
 			
 			v_SeleniumSearchOption = "Find Element";
+			v_Timeout = "30";
 
 			v_WebActionParameterTable = new DataTable
 			{
@@ -187,6 +196,7 @@ namespace OpenBots.Commands
 		{
 			var engine = (AutomationEngineInstance)sender;
 
+			var vTimeout = int.Parse(v_Timeout.ConvertUserVariableToString(engine));
 			var seleniumSearchParamRows = (from rw in v_SeleniumSearchParameters.AsEnumerable()
 									   where rw.Field<string>("Enabled") == "True" &&
 									   rw.Field<string>("Parameter Value").ToString() != ""
@@ -194,47 +204,12 @@ namespace OpenBots.Commands
 
 			var browserObject = v_InstanceName.GetAppInstance(engine);
 			var seleniumInstance = (IWebDriver)browserObject;
-			dynamic element = null;
-			Exception elementSearchException = new Exception("Element not found");
-
-			if (v_SeleniumElementAction == "Wait For Element To Exist")
-			{
-				var timeoutText = (from rw in v_WebActionParameterTable.AsEnumerable()
-								   where rw.Field<string>("Parameter Name") == "Timeout (Seconds)"
-								   select rw.Field<string>("Parameter Value")).FirstOrDefault();
-
-				timeoutText = timeoutText.ConvertUserVariableToString(engine);
-				int timeOut = Convert.ToInt32(timeoutText);
-				var timeToEnd = DateTime.Now.AddSeconds(timeOut);
-
-				while (timeToEnd >= DateTime.Now)
-				{
-					try
-					{
-						element = FindElement(engine, seleniumInstance, seleniumSearchParamRows);
-
-						if (element == null)
-							throw elementSearchException;
-						else
-							break;
-					}
-					catch (Exception)
-					{
-						engine.ReportProgress("Element Not Yet Found... " + (timeToEnd - DateTime.Now).Seconds + "s remain");
-						Thread.Sleep(1000);
-					}
-				}              
-			}
-			else if (seleniumSearchParamRows.Count > 0)
-				element = FindElement(engine, seleniumInstance, seleniumSearchParamRows);                                     
-
-			if (element == null)
-				throw elementSearchException;
+			dynamic element = FindElement(engine, seleniumInstance, seleniumSearchParamRows, vTimeout);                                     
 
 			if (v_SeleniumElementAction.Contains("Click"))
 			{
 				int seleniumWindowHeightY = seleniumInstance.Manage().Window.Size.Height;
-				int elementPositionY = element.Location.Y;
+				int elementPositionY = ((IWebElement)element).Location.Y;
 				if (elementPositionY > seleniumWindowHeightY)
 				{
 					string scroll = string.Format("window.scroll(0, {0})", elementPositionY);
@@ -247,8 +222,8 @@ namespace OpenBots.Commands
 			switch (v_SeleniumElementAction)
 			{
 				
-				case "Invoke Click":                   
-					element.Click();                   
+				case "Invoke Click":
+					((IWebElement)element).Click();                   
 					break;
 
 				case "Left Click":
@@ -266,7 +241,7 @@ namespace OpenBots.Commands
 													   where rw.Field<string>("Parameter Name") == "Y Adjustment"
 													   select rw.Field<string>("Parameter Value")).FirstOrDefault().ConvertUserVariableToString(engine));
 
-					var elementLocation = element.Location;
+					var elementLocation = ((IWebElement)element).Location;
 					var seleniumWindowPosition = seleniumInstance.Manage().Window.Position;
 					User32Functions.SendMouseMove(
 						(seleniumWindowPosition.X + elementLocation.X +  userXAdjust).ToString(),
@@ -296,7 +271,7 @@ namespace OpenBots.Commands
 						clearElement = "No";
 
 					if (clearElement.ToLower() == "yes")
-						element.Clear();
+						((IWebElement)element).Clear();
 
 					if (encryptedData == "Encrypted")
 						textToSet = EncryptionServices.DecryptString(textToSet, "OPENBOTS");
@@ -324,7 +299,7 @@ namespace OpenBots.Commands
 							finalTextToSet += convertedChunk;
 						}
 					}
-					element.SendKeys(finalTextToSet);
+					((IWebElement)element).SendKeys(finalTextToSet);
 					break;
 
 				case "Set Secure Text":
@@ -347,7 +322,7 @@ namespace OpenBots.Commands
 						_clearElement = "No";
 
 					if (_clearElement.ToLower() == "yes")
-						element.Clear();
+						((IWebElement)element).Clear();
 
 					string[] _potentialKeyPresses = secureString.Split('[', ']');
 
@@ -372,7 +347,7 @@ namespace OpenBots.Commands
 							_finalTextToSet += convertedChunk;
 						}
 					}
-					element.SendKeys(_finalTextToSet);
+					((IWebElement)element).SendKeys(_finalTextToSet);
 					break;
 
 				case "Get Options":
@@ -463,7 +438,7 @@ namespace OpenBots.Commands
 							elementValue = ((ReadOnlyCollection<IWebElement>)element).Count().ToString();
 					}
 					else
-						elementValue = element.GetAttribute(attributeName);
+						elementValue = ((IWebElement)element).GetAttribute(attributeName);
 
 					elementValue.StoreInUserVariable(engine, VariableName);
 					break;
@@ -493,7 +468,7 @@ namespace OpenBots.Commands
 										  select rw.Field<string>("Parameter Value")).FirstOrDefault();
 
 					// Get HTML (Source) of the Element
-					string tableHTML = element.GetAttribute("innerHTML").ToString();
+					string tableHTML = ((IWebElement)element).GetAttribute("innerHTML").ToString();
 					HtmlDocument doc = new HtmlDocument();
 
 					//Load Source (String) as HTML Document
@@ -524,14 +499,14 @@ namespace OpenBots.Commands
 					break;
 
 				case "Clear Element":
-					element.Clear();
+					((IWebElement)element).Clear();
 					break;
 
 				case "Switch to Frame":
 					if (seleniumSearchParamRows.Count == 0)
 						seleniumInstance.SwitchTo().DefaultContent();
 					else
-						seleniumInstance.SwitchTo().Frame(element);
+						seleniumInstance.SwitchTo().Frame((IWebElement)element);
 					break;
 				case "Wait For Element To Exist":
 					return;
@@ -586,6 +561,8 @@ namespace OpenBots.Commands
 			_actionParametersControls.Add(_actionParametersGridViewHelper);
 			RenderedControls.AddRange(_actionParametersControls);
 
+			RenderedControls.AddRange(commandControls.CreateDefaultInputGroupFor("v_Timeout", this, editor));
+
 			return RenderedControls;
 		}
 
@@ -609,7 +586,7 @@ namespace OpenBots.Commands
 			SeleniumAction_SelectionChangeCommitted(null, null);
 		}
 
-		public bool ElementExists(object sender, string searchMethod, string parameterName)
+		public bool ElementExists(object sender, string searchMethod, string parameterName, int timeout)
 		{
 			//get engine reference
 			var engine = (AutomationEngineInstance)sender;
@@ -628,7 +605,7 @@ namespace OpenBots.Commands
 			try
 			{
 				//search for element
-				var element = FindElement(engine, seleniumInstance, seleniumSearchParamRows);
+				var element = FindElement(engine, seleniumInstance, seleniumSearchParamRows, timeout);
 
 				//element exists
 				return true;
@@ -640,8 +617,9 @@ namespace OpenBots.Commands
 			}
 		}
 
-		private object FindElement(AutomationEngineInstance engine, IWebDriver seleniumInstance, List<string[]> searchParameterRows)//List<string> searchType, List<string> searchParameter)
+		private object FindElement(AutomationEngineInstance engine, IWebDriver seleniumInstance, List<string[]> searchParameterRows, int timeout)
 		{
+			var wait = new WebDriverWait(seleniumInstance, new TimeSpan(0, 0, timeout));
 			object element;
 			
 			List<By> byList = new List<By>();
@@ -687,12 +665,65 @@ namespace OpenBots.Commands
 			}
 
 			var byall = new ByAll(byList.ToArray());
+			bool elementFound;
 
 			if (v_SeleniumSearchOption == "Find Element")
+			{
+				try
+				{
+					elementFound = wait.Until(condition =>
+					{
+						try
+						{
+							var elementToBeDisplayed = seleniumInstance.FindElement(byall);
+							return elementToBeDisplayed.Displayed;
+						}
+						catch (StaleElementReferenceException)
+						{
+							return false;
+						}
+						catch (NoSuchElementException)
+						{
+							return false;
+						}
+					});
+				}
+				catch (Exception)
+				{
+					//element not found during wait period
+				}
+				
 				element = seleniumInstance.FindElement(byall);
+			}
 			else
-				element = seleniumInstance.FindElements(byall);
+			{
+				try
+				{
+					elementFound = wait.Until(condition =>
+					{
+						try
+						{
+							var elementsToBeDisplayed = seleniumInstance.FindElements(byall);
+							return elementsToBeDisplayed.First().Displayed;
+						}
+						catch (StaleElementReferenceException)
+						{
+							return false;
+						}
+						catch (NoSuchElementException)
+						{
+							return false;
+						}
+					});
+				}
+				catch (Exception)
+				{
+					//elements not found during wait period
+				}
 
+				element = seleniumInstance.FindElements(byall);
+			}
+				
 			return element;
 		}
 
@@ -864,10 +895,7 @@ namespace OpenBots.Commands
 
 				case "Wait For Element To Exist":
 					foreach (var ctrl in _actionParametersControls)
-						ctrl.Show();
-	   
-					if (sender != null)
-						actionParameters.Rows.Add("Timeout (Seconds)");
+						ctrl.Hide();
 					break;
 
 				case "Switch to frame":

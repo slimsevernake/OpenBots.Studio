@@ -667,6 +667,10 @@ namespace OpenBots.Commands
 										where rw.Field<string>("Parameter Name") == "Element Search Method"
 										select rw.Field<string>("Parameter Value")).FirstOrDefault());
 
+				string timeout = ((from rw in v_IfActionParameterTable.AsEnumerable()
+										where rw.Field<string>("Parameter Name") == "Timeout (Seconds)"
+										select rw.Field<string>("Parameter Value")).FirstOrDefault());
+
 				string trueWhenElementExists = (from rw in v_IfActionParameterTable.AsEnumerable()
 												where rw.Field<string>("Parameter Name") == "True When"
 												select rw.Field<string>("Parameter Value")).FirstOrDefault();
@@ -674,7 +678,7 @@ namespace OpenBots.Commands
 
 				SeleniumElementActionCommand newElementActionCommand = new SeleniumElementActionCommand();
 				newElementActionCommand.v_InstanceName = instanceName;
-				bool elementExists = newElementActionCommand.ElementExists(sender, searchMethod, parameterName);
+				bool elementExists = newElementActionCommand.ElementExists(sender, searchMethod, parameterName, int.Parse(timeout));
 				ifResult = elementExists;
 
 				if (trueWhenElementExists == "It Does Not Exist")
@@ -954,6 +958,7 @@ namespace OpenBots.Commands
 						actionParameters.Rows.Add("Selenium Instance Name", "DefaultBrowser");
 						actionParameters.Rows.Add("Element Search Method", "");
 						actionParameters.Rows.Add("Element Search Parameter", "");
+						actionParameters.Rows.Add("Timeout (Seconds)", "30");
 						actionParameters.Rows.Add("True When", "It Does Exist");
 						ifActionParameterBox.DataSource = actionParameters;
 					}
@@ -963,7 +968,7 @@ namespace OpenBots.Commands
 					comparisonComboBox.Items.Add("It Does Not Exist");
 
 					//assign cell as a combobox
-					ifActionParameterBox.Rows[3].Cells[1] = comparisonComboBox;
+					ifActionParameterBox.Rows[4].Cells[1] = comparisonComboBox;
 
 					comparisonComboBox = new DataGridViewComboBoxCell();
 					comparisonComboBox.Items.Add("XPath");
