@@ -28,11 +28,11 @@ namespace OpenBots.Core.Infrastructure
         EngineSettings EngineSettings { get; set; }
         List<DataTable> DataTables { get; set; }
         string FileName { get; set; }
-        bool ServerExecution { get; set; }
+        bool IsServerExecution { get; set; }
+        bool IsServerChildExecution { get; set; }
         List<IRestResponse> ServiceResponses { get; set; }
         bool AutoCalculateVariables { get; set; }
         string TaskResult { get; set; }
-        Logger EngineLogger { get; set; }
 
         event EventHandler<ReportProgressEventArgs> ReportProgressEvent;
         event EventHandler<ScriptFinishedEventArgs> ScriptFinishedEvent;

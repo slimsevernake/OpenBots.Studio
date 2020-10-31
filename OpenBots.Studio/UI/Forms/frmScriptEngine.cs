@@ -240,7 +240,7 @@ namespace OpenBots.UI.Forms
             EngineInstance.ScriptFinishedEvent += Engine_ScriptFinishedEvent;
             EngineInstance.LineNumberChangedEvent += EngineInstance_LineNumberChangedEvent;
             EngineInstance.ScriptEngineUI = this;
-            EngineInstance.ServerExecution = ServerExecution;
+            EngineInstance.IsServerExecution = ServerExecution;
 
             if (JsonData == null)
             {
