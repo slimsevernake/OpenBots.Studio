@@ -52,10 +52,7 @@ namespace OpenBots.Core.Server.API_Methods
             var response = client.Execute(request);
 
             if (!response.IsSuccessful)
-                throw new HttpRequestException($"Status Code: {response.StatusCode} - Error Message: {response.ErrorMessage}");
-
-            if (response.StatusCode == HttpStatusCode.NoContent)
-                return null; //No new queueItems found
+                return null;
 
             return JsonConvert.DeserializeObject<QueueItem>(response.Content);
         }

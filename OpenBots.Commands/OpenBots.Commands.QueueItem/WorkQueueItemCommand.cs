@@ -12,7 +12,6 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Windows.Forms;
@@ -28,7 +27,8 @@ namespace OpenBots.Commands.QueueItem
 		[DisplayName("Queue Name")]
 		[Description("Enter the name of the Queue.")]
 		[SampleUsage("Name || {vQueueName}")]
-		[Remarks("QueueItem Text/Json values are store in the 'DataJson' key of a QueueItem Dictionary.")]
+		[Remarks("QueueItem Text/Json values are store in the 'DataJson' key of a QueueItem Dictionary.\n" +
+				 "If a Queue has no workable items, the output value will be set to null.")]
 		[Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
 		public string v_QueueName { get; set; }
 
@@ -55,34 +55,40 @@ namespace OpenBots.Commands.QueueItem
 
 			var client = AuthMethods.GetAuthToken();
 
-			if (EnvironmentSettings.GetEnvironmentVariable() == null)
-				throw new Exception("Agent environment variable not found");
-
-			string agentSettingsPath = Path.Combine(EnvironmentSettings.GetEnvironmentVariable(), EnvironmentSettings.SettingsFileName);
-
-			if (agentSettingsPath == null || !File.Exists(agentSettingsPath))
-				throw new Exception("Agent settings file not found");
-
-			string agentSettingsText = File.ReadAllText(agentSettingsPath);
-			var settings = JsonConvert.DeserializeObject<Dictionary<string, string>>(agentSettingsText);
+			var settings = EnvironmentSettings.GetAgentSettings();
 			string agentId = settings["AgentId"];
 
 			if (string.IsNullOrEmpty(agentId))
 				throw new Exception("Agent is not connected");
 
-			Agent agent = AgentMethods.GetAgentById(client, Guid.Parse(agentId));
-
 			Queue queue = QueueMethods.GetQueue(client, $"name eq '{vQueueName}'");
-			var queueItem = QueueItemMethods.DequeueQueueItem(client, agent.Id, queue.Id);
+
+			if (queue == null)
+				throw new Exception($"Queue with name '{vQueueName}' not found");
+
+			var queueItem = QueueItemMethods.DequeueQueueItem(client, Guid.Parse(agentId), queue.Id);
+
+			if (queueItem == null)
+			{
+				queueItemDict = null;
+				queueItemDict.StoreInUserVariable(engine, v_OutputUserVariableName);
+				return;
+			}
+				
 
 			queueItemDict = queueItem.GetType().GetProperties(BindingFlags.Instance | BindingFlags.Public)
 											   .ToDictionary(prop => prop.Name, prop => prop.GetValue(queueItem, null));
 
 			queueItemDict = queueItemDict.Where(kvp => kvp.Key == "LockTransactionKey" ||
+													   kvp.Key == "Name" ||
+													   kvp.Key == "Source" ||
+													   kvp.Key == "Event" ||
 													   kvp.Key == "Type" ||
 													   kvp.Key == "JsonType" ||
 													   kvp.Key == "DataJson" ||
-													   kvp.Key == "LockedUntilUTC").ToDictionary(i =>i.Key, i => i.Value);
+													   kvp.Key == "Priority" ||
+													   kvp.Key == "LockedUntilUTC")
+										 .ToDictionary(i =>i.Key, i => i.Value);
 
 			queueItemDict.StoreInUserVariable(engine, v_OutputUserVariableName);
 		}

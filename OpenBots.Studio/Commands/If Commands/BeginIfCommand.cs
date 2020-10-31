@@ -495,17 +495,12 @@ namespace OpenBots.Commands
 										where rw.Field<string>("Parameter Name") == "Variable Name"
 										select rw.Field<string>("Parameter Value")).FirstOrDefault());
 
-				var actualVariable = variableName.ConvertUserVariableToString(engine).Trim();
+				var actualVariable = variableName.ConvertUserVariableToObject(engine);
 
-				if (!string.IsNullOrEmpty(actualVariable))
-				{
+				if (actualVariable != null)
 					ifResult = true;
-				}
 				else
-				{
 					ifResult = false;
-				}
-
 			}
 			else if (v_IfActionType == "Variable Is Numeric")
 			{
@@ -518,14 +513,9 @@ namespace OpenBots.Commands
 				var numericTest = decimal.TryParse(actualVariable, out decimal parsedResult);
 
 				if (numericTest)
-				{
 					ifResult = true;
-				}
 				else
-				{
 					ifResult = false;
-				}
-
 			}
 			else if (v_IfActionType == "Error Occured")
 			{
@@ -552,10 +542,7 @@ namespace OpenBots.Commands
 					ifResult = true;
 				}
 				else
-				{
 					ifResult = false;
-				}
-
 			}
 			else if (v_IfActionType == "Error Did Not Occur")
 			{
@@ -584,7 +571,6 @@ namespace OpenBots.Commands
 
 					ifResult = false;
 				}
-
 			}
 			else if (v_IfActionType == "Window Name Exists")
 			{

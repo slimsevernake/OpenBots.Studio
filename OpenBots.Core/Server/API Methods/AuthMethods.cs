@@ -1,10 +1,8 @@
-﻿using Newtonsoft.Json;
-using OpenBots.Core.Server.User;
+﻿using OpenBots.Core.Server.User;
 using RestSharp;
 using RestSharp.Serialization.Json;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Net.Http;
 
 namespace OpenBots.Core.Server.API_Methods
@@ -12,17 +10,9 @@ namespace OpenBots.Core.Server.API_Methods
     public class AuthMethods
     {
         public static RestClient GetAuthToken()
-        {           
-            if (EnvironmentSettings.GetEnvironmentVariable() == null)
-                throw new Exception("Agent environment variable not found");
+        {
+            var settings = EnvironmentSettings.GetAgentSettings();
 
-            string agentSettingsPath = Path.Combine(EnvironmentSettings.GetEnvironmentVariable(), EnvironmentSettings.SettingsFileName);
-
-            if (agentSettingsPath == null || !File.Exists(agentSettingsPath))
-                throw new Exception("Agent settings file not found");
-
-            string agentSettingsText = File.ReadAllText(agentSettingsPath);
-            var settings = JsonConvert.DeserializeObject<Dictionary<string, string>>(agentSettingsText);
             string agentId = settings["AgentId"];
             string serverURL = settings["OpenBotsServerUrl"];
 
@@ -39,9 +29,10 @@ namespace OpenBots.Core.Server.API_Methods
                 throw new Exception("Server URL not found");
 
             var client = new RestClient(serverURL);
+            client.UserAgent = "";
 
             var request = new RestRequest("api/v1/auth/token", Method.POST);
-            request.RequestFormat = DataFormat.Json;          
+            request.RequestFormat = DataFormat.Json;              
             request.AddJsonBody(new { username, password });
 
             var response = client.Execute(request);
@@ -54,6 +45,7 @@ namespace OpenBots.Core.Server.API_Methods
 
             string token = output["token"];
             client.AddDefaultHeader("Authorization", string.Format("Bearer {0}", token));
+            
             return client;
         }
     }

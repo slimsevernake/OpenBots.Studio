@@ -487,17 +487,12 @@ namespace OpenBots.Commands
 										where rw.Field<string>("Parameter Name") == "Variable Name"
 										select rw.Field<string>("Parameter Value")).FirstOrDefault());
 
-				var actualVariable = variableName.ConvertUserVariableToString(engine).Trim();
+				var actualVariable = variableName.ConvertUserVariableToObject(engine);
 
-				if (!string.IsNullOrEmpty(actualVariable))
-				{
+				if (actualVariable != null)
 					loopResult = true;
-				}
 				else
-				{
 					loopResult = false;
-				}
-
 			}
 			else if (v_LoopActionType == "Variable Is Numeric")
 			{
@@ -510,14 +505,9 @@ namespace OpenBots.Commands
 				var numericTest = decimal.TryParse(actualVariable, out decimal parsedResult);
 
 				if (numericTest)
-				{
 					loopResult = true;
-				}
 				else
-				{
 					loopResult = false;
-				}
-
 			}
 			else if (v_LoopActionType == "Error Occured")
 			{
@@ -543,10 +533,7 @@ namespace OpenBots.Commands
 					loopResult = true;
 				}
 				else
-				{
 					loopResult = false;
-				}
-
 			}
 			else if (v_LoopActionType == "Error Did Not Occur")
 			{
