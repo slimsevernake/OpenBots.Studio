@@ -208,9 +208,9 @@ namespace OpenBots.UI.Forms.Supplement_Forms
         private void frmImageCapture_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Escape)
-            {
-                DialogResult = DialogResult.Cancel;
-            }
+                uiClose_Click(null, null);
+            else if (e.KeyCode == Keys.Enter)
+                uiAccept_Click(null, null);
         }
     }
 }

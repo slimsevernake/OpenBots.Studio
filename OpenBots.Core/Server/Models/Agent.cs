@@ -4,8 +4,9 @@ namespace OpenBots.Core.Server.Models
 {
     public class Agent : NamedEntity
     {
-        public new string Name { get; set; }
         public string MachineName { get; set; }
+        public string MacAddresses { get; set; }
+        public string IPAddresses { get; set; }
         public bool IsEnabled { get; set; }
         public DateTime? LastReportedOn { get; set; }
         public string LastReportedStatus { get; set; }

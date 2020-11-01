@@ -4,6 +4,79 @@ namespace OpenBots.UI.CustomControls.CustomUIControls
 {
     public class UITabControl : TabControl
     {
+        private TabPage predraggedTab;
+
+        public UITabControl()
+        {
+            AllowDrop = true;
+        }
+
+        protected override void OnMouseDown(MouseEventArgs e)
+        {
+            predraggedTab = GetPointedTab();
+
+            base.OnMouseDown(e);
+        }
+
+        protected override void OnMouseUp(MouseEventArgs e)
+        {
+            predraggedTab = null;
+
+            base.OnMouseUp(e);
+        }
+
+        protected override void OnMouseMove(MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left && predraggedTab != null)
+                DoDragDrop(predraggedTab, DragDropEffects.Move);
+
+            base.OnMouseMove(e);
+        }
+
+        protected override void OnDragOver(DragEventArgs drgevent)
+        {
+            TabPage draggedTab = (TabPage)drgevent.Data.GetData(typeof(TabPage));
+            TabPage pointedTab = GetPointedTab();
+
+            if (draggedTab == predraggedTab && pointedTab != null)
+            {
+                drgevent.Effect = DragDropEffects.Move;
+
+                if (pointedTab != draggedTab)
+                    SwapTabPages(draggedTab, pointedTab);
+            }
+
+            base.OnDragOver(drgevent);
+        }
+
+        private TabPage GetPointedTab()
+        {
+            for (int i = 0; i < TabPages.Count; i++)
+            {
+                if (GetTabRect(i).Contains(PointToClient(Cursor.Position)))
+                    return TabPages[i];
+            }
+                
+            return null;
+        }
+
+        private void SwapTabPages(TabPage src, TabPage dst)
+        {
+            int srci = TabPages.IndexOf(src);
+            int dsti = TabPages.IndexOf(dst);
+
+            TabPages[dsti] = src;
+            TabPages[srci] = dst;
+
+            if (SelectedIndex == srci)
+                SelectedIndex = dsti;
+
+            else if (SelectedIndex == dsti)
+                SelectedIndex = srci;
+
+            Refresh();
+        }
+
         //protected override void OnPaint(PaintEventArgs e)
         //{
         //    DrawControl(e.Graphics);

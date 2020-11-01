@@ -43,6 +43,7 @@ namespace OpenBots.Commands
 		[PropertyUISelectionOption("Web Element Exists")]
 		[PropertyUISelectionOption("GUI Element Exists")]
 		[PropertyUISelectionOption("Image Element Exists")]
+		[PropertyUISelectionOption("App Instance Exists")]
 		[PropertyUISelectionOption("Error Occured")]
 		[PropertyUISelectionOption("Error Did Not Occur")]
 		[Description("Select the necessary condition type.")]
@@ -187,20 +188,20 @@ namespace OpenBots.Commands
 									  where rw.Field<string>("Parameter Name") == "Value2"
 									  select rw.Field<string>("Parameter Value")).FirstOrDefault());
 
-					return "If (" + value1 + " " + operand + " " + value2 + ")";
+					return $"If ('{value1}' {operand} '{value2}')";
 
 				case "Variable Has Value":
 					string variableName = ((from rw in v_IfActionParameterTable.AsEnumerable()
 									  where rw.Field<string>("Parameter Name") == "Variable Name"
 									  select rw.Field<string>("Parameter Value")).FirstOrDefault());
 
-					return "If (Variable " + variableName + " Has Value)";
+					return $"If (Variable '{variableName}' Has Value)";
 				case "Variable Is Numeric":
 					string varName = ((from rw in v_IfActionParameterTable.AsEnumerable()
 											where rw.Field<string>("Parameter Name") == "Variable Name"
 											select rw.Field<string>("Parameter Value")).FirstOrDefault());
 
-					return "If (Variable " + varName + " Is Numeric)";
+					return $"If (Variable '{varName}' Is Numeric)";
 
 				case "Error Occured":
 
@@ -208,14 +209,14 @@ namespace OpenBots.Commands
 										  where rw.Field<string>("Parameter Name") == "Line Number"
 										  select rw.Field<string>("Parameter Value")).FirstOrDefault());
 
-					return "If (Error Occured on Line Number " + lineNumber + ")";
+					return $"If (Error Occured on Line Number '{lineNumber}')";
 				case "Error Did Not Occur":
 
 					string lineNum = ((from rw in v_IfActionParameterTable.AsEnumerable()
 										  where rw.Field<string>("Parameter Name") == "Line Number"
 										  select rw.Field<string>("Parameter Value")).FirstOrDefault());
 
-					return "If (Error Did Not Occur on Line Number " + lineNum + ")";
+					return $"If (Error Did Not Occur on Line Number '{lineNum}')";
 				case "Window Name Exists":
 				case "Active Window Name Is":
 
@@ -223,7 +224,7 @@ namespace OpenBots.Commands
 										  where rw.Field<string>("Parameter Name") == "Window Name"
 										  select rw.Field<string>("Parameter Value")).FirstOrDefault());
 
-					return "If " + v_IfActionType + " [Name: " + windowName + "]";
+					return $"If {v_IfActionType} [Window Name '{windowName}']";
 				case "File Exists":
 
 					string filePath = ((from rw in v_IfActionParameterTable.AsEnumerable()
@@ -235,9 +236,9 @@ namespace OpenBots.Commands
 											   select rw.Field<string>("Parameter Value")).FirstOrDefault());
 
 					if (fileCompareType == "It Does Not Exist")
-						return "If File Does Not Exist [File: " + filePath + "]";
+						return $"If File Does Not Exist [File '{filePath}']";
 					else
-						return "If File Exists [File: " + filePath + "]";
+						return $"If File Exists [File '{filePath}']";
 
 				case "Folder Exists":
 
@@ -250,9 +251,9 @@ namespace OpenBots.Commands
 											   select rw.Field<string>("Parameter Value")).FirstOrDefault());
 
 					if (folderCompareType == "It Does Not Exist")
-						return "If Folder Does Not [Folder: " + folderPath + "]";
+						return $"If Folder Does Not [Folder '{folderPath}']";
 					else
-						return "If Folder Exists [Folder: " + folderPath + "]";
+						return $"If Folder Exists [Folder '{folderPath}']";
 
 				case "Web Element Exists":
 
@@ -270,9 +271,9 @@ namespace OpenBots.Commands
 												 select rw.Field<string>("Parameter Value")).FirstOrDefault());
 
 					if (webElementCompareType == "It Does Not Exist")
-						return "If Web Element Does Not Exist [" + searchMethod + ": " + parameterName + "]";
+						return $"If Web Element Does Not Exist [{searchMethod} '{parameterName}']";
 					else
-						return "If Web Element Exists [" + searchMethod + ": " + parameterName + "]";
+						return $"If Web Element Exists [{searchMethod} '{parameterName}']";
 
 				case "GUI Element Exists":
 
@@ -290,9 +291,9 @@ namespace OpenBots.Commands
 													 select rw.Field<string>("Parameter Value")).FirstOrDefault());
 
 					if (guiElementCompareType == "It Does Not Exist")
-						return "If GUI Element Does Not Exist [Find " + guiSearch + " Element In " + guiWindowName + "]";
+						return $"If GUI Element Does Not Exist [Find '{guiSearch}' Element In '{guiWindowName}']";
 					else
-						return "If GUI Element Exists [Find " + guiSearch + " Element In " + guiWindowName + "]";
+						return $"If GUI Element Exists [Find '{guiSearch}' Element In '{guiWindowName}']";
 
 				case "Image Element Exists":
 					string imageCompareType = (from rw in v_IfActionParameterTable.AsEnumerable()
@@ -300,9 +301,22 @@ namespace OpenBots.Commands
 											   select rw.Field<string>("Parameter Value")).FirstOrDefault();
 
 					if (imageCompareType == "It Does Not Exist")
-						return "If Image Does Not Exist on Screen";
+						return $"If Image Does Not Exist on Screen";
 					else
-						return "If Image Exists on Screen";
+						return $"If Image Exists on Screen";
+				case "App Instance Exists":
+					string instanceName = ((from rw in v_IfActionParameterTable.AsEnumerable()
+											 where rw.Field<string>("Parameter Name") == "Instance Name"
+											 select rw.Field<string>("Parameter Value")).FirstOrDefault());
+
+					string instanceCompareType = (from rw in v_IfActionParameterTable.AsEnumerable()
+											   where rw.Field<string>("Parameter Name") == "True When"
+											   select rw.Field<string>("Parameter Value")).FirstOrDefault();
+
+					if (instanceCompareType == "It Does Not Exist")
+						return $"If App Instance Does Not Exist [Instance Name '{instanceName}']";
+					else
+						return $"If App Instance Exists [Instance Name '{instanceName}']";
 				default:
 					return "If ...";
 			}
@@ -378,12 +392,32 @@ namespace OpenBots.Commands
 								  where rw.Field<string>("Parameter Name") == "Value2"
 								  select rw.Field<string>("Parameter Value")).FirstOrDefault());
 
-				value1 = value1.ConvertUserVariableToString(engine);
-				value2 = value2.ConvertUserVariableToString(engine);
-
 				DateTime dt1, dt2;
-				dt1 = DateTime.Parse(value1);
-				dt2 = DateTime.Parse(value2);
+
+				dynamic input1 = value1.ConvertUserVariableToString(engine);
+
+				if (input1 == value1 && input1.StartsWith("{") && input1.EndsWith("}"))
+					input1 = value1.ConvertUserVariableToObject(engine);
+
+				if (input1 is DateTime)
+					dt1 = (DateTime)input1;
+				else if (input1 is string)
+					dt1 = DateTime.Parse((string)input1);
+				else
+					throw new InvalidDataException("Value1 is not a valid DateTime");
+
+				dynamic input2 = value2.ConvertUserVariableToString(engine);
+
+				if (input2 == value2 && input2.StartsWith("{") && input2.EndsWith("}"))
+					input2 = value2.ConvertUserVariableToObject(engine);
+
+				if (input2 is DateTime)
+					dt2 = (DateTime)input2;
+				else if (input2 is string)
+					dt2 = DateTime.Parse((string)input2);
+				else
+					throw new InvalidDataException("Value2 is not a valid DateTime");
+
 				switch (operand)
 				{
 					case "is equal to":
@@ -461,17 +495,12 @@ namespace OpenBots.Commands
 										where rw.Field<string>("Parameter Name") == "Variable Name"
 										select rw.Field<string>("Parameter Value")).FirstOrDefault());
 
-				var actualVariable = variableName.ConvertUserVariableToString(engine).Trim();
+				var actualVariable = variableName.ConvertUserVariableToObject(engine);
 
-				if (!string.IsNullOrEmpty(actualVariable))
-				{
+				if (actualVariable != null)
 					ifResult = true;
-				}
 				else
-				{
 					ifResult = false;
-				}
-
 			}
 			else if (v_IfActionType == "Variable Is Numeric")
 			{
@@ -484,14 +513,9 @@ namespace OpenBots.Commands
 				var numericTest = decimal.TryParse(actualVariable, out decimal parsedResult);
 
 				if (numericTest)
-				{
 					ifResult = true;
-				}
 				else
-				{
 					ifResult = false;
-				}
-
 			}
 			else if (v_IfActionType == "Error Occured")
 			{
@@ -518,10 +542,7 @@ namespace OpenBots.Commands
 					ifResult = true;
 				}
 				else
-				{
 					ifResult = false;
-				}
-
 			}
 			else if (v_IfActionType == "Error Did Not Occur")
 			{
@@ -550,7 +571,6 @@ namespace OpenBots.Commands
 
 					ifResult = false;
 				}
-
 			}
 			else if (v_IfActionType == "Window Name Exists")
 			{
@@ -647,6 +667,10 @@ namespace OpenBots.Commands
 										where rw.Field<string>("Parameter Name") == "Element Search Method"
 										select rw.Field<string>("Parameter Value")).FirstOrDefault());
 
+				string timeout = ((from rw in v_IfActionParameterTable.AsEnumerable()
+										where rw.Field<string>("Parameter Name") == "Timeout (Seconds)"
+										select rw.Field<string>("Parameter Value")).FirstOrDefault());
+
 				string trueWhenElementExists = (from rw in v_IfActionParameterTable.AsEnumerable()
 												where rw.Field<string>("Parameter Name") == "True When"
 												select rw.Field<string>("Parameter Value")).FirstOrDefault();
@@ -654,7 +678,7 @@ namespace OpenBots.Commands
 
 				SeleniumElementActionCommand newElementActionCommand = new SeleniumElementActionCommand();
 				newElementActionCommand.v_InstanceName = instanceName;
-				bool elementExists = newElementActionCommand.ElementExists(sender, searchMethod, parameterName);
+				bool elementExists = newElementActionCommand.ElementExists(sender, searchMethod, parameterName, int.Parse(timeout));
 				ifResult = elementExists;
 
 				if (trueWhenElementExists == "It Does Not Exist")
@@ -694,7 +718,7 @@ namespace OpenBots.Commands
 			else if (v_IfActionType == "Image Element Exists")
 			{
 				string imageName = (from rw in v_IfActionParameterTable.AsEnumerable()
-									where rw.Field<string>("Parameter Name") == "Captured Image"
+									where rw.Field<string>("Parameter Name") == "Captured Image Variable"
 									select rw.Field<string>("Parameter Value")).FirstOrDefault();
 				double accuracy;
 				try
@@ -730,6 +754,22 @@ namespace OpenBots.Commands
 					ifResult = true;
 				else
 					ifResult = false;
+
+				if (trueWhenImageExists == "It Does Not Exist")
+					ifResult = !ifResult;
+			}
+			else if (v_IfActionType == "App Instance Exists")
+			{
+				string instanceName = (from rw in v_IfActionParameterTable.AsEnumerable()
+									where rw.Field<string>("Parameter Name") == "Instance Name"
+									select rw.Field<string>("Parameter Value")).FirstOrDefault();
+				
+
+				string trueWhenImageExists = (from rw in v_IfActionParameterTable.AsEnumerable()
+											  where rw.Field<string>("Parameter Name") == "True When"
+											  select rw.Field<string>("Parameter Value")).FirstOrDefault();
+
+				ifResult = instanceName.InstanceExists(engine);
 
 				if (trueWhenImageExists == "It Does Not Exist")
 					ifResult = !ifResult;
@@ -918,6 +958,7 @@ namespace OpenBots.Commands
 						actionParameters.Rows.Add("Selenium Instance Name", "DefaultBrowser");
 						actionParameters.Rows.Add("Element Search Method", "");
 						actionParameters.Rows.Add("Element Search Parameter", "");
+						actionParameters.Rows.Add("Timeout (Seconds)", "30");
 						actionParameters.Rows.Add("True When", "It Does Exist");
 						ifActionParameterBox.DataSource = actionParameters;
 					}
@@ -927,7 +968,7 @@ namespace OpenBots.Commands
 					comparisonComboBox.Items.Add("It Does Not Exist");
 
 					//assign cell as a combobox
-					ifActionParameterBox.Rows[3].Cells[1] = comparisonComboBox;
+					ifActionParameterBox.Rows[4].Cells[1] = comparisonComboBox;
 
 					comparisonComboBox = new DataGridViewComboBoxCell();
 					comparisonComboBox.Items.Add("XPath");
@@ -993,7 +1034,7 @@ namespace OpenBots.Commands
 
 					if (sender != null)
 					{
-						actionParameters.Rows.Add("Captured Image", "");
+						actionParameters.Rows.Add("Captured Image Variable", "");
 						actionParameters.Rows.Add("Accuracy (0-1)", "0.8");
 						actionParameters.Rows.Add("True When", "It Does Exist");
 						ifActionParameterBox.DataSource = actionParameters;
@@ -1006,9 +1047,38 @@ namespace OpenBots.Commands
 					//assign cell as a combobox
 					ifActionParameterBox.Rows[2].Cells[1] = comparisonComboBox;
 					break;
+				case "App Instance Exists":
+					ifActionParameterBox.Visible = true;
+
+					if (sender != null)
+					{
+						actionParameters.Rows.Add("Instance Name", "");
+						actionParameters.Rows.Add("True When", "It Does Exist");
+						ifActionParameterBox.DataSource = actionParameters;
+					}
+
+					comparisonComboBox = new DataGridViewComboBoxCell();
+					comparisonComboBox.Items.Add("It Does Exist");
+					comparisonComboBox.Items.Add("It Does Not Exist");
+
+					//assign cell as a combobox
+					ifActionParameterBox.Rows[1].Cells[1] = comparisonComboBox;
+					break;
 				default:
 					break;
 			}
+		}
+
+		private void IfGridViewHelper_MouseEnter(object sender, EventArgs e)
+		{
+			try
+			{
+				ifAction_SelectionChangeCommitted(null, null);
+			}
+			catch (Exception)
+			{
+				ifAction_SelectionChangeCommitted(sender, e);
+			}           
 		}
 
 		private void ShowIfElementRecorder(object sender, EventArgs e)
@@ -1039,18 +1109,6 @@ namespace OpenBots.Commands
 			ifActionBox.Rows[0].Cells[1].Value = newElementRecorder.cboWindowTitle.Text;
 
 			MessageBox.Show(sb.ToString());
-		}
-
-		private void IfGridViewHelper_MouseEnter(object sender, EventArgs e)
-		{
-			try
-			{
-				ifAction_SelectionChangeCommitted(null, null);
-			}
-			catch (Exception)
-			{
-				ifAction_SelectionChangeCommitted(sender, e);
-			}           
 		}
 	}
 }

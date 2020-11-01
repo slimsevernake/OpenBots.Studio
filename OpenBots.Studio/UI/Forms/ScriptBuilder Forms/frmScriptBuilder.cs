@@ -111,12 +111,36 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
                     CreateDebugTab();
             }
         }
-        private List<string> _notificationList = new List<string>();
+        private List<Tuple<string, Color>> _notificationList = new List<Tuple<string, Color>>();
         private DateTime _notificationExpires;
         private bool _isDisplaying;
         private string _notificationText;
+        private Color _notificationColor;
+        private string _notificationPaintedText;
         public IfrmScriptEngine CurrentEngine { get; set; }
-        public bool IsScriptRunning { get; set; }
+        private bool _isScriptRunning;
+        public bool IsScriptRunning
+        {
+            get
+            {
+                return _isScriptRunning;
+            }
+            set
+            {
+                _isScriptRunning = value;
+                if (_isScriptRunning)
+                    uiScriptTabControl.AllowDrop = false;
+                else
+                    try
+                    {
+                        uiScriptTabControl.AllowDrop = true;
+                    }
+                    catch (Exception)
+                    {
+                        //DragDrop registration did not succeed
+                    }
+            }
+        }
         public bool IsScriptPaused { get; set; }
         public bool IsScriptSteppedOver { get; set; }
         public bool IsScriptSteppedInto { get; set; }
@@ -349,13 +373,13 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
 
         private void frmScriptBuilder_Shown(object sender, EventArgs e)
         {
-            Program.SplashForm.Hide();
+            Program.SplashForm.Close();
 
             if (_editMode)
                 return;
 
             AddProject();
-            Notify("Welcome! Press 'Add Command' to get started!");
+            Notify("Welcome! Press 'Add Command' to get started!", Color.White);
         }
 
         private void pnlControlContainer_Paint(object sender, PaintEventArgs e)
@@ -403,6 +427,9 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
         #region Bottom Notification Panel
         private void tmrNotify_Tick(object sender, EventArgs e)
         {
+            if (CurrentEngine == null)
+                IsScriptRunning = false;
+
             if (_appSettings ==  null)
             {
                 return;
@@ -424,18 +451,19 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
                 var itemToDisplay = _notificationList[0];
                 _notificationList.RemoveAt(0);
                 _notificationExpires = DateTime.Now.AddSeconds(2);
-                ShowNotification(itemToDisplay);
+                ShowNotification(itemToDisplay.Item1, itemToDisplay.Item2);
             }
         }
 
-        public void Notify(string notificationText)
+        public void Notify(string notificationText, Color notificationColor)
         {
-            _notificationList.Add(notificationText);
+            _notificationList.Add(new Tuple<string,Color>(notificationText, notificationColor));
         }
 
-        private void ShowNotification(string textToDisplay)
+        private void ShowNotification(string textToDisplay, Color textColor)
         {
             _notificationText = textToDisplay;
+            _notificationColor = textColor;
             //lblStatus.Left = 20;
             //lblStatus.Text = textToDisplay;
 
@@ -479,7 +507,7 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
                 v_XMousePosition = (Cursor.Position.X + 1).ToString(),
                 v_YMousePosition = (Cursor.Position.Y + 1).ToString()
             };
-            Notify("Anti-Idle Triggered");
+            Notify("Anti-Idle Triggered", Color.White);
         }
 
         private void notifyTray_MouseDoubleClick(object sender, MouseEventArgs e)
@@ -560,6 +588,11 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
             }
         }
 
+        private void tvCommands_ItemDrag(object sender, ItemDragEventArgs e)
+        {
+            tvCommands.DoDragDrop(e.Item, DragDropEffects.Copy);
+        }
+
         public void CopyTreeView(TreeView originalTreeView, TreeView copiedTreeView)
         {
             TreeNode copiedTreeNode;
@@ -608,9 +641,19 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
                             childNodefound = true;
                         }
                     }
-                    if (!childNodefound)
+                    if (!childNodefound && !(parentNodeCopy.Text.ToLower().Contains(txtCommandSearch.Text.ToLower())))
                     {
                         tvCommands.Nodes.Remove(searchedParentNode);
+                    }
+                    else if (parentNodeCopy.Text.ToLower().Contains(txtCommandSearch.Text.ToLower()))
+                    {
+                        searchedParentNode.Nodes.Clear();
+                        foreach (TreeNode childNodeCopy in parentNodeCopy.Nodes)
+                        {
+                            var searchedChildNode = new TreeNode(childNodeCopy.Text);
+                            searchedChildNode.ToolTipText = childNodeCopy.ToolTipText;
+                            searchedParentNode.Nodes.Add(searchedChildNode);
+                        }
                     }
                     childNodefound = false;
                 }

@@ -267,6 +267,7 @@ namespace OpenBots.UI.CustomControls
             dropdownBox.Click += DropdownBox_Click;
             dropdownBox.KeyDown += DropdownBox_KeyDown;
             dropdownBox.KeyPress += DropdownBox_KeyPress;
+            dropdownBox.MouseWheel += DropdownBox_MouseWheel;
 
             return dropdownBox;
         }
@@ -288,6 +289,10 @@ namespace OpenBots.UI.CustomControls
             ComboBox clickedDropdownBox = (ComboBox)sender;
             clickedDropdownBox.DroppedDown = true;
         }
+        private void DropdownBox_MouseWheel(object sender, MouseEventArgs e)
+        {
+            ((HandledMouseEventArgs)e).Handled = true;
+        }
 
         public ComboBox CreateStandardComboboxFor(string parameterName, ScriptCommand parent)
         {
@@ -300,9 +305,10 @@ namespace OpenBots.UI.CustomControls
             standardComboBox.Click += StandardComboBox_Click;
             standardComboBox.KeyDown += StandardComboBox_KeyDown;
             standardComboBox.KeyPress += StandardComboBox_KeyPress;
+            standardComboBox.MouseWheel += StandardComboBox_MouseWheel;
 
             return standardComboBox;
-        }
+        }      
 
         private void StandardComboBox_KeyDown(object sender, KeyEventArgs e)
         {
@@ -334,6 +340,11 @@ namespace OpenBots.UI.CustomControls
         {
             ComboBox clickedStandardComboBox = (ComboBox)sender;
             clickedStandardComboBox.DroppedDown = true;
+        }
+
+        private void StandardComboBox_MouseWheel(object sender, MouseEventArgs e)
+        {
+            ((HandledMouseEventArgs)e).Handled = true;
         }
 
         public List<Control> CreateUIHelpersFor(string parameterName, ScriptCommand parent, Control[] targetControls,
@@ -961,7 +972,10 @@ namespace OpenBots.UI.CustomControls
                 cbo.Items.Clear();
 
                 foreach (var variable in ((frmCommandEditor)editor).ScriptVariables)
-                    cbo.Items.Add("{" + variable.VariableName + "}");
+                {
+                    if (variable.VariableName != "ProjectPath")
+                        cbo.Items.Add("{" + variable.VariableName + "}");
+                }                    
             }
             return cbo;
         }

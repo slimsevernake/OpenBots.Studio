@@ -65,7 +65,7 @@ namespace OpenBots.Commands
 		{
 			base.Render(editor, commandControls);
 
-			RenderedControls.AddRange(commandControls.CreateDefaultInputGroupFor("v_HTMLVariable", this, editor));
+			RenderedControls.AddRange(commandControls.CreateDefaultInputGroupFor("v_HTMLVariable", this, editor, 100, 300));
 			RenderedControls.AddRange(commandControls.CreateDefaultInputGroupFor("v_XPathQuery", this, editor));
 			RenderedControls.AddRange(commandControls.CreateDefaultOutputGroupFor("v_OutputUserVariableName", this, editor));
 

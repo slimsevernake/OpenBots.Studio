@@ -213,6 +213,11 @@ namespace OpenBots.UI.Forms
             OnResize(EventArgs.Empty);          
         }
 
+        public void cboSelectedCommand_MouseWheel(object sender, MouseEventArgs e)
+        {
+            ((HandledMouseEventArgs)e).Handled = true;
+        }
+
         private void CopyPropertiesTo(object fromObject, object toObject)
         {
             PropertyInfo[] toObjectProperties = toObject.GetType().GetProperties();

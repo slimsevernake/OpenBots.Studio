@@ -602,30 +602,15 @@ namespace OpenBots.UI.Forms.Supplement_Forms
                 v_Comment = sequenceComment
             };
 
-            if (_appSettings.ClientSettings.InsertCommandsInline && IsCommandItemSelected)
-            {
-                if (_browserEngineType != "None")
-                    CallBackForm.AddCommandToListView(closeBrowserCommand);
+            CallBackForm.AddCommandToListView(commentCommand);
 
-                CallBackForm.AddCommandToListView(sequenceCommand);
+            if (_browserEngineType != "None")
+                CallBackForm.AddCommandToListView(_createBrowserCommand);
 
-                if (_browserEngineType != "None")
-                    CallBackForm.AddCommandToListView(_createBrowserCommand);
+            CallBackForm.AddCommandToListView(sequenceCommand);
 
-                CallBackForm.AddCommandToListView(commentCommand);
-            }
-            else
-            {
-                CallBackForm.AddCommandToListView(commentCommand);
-
-                if (_browserEngineType != "None")
-                    CallBackForm.AddCommandToListView(_createBrowserCommand);
-
-                CallBackForm.AddCommandToListView(sequenceCommand);
-
-                if (_browserEngineType != "None")
-                    CallBackForm.AddCommandToListView(closeBrowserCommand);
-            }            
+            if (_browserEngineType != "None")
+                CallBackForm.AddCommandToListView(closeBrowserCommand);                    
         }
 
         private DataTable NewSearchParameterDataTable()

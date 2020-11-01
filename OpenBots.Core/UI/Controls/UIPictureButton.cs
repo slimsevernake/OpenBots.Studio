@@ -80,12 +80,12 @@ namespace OpenBots.Core.UI.Controls
             if (IsMouseOver)
             {
                 Cursor = Cursors.Hand;
-                BackColor = Color.Transparent;
+                //BackColor = Color.Transparent;
             }
             else
             {
                 Cursor = Cursors.Arrow;
-                BackColor = Color.Transparent;
+                //BackColor = Color.Transparent;
             }
 
             if (Image != null)

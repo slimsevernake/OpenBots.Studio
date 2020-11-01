@@ -8,6 +8,8 @@ using OpenBots.Core.Utilities.CommonUtilities;
 using OpenBots.Engine;
 using OpenBots.UI.Forms;
 using OpenBots.UI.Forms.ScriptBuilder_Forms;
+using Serilog;
+using Serilog.Core;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -104,6 +106,8 @@ namespace OpenBots.Commands
 			}
 
 			var childTaskPath = v_taskPath.ConvertUserVariableToString(currentScriptEngine);
+			if (!File.Exists(childTaskPath))
+				throw new FileNotFoundException("Task file was not found");
 
 			frmScriptEngine parentEngine = (frmScriptEngine)currentScriptEngine.ScriptEngineUI;
 			string parentTaskPath = currentScriptEngine.ScriptEngineUI.FilePath;
@@ -281,15 +285,17 @@ namespace OpenBots.Commands
 			//create variable list
 			InitializeVariableLists(currentScriptEngine);
 
-			var newEngine = new AutomationEngineInstance(currentScriptEngine.EngineLogger);
+			var newEngine = new AutomationEngineInstance((Logger)Log.Logger);
 			newEngine.VariableList = _variableList;
 			newEngine.AppInstances = currentScriptEngine.AppInstances;
-			currentScriptEngine.EngineLogger.Information("Executing Child Task: " + Path.GetFileName(childTaskPath));
+			newEngine.IsServerChildExecution = true;
+
+			Log.Information("Executing Child Task: " + Path.GetFileName(childTaskPath));
 			newEngine.ExecuteScriptSync(childTaskPath, currentScriptEngine.GetProjectPath());
 
 			UpdateCurrentEngineContext(currentScriptEngine, newEngine);
 
-			currentScriptEngine.EngineLogger.Information("Resuming Parent Task: " + Path.GetFileName(parentTaskPath));
+			Log.Information("Resuming Parent Task: " + Path.GetFileName(parentTaskPath));
 		}
 
 		private void InitializeVariableLists(IEngine engine)

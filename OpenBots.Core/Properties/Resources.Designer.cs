@@ -1051,16 +1051,6 @@ namespace OpenBots.Core.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
-        /// </summary>
-        public static byte[] OpenBots_ExtractPDFText {
-            get {
-                object obj = ResourceManager.GetObject("OpenBots_ExtractPDFText", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
         /// </summary>
         public static System.Drawing.Icon OpenBots_ico {

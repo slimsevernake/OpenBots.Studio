@@ -73,7 +73,7 @@ namespace OpenBots.Commands
 			}
 
 			//automatically close messageboxes for server requests
-			if (engine.ServerExecution && closeAfter <= 0)
+			if (engine.IsServerExecution && closeAfter <= 0)
 				closeAfter = 10;
 
 			var result = ((frmScriptEngine)engine.ScriptEngineUI).Invoke(new Action(() =>

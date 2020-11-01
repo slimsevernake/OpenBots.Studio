@@ -240,7 +240,7 @@ namespace OpenBots.UI.Forms
             EngineInstance.ScriptFinishedEvent += Engine_ScriptFinishedEvent;
             EngineInstance.LineNumberChangedEvent += EngineInstance_LineNumberChangedEvent;
             EngineInstance.ScriptEngineUI = this;
-            EngineInstance.ServerExecution = ServerExecution;
+            EngineInstance.IsServerExecution = ServerExecution;
 
             if (JsonData == null)
             {
@@ -748,5 +748,11 @@ namespace OpenBots.UI.Forms
         }
 
         #endregion UI Elements       
+
+        private void frmScriptEngine_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (CallBackForm != null && !IsChildEngine)
+                CallBackForm.IsScriptRunning = false;
+        }
     }
 }

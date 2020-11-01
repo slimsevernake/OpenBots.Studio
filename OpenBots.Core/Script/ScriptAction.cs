@@ -23,7 +23,8 @@ namespace OpenBots.Core.Script
 		[Browsable(false)]
 		public bool IsExceptionIgnored { get; set; }
 
-		[Browsable(false)]
+		[JsonIgnore]
+		[Browsable(false)]		
 		public string SerializationError { get; set; }
 
 		/// <summary>

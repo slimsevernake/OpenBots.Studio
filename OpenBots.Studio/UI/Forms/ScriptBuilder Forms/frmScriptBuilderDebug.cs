@@ -72,7 +72,7 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
                     DataRow[] foundVariables = variableValues.Select("Name = '" + variable.VariableName + "'");
                     if (foundVariables.Length == 0)
                     {
-                        string type = "";
+                        string type = "null";
                         if (variable.VariableValue != null)
                             type = variable.VariableValue.GetType().FullName;
 

@@ -19,9 +19,10 @@ namespace OpenBots.UI.Forms.Supplement_Forms
             lvShortcutMenu.Items.Add(new ListViewItem(new string[] { "Add/Remove Breakpoint", "Ctrl + B" }));
             lvShortcutMenu.Items.Add(new ListViewItem(new string[] { "Cut Selected Code", "Ctrl + X" }));
             lvShortcutMenu.Items.Add(new ListViewItem(new string[] { "Copy Selected Code", "Ctrl + C" }));
-            lvShortcutMenu.Items.Add(new ListViewItem(new string[] { "Paste Selected Code", "Ctrl  +V" }));
-            lvShortcutMenu.Items.Add(new ListViewItem(new string[] { "Delete Selected Code", "Del" }));
+            lvShortcutMenu.Items.Add(new ListViewItem(new string[] { "Paste Selected Code", "Ctrl + V" }));
+            lvShortcutMenu.Items.Add(new ListViewItem(new string[] { "Delete Selected Code", "Delete" }));
             lvShortcutMenu.Items.Add(new ListViewItem(new string[] { "Select All Code", "Ctrl + A" }));
+            lvShortcutMenu.Items.Add(new ListViewItem(new string[] { "Clear All Code", "Ctrl + Backspace" }));
             lvShortcutMenu.Items.Add(new ListViewItem(new string[] { "Open Code Editor", "Enter" }));
             lvShortcutMenu.Items.Add(new ListViewItem(new string[] { "Undo Changes", "Ctrl + Z" }));
             lvShortcutMenu.Items.Add(new ListViewItem(new string[] { "Redo Changes", "Ctrl + R" }));

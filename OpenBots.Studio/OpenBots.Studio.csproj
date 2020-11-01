@@ -768,6 +768,9 @@
     <None Include="Supplementary Files\Conversion Files\0.0.0.0.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="Supplementary Files\Conversion Files\1.0.7.0.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config">

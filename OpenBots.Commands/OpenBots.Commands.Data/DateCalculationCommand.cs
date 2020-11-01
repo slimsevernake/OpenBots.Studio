@@ -23,7 +23,7 @@ namespace OpenBots.Commands.Data
 		[Required]
 		[DisplayName("Date")]
 		[Description("Specify either text or a variable that contains the date.")]
-		[SampleUsage("1/1/2000 || {DateTime.Now}")]
+		[SampleUsage("1/1/2000 || {vDate} || {DateTime.Now}")]
 		[Remarks("You can use known text or variables.")]
 		[Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
 		public string v_InputDate { get; set; }
@@ -95,22 +95,29 @@ namespace OpenBots.Commands.Data
 		{
 			var engine = (AutomationEngineInstance)sender;
 
-			//get variablized string
-			var variableDateTime = v_InputDate.ConvertUserVariableToString(engine);
 			var formatting = v_ToStringFormat.ConvertUserVariableToString(engine);
 			var variableIncrement = v_Increment.ConvertUserVariableToString(engine);
 
-			//convert to date time
-			DateTime requiredDateTime;
-			if (!DateTime.TryParse(variableDateTime, out requiredDateTime))
-				throw new InvalidDataException("Date was unable to be parsed - " + variableDateTime);
+			dynamic input = v_InputDate.ConvertUserVariableToString(engine);
+
+			if (input == v_InputDate && input.StartsWith("{") && input.EndsWith("}"))
+				input = v_InputDate.ConvertUserVariableToObject(engine);
+
+			DateTime variableDate;
+
+			if (input is DateTime)
+				variableDate = (DateTime)input;
+			else if (input is string)
+				variableDate = DateTime.Parse((string)input);
+			else
+				throw new InvalidDataException($"{v_InputDate} is not a valid DateTime");
 
 			//get increment value
 			double requiredInterval;
 
 			//convert to double
 			if (!double.TryParse(variableIncrement, out requiredInterval))
-				throw new InvalidDataException("Date was unable to be parsed - " + variableIncrement);
+				throw new InvalidDataException("Increment was unable to be parsed - " + variableIncrement);
 
 			dynamic dateTimeValue;
 
@@ -118,58 +125,58 @@ namespace OpenBots.Commands.Data
 			switch (v_CalculationMethod)
 			{
 				case "Add Second(s)":
-					dateTimeValue = requiredDateTime.AddSeconds(requiredInterval);
+					dateTimeValue = variableDate.AddSeconds(requiredInterval);
 					break;
 				case "Add Minute(s)":
-					dateTimeValue = requiredDateTime.AddMinutes(requiredInterval);
+					dateTimeValue = variableDate.AddMinutes(requiredInterval);
 					break;
 				case "Add Hour(s)":
-					dateTimeValue = requiredDateTime.AddHours(requiredInterval);
+					dateTimeValue = variableDate.AddHours(requiredInterval);
 					break;
 				case "Add Day(s)":
-					dateTimeValue = requiredDateTime.AddDays(requiredInterval);
+					dateTimeValue = variableDate.AddDays(requiredInterval);
 					break;
 				case "Add Month(s)":
-					dateTimeValue = requiredDateTime.AddMonths((int)requiredInterval);
+					dateTimeValue = variableDate.AddMonths((int)requiredInterval);
 					break;
 				case "Add Year(s)":
-					dateTimeValue = requiredDateTime.AddYears((int)requiredInterval);
+					dateTimeValue = variableDate.AddYears((int)requiredInterval);
 					break;
 				case "Subtract Second(s)":
-					dateTimeValue = requiredDateTime.AddSeconds((requiredInterval * -1));
+					dateTimeValue = variableDate.AddSeconds((requiredInterval * -1));
 					break;
 				case "Subtract Minute(s)":
-					dateTimeValue = requiredDateTime.AddMinutes((requiredInterval * -1));
+					dateTimeValue = variableDate.AddMinutes((requiredInterval * -1));
 					break;
 				case "Subtract Hour(s)":
-					dateTimeValue = requiredDateTime.AddHours(requiredInterval * -1);
+					dateTimeValue = variableDate.AddHours(requiredInterval * -1);
 					break;
 				case "Subtract Day(s)":
-					dateTimeValue = requiredDateTime.AddDays(requiredInterval * -1);
+					dateTimeValue = variableDate.AddDays(requiredInterval * -1);
 					break;
 				case "Subtract Month(s)":
-					dateTimeValue = requiredDateTime.AddMonths((int)requiredInterval * -1);
+					dateTimeValue = variableDate.AddMonths((int)requiredInterval * -1);
 					break;
 				case "Subtract Year(s)":
-					dateTimeValue = requiredDateTime.AddYears((int)requiredInterval * -1);
+					dateTimeValue = variableDate.AddYears((int)requiredInterval * -1);
 					break;
 				case "Get Next Day":
-					dateTimeValue = requiredDateTime.AddDays(requiredInterval).Day;
+					dateTimeValue = variableDate.AddDays(requiredInterval).Day;
 					break;
 				case "Get Next Month":
-					dateTimeValue = requiredDateTime.AddMonths((int)requiredInterval).Month;
+					dateTimeValue = variableDate.AddMonths((int)requiredInterval).Month;
 					break;
 				case "Get Next Year":
-					dateTimeValue = requiredDateTime.AddYears((int)requiredInterval).Year;
+					dateTimeValue = variableDate.AddYears((int)requiredInterval).Year;
 					break;
 				case "Get Previous Day":
-					dateTimeValue = requiredDateTime.AddDays(requiredInterval * -1).Day;
+					dateTimeValue = variableDate.AddDays(requiredInterval * -1).Day;
 					break;
 				case "Get Previous Month":
-					dateTimeValue = requiredDateTime.AddMonths((int)requiredInterval * -1).Month;
+					dateTimeValue = variableDate.AddMonths((int)requiredInterval * -1).Month;
 					break;
 				case "Get Previous Year":
-					dateTimeValue = requiredDateTime.AddYears((int)requiredInterval * -1).Year;
+					dateTimeValue = variableDate.AddYears((int)requiredInterval * -1).Year;
 					break;
 				default:
 					dateTimeValue = "";

@@ -150,6 +150,9 @@ namespace OpenBots.UI.Forms
                 VariableValue = tvScriptVariables.SelectedNode.Nodes[0].Text.Replace(_leadingValue, "").Replace(_emptyValue, "");
             }
 
+            if (VariableName.Replace("{", "").Replace("}", "") == "ProjectPath")
+                return;
+
             //create variable editing form
             frmAddVariable addVariableForm = new frmAddVariable(VariableName, VariableValue);
             addVariableForm.ScriptVariables = ScriptVariables;
@@ -228,6 +231,9 @@ namespace OpenBots.UI.Forms
                 {
                     parentNode = tvScriptVariables.SelectedNode;
                 }
+
+                if (parentNode.Text.Replace("{", "").Replace("}", "") == "ProjectPath")
+                    return;
 
                 //remove parent node
                 parentNode.Remove();

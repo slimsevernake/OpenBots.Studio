@@ -2,7 +2,7 @@
 
 namespace OpenBots.Core.Server.Models
 {
-    public class QueueItem : NamedEntity
+	public class QueueItem : NamedEntity
 	{
 		public bool IsLocked { get; set; }
 		public DateTime? LockedOnUTC { get; set; }
@@ -23,5 +23,7 @@ namespace OpenBots.Core.Server.Models
 		public string ErrorCode { get; set; }
 		public string ErrorMessage { get; set; }
 		public string ErrorSerialized { get; set; }
+		public string Source { get; set; }
+		public string Event { get; set; }
 	}
 }

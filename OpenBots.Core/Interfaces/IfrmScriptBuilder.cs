@@ -1,4 +1,5 @@
-﻿using System.Windows.Forms;
+﻿using System.Drawing;
+using System.Windows.Forms;
 
 namespace OpenBots.Core.Infrastructure
 {
@@ -13,7 +14,7 @@ namespace OpenBots.Core.Infrastructure
         bool IsScriptSteppedOver { get; set; }
         bool IsScriptSteppedInto { get; set; }
         bool IsUnhandledException { get; set; }
-        void Notify(string notificationText);
+        void Notify(string notificationText, Color notificationColor);
         void RemoveDebugTab();
         DialogResult LoadErrorForm(string errorMessage);
         string HTMLElementRecorderURL { get; set; }

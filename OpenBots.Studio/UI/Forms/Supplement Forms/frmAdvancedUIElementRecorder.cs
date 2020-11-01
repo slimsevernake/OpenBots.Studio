@@ -119,8 +119,7 @@ namespace OpenBots.UI.Forms.Supplement_Forms
                 if (hWnd != IntPtr.Zero)
                 {
                     //set window state and move to 0,0
-                    User32Functions.SetWindowState(hWnd, Enums.WindowState.SwShowNormal);
-                    User32Functions.SetForegroundWindow(hWnd);
+                    User32Functions.ActivateWindow(_windowName);
                     User32Functions.SetWindowPosition(hWnd, 0, 0);
 
                     //start global hook and wait for left mouse down event
@@ -446,16 +445,8 @@ namespace OpenBots.UI.Forms.Supplement_Forms
                 v_Comment = sequenceComment
             };
 
-            if (_appSettings.ClientSettings.InsertCommandsInline && IsCommandItemSelected)
-            {
-                CallBackForm.AddCommandToListView(sequenceCommand);
-                CallBackForm.AddCommandToListView(commentCommand);
-            }
-            else
-            {
-                CallBackForm.AddCommandToListView(commentCommand);
-                CallBackForm.AddCommandToListView(sequenceCommand);
-            }
+            CallBackForm.AddCommandToListView(commentCommand);
+            CallBackForm.AddCommandToListView(sequenceCommand);
         }
 
         private void frmThickAppElementRecorder_FormClosing(object sender, FormClosingEventArgs e)

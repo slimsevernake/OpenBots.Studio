@@ -10,6 +10,7 @@ using OpenBots.Core.Settings;
 using OpenBots.Core.Utilities.CommonUtilities;
 using OpenBots.Engine.Enums;
 using RestSharp;
+using Serilog;
 using Serilog.Core;
 using Serilog.Events;
 using System;
@@ -43,6 +44,7 @@ namespace OpenBots.Engine
         private bool _isScriptSteppedInto { get; set; }
         private bool _isScriptSteppedOverBeforeException { get; set; }
         private bool _isScriptSteppedIntoBeforeException { get; set; }
+        [JsonIgnore]
         public IfrmScriptEngine ScriptEngineUI { get; set; }
         private Stopwatch _stopWatch { get; set; }
         private EngineStatus _currentStatus { get; set; }
@@ -50,7 +52,8 @@ namespace OpenBots.Engine
         private string _privateCommandLog { get; set; }
         public List<DataTable> DataTables { get; set; }
         public string FileName { get; set; }
-        public bool ServerExecution { get; set; }
+        public bool IsServerExecution { get; set; }
+        public bool IsServerChildExecution { get; set; }
         public List<IRestResponse> ServiceResponses { get; set; }
         public bool AutoCalculateVariables { get; set; }
         public string TaskResult { get; set; } = "";
@@ -58,15 +61,14 @@ namespace OpenBots.Engine
         public event EventHandler<ReportProgressEventArgs> ReportProgressEvent;
         public event EventHandler<ScriptFinishedEventArgs> ScriptFinishedEvent;
         public event EventHandler<LineNumberChangedEventArgs> LineNumberChangedEvent;
-        public Logger EngineLogger { get; set; }
 
         public AutomationEngineInstance(Logger engineLogger)
         {
             //initialize logger
             if (engineLogger != null)
             {
-                EngineLogger = engineLogger;
-                EngineLogger.Information("Engine Class has been initialized");
+                Log.Logger = engineLogger;
+                Log.Information("Engine Class has been initialized");
             }
             
             _privateCommandLog = "Can't log display value as the command contains sensitive data";
@@ -95,14 +97,15 @@ namespace OpenBots.Engine
 
         public void ExecuteScriptSync(string filePath, string projectPath)
         {
-            EngineLogger.Information("Client requesting to execute script independently");
+            Log.Information("Client requesting to execute script independently");
+            IsServerExecution = true;
             ExecuteScript(filePath, true, projectPath);
         }
 
         public void ExecuteScriptAsync(IfrmScriptEngine scriptEngine, string filePath, string projectPath, List<ScriptVariable> variables = null, 
                                        List<ScriptElement> elements = null, Dictionary<string, object> appInstances = null)
         {
-            EngineLogger.Information("Client requesting to execute script using frmEngine");
+            Log.Information("Client requesting to execute script using frmEngine");
 
             ScriptEngineUI = scriptEngine;
 
@@ -124,7 +127,7 @@ namespace OpenBots.Engine
 
         public void ExecuteScriptAsync(string filePath, string projectPath)
         {
-            EngineLogger.Information("Client requesting to execute script independently");
+            Log.Information("Client requesting to execute script independently");
 
             new Thread(() =>
             {
@@ -135,7 +138,7 @@ namespace OpenBots.Engine
 
         public void ExecuteScriptJson(string jsonData, string projectPath)
         {
-            EngineLogger.Information("Client requesting to execute script independently");
+            Log.Information("Client requesting to execute script independently");
 
             new Thread(() =>
             {
@@ -162,7 +165,7 @@ namespace OpenBots.Engine
                 if (dataIsFile)
                 {
                     ReportProgress("Deserializing File");
-                    EngineLogger.Information("Script Path: " + data);
+                    Log.Information("Script Path: " + data);
                     FileName = data;
                     automationScript = Script.DeserializeFile(data);
                 }
@@ -315,7 +318,13 @@ namespace OpenBots.Engine
                     _isScriptSteppedInto = false;
                     break;
                 }
-               
+
+                if (((Form)ScriptEngineUI).IsDisposed)
+                {
+                    IsCancellationPending = true;
+                    break;
+                }
+                                  
                 //wait
                 Thread.Sleep(1000);
             }
@@ -512,27 +521,27 @@ namespace OpenBots.Engine
             switch (eventLevel)
             {
                 case LogEventLevel.Verbose:
-                    EngineLogger.Verbose(progress);
+                    Log.Verbose(progress);
                     args.LoggerColor = Color.Purple;
                     break;
                 case LogEventLevel.Debug:
-                    EngineLogger.Debug(progress);
+                    Log.Debug(progress);
                     args.LoggerColor = Color.Green;
                     break;
                 case LogEventLevel.Information:
-                    EngineLogger.Information(progress);
+                    Log.Information(progress);
                     args.LoggerColor = SystemColors.Highlight;
                     break;
                 case LogEventLevel.Warning:
-                    EngineLogger.Warning(progress);
+                    Log.Warning(progress);
                     args.LoggerColor = Color.Goldenrod;
                     break;
                 case LogEventLevel.Error:
-                    EngineLogger.Error(progress);
+                    Log.Error(progress);
                     args.LoggerColor = Color.Red;
                     break;
                 case LogEventLevel.Fatal:
-                    EngineLogger.Fatal(progress);
+                    Log.Fatal(progress);
                     args.LoggerColor = Color.Black;
                     break;
             }
@@ -552,11 +561,11 @@ namespace OpenBots.Engine
             {
                 error = "Terminate with failure";
                 result = ScriptFinishedResult.Error;
-                EngineLogger.Fatal("Result Code: " + result.ToString());
+                Log.Fatal("Result Code: " + result.ToString());
             }
             else
             {
-                EngineLogger.Information("Result Code: " + result.ToString());
+                Log.Information("Result Code: " + result.ToString());
             }
 
             //add result variable if missing
@@ -573,7 +582,7 @@ namespace OpenBots.Engine
 
             if (error == null)
             {
-                EngineLogger.Information("Error: None");
+                Log.Information("Error: None");
 
                 if (string.IsNullOrEmpty(resultValue))
                 {
@@ -588,13 +597,16 @@ namespace OpenBots.Engine
             else
             {
                 error = ErrorsOccured.OrderByDescending(x => x.LineNumber).FirstOrDefault().StackTrace;
-                EngineLogger.Error("Error: " + error);
+                Log.Error("Error: " + error);
 
                 TaskResult = error;
             }
 
             if (ScriptEngineUI != null && !ScriptEngineUI.IsChildEngine)
-                EngineLogger.Dispose();
+                Log.CloseAndFlush();
+
+            if (IsServerExecution && !IsServerChildExecution)
+                Log.CloseAndFlush();
 
             _currentStatus = EngineStatus.Finished;
             ScriptFinishedEventArgs args = new ScriptFinishedEventArgs
@@ -638,7 +650,7 @@ namespace OpenBots.Engine
             {
                 Error = (serializer, err) =>
                 {
-                    err.ErrorContext.Handled = true;
+                    err.ErrorContext.Handled = true;                    
                 },
                 Formatting = Formatting.Indented
             };

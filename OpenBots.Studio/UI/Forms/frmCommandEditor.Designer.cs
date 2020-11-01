@@ -56,6 +56,7 @@
             this.cboSelectedCommand.Size = new System.Drawing.Size(619, 33);
             this.cboSelectedCommand.TabIndex = 2;
             this.cboSelectedCommand.SelectionChangeCommitted += new System.EventHandler(this.cboSelectedCommand_SelectionChangeCommitted);
+            this.cboSelectedCommand.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.cboSelectedCommand_MouseWheel);
             // 
             // flw_InputVariables
             // 

@@ -36,7 +36,23 @@ namespace OpenBots.Commands.QueueItem
 		[Remarks("")]
 		[Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
 		public string v_QueueItemName { get; set; }
-	  
+
+		[DisplayName("Source (Optional)")]
+		[Description("If the item being enqueued is a business event, define the source of the event.\n" +
+					 "This is typically the system name that caused the business event.")]
+		[SampleUsage("Loan Origination System || Lead Generation System ||{vSource}")]
+		[Remarks("")]
+		[Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
+		public string v_Source { get; set; }
+
+		[DisplayName("Event (Optional)")]
+		[Description("If the item being enqueued is a business event, define the name of the event.\n" +
+					 "This is typically what has occured.")]
+		[SampleUsage("Payment Rejected || New Employee Onboarded || {vEvent}")]
+		[Remarks("")]
+		[Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
+		public string v_Event { get; set; }
+
 		[Required]
 		[DisplayName("QueueItem Type")]
 		[PropertyUISelectionOption("Text")]
@@ -63,10 +79,11 @@ namespace OpenBots.Commands.QueueItem
 		public string v_QueueItemTextValue { get; set; }
 
 		[Required]
-		[DisplayName("Priority")]
+		[DisplayName("Priority (Optional)")]
 		[Description("Enter a priority value between 0-100.")]
 		[SampleUsage("100 || {vPriority}")]
-		[Remarks("")]
+		[Remarks("Priority determines the order in which QueueItems will be worked.\n" +
+				 "If no priority is set, QueueItems will be ordered by time of creation.")]
 		[Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
 		public string v_Priority { get; set; }
 
@@ -81,7 +98,7 @@ namespace OpenBots.Commands.QueueItem
 			CommandEnabled = true;
 			
 			v_QueueItemType = "Text";
-			v_Priority = "100";
+			v_Priority = "10";
 		}
 
 		public override void RunCommand(object sender)
@@ -89,12 +106,21 @@ namespace OpenBots.Commands.QueueItem
 			var engine = (AutomationEngineInstance)sender;
 			var vQueueName = v_QueueName.ConvertUserVariableToString(engine);
 			var vQueueItemName = v_QueueItemName.ConvertUserVariableToString(engine);
+			var vSource = v_Source.ConvertUserVariableToString(engine);
+			var vEvent = v_Event.ConvertUserVariableToString(engine);
 			var vJsonType = v_JsonType.ConvertUserVariableToString(engine);            
 			var vPriority = v_Priority.ConvertUserVariableToString(engine);
 			var vQueueItemTextValue = v_QueueItemTextValue.ConvertUserVariableToString(engine);
 
 			var client = AuthMethods.GetAuthToken();
 			Queue queue = QueueMethods.GetQueue(client, $"name eq '{vQueueName}'");
+
+			if (queue == null)
+				throw new Exception($"Queue with name '{vQueueName}' not found");
+
+			int priority = 0;
+			if (!string.IsNullOrEmpty(v_Priority))
+				priority = int.Parse(vPriority);
 
 			QueueItemModel queueItem = new QueueItemModel()
 			{
@@ -105,7 +131,9 @@ namespace OpenBots.Commands.QueueItem
 				DataJson = vQueueItemTextValue,
 				Name = vQueueItemName,
 				IsDeleted = false,
-				Priority = int.Parse(vPriority)
+				Priority = priority,
+				Source = vSource,
+				Event = vEvent
 			};
 
 			QueueItemMethods.EnqueueQueueItem(client, queueItem);
@@ -117,8 +145,10 @@ namespace OpenBots.Commands.QueueItem
 
 			RenderedControls.AddRange(commandControls.CreateDefaultInputGroupFor("v_QueueName", this, editor));
 			RenderedControls.AddRange(commandControls.CreateDefaultInputGroupFor("v_QueueItemName", this, editor));
+			RenderedControls.AddRange(commandControls.CreateDefaultInputGroupFor("v_Source", this, editor));
+			RenderedControls.AddRange(commandControls.CreateDefaultInputGroupFor("v_Event", this, editor));
 			RenderedControls.AddRange(commandControls.CreateDefaultDropdownGroupFor("v_QueueItemType", this, editor));
-			((ComboBox)RenderedControls[7]).SelectedIndexChanged += QueueItemTypeComboBox_SelectedValueChanged;
+			((ComboBox)RenderedControls[13]).SelectedIndexChanged += QueueItemTypeComboBox_SelectedValueChanged;
 
 			_jsonTypeControls = new List<Control>();
 			_jsonTypeControls.AddRange(commandControls.CreateDefaultInputGroupFor("v_JsonType", this, editor));
@@ -139,7 +169,7 @@ namespace OpenBots.Commands.QueueItem
 
 		private void QueueItemTypeComboBox_SelectedValueChanged(object sender, EventArgs e)
 		{
-			if (((ComboBox)RenderedControls[7]).Text == "Json")
+			if (((ComboBox)RenderedControls[13]).Text == "Json")
 			{
 				foreach (var ctrl in _jsonTypeControls)
 					ctrl.Visible = true;

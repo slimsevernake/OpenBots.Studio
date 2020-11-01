@@ -406,5 +406,16 @@ namespace OpenBots.UI.Forms
                 txtLogging1.Text = ofd.FileName;
             }
         }
+
+        //prevents tab control from flickering
+        protected override CreateParams CreateParams
+        {
+            get
+            {
+                CreateParams cp = base.CreateParams;
+                cp.ExStyle |= 0x02000000;  // Turn on WS_EX_COMPOSITED
+                return cp;
+            }
+        }
     }
 }

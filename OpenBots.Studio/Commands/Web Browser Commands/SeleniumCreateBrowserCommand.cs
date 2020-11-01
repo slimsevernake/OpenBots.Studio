@@ -40,7 +40,9 @@ namespace OpenBots.Commands
 		[PropertyUISelectionOption("Internet Explorer")]
 		[Description("Select the browser engine to execute the Selenium automation with.")]
 		[SampleUsage("")]
-		[Remarks("The recommended browser option for web automation is Chrome.")]
+		[Remarks("The recommended browser option for web automation is Chrome.\n" + 
+				 "If the IE engine is selected, make sure IE's security settings " +
+				 "have 'Enabled Protected Mode' set to true across all zones.")]
 		public string v_EngineType { get; set; }
 
 		[DisplayName("URL (Optional)")]

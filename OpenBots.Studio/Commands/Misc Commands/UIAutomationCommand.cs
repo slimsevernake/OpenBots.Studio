@@ -112,6 +112,8 @@ namespace OpenBots.Commands
 			var variableWindowName = v_WindowName.ConvertUserVariableToString(engine);
 			if (variableWindowName == "Current Window")
 				variableWindowName = User32Functions.GetActiveWindowTitle();
+			
+			User32Functions.ActivateWindow(variableWindowName);
 
 			dynamic requiredHandle = null;
 			if (v_AutomationType != "Wait For Element To Exist")

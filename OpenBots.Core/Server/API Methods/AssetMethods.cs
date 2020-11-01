@@ -59,7 +59,7 @@ namespace OpenBots.Core.Server.API_Methods
 
         public static void UpdateFileAsset(RestClient client, Asset asset, string filePath)
         {
-            var request = new RestRequest("api/v1/Assets/{id}/upload", Method.PUT);
+            var request = new RestRequest("api/v1/Assets/{id}/Update", Method.PUT);
             request.AddUrlSegment("id", asset.Id.ToString());
             request.AddParameter("id", asset.Id.ToString());
             request.RequestFormat = DataFormat.Json;

@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -30,8 +31,9 @@ namespace OpenBots.Commands.Data
 		[Required]
 		[DisplayName("Text Delimiter")]
 		[Description("Specify the character that will be used to split the text.")]
-		[SampleUsage("[crLF] || [chars] || , || {vDelimiter}")]
-		[Remarks("[crLF] can be used for line breaks and [chars] can be used to split each character.")]
+		[SampleUsage("[crLF] || [chars] || , || {vDelimiter} || {vDelimeterList}")]
+		[Remarks("[crLF] can be used for line breaks and [chars] can be used to split each character." +
+				 "To use multiple delimeters, create a List variable of delimeter characters to use as the input.")]
 		[Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
 		public string v_SplitCharacter { get; set; }
 
@@ -54,30 +56,55 @@ namespace OpenBots.Commands.Data
 		{
 			var engine = (AutomationEngineInstance)sender;
 			var stringVariable = v_InputText.ConvertUserVariableToString(engine);
-			var splitCharacter = v_SplitCharacter;
 
-			if(v_SplitCharacter != "[crLF]" && v_SplitCharacter != "[chars]")
+			string splitCharacter = "";
+			List<string> splitCharacterList = new List<string>();
+			bool isDelimeterList = false;
+
+			dynamic input = v_SplitCharacter.ConvertUserVariableToString(engine);
+
+			if (input == v_SplitCharacter && input.StartsWith("{") && input.EndsWith("}"))
+				input = v_SplitCharacter.ConvertUserVariableToObject(engine);
+
+			if (input is List<string>)
 			{
-				splitCharacter = v_SplitCharacter.ConvertUserVariableToString(engine);
+				splitCharacterList = (List<string>)input;
+				isDelimeterList = true;
 			}
+				
+			else if (input is string)
+				splitCharacter = (string)input;
+			else
+				throw new InvalidDataException($"{v_SplitCharacter} is not a valid delimeter");
+
+
 			List<string> splitString;
-			if (splitCharacter == "[crLF]")
+			if (isDelimeterList)
 			{
-				splitString = stringVariable.Split(new[] { Environment.NewLine }, StringSplitOptions.None).ToList();
-			}
-			else if (splitCharacter == "[chars]")
-			{
-				splitString = new List<string>();
-				var chars = stringVariable.ToCharArray();
-				foreach (var c in chars)
-				{
-					splitString.Add(c.ToString());
-				}
+				splitString = stringVariable.Split(splitCharacterList.ToArray(), StringSplitOptions.None).ToList();
 			}
 			else
 			{
-				splitString = stringVariable.Split(new string[] { splitCharacter }, StringSplitOptions.None).ToList();
+				
+				if (splitCharacter == "[crLF]")
+				{
+					splitString = stringVariable.Split(new[] { Environment.NewLine }, StringSplitOptions.None).ToList();
+				}
+				else if (splitCharacter == "[chars]")
+				{
+					splitString = new List<string>();
+					var chars = stringVariable.ToCharArray();
+					foreach (var c in chars)
+					{
+						splitString.Add(c.ToString());
+					}
+				}
+				else
+				{
+					splitString = stringVariable.Split(new string[] { splitCharacter }, StringSplitOptions.None).ToList();
+				}
 			}
+			
 
 			splitString.StoreInUserVariable(engine, v_OutputUserVariableName);           
 		}

@@ -33,7 +33,7 @@
             this.uiBtnOpen = new OpenBots.Core.UI.Controls.UIPictureButton();
             this.lblMainLogo = new System.Windows.Forms.Label();
             this.tlpSettings = new System.Windows.Forms.TableLayoutPanel();
-            this.uiSettingTabs = new OpenBots.UI.CustomControls.CustomUIControls.UITabControl();
+            this.uiSettingTabs = new System.Windows.Forms.TabControl();
             this.tabAppSettings = new System.Windows.Forms.TabPage();
             this.chkSlimActionBar = new System.Windows.Forms.CheckBox();
             this.chkPreloadCommands = new System.Windows.Forms.CheckBox();
@@ -879,7 +879,7 @@
         private System.Windows.Forms.TableLayoutPanel tlpSettings;
         private System.Windows.Forms.Panel pnlSettings;
         private System.ComponentModel.BackgroundWorker bgwMetrics;
-        private CustomControls.CustomUIControls.UITabControl uiSettingTabs;
+        private System.Windows.Forms.TabControl uiSettingTabs;
         private System.Windows.Forms.TabPage tabDebugSettings;
         private System.Windows.Forms.Button btnFileManager;
         private System.Windows.Forms.ComboBox cbxMinLogLevel;

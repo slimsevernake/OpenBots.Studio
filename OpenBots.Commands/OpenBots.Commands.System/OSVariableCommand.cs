@@ -97,7 +97,7 @@ namespace OpenBots.Commands.System
 			RenderedControls.Add(_variableNameComboBox);
 
 			_variableValue = new Label();
-			_variableValue.Font = new Font("Segoe UI Semilight", 12, FontStyle.Bold);
+			_variableValue.Font = new Font("Segoe UI Semilight", 10, FontStyle.Bold);
 			_variableValue.ForeColor = Color.White;
 			RenderedControls.Add(_variableValue);
 
@@ -123,7 +123,7 @@ namespace OpenBots.Commands.System
 				{
 					if (prop.Name == selectedValue.ToString())
 					{
-						_variableValue.Text = "[ex. " + prop.Value + "]";
+						_variableValue.Text = prop.Value.ToString();
 						return;
 					}
 				}
