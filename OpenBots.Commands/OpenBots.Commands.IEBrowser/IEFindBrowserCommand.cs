@@ -1,48 +1,52 @@
-﻿using MSHTML;
-using OpenBots.Core.Attributes.ClassAttributes;
+﻿using mshtml;
+using Newtonsoft.Json;
 using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
+using OpenBots.Core.Enums;
 using OpenBots.Core.Infrastructure;
 using OpenBots.Engine;
 using SHDocVw;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Windows.Forms;
-using System.Xml.Serialization;
+using OpenBots.Core.Utilities.CommonUtilities;
 
 namespace OpenBots.Commands.IEBrowser
 {
     [Serializable]
-    [Group("IE Browser Commands")]
+    [Category("IE Browser Commands")]
     [Description("This command finds and attaches to an existing IE Web Browser session.")]
     public class IEFindBrowserCommand : ScriptCommand
     {
-        [XmlAttribute]
-        [PropertyDescription("IE Browser Instance Name")]
-        [InputSpecification("Enter a unique name that will represent the application instance.")]
+        [Required]
+        [DisplayName("IE Browser Instance Name")]
+        [Description("Enter a unique name that will represent the application instance.")]
         [SampleUsage("MyIEBrowserInstance")]
         [Remarks("This unique name allows you to refer to the instance by name in future commands, " +
                  "ensuring that the commands you specify run against the correct application.")]
         public string v_InstanceName { get; set; }
 
-        [XmlAttribute]
-        [PropertyDescription("Browser Name (Title)")]
-        [InputSpecification("Select the Name (Title) of the IE Browser Instance to get attached to.")]
+        [Required]
+        [DisplayName("Browser Name (Title)")]
+        [Description("Select the Name (Title) of the IE Browser Instance to get attached to.")]
         [SampleUsage("")]
         [Remarks("")]
+        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
         public string v_IEBrowserName { get; set; }
 
-        [XmlIgnore]
-        [NonSerialized]
+        [JsonIgnore]
+        [Browsable(false)]
         private ComboBox _ieBrowerNameDropdown;
 
         public IEFindBrowserCommand()
         {
             CommandName = "IEFindBrowserCommand";
-            SelectionName = "Find IE Browser";
+            SelectionName = "Find IE Browser";          
+            CommandEnabled = false;
+
             v_InstanceName = "DefaultIEBrowser";
-            CommandEnabled = true;
-            CustomRendering = true;
         }
 
         public override void RunCommand(object sender)
@@ -55,7 +59,7 @@ namespace OpenBots.Commands.IEBrowser
             {
                 if ((shellWindow.Document is HTMLDocument) && (v_IEBrowserName==null || shellWindow.Document.Title == v_IEBrowserName))
                 {
-                    shellWindow.Application.AddAppInstance(engine, v_InstanceName);
+                    ((object)shellWindow.Application).AddAppInstance(engine, v_InstanceName);
                     browserFound = true;
                     break;
                 }
@@ -70,7 +74,7 @@ namespace OpenBots.Commands.IEBrowser
                         ((shellWindow.Document.Title.Contains(v_IEBrowserName) || 
                         shellWindow.Document.Url.Contains(v_IEBrowserName))))
                     {
-                        shellWindow.Application.AddAppInstance(engine, v_InstanceName);
+                        ((object)shellWindow.Application).AddAppInstance(engine, v_InstanceName);
                         browserFound = true;
                         break;
                     }
