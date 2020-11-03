@@ -1,5 +1,4 @@
-﻿using OpenBots.Core.Attributes.ClassAttributes;
-using OpenBots.Core.Attributes.PropertyAttributes;
+﻿using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
 using OpenBots.Core.Enums;
 using OpenBots.Core.Infrastructure;
@@ -8,38 +7,39 @@ using OpenBots.Engine;
 using SHDocVw;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Windows.Forms;
-using System.Xml.Serialization;
 
 namespace OpenBots.Commands.IEBrowser
 {
     [Serializable]
-    [Group("IE Browser Commands")]
+    [Category("IE Browser Commands")]
     [Description("This command navigates an existing IE web browser session to a given URL or web resource.")]
     public class IENavigateToURLCommand : ScriptCommand
     {
-        [XmlAttribute]
-        [PropertyDescription("IE Browser Instance Name")]
-        [InputSpecification("Enter the unique instance that was specified in the **IE Create Browser** command.")]
+        [Required]
+        [DisplayName("IE Browser Instance Name")]
+        [Description("Enter the unique instance that was specified in the **IE Create Browser** command.")]
         [SampleUsage("MyIEBrowserInstance")]
         [Remarks("Failure to enter the correct instance name or failure to first call the **IE Create Browser** command will cause an error.")]
         public string v_InstanceName { get; set; }
 
-        [XmlAttribute]
-        [PropertyDescription("Navigate to URL")]
-        [InputSpecification("Enter the destination URL that you want the IE instance to navigate to.")]
+        [Required]
+        [DisplayName("Navigate to URL")]
+        [Description("Enter the destination URL that you want the IE instance to navigate to.")]
         [SampleUsage("https://example.com/ || {vURL}")]
         [Remarks("")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
+        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
         public string v_URL { get; set; }
 
         public IENavigateToURLCommand()
         {
             CommandName = "IENavigateToURLCommand";
-            SelectionName = "IE Navigate to URL";
+            SelectionName = "IE Navigate to URL";           
+            CommandEnabled = false;
+
             v_InstanceName = "DefaultIEBrowser";
-            CommandEnabled = true;
-            CustomRendering = true;
         }
 
         public override void RunCommand(object sender)

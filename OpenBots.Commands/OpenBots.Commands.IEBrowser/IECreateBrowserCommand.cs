@@ -1,5 +1,4 @@
 ﻿using OpenBots.Core.App;
-using OpenBots.Core.Attributes.ClassAttributes;
 using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
 using OpenBots.Core.Enums;
@@ -9,38 +8,39 @@ using OpenBots.Engine;
 using SHDocVw;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Threading;
 using System.Windows.Forms;
-using System.Xml.Serialization;
 
 namespace OpenBots.Commands.IEBrowser
 {
     [Serializable]
-    [Group("IE Browser Commands")]
+    [Category("IE Browser Commands")]
     [Description("This command creates a new IE Web Browser Session.")]
     public class IECreateBrowserCommand : ScriptCommand
     {
-        [XmlAttribute]
-        [PropertyDescription("IE Browser Instance Name")]
-        [InputSpecification("Enter a unique name that will represent the application instance.")]
+        [Required]
+        [DisplayName("IE Browser Instance Name")]
+        [Description("Enter a unique name that will represent the application instance.")]
         [SampleUsage("MyIEBrowserInstance")]
         [Remarks("This unique name allows you to refer to the instance by name in future commands, " +
                  "ensuring that the commands you specify run against the correct application.")]
         public string v_InstanceName { get; set; }
 
-        [XmlAttribute]
-        [PropertyDescription("URL")]
-        [InputSpecification("Enter a Web URL to navigate to.")]
+        [Required]
+        [DisplayName("URL")]
+        [Description("Enter a Web URL to navigate to.")]
         [SampleUsage("https://example.com/ || {vURL}")]
         [Remarks("This input is optional.")]
-        [PropertyUIHelper(UIAdditionalHelperType.ShowVariableHelper)]
+        [Editor("ShowVariableHelper", typeof(UIAdditionalHelperType))]
         public string v_URL { get; set; }
 
-        [XmlAttribute]
-        [PropertyDescription("Instance Tracking (after task ends)")]
+        [Required]
+        [DisplayName("Instance Tracking (after task ends)")]
         [PropertyUISelectionOption("Forget Instance")]
         [PropertyUISelectionOption("Keep Instance Alive")]
-        [InputSpecification("Specify if OpenBots should remember this instance name after the script has finished executing.")]
+        [Description("Specify if OpenBots should remember this instance name after the script has finished executing.")]
         [SampleUsage("")]
         [Remarks("Calling the **Close Browser** command or closing the application will end the instance.")]
         public string v_InstanceTracking { get; set; }
@@ -48,10 +48,10 @@ namespace OpenBots.Commands.IEBrowser
         public IECreateBrowserCommand()
         {
             CommandName = "IECreateBrowserCommand";
-            SelectionName = "Create IE Browser";
+            SelectionName = "Create IE Browser";           
+            CommandEnabled = false;
+
             v_InstanceName = "DefaultIEBrowser";
-            CommandEnabled = true;
-            CustomRendering = true;
             v_InstanceTracking = "Forget Instance";
         }
 

@@ -1,5 +1,4 @@
-﻿using OpenBots.Core.Attributes.ClassAttributes;
-using OpenBots.Core.Attributes.PropertyAttributes;
+﻿using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
 using OpenBots.Core.Infrastructure;
 using OpenBots.Core.Utilities.CommonUtilities;
@@ -7,19 +6,20 @@ using OpenBots.Engine;
 using SHDocVw;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Windows.Forms;
-using System.Xml.Serialization;
 
 namespace OpenBots.Commands.IEBrowser
 {
     [Serializable]
-    [Group("IE Browser Commands")]
+    [Category("IE Browser Commands")]
     [Description("This command closes the associated IE Web Browser.")]
     public class IECloseBrowserCommand : ScriptCommand
     {
-        [XmlAttribute]
-        [PropertyDescription("IE Browser Instance Name")]
-        [InputSpecification("Enter the unique instance that was specified in the **IE Create Browser** command.")]
+        [Required]
+        [DisplayName("IE Browser Instance Name")]
+        [Description("Enter the unique instance that was specified in the **IE Create Browser** command.")]
         [SampleUsage("MyIEBrowserInstance")]
         [Remarks("Failure to enter the correct instance name or failure to first call the **IE Create Browser** command will cause an error.")]
         public string v_InstanceName { get; set; }
@@ -28,9 +28,9 @@ namespace OpenBots.Commands.IEBrowser
         {
             CommandName = "IECloseBrowserCommand";
             SelectionName = "Close IE Browser";
-            CommandEnabled = true;
+            CommandEnabled = false;
+
             v_InstanceName = "DefaultIEBrowser";
-            CustomRendering = true;
         }
 
         public override void RunCommand(object sender)
@@ -38,7 +38,6 @@ namespace OpenBots.Commands.IEBrowser
             var engine = (AutomationEngineInstance)sender;
 
             var browserObject = v_InstanceName.GetAppInstance(engine);
-
             var browserInstance = (InternetExplorer)browserObject;
             browserInstance.Quit();
 
