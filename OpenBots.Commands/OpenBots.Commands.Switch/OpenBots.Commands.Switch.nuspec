@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <package>
   <metadata>
-    <id>OpenBots.Commands.Data</id>
+    <id>OpenBots.Commands.Switch</id>
     <version>1.1.0</version>
-    <title>Data Commands</title>
+    <title>Switch Commands</title>
     <authors>OpenBots Inc</authors>
     <owners>OpenBots Inc</owners>
     <licenseUrl>https://github.com/OpenBotsAI/OpenBots.Studio/blob/develop/LICENSE</licenseUrl>
@@ -11,7 +11,7 @@
     <iconUrl>https://openbots.ai/wp-content/uploads/2020/11/OpenBots-Logo-512.png</iconUrl>
     <repository type="git" url="https://github.com/OpenBotsAI/OpenBots.Studio" branch="master" />
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>Data Commands</description>
+    <description>Switch Commands</description>
     <releaseNotes>https://openbots.ai/category/release-notes/</releaseNotes>
     <copyright>OpenBots Inc</copyright>
     <tags>OpenBotsStudio</tags>

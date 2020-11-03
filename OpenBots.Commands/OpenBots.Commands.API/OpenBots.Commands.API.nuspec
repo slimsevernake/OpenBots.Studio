@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <package>
   <metadata>
     <id>OpenBots.Commands.Data</id>
@@ -22,6 +22,6 @@
   </metadata>
   <files>
     <file src="bin\Debug\*.dll" target="lib" />
-	<file src="bin\Debug\*.pdb" target="lib" />
+		<file src="bin\Debug\*.pdb" target="lib" />
   </files>
 </package>
