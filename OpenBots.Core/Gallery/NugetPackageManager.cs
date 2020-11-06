@@ -37,7 +37,7 @@ namespace OpenBots.Core.Gallery
             ServicePointManager.DefaultConnectionLimit = 10;
         }
 
-        public async Task<SemanticVersion> GetLatestVersionAsync(string packageId, bool includePreRelease = false, CancellationToken token = default)
+        public async Task<SemanticVersion> GetLatestPackageVersionAsync(string packageId, bool includePreRelease = false, CancellationToken token = default)
         {
             using (var httpClient = new HttpClient())
             {
@@ -51,7 +51,7 @@ namespace OpenBots.Core.Gallery
             }
         }
 
-        public async Task<List<SearchResultPackage>> GetAllVersionsAsync(PackageType type, bool includePreRelease = false, CancellationToken token = default)
+        public async Task<List<SearchResultPackage>> GetAllPackagesAsync(PackageType type, bool includePreRelease = false, CancellationToken token = default)
         {
             using (var httpClient = new HttpClient())
             {
@@ -64,7 +64,7 @@ namespace OpenBots.Core.Gallery
             }
         }
 
-        public async Task DownloadAsync(string packageId, SemanticVersion version, string destinationPath, string packageFileName, CancellationToken token = default)
+        public async Task DownloadPackageAsync(string packageId, SemanticVersion version, string destinationPath, string packageFileName, CancellationToken token = default)
         {
             using (var httpClient = new HttpClient())
             {

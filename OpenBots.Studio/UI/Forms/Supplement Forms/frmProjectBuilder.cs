@@ -46,10 +46,17 @@ namespace OpenBots.UI.Forms.Supplement_Forms
 
                 if (gallery.DialogResult == DialogResult.OK)
                 {
-                    ExistingConfigPath = Project.ExtractGalleryProject(NewProjectPath);
-                    ExistingProjectPath = Directory.GetParent(ExistingConfigPath).ToString();
-                    Action = ProjectAction.OpenProject;
-                    DialogResult = DialogResult.OK;
+                    try
+                    {
+                        ExistingConfigPath = Project.ExtractGalleryProject(NewProjectPath);
+                        ExistingProjectPath = Directory.GetParent(ExistingConfigPath).ToString();
+                        Action = ProjectAction.OpenProject;
+                        DialogResult = DialogResult.OK;
+                    }
+                    catch (Exception ex)
+                    {
+                        lblError.Text = "Error: " + ex.Message;
+                    }
                 }
                 else
                 {

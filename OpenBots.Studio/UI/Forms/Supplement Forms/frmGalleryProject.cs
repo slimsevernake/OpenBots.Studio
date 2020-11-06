@@ -29,7 +29,7 @@ namespace OpenBots.UI.Forms.Supplement_Forms
         {
             try
             {           
-                _searchresults = await new NugetPackageManger().GetAllVersionsAsync(NugetPackageManger.PackageType.Automation);
+                _searchresults = await new NugetPackageManger().GetAllPackagesAsync(NugetPackageManger.PackageType.Automation);
                 PopulateListBox(_searchresults);
             }
             catch (Exception)
@@ -82,8 +82,8 @@ namespace OpenBots.UI.Forms.Supplement_Forms
         {
             string projectId = lbxGalleryProjects.DoubleClickedItem.Id;
             var manager = new NugetPackageManger();
-            var version = await manager.GetLatestVersionAsync(projectId);
-            await new NugetPackageManger().DownloadAsync(projectId, version, _projectLocation, _projectName);
+            var version = await manager.GetLatestPackageVersionAsync(projectId);
+            await new NugetPackageManger().DownloadPackageAsync(projectId, version, _projectLocation, _projectName);
             DialogResult = DialogResult.OK;
         }
     }
