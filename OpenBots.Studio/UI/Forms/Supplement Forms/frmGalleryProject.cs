@@ -27,51 +27,33 @@ namespace OpenBots.UI.Forms.Supplement_Forms
 
         private async void frmGalleryProject_LoadAsync(object sender, EventArgs e)
         {
-            _searchresults = await new NugetPackageManger().GetAllVersionsAsync(NugetPackageManger.PackageType.Automation);
-            PopulateListBox(_searchresults);
-        }
-
-        private void txtSampleSearch_TextChanged(object sender, EventArgs e)
-        {
             try
-            {
-                var filteredResult = _searchresults.Where(x => x.Title.ToLower().Contains(txtSampleSearch.Text.ToLower())).ToList();
-                lbxGalleryProjects.Clear();
-
-                if (!string.IsNullOrEmpty(txtSampleSearch.Text))
-                {
-                    PopulateListBox(filteredResult);
-                    //foreach (var result in filteredResult)
-                    //{
-                    //    if (result.Title.ToLower().Contains(txtSampleSearch.Text.ToLower()))
-                    //    {
-                    //        Image img;
-                               
-                    //        try
-                    //        {
-                    //            WebClient wc = new WebClient();
-                    //            byte[] bytes = wc.DownloadData(result.IconUrl);
-                    //            MemoryStream ms = new MemoryStream(bytes);
-                    //            img = Image.FromStream(ms);
-                    //        }
-                    //        catch (Exception)
-                    //        {
-                    //            img = Resources.OpenBots_icon;
-                    //        }
-                            
-                    //        lbxGalleryProjects.Add(result.Id, result.Title, result.Description, result.Version, img);
-                    //    }
-                    //}
-                }
-                else
-                {
-                    PopulateListBox(_searchresults);
-                }                    
+            {           
+                _searchresults = await new NugetPackageManger().GetAllVersionsAsync(NugetPackageManger.PackageType.Automation);
+                PopulateListBox(_searchresults);
             }
             catch (Exception)
             {
                 //not connected to internet
             }
+        }
+
+        private void txtSampleSearch_TextChanged(object sender, EventArgs e)
+        {      
+            if (_searchresults != null)
+            {
+                lbxGalleryProjects.Clear();
+
+                if (!string.IsNullOrEmpty(txtSampleSearch.Text))
+                {
+                    var filteredResult = _searchresults.Where(x => x.Title.ToLower().Contains(txtSampleSearch.Text.ToLower())).ToList();
+                    PopulateListBox(filteredResult);
+                }
+                else
+                {
+                    PopulateListBox(_searchresults);
+                }
+            }                                          
         }  
         
         private void PopulateListBox(List<SearchResultPackage> searchresults)
