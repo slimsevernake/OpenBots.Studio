@@ -44,7 +44,7 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
             }
 
             //Create new OpenBots project
-            else if (projectBuilder.CreateProject == true)
+            else if (projectBuilder.Action == frmProjectBuilder.ProjectAction.CreateProject)
             {
                 DialogResult result = CheckForUnsavedScripts();
                 if (result == DialogResult.Cancel)
@@ -92,7 +92,7 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
             }
 
             //Open existing OpenBots project
-            else if (projectBuilder.OpenProject == true)
+            else if (projectBuilder.Action == frmProjectBuilder.ProjectAction.OpenProject)
             {
                 DialogResult result = CheckForUnsavedScripts();
                 if (result == DialogResult.Cancel)
