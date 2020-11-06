@@ -1,4 +1,6 @@
-﻿namespace OpenBots.UI.Forms.Supplement_Forms
+﻿using OpenBots.UI.CustomControls.CustomUIControls;
+
+namespace OpenBots.UI.Forms.Supplement_Forms
 {
     partial class frmGalleryProject
     {
@@ -42,7 +44,7 @@
             this.lbxGalleryProjects.Name = "lbxGalleryProjects";
             this.lbxGalleryProjects.Size = new System.Drawing.Size(657, 435);
             this.lbxGalleryProjects.TabIndex = 35;
-            this.lbxGalleryProjects.ItemDoubleClick += lbxGalleryProjects_ItemDoubleClick;
+            this.lbxGalleryProjects.ItemDoubleClick += new UIListBox.MouseEventHandler(this.lbxGalleryProjects_ItemDoubleClick);
             // 
             // txtSampleSearch
             // 
@@ -53,7 +55,7 @@
             this.txtSampleSearch.Name = "txtSampleSearch";
             this.txtSampleSearch.Size = new System.Drawing.Size(508, 32);
             this.txtSampleSearch.TabIndex = 34;
-            this.txtSampleSearch.TextChanged += txtSampleSearch_TextChangedAsync;
+            this.txtSampleSearch.TextChanged += new System.EventHandler(this.txtSampleSearch_TextChanged);
             // 
             // lblGalleryProjects
             // 
@@ -84,6 +86,7 @@
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Gallery Project Manager";
+            this.Load += new System.EventHandler(this.frmGalleryProject_LoadAsync);
             this.ResumeLayout(false);
             this.PerformLayout();
 

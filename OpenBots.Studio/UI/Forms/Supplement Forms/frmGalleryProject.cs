@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
+using System.Linq;
 using System.Net;
 using System.Windows.Forms;
 
@@ -15,6 +16,7 @@ namespace OpenBots.UI.Forms.Supplement_Forms
     {
         private string _projectLocation;
         private string _projectName;
+        private List<SearchResultPackage> _searchresults;
 
         public frmGalleryProject(string projectLocation, string projectName)
         {
@@ -23,46 +25,76 @@ namespace OpenBots.UI.Forms.Supplement_Forms
             _projectName = projectName;
         }
 
-        private async void txtSampleSearch_TextChangedAsync(object sender, EventArgs e)
+        private async void frmGalleryProject_LoadAsync(object sender, EventArgs e)
+        {
+            _searchresults = await new NugetPackageManger().GetAllVersionsAsync(NugetPackageManger.PackageType.Automation);
+            PopulateListBox(_searchresults);
+        }
+
+        private void txtSampleSearch_TextChanged(object sender, EventArgs e)
         {
             try
             {
-                List<SearchResultPackage> searchresults = await new NugetPackageManger().GetAllVersionsByTitleAsync(txtSampleSearch.Text, 
-                                                                                                NugetPackageManger.PackageType.Automation);
+                var filteredResult = _searchresults.Where(x => x.Title.ToLower().Contains(txtSampleSearch.Text.ToLower())).ToList();
                 lbxGalleryProjects.Clear();
 
                 if (!string.IsNullOrEmpty(txtSampleSearch.Text))
                 {
-                    foreach (var result in searchresults)
-                    {
-                        if (result.Title.ToLower().Contains(txtSampleSearch.Text.ToLower()))
-                        {
-                            Image img;
+                    PopulateListBox(filteredResult);
+                    //foreach (var result in filteredResult)
+                    //{
+                    //    if (result.Title.ToLower().Contains(txtSampleSearch.Text.ToLower()))
+                    //    {
+                    //        Image img;
                                
-                            try
-                            {
-                                WebClient wc = new WebClient();
-                                byte[] bytes = wc.DownloadData(result.IconUrl);
-                                MemoryStream ms = new MemoryStream(bytes);
-                                img = Image.FromStream(ms);
-                            }
-                            catch (Exception)
-                            {
-                                img = Resources.OpenBots_icon;
-                            }
+                    //        try
+                    //        {
+                    //            WebClient wc = new WebClient();
+                    //            byte[] bytes = wc.DownloadData(result.IconUrl);
+                    //            MemoryStream ms = new MemoryStream(bytes);
+                    //            img = Image.FromStream(ms);
+                    //        }
+                    //        catch (Exception)
+                    //        {
+                    //            img = Resources.OpenBots_icon;
+                    //        }
                             
-                            lbxGalleryProjects.Add(result.Id, result.Title, result.Description, result.Version, img);
-                        }
-                    }
+                    //        lbxGalleryProjects.Add(result.Id, result.Title, result.Description, result.Version, img);
+                    //    }
+                    //}
                 }
                 else
-                    lbxGalleryProjects.Clear();
+                {
+                    PopulateListBox(_searchresults);
+                }                    
             }
             catch (Exception)
             {
                 //not connected to internet
             }
-        }       
+        }  
+        
+        private void PopulateListBox(List<SearchResultPackage> searchresults)
+        {
+            foreach (var result in searchresults)
+            {
+                Image img;
+
+                try
+                {
+                    WebClient wc = new WebClient();
+                    byte[] bytes = wc.DownloadData(result.IconUrl);
+                    MemoryStream ms = new MemoryStream(bytes);
+                    img = Image.FromStream(ms);
+                }
+                catch (Exception)
+                {
+                    img = Resources.OpenBots_icon;
+                }
+
+                lbxGalleryProjects.Add(result.Id, result.Title, result.Description, result.Version, img);
+            }
+        }
 
         private async void lbxGalleryProjects_ItemDoubleClick(object sender, int Index)
         {

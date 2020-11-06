@@ -51,7 +51,7 @@ namespace OpenBots.Core.Gallery
             }
         }
 
-        public async Task<List<SearchResultPackage>> GetAllVersionsAsync(string packageId, PackageType type, bool includePreRelease = false, CancellationToken token = default)
+        public async Task<List<SearchResultPackage>> GetAllVersionsAsync(PackageType type, bool includePreRelease = false, CancellationToken token = default)
         {
             using (var httpClient = new HttpClient())
             {
@@ -60,20 +60,7 @@ namespace OpenBots.Core.Gallery
 
                 var searchPackageUri = new Uri($"{searchQueryService.Url}/{type}");
                 var searchResult = await GetJson<SearchResult>(searchPackageUri, httpClient, token);
-                return searchResult.Data.Where(x => x.Id.ToLower().Contains(packageId.ToLower())).ToList();
-            }
-        }
-
-        public async Task<List<SearchResultPackage>> GetAllVersionsByTitleAsync(string title, PackageType type, bool includePreRelease = false, CancellationToken token = default)
-        {
-            using (var httpClient = new HttpClient())
-            {
-                feed = await GetJson<Feed>(nugetV3FeedUri, httpClient, token);
-                var searchQueryService = feed.Resources.FirstOrDefault(x => x.Type == "SearchQueryService");
-
-                var searchPackageUri = new Uri($"{searchQueryService.Url}/{type}");
-                var searchResult = await GetJson<SearchResult>(searchPackageUri, httpClient, token);
-                return searchResult.Data.Where(x=>x.Title.ToLower().Contains(title.ToLower())).ToList();
+                return searchResult.Data;
             }
         }
 
