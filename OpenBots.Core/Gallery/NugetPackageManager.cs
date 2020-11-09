@@ -37,21 +37,21 @@ namespace OpenBots.Core.Gallery
             ServicePointManager.DefaultConnectionLimit = 10;
         }
 
-        public async Task<SemanticVersion> GetLatestPackageVersionAsync(string packageId, bool includePreRelease = false, CancellationToken token = default)
+        public async Task<SemanticVersion> GetLatestPackageVersionAsync(string packageId, CancellationToken token = default)
         {
             using (var httpClient = new HttpClient())
             {
                 feed = await GetJson<Feed>(nugetV3FeedUri, httpClient, token);
                 var searchQueryService = feed.Resources.FirstOrDefault(x => x.Type == "SearchQueryService");
 
-                var searchPackageUri = new Uri($"{searchQueryService.Url}/?q={packageId}"); //name:{packageId}&prerelease={includePreRelease}");
+                var searchPackageUri = new Uri($"{searchQueryService.Url}/?q={packageId}");
                 var searchResult = await GetJson<SearchResult>(searchPackageUri, httpClient, token);
                 var searchResultPackage = searchResult.Data.FirstOrDefault();
                 return new SemanticVersion(searchResultPackage.Version);
             }
         }
 
-        public async Task<List<SearchResultPackage>> GetAllPackagesAsync(PackageType type, bool includePreRelease = false, CancellationToken token = default)
+        public async Task<List<SearchResultPackage>> GetAllPackagesAsync(PackageType type, CancellationToken token = default)
         {
             using (var httpClient = new HttpClient())
             {
@@ -61,6 +61,19 @@ namespace OpenBots.Core.Gallery
                 var searchPackageUri = new Uri($"{searchQueryService.Url}/{type}");
                 var searchResult = await GetJson<SearchResult>(searchPackageUri, httpClient, token);
                 return searchResult.Data;
+            }
+        }
+
+        public async Task<List<RegistrationItem>> GetPackageRegistrationAsync(string packageId, CancellationToken token = default)
+        {
+            using (var httpClient = new HttpClient())
+            {
+                feed = await GetJson<Feed>(nugetV3FeedUri, httpClient, token);
+                var registrationService = feed.Resources.FirstOrDefault(x => x.Type == "RegistrationsBaseUrl");
+
+                var registrationUri = new Uri($"{registrationService.Url}/{packageId}/index.json");
+                var registration = await GetJson<Registration>(registrationUri, httpClient, token);
+                return registration.Items;
             }
         }
 

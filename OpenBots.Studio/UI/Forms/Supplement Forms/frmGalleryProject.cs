@@ -30,9 +30,10 @@ namespace OpenBots.UI.Forms.Supplement_Forms
             try
             {           
                 _searchresults = await new NugetPackageManger().GetAllPackagesAsync(NugetPackageManger.PackageType.Automation);
+                var registration = await new NugetPackageManger().GetPackageRegistrationAsync("c80a0dd9-1a91-4e00-8af7-21e69cbccf55");
                 PopulateListBox(_searchresults);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 //not connected to internet
             }

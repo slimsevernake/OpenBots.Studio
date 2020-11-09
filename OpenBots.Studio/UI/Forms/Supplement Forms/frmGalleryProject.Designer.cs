@@ -44,7 +44,7 @@ namespace OpenBots.UI.Forms.Supplement_Forms
             this.lbxGalleryProjects.Name = "lbxGalleryProjects";
             this.lbxGalleryProjects.Size = new System.Drawing.Size(657, 435);
             this.lbxGalleryProjects.TabIndex = 35;
-            this.lbxGalleryProjects.ItemDoubleClick += new UIListBox.MouseEventHandler(this.lbxGalleryProjects_ItemDoubleClick);
+            this.lbxGalleryProjects.ItemDoubleClick += new OpenBots.UI.CustomControls.CustomUIControls.UIListBox.MouseEventHandler(this.lbxGalleryProjects_ItemDoubleClick);
             // 
             // txtSampleSearch
             // 
