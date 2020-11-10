@@ -23,6 +23,8 @@ namespace OpenBots.Core.Gallery.Models
         public List<ProjectDependencyGroup> DependencyGroups { get; set; }
         public string Description { get; set; }
         public string IconUrl { get; set; }
+        public string LicenseUrl { get; set; }
+        public string ProjectUrl { get; set; }
         public string PackageContent { get; set; }
         public string Published { get; set; }
         public string Title { get; set; }

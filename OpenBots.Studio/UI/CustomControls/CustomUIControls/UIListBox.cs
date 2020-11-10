@@ -7,6 +7,7 @@ namespace OpenBots.UI.CustomControls.CustomUIControls
     public partial class UIListBox : UserControl
     {
         public UIListBoxItem LastSelectedItem;
+        public UIListBoxItem ClickedItem;
         public UIListBoxItem DoubleClickedItem;
 
         public event ItemClickEventHandler ItemClick;
@@ -132,6 +133,7 @@ namespace OpenBots.UI.CustomControls.CustomUIControls
 
         private void ItemClicked(object sender, EventArgs e)
         {
+            ClickedItem = (UIListBoxItem)sender;
             ItemClick?.Invoke(this, flpListBox.Controls.IndexOfKey(((UIListBoxItem)sender).Name));
         }
 
