@@ -18,7 +18,6 @@ namespace OpenBots.Core.Gallery.Models
         public string ModifiedBy { get; set; }
         public string Version { get; set; }
         public string Authors { get; set; }
-
         [JsonProperty("dependencyGroups")]
         public List<ProjectDependencyGroup> DependencyGroups { get; set; }
         public string Description { get; set; }
@@ -28,6 +27,5 @@ namespace OpenBots.Core.Gallery.Models
         public string PackageContent { get; set; }
         public string Published { get; set; }
         public string Title { get; set; }
-
     }
 }

@@ -6,7 +6,6 @@ namespace OpenBots.Core.Gallery.Models
     {
         [JsonProperty("@id")]
         public string Id { get; set; }
-
         [JsonProperty("catalogEntry")]
         public CatalogEntry Catalog { get; set; }
     }

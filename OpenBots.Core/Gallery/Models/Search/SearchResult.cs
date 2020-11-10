@@ -8,7 +8,6 @@ namespace OpenBots.Core.Gallery.Models
     {
         public string Index { get; set; }
         public DateTime LastReopen { get; set; }
-
         [JsonProperty("data")]
         public List<SearchResultPackage> Data { get; set; }
     }

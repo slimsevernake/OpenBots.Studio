@@ -7,12 +7,9 @@ namespace OpenBots.Core.Gallery.Models
     {
         [JsonProperty("@id")]
         public string Id { get; set; }
-
         public string Count { get; set; }
-
         [JsonProperty("items")]
         public List<RegistrationItem> Items { get; set; }
-
         public int TotalDownloads { get; set; }
     }
 }
