@@ -9,7 +9,7 @@ namespace OpenBots.UI.CustomControls.CustomUIControls
     public partial class UIListBoxItem : UserControl
     {
         private Timer _tmrMouseLeave;
-        internal Timer tmrMouseLeave
+        internal Timer TmrMouseLeave
         {
             [MethodImpl(MethodImplOptions.Synchronized)]
             get
@@ -136,7 +136,7 @@ namespace OpenBots.UI.CustomControls.CustomUIControls
         public UIListBoxItem()
         {
             InitializeComponent();
-            tmrMouseLeave = new Timer() { Interval = 10 };
+            TmrMouseLeave = new Timer() { Interval = 10 };
         }
 
         private void UIListBoxItem_MouseClick(object sender, MouseEventArgs e)
@@ -157,7 +157,7 @@ namespace OpenBots.UI.CustomControls.CustomUIControls
         private void UIListBoxItem_MouseEnter(object sender, EventArgs e)
         {
             _bMouse = MouseCapture.Inside;
-            tmrMouseLeave.Start();
+            TmrMouseLeave.Start();
             Refresh();
         }
 
@@ -173,11 +173,11 @@ namespace OpenBots.UI.CustomControls.CustomUIControls
             {
                 var scrPT = MousePosition;
                 Point ctlPT = PointToClient(scrPT);
-                // 
+
                 if (ctlPT.X < 0 | ctlPT.Y < 0 | ctlPT.X > Width | ctlPT.Y > Height)
                 {
                     // Stop timer
-                    tmrMouseLeave.Stop();
+                    TmrMouseLeave.Stop();
                     _bMouse = MouseCapture.Outside;
                     Refresh();
                 }
@@ -193,10 +193,9 @@ namespace OpenBots.UI.CustomControls.CustomUIControls
 
         private void Paint_DrawBackground(Graphics gfx)
         {
-            // 
             Rectangle rect = new Rectangle(0, 0, Width - 1, Height - 1);
 
-            // /// Build a rounded rectangle
+            //Build a rounded rectangle
             GraphicsPath p = new GraphicsPath();
             const int Roundness = 5;
             p.StartFigure();
@@ -211,7 +210,7 @@ namespace OpenBots.UI.CustomControls.CustomUIControls
 
             // /// Draw the background ///
             Color[] ColorScheme = null;
-            SolidBrush brdr/* TODO Change to default(_) if this is not a reference type */;
+            SolidBrush brdr;
 
             if (_bState == ButtonState.Disabled)
             {
@@ -231,7 +230,7 @@ namespace OpenBots.UI.CustomControls.CustomUIControls
                     // hover 
                     ColorScheme = UIListBoxItemColorSchemes.SelectedHover;
                 else if (_bState == ButtonState.ButtonDown & _bMouse == MouseCapture.Outside)
-                    // no one cares!
+                    // nothing happens
                     return;
                 else if (_bState == ButtonState.ButtonDown & _bMouse == MouseCapture.Inside)
                     // pressed
@@ -239,7 +238,7 @@ namespace OpenBots.UI.CustomControls.CustomUIControls
             }
             else
             {
-                // Not selected
+                // not selected
                 brdr = UIListBoxItemColorSchemes.UnSelectedBorder;
 
                 if (_bState == ButtonState.ButtonUp & _bMouse == MouseCapture.Outside)
@@ -252,7 +251,7 @@ namespace OpenBots.UI.CustomControls.CustomUIControls
                     // hover 
                     ColorScheme = UIListBoxItemColorSchemes.UnSelectedHover;
                 else if (_bState == ButtonState.ButtonDown & _bMouse == MouseCapture.Outside)
-                    // no one cares!
+                    // nothing happens
                     return;
                 else if (_bState == ButtonState.ButtonDown & _bMouse == MouseCapture.Inside)
                     // pressed
@@ -279,7 +278,7 @@ namespace OpenBots.UI.CustomControls.CustomUIControls
                 blend.Colors = new Color[] { Color.White, Color.LightGray, Color.White };
                 blend.Positions = new float[] { 0.0F, 0.5F, 1.0F };
                 b.InterpolationColors = blend;
-                // 
+                 
                 gfx.FillRectangle(b, rect);
             }
         }

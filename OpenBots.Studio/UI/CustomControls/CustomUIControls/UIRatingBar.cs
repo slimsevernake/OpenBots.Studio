@@ -35,32 +35,27 @@ namespace OpenBots.UI.CustomControls.CustomUIControls
 
         private void Star1_Click(object sender, EventArgs e)
         {
-            _stars = 1;
-            SetupStars();
+            Stars = 1;
         }
 
         private void Star2_Click(object sender, EventArgs e)
         {
-            _stars = 2;
-            SetupStars();
+            Stars = 2;
         }
 
         private void Star3_Click(object sender, EventArgs e)
         {
-            _stars = 3;
-            SetupStars();
+            Stars = 3;
         }
 
         private void Star4_Click(object sender, EventArgs e)
         {
-            _stars = 4;
-            SetupStars();
+            Stars = 4;
         }
 
         private void Star5_Click(object sender, EventArgs e)
         {
-            _stars = 5;
-            SetupStars();
+            Stars = 5;
         }
     }
 }

@@ -6,9 +6,9 @@ namespace OpenBots.UI.CustomControls.CustomUIControls
 {
     public partial class UIListBox : UserControl
     {
-        public UIListBoxItem LastSelectedItem;
-        public UIListBoxItem ClickedItem;
-        public UIListBoxItem DoubleClickedItem;
+        public UIListBoxItem LastSelectedItem { get; set; }
+        public UIListBoxItem ClickedItem { get; set; }
+        public UIListBoxItem DoubleClickedItem { get; set; }
 
         public event ItemClickEventHandler ItemClick;
         public delegate void ItemClickEventHandler(object sender, int Index);
@@ -34,10 +34,12 @@ namespace OpenBots.UI.CustomControls.CustomUIControls
             UIListBoxItem c = new UIListBoxItem();
             {
                 var withBlock = c;
+
                 // Assign an auto generated name
                 withBlock.Id = id;
                 withBlock.Name = "item" + flpListBox.Controls.Count + 1;
                 withBlock.Margin = new Padding(0);
+
                 // set properties
                 withBlock.Title = title;
                 withBlock.Description = description;
@@ -46,11 +48,12 @@ namespace OpenBots.UI.CustomControls.CustomUIControls
                 withBlock.Rating = rating;
                 withBlock.RatingBar.Visible = showRating;
             }
+
             // To check when the selection is changed
             c.SelectionChanged += SelectionChanged;
             c.Click += ItemClicked;
             c.DoubleClick += ItemDoubleClicked;
-            // 
+            
             flpListBox.Controls.Add(c);
             SetupAnchors();
         }
@@ -66,10 +69,12 @@ namespace OpenBots.UI.CustomControls.CustomUIControls
             // grab which control is being removed
             UIListBoxItem c = (UIListBoxItem)flpListBox.Controls[name];
             flpListBox.Controls.Remove(c);
+
             // remove the event hook
             c.SelectionChanged -= SelectionChanged;
             c.Click -= ItemClicked;
             c.DoubleClick -= ItemDoubleClicked;
+
             // now dispose off properly
             c.Dispose();
             SetupAnchors();
@@ -81,6 +86,7 @@ namespace OpenBots.UI.CustomControls.CustomUIControls
             {
                 if (flpListBox.Controls.Count == 0)
                     break;
+
                 UIListBoxItem c = (UIListBoxItem)flpListBox.Controls[0];
                 flpListBox.Controls.Remove(c);
                 // remove the event hook
@@ -91,6 +97,7 @@ namespace OpenBots.UI.CustomControls.CustomUIControls
                 c.Dispose();
             }
             while (true);
+
             LastSelectedItem = null;
         }
 
@@ -112,9 +119,7 @@ namespace OpenBots.UI.CustomControls.CustomUIControls
                         control.Width = flpListBox.Width - SystemInformation.VerticalScrollBarWidth;
                     }
                     else
-                    {
                         control.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-                    }
                 }
             }
         }
@@ -130,6 +135,7 @@ namespace OpenBots.UI.CustomControls.CustomUIControls
         {
             if (LastSelectedItem != null)
                 LastSelectedItem.Selected = false;
+
             LastSelectedItem = (UIListBoxItem)sender;
         }
 
