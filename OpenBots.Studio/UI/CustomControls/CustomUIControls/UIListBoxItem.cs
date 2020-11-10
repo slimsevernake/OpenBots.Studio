@@ -176,7 +176,7 @@ namespace OpenBots.UI.CustomControls.CustomUIControls
 
                 if (ctlPT.X < 0 | ctlPT.Y < 0 | ctlPT.X > Width | ctlPT.Y > Height)
                 {
-                    // Stop timer
+                    //Stop timer
                     TmrMouseLeave.Stop();
                     _bMouse = MouseCapture.Outside;
                     Refresh();
@@ -186,7 +186,7 @@ namespace OpenBots.UI.CustomControls.CustomUIControls
             }
             catch (Exception)
             {
-                //item has already been disposed
+                //Item has already been disposed
             }
             
         }
@@ -208,57 +208,57 @@ namespace OpenBots.UI.CustomControls.CustomUIControls
             p.AddArc(new Rectangle(rect.Left, rect.Height - Roundness, Roundness, Roundness), 90, 90);
             p.CloseFigure();
 
-            // /// Draw the background ///
+            //Draw the background
             Color[] ColorScheme = null;
             SolidBrush brdr;
 
             if (_bState == ButtonState.Disabled)
             {
-                // normal
+                //Normal
                 brdr = UIListBoxItemColorSchemes.DisabledBorder;
                 ColorScheme = UIListBoxItemColorSchemes.DisabledAllColor;
             }
             else if (_selected)
             {
-                // Selected
+                //Selected
                 brdr = UIListBoxItemColorSchemes.SelectedBorder;
 
                 if (_bState == ButtonState.ButtonUp & _bMouse == MouseCapture.Outside)
-                    // normal
+                    //Normal
                     ColorScheme = UIListBoxItemColorSchemes.SelectedNormal;
                 else if (_bState == ButtonState.ButtonUp & _bMouse == MouseCapture.Inside)
-                    // hover 
+                    //Hover 
                     ColorScheme = UIListBoxItemColorSchemes.SelectedHover;
                 else if (_bState == ButtonState.ButtonDown & _bMouse == MouseCapture.Outside)
-                    // nothing happens
+                    //Nothing happens
                     return;
                 else if (_bState == ButtonState.ButtonDown & _bMouse == MouseCapture.Inside)
-                    // pressed
+                    //Pressed
                     ColorScheme = UIListBoxItemColorSchemes.SelectedPressed;
             }
             else
             {
-                // not selected
+                //Not selected
                 brdr = UIListBoxItemColorSchemes.UnSelectedBorder;
 
                 if (_bState == ButtonState.ButtonUp & _bMouse == MouseCapture.Outside)
                 {
-                    // normal
+                    //Normal
                     brdr = UIListBoxItemColorSchemes.DisabledBorder;
                     ColorScheme = UIListBoxItemColorSchemes.UnSelectedNormal;
                 }
                 else if (_bState == ButtonState.ButtonUp & _bMouse == MouseCapture.Inside)
-                    // hover 
+                    //Hover 
                     ColorScheme = UIListBoxItemColorSchemes.UnSelectedHover;
                 else if (_bState == ButtonState.ButtonDown & _bMouse == MouseCapture.Outside)
-                    // nothing happens
+                    //Nothing happens
                     return;
                 else if (_bState == ButtonState.ButtonDown & _bMouse == MouseCapture.Inside)
-                    // pressed
+                    //Pressed
                     ColorScheme = UIListBoxItemColorSchemes.UnSelectedPressed;
             }
 
-            // Draw
+            //Draw
             LinearGradientBrush b = new LinearGradientBrush(rect, Color.White, Color.Black, LinearGradientMode.Vertical);
             ColorBlend blend = new ColorBlend();
             blend.Colors = ColorScheme;
@@ -266,10 +266,10 @@ namespace OpenBots.UI.CustomControls.CustomUIControls
             b.InterpolationColors = blend;
             gfx.FillPath(b, p);
 
-            // // Draw border
+            //Draw border
             gfx.DrawPath(new Pen(brdr), p);
 
-            // // Draw bottom border if Normal state (not hovered)
+            //Draw bottom border if Normal state (not hovered)
             if (_bMouse == MouseCapture.Outside)
             {
                 rect = new Rectangle(rect.Left, Height - 1, rect.Width, 1);
@@ -291,19 +291,19 @@ namespace OpenBots.UI.CustomControls.CustomUIControls
             StringFormat SF = new StringFormat() { Trimming = StringTrimming.EllipsisCharacter };
             Rectangle workingRect = new Rectangle(40, 0, RatingBar.Left - 40 - 6, Height);
 
-            // Draw title name
+            //Draw title name
             fnt = new Font("Segoe UI Bold", 14);
             sz = gfx.MeasureString(_title, fnt);
             layoutRect = new RectangleF(40, 0, workingRect.Width, sz.Height);
             gfx.DrawString(_title, fnt, Brushes.Black, layoutRect, SF);
 
-            // Draw description name
+            //Draw description name
             fnt = new Font("Segoe UI", 10);
             sz = gfx.MeasureString(_description, fnt);
             layoutRect = new RectangleF(42, 30, workingRect.Width, sz.Height);
             gfx.DrawString(_description, fnt, Brushes.Black, layoutRect, SF);
 
-            // Icon Image
+            //Icon Image
             if (_image != null)
                 gfx.DrawImage(_image, 7, 7, workingRect.Left - 10, workingRect.Left - 10);
             else
