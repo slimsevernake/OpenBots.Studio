@@ -31,11 +31,11 @@ namespace OpenBots.UI.Forms.Supplement_Forms
         /// </summary>
         private void InitializeComponent()
         {
-            OpenBots.Core.Utilities.FormsUtilities.Theme theme5 = new OpenBots.Core.Utilities.FormsUtilities.Theme();
+            OpenBots.Core.Utilities.FormsUtilities.Theme theme1 = new OpenBots.Core.Utilities.FormsUtilities.Theme();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmGalleryProject));
-            OpenBots.Core.Utilities.FormsUtilities.Theme theme6 = new OpenBots.Core.Utilities.FormsUtilities.Theme();
-            OpenBots.Core.Utilities.FormsUtilities.Theme theme7 = new OpenBots.Core.Utilities.FormsUtilities.Theme();
-            OpenBots.Core.Utilities.FormsUtilities.Theme theme8 = new OpenBots.Core.Utilities.FormsUtilities.Theme();
+            OpenBots.Core.Utilities.FormsUtilities.Theme theme2 = new OpenBots.Core.Utilities.FormsUtilities.Theme();
+            OpenBots.Core.Utilities.FormsUtilities.Theme theme3 = new OpenBots.Core.Utilities.FormsUtilities.Theme();
+            OpenBots.Core.Utilities.FormsUtilities.Theme theme4 = new OpenBots.Core.Utilities.FormsUtilities.Theme();
             this.tlpProjectLayout = new System.Windows.Forms.TableLayoutPanel();
             this.lbxGalleryProjects = new OpenBots.UI.CustomControls.CustomUIControls.UIListBox();
             this.pnlProjectVersion = new OpenBots.UI.CustomControls.CustomUIControls.UIPanel();
@@ -44,6 +44,7 @@ namespace OpenBots.UI.Forms.Supplement_Forms
             this.lblVersionTitleLabel = new System.Windows.Forms.Label();
             this.lblTitle = new System.Windows.Forms.Label();
             this.pnlProjectSearch = new OpenBots.UI.CustomControls.CustomUIControls.UIPanel();
+            this.pbxOBGallery = new System.Windows.Forms.PictureBox();
             this.lblSearch = new System.Windows.Forms.Label();
             this.lblGalleryProjects = new System.Windows.Forms.Label();
             this.txtSampleSearch = new System.Windows.Forms.TextBox();
@@ -69,16 +70,16 @@ namespace OpenBots.UI.Forms.Supplement_Forms
             this.pnlFinishButtons = new OpenBots.UI.CustomControls.CustomUIControls.UIPanel();
             this.uiBtnOpen = new OpenBots.Core.UI.Controls.UIPictureButton();
             this.uiBtnCancel = new OpenBots.Core.UI.Controls.UIPictureButton();
-            this.pbxOBGallery = new System.Windows.Forms.PictureBox();
+            this.lblError = new System.Windows.Forms.Label();
             this.tlpProjectLayout.SuspendLayout();
             this.pnlProjectVersion.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbxOBStudio)).BeginInit();
             this.pnlProjectSearch.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbxOBGallery)).BeginInit();
             this.pnlProjectDetails.SuspendLayout();
             this.pnlFinishButtons.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.uiBtnOpen)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.uiBtnCancel)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbxOBGallery)).BeginInit();
             this.SuspendLayout();
             // 
             // tlpProjectLayout
@@ -87,6 +88,7 @@ namespace OpenBots.UI.Forms.Supplement_Forms
             this.tlpProjectLayout.ColumnCount = 2;
             this.tlpProjectLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tlpProjectLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tlpProjectLayout.Controls.Add(this.lblError, 0, 2);
             this.tlpProjectLayout.Controls.Add(this.lbxGalleryProjects, 0, 1);
             this.tlpProjectLayout.Controls.Add(this.pnlProjectVersion, 1, 0);
             this.tlpProjectLayout.Controls.Add(this.pnlProjectSearch, 0, 0);
@@ -125,9 +127,9 @@ namespace OpenBots.UI.Forms.Supplement_Forms
             this.pnlProjectVersion.Name = "pnlProjectVersion";
             this.pnlProjectVersion.Size = new System.Drawing.Size(523, 104);
             this.pnlProjectVersion.TabIndex = 2;
-            theme5.BgGradientEndColor = System.Drawing.Color.FromArgb(((int)(((byte)(49)))), ((int)(((byte)(49)))), ((int)(((byte)(49)))));
-            theme5.BgGradientStartColor = System.Drawing.Color.FromArgb(((int)(((byte)(49)))), ((int)(((byte)(49)))), ((int)(((byte)(49)))));
-            this.pnlProjectVersion.Theme = theme5;
+            theme1.BgGradientEndColor = System.Drawing.Color.FromArgb(((int)(((byte)(49)))), ((int)(((byte)(49)))), ((int)(((byte)(49)))));
+            theme1.BgGradientStartColor = System.Drawing.Color.FromArgb(((int)(((byte)(49)))), ((int)(((byte)(49)))), ((int)(((byte)(49)))));
+            this.pnlProjectVersion.Theme = theme1;
             // 
             // pbxOBStudio
             // 
@@ -185,9 +187,19 @@ namespace OpenBots.UI.Forms.Supplement_Forms
             this.pnlProjectSearch.Name = "pnlProjectSearch";
             this.pnlProjectSearch.Size = new System.Drawing.Size(522, 104);
             this.pnlProjectSearch.TabIndex = 0;
-            theme6.BgGradientEndColor = System.Drawing.Color.FromArgb(((int)(((byte)(49)))), ((int)(((byte)(49)))), ((int)(((byte)(49)))));
-            theme6.BgGradientStartColor = System.Drawing.Color.FromArgb(((int)(((byte)(49)))), ((int)(((byte)(49)))), ((int)(((byte)(49)))));
-            this.pnlProjectSearch.Theme = theme6;
+            theme2.BgGradientEndColor = System.Drawing.Color.FromArgb(((int)(((byte)(49)))), ((int)(((byte)(49)))), ((int)(((byte)(49)))));
+            theme2.BgGradientStartColor = System.Drawing.Color.FromArgb(((int)(((byte)(49)))), ((int)(((byte)(49)))), ((int)(((byte)(49)))));
+            this.pnlProjectSearch.Theme = theme2;
+            // 
+            // pbxOBGallery
+            // 
+            this.pbxOBGallery.Image = ((System.Drawing.Image)(resources.GetObject("pbxOBGallery.Image")));
+            this.pbxOBGallery.Location = new System.Drawing.Point(13, 13);
+            this.pbxOBGallery.Name = "pbxOBGallery";
+            this.pbxOBGallery.Size = new System.Drawing.Size(50, 50);
+            this.pbxOBGallery.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pbxOBGallery.TabIndex = 44;
+            this.pbxOBGallery.TabStop = false;
             // 
             // lblSearch
             // 
@@ -247,9 +259,9 @@ namespace OpenBots.UI.Forms.Supplement_Forms
             this.pnlProjectDetails.Name = "pnlProjectDetails";
             this.pnlProjectDetails.Size = new System.Drawing.Size(523, 661);
             this.pnlProjectDetails.TabIndex = 37;
-            theme7.BgGradientEndColor = System.Drawing.Color.FromArgb(((int)(((byte)(49)))), ((int)(((byte)(49)))), ((int)(((byte)(49)))));
-            theme7.BgGradientStartColor = System.Drawing.Color.FromArgb(((int)(((byte)(49)))), ((int)(((byte)(49)))), ((int)(((byte)(49)))));
-            this.pnlProjectDetails.Theme = theme7;
+            theme3.BgGradientEndColor = System.Drawing.Color.FromArgb(((int)(((byte)(49)))), ((int)(((byte)(49)))), ((int)(((byte)(49)))));
+            theme3.BgGradientStartColor = System.Drawing.Color.FromArgb(((int)(((byte)(49)))), ((int)(((byte)(49)))), ((int)(((byte)(49)))));
+            this.pnlProjectDetails.Theme = theme3;
             // 
             // lblPublishDate
             // 
@@ -403,7 +415,7 @@ namespace OpenBots.UI.Forms.Supplement_Forms
             this.lblDependenciesLabel.AutoSize = true;
             this.lblDependenciesLabel.Font = new System.Drawing.Font("Segoe UI Semibold", 12F);
             this.lblDependenciesLabel.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.lblDependenciesLabel.Location = new System.Drawing.Point(9, 335);
+            this.lblDependenciesLabel.Location = new System.Drawing.Point(9, 333);
             this.lblDependenciesLabel.Name = "lblDependenciesLabel";
             this.lblDependenciesLabel.Size = new System.Drawing.Size(146, 28);
             this.lblDependenciesLabel.TabIndex = 48;
@@ -462,9 +474,9 @@ namespace OpenBots.UI.Forms.Supplement_Forms
             this.pnlFinishButtons.Name = "pnlFinishButtons";
             this.pnlFinishButtons.Size = new System.Drawing.Size(523, 76);
             this.pnlFinishButtons.TabIndex = 38;
-            theme8.BgGradientEndColor = System.Drawing.Color.FromArgb(((int)(((byte)(49)))), ((int)(((byte)(49)))), ((int)(((byte)(49)))));
-            theme8.BgGradientStartColor = System.Drawing.Color.FromArgb(((int)(((byte)(49)))), ((int)(((byte)(49)))), ((int)(((byte)(49)))));
-            this.pnlFinishButtons.Theme = theme8;
+            theme4.BgGradientEndColor = System.Drawing.Color.FromArgb(((int)(((byte)(49)))), ((int)(((byte)(49)))), ((int)(((byte)(49)))));
+            theme4.BgGradientStartColor = System.Drawing.Color.FromArgb(((int)(((byte)(49)))), ((int)(((byte)(49)))), ((int)(((byte)(49)))));
+            this.pnlFinishButtons.Theme = theme4;
             // 
             // uiBtnOpen
             // 
@@ -500,16 +512,18 @@ namespace OpenBots.UI.Forms.Supplement_Forms
             this.uiBtnCancel.TabIndex = 40;
             this.uiBtnCancel.TabStop = false;
             this.uiBtnCancel.Text = "Cancel";
+            this.uiBtnCancel.Click += new System.EventHandler(this.uiBtnCancel_Click);
             // 
-            // pbxOBGallery
+            // lblError
             // 
-            this.pbxOBGallery.Image = ((System.Drawing.Image)(resources.GetObject("pbxOBGallery.Image")));
-            this.pbxOBGallery.Location = new System.Drawing.Point(13, 13);
-            this.pbxOBGallery.Name = "pbxOBGallery";
-            this.pbxOBGallery.Size = new System.Drawing.Size(50, 50);
-            this.pbxOBGallery.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pbxOBGallery.TabIndex = 44;
-            this.pbxOBGallery.TabStop = false;
+            this.lblError.BackColor = System.Drawing.Color.Transparent;
+            this.lblError.Font = new System.Drawing.Font("Segoe UI Light", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblError.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.lblError.Location = new System.Drawing.Point(4, 777);
+            this.lblError.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblError.Name = "lblError";
+            this.lblError.Size = new System.Drawing.Size(520, 28);
+            this.lblError.TabIndex = 39;
             // 
             // frmGalleryProject
             // 
@@ -518,11 +532,11 @@ namespace OpenBots.UI.Forms.Supplement_Forms
             this.AutoValidate = System.Windows.Forms.AutoValidate.EnablePreventFocusChange;
             this.ClientSize = new System.Drawing.Size(1057, 859);
             this.Controls.Add(this.tlpProjectLayout);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(5);
             this.Name = "frmGalleryProject";
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show;
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Gallery Project Manager";
             this.Load += new System.EventHandler(this.frmGalleryProject_LoadAsync);
             this.tlpProjectLayout.ResumeLayout(false);
@@ -531,12 +545,12 @@ namespace OpenBots.UI.Forms.Supplement_Forms
             ((System.ComponentModel.ISupportInitialize)(this.pbxOBStudio)).EndInit();
             this.pnlProjectSearch.ResumeLayout(false);
             this.pnlProjectSearch.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbxOBGallery)).EndInit();
             this.pnlProjectDetails.ResumeLayout(false);
             this.pnlProjectDetails.PerformLayout();
             this.pnlFinishButtons.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.uiBtnOpen)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.uiBtnCancel)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbxOBGallery)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -576,5 +590,6 @@ namespace OpenBots.UI.Forms.Supplement_Forms
         private Core.UI.Controls.UIPictureButton uiBtnCancel;
         private System.Windows.Forms.Label lblSearch;
         private System.Windows.Forms.PictureBox pbxOBGallery;
+        public System.Windows.Forms.Label lblError;
     }
 }

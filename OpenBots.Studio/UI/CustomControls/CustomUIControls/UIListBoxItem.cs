@@ -93,11 +93,11 @@ namespace OpenBots.UI.CustomControls.CustomUIControls
         {
             get
             {
-                return RatingBar1.Stars;
+                return RatingBar.Stars;
             }
             set
             {
-                RatingBar1.Stars = value;
+                RatingBar.Stars = value;
             }
         }
 
@@ -290,7 +290,7 @@ namespace OpenBots.UI.CustomControls.CustomUIControls
             SizeF sz;
             RectangleF layoutRect;
             StringFormat SF = new StringFormat() { Trimming = StringTrimming.EllipsisCharacter };
-            Rectangle workingRect = new Rectangle(40, 0, RatingBar1.Left - 40 - 6, Height);
+            Rectangle workingRect = new Rectangle(40, 0, RatingBar.Left - 40 - 6, Height);
 
             // Draw title name
             fnt = new Font("Segoe UI Bold", 14);

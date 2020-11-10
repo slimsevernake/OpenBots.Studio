@@ -33,7 +33,7 @@
             this.ImageList1 = new System.Windows.Forms.ImageList(this.components);
             this.imageList2 = new System.Windows.Forms.ImageList(this.components);
             this.lblVersion = new System.Windows.Forms.Label();
-            this.RatingBar1 = new OpenBots.UI.CustomControls.CustomUIControls.UIRatingBar();
+            this.RatingBar = new OpenBots.UI.CustomControls.CustomUIControls.UIRatingBar();
             this.SuspendLayout();
             // 
             // ImageList1
@@ -53,30 +53,30 @@
             this.lblVersion.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblVersion.AutoSize = true;
             this.lblVersion.BackColor = System.Drawing.Color.Transparent;
-            this.lblVersion.Location = new System.Drawing.Point(433, 34);
+            this.lblVersion.Location = new System.Drawing.Point(433, 31);
             this.lblVersion.Name = "lblVersion";
-            this.lblVersion.Size = new System.Drawing.Size(50, 23);
+            this.lblVersion.Size = new System.Drawing.Size(45, 23);
             this.lblVersion.TabIndex = 4;
-            this.lblVersion.Text = "00:00";
+            this.lblVersion.Text = "0.0.0";
             // 
-            // RatingBar1
+            // RatingBar
             // 
-            this.RatingBar1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.RatingBar1.BackColor = System.Drawing.Color.Transparent;
-            this.RatingBar1.Location = new System.Drawing.Point(390, 10);
-            this.RatingBar1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.RatingBar1.MaximumSize = new System.Drawing.Size(90, 20);
-            this.RatingBar1.MinimumSize = new System.Drawing.Size(90, 20);
-            this.RatingBar1.Name = "RatingBar1";
-            this.RatingBar1.Size = new System.Drawing.Size(90, 20);
-            this.RatingBar1.Stars = 3;
-            this.RatingBar1.TabIndex = 2;
+            this.RatingBar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.RatingBar.BackColor = System.Drawing.Color.Transparent;
+            this.RatingBar.Location = new System.Drawing.Point(390, 7);
+            this.RatingBar.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.RatingBar.MaximumSize = new System.Drawing.Size(90, 20);
+            this.RatingBar.MinimumSize = new System.Drawing.Size(90, 20);
+            this.RatingBar.Name = "RatingBar";
+            this.RatingBar.Size = new System.Drawing.Size(90, 20);
+            this.RatingBar.Stars = 3;
+            this.RatingBar.TabIndex = 2;
             // 
             // UIListBoxItem
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 21F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.RatingBar1);
+            this.Controls.Add(this.RatingBar);
             this.Controls.Add(this.lblVersion);
             this.DoubleBuffered = true;
             this.Font = new System.Drawing.Font("Segoe UI Light", 9.75F);
@@ -97,6 +97,6 @@
         internal System.Windows.Forms.ImageList ImageList1;
         internal System.Windows.Forms.ImageList imageList2;
         internal System.Windows.Forms.Label lblVersion;
-        internal UIRatingBar RatingBar1;
+        internal UIRatingBar RatingBar;
     }
 }

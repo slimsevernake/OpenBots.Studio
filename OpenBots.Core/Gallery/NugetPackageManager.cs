@@ -51,7 +51,7 @@ namespace OpenBots.Core.Gallery
             }
         }
 
-        public async Task<List<SearchResultPackage>> GetAllPackagesAsync(PackageType type, CancellationToken token = default)
+        public async Task<List<SearchResultPackage>> GetAllLatestPackagesAsync(PackageType type, CancellationToken token = default)
         {
             using (var httpClient = new HttpClient())
             {

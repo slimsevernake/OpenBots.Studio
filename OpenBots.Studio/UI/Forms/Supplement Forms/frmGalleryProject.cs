@@ -38,12 +38,13 @@ namespace OpenBots.UI.Forms.Supplement_Forms
             uiBtnOpen.Enabled = false;
             try
             {           
-                _searchresults = await new NugetPackageManger().GetAllPackagesAsync(NugetPackageManger.PackageType.Automation);
+                _searchresults = await _manager.GetAllLatestPackagesAsync(NugetPackageManger.PackageType.Automation);
                 PopulateListBox(_searchresults);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 //not connected to internet
+                lblError.Text = "Error: " + ex.Message;
             }
         }
 
@@ -175,6 +176,11 @@ namespace OpenBots.UI.Forms.Supplement_Forms
         private void uiBtnOpen_Click(object sender, EventArgs e)
         {
             DownloadAndOpenProject(_catalog.Id, SemanticVersion.Parse(_catalog.Version));
+        }
+
+        private void uiBtnCancel_Click(object sender, EventArgs e)
+        {
+            DialogResult = DialogResult.Cancel;
         }
     }
 }

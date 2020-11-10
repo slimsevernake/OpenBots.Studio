@@ -56,11 +56,12 @@ namespace OpenBots.UI.Forms.Supplement_Forms
                     catch (Exception ex)
                     {
                         lblError.Text = "Error: " + ex.Message;
+                        Directory.Delete(NewProjectPath, true);
                     }
                 }
                 else
                 {
-                    Directory.Delete(NewProjectPath);
+                    Directory.Delete(NewProjectPath, true);
                 }
             }           
         }

@@ -28,7 +28,8 @@ namespace OpenBots.UI.CustomControls.CustomUIControls
             SetupAnchors();
         }
 
-        public void Add(string id, string title, string description, string version, Image image, int rating = 3)
+        public void Add(string id, string title, string description, string version, 
+                        Image image, bool showRating = false, int rating = 3)
         {
             UIListBoxItem c = new UIListBoxItem();
             {
@@ -43,6 +44,7 @@ namespace OpenBots.UI.CustomControls.CustomUIControls
                 withBlock.Version = version;
                 withBlock.Image = image;
                 withBlock.Rating = rating;
+                withBlock.RatingBar.Visible = showRating;
             }
             // To check when the selection is changed
             c.SelectionChanged += SelectionChanged;
