@@ -1,6 +1,7 @@
 ﻿using OpenBots.Core.Enums;
 using OpenBots.Core.IO;
 using OpenBots.Core.UI.Forms;
+using OpenBots.Utilities;
 using System;
 using System.IO;
 using System.Linq;
@@ -10,12 +11,18 @@ namespace OpenBots.UI.Forms.Supplement_Forms
 {
     public partial class frmProjectBuilder : UIForm
     {
-        public bool CreateProject { get; private set; }
-        public bool OpenProject { get; private set; }
-        public string NewProjectName { get; private set; }
+        public string NewProjectName { get; private set; }        
         public string NewProjectPath { get; private set; }
         public string ExistingProjectPath { get; private set; }
         public string ExistingConfigPath { get; private set; }
+        public ProjectAction Action { get; private set; }
+        private string _newProjectLocation;
+
+        public enum ProjectAction
+        {
+            CreateProject,
+            OpenProject
+        }
 
         public frmProjectBuilder()
         {
@@ -25,16 +32,55 @@ namespace OpenBots.UI.Forms.Supplement_Forms
 
         private void btnCreateProject_Click(object sender, EventArgs e)
         {
-            string newProjectLocation = txtNewProjectLocation.Text.Trim();
+            CreateProject(DialogResult.OK);            
+        }
+
+        private void btnCreateGalleryProject_Click(object sender, EventArgs e)
+        {
+            CreateProject(DialogResult.None);
+
+            if (string.IsNullOrEmpty(lblError.Text))
+            {
+                frmGalleryProject gallery = new frmGalleryProject(_newProjectLocation, NewProjectName);
+                gallery.ShowDialog();
+
+                if (gallery.DialogResult == DialogResult.OK)
+                {
+                    try
+                    {
+                        ExistingConfigPath = Project.ExtractGalleryProject(NewProjectPath);
+                        ExistingProjectPath = Directory.GetParent(ExistingConfigPath).ToString();
+                        Action = ProjectAction.OpenProject;
+                        DialogResult = DialogResult.OK;
+                    }
+                    catch (Exception ex)
+                    {
+                        lblError.Text = "Error: " + ex.Message;
+                        Directory.Delete(NewProjectPath, true);
+                    }
+                }
+                else
+                {
+                    Directory.Delete(NewProjectPath, true);
+                }
+            }           
+        }
+
+        private void CreateProject(DialogResult result)
+        {
+            lblError.Text = "";
+            _newProjectLocation = txtNewProjectLocation.Text.Trim();
             NewProjectName = txtNewProjectName.Text.Trim();
 
-            if (string.IsNullOrEmpty(NewProjectName) || string.IsNullOrEmpty(newProjectLocation) || !Directory.Exists(newProjectLocation))
+            if (string.IsNullOrEmpty(NewProjectName) || string.IsNullOrEmpty(_newProjectLocation) || !Directory.Exists(_newProjectLocation))
             {
                 lblError.Text = "Error: Please enter a valid project name and location";
             }
-            else {
-                try {
-                    NewProjectPath = Path.Combine(newProjectLocation, NewProjectName);
+            else
+            {
+                try
+                {
+                    NewProjectPath = Path.Combine(_newProjectLocation, NewProjectName);
                     bool isInvalidProjectName = new[] { @"/", @"\" }.Any(c => NewProjectName.Contains(c));
                     if (isInvalidProjectName)
                         throw new Exception("Illegal characters in path");
@@ -42,8 +88,8 @@ namespace OpenBots.UI.Forms.Supplement_Forms
                     if (!Directory.Exists(NewProjectPath))
                     {
                         Directory.CreateDirectory(NewProjectPath);
-                        CreateProject = true;
-                        DialogResult = DialogResult.OK;
+                        Action = ProjectAction.CreateProject;
+                        DialogResult = result;
                     }
                     else
                         lblError.Text = "Error: Project already exists";
@@ -57,8 +103,9 @@ namespace OpenBots.UI.Forms.Supplement_Forms
 
         private void btnOpenProject_Click(object sender, EventArgs e)
         {
+            lblError.Text = "";
             ExistingConfigPath = txtExistingProjectLocation.Text.Trim();
-            if (ExistingConfigPath == string.Empty || !File.Exists(ExistingConfigPath) || 
+            if (ExistingConfigPath == string.Empty || !File.Exists(ExistingConfigPath) ||
                 Path.GetFileName(ExistingConfigPath) != "project.config")
             {
                 lblError.Text = "Error: Please enter a valid project.config path";
@@ -66,7 +113,7 @@ namespace OpenBots.UI.Forms.Supplement_Forms
             else
             {
                 ExistingProjectPath = Directory.GetParent(ExistingConfigPath).ToString();
-                OpenProject = true;
+                Action = ProjectAction.OpenProject;
                 DialogResult = DialogResult.OK;
             }
         }
@@ -120,6 +167,6 @@ namespace OpenBots.UI.Forms.Supplement_Forms
                 e.Handled = true;
                 e.SuppressKeyPress = true;
             }
-        }
+        }      
     }
 }

@@ -42,8 +42,10 @@
             this.btnOpenProject = new OpenBots.Core.UI.Controls.UIPictureButton();
             this.btnCreateProject = new OpenBots.Core.UI.Controls.UIPictureButton();
             this.lblError = new System.Windows.Forms.Label();
+            this.btnCreateGalleryProject = new OpenBots.Core.UI.Controls.UIPictureButton();
             ((System.ComponentModel.ISupportInitialize)(this.btnOpenProject)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnCreateProject)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnCreateGalleryProject)).BeginInit();
             this.SuspendLayout();
             // 
             // lblNewProject
@@ -208,12 +210,31 @@
             this.lblError.Size = new System.Drawing.Size(688, 28);
             this.lblError.TabIndex = 29;
             // 
+            // btnCreateGalleryProject
+            // 
+            this.btnCreateGalleryProject.BackColor = System.Drawing.Color.Transparent;
+            this.btnCreateGalleryProject.Cursor = System.Windows.Forms.Cursors.Arrow;
+            this.btnCreateGalleryProject.DisplayText = "Gallery";
+            this.btnCreateGalleryProject.DisplayTextBrush = System.Drawing.Color.White;
+            this.btnCreateGalleryProject.Font = new System.Drawing.Font("Segoe UI", 8F);
+            this.btnCreateGalleryProject.Image = ((System.Drawing.Image)(resources.GetObject("btnCreateGalleryProject.Image")));
+            this.btnCreateGalleryProject.IsMouseOver = false;
+            this.btnCreateGalleryProject.Location = new System.Drawing.Point(216, 207);
+            this.btnCreateGalleryProject.Margin = new System.Windows.Forms.Padding(8, 6, 8, 6);
+            this.btnCreateGalleryProject.Name = "btnCreateGalleryProject";
+            this.btnCreateGalleryProject.Size = new System.Drawing.Size(60, 60);
+            this.btnCreateGalleryProject.TabIndex = 30;
+            this.btnCreateGalleryProject.TabStop = false;
+            this.btnCreateGalleryProject.Text = "Gallery";
+            this.btnCreateGalleryProject.Click += new System.EventHandler(this.btnCreateGalleryProject_Click);
+            // 
             // frmProjectBuilder
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoValidate = System.Windows.Forms.AutoValidate.EnablePreventFocusChange;
             this.ClientSize = new System.Drawing.Size(701, 318);
+            this.Controls.Add(this.btnCreateGalleryProject);
             this.Controls.Add(this.lblError);
             this.Controls.Add(this.btnOpenProject);
             this.Controls.Add(this.lblProjectLocation);
@@ -237,6 +258,7 @@
             this.Text = "Project Manager";
             ((System.ComponentModel.ISupportInitialize)(this.btnOpenProject)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnCreateProject)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnCreateGalleryProject)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -256,5 +278,6 @@
         private System.Windows.Forms.Label lblProjectLocation;
         private OpenBots.Core.UI.Controls.UIPictureButton btnOpenProject;
         public System.Windows.Forms.Label lblError;
+        private Core.UI.Controls.UIPictureButton btnCreateGalleryProject;
     }
 }
