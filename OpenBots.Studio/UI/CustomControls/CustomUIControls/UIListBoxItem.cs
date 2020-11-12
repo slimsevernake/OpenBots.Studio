@@ -63,15 +63,27 @@ namespace OpenBots.UI.CustomControls.CustomUIControls
             }
         }        
 
-        public string Version
+        public string LatestVersion
         {
             get
             {
-                return lblVersion.Text;
+                return lblLatestVersion.Text;
             }
             set
             {
-                lblVersion.Text = value;
+                lblLatestVersion.Text = value;
+            }
+        }
+
+        public string CurrentVersion
+        {
+            get
+            {
+                return lblCurrentVersion.Text;
+            }
+            set
+            {
+                lblCurrentVersion.Text = value;
             }
         }
 
@@ -86,18 +98,6 @@ namespace OpenBots.UI.CustomControls.CustomUIControls
             {
                 _selected = value;
                 Refresh();
-            }
-        }
-
-        public int Rating
-        {
-            get
-            {
-                return RatingBar.Stars;
-            }
-            set
-            {
-                RatingBar.Stars = value;
             }
         }
 
@@ -289,7 +289,7 @@ namespace OpenBots.UI.CustomControls.CustomUIControls
             SizeF sz;
             RectangleF layoutRect;
             StringFormat SF = new StringFormat() { Trimming = StringTrimming.EllipsisCharacter };
-            Rectangle workingRect = new Rectangle(40, 0, RatingBar.Left - 40 - 6, Height);
+            Rectangle workingRect = new Rectangle(40, 0, lblCurrentVersion.Left - 40 - 6, Height);
 
             //Draw title name
             fnt = new Font("Segoe UI Bold", 14);

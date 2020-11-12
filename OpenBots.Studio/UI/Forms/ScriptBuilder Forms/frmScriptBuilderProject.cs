@@ -30,7 +30,7 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
             AddProject();
         }
 
-        public void AddProject()
+        public DialogResult AddProject()
         {
             tvProject.Nodes.Clear();
             var projectBuilder = new frmProjectBuilder();
@@ -40,7 +40,7 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
             if (projectBuilder.DialogResult == DialogResult.Cancel && ScriptProject == null)
             {
                 Application.Exit();
-                return;
+                return DialogResult.Abort;
             }
 
             //Create new OpenBots project
@@ -48,7 +48,7 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
             {
                 DialogResult result = CheckForUnsavedScripts();
                 if (result == DialogResult.Cancel)
-                    return;
+                    return DialogResult.Cancel;
               
                 uiScriptTabControl.TabPages.Clear();
                 ScriptProjectPath = projectBuilder.NewProjectPath;
@@ -96,7 +96,7 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
             {
                 DialogResult result = CheckForUnsavedScripts();
                 if (result == DialogResult.Cancel)
-                    return;
+                    return DialogResult.Cancel;
 
                 try
                 {
@@ -122,7 +122,7 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
                     Notify("An Error Occured: " + ex.Message, Color.Red);
                     //Try adding project again
                     AddProject();
-                    return;
+                    return DialogResult.None;
                 }
             }
 
@@ -134,6 +134,7 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
             projectNode.ContextMenuStrip = cmsProjectMainFolderActions;          
             tvProject.Nodes.Add(projectNode);
             projectNode.Expand();
+            return DialogResult.OK;
         }
 
         private void LoadChildren(TreeNode parentNode, string directory)

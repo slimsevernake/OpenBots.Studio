@@ -380,9 +380,12 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
             if (_editMode)
                 return;
 
-            AddProject();
-            LoadCommands();
-            Notify("Welcome! Press 'Add Command' to get started!", Color.White);
+            var result = AddProject();
+            if (result != DialogResult.Abort)
+            {
+                LoadCommands();
+                Notify("Welcome! Press 'Add Command' to get started!", Color.White);
+            }          
         }
 
         private void pnlControlContainer_Paint(object sender, PaintEventArgs e)

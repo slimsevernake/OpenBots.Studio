@@ -83,7 +83,7 @@ namespace OpenBots.UI.Forms
                     img = Resources.OpenBots_icon;
                 }
 
-                lbxGalleryProjects.Add(result.Id, result.Title, result.Description, result.Version, img);
+                lbxGalleryProjects.Add(result.Id, result.Title, result.Description, img, result.Version);
             }
         }
 

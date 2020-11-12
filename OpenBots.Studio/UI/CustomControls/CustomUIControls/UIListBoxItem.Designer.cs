@@ -32,8 +32,8 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UIListBoxItem));
             this.ImageList1 = new System.Windows.Forms.ImageList(this.components);
             this.imageList2 = new System.Windows.Forms.ImageList(this.components);
-            this.lblVersion = new System.Windows.Forms.Label();
-            this.RatingBar = new OpenBots.UI.CustomControls.CustomUIControls.UIRatingBar();
+            this.lblLatestVersion = new System.Windows.Forms.Label();
+            this.lblCurrentVersion = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // ImageList1
@@ -48,55 +48,53 @@
             this.imageList2.TransparentColor = System.Drawing.Color.Transparent;
             this.imageList2.Images.SetKeyName(0, "default");
             // 
-            // lblVersion
+            // lblLatestVersion
             // 
-            this.lblVersion.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblVersion.AutoSize = true;
-            this.lblVersion.BackColor = System.Drawing.Color.Transparent;
-            this.lblVersion.Location = new System.Drawing.Point(433, 31);
-            this.lblVersion.Name = "lblVersion";
-            this.lblVersion.Size = new System.Drawing.Size(45, 23);
-            this.lblVersion.TabIndex = 4;
-            this.lblVersion.Text = "0.0.0";
+            this.lblLatestVersion.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblLatestVersion.AutoSize = true;
+            this.lblLatestVersion.BackColor = System.Drawing.Color.Transparent;
+            this.lblLatestVersion.Location = new System.Drawing.Point(433, 31);
+            this.lblLatestVersion.Name = "lblLatestVersion";
+            this.lblLatestVersion.Size = new System.Drawing.Size(45, 23);
+            this.lblLatestVersion.TabIndex = 4;
+            this.lblLatestVersion.Text = "0.0.0";
             // 
-            // RatingBar
+            // lblCurrentVersion
             // 
-            this.RatingBar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.RatingBar.BackColor = System.Drawing.Color.Transparent;
-            this.RatingBar.Location = new System.Drawing.Point(390, 7);
-            this.RatingBar.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.RatingBar.MaximumSize = new System.Drawing.Size(90, 20);
-            this.RatingBar.MinimumSize = new System.Drawing.Size(90, 20);
-            this.RatingBar.Name = "RatingBar";
-            this.RatingBar.Size = new System.Drawing.Size(90, 20);
-            this.RatingBar.Stars = 3;
-            this.RatingBar.TabIndex = 2;
+            this.lblCurrentVersion.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblCurrentVersion.AutoSize = true;
+            this.lblCurrentVersion.BackColor = System.Drawing.Color.Transparent;
+            this.lblCurrentVersion.Location = new System.Drawing.Point(433, 8);
+            this.lblCurrentVersion.Name = "lblCurrentVersion";
+            this.lblCurrentVersion.Size = new System.Drawing.Size(45, 23);
+            this.lblCurrentVersion.TabIndex = 5;
+            this.lblCurrentVersion.Text = "0.0.0";
             // 
             // UIListBoxItem
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 21F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.RatingBar);
-            this.Controls.Add(this.lblVersion);
+            this.Controls.Add(this.lblCurrentVersion);
+            this.Controls.Add(this.lblLatestVersion);
             this.DoubleBuffered = true;
             this.Font = new System.Drawing.Font("Segoe UI Light", 9.75F);
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "UIListBoxItem";
             this.Size = new System.Drawing.Size(484, 75);
+            this.Paint += new System.Windows.Forms.PaintEventHandler(this.UIListBoxItem_Paint);
+            this.MouseClick += new System.Windows.Forms.MouseEventHandler(this.UIListBoxItem_MouseClick);
+            this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.UIListBoxItem_MouseDown);
+            this.MouseEnter += new System.EventHandler(this.UIListBoxItem_MouseEnter);
+            this.MouseUp += new System.Windows.Forms.MouseEventHandler(this.UIListBoxItem_MouseUp);
             this.ResumeLayout(false);
             this.PerformLayout();
-            this.Paint += UIListBoxItem_Paint;
-            this.MouseClick += UIListBoxItem_MouseClick;
-            this.MouseDown += UIListBoxItem_MouseDown;
-            this.MouseEnter += UIListBoxItem_MouseEnter;
-            this.MouseUp += UIListBoxItem_MouseUp;
 
         }
         #endregion
 
         internal System.Windows.Forms.ImageList ImageList1;
         internal System.Windows.Forms.ImageList imageList2;
-        internal System.Windows.Forms.Label lblVersion;
-        internal UIRatingBar RatingBar;
+        internal System.Windows.Forms.Label lblLatestVersion;
+        internal System.Windows.Forms.Label lblCurrentVersion;
     }
 }
