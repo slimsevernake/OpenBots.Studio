@@ -35,12 +35,12 @@ namespace OpenBots.UI.CustomControls.CustomUIControls
             {
                 var withBlock = c;
 
-                // Assign an auto generated name
+                //Assign an auto generated name
                 withBlock.Id = id;
                 withBlock.Name = "item" + flpListBox.Controls.Count + 1;
                 withBlock.Margin = new Padding(0);
 
-                // set properties
+                //Set properties
                 withBlock.Title = title;
                 withBlock.Description = description;
                 withBlock.Version = version;
@@ -49,7 +49,7 @@ namespace OpenBots.UI.CustomControls.CustomUIControls
                 withBlock.RatingBar.Visible = showRating;
             }
 
-            // To check when the selection is changed
+            //To check when the selection is changed
             c.SelectionChanged += SelectionChanged;
             c.Click += ItemClicked;
             c.DoubleClick += ItemDoubleClicked;
@@ -61,21 +61,21 @@ namespace OpenBots.UI.CustomControls.CustomUIControls
         public void Remove(int Index)
         {
             UIListBoxItem c = (UIListBoxItem)flpListBox.Controls[Index];
-            Remove(c.Name);  // call the below sub
+            Remove(c.Name);  //Call the below sub
         }
 
         public void Remove(string name)
         {
-            // grab which control is being removed
+            //Grab which control is being removed
             UIListBoxItem c = (UIListBoxItem)flpListBox.Controls[name];
             flpListBox.Controls.Remove(c);
 
-            // remove the event hook
+            //Remove the event hook
             c.SelectionChanged -= SelectionChanged;
             c.Click -= ItemClicked;
             c.DoubleClick -= ItemDoubleClicked;
 
-            // now dispose off properly
+            //Now dispose of properly
             c.Dispose();
             SetupAnchors();
         }
@@ -89,11 +89,11 @@ namespace OpenBots.UI.CustomControls.CustomUIControls
 
                 UIListBoxItem c = (UIListBoxItem)flpListBox.Controls[0];
                 flpListBox.Controls.Remove(c);
-                // remove the event hook
+                //Remove the event hook
                 c.SelectionChanged -= SelectionChanged;
                 c.Click -= ItemClicked;
                 c.DoubleClick -= ItemDoubleClicked;
-                // now dispose off properly
+                //Now dispose of properly
                 c.Dispose();
             }
             while (true);
