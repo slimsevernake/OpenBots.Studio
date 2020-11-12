@@ -2,13 +2,11 @@
 using ICSharpCode.SharpZipLib.Zip;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using OpenBots.Core.Gallery;
-using OpenBots.Core.Gallery.Models;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
+using System.Windows.Forms;
 using ZipFile = ICSharpCode.SharpZipLib.Zip.ZipFile;
 
 namespace OpenBots.Utilities
@@ -18,17 +16,53 @@ namespace OpenBots.Utilities
         public Guid ProjectID { get; set; }
         public string ProjectName { get; set; }
         public string Main { get; set; }
+        public string Version { get; set; }
+        public Dictionary<string, string> Dependencies { get; set; }
 
-        public Project()
+        [JsonIgnore]
+        public List<string> DefaultCommands = new List<string>()
         {
-
-        }
+            "OpenBots.Commands.API",
+            "OpenBots.Commands.Asset",
+            "OpenBots.Commands.Credential",
+            "OpenBots.Commands.Data",
+            "OpenBots.Commands.Database",
+            "OpenBots.Commands.DataTable",
+            "OpenBots.Commands.Dictionary",
+            "OpenBots.Commands.Email",
+            "OpenBots.Commands.Engine",
+            "OpenBots.Commands.Excel",
+            "OpenBots.Commands.File",
+            "OpenBots.Commands.Folder",
+            "OpenBots.Commands.IEBrowser",
+            "OpenBots.Commands.Input",
+            "OpenBots.Commands.List",
+            "OpenBots.Commands.NLG",
+            "OpenBots.Commands.Outlook",
+            "OpenBots.Commands.Process",
+            "OpenBots.Commands.QueueItem",
+            "OpenBots.Commands.RegEx",
+            "OpenBots.Commands.SecureData",
+            "OpenBots.Commands.Switch",
+            "OpenBots.Commands.System",
+            "OpenBots.Commands.TextFile",
+            "OpenBots.Commands.Variable",
+            "OpenBots.Commands.Window",
+            "OpenBots.Commands.Word"
+        };
 
         public Project(string projectName)
         {
             ProjectID = Guid.NewGuid();
             ProjectName = projectName;
             Main = "Main.json";
+            Version = Application.ProductVersion;
+            Dependencies = new Dictionary<string, string>();
+
+            foreach (string commandSet in DefaultCommands)
+            {
+                Dependencies.Add(commandSet, "1.1.0");
+            }
         }
 
         public void SaveProject(string scriptPath)
@@ -84,8 +118,6 @@ namespace OpenBots.Utilities
             // Create .zip file
             File.Copy(processNugetFilePath, processZipFilePath, true);
 
-            //var extractToDirectoryPath = Path.ChangeExtension(processZipFilePath, null);
-
             // Extract Files/Folders from (.zip) file
             DecompressFile(processZipFilePath, projectDirectory);
 
@@ -103,7 +135,7 @@ namespace OpenBots.Utilities
             return configFilePath;
         }
 
-        private static void DecompressFile(string projectFilePath, string targetDirectory)
+        public static void DecompressFile(string projectFilePath, string targetDirectory)
         {
             FileStream fs = File.OpenRead(projectFilePath);
             ZipFile file = new ZipFile(fs);
@@ -147,6 +179,6 @@ namespace OpenBots.Utilities
                 file.IsStreamOwner = true;
                 file.Close();
             }
-        }
+        }       
     }
 }

@@ -1,4 +1,4 @@
-﻿namespace OpenBots.UI.Forms.Supplement_Forms
+﻿namespace OpenBots.UI.Forms
 {
     partial class frmProjectBuilder
     {

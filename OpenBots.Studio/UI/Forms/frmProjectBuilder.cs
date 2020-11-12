@@ -7,7 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 
-namespace OpenBots.UI.Forms.Supplement_Forms
+namespace OpenBots.UI.Forms
 {
     public partial class frmProjectBuilder : UIForm
     {
@@ -41,7 +41,7 @@ namespace OpenBots.UI.Forms.Supplement_Forms
 
             if (string.IsNullOrEmpty(lblError.Text))
             {
-                frmGalleryProject gallery = new frmGalleryProject(_newProjectLocation, NewProjectName);
+                frmGalleryProjectManager gallery = new frmGalleryProjectManager(_newProjectLocation, NewProjectName);
                 gallery.ShowDialog();
 
                 if (gallery.DialogResult == DialogResult.OK)

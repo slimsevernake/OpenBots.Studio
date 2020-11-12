@@ -12,9 +12,9 @@ using System.Linq;
 using System.Net;
 using System.Windows.Forms;
 
-namespace OpenBots.UI.Forms.Supplement_Forms
+namespace OpenBots.UI.Forms
 {
-    public partial class frmGalleryProject : UIForm
+    public partial class frmGalleryProjectManager : UIForm
     {
         private string _projectLocation;
         private string _projectName;
@@ -23,7 +23,7 @@ namespace OpenBots.UI.Forms.Supplement_Forms
         private List<RegistrationItemVersion> _projectVersions;
         private NugetPackageManger _manager;
 
-        public frmGalleryProject(string projectLocation, string projectName)
+        public frmGalleryProjectManager(string projectLocation, string projectName)
         {
             InitializeComponent();
             _projectLocation = projectLocation;

@@ -1,9 +1,9 @@
 ﻿using OpenBots.UI.CustomControls.CustomUIControls;
 using static OpenBots.UI.CustomControls.CustomUIControls.UIListBox;
 
-namespace OpenBots.UI.Forms.Supplement_Forms
+namespace OpenBots.UI.Forms
 {
-    partial class frmGalleryProject
+    partial class frmGalleryProjectManager
     {
         /// <summary>
         /// Required designer variable.
@@ -32,7 +32,7 @@ namespace OpenBots.UI.Forms.Supplement_Forms
         private void InitializeComponent()
         {
             OpenBots.Core.Utilities.FormsUtilities.Theme theme1 = new OpenBots.Core.Utilities.FormsUtilities.Theme();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmGalleryProject));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmGalleryProjectManager));
             OpenBots.Core.Utilities.FormsUtilities.Theme theme2 = new OpenBots.Core.Utilities.FormsUtilities.Theme();
             OpenBots.Core.Utilities.FormsUtilities.Theme theme3 = new OpenBots.Core.Utilities.FormsUtilities.Theme();
             OpenBots.Core.Utilities.FormsUtilities.Theme theme4 = new OpenBots.Core.Utilities.FormsUtilities.Theme();

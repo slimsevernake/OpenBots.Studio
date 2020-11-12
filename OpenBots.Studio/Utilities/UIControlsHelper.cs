@@ -54,7 +54,7 @@ namespace OpenBots.Utilities
                 form.WindowState = FormWindowState.Minimized;
         }
 
-        public static List<AutomationCommand> GenerateCommandsandControls()
+        public static List<AutomationCommand> GenerateCommandsandControls(Dictionary<string,string> dependencies = null) 
         {
             var commandList = new List<AutomationCommand>();
 
@@ -65,7 +65,25 @@ namespace OpenBots.Utilities
                                  .Where(t => t.BaseType.Name == "ScriptCommand")
                                  .ToList();
 
-            var cmdAssemblyPaths = Directory.GetFiles(AppDomain.CurrentDomain.BaseDirectory, "OpenBots.Commands.*.dll");
+            var cmdAssemblyPaths = new List<string>();//Directory.GetFiles(AppDomain.CurrentDomain.BaseDirectory, "OpenBots.Commands.*.dll").ToList();
+
+            string appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+            string packagePath = Path.Combine(appDataPath, "OpenBots Inc", "packages");
+            List<string> commandDirectories = Directory.GetDirectories(packagePath, "OpenBots.Commands.*").ToList();
+            List<string> filteredCommandDirectories = new List<string>();
+            
+            foreach (var pair in dependencies)
+            {
+                foreach(string directory in commandDirectories)
+                {
+                    if (new DirectoryInfo(directory).Name == $"{pair.Key}.{pair.Value}")
+                        filteredCommandDirectories.Add(directory);
+                }
+            }
+
+            foreach (string directory in filteredCommandDirectories)
+                cmdAssemblyPaths.AddRange(Directory.GetFiles(Path.Combine(directory, "lib", "net48"), "OpenBots.Commands.*.dll").ToList());
+
             foreach (var path in cmdAssemblyPaths)
             {
                 commandClasses.AddRange(Assembly.LoadFrom(path).GetTypes()

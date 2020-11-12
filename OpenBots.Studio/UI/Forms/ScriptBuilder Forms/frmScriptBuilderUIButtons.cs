@@ -678,10 +678,21 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
             frmAbout frmAboutForm = new frmAbout();
             frmAboutForm.Show();
         }
+
+        private void packageManagerToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            string appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+            string packagePath = Path.Combine(appDataPath, "OpenBots Inc", "packages");
+            frmGalleryPackageManager frmManager = new frmGalleryPackageManager(packagePath);
+            frmManager.ShowDialog();
+
+            if (frmManager.DialogResult == DialogResult.OK)
+                LoadCommands();
+        }
         #endregion
 
         #region Script Events Tool Strip and Buttons
-        
+
 
         private void scheduleToolStripMenuItem_Click(object sender, EventArgs e)
         {

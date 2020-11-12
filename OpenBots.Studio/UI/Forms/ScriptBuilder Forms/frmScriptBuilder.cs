@@ -173,10 +173,7 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
         }
 
         private void frmScriptBuilder_Load(object sender, EventArgs e)
-        {
-            //load all commands
-            _automationCommands = UIControlsHelper.GenerateCommandsandControls();
-
+        {           
             //set controls double buffered
             foreach (Control control in Controls)
             {
@@ -253,10 +250,24 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
             _selectedTabScriptActions.SmallImageList = _uiImages;
 
             //set listview column size
-            frmScriptBuilder_SizeChanged(null, null);
+            frmScriptBuilder_SizeChanged(null, null);        
 
+            //start attended mode if selected
+            if (_appSettings.ClientSettings.StartupMode == "Attended Task Mode")
+            {
+                WindowState = FormWindowState.Minimized;
+                var frmAttended = new frmAttendedMode(ScriptProjectPath);
+                frmAttended.Show();
+            }
+        }
+
+        private void LoadCommands()
+        {
+            //load all commands
+            _automationCommands = UIControlsHelper.GenerateCommandsandControls(ScriptProject.Dependencies);
             var groupedCommands = _automationCommands.GroupBy(f => f.DisplayGroup);
 
+            tvCommands.Nodes.Clear();
             foreach (var cmd in groupedCommands)
             {
                 TreeNode newGroup = new TreeNode(cmd.Key);
@@ -278,15 +289,6 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
             _tvCommandsCopy.ShowNodeToolTips = true;
             CopyTreeView(tvCommands, _tvCommandsCopy);
             txtCommandSearch.Text = _txtCommandWatermark;
-
-            //start attended mode if selected
-            if (_appSettings.ClientSettings.StartupMode == "Attended Task Mode")
-            {
-                WindowState = FormWindowState.Minimized;
-                var frmAttended = new frmAttendedMode(ScriptProjectPath);
-                frmAttended.Show();
-            }
-
         }
 
         private void frmScriptBuilder_FormClosing(object sender, FormClosingEventArgs e)
@@ -379,6 +381,7 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
                 return;
 
             AddProject();
+            LoadCommands();
             Notify("Welcome! Press 'Add Command' to get started!", Color.White);
         }
 
@@ -717,7 +720,7 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
             LinkLabel senderLink = (LinkLabel)sender;
             OpenFile(Path.Combine(Folders.GetFolder(FolderType.ScriptsFolder), senderLink.Text));
         }
-        #endregion       
+        #endregion      
     }
 }
 

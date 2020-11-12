@@ -166,6 +166,7 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
             this.tsmiCloseTab = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiCloseAllButThis = new System.Windows.Forms.ToolStripMenuItem();
             this.cmsProjectMainFolderActions = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.packageManagerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cmsProjectFolderActions.SuspendLayout();
             this.cmsScriptActions.SuspendLayout();
             this.pnlControlContainer.SuspendLayout();
@@ -1538,6 +1539,7 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
             this.runToolStripMenuItem,
             this.debugToolStripMenuItem,
             this.breakpointToolStripMenuItem,
+            this.packageManagerToolStripMenuItem,
             this.tsSearchBox,
             this.tsSearchButton,
             this.tsSearchResult});
@@ -1951,6 +1953,15 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
             this.cmsProjectMainFolderActions.Name = "cmsProjectMainFolderActions";
             this.cmsProjectMainFolderActions.Size = new System.Drawing.Size(199, 88);
             // 
+            // packageManagerToolStripMenuItem
+            // 
+            this.packageManagerToolStripMenuItem.ForeColor = System.Drawing.Color.White;
+            this.packageManagerToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("packageManagerToolStripMenuItem.Image")));
+            this.packageManagerToolStripMenuItem.Name = "packageManagerToolStripMenuItem";
+            this.packageManagerToolStripMenuItem.Size = new System.Drawing.Size(160, 34);
+            this.packageManagerToolStripMenuItem.Text = "Package Manager";
+            this.packageManagerToolStripMenuItem.Click += new System.EventHandler(this.packageManagerToolStripMenuItem_Click);
+            // 
             // frmScriptBuilder
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
@@ -2170,6 +2181,7 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
         private ToolStripMenuItem openShortcutMenuToolStripMenuItem;
         private Core.UI.Controls.UIPictureButton uiBtnRenameSequence;
         private ToolStripMenuItem clearAllToolStripMenuItem;
+        private ToolStripMenuItem packageManagerToolStripMenuItem;
     }
 }
 

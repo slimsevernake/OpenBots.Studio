@@ -14,8 +14,8 @@ namespace OpenBots.Core.Gallery
 {
     public class NugetPackageManger
     {
-        readonly Uri nugetV3FeedUri;
-        Feed feed;
+        private Uri _nugetV3FeedUri;
+        private Feed _feed;
 
         public enum PackageType
         {
@@ -27,9 +27,9 @@ namespace OpenBots.Core.Gallery
         {
             if (nugetV3FeedUri == null)
             {
-                nugetV3FeedUri = new Uri("https://dev.gallery.openbots.io/v3/index.json");
+                nugetV3FeedUri = new Uri("https://dev.gallery.openbots.io/v3/index.json"); //https://azuresearch-usnc.nuget.org/query?q={name}
             }
-            this.nugetV3FeedUri = nugetV3FeedUri;
+            _nugetV3FeedUri = nugetV3FeedUri;
 
             ServicePointManager.SecurityProtocol |= (SecurityProtocolType.Ssl3 |
                 SecurityProtocolType.Tls12 | SecurityProtocolType.Tls11 |
@@ -41,8 +41,8 @@ namespace OpenBots.Core.Gallery
         {
             using (var httpClient = new HttpClient())
             {
-                feed = await GetJson<Feed>(nugetV3FeedUri, httpClient, token);
-                var searchQueryService = feed.Resources.FirstOrDefault(x => x.Type == "SearchQueryService");
+                _feed = await GetJson<Feed>(_nugetV3FeedUri, httpClient, token);
+                var searchQueryService = _feed.Resources.FirstOrDefault(x => x.Type == "SearchQueryService");
 
                 var searchPackageUri = new Uri($"{searchQueryService.Url}/?q={packageId}");
                 var searchResult = await GetJson<SearchResult>(searchPackageUri, httpClient, token);
@@ -55,8 +55,8 @@ namespace OpenBots.Core.Gallery
         {
             using (var httpClient = new HttpClient())
             {
-                feed = await GetJson<Feed>(nugetV3FeedUri, httpClient, token);
-                var searchQueryService = feed.Resources.FirstOrDefault(x => x.Type == "SearchQueryService");
+                _feed = await GetJson<Feed>(_nugetV3FeedUri, httpClient, token);
+                var searchQueryService = _feed.Resources.FirstOrDefault(x => x.Type == "SearchQueryService");
 
                 var searchPackageUri = new Uri($"{searchQueryService.Url}/{type}");
                 var searchResult = await GetJson<SearchResult>(searchPackageUri, httpClient, token);
@@ -68,8 +68,8 @@ namespace OpenBots.Core.Gallery
         {
             using (var httpClient = new HttpClient())
             {
-                feed = await GetJson<Feed>(nugetV3FeedUri, httpClient, token);
-                var registrationService = feed.Resources.FirstOrDefault(x => x.Type == "RegistrationsBaseUrl");
+                _feed = await GetJson<Feed>(_nugetV3FeedUri, httpClient, token);
+                var registrationService = _feed.Resources.FirstOrDefault(x => x.Type == "RegistrationsBaseUrl");
 
                 var registrationUri = new Uri($"{registrationService.Url}/{packageId}/index.json");
                 var registration = await GetJson<Registration>(registrationUri, httpClient, token);
@@ -81,10 +81,10 @@ namespace OpenBots.Core.Gallery
         {
             using (var httpClient = new HttpClient())
             {
-                if (feed == null)
-                    feed = await GetJson<Feed>(nugetV3FeedUri, httpClient, token);
+                if (_feed == null)
+                    _feed = await GetJson<Feed>(_nugetV3FeedUri, httpClient, token);
 
-                var packageBaseAddress = feed.Resources.FirstOrDefault(x => x.Type.StartsWith("PackageBaseAddress"));
+                var packageBaseAddress = _feed.Resources.FirstOrDefault(x => x.Type.StartsWith("PackageBaseAddress"));
                 var packageBaseAddressUri = new Uri($"{packageBaseAddress.Url}/{packageId.ToLower()}/{version}/{packageId.ToLower()}.{version}.nupkg");
 
                 var response = await httpClient.GetAsync(packageBaseAddressUri, token).ConfigureAwait(false);
