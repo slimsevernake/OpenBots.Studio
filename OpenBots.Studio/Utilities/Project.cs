@@ -22,33 +22,24 @@ namespace OpenBots.Utilities
         [JsonIgnore]
         public List<string> DefaultCommands = new List<string>()
         {
-            "OpenBots.Commands.API",
-            "OpenBots.Commands.Asset",
-            "OpenBots.Commands.Credential",
-            "OpenBots.Commands.Data",
-            "OpenBots.Commands.Database",
-            "OpenBots.Commands.DataTable",
-            "OpenBots.Commands.Dictionary",
-            "OpenBots.Commands.Email",
-            "OpenBots.Commands.Engine",
-            "OpenBots.Commands.Excel",
-            "OpenBots.Commands.File",
-            "OpenBots.Commands.Folder",
-            "OpenBots.Commands.IEBrowser",
-            "OpenBots.Commands.Input",
-            "OpenBots.Commands.List",
-            "OpenBots.Commands.NLG",
-            "OpenBots.Commands.Outlook",
-            "OpenBots.Commands.Process",
-            "OpenBots.Commands.QueueItem",
-            "OpenBots.Commands.RegEx",
-            "OpenBots.Commands.SecureData",
-            "OpenBots.Commands.Switch",
-            "OpenBots.Commands.System",
-            "OpenBots.Commands.TextFile",
-            "OpenBots.Commands.Variable",
-            "OpenBots.Commands.Window",
-            "OpenBots.Commands.Word"
+            "Data",
+            "DataTable",
+            "Dictionary",
+            "Email",
+            "Engine",
+            "Excel",
+            "File",
+            "Folder",
+            "Input",
+            "List",
+            "Process",
+            "RegEx",
+            "SecureData",
+            "Switch",
+            "System",
+            "TextFile",
+            "Variable",
+            "Window",
         };
 
         public Project(string projectName)
@@ -61,7 +52,7 @@ namespace OpenBots.Utilities
 
             foreach (string commandSet in DefaultCommands)
             {
-                Dependencies.Add(commandSet, "1.1.0");
+                Dependencies.Add("OpenBots.Commands." + commandSet, "1.0.0.9");
             }
         }
 
