@@ -38,7 +38,7 @@ namespace OpenBots.UI.Forms
             uiBtnOpen.Enabled = false;
             try
             {           
-                _searchresults = await _manager.GetAllLatestPackagesAsync(NugetPackageManger.PackageType.Automation);
+                _searchresults = await _manager.GetAllPackagesAsync(NugetPackageManger.PackageType.Automation.ToString());
                 PopulateListBox(_searchresults);
             }
             catch (Exception ex)

@@ -51,7 +51,7 @@ namespace OpenBots.Core.Gallery
             }
         }
 
-        public async Task<List<SearchResultPackage>> GetAllLatestPackagesAsync(PackageType type, CancellationToken token = default)
+        public async Task<List<SearchResultPackage>> GetAllPackagesAsync(string type = "", CancellationToken token = default)
         {
             using (var httpClient = new HttpClient())
             {
@@ -64,6 +64,19 @@ namespace OpenBots.Core.Gallery
             }
         }
 
+        public async Task<List<SearchResultPackage>> GetPackagesByIdAsync(string keyword, CancellationToken token = default)
+        {
+            using (var httpClient = new HttpClient())
+            {
+                _feed = await GetJson<Feed>(_nugetV3FeedUri, httpClient, token);
+                var searchQueryService = _feed.Resources.FirstOrDefault(x => x.Type == "SearchQueryService");
+
+                var searchPackageUri = new Uri($"{searchQueryService.Url}/?q={keyword}");
+                var searchResult = await GetJson<SearchResult>(searchPackageUri, httpClient, token);
+                return searchResult.Data;
+            }
+        }
+
         public async Task<List<RegistrationItem>> GetPackageRegistrationAsync(string packageId, CancellationToken token = default)
         {
             using (var httpClient = new HttpClient())
@@ -71,7 +84,7 @@ namespace OpenBots.Core.Gallery
                 _feed = await GetJson<Feed>(_nugetV3FeedUri, httpClient, token);
                 var registrationService = _feed.Resources.FirstOrDefault(x => x.Type == "RegistrationsBaseUrl");
 
-                var registrationUri = new Uri($"{registrationService.Url}/{packageId}/index.json");
+                var registrationUri = new Uri($"{registrationService.Url.TrimEnd('/')}/{packageId.ToLower()}/index.json");
                 var registration = await GetJson<Registration>(registrationUri, httpClient, token);
                 return registration.Items;
             }
@@ -85,7 +98,7 @@ namespace OpenBots.Core.Gallery
                     _feed = await GetJson<Feed>(_nugetV3FeedUri, httpClient, token);
 
                 var packageBaseAddress = _feed.Resources.FirstOrDefault(x => x.Type.StartsWith("PackageBaseAddress"));
-                var packageBaseAddressUri = new Uri($"{packageBaseAddress.Url}/{packageId.ToLower()}/{version}/{packageId.ToLower()}.{version}.nupkg");
+                var packageBaseAddressUri = new Uri($"{packageBaseAddress.Url.TrimEnd('/')}/{packageId.ToLower()}/{version}/{packageId.ToLower()}.{version}.nupkg");
 
                 var response = await httpClient.GetAsync(packageBaseAddressUri, token).ConfigureAwait(false);
                 response.EnsureSuccessStatusCode();

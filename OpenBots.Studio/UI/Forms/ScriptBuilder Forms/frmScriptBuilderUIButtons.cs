@@ -1,4 +1,5 @@
-﻿using OpenBots.Commands;
+﻿using Newtonsoft.Json;
+using OpenBots.Commands;
 using OpenBots.Commands.Switch;
 using OpenBots.Core.Enums;
 using OpenBots.Core.IO;
@@ -683,11 +684,16 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
         {
             string appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
             string packagePath = Path.Combine(appDataPath, "OpenBots Inc", "packages");
-            frmGalleryPackageManager frmManager = new frmGalleryPackageManager(packagePath);
+            string configPath = Path.Combine(ScriptProjectPath, "project.config");
+            frmGalleryPackageManager frmManager = new frmGalleryPackageManager(ScriptProject.Dependencies, packagePath);
             frmManager.ShowDialog();
 
             if (frmManager.DialogResult == DialogResult.OK)
+            {
+                File.WriteAllText(configPath, JsonConvert.SerializeObject(ScriptProject));
                 LoadCommands();
+
+            }
         }
         #endregion
 

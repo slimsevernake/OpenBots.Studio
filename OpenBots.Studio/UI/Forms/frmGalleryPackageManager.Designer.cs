@@ -31,6 +31,7 @@ namespace OpenBots.UI.Forms
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             OpenBots.Core.Utilities.FormsUtilities.Theme theme1 = new OpenBots.Core.Utilities.FormsUtilities.Theme();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmGalleryPackageManager));
             OpenBots.Core.Utilities.FormsUtilities.Theme theme2 = new OpenBots.Core.Utilities.FormsUtilities.Theme();
@@ -53,7 +54,7 @@ namespace OpenBots.UI.Forms
             this.pnlProjectSearch = new OpenBots.UI.CustomControls.CustomUIControls.UIPanel();
             this.pbxOBGallery = new System.Windows.Forms.PictureBox();
             this.lblSearch = new System.Windows.Forms.Label();
-            this.lblGalleryProjects = new System.Windows.Forms.Label();
+            this.lblPackageCategory = new System.Windows.Forms.Label();
             this.txtSampleSearch = new System.Windows.Forms.TextBox();
             this.pnlProjectDetails = new OpenBots.UI.CustomControls.CustomUIControls.UIPanel();
             this.lblPublishDate = new System.Windows.Forms.Label();
@@ -78,6 +79,7 @@ namespace OpenBots.UI.Forms
             this.uiBtnOpen = new OpenBots.Core.UI.Controls.UIPictureButton();
             this.uiBtnCancel = new OpenBots.Core.UI.Controls.UIPictureButton();
             this.tvPackageFeeds = new OpenBots.UI.CustomControls.CustomUIControls.UITreeView();
+            this.imlNodes = new System.Windows.Forms.ImageList(this.components);
             this.tlpPackageLayout.SuspendLayout();
             this.pnlProjectVersion.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbxOBStudio)).BeginInit();
@@ -203,7 +205,7 @@ namespace OpenBots.UI.Forms
             // 
             this.pnlProjectSearch.Controls.Add(this.pbxOBGallery);
             this.pnlProjectSearch.Controls.Add(this.lblSearch);
-            this.pnlProjectSearch.Controls.Add(this.lblGalleryProjects);
+            this.pnlProjectSearch.Controls.Add(this.lblPackageCategory);
             this.pnlProjectSearch.Controls.Add(this.txtSampleSearch);
             this.pnlProjectSearch.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlProjectSearch.Location = new System.Drawing.Point(253, 3);
@@ -235,18 +237,18 @@ namespace OpenBots.UI.Forms
             this.lblSearch.TabIndex = 35;
             this.lblSearch.Text = "Search:";
             // 
-            // lblGalleryProjects
+            // lblPackageCategory
             // 
-            this.lblGalleryProjects.AutoSize = true;
-            this.lblGalleryProjects.BackColor = System.Drawing.Color.Transparent;
-            this.lblGalleryProjects.Font = new System.Drawing.Font("Segoe UI Semilight", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblGalleryProjects.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.lblGalleryProjects.Location = new System.Drawing.Point(70, 9);
-            this.lblGalleryProjects.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.lblGalleryProjects.Name = "lblGalleryProjects";
-            this.lblGalleryProjects.Size = new System.Drawing.Size(289, 68);
-            this.lblGalleryProjects.TabIndex = 33;
-            this.lblGalleryProjects.Text = "all packages";
+            this.lblPackageCategory.AutoSize = true;
+            this.lblPackageCategory.BackColor = System.Drawing.Color.Transparent;
+            this.lblPackageCategory.Font = new System.Drawing.Font("Segoe UI Semilight", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblPackageCategory.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.lblPackageCategory.Location = new System.Drawing.Point(70, 9);
+            this.lblPackageCategory.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblPackageCategory.Name = "lblPackageCategory";
+            this.lblPackageCategory.Size = new System.Drawing.Size(231, 54);
+            this.lblPackageCategory.TabIndex = 33;
+            this.lblPackageCategory.Text = "all packages";
             // 
             // txtSampleSearch
             // 
@@ -257,7 +259,7 @@ namespace OpenBots.UI.Forms
             this.txtSampleSearch.Name = "txtSampleSearch";
             this.txtSampleSearch.Size = new System.Drawing.Size(420, 34);
             this.txtSampleSearch.TabIndex = 34;
-            this.txtSampleSearch.TextChanged += new System.EventHandler(this.txtSampleSearch_TextChanged);
+            this.txtSampleSearch.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtSampleSearch_KeyDown);
             // 
             // pnlProjectDetails
             // 
@@ -543,21 +545,38 @@ namespace OpenBots.UI.Forms
             this.tvPackageFeeds.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tvPackageFeeds.Font = new System.Drawing.Font("Segoe UI Semilight", 12F);
             this.tvPackageFeeds.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.tvPackageFeeds.ImageIndex = 0;
+            this.tvPackageFeeds.ImageList = this.imlNodes;
             this.tvPackageFeeds.Location = new System.Drawing.Point(3, 113);
             this.tvPackageFeeds.Name = "tvPackageFeeds";
-            treeNode1.Name = "ProjectDependencies";
+            treeNode1.ImageIndex = 0;
+            treeNode1.Name = "projectDependencies";
             treeNode1.Text = "Project Dependencies";
-            treeNode2.Name = "Gallery";
+            treeNode2.ImageIndex = 1;
+            treeNode2.Name = "gallery";
             treeNode2.Text = "Gallery";
-            treeNode3.Name = "Nuget";
+            treeNode3.ImageIndex = 2;
+            treeNode3.Name = "nuget";
             treeNode3.Text = "Nuget.org";
-            treeNode4.Name = "AllPackages";
+            treeNode4.ImageIndex = 0;
+            treeNode4.Name = "allPackages";
             treeNode4.Text = "All Packages";
             this.tvPackageFeeds.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
             treeNode1,
             treeNode4});
+            this.tvPackageFeeds.SelectedImageIndex = 0;
             this.tvPackageFeeds.Size = new System.Drawing.Size(244, 661);
             this.tvPackageFeeds.TabIndex = 40;
+            this.tvPackageFeeds.BeforeCollapse += new System.Windows.Forms.TreeViewCancelEventHandler(this.tvPackageFeeds_BeforeCollapse);
+            this.tvPackageFeeds.NodeMouseDoubleClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.tvPackageFeeds_NodeMouseDoubleClick);
+            // 
+            // imlNodes
+            // 
+            this.imlNodes.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imlNodes.ImageStream")));
+            this.imlNodes.TransparentColor = System.Drawing.Color.Transparent;
+            this.imlNodes.Images.SetKeyName(0, "studioIcon");
+            this.imlNodes.Images.SetKeyName(1, "galleryIcon");
+            this.imlNodes.Images.SetKeyName(2, "nugetIcon");
             // 
             // frmGalleryPackageManager
             // 
@@ -591,7 +610,7 @@ namespace OpenBots.UI.Forms
 
         #endregion
         public System.Windows.Forms.TextBox txtSampleSearch;
-        private System.Windows.Forms.Label lblGalleryProjects;
+        private System.Windows.Forms.Label lblPackageCategory;
         private System.Windows.Forms.TableLayoutPanel tlpPackageLayout;
         private UIPanel pnlProjectSearch;
         private UIListBox lbxGalleryProjects;
@@ -626,5 +645,6 @@ namespace OpenBots.UI.Forms
         private System.Windows.Forms.PictureBox pbxOBGallery;
         public System.Windows.Forms.Label lblError;
         private UITreeView tvPackageFeeds;
+        private System.Windows.Forms.ImageList imlNodes;
     }
 }
