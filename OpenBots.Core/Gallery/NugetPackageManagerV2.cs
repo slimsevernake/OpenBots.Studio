@@ -6,14 +6,16 @@ using NuGet.Versioning;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace OpenBots.Core.Gallery
 {
     public class NugetPackageManagerV2
     {
         //"https://api.nuget.org/v3/index.json"
-        public static async void GetPackageVersions(string packageId, string source)
+        public static async Task<List<NuGetVersion>> GetPackageVersions(string packageId, string source)
         {
             ILogger logger = NullLogger.Instance;
             CancellationToken cancellationToken = CancellationToken.None;
@@ -32,9 +34,11 @@ namespace OpenBots.Core.Gallery
             {
                 Console.WriteLine($"Found version {version}");
             }
+
+            return versions.ToList();
         }
 
-        public static async void DownloadPackage(string packageId, string version, string source)
+        public static async Task DownloadPackage(string packageId, string version, string source)
         {
             ILogger logger = NullLogger.Instance;
             CancellationToken cancellationToken = CancellationToken.None;
@@ -63,11 +67,10 @@ namespace OpenBots.Core.Gallery
                     Console.WriteLine($"Tags: {nuspecReader.GetTags()}");
                     Console.WriteLine($"Description: {nuspecReader.GetDescription()}");
                 }
-                
-            }                            
+            }
         }
 
-        public static async void SearchPackages(string packageKeyword, string source)
+        public static async Task<List<IPackageSearchMetadata>> SearchPackages(string packageKeyword, string source)
         {
             ILogger logger = NullLogger.Instance;
             CancellationToken cancellationToken = CancellationToken.None;
@@ -88,9 +91,39 @@ namespace OpenBots.Core.Gallery
             {
                 Console.WriteLine($"Found package {result.Identity.Id} {result.Identity.Version}");
             }
+
+            return results.ToList();
         }
 
-        public void ReadPackage(string nugetFilePath)
+        public static async Task<List<IPackageSearchMetadata>> GetPackageMetadata(string packageId, string source)
+        {
+            ILogger logger = NullLogger.Instance;
+            CancellationToken cancellationToken = CancellationToken.None;
+
+            SourceCacheContext cache = new SourceCacheContext();
+            SourceRepository repository = Repository.Factory.GetCoreV3(source);
+            PackageMetadataResource resource = await repository.GetResourceAsync<PackageMetadataResource>();
+
+            IEnumerable<IPackageSearchMetadata> packages = await resource.GetMetadataAsync(
+                packageId,
+                includePrerelease: true,
+                includeUnlisted: false,
+                cache,
+                logger,
+                cancellationToken);
+
+            foreach (IPackageSearchMetadata package in packages)
+            {
+                Console.WriteLine($"Version: {package.Identity.Version}");
+                Console.WriteLine($"Listed: {package.IsListed}");
+                Console.WriteLine($"Tags: {package.Tags}");
+                Console.WriteLine($"Description: {package.Description}");
+            }
+
+            return packages.ToList();
+        }
+
+        public NuspecReader ReadPackage(string nugetFilePath)
         {
             using (FileStream inputStream = new FileStream(nugetFilePath, FileMode.Open))
             {
@@ -117,10 +150,12 @@ namespace OpenBots.Core.Gallery
                     {
                         Console.WriteLine($" - {file}");
                     }
+
+                    return nuspec;
                 }
-                    
             }
-               
         }
     }
 }
+
+        
