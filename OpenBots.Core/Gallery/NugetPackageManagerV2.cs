@@ -1,14 +1,22 @@
-﻿using NuGet.Common;
+﻿using Newtonsoft.Json;
+using NuGet.Common;
+using NuGet.Configuration;
+using NuGet.Frameworks;
 using NuGet.Packaging;
+using NuGet.Packaging.Core;
+using NuGet.Packaging.Signing;
 using NuGet.Protocol;
 using NuGet.Protocol.Core.Types;
+using NuGet.Resolver;
 using NuGet.Versioning;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
+using OpenBots.Core.Project;
 
 namespace OpenBots.Core.Gallery
 {
@@ -154,6 +162,158 @@ namespace OpenBots.Core.Gallery
                     return nuspec;
                 }
             }
+        }
+
+        [Obsolete]
+        public static async Task InstallPackage(string packageId, string version, List<Dependency> projectDependenciesList)//, string source)
+        {
+            var packageVersion = NuGetVersion.Parse(version);
+            var nuGetFramework = NuGetFramework.ParseFolder("net48");
+            var settings = NuGet.Configuration.Settings.LoadDefaultSettings(root: null);
+
+            //SourceRepository repository = Repository.Factory.GetCoreV3(source);
+
+            var sourceRepositoryProvider = new SourceRepositoryProvider(settings, Repository.Provider.GetCoreV3());
+
+            using (var cacheContext = new SourceCacheContext())
+            {
+                var repositories = sourceRepositoryProvider.GetRepositories();
+                var availablePackages = new HashSet<SourcePackageDependencyInfo>(PackageIdentityComparer.Default);
+                await GetPackageDependencies(
+                    new PackageIdentity(packageId, packageVersion),
+                    nuGetFramework, cacheContext, NullLogger.Instance, repositories, availablePackages);
+
+                var resolverContext = new PackageResolverContext(
+                    DependencyBehavior.Lowest,
+                    new[] { packageId },
+                    Enumerable.Empty<string>(),
+                    Enumerable.Empty<PackageReference>(),
+                    Enumerable.Empty<PackageIdentity>(),
+                    availablePackages,
+                    sourceRepositoryProvider.GetRepositories().Select(s => s.PackageSource),
+                    NullLogger.Instance);
+
+                var resolver = new PackageResolver();
+                var packagesToInstall = resolver.Resolve(resolverContext, CancellationToken.None)
+                    .Select(p => availablePackages.Single(x => PackageIdentityComparer.Default.Equals(x, p)));
+                string appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+                var packagePathResolver = new PackagePathResolver(Path.Combine(appDataPath, "OpenBots Inc", "packages"));//Path.GetFullPath("packages"));
+                var packageExtractionContext = new PackageExtractionContext(
+                    PackageSaveMode.Defaultv3,
+                    XmlDocFileSaveMode.None,
+                    ClientPolicyContext.GetClientPolicy(settings, NullLogger.Instance),
+                    NullLogger.Instance);
+                    //new PackageSignatureVerifier(
+                        //SignatureVerificationProviderFactory.GetSignatureVerificationProviders()),
+                    //SignedPackageVerifierSettings.GetDefault());
+                var frameworkReducer = new FrameworkReducer();
+
+                foreach (var packageToInstall in packagesToInstall)
+                {
+                    PackageReaderBase packageReader;
+                    var installedPath = packagePathResolver.GetInstalledPath(packageToInstall);
+                    if (installedPath == null)
+                    {
+                        var downloadResource = await packageToInstall.Source.GetResourceAsync<DownloadResource>(CancellationToken.None);
+                        var downloadResult = await downloadResource.GetDownloadResourceResultAsync(
+                            packageToInstall,
+                            new PackageDownloadContext(cacheContext),
+                            SettingsUtility.GetGlobalPackagesFolder(settings),
+                            NullLogger.Instance, CancellationToken.None);
+
+                        await PackageExtractor.ExtractPackageAsync(
+                            downloadResult.PackageSource,
+                            downloadResult.PackageStream,
+                            packagePathResolver,
+                            packageExtractionContext,
+                            CancellationToken.None);
+
+                        packageReader = downloadResult.PackageReader;
+                    }
+                    else
+                    {
+                        packageReader = new PackageFolderReader(installedPath);
+                    }
+
+                    var libItems = packageReader.GetLibItems();
+                    var nearest = frameworkReducer.GetNearest(nuGetFramework, libItems.Select(x => x.TargetFramework));
+                    
+                    Console.WriteLine(string.Join("\n", libItems
+                        .Where(x => x.TargetFramework.Equals(nearest))
+                        .SelectMany(x => x.Items)));           
+
+                    string packageListAssemblyPath = libItems
+                        .Where(x => x.TargetFramework.Equals(nearest))
+                        .SelectMany(x => x.Items.Where(i => i.EndsWith(".dll"))).FirstOrDefault();
+
+                    var existingPackage = projectDependenciesList.Where(x => x.PackageId == packageToInstall.Id).FirstOrDefault();
+                    if (existingPackage != null)
+                        projectDependenciesList.Remove(existingPackage);
+
+                    projectDependenciesList.Add(new Dependency { 
+                        PackageId = packageToInstall.Id, 
+                        PackageVersion = packageToInstall.Version.ToString(), 
+                        AssemblyPath = packageListAssemblyPath });
+
+                    var frameworkItems = packageReader.GetFrameworkItems();
+                    nearest = frameworkReducer.GetNearest(nuGetFramework, frameworkItems.Select(x => x.TargetFramework));
+                    Console.WriteLine(string.Join("\n", frameworkItems
+                        .Where(x => x.TargetFramework.Equals(nearest))
+                        .SelectMany(x => x.Items)));
+                }
+            }            
+        }
+
+        public static async Task GetPackageDependencies(PackageIdentity package,
+                NuGetFramework framework,
+                SourceCacheContext cacheContext,
+                ILogger logger,
+                IEnumerable<SourceRepository> repositories,
+                ISet<SourcePackageDependencyInfo> availablePackages)
+        {
+            if (availablePackages.Contains(package)) return;
+
+            foreach (var sourceRepository in repositories)
+            {
+                var dependencyInfoResource = await sourceRepository.GetResourceAsync<DependencyInfoResource>();
+                var dependencyInfo = await dependencyInfoResource.ResolvePackage(
+                    package, framework, cacheContext, logger, CancellationToken.None);
+
+                if (dependencyInfo == null) continue;
+
+                availablePackages.Add(dependencyInfo);
+                foreach (var dependency in dependencyInfo.Dependencies)
+                {
+                    await GetPackageDependencies(
+                        new PackageIdentity(dependency.Id, dependency.VersionRange.MinVersion),
+                        framework, cacheContext, logger, repositories, availablePackages);
+                }
+            }
+        }
+
+        public static List<Assembly> LoadProjectAssemblies(string configPath)
+        {
+            List<Assembly> assemblies = new List<Assembly>();
+            var dependencies = JsonConvert.DeserializeObject<Project.Project>(File.ReadAllText(configPath)).Dependencies;
+
+            string appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+            string packagePath = Path.Combine(appDataPath, "OpenBots Inc", "packages");
+
+            //var provider = new
+            //var pkgReader = new PackageReaderBase()
+
+            foreach (var dependency in dependencies)
+            {
+                string dependencyPath = Path.Combine(packagePath, $"{dependency.PackageId}.{dependency.PackageVersion}", dependency.AssemblyPath);
+                //var check = Directory.GetFiles(packagePath, pair.Key + ".dll", SearchOption.AllDirectories);
+                //var engineAssemblyFilePath = Directory.GetFiles(packagePath, pair.Key + ".dll", SearchOption.AllDirectories).SingleOrDefault();
+                if (File.Exists(dependencyPath))
+                    assemblies.Add(Assembly.LoadFrom(dependencyPath));
+                else
+                    throw new Exception($"Assembly path for {dependencyPath} not found.");
+
+            }
+            return assemblies;
         }
     }
 }

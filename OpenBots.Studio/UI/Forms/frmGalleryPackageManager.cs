@@ -1,9 +1,9 @@
 ﻿using NuGet;
 using OpenBots.Core.Gallery;
 using OpenBots.Core.Gallery.Models;
+using OpenBots.Core.Project;
 using OpenBots.Core.Properties;
 using OpenBots.Core.UI.Forms;
-using OpenBots.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;

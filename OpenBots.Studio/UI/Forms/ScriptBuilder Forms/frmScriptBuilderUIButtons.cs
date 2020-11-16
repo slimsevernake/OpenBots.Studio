@@ -2,6 +2,7 @@
 using OpenBots.Commands;
 using OpenBots.Commands.Switch;
 using OpenBots.Core.Enums;
+using OpenBots.Core.Gallery;
 using OpenBots.Core.IO;
 using OpenBots.Core.Script;
 using OpenBots.Core.Settings;
@@ -692,6 +693,7 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
             {
                 File.WriteAllText(configPath, JsonConvert.SerializeObject(ScriptProject));
                 LoadCommands();
+                NugetPackageManagerV2.LoadProjectAssemblies(configPath);
 
             }
         }

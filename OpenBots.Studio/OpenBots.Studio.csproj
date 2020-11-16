@@ -457,7 +457,6 @@
     <Compile Include="Commands\Web Browser Commands\SeleniumRefreshCommand.cs" />
     <Compile Include="Commands\Web Browser Commands\SeleniumSwitchBrowserFrameCommand.cs" />
     <Compile Include="Commands\Web Browser Commands\SeleniumSwitchBrowserWindowCommand.cs" />
-    <Compile Include="Utilities\Project.cs" />
     <Compile Include="UI\CustomControls\AutomationCommand.cs" />
     <Compile Include="UI\CustomControls\CommandGroupControl.cs">
       <SubType>UserControl</SubType>

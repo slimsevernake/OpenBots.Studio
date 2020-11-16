@@ -1,9 +1,9 @@
 ﻿using NuGet;
 using OpenBots.Core.Enums;
 using OpenBots.Core.IO;
+using OpenBots.Core.Project;
 using OpenBots.Core.Server.API_Methods;
 using OpenBots.Core.UI.Forms;
-using OpenBots.Utilities;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -66,7 +66,7 @@ namespace OpenBots.UI.Supplement_Forms
 
                 ManifestMetadata metadata = new ManifestMetadata()
                 {
-                    Id = _projectId.ToString(),
+                    Id = _projectName,
                     Title = _projectName,
                     Authors = txtAuthorName.Text.Trim(),
                     Version = txtVersion.Text.Trim(),

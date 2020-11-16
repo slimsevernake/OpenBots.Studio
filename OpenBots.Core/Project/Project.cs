@@ -9,7 +9,7 @@ using System.Linq;
 using System.Windows.Forms;
 using ZipFile = ICSharpCode.SharpZipLib.Zip.ZipFile;
 
-namespace OpenBots.Utilities
+namespace OpenBots.Core.Project
 {
     public class Project
     {
@@ -17,29 +17,29 @@ namespace OpenBots.Utilities
         public string ProjectName { get; set; }
         public string Main { get; set; }
         public string Version { get; set; }
-        public Dictionary<string, string> Dependencies { get; set; }
+        public List<Dependency> Dependencies { get; set; }
 
         [JsonIgnore]
         public List<string> DefaultCommands = new List<string>()
         {
-            "Data",
-            "DataTable",
-            "Dictionary",
-            "Email",
-            "Engine",
-            "Excel",
-            "File",
-            "Folder",
-            "Input",
-            "List",
-            "Process",
-            "RegEx",
-            "SecureData",
-            "Switch",
-            "System",
-            "TextFile",
-            "Variable",
-            "Window",
+            //"Data",
+            //"DataTable",
+            //"Dictionary",
+            //"Email",
+            //"Engine",
+            //"Excel",
+            //"File",
+            //"Folder",
+            //"Input",
+            //"List",
+            //"Process",
+            //"RegEx",
+            //"SecureData",
+            //"Switch",
+            //"System",
+            //"TextFile",
+            //"Variable",
+            //"Window",
         };
 
         public Project(string projectName)
@@ -48,11 +48,16 @@ namespace OpenBots.Utilities
             ProjectName = projectName;
             Main = "Main.json";
             Version = Application.ProductVersion;
-            Dependencies = new Dictionary<string, string>();
+            Dependencies = new List<Dependency>();
 
             foreach (string commandSet in DefaultCommands)
             {
-                Dependencies.Add("OpenBots.Commands." + commandSet, "1.0.0.9");
+                Dependencies.Add(new Dependency
+                {
+                    PackageId = $"OpenBots.Commands.{commandSet}",
+                    PackageVersion = "1.0.0.9",
+                    AssemblyPath = $"lib/net48/OpenBots.Commands.{commandSet}.dll"
+                });
             }
         }
 

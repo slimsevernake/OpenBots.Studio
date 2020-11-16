@@ -1,11 +1,9 @@
-﻿//using NuGet;
-using NuGet.Protocol.Core.Types;
+﻿using NuGet.Protocol.Core.Types;
 using NuGet.Versioning;
 using OpenBots.Core.Gallery;
-using OpenBots.Core.Gallery.Models;
+using OpenBots.Core.Project;
 using OpenBots.Core.Properties;
 using OpenBots.Core.UI.Forms;
-using OpenBots.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -25,20 +23,21 @@ namespace OpenBots.UI.Forms
         private List<IPackageSearchMetadata> _allGalleryResults;
         private List<IPackageSearchMetadata> _allNugetResults;
         private List<IPackageSearchMetadata> _projectDependencies;
-        private Dictionary<string,string> _projectDependenciesDict;
+        private List<Dependency> _projectDependenciesList;
         private IPackageSearchMetadata _catalog;
         private List<NuGetVersion> _projectVersions;
+        private List<IPackageSearchMetadata> _selectedPackageMetaData;
         //private NugetPackageManger _galleryManager;
         //private NugetPackageManger _nugetManager;
 
         private string _gallerySourceUrl = "https://dev.gallery.openbots.io/v3/index.json";
         private string _nugetSourceUrl = "https://api.nuget.org/v3/index.json";
 
-        public frmGalleryPackageManagerV2(Dictionary<string, string> projectDependenciesDict, 
+        public frmGalleryPackageManagerV2(List<Dependency> projectDependenciesDict, 
             string packageLocation = "")
         {
             InitializeComponent();
-            _projectDependenciesDict = projectDependenciesDict;
+            _projectDependenciesList = projectDependenciesDict;
             _packageLocation = packageLocation;
             _allResults = new List<IPackageSearchMetadata>();
             _projectVersions = new List<NuGetVersion>();
@@ -49,7 +48,7 @@ namespace OpenBots.UI.Forms
         }
 
         private async void frmGalleryProject_LoadAsync(object sender, EventArgs e)
-        {
+        {            
             tvPackageFeeds.ExpandAll();
             pnlProjectVersion.Hide();
             pnlProjectDetails.Hide();
@@ -120,26 +119,29 @@ namespace OpenBots.UI.Forms
             try
             {
                 string projectId = lbxGalleryProjects.ClickedItem.Id;
-                List<IPackageSearchMetadata> registration = new List<IPackageSearchMetadata>();
+                List<IPackageSearchMetadata> metadata = new List<IPackageSearchMetadata>();
 
-                registration.AddRange(await NugetPackageManagerV2.GetPackageMetadata(projectId, _gallerySourceUrl)); //_galleryManager.GetPackageRegistrationAsync(projectId);
-                registration.AddRange(await NugetPackageManagerV2.GetPackageMetadata(projectId, _nugetSourceUrl)); // _nugetManager.GetPackageRegistrationAsync(projectId);
+                metadata.AddRange(await NugetPackageManagerV2.GetPackageMetadata(projectId, _gallerySourceUrl)); //_galleryManager.GetPackageRegistrationAsync(projectId);
+                metadata.AddRange(await NugetPackageManagerV2.GetPackageMetadata(projectId, _nugetSourceUrl)); // _nugetManager.GetPackageRegistrationAsync(projectId);
 
-                string latestVersion = registration.FirstOrDefault().Identity.Version.ToString(); //FirstOrDefault()..Upper;
+                string latestVersion = metadata.LastOrDefault().Identity.Version.ToString(); //FirstOrDefault()..Upper;
 
                 _projectVersions.AddRange(await NugetPackageManagerV2.GetPackageVersions(projectId, _gallerySourceUrl)); //_galleryManager.GetPackageRegistrationAsync(projectId);
                 _projectVersions.AddRange(await NugetPackageManagerV2.GetPackageVersions(projectId, _nugetSourceUrl)); // _nugetManager.GetPackageRegistrationAsync(projectId);
 
                 //_projectVersions = registration.getv
-                List<string> versionList = _projectVersions.Select(x => x.ToString()).OrderByDescending(x => x).ToList();
+                List<string> versionList = _projectVersions.Select(x => x.ToString()).ToList();
+                versionList.Reverse();
 
                 cbxVersion.Items.Clear();
                 foreach (var version in versionList)
                     cbxVersion.Items.Add(version);
 
+                _selectedPackageMetaData = metadata;
                 cbxVersion.SelectedIndex = 0;
 
-                PopulateProjectDetails(latestVersion, registration);
+                
+                PopulateProjectDetails(latestVersion);
 
                 pnlProjectVersion.Show();
                 pnlProjectDetails.Show();
@@ -154,9 +156,9 @@ namespace OpenBots.UI.Forms
             
         }
 
-        private void PopulateProjectDetails(string version, List<IPackageSearchMetadata> registration)
+        private void PopulateProjectDetails(string version)
         {
-            _catalog = registration.Where(x => x.Identity.Version.ToString() == version).SingleOrDefault();//_projectVersions.Where(x => x.Catalog.Version == version).SingleOrDefault().Catalog;
+            _catalog = _selectedPackageMetaData.Where(x => x.Identity.Version.ToString() == version).SingleOrDefault();//_projectVersions.Where(x => x.Catalog.Version == version).SingleOrDefault().Catalog;
 
             try
             {
@@ -208,10 +210,10 @@ namespace OpenBots.UI.Forms
 
         private void cbxVersion_SelectedIndexChanged(object sender, EventArgs e)
         {
-            //PopulateProjectDetails(cbxVersion.SelectedItem.ToString());
+            PopulateProjectDetails(cbxVersion.SelectedItem.ToString());
         }
 
-        private async void DownloadAndOpenPackage(string packageId, SemanticVersion version)
+        private async void DownloadAndOpenPackage(string packageId, string version)
         {            
             try
             {
@@ -225,23 +227,19 @@ namespace OpenBots.UI.Forms
                 Cursor.Current = Cursors.WaitCursor;
                 lblError.Text = $"Installing {packageName}";
 
-                try
-                {
-                    await NugetPackageManagerV2.DownloadPackage(packageId, version.ToString(), _gallerySourceUrl);//_galleryManager.DownloadPackageAsync(packageId, version, _packageLocation, packageName);
-                }
-                catch (Exception)
-                {
-                    await NugetPackageManagerV2.DownloadPackage(packageId, version.ToString(), _nugetSourceUrl);
-                }
+                await NugetPackageManagerV2.InstallPackage(packageId, version, _projectDependenciesList);
+                    
+                //try
+                //{
+                //    await NugetPackageManagerV2.DownloadPackage(packageId, version.ToString(), _gallerySourceUrl);//_galleryManager.DownloadPackageAsync(packageId, version, _packageLocation, packageName);
+                //}
+                //catch (Exception)
+                //{
+                //    await NugetPackageManagerV2.DownloadPackage(packageId, version.ToString(), _nugetSourceUrl);
+                //}
                 
-                ExtractGalleryPackage(Path.Combine(_packageLocation, packageName));
+                //ExtractGalleryPackage(Path.Combine(_packageLocation, packageName));
 
-                if (_projectDependenciesDict.ContainsKey(packageId))
-                    _projectDependenciesDict.Remove(packageId);
-
-                _projectDependenciesDict.Add(packageId, version.ToString());
-
-                
                 lblError.Text = string.Empty;
                 DialogResult = DialogResult.OK;
             }
@@ -253,7 +251,7 @@ namespace OpenBots.UI.Forms
 
         private void uiBtnOpen_Click(object sender, EventArgs e)
         {
-            DownloadAndOpenPackage(_catalog.Identity.Id, SemanticVersion.Parse(_catalog.Identity.Version.ToString()));
+            DownloadAndOpenPackage(_catalog.Identity.Id, _catalog.Identity.Version.ToString());
         }
 
         private void uiBtnCancel_Click(object sender, EventArgs e)
@@ -322,7 +320,7 @@ namespace OpenBots.UI.Forms
             }
 
             var filteredResult = _allResults.Where(x => nugetDirectoryDict.ContainsKey(x.Identity.Id) && nugetDirectoryDict[x.Identity.Id] == x.Identity.Version.ToString() &&
-                                                        _projectDependenciesDict.ContainsKey(x.Identity.Id)).ToList();
+                                                        _projectDependenciesList.Where(p => p.PackageId == x.Identity.Id).FirstOrDefault() != null).ToList();
             return filteredResult;
         }
 

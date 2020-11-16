@@ -1,4 +1,5 @@
 ﻿using OpenBots.Core.Command;
+using OpenBots.Core.Project;
 using OpenBots.Core.Settings;
 using OpenBots.UI.CustomControls;
 using System;
@@ -54,7 +55,7 @@ namespace OpenBots.Utilities
                 form.WindowState = FormWindowState.Minimized;
         }
 
-        public static List<AutomationCommand> GenerateCommandsandControls(Dictionary<string,string> dependencies = null) 
+        public static List<AutomationCommand> GenerateCommandsandControls(List<Dependency> dependencies = null) 
         {
             var commandList = new List<AutomationCommand>();
 
@@ -72,11 +73,11 @@ namespace OpenBots.Utilities
             List<string> commandDirectories = Directory.GetDirectories(packagePath, "OpenBots.Commands.*").ToList();
             List<string> filteredCommandDirectories = new List<string>();
             
-            foreach (var pair in dependencies)
+            foreach (var dependency in dependencies)
             {
                 foreach(string directory in commandDirectories)
                 {
-                    if (new DirectoryInfo(directory).Name == $"{pair.Key}.{pair.Value}")
+                    if (new DirectoryInfo(directory).Name == $"{dependency.PackageId}.{dependency.PackageVersion}")
                         filteredCommandDirectories.Add(directory);
                 }
             }
