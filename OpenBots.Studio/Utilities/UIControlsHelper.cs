@@ -55,7 +55,7 @@ namespace OpenBots.Utilities
                 form.WindowState = FormWindowState.Minimized;
         }
 
-        public static List<AutomationCommand> GenerateCommandsandControls(List<Dependency> dependencies = null) 
+        public static List<AutomationCommand> GenerateCommandsandControls(List<Assembly> dependencyAssemblies = null) 
         {
             var commandList = new List<AutomationCommand>();
 
@@ -65,29 +65,11 @@ namespace OpenBots.Utilities
                                  .Where(t => t.IsAbstract == false)
                                  .Where(t => t.BaseType.Name == "ScriptCommand")
                                  .ToList();
-
-            var cmdAssemblyPaths = new List<string>();//Directory.GetFiles(AppDomain.CurrentDomain.BaseDirectory, "OpenBots.Commands.*.dll").ToList();
-
-            string appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
-            string packagePath = Path.Combine(appDataPath, "OpenBots Inc", "packages");
-            List<string> commandDirectories = Directory.GetDirectories(packagePath, "OpenBots.Commands.*").ToList();
-            List<string> filteredCommandDirectories = new List<string>();
             
-            foreach (var dependency in dependencies)
+            dependencyAssemblies = dependencyAssemblies.Where(x => x.FullName.StartsWith("OpenBots.Commands")).ToList();
+            foreach (var assembly in dependencyAssemblies)
             {
-                foreach(string directory in commandDirectories)
-                {
-                    if (new DirectoryInfo(directory).Name == $"{dependency.PackageId}.{dependency.PackageVersion}")
-                        filteredCommandDirectories.Add(directory);
-                }
-            }
-
-            foreach (string directory in filteredCommandDirectories)
-                cmdAssemblyPaths.AddRange(Directory.GetFiles(Path.Combine(directory, "lib", "net48"), "OpenBots.Commands.*.dll").ToList());
-
-            foreach (var path in cmdAssemblyPaths)
-            {
-                commandClasses.AddRange(Assembly.LoadFrom(path).GetTypes()
+                commandClasses.AddRange(assembly.GetTypes()
                                  .Where(t => t.Name != "ScriptCommand")
                                  .Where(t => t.IsAbstract == false)
                                  .Where(t => t.BaseType.Name == "ScriptCommand")

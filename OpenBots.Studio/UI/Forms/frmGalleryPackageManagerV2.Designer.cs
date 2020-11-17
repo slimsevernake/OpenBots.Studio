@@ -139,7 +139,6 @@ namespace OpenBots.UI.Forms
             this.lbxGalleryProjects.Size = new System.Drawing.Size(520, 661);
             this.lbxGalleryProjects.TabIndex = 36;
             this.lbxGalleryProjects.ItemClick += new OpenBots.UI.CustomControls.CustomUIControls.UIListBox.ItemClickEventHandler(this.lbxGalleryProjects_ItemClick);
-            this.lbxGalleryProjects.ItemDoubleClick += new OpenBots.UI.CustomControls.CustomUIControls.UIListBox.MouseEventHandler(this.lbxGalleryProjects_ItemDoubleClick);
             // 
             // pnlProjectVersion
             // 

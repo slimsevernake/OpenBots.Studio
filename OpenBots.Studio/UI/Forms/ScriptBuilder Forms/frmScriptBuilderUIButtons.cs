@@ -681,7 +681,7 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
             frmAboutForm.Show();
         }
 
-        private void packageManagerToolStripMenuItem_Click(object sender, EventArgs e)
+        private async void packageManagerToolStripMenuItem_Click(object sender, EventArgs e)
         {
             string appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
             string packagePath = Path.Combine(appDataPath, "OpenBots Inc", "packages");
@@ -692,9 +692,8 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
             if (frmManager.DialogResult == DialogResult.OK)
             {
                 File.WriteAllText(configPath, JsonConvert.SerializeObject(ScriptProject));
+                _projectAssemblies = await NugetPackageManagerV2.LoadProjectAssemblies(configPath, _projectAppDomain);              
                 LoadCommands();
-                NugetPackageManagerV2.LoadProjectAssemblies(configPath);
-
             }
         }
         #endregion

@@ -23,7 +23,7 @@ namespace OpenBots.UI.Forms
         private List<IPackageSearchMetadata> _allGalleryResults;
         private List<IPackageSearchMetadata> _allNugetResults;
         private List<IPackageSearchMetadata> _projectDependencies;
-        private List<Dependency> _projectDependenciesList;
+        private Dictionary<string, string> _projectDependenciesDict;
         private IPackageSearchMetadata _catalog;
         private List<NuGetVersion> _projectVersions;
         private List<IPackageSearchMetadata> _selectedPackageMetaData;
@@ -33,11 +33,11 @@ namespace OpenBots.UI.Forms
         private string _gallerySourceUrl = "https://dev.gallery.openbots.io/v3/index.json";
         private string _nugetSourceUrl = "https://api.nuget.org/v3/index.json";
 
-        public frmGalleryPackageManagerV2(List<Dependency> projectDependenciesDict, 
+        public frmGalleryPackageManagerV2(Dictionary<string, string> projectDependenciesDict, 
             string packageLocation = "")
         {
             InitializeComponent();
-            _projectDependenciesList = projectDependenciesDict;
+            _projectDependenciesDict = projectDependenciesDict;
             _packageLocation = packageLocation;
             _allResults = new List<IPackageSearchMetadata>();
             _projectVersions = new List<NuGetVersion>();
@@ -106,14 +106,6 @@ namespace OpenBots.UI.Forms
             }
         }
 
-        private async void lbxGalleryProjects_ItemDoubleClick(object sender, int Index)
-        {
-            //string projectId = lbxGalleryProjects.DoubleClickedItem.Id;
-            //var version = await _galleryManager.GetLatestPackageVersionAsync(projectId);
-            //DownloadAndOpenPackage(projectId, version);
-            
-        }
-
         private async void lbxGalleryProjects_ItemClick(object sender, int index)
         {
             try
@@ -121,15 +113,14 @@ namespace OpenBots.UI.Forms
                 string projectId = lbxGalleryProjects.ClickedItem.Id;
                 List<IPackageSearchMetadata> metadata = new List<IPackageSearchMetadata>();
 
-                metadata.AddRange(await NugetPackageManagerV2.GetPackageMetadata(projectId, _gallerySourceUrl)); //_galleryManager.GetPackageRegistrationAsync(projectId);
-                metadata.AddRange(await NugetPackageManagerV2.GetPackageMetadata(projectId, _nugetSourceUrl)); // _nugetManager.GetPackageRegistrationAsync(projectId);
+                metadata.AddRange(await NugetPackageManagerV2.GetPackageMetadata(projectId, _gallerySourceUrl));
+                metadata.AddRange(await NugetPackageManagerV2.GetPackageMetadata(projectId, _nugetSourceUrl));
 
-                string latestVersion = metadata.LastOrDefault().Identity.Version.ToString(); //FirstOrDefault()..Upper;
+                string latestVersion = metadata.LastOrDefault().Identity.Version.ToString();
 
-                _projectVersions.AddRange(await NugetPackageManagerV2.GetPackageVersions(projectId, _gallerySourceUrl)); //_galleryManager.GetPackageRegistrationAsync(projectId);
-                _projectVersions.AddRange(await NugetPackageManagerV2.GetPackageVersions(projectId, _nugetSourceUrl)); // _nugetManager.GetPackageRegistrationAsync(projectId);
+                _projectVersions.AddRange(await NugetPackageManagerV2.GetPackageVersions(projectId, _gallerySourceUrl));
+                _projectVersions.AddRange(await NugetPackageManagerV2.GetPackageVersions(projectId, _nugetSourceUrl));
 
-                //_projectVersions = registration.getv
                 List<string> versionList = _projectVersions.Select(x => x.ToString()).ToList();
                 versionList.Reverse();
 
@@ -227,18 +218,7 @@ namespace OpenBots.UI.Forms
                 Cursor.Current = Cursors.WaitCursor;
                 lblError.Text = $"Installing {packageName}";
 
-                await NugetPackageManagerV2.InstallPackage(packageId, version, _projectDependenciesList);
-                    
-                //try
-                //{
-                //    await NugetPackageManagerV2.DownloadPackage(packageId, version.ToString(), _gallerySourceUrl);//_galleryManager.DownloadPackageAsync(packageId, version, _packageLocation, packageName);
-                //}
-                //catch (Exception)
-                //{
-                //    await NugetPackageManagerV2.DownloadPackage(packageId, version.ToString(), _nugetSourceUrl);
-                //}
-                
-                //ExtractGalleryPackage(Path.Combine(_packageLocation, packageName));
+                await NugetPackageManagerV2.InstallPackage(packageId, version, _projectDependenciesDict);                   
 
                 lblError.Text = string.Empty;
                 DialogResult = DialogResult.OK;
@@ -320,7 +300,10 @@ namespace OpenBots.UI.Forms
             }
 
             var filteredResult = _allResults.Where(x => nugetDirectoryDict.ContainsKey(x.Identity.Id) && nugetDirectoryDict[x.Identity.Id] == x.Identity.Version.ToString() &&
-                                                        _projectDependenciesList.Where(p => p.PackageId == x.Identity.Id).FirstOrDefault() != null).ToList();
+                                                                                        _projectDependenciesDict.Where(p => p.Key == x.Identity.Id)
+                                                                                                                .Select(e => (KeyValuePair<string, string>?)e)
+                                                                                                                .FirstOrDefault() != null)
+                                                                          .ToList();
             return filteredResult;
         }
 
@@ -335,7 +318,7 @@ namespace OpenBots.UI.Forms
                 }
                 else if (lblPackageCategory.Text == "All Packages")
                 {
-                    searchResults.AddRange(await NugetPackageManagerV2.SearchPackages(txtSampleSearch.Text, _gallerySourceUrl));//_galleryManager.GetPackagesByIdAsync(txtSampleSearch.Text));
+                    searchResults.AddRange(await NugetPackageManagerV2.SearchPackages(txtSampleSearch.Text, _gallerySourceUrl));
                     searchResults.AddRange(await NugetPackageManagerV2.SearchPackages(txtSampleSearch.Text, _nugetSourceUrl));
                 }
                 else if (lblPackageCategory.Text == "Gallery")

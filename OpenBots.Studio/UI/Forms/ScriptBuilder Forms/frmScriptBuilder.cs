@@ -152,6 +152,8 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
         private string _txtCommandWatermark = "Type Here to Search";   
         public string HTMLElementRecorderURL { get; set; }
         private bool _isSequence;
+        private List<Assembly> _projectAssemblies;
+        private AppDomain _projectAppDomain;
         #endregion
 
         #region Form Events
@@ -174,7 +176,8 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
         }
 
         private void frmScriptBuilder_Load(object sender, EventArgs e)
-        {           
+        {
+            _projectAppDomain = AppDomain.CreateDomain("OpenBots_Studio_AD");
             //set controls double buffered
             foreach (Control control in Controls)
             {
@@ -264,8 +267,8 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
 
         private void LoadCommands()
         {
-            //load all commands
-            _automationCommands = UIControlsHelper.GenerateCommandsandControls(ScriptProject.Dependencies);
+            //load all commands           
+            _automationCommands = UIControlsHelper.GenerateCommandsandControls(_projectAssemblies);
             var groupedCommands = _automationCommands.GroupBy(f => f.DisplayGroup);
 
             tvCommands.Nodes.Clear();
@@ -374,19 +377,16 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
             }
         }
 
-        private void frmScriptBuilder_Shown(object sender, EventArgs e)
+        private async void frmScriptBuilder_Shown(object sender, EventArgs e)
         {
             Program.SplashForm.Close();
 
             if (_editMode)
                 return;
 
-            var result = AddProject();
+            var result = await AddProject();
             if (result != DialogResult.Abort)
-            {
-                LoadCommands();
                 Notify("Welcome! Press 'Add Command' to get started!", Color.White);
-            }          
         }
 
         private void pnlControlContainer_Paint(object sender, PaintEventArgs e)

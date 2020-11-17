@@ -164,15 +164,11 @@ namespace OpenBots.Core.Gallery
             }
         }
 
-        [Obsolete]
-        public static async Task InstallPackage(string packageId, string version, List<Dependency> projectDependenciesList)//, string source)
+        public static async Task InstallPackage(string packageId, string version, Dictionary<string, string> projectDependenciesDict)//, string source)
         {
             var packageVersion = NuGetVersion.Parse(version);
             var nuGetFramework = NuGetFramework.ParseFolder("net48");
             var settings = NuGet.Configuration.Settings.LoadDefaultSettings(root: null);
-
-            //SourceRepository repository = Repository.Factory.GetCoreV3(source);
-
             var sourceRepositoryProvider = new SourceRepositoryProvider(settings, Repository.Provider.GetCoreV3());
 
             using (var cacheContext = new SourceCacheContext())
@@ -203,9 +199,7 @@ namespace OpenBots.Core.Gallery
                     XmlDocFileSaveMode.None,
                     ClientPolicyContext.GetClientPolicy(settings, NullLogger.Instance),
                     NullLogger.Instance);
-                    //new PackageSignatureVerifier(
-                        //SignatureVerificationProviderFactory.GetSignatureVerificationProviders()),
-                    //SignedPackageVerifierSettings.GetDefault());
+
                 var frameworkReducer = new FrameworkReducer();
 
                 foreach (var packageToInstall in packagesToInstall)
@@ -242,18 +236,20 @@ namespace OpenBots.Core.Gallery
                         .Where(x => x.TargetFramework.Equals(nearest))
                         .SelectMany(x => x.Items)));           
 
-                    string packageListAssemblyPath = libItems
+                    if (packageToInstall.Id == packageId)
+                    {
+                        string packageListAssemblyPath = libItems
                         .Where(x => x.TargetFramework.Equals(nearest))
                         .SelectMany(x => x.Items.Where(i => i.EndsWith(".dll"))).FirstOrDefault();
 
-                    var existingPackage = projectDependenciesList.Where(x => x.PackageId == packageToInstall.Id).FirstOrDefault();
-                    if (existingPackage != null)
-                        projectDependenciesList.Remove(existingPackage);
+                        var existingPackage = projectDependenciesDict.Where(x => x.Key == packageToInstall.Id)
+                                                                     .Select(e => (KeyValuePair<string, string>?)e)
+                                                                     .FirstOrDefault();
+                        if (existingPackage != null)
+                            projectDependenciesDict.Remove(((KeyValuePair<string, string>)existingPackage).Key);
 
-                    projectDependenciesList.Add(new Dependency { 
-                        PackageId = packageToInstall.Id, 
-                        PackageVersion = packageToInstall.Version.ToString(), 
-                        AssemblyPath = packageListAssemblyPath });
+                        projectDependenciesDict.Add(packageToInstall.Id, packageToInstall.Version.ToString());
+                    }
 
                     var frameworkItems = packageReader.GetFrameworkItems();
                     nearest = frameworkReducer.GetNearest(nuGetFramework, frameworkItems.Select(x => x.TargetFramework));
@@ -291,28 +287,79 @@ namespace OpenBots.Core.Gallery
             }
         }
 
-        public static List<Assembly> LoadProjectAssemblies(string configPath)
+        public static async Task<List<Assembly>> LoadProjectAssemblies(string configPath, AppDomain appDomain)
         {
+            List<string> assemblyPaths = new List<string>();
             List<Assembly> assemblies = new List<Assembly>();
             var dependencies = JsonConvert.DeserializeObject<Project.Project>(File.ReadAllText(configPath)).Dependencies;
 
             string appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
             string packagePath = Path.Combine(appDataPath, "OpenBots Inc", "packages");
 
-            //var provider = new
-            //var pkgReader = new PackageReaderBase()
-
             foreach (var dependency in dependencies)
             {
-                string dependencyPath = Path.Combine(packagePath, $"{dependency.PackageId}.{dependency.PackageVersion}", dependency.AssemblyPath);
-                //var check = Directory.GetFiles(packagePath, pair.Key + ".dll", SearchOption.AllDirectories);
-                //var engineAssemblyFilePath = Directory.GetFiles(packagePath, pair.Key + ".dll", SearchOption.AllDirectories).SingleOrDefault();
-                if (File.Exists(dependencyPath))
-                    assemblies.Add(Assembly.LoadFrom(dependencyPath));
-                else
-                    throw new Exception($"Assembly path for {dependencyPath} not found.");
+                var packageId = dependency.Key;
+                var packageVersion = NuGetVersion.Parse(dependency.Value);
+                var nuGetFramework = NuGetFramework.ParseFolder("net48");
+                var settings = NuGet.Configuration.Settings.LoadDefaultSettings(root: null);
 
+                var sourceRepositoryProvider = new SourceRepositoryProvider(settings, Repository.Provider.GetCoreV3());
+
+                using (var cacheContext = new SourceCacheContext())
+                {
+                    var repositories = sourceRepositoryProvider.GetRepositories();
+                    var availablePackages = new HashSet<SourcePackageDependencyInfo>(PackageIdentityComparer.Default);
+                    await GetPackageDependencies(
+                        new PackageIdentity(packageId, packageVersion),
+                        nuGetFramework, cacheContext, NullLogger.Instance, repositories, availablePackages);
+
+                    var resolverContext = new PackageResolverContext(
+                        DependencyBehavior.Lowest,
+                        new[] { packageId },
+                        Enumerable.Empty<string>(),
+                        Enumerable.Empty<PackageReference>(),
+                        Enumerable.Empty<PackageIdentity>(),
+                        availablePackages,
+                        sourceRepositoryProvider.GetRepositories().Select(s => s.PackageSource),
+                        NullLogger.Instance);
+
+                    var resolver = new PackageResolver();
+                    var packagesToInstall = resolver.Resolve(resolverContext, CancellationToken.None)
+                        .Select(p => availablePackages.Single(x => PackageIdentityComparer.Default.Equals(x, p)));
+
+                    var packagePathResolver = new PackagePathResolver(packagePath);//Path.GetFullPath("packages"));
+                    var packageExtractionContext = new PackageExtractionContext(
+                        PackageSaveMode.Defaultv3,
+                        XmlDocFileSaveMode.None,
+                        ClientPolicyContext.GetClientPolicy(settings, NullLogger.Instance),
+                        NullLogger.Instance);
+
+                    var frameworkReducer = new FrameworkReducer();
+
+                    foreach (var packageToInstall in packagesToInstall)
+                    {
+                        PackageReaderBase packageReader;
+                        var installedPath = packagePathResolver.GetInstalledPath(packageToInstall);
+
+                        packageReader = new PackageFolderReader(installedPath);
+
+                        var libItems = packageReader.GetLibItems();
+                        var nearest = frameworkReducer.GetNearest(nuGetFramework, libItems.Select(x => x.TargetFramework));
+
+                        string packageListAssemblyPath = libItems
+                            .Where(x => x.TargetFramework.Equals(nearest))
+                            .SelectMany(x => x.Items.Where(i => i.EndsWith(".dll"))).FirstOrDefault();
+
+                        var dependencyPath = Path.Combine(packagePath, $"{packageToInstall.Id}.{packageToInstall.Version}", packageListAssemblyPath);
+
+                        if (!assemblyPaths.Contains(dependencyPath))
+                            assemblyPaths.Add(dependencyPath);
+                    }
+                }
             }
+
+            foreach (var path in assemblyPaths)
+                assemblies.Add(appDomain.Load(File.ReadAllBytes(path)));
             return assemblies;
         }
     }

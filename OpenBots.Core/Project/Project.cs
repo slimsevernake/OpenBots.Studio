@@ -2,6 +2,7 @@
 using ICSharpCode.SharpZipLib.Zip;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using OpenBots.Core.Gallery;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -17,7 +18,7 @@ namespace OpenBots.Core.Project
         public string ProjectName { get; set; }
         public string Main { get; set; }
         public string Version { get; set; }
-        public List<Dependency> Dependencies { get; set; }
+        public Dictionary<string, string> Dependencies { get; set; }
 
         [JsonIgnore]
         public List<string> DefaultCommands = new List<string>()
@@ -48,17 +49,10 @@ namespace OpenBots.Core.Project
             ProjectName = projectName;
             Main = "Main.json";
             Version = Application.ProductVersion;
-            Dependencies = new List<Dependency>();
+            Dependencies = new Dictionary<string, string>();
 
             foreach (string commandSet in DefaultCommands)
-            {
-                Dependencies.Add(new Dependency
-                {
-                    PackageId = $"OpenBots.Commands.{commandSet}",
-                    PackageVersion = "1.0.0.9",
-                    AssemblyPath = $"lib/net48/OpenBots.Commands.{commandSet}.dll"
-                });
-            }
+                Dependencies.Add($"OpenBots.Commands.{commandSet}", "1.0.0.9");
         }
 
         public void SaveProject(string scriptPath)
@@ -93,7 +87,7 @@ namespace OpenBots.Core.Project
         {
             //Loads project from project.config
             if (File.Exists(configFilePath))
-            {
+            {               
                 string projectJSONString = File.ReadAllText(configFilePath);
                 return JsonConvert.DeserializeObject<Project>(projectJSONString);
             }
