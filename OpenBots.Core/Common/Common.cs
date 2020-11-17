@@ -81,7 +81,7 @@ namespace OpenBots.Core.Common
                 new ScriptVariable { VariableName = "PC.DomainName", VariableValue = Environment.UserDomainName },
                 new ScriptVariable { VariableName = "Env.ActiveWindowTitle", VariableValue = User32Functions.GetActiveWindowTitle() },
                 new ScriptVariable { VariableName = "OpenBots.EngineContext", VariableValue = "{JsonContext}" },
-                new ScriptVariable { VariableName = "OpenBots.Location", VariableValue = Assembly.GetEntryAssembly().Location }
+                new ScriptVariable { VariableName = "OpenBots.Location", VariableValue = Assembly.GetEntryAssembly()?.Location }
             };
             return systemVariableList;
         }
