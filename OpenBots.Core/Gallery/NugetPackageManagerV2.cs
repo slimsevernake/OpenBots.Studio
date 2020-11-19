@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using Autofac;
+using Newtonsoft.Json;
 using NuGet.Common;
 using NuGet.Configuration;
 using NuGet.Frameworks;
@@ -9,6 +10,7 @@ using NuGet.Protocol;
 using NuGet.Protocol.Core.Types;
 using NuGet.Resolver;
 using NuGet.Versioning;
+using OpenBots.Core.Command;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -16,13 +18,11 @@ using System.Linq;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
-using OpenBots.Core.Project;
 
 namespace OpenBots.Core.Gallery
 {
     public class NugetPackageManagerV2
     {
-        //"https://api.nuget.org/v3/index.json"
         public static async Task<List<NuGetVersion>> GetPackageVersions(string packageId, string source)
         {
             ILogger logger = NullLogger.Instance;
@@ -38,44 +38,7 @@ namespace OpenBots.Core.Gallery
                 logger,
                 cancellationToken);
 
-            foreach (NuGetVersion version in versions)
-            {
-                Console.WriteLine($"Found version {version}");
-            }
-
             return versions.ToList();
-        }
-
-        public static async Task DownloadPackage(string packageId, string version, string source)
-        {
-            ILogger logger = NullLogger.Instance;
-            CancellationToken cancellationToken = CancellationToken.None;
-
-            SourceCacheContext cache = new SourceCacheContext();
-            SourceRepository repository = Repository.Factory.GetCoreV3(source);
-            FindPackageByIdResource resource = await repository.GetResourceAsync<FindPackageByIdResource>();
-
-            NuGetVersion packageVersion = new NuGetVersion(version);
-            using (MemoryStream packageStream = new MemoryStream())
-            {
-                await resource.CopyNupkgToStreamAsync(
-                    packageId,
-                    packageVersion,
-                    packageStream,
-                    cache,
-                    logger,
-                    cancellationToken);
-
-                Console.WriteLine($"Downloaded package {packageId} {packageVersion}");
-
-                using (PackageArchiveReader packageReader = new PackageArchiveReader(packageStream))
-                {
-                    NuspecReader nuspecReader = await packageReader.GetNuspecReaderAsync(cancellationToken);
-
-                    Console.WriteLine($"Tags: {nuspecReader.GetTags()}");
-                    Console.WriteLine($"Description: {nuspecReader.GetDescription()}");
-                }
-            }
         }
 
         public static async Task<List<IPackageSearchMetadata>> SearchPackages(string packageKeyword, string source)
@@ -94,11 +57,6 @@ namespace OpenBots.Core.Gallery
                 take: 20,
                 logger,
                 cancellationToken);
-
-            foreach (IPackageSearchMetadata result in results)
-            {
-                Console.WriteLine($"Found package {result.Identity.Id} {result.Identity.Version}");
-            }
 
             return results.ToList();
         }
@@ -120,51 +78,10 @@ namespace OpenBots.Core.Gallery
                 logger,
                 cancellationToken);
 
-            foreach (IPackageSearchMetadata package in packages)
-            {
-                Console.WriteLine($"Version: {package.Identity.Version}");
-                Console.WriteLine($"Listed: {package.IsListed}");
-                Console.WriteLine($"Tags: {package.Tags}");
-                Console.WriteLine($"Description: {package.Description}");
-            }
-
             return packages.ToList();
         }
 
-        public NuspecReader ReadPackage(string nugetFilePath)
-        {
-            using (FileStream inputStream = new FileStream(nugetFilePath, FileMode.Open))
-            {
-                using (PackageArchiveReader reader = new PackageArchiveReader(inputStream))
-                {
-                    NuspecReader nuspec = reader.NuspecReader;
-                    Console.WriteLine($"ID: {nuspec.GetId()}");
-                    Console.WriteLine($"Version: {nuspec.GetVersion()}");
-                    Console.WriteLine($"Description: {nuspec.GetDescription()}");
-                    Console.WriteLine($"Authors: {nuspec.GetAuthors()}");
-
-                    Console.WriteLine("Dependencies:");
-                    foreach (var dependencyGroup in nuspec.GetDependencyGroups())
-                    {
-                        Console.WriteLine($" - {dependencyGroup.TargetFramework.GetShortFolderName()}");
-                        foreach (var dependency in dependencyGroup.Packages)
-                        {
-                            Console.WriteLine($"   > {dependency.Id} {dependency.VersionRange}");
-                        }
-                    }
-
-                    Console.WriteLine("Files:");
-                    foreach (var file in reader.GetFiles())
-                    {
-                        Console.WriteLine($" - {file}");
-                    }
-
-                    return nuspec;
-                }
-            }
-        }
-
-        public static async Task InstallPackage(string packageId, string version, Dictionary<string, string> projectDependenciesDict)//, string source)
+        public static async Task InstallPackage(string packageId, string version, Dictionary<string, string> projectDependenciesDict)
         {
             var packageVersion = NuGetVersion.Parse(version);
             var nuGetFramework = NuGetFramework.ParseFolder("net48");
@@ -193,7 +110,7 @@ namespace OpenBots.Core.Gallery
                 var packagesToInstall = resolver.Resolve(resolverContext, CancellationToken.None)
                     .Select(p => availablePackages.Single(x => PackageIdentityComparer.Default.Equals(x, p)));
                 string appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
-                var packagePathResolver = new PackagePathResolver(Path.Combine(appDataPath, "OpenBots Inc", "packages"));//Path.GetFullPath("packages"));
+                var packagePathResolver = new PackagePathResolver(Path.Combine(appDataPath, "OpenBots Inc", "packages"));
                 var packageExtractionContext = new PackageExtractionContext(
                     PackageSaveMode.Defaultv3,
                     XmlDocFileSaveMode.None,
@@ -230,11 +147,7 @@ namespace OpenBots.Core.Gallery
                     }
 
                     var libItems = packageReader.GetLibItems();
-                    var nearest = frameworkReducer.GetNearest(nuGetFramework, libItems.Select(x => x.TargetFramework));
-                    
-                    Console.WriteLine(string.Join("\n", libItems
-                        .Where(x => x.TargetFramework.Equals(nearest))
-                        .SelectMany(x => x.Items)));           
+                    var nearest = frameworkReducer.GetNearest(nuGetFramework, libItems.Select(x => x.TargetFramework));                            
 
                     if (packageToInstall.Id == packageId)
                     {
@@ -250,12 +163,6 @@ namespace OpenBots.Core.Gallery
 
                         projectDependenciesDict.Add(packageToInstall.Id, packageToInstall.Version.ToString());
                     }
-
-                    var frameworkItems = packageReader.GetFrameworkItems();
-                    nearest = frameworkReducer.GetNearest(nuGetFramework, frameworkItems.Select(x => x.TargetFramework));
-                    Console.WriteLine(string.Join("\n", frameworkItems
-                        .Where(x => x.TargetFramework.Equals(nearest))
-                        .SelectMany(x => x.Items)));
                 }
             }            
         }
@@ -287,7 +194,7 @@ namespace OpenBots.Core.Gallery
             }
         }
 
-        public static async Task<List<Assembly>> LoadProjectAssemblies(string configPath, AppDomain appDomain)
+        public static async Task<ContainerBuilder> LoadProjectAssemblies(string configPath, AppDomain appDomain)
         {
             List<string> assemblyPaths = new List<string>();
             List<Assembly> assemblies = new List<Assembly>();
@@ -357,10 +264,26 @@ namespace OpenBots.Core.Gallery
                     }
                 }
             }
-
+            assemblyPaths.Reverse();
             foreach (var path in assemblyPaths)
-                assemblies.Add(appDomain.Load(File.ReadAllBytes(path)));
-            return assemblies;
+            {
+                try
+                {
+                    assemblies.Add(appDomain.Load(File.ReadAllBytes(path)));
+                }
+                catch(Exception ex)
+                {
+                    Console.WriteLine(ex);
+                }
+            }
+
+            ContainerBuilder builder = new ContainerBuilder();
+
+            builder.RegisterAssemblyTypes(appDomain.GetAssemblies())
+                                                   .Where(t => t.IsAssignableTo<ScriptCommand>())
+                                                   .Named<ScriptCommand>(t => t.Name)
+                                                   .AsImplementedInterfaces();
+            return builder;
         }
     }
 }

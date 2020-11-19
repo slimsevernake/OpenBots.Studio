@@ -12,6 +12,7 @@
 //WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 //See the License for the specific language governing permissions and
 //limitations under the License.
+using Autofac;
 using OpenBots.Commands.Input;
 using OpenBots.Core.Command;
 using OpenBots.Core.Enums;
@@ -152,8 +153,9 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
         private string _txtCommandWatermark = "Type Here to Search";   
         public string HTMLElementRecorderURL { get; set; }
         private bool _isSequence;
-        private List<Assembly> _projectAssemblies;
         private AppDomain _projectAppDomain;
+        private IContainer _container;
+        private ContainerBuilder _builder;
         #endregion
 
         #region Form Events
@@ -178,6 +180,8 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
         private void frmScriptBuilder_Load(object sender, EventArgs e)
         {
             _projectAppDomain = AppDomain.CreateDomain("OpenBots_Studio_AD");
+            _builder = new ContainerBuilder();
+            
             //set controls double buffered
             foreach (Control control in Controls)
             {
@@ -268,7 +272,7 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
         private void LoadCommands()
         {
             //load all commands           
-            _automationCommands = UIControlsHelper.GenerateCommandsandControls(_projectAssemblies);
+            _automationCommands = UIControlsHelper.GenerateCommandsandControls(_container);
             var groupedCommands = _automationCommands.GroupBy(f => f.DisplayGroup);
 
             tvCommands.Nodes.Clear();

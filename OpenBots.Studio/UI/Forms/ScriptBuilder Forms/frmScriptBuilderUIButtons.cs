@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using Autofac;
+using Newtonsoft.Json;
 using OpenBots.Commands;
 using OpenBots.Commands.Switch;
 using OpenBots.Core.Enums;
@@ -692,7 +693,9 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
             if (frmManager.DialogResult == DialogResult.OK)
             {
                 File.WriteAllText(configPath, JsonConvert.SerializeObject(ScriptProject));
-                _projectAssemblies = await NugetPackageManagerV2.LoadProjectAssemblies(configPath, _projectAppDomain);              
+                _builder = await NugetPackageManagerV2.LoadProjectAssemblies(configPath, _projectAppDomain);
+                _container = _builder.Build();
+                
                 LoadCommands();
             }
         }

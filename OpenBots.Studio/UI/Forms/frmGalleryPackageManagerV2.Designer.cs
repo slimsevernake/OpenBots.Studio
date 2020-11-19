@@ -33,20 +33,21 @@ namespace OpenBots.UI.Forms
         {
             this.components = new System.ComponentModel.Container();
             OpenBots.Core.Utilities.FormsUtilities.Theme theme1 = new OpenBots.Core.Utilities.FormsUtilities.Theme();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmGalleryPackageManager));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmGalleryPackageManagerV2));
             OpenBots.Core.Utilities.FormsUtilities.Theme theme2 = new OpenBots.Core.Utilities.FormsUtilities.Theme();
             OpenBots.Core.Utilities.FormsUtilities.Theme theme3 = new OpenBots.Core.Utilities.FormsUtilities.Theme();
             OpenBots.Core.Utilities.FormsUtilities.Theme theme4 = new OpenBots.Core.Utilities.FormsUtilities.Theme();
-            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("Project Dependencies");
-            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("Gallery");
-            System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("Nuget.org");
-            System.Windows.Forms.TreeNode treeNode4 = new System.Windows.Forms.TreeNode("All Packages", new System.Windows.Forms.TreeNode[] {
+            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("Project Dependencies", 0, 0);
+            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("Gallery", 1, 1);
+            System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("Nuget.org", 2, 2);
+            System.Windows.Forms.TreeNode treeNode4 = new System.Windows.Forms.TreeNode("All Packages", 0, 0, new System.Windows.Forms.TreeNode[] {
             treeNode2,
             treeNode3});
             this.tlpPackageLayout = new System.Windows.Forms.TableLayoutPanel();
             this.lblError = new System.Windows.Forms.Label();
             this.lbxGalleryProjects = new OpenBots.UI.CustomControls.CustomUIControls.UIListBox();
             this.pnlProjectVersion = new OpenBots.UI.CustomControls.CustomUIControls.UIPanel();
+            this.btnInstall = new System.Windows.Forms.Button();
             this.pbxOBStudio = new System.Windows.Forms.PictureBox();
             this.cbxVersion = new System.Windows.Forms.ComboBox();
             this.lblVersionTitleLabel = new System.Windows.Forms.Label();
@@ -142,6 +143,7 @@ namespace OpenBots.UI.Forms
             // 
             // pnlProjectVersion
             // 
+            this.pnlProjectVersion.Controls.Add(this.btnInstall);
             this.pnlProjectVersion.Controls.Add(this.pbxOBStudio);
             this.pnlProjectVersion.Controls.Add(this.cbxVersion);
             this.pnlProjectVersion.Controls.Add(this.lblVersionTitleLabel);
@@ -154,6 +156,17 @@ namespace OpenBots.UI.Forms
             theme1.BgGradientEndColor = System.Drawing.Color.FromArgb(((int)(((byte)(49)))), ((int)(((byte)(49)))), ((int)(((byte)(49)))));
             theme1.BgGradientStartColor = System.Drawing.Color.FromArgb(((int)(((byte)(49)))), ((int)(((byte)(49)))), ((int)(((byte)(49)))));
             this.pnlProjectVersion.Theme = theme1;
+            // 
+            // btnInstall
+            // 
+            this.btnInstall.Font = new System.Drawing.Font("Segoe UI Semibold", 12F);
+            this.btnInstall.Location = new System.Drawing.Point(414, 65);
+            this.btnInstall.Name = "btnInstall";
+            this.btnInstall.Size = new System.Drawing.Size(104, 35);
+            this.btnInstall.TabIndex = 44;
+            this.btnInstall.Text = "Install";
+            this.btnInstall.UseVisualStyleBackColor = true;
+            this.btnInstall.Click += new System.EventHandler(this.btnInstall_Click);
             // 
             // pbxOBStudio
             // 
@@ -174,7 +187,7 @@ namespace OpenBots.UI.Forms
             this.cbxVersion.Location = new System.Drawing.Point(111, 65);
             this.cbxVersion.Margin = new System.Windows.Forms.Padding(4);
             this.cbxVersion.Name = "cbxVersion";
-            this.cbxVersion.Size = new System.Drawing.Size(412, 36);
+            this.cbxVersion.Size = new System.Drawing.Size(302, 36);
             this.cbxVersion.TabIndex = 42;
             this.cbxVersion.SelectedIndexChanged += new System.EventHandler(this.cbxVersion_SelectedIndexChanged);
             // 
@@ -550,15 +563,19 @@ namespace OpenBots.UI.Forms
             this.tvPackageFeeds.Name = "tvPackageFeeds";
             treeNode1.ImageIndex = 0;
             treeNode1.Name = "projectDependencies";
+            treeNode1.SelectedImageIndex = 0;
             treeNode1.Text = "Project Dependencies";
             treeNode2.ImageIndex = 1;
             treeNode2.Name = "gallery";
+            treeNode2.SelectedImageIndex = 1;
             treeNode2.Text = "Gallery";
             treeNode3.ImageIndex = 2;
             treeNode3.Name = "nuget";
+            treeNode3.SelectedImageIndex = 2;
             treeNode3.Text = "Nuget.org";
             treeNode4.ImageIndex = 0;
             treeNode4.Name = "allPackages";
+            treeNode4.SelectedImageIndex = 0;
             treeNode4.Text = "All Packages";
             this.tvPackageFeeds.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
             treeNode1,
@@ -577,7 +594,7 @@ namespace OpenBots.UI.Forms
             this.imlNodes.Images.SetKeyName(1, "galleryIcon");
             this.imlNodes.Images.SetKeyName(2, "nugetIcon");
             // 
-            // frmGalleryPackageManager
+            // frmGalleryPackageManagerV2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -587,7 +604,7 @@ namespace OpenBots.UI.Forms
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(5);
-            this.Name = "frmGalleryPackageManager";
+            this.Name = "frmGalleryPackageManagerV2";
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show;
             this.Text = "Gallery Project Manager";
             this.Load += new System.EventHandler(this.frmGalleryProject_LoadAsync);
@@ -645,5 +662,6 @@ namespace OpenBots.UI.Forms
         public System.Windows.Forms.Label lblError;
         private UITreeView tvPackageFeeds;
         private System.Windows.Forms.ImageList imlNodes;
+        private System.Windows.Forms.Button btnInstall;
     }
 }

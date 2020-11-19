@@ -1,11 +1,10 @@
-﻿using OpenBots.Core.Command;
-using OpenBots.Core.Project;
+﻿using Autofac;
+using OpenBots.Core.Command;
 using OpenBots.Core.Settings;
 using OpenBots.UI.CustomControls;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Threading;
@@ -55,7 +54,7 @@ namespace OpenBots.Utilities
                 form.WindowState = FormWindowState.Minimized;
         }
 
-        public static List<AutomationCommand> GenerateCommandsandControls(List<Assembly> dependencyAssemblies = null) 
+        public static List<AutomationCommand> GenerateCommandsandControls(Autofac.IContainer container = null)// List<Assembly> dependencyAssemblies = null) 
         {
             var commandList = new List<AutomationCommand>();
 
@@ -65,16 +64,16 @@ namespace OpenBots.Utilities
                                  .Where(t => t.IsAbstract == false)
                                  .Where(t => t.BaseType.Name == "ScriptCommand")
                                  .ToList();
-            
-            dependencyAssemblies = dependencyAssemblies.Where(x => x.FullName.StartsWith("OpenBots.Commands")).ToList();
-            foreach (var assembly in dependencyAssemblies)
+
+            using (var scope = container.BeginLifetimeScope())
             {
-                commandClasses.AddRange(assembly.GetTypes()
-                                 .Where(t => t.Name != "ScriptCommand")
-                                 .Where(t => t.IsAbstract == false)
-                                 .Where(t => t.BaseType.Name == "ScriptCommand")
-                                 .ToList());
+                    var types = scope.ComponentRegistry.Registrations
+                                .Where(r => typeof(ScriptCommand).IsAssignableFrom(r.Activator.LimitType))
+                                .Select(r => r.Activator.LimitType).ToList();
+
+                    commandClasses.AddRange(types);
             }
+
             var userPrefs = new ApplicationSettings().GetOrCreateApplicationSettings();
 
             //Loop through each class

@@ -27,8 +27,6 @@ namespace OpenBots.UI.Forms
         private IPackageSearchMetadata _catalog;
         private List<NuGetVersion> _projectVersions;
         private List<IPackageSearchMetadata> _selectedPackageMetaData;
-        //private NugetPackageManger _galleryManager;
-        //private NugetPackageManger _nugetManager;
 
         private string _gallerySourceUrl = "https://dev.gallery.openbots.io/v3/index.json";
         private string _nugetSourceUrl = "https://api.nuget.org/v3/index.json";
@@ -40,11 +38,8 @@ namespace OpenBots.UI.Forms
             _projectDependenciesDict = projectDependenciesDict;
             _packageLocation = packageLocation;
             _allResults = new List<IPackageSearchMetadata>();
+            _projectDependencies = new List<IPackageSearchMetadata>();
             _projectVersions = new List<NuGetVersion>();
-            //_allGalleryResults = new List<SearchResultPackage>();
-            //_allNugetResults = new List<SearchResultPackage>();
-            // _galleryManager = new NugetPackageManger();
-            // _nugetManager = new NugetPackageManger(new Uri("https://api.nuget.org/v3/index.json"));
         }
 
         private async void frmGalleryProject_LoadAsync(object sender, EventArgs e)
@@ -55,11 +50,11 @@ namespace OpenBots.UI.Forms
             uiBtnOpen.Enabled = false;
             try
             {
-                _allGalleryResults = await NugetPackageManagerV2.SearchPackages("", _gallerySourceUrl); // _galleryManager.GetAllPackagesAsync(NugetPackageManger.PackageType.Command.ToString());
+                _allGalleryResults = await NugetPackageManagerV2.SearchPackages("", _gallerySourceUrl);
                 _allNugetResults = await NugetPackageManagerV2.SearchPackages("", _nugetSourceUrl);
                 _allResults.AddRange(_allGalleryResults);
                 _allResults.AddRange(_allNugetResults);
-                _projectDependencies = GetCurrentDepencies();
+                GetCurrentDepencies();
                 PopulateListBox(_allResults);
             }
             catch (Exception ex)
@@ -149,7 +144,7 @@ namespace OpenBots.UI.Forms
 
         private void PopulateProjectDetails(string version)
         {
-            _catalog = _selectedPackageMetaData.Where(x => x.Identity.Version.ToString() == version).SingleOrDefault();//_projectVersions.Where(x => x.Catalog.Version == version).SingleOrDefault().Catalog;
+            _catalog = _selectedPackageMetaData.Where(x => x.Identity.Version.ToString() == version).SingleOrDefault();
 
             try
             {
@@ -178,6 +173,13 @@ namespace OpenBots.UI.Forms
                 foreach (var dependency in _catalog.DependencySets.FirstOrDefault().Packages)
                     lvDependencies.Items.Add(new ListViewItem(new string[] { dependency.Id, dependency.VersionRange.ToString() }));
             }
+
+            var installedPackage = _projectDependencies.Where(x => x.Identity.Id == _catalog.Identity.Id && 
+                                                                   x.Identity.Version.ToString() == _catalog.Identity.Version.ToString())
+                                                       .FirstOrDefault();
+
+            if (installedPackage != null)
+                btnInstall.Text = "Uninstall";
             
         }
 
@@ -208,12 +210,6 @@ namespace OpenBots.UI.Forms
         {            
             try
             {
-                var packageDirectoryList = Directory.GetDirectories(_packageLocation).ToList();
-                string existingPackageDirectory = packageDirectoryList.Where(x => new DirectoryInfo(x).Name.StartsWith(packageId)).SingleOrDefault();
-
-                if (!string.IsNullOrEmpty(existingPackageDirectory))
-                    Directory.Delete(existingPackageDirectory, true);
-
                 string packageName = $"{packageId}.{version}";
                 Cursor.Current = Cursors.WaitCursor;
                 lblError.Text = $"Installing {packageName}";
@@ -266,7 +262,8 @@ namespace OpenBots.UI.Forms
                 if (tvPackageFeeds.SelectedNode.Name == "projectDependencies")
                 {
                     lblPackageCategory.Text = "Project Dependencies";
-                    PopulateListBox(GetCurrentDepencies());
+                    GetCurrentDepencies();
+                    PopulateListBox(_projectDependencies);
                 }
                 else if (tvPackageFeeds.SelectedNode.Name == "allPackages")
                 {
@@ -287,7 +284,7 @@ namespace OpenBots.UI.Forms
             
         }
 
-        private List<IPackageSearchMetadata> GetCurrentDepencies()
+        private void GetCurrentDepencies()
         {
             List<string> nugetDirectoryList = Directory.GetDirectories(_packageLocation).ToList();
             Dictionary<string, string> nugetDirectoryDict = new Dictionary<string, string>();
@@ -304,7 +301,7 @@ namespace OpenBots.UI.Forms
                                                                                                                 .Select(e => (KeyValuePair<string, string>?)e)
                                                                                                                 .FirstOrDefault() != null)
                                                                           .ToList();
-            return filteredResult;
+            _projectDependencies = filteredResult;
         }
 
         private async void txtSampleSearch_KeyDown(object sender, KeyEventArgs e)
@@ -314,7 +311,8 @@ namespace OpenBots.UI.Forms
             {               
                 if (lblPackageCategory.Text == "Project Dependencies")
                 {
-                    searchResults.AddRange(GetCurrentDepencies().Where(x => x.Title.ToLower().Contains(txtSampleSearch.Text.ToLower())));
+                    GetCurrentDepencies();
+                    searchResults.AddRange(_projectDependencies.Where(x => x.Title.ToLower().Contains(txtSampleSearch.Text.ToLower())));
                 }
                 else if (lblPackageCategory.Text == "All Packages")
                 {
@@ -337,6 +335,20 @@ namespace OpenBots.UI.Forms
         private void tvPackageFeeds_BeforeCollapse(object sender, TreeViewCancelEventArgs e)
         {
             e.Cancel = true;
+        }
+
+        private void btnInstall_Click(object sender, EventArgs e)
+        {
+            if (btnInstall.Text == "Install")
+                DownloadAndOpenPackage(_catalog.Identity.Id, _catalog.Identity.Version.ToString());
+            else if (btnInstall.Text == "Uninstall")
+                UninstallPackage(_catalog.Identity.Id, _catalog.Identity.Version.ToString());
+        }
+
+        private void UninstallPackage(string packageId, string version)
+        {
+            _projectDependenciesDict.Remove(packageId);
+            DialogResult = DialogResult.OK;
         }
     }
 }
