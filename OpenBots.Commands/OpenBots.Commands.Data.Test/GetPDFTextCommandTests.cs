@@ -33,8 +33,6 @@ namespace OpenBots.Commands.Data.Test
             {
                 filepath = "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf";
             }
-            ServicePointManager.Expect100Continue = true;
-            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
             filepath.StoreInUserVariable(_engine, "{filepath}");
 
             _getPDFText.v_FileSourceType = filePathOrUrl;
