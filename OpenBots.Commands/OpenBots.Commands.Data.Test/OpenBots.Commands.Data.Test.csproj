@@ -76,6 +76,10 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="ReplaceTextCommandTests.cs" />
+    <Compile Include="SplitTextCommandTests.cs" />
+    <Compile Include="SubstringCommandTests.cs" />
+    <Compile Include="TextExtractionCommandTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\OpenBots.Core\OpenBots.Core.csproj">
