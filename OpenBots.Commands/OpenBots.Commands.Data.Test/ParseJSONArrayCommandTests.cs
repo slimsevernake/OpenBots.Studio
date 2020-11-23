@@ -1,12 +1,8 @@
-﻿using System;
+﻿using OpenBots.Core.Utilities.CommonUtilities;
+using OpenBots.Engine;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Xunit;
 using Xunit.Abstractions;
-using OpenBots.Engine;
-using OpenBots.Core.Utilities.CommonUtilities;
 
 namespace OpenBots.Commands.Data.Test
 {
