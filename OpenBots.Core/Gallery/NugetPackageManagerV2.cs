@@ -195,7 +195,7 @@ namespace OpenBots.Core.Gallery
             }
         }
 
-        public static async Task<List<string>> LoadProjectAssemblies(string configPath, AppDomain appDomain)
+        public static async Task<List<string>> LoadProjectAssemblies(string configPath)
         {
             List<string> assemblyPaths = new List<string>();
             var dependencies = JsonConvert.DeserializeObject<Project.Project>(File.ReadAllText(configPath)).Dependencies;

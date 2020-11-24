@@ -694,10 +694,8 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
             if (frmManager.DialogResult == DialogResult.OK)
             {
                 File.WriteAllText(configPath, JsonConvert.SerializeObject(ScriptProject));
-                //AppDomain.Unload(_projectAppDomain);
-                //_projectAppDomain = AppDomainSetupManager.SetupAppDomain();
 
-                var assemblyList = await NugetPackageManagerV2.LoadProjectAssemblies(configPath, _projectAppDomain);
+                var assemblyList = await NugetPackageManagerV2.LoadProjectAssemblies(configPath);
                 AppDomainSetupManager.LoadDomain(assemblyList, _scriptAssemblies);
                 _builder = AppDomainSetupManager.LoadBuilder(_scriptAssemblies);
                 _container = _builder.Build();

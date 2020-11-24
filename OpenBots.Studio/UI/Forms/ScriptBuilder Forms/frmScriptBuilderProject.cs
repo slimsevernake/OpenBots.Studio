@@ -82,10 +82,7 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
                     //create config file
                     File.WriteAllText(configPath, JsonConvert.SerializeObject(ScriptProject));
 
-                    //AppDomain.Unload(_projectAppDomain);
-                    //_projectAppDomain = AppDomainSetupManager.SetupAppDomain();
-
-                    var assemblyList = await NugetPackageManagerV2.LoadProjectAssemblies(configPath, _projectAppDomain);
+                    var assemblyList = await NugetPackageManagerV2.LoadProjectAssemblies(configPath);
                     AppDomainSetupManager.LoadDomain(assemblyList, _scriptAssemblies);
                     _builder = AppDomainSetupManager.LoadBuilder(_scriptAssemblies);
                     _container = _builder.Build();
@@ -113,10 +110,8 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
                 {
                     //Open project
                     ScriptProject = Project.OpenProject(projectBuilder.ExistingConfigPath);
-                    //AppDomain.Unload(_projectAppDomain);
-                    //_projectAppDomain = AppDomainSetupManager.SetupAppDomain();
 
-                    var assemblyList = await NugetPackageManagerV2.LoadProjectAssemblies(projectBuilder.ExistingConfigPath, _projectAppDomain);
+                    var assemblyList = await NugetPackageManagerV2.LoadProjectAssemblies(projectBuilder.ExistingConfigPath);
                     AppDomainSetupManager.LoadDomain(assemblyList, _scriptAssemblies);
                     _builder = AppDomainSetupManager.LoadBuilder(_scriptAssemblies);
                     _container = _builder.Build();
