@@ -195,7 +195,6 @@
     <Compile Include="Command\ScriptCommand.cs" />
     <Compile Include="Common\Common.cs" />
     <Compile Include="Enums\Enums.cs" />
-    <Compile Include="Gallery\AssemblyLoader.cs" />
     <Compile Include="Gallery\Models\Registration\CatalogEntry.cs" />
     <Compile Include="Gallery\Models\Registration\ProjectDependency.cs" />
     <Compile Include="Gallery\Models\Feed.cs" />
