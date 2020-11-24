@@ -8,6 +8,7 @@ using OpenBots.Core.IO;
 using OpenBots.Core.Script;
 using OpenBots.Core.Settings;
 using OpenBots.Core.Utilities.CommonUtilities;
+using OpenBots.Gallery;
 using OpenBots.UI.CustomControls.CustomUIControls;
 using OpenBots.UI.Forms.Supplement_Forms;
 using OpenBots.UI.Supplement_Forms;
@@ -693,7 +694,12 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
             if (frmManager.DialogResult == DialogResult.OK)
             {
                 File.WriteAllText(configPath, JsonConvert.SerializeObject(ScriptProject));
-                _builder = await NugetPackageManagerV2.LoadProjectAssemblies(configPath, _projectAppDomain);
+                //AppDomain.Unload(_projectAppDomain);
+                //_projectAppDomain = AppDomainSetupManager.SetupAppDomain();
+
+                var assemblyList = await NugetPackageManagerV2.LoadProjectAssemblies(configPath, _projectAppDomain);
+                AppDomainSetupManager.LoadDomain(assemblyList, _scriptAssemblies);
+                _builder = AppDomainSetupManager.LoadBuilder(_scriptAssemblies);
                 _container = _builder.Build();
                 
                 LoadCommands();

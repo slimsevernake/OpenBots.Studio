@@ -26,8 +26,8 @@ namespace OpenBots.UI.Forms
         private Dictionary<string,string> _projectDependenciesDict;
         private CatalogEntry _catalog;
         private List<RegistrationItemVersion> _projectVersions;
-        private NugetPackageManger _galleryManager;
-        private NugetPackageManger _nugetManager;
+        private NugetPackageManager _galleryManager;
+        private NugetPackageManager _nugetManager;
 
         public frmGalleryPackageManager(Dictionary<string, string> projectDependenciesDict, 
             string packageLocation = "")
@@ -38,8 +38,8 @@ namespace OpenBots.UI.Forms
             _allResults = new List<SearchResultPackage>();
             _allGalleryResults = new List<SearchResultPackage>();
             _allNugetResults = new List<SearchResultPackage>();
-            _galleryManager = new NugetPackageManger();
-            _nugetManager = new NugetPackageManger(new Uri("https://api.nuget.org/v3/index.json"));
+            _galleryManager = new NugetPackageManager();
+            _nugetManager = new NugetPackageManager(new Uri("https://api.nuget.org/v3/index.json"));
         }
 
         private async void frmGalleryProject_LoadAsync(object sender, EventArgs e)
@@ -50,7 +50,7 @@ namespace OpenBots.UI.Forms
             uiBtnOpen.Enabled = false;
             try
             {
-                _allGalleryResults = await _galleryManager.GetAllPackagesAsync(NugetPackageManger.PackageType.Command.ToString());
+                _allGalleryResults = await _galleryManager.GetAllPackagesAsync(NugetPackageManager.PackageType.Command.ToString());
                 _allNugetResults = await _nugetManager.GetAllPackagesAsync();
                 _allResults.AddRange(_allGalleryResults);
                 _allResults.AddRange(_allNugetResults);

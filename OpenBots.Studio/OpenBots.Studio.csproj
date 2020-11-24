@@ -360,6 +360,7 @@
     <Compile Include="Commands\Misc Commands\UIAutomationCommand.cs" />
     <Compile Include="Commands\Task Commands\RunTaskCommand.cs" />
     <Compile Include="Commands\Task Commands\StopCurrentTaskCommand.cs" />
+    <Compile Include="Gallery\AppDomainSetupManager.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

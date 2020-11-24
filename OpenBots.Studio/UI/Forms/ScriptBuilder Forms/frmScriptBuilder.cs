@@ -16,12 +16,14 @@ using Autofac;
 using OpenBots.Commands.Input;
 using OpenBots.Core.Command;
 using OpenBots.Core.Enums;
+using OpenBots.Core.Gallery;
 using OpenBots.Core.Infrastructure;
 using OpenBots.Core.IO;
 using OpenBots.Core.Project;
 using OpenBots.Core.Script;
 using OpenBots.Core.Settings;
 using OpenBots.Core.Utilities.CommonUtilities;
+using OpenBots.Gallery;
 using OpenBots.UI.CustomControls;
 using OpenBots.UI.CustomControls.CustomUIControls;
 using OpenBots.UI.Forms.Supplement_Forms;
@@ -35,6 +37,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Security.Policy;
 using System.Windows.Forms;
 using Point = System.Drawing.Point;
 
@@ -156,6 +159,8 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
         private AppDomain _projectAppDomain;
         private IContainer _container;
         private ContainerBuilder _builder;
+        private string _packagesPath;
+        private List<Assembly> _scriptAssemblies;
         #endregion
 
         #region Form Events
@@ -179,7 +184,13 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
 
         private void frmScriptBuilder_Load(object sender, EventArgs e)
         {
-            _projectAppDomain = AppDomain.CreateDomain("OpenBots_Studio_AD");
+            string appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+            _packagesPath = Path.Combine(appDataPath, "OpenBots Inc", "packages");
+            if (!Directory.Exists(_packagesPath))
+                Directory.CreateDirectory(_packagesPath);
+
+            _projectAppDomain = AppDomainSetupManager.SetupAppDomain();
+            _scriptAssemblies = new List<Assembly>();
             _builder = new ContainerBuilder();
             
             //set controls double buffered

@@ -12,6 +12,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace OpenBots.UI.Forms
@@ -27,6 +28,7 @@ namespace OpenBots.UI.Forms
         private IPackageSearchMetadata _catalog;
         private List<NuGetVersion> _projectVersions;
         private List<IPackageSearchMetadata> _selectedPackageMetaData;
+        private bool _isInstalled;
 
         private string _gallerySourceUrl = "https://dev.gallery.openbots.io/v3/index.json";
         private string _nugetSourceUrl = "https://api.nuget.org/v3/index.json";
@@ -54,7 +56,7 @@ namespace OpenBots.UI.Forms
                 _allNugetResults = await NugetPackageManagerV2.SearchPackages("", _nugetSourceUrl);
                 _allResults.AddRange(_allGalleryResults);
                 _allResults.AddRange(_allNugetResults);
-                GetCurrentDepencies();
+                await GetCurrentDepencies();
                 PopulateListBox(_projectDependencies);
             }
             catch (Exception ex)
@@ -116,10 +118,23 @@ namespace OpenBots.UI.Forms
                     cbxVersion.Items.Add(version);
 
                 _selectedPackageMetaData = metadata;
-                cbxVersion.SelectedIndex = 0;
 
-                
-                PopulateProjectDetails(latestVersion);
+                var installedPackage = _projectDependencies.Where(x => x.Identity.Id == _catalog.Identity.Id &&
+                                                                   x.Identity.Version.ToString() == _catalog.Identity.Version.ToString())
+                                                       .FirstOrDefault();
+
+                if (installedPackage != null)
+                {
+                    _isInstalled = true;
+                    PopulateProjectDetails(latestVersion);
+                    cbxVersion.SelectedItem = installedPackage.Identity.Version.ToString();
+                }
+                else
+                {
+                    _isInstalled = false;
+                    PopulateProjectDetails(latestVersion);
+                    cbxVersion.SelectedIndex = 0;
+                }
 
                 pnlProjectVersion.Show();
                 pnlProjectDetails.Show();
@@ -166,13 +181,11 @@ namespace OpenBots.UI.Forms
                     lvDependencies.Items.Add(new ListViewItem(new string[] { dependency.Id, dependency.VersionRange.ToString() }));
             }
 
-            var installedPackage = _projectDependencies.Where(x => x.Identity.Id == _catalog.Identity.Id && 
-                                                                   x.Identity.Version.ToString() == _catalog.Identity.Version.ToString())
-                                                       .FirstOrDefault();
+            if (_isInstalled)
+                btnInstall.Text = "Uninstall";               
+            else
+                btnInstall.Text = "Install";
 
-            if (installedPackage != null)
-                btnInstall.Text = "Uninstall";
-            
         }
 
         private void llblLicense_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -228,14 +241,14 @@ namespace OpenBots.UI.Forms
         }
 
 
-        private void tvPackageFeeds_NodeMouseDoubleClick(object sender, TreeNodeMouseClickEventArgs e)
+        private async void tvPackageFeeds_NodeMouseDoubleClick(object sender, TreeNodeMouseClickEventArgs e)
         {
             if (tvPackageFeeds.SelectedNode != null)
             {
                 if (tvPackageFeeds.SelectedNode.Name == "projectDependencies")
                 {
                     lblPackageCategory.Text = "Project Dependencies";
-                    GetCurrentDepencies();
+                    await GetCurrentDepencies();
                     PopulateListBox(_projectDependencies);
                 }
                 else if (tvPackageFeeds.SelectedNode.Name == "allPackages")
@@ -256,24 +269,22 @@ namespace OpenBots.UI.Forms
             }
         }
 
-        private void GetCurrentDepencies()
+        private async Task GetCurrentDepencies()
         {
             List<string> nugetDirectoryList = Directory.GetDirectories(_packageLocation).ToList();
-            Dictionary<string, string> nugetDirectoryDict = new Dictionary<string, string>();
-            string pattern = @"^(.*?)\.(?=(?:[0-9]+\.){2,}[0-9]+(?:-[a-z]+)?)(.*?)$";
-
-            foreach (string nugetDirectory in nugetDirectoryList)
+            _projectDependencies.Clear();
+            foreach(var pair in _projectDependenciesDict)
             {
-                MatchCollection matches = Regex.Matches(new DirectoryInfo(nugetDirectory).Name, pattern);
-                nugetDirectoryDict.Add(matches[0].Groups[1].Value, matches[0].Groups[2].Value);
+                var galleryDependency = (await NugetPackageManagerV2.GetPackageMetadata(pair.Key, _gallerySourceUrl))
+                    .Where(x => x.Identity.Version.ToString() == pair.Value).FirstOrDefault();
+                if (galleryDependency != null && nugetDirectoryList.Where(x => x.EndsWith($"{pair.Key}.{pair.Value}")).FirstOrDefault() != null)
+                    _projectDependencies.Add(galleryDependency);
+                var nugetDependency = (await NugetPackageManagerV2.GetPackageMetadata(pair.Key, _nugetSourceUrl))
+                    .Where(x => x.Identity.Version.ToString() == pair.Value).FirstOrDefault();
+                if (nugetDependency != null && nugetDirectoryList.Where(x => x.EndsWith($"{pair.Key}.{pair.Value}")).FirstOrDefault() != null)
+                    _projectDependencies.Add(nugetDependency);
             }
-
-            var filteredResult = _allResults.Where(x => nugetDirectoryDict.ContainsKey(x.Identity.Id) && nugetDirectoryDict[x.Identity.Id] == x.Identity.Version.ToString() &&
-                                                                                        _projectDependenciesDict.Where(p => p.Key == x.Identity.Id)
-                                                                                                                .Select(e => (KeyValuePair<string, string>?)e)
-                                                                                                                .FirstOrDefault() != null)
-                                                                          .ToList();
-            _projectDependencies = filteredResult;
+            //string pattern = @"^(.*?)\.(?=(?:[0-9]+\.){2,}[0-9]+(?:-[a-z]+)?)(.*?)$";
         }
 
         private async void txtSampleSearch_KeyDown(object sender, KeyEventArgs e)
@@ -283,7 +294,7 @@ namespace OpenBots.UI.Forms
             {               
                 if (lblPackageCategory.Text == "Project Dependencies")
                 {
-                    GetCurrentDepencies();
+                    await GetCurrentDepencies();
                     searchResults.AddRange(_projectDependencies.Where(x => x.Title.ToLower().Contains(txtSampleSearch.Text.ToLower())));
                 }
                 else if (lblPackageCategory.Text == "All Packages")

@@ -16,6 +16,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Security.Policy;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -38,7 +39,7 @@ namespace OpenBots.Core.Gallery
                 logger,
                 cancellationToken);
 
-            return versions.ToList();
+            return versions.Where(x => x.IsPrerelease == false).ToList();
         }
 
         public static async Task<List<IPackageSearchMetadata>> SearchPackages(string packageKeyword, string source)
@@ -48,7 +49,7 @@ namespace OpenBots.Core.Gallery
 
             SourceRepository repository = Repository.Factory.GetCoreV3(source);
             PackageSearchResource resource = await repository.GetResourceAsync<PackageSearchResource>();
-            SearchFilter searchFilter = new SearchFilter(includePrerelease: true);
+            SearchFilter searchFilter = new SearchFilter(includePrerelease: false);
 
             IEnumerable<IPackageSearchMetadata> results = await resource.SearchAsync(
                 packageKeyword,
@@ -72,7 +73,7 @@ namespace OpenBots.Core.Gallery
 
             IEnumerable<IPackageSearchMetadata> packages = await resource.GetMetadataAsync(
                 packageId,
-                includePrerelease: true,
+                includePrerelease: false,
                 includeUnlisted: false,
                 cache,
                 logger,
@@ -194,10 +195,9 @@ namespace OpenBots.Core.Gallery
             }
         }
 
-        public static async Task<ContainerBuilder> LoadProjectAssemblies(string configPath, AppDomain appDomain)
+        public static async Task<List<string>> LoadProjectAssemblies(string configPath, AppDomain appDomain)
         {
             List<string> assemblyPaths = new List<string>();
-            List<Assembly> assemblies = new List<Assembly>();
             var dependencies = JsonConvert.DeserializeObject<Project.Project>(File.ReadAllText(configPath)).Dependencies;
 
             string appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
@@ -264,27 +264,9 @@ namespace OpenBots.Core.Gallery
                     }
                 }
             }
-            assemblyPaths.Reverse();
-            foreach (var path in assemblyPaths)
-            {
-                try
-                {
-                    assemblies.Add(appDomain.Load(File.ReadAllBytes(path)));
-                }
-                catch(Exception ex)
-                {
-                    Console.WriteLine(ex);
-                }
-            }
 
-            ContainerBuilder builder = new ContainerBuilder();
-
-            builder.RegisterAssemblyTypes(appDomain.GetAssemblies())
-                                                   .Where(t => t.IsAssignableTo<ScriptCommand>())
-                                                   .Named<ScriptCommand>(t => t.Name)
-                                                   .AsImplementedInterfaces();
-            return builder;
-        }
+            return assemblyPaths;
+        }        
     }
 }
 

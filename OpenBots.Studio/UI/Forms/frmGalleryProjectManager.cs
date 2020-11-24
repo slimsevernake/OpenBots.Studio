@@ -21,14 +21,14 @@ namespace OpenBots.UI.Forms
         private List<SearchResultPackage> _searchresults;
         private CatalogEntry _catalog;
         private List<RegistrationItemVersion> _projectVersions;
-        private NugetPackageManger _manager;
+        private NugetPackageManager _manager;
 
         public frmGalleryProjectManager(string projectLocation, string projectName)
         {
             InitializeComponent();
             _projectLocation = projectLocation;
             _projectName = projectName;
-            _manager = new NugetPackageManger();
+            _manager = new NugetPackageManager();
         }
 
         private async void frmGalleryProject_LoadAsync(object sender, EventArgs e)
@@ -38,7 +38,7 @@ namespace OpenBots.UI.Forms
             uiBtnOpen.Enabled = false;
             try
             {           
-                _searchresults = await _manager.GetAllPackagesAsync(NugetPackageManger.PackageType.Automation.ToString());
+                _searchresults = await _manager.GetAllPackagesAsync(NugetPackageManager.PackageType.Automation.ToString());
                 PopulateListBox(_searchresults);
             }
             catch (Exception ex)

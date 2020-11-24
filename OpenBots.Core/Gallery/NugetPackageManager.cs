@@ -12,7 +12,7 @@ using HttpClient = System.Net.Http.HttpClient;
 
 namespace OpenBots.Core.Gallery
 {
-    public class NugetPackageManger
+    public class NugetPackageManager
     {
         private Uri _nugetV3FeedUri;
         private Feed _feed;
@@ -23,7 +23,7 @@ namespace OpenBots.Core.Gallery
             Command
         }
 
-        public NugetPackageManger(Uri nugetV3FeedUri = null)
+        public NugetPackageManager(Uri nugetV3FeedUri = null)
         {
             if (nugetV3FeedUri == null)
             {

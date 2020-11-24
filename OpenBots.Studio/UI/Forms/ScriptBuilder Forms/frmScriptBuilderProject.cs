@@ -4,6 +4,7 @@ using OpenBots.Commands;
 using OpenBots.Core.Gallery;
 using OpenBots.Core.Project;
 using OpenBots.Core.Script;
+using OpenBots.Gallery;
 using OpenBots.UI.CustomControls.CustomUIControls;
 using OpenBots.UI.Forms.Supplement_Forms;
 using System;
@@ -81,7 +82,12 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
                     //create config file
                     File.WriteAllText(configPath, JsonConvert.SerializeObject(ScriptProject));
 
-                    _builder = await NugetPackageManagerV2.LoadProjectAssemblies(configPath, _projectAppDomain);
+                    //AppDomain.Unload(_projectAppDomain);
+                    //_projectAppDomain = AppDomainSetupManager.SetupAppDomain();
+
+                    var assemblyList = await NugetPackageManagerV2.LoadProjectAssemblies(configPath, _projectAppDomain);
+                    AppDomainSetupManager.LoadDomain(assemblyList, _scriptAssemblies);
+                    _builder = AppDomainSetupManager.LoadBuilder(_scriptAssemblies);
                     _container = _builder.Build();
 
                     OpenFile(mainScriptPath);
@@ -107,7 +113,12 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
                 {
                     //Open project
                     ScriptProject = Project.OpenProject(projectBuilder.ExistingConfigPath);
-                    _builder = await NugetPackageManagerV2.LoadProjectAssemblies(projectBuilder.ExistingConfigPath, _projectAppDomain);
+                    //AppDomain.Unload(_projectAppDomain);
+                    //_projectAppDomain = AppDomainSetupManager.SetupAppDomain();
+
+                    var assemblyList = await NugetPackageManagerV2.LoadProjectAssemblies(projectBuilder.ExistingConfigPath, _projectAppDomain);
+                    AppDomainSetupManager.LoadDomain(assemblyList, _scriptAssemblies);
+                    _builder = AppDomainSetupManager.LoadBuilder(_scriptAssemblies);
                     _container = _builder.Build();
 
                     _mainFileName = ScriptProject.Main;
