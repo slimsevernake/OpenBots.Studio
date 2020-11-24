@@ -37,6 +37,7 @@ namespace OpenBots.UI.Forms
             OpenBots.Core.Utilities.FormsUtilities.Theme theme2 = new OpenBots.Core.Utilities.FormsUtilities.Theme();
             OpenBots.Core.Utilities.FormsUtilities.Theme theme3 = new OpenBots.Core.Utilities.FormsUtilities.Theme();
             OpenBots.Core.Utilities.FormsUtilities.Theme theme4 = new OpenBots.Core.Utilities.FormsUtilities.Theme();
+            OpenBots.Core.Utilities.FormsUtilities.Theme theme5 = new OpenBots.Core.Utilities.FormsUtilities.Theme();
             System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("Project Dependencies", 0, 0);
             System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("Gallery", 1, 1);
             System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("Nuget.org", 2, 2);
@@ -44,8 +45,10 @@ namespace OpenBots.UI.Forms
             treeNode2,
             treeNode3});
             this.tlpPackageLayout = new System.Windows.Forms.TableLayoutPanel();
+            this.pnlNugetPackages = new OpenBots.UI.CustomControls.CustomUIControls.UIPanel();
+            this.lbxNugetPackages = new OpenBots.UI.CustomControls.CustomUIControls.UIListBox();
+            this.tpbLoadingSpinner = new OpenBots.UI.CustomControls.CustomUIControls.UITransparentPictureBox();
             this.lblError = new System.Windows.Forms.Label();
-            this.lbxGalleryProjects = new OpenBots.UI.CustomControls.CustomUIControls.UIListBox();
             this.pnlProjectVersion = new OpenBots.UI.CustomControls.CustomUIControls.UIPanel();
             this.btnInstall = new System.Windows.Forms.Button();
             this.pbxOBStudio = new System.Windows.Forms.PictureBox();
@@ -82,6 +85,8 @@ namespace OpenBots.UI.Forms
             this.tvPackageFeeds = new OpenBots.UI.CustomControls.CustomUIControls.UITreeView();
             this.imlNodes = new System.Windows.Forms.ImageList(this.components);
             this.tlpPackageLayout.SuspendLayout();
+            this.pnlNugetPackages.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.tpbLoadingSpinner)).BeginInit();
             this.pnlProjectVersion.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbxOBStudio)).BeginInit();
             this.pnlProjectSearch.SuspendLayout();
@@ -99,8 +104,8 @@ namespace OpenBots.UI.Forms
             this.tlpPackageLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 250F));
             this.tlpPackageLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tlpPackageLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tlpPackageLayout.Controls.Add(this.pnlNugetPackages, 1, 1);
             this.tlpPackageLayout.Controls.Add(this.lblError, 1, 2);
-            this.tlpPackageLayout.Controls.Add(this.lbxGalleryProjects, 1, 1);
             this.tlpPackageLayout.Controls.Add(this.pnlProjectVersion, 2, 0);
             this.tlpPackageLayout.Controls.Add(this.pnlProjectSearch, 1, 0);
             this.tlpPackageLayout.Controls.Add(this.pnlProjectDetails, 2, 1);
@@ -116,6 +121,45 @@ namespace OpenBots.UI.Forms
             this.tlpPackageLayout.Size = new System.Drawing.Size(1303, 859);
             this.tlpPackageLayout.TabIndex = 36;
             // 
+            // pnlNugetPackages
+            // 
+            this.pnlNugetPackages.Controls.Add(this.tpbLoadingSpinner);
+            this.pnlNugetPackages.Controls.Add(this.lbxNugetPackages);
+            this.pnlNugetPackages.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnlNugetPackages.Location = new System.Drawing.Point(253, 113);
+            this.pnlNugetPackages.Name = "pnlNugetPackages";
+            this.pnlNugetPackages.Size = new System.Drawing.Size(520, 661);
+            this.pnlNugetPackages.TabIndex = 37;
+            theme1.BgGradientEndColor = System.Drawing.Color.FromArgb(((int)(((byte)(49)))), ((int)(((byte)(49)))), ((int)(((byte)(49)))));
+            theme1.BgGradientStartColor = System.Drawing.Color.FromArgb(((int)(((byte)(49)))), ((int)(((byte)(49)))), ((int)(((byte)(49)))));
+            this.pnlNugetPackages.Theme = theme1;
+            // 
+            // lbxNugetPackages
+            // 
+            this.lbxNugetPackages.AutoScroll = true;
+            this.lbxNugetPackages.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lbxNugetPackages.ClickedItem = null;
+            this.lbxNugetPackages.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lbxNugetPackages.DoubleClickedItem = null;
+            this.lbxNugetPackages.LastSelectedItem = null;
+            this.lbxNugetPackages.Location = new System.Drawing.Point(0, 0);
+            this.lbxNugetPackages.Name = "lbxNugetPackages";
+            this.lbxNugetPackages.Size = new System.Drawing.Size(520, 661);
+            this.lbxNugetPackages.TabIndex = 37;
+            this.lbxNugetPackages.ItemClick += new ItemClickEventHandler(lbxNugetPackages_ItemClick);
+            // 
+            // tpbLoadingSpinner
+            // 
+            this.tpbLoadingSpinner.BackColor = System.Drawing.Color.Transparent;
+            this.tpbLoadingSpinner.ErrorImage = ((System.Drawing.Image)(resources.GetObject("tpbLoadingSpinner.ErrorImage")));
+            this.tpbLoadingSpinner.Image = ((System.Drawing.Image)(resources.GetObject("tpbLoadingSpinner.Image")));
+            this.tpbLoadingSpinner.InitialImage = ((System.Drawing.Image)(resources.GetObject("tpbLoadingSpinner.InitialImage")));
+            this.tpbLoadingSpinner.Location = new System.Drawing.Point(101, 193);
+            this.tpbLoadingSpinner.Name = "tpbLoadingSpinner";
+            this.tpbLoadingSpinner.Size = new System.Drawing.Size(306, 252);
+            this.tpbLoadingSpinner.TabIndex = 41;
+            this.tpbLoadingSpinner.TabStop = false;
+            // 
             // lblError
             // 
             this.lblError.BackColor = System.Drawing.Color.Transparent;
@@ -126,20 +170,6 @@ namespace OpenBots.UI.Forms
             this.lblError.Name = "lblError";
             this.lblError.Size = new System.Drawing.Size(518, 28);
             this.lblError.TabIndex = 39;
-            // 
-            // lbxGalleryProjects
-            // 
-            this.lbxGalleryProjects.AutoScroll = true;
-            this.lbxGalleryProjects.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.lbxGalleryProjects.ClickedItem = null;
-            this.lbxGalleryProjects.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lbxGalleryProjects.DoubleClickedItem = null;
-            this.lbxGalleryProjects.LastSelectedItem = null;
-            this.lbxGalleryProjects.Location = new System.Drawing.Point(253, 113);
-            this.lbxGalleryProjects.Name = "lbxGalleryProjects";
-            this.lbxGalleryProjects.Size = new System.Drawing.Size(520, 661);
-            this.lbxGalleryProjects.TabIndex = 36;
-            this.lbxGalleryProjects.ItemClick += new OpenBots.UI.CustomControls.CustomUIControls.UIListBox.ItemClickEventHandler(this.lbxGalleryProjects_ItemClick);
             // 
             // pnlProjectVersion
             // 
@@ -153,9 +183,9 @@ namespace OpenBots.UI.Forms
             this.pnlProjectVersion.Name = "pnlProjectVersion";
             this.pnlProjectVersion.Size = new System.Drawing.Size(521, 104);
             this.pnlProjectVersion.TabIndex = 2;
-            theme1.BgGradientEndColor = System.Drawing.Color.FromArgb(((int)(((byte)(49)))), ((int)(((byte)(49)))), ((int)(((byte)(49)))));
-            theme1.BgGradientStartColor = System.Drawing.Color.FromArgb(((int)(((byte)(49)))), ((int)(((byte)(49)))), ((int)(((byte)(49)))));
-            this.pnlProjectVersion.Theme = theme1;
+            theme2.BgGradientEndColor = System.Drawing.Color.FromArgb(((int)(((byte)(49)))), ((int)(((byte)(49)))), ((int)(((byte)(49)))));
+            theme2.BgGradientStartColor = System.Drawing.Color.FromArgb(((int)(((byte)(49)))), ((int)(((byte)(49)))), ((int)(((byte)(49)))));
+            this.pnlProjectVersion.Theme = theme2;
             // 
             // btnInstall
             // 
@@ -224,9 +254,9 @@ namespace OpenBots.UI.Forms
             this.pnlProjectSearch.Name = "pnlProjectSearch";
             this.pnlProjectSearch.Size = new System.Drawing.Size(520, 104);
             this.pnlProjectSearch.TabIndex = 0;
-            theme2.BgGradientEndColor = System.Drawing.Color.FromArgb(((int)(((byte)(49)))), ((int)(((byte)(49)))), ((int)(((byte)(49)))));
-            theme2.BgGradientStartColor = System.Drawing.Color.FromArgb(((int)(((byte)(49)))), ((int)(((byte)(49)))), ((int)(((byte)(49)))));
-            this.pnlProjectSearch.Theme = theme2;
+            theme3.BgGradientEndColor = System.Drawing.Color.FromArgb(((int)(((byte)(49)))), ((int)(((byte)(49)))), ((int)(((byte)(49)))));
+            theme3.BgGradientStartColor = System.Drawing.Color.FromArgb(((int)(((byte)(49)))), ((int)(((byte)(49)))), ((int)(((byte)(49)))));
+            this.pnlProjectSearch.Theme = theme3;
             // 
             // pbxOBGallery
             // 
@@ -296,9 +326,9 @@ namespace OpenBots.UI.Forms
             this.pnlProjectDetails.Name = "pnlProjectDetails";
             this.pnlProjectDetails.Size = new System.Drawing.Size(521, 661);
             this.pnlProjectDetails.TabIndex = 37;
-            theme3.BgGradientEndColor = System.Drawing.Color.FromArgb(((int)(((byte)(49)))), ((int)(((byte)(49)))), ((int)(((byte)(49)))));
-            theme3.BgGradientStartColor = System.Drawing.Color.FromArgb(((int)(((byte)(49)))), ((int)(((byte)(49)))), ((int)(((byte)(49)))));
-            this.pnlProjectDetails.Theme = theme3;
+            theme4.BgGradientEndColor = System.Drawing.Color.FromArgb(((int)(((byte)(49)))), ((int)(((byte)(49)))), ((int)(((byte)(49)))));
+            theme4.BgGradientStartColor = System.Drawing.Color.FromArgb(((int)(((byte)(49)))), ((int)(((byte)(49)))), ((int)(((byte)(49)))));
+            this.pnlProjectDetails.Theme = theme4;
             // 
             // lblPublishDate
             // 
@@ -511,9 +541,9 @@ namespace OpenBots.UI.Forms
             this.pnlFinishButtons.Name = "pnlFinishButtons";
             this.pnlFinishButtons.Size = new System.Drawing.Size(521, 76);
             this.pnlFinishButtons.TabIndex = 38;
-            theme4.BgGradientEndColor = System.Drawing.Color.FromArgb(((int)(((byte)(49)))), ((int)(((byte)(49)))), ((int)(((byte)(49)))));
-            theme4.BgGradientStartColor = System.Drawing.Color.FromArgb(((int)(((byte)(49)))), ((int)(((byte)(49)))), ((int)(((byte)(49)))));
-            this.pnlFinishButtons.Theme = theme4;
+            theme5.BgGradientEndColor = System.Drawing.Color.FromArgb(((int)(((byte)(49)))), ((int)(((byte)(49)))), ((int)(((byte)(49)))));
+            theme5.BgGradientStartColor = System.Drawing.Color.FromArgb(((int)(((byte)(49)))), ((int)(((byte)(49)))), ((int)(((byte)(49)))));
+            this.pnlFinishButtons.Theme = theme5;
             // 
             // uiBtnOpen
             // 
@@ -609,6 +639,8 @@ namespace OpenBots.UI.Forms
             this.Text = "Gallery Project Manager";
             this.Load += new System.EventHandler(this.frmGalleryProject_LoadAsync);
             this.tlpPackageLayout.ResumeLayout(false);
+            this.pnlNugetPackages.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.tpbLoadingSpinner)).EndInit();
             this.pnlProjectVersion.ResumeLayout(false);
             this.pnlProjectVersion.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbxOBStudio)).EndInit();
@@ -629,7 +661,6 @@ namespace OpenBots.UI.Forms
         private System.Windows.Forms.Label lblPackageCategory;
         private System.Windows.Forms.TableLayoutPanel tlpPackageLayout;
         private UIPanel pnlProjectSearch;
-        private UIListBox lbxGalleryProjects;
         private UIPanel pnlProjectVersion;
         private System.Windows.Forms.Label lblDependenciesLabel;
         private System.Windows.Forms.Label lblAuthorsLabel;
@@ -663,5 +694,8 @@ namespace OpenBots.UI.Forms
         private UITreeView tvPackageFeeds;
         private System.Windows.Forms.ImageList imlNodes;
         private System.Windows.Forms.Button btnInstall;
+        private UITransparentPictureBox tpbLoadingSpinner;
+        private UIPanel pnlNugetPackages;
+        private UIListBox lbxNugetPackages;
     }
 }

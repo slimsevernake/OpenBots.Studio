@@ -55,32 +55,21 @@ namespace OpenBots.UI.Forms
                 _allResults.AddRange(_allGalleryResults);
                 _allResults.AddRange(_allNugetResults);
                 GetCurrentDepencies();
-                PopulateListBox(_allResults);
+                PopulateListBox(_projectDependencies);
             }
             catch (Exception ex)
             {
                 //not connected to internet
                 lblError.Text = "Error: " + ex.Message;
             }
-        }
-
-        private void txtSampleSearch_TextChanged(object sender, EventArgs e)
-        {      
-            if (_allResults != null)
-            {
-                if (!string.IsNullOrEmpty(txtSampleSearch.Text))
-                {
-                    var filteredResult = _allResults.Where(x => x.Identity.Id.ToLower().Contains(txtSampleSearch.Text.ToLower())).ToList();
-                    PopulateListBox(filteredResult);
-                }
-                else
-                    PopulateListBox(_allResults);
-            }                                          
-        }  
+        } 
         
         private void PopulateListBox(List<IPackageSearchMetadata> searchresults)
         {
-            lbxGalleryProjects.Clear();
+            lbxNugetPackages.Visible = false;
+            tpbLoadingSpinner.Visible = true;
+
+            lbxNugetPackages.Clear();
             foreach (var result in searchresults)
             {
                 Image img;
@@ -97,15 +86,18 @@ namespace OpenBots.UI.Forms
                     img = Resources.OpenBots_icon;
                 }
 
-                lbxGalleryProjects.Add(result.Identity.Id, result.Identity.Id, result.Description, img, result.Identity.Version.ToString());
+                lbxNugetPackages.Add(result.Identity.Id, result.Identity.Id, result.Description, img, result.Identity.Version.ToString());               
             }
+
+            tpbLoadingSpinner.Visible = false;
+            lbxNugetPackages.Visible = true;
         }
 
-        private async void lbxGalleryProjects_ItemClick(object sender, int index)
+        private async void lbxNugetPackages_ItemClick(object sender, int index)
         {
             try
             {
-                string projectId = lbxGalleryProjects.ClickedItem.Id;
+                string projectId = lbxNugetPackages.ClickedItem.Id;
                 List<IPackageSearchMetadata> metadata = new List<IPackageSearchMetadata>();
 
                 metadata.AddRange(await NugetPackageManagerV2.GetPackageMetadata(projectId, _gallerySourceUrl));
@@ -235,25 +227,6 @@ namespace OpenBots.UI.Forms
             DialogResult = DialogResult.Cancel;
         }
 
-        public static void ExtractGalleryPackage(string projectDirectory)
-        {
-            if (!Directory.Exists(projectDirectory))
-                Directory.CreateDirectory(projectDirectory);
-
-            var processNugetFilePath = projectDirectory + ".nupkg";
-            var processZipFilePath = projectDirectory + ".zip";
-
-            // Create .zip file
-            File.Copy(processNugetFilePath, processZipFilePath, true);
-
-            // Extract Files/Folders from (.zip) file
-            Project.DecompressFile(processZipFilePath, projectDirectory);
-
-            // Delete .zip File
-            File.Delete(processZipFilePath);
-            File.Move(processNugetFilePath, Path.Combine(projectDirectory, new FileInfo(processNugetFilePath).Name));
-        }
-
 
         private void tvPackageFeeds_NodeMouseDoubleClick(object sender, TreeNodeMouseClickEventArgs e)
         {
@@ -281,7 +254,6 @@ namespace OpenBots.UI.Forms
                     PopulateListBox(_allNugetResults);
                 }
             }
-            
         }
 
         private void GetCurrentDepencies()

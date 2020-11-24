@@ -385,6 +385,12 @@
       <DependentUpon>UIRatingBar.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\CustomControls\CustomUIControls\UIListBoxItemColorSchemes.cs" />
+    <Compile Include="UI\CustomControls\CustomUIControls\UITransparentPictureBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="UI\CustomControls\CustomUIControls\UITransparentPictureBox.Designer.cs">
+      <DependentUpon>UITransparentPictureBox.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\Forms\frmGalleryPackageManagerV2.cs">
       <SubType>Form</SubType>
     </Compile>
