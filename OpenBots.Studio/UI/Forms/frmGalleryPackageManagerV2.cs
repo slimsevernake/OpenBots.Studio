@@ -1,7 +1,6 @@
 ﻿using NuGet.Protocol.Core.Types;
 using NuGet.Versioning;
 using OpenBots.Core.Gallery;
-using OpenBots.Core.Project;
 using OpenBots.Core.Properties;
 using OpenBots.Core.UI.Forms;
 using System;
@@ -11,7 +10,6 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Net;
-using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -29,6 +27,8 @@ namespace OpenBots.UI.Forms
         private List<NuGetVersion> _projectVersions;
         private List<IPackageSearchMetadata> _selectedPackageMetaData;
         private bool _isInstalled;
+        private string _installedVersion;
+        private bool _includePrerelease;
 
         private string _gallerySourceUrl = "https://dev.gallery.openbots.io/v3/index.json";
         private string _nugetSourceUrl = "https://api.nuget.org/v3/index.json";
@@ -52,8 +52,8 @@ namespace OpenBots.UI.Forms
             uiBtnOpen.Enabled = false;
             try
             {
-                _allGalleryResults = await NugetPackageManagerV2.SearchPackages("", _gallerySourceUrl);
-                _allNugetResults = await NugetPackageManagerV2.SearchPackages("", _nugetSourceUrl);
+                _allGalleryResults = await NugetPackageManagerV2.SearchPackages("", _gallerySourceUrl, _includePrerelease);
+                _allNugetResults = await NugetPackageManagerV2.SearchPackages("", _nugetSourceUrl, _includePrerelease);
                 _allResults.AddRange(_allGalleryResults);
                 _allResults.AddRange(_allNugetResults);
                 await GetCurrentDepencies();
@@ -102,13 +102,14 @@ namespace OpenBots.UI.Forms
                 string projectId = lbxNugetPackages.ClickedItem.Id;
                 List<IPackageSearchMetadata> metadata = new List<IPackageSearchMetadata>();
 
-                metadata.AddRange(await NugetPackageManagerV2.GetPackageMetadata(projectId, _gallerySourceUrl));
-                metadata.AddRange(await NugetPackageManagerV2.GetPackageMetadata(projectId, _nugetSourceUrl));
+                metadata.AddRange(await NugetPackageManagerV2.GetPackageMetadata(projectId, _gallerySourceUrl, _includePrerelease));
+                metadata.AddRange(await NugetPackageManagerV2.GetPackageMetadata(projectId, _nugetSourceUrl, _includePrerelease));
 
                 string latestVersion = metadata.LastOrDefault().Identity.Version.ToString();
 
-                _projectVersions.AddRange(await NugetPackageManagerV2.GetPackageVersions(projectId, _gallerySourceUrl));
-                _projectVersions.AddRange(await NugetPackageManagerV2.GetPackageVersions(projectId, _nugetSourceUrl));
+                _projectVersions.Clear();
+                _projectVersions.AddRange(await NugetPackageManagerV2.GetPackageVersions(projectId, _gallerySourceUrl, _includePrerelease));
+                _projectVersions.AddRange(await NugetPackageManagerV2.GetPackageVersions(projectId, _nugetSourceUrl, _includePrerelease));
 
                 List<string> versionList = _projectVersions.Select(x => x.ToString()).ToList();
                 versionList.Reverse();
@@ -119,19 +120,19 @@ namespace OpenBots.UI.Forms
 
                 _selectedPackageMetaData = metadata;
 
-                var installedPackage = _projectDependencies.Where(x => x.Identity.Id == _catalog.Identity.Id &&
-                                                                   x.Identity.Version.ToString() == _catalog.Identity.Version.ToString())
-                                                       .FirstOrDefault();
+                var installedPackage = _projectDependencies.Where(x => x.Identity.Id == projectId).FirstOrDefault();
 
                 if (installedPackage != null)
                 {
                     _isInstalled = true;
-                    PopulateProjectDetails(latestVersion);
-                    cbxVersion.SelectedItem = installedPackage.Identity.Version.ToString();
+                    _installedVersion = installedPackage.Identity.Version.ToString();
+                    PopulateProjectDetails(_installedVersion);
+                    cbxVersion.SelectedItem = _installedVersion;
                 }
                 else
                 {
                     _isInstalled = false;
+                    _installedVersion = "";
                     PopulateProjectDetails(latestVersion);
                     cbxVersion.SelectedIndex = 0;
                 }
@@ -182,10 +183,27 @@ namespace OpenBots.UI.Forms
             }
 
             if (_isInstalled)
-                btnInstall.Text = "Uninstall";               
-            else
-                btnInstall.Text = "Install";
+            {
+                btnInstall.Text = "Update";
+                lblInstalled.Visible = true;
+                txtInstalled.Text = _installedVersion;
+                txtInstalled.Visible = true;
+                btnUninstall.Visible = true;
 
+                if (_installedVersion == version)
+                    btnInstall.Enabled = false;
+                else
+                    btnInstall.Enabled = true;
+            }
+                              
+            else
+            {
+                btnInstall.Text = "Install";
+                lblInstalled.Visible = false;
+                txtInstalled.Visible = false;
+                btnUninstall.Visible = false;
+                btnInstall.Enabled = true;
+            }               
         }
 
         private void llblLicense_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -248,22 +266,26 @@ namespace OpenBots.UI.Forms
                 if (tvPackageFeeds.SelectedNode.Name == "projectDependencies")
                 {
                     lblPackageCategory.Text = "Project Dependencies";
+                    pbxPackageCategory.Image = Resources.OpenBots_icon;
                     await GetCurrentDepencies();
                     PopulateListBox(_projectDependencies);
                 }
                 else if (tvPackageFeeds.SelectedNode.Name == "allPackages")
                 {
                     lblPackageCategory.Text = "All Packages";
+                    pbxPackageCategory.Image = Resources.OpenBots_icon;
                     PopulateListBox(_allResults);
                 }
                 else if (tvPackageFeeds.SelectedNode.Name == "gallery")
                 {
                     lblPackageCategory.Text = "Gallery";
+                    pbxPackageCategory.Image = Resources.openbots_gallery_icon;
                     PopulateListBox(_allGalleryResults);
                 }
                 else if (tvPackageFeeds.SelectedNode.Name == "nuget")
                 {
                     lblPackageCategory.Text = "Nuget";
+                    pbxPackageCategory.Image = Resources.nuget_icon;
                     PopulateListBox(_allNugetResults);
                 }
             }
@@ -275,11 +297,11 @@ namespace OpenBots.UI.Forms
             _projectDependencies.Clear();
             foreach(var pair in _projectDependenciesDict)
             {
-                var galleryDependency = (await NugetPackageManagerV2.GetPackageMetadata(pair.Key, _gallerySourceUrl))
+                var galleryDependency = (await NugetPackageManagerV2.GetPackageMetadata(pair.Key, _gallerySourceUrl, _includePrerelease))
                     .Where(x => x.Identity.Version.ToString() == pair.Value).FirstOrDefault();
                 if (galleryDependency != null && nugetDirectoryList.Where(x => x.EndsWith($"{pair.Key}.{pair.Value}")).FirstOrDefault() != null)
                     _projectDependencies.Add(galleryDependency);
-                var nugetDependency = (await NugetPackageManagerV2.GetPackageMetadata(pair.Key, _nugetSourceUrl))
+                var nugetDependency = (await NugetPackageManagerV2.GetPackageMetadata(pair.Key, _nugetSourceUrl, _includePrerelease))
                     .Where(x => x.Identity.Version.ToString() == pair.Value).FirstOrDefault();
                 if (nugetDependency != null && nugetDirectoryList.Where(x => x.EndsWith($"{pair.Key}.{pair.Value}")).FirstOrDefault() != null)
                     _projectDependencies.Add(nugetDependency);
@@ -299,16 +321,16 @@ namespace OpenBots.UI.Forms
                 }
                 else if (lblPackageCategory.Text == "All Packages")
                 {
-                    searchResults.AddRange(await NugetPackageManagerV2.SearchPackages(txtSampleSearch.Text, _gallerySourceUrl));
-                    searchResults.AddRange(await NugetPackageManagerV2.SearchPackages(txtSampleSearch.Text, _nugetSourceUrl));
+                    searchResults.AddRange(await NugetPackageManagerV2.SearchPackages(txtSampleSearch.Text, _gallerySourceUrl, _includePrerelease));
+                    searchResults.AddRange(await NugetPackageManagerV2.SearchPackages(txtSampleSearch.Text, _nugetSourceUrl, _includePrerelease));
                 }
                 else if (lblPackageCategory.Text == "Gallery")
                 {
-                    searchResults.AddRange(await NugetPackageManagerV2.SearchPackages(txtSampleSearch.Text, _gallerySourceUrl));
+                    searchResults.AddRange(await NugetPackageManagerV2.SearchPackages(txtSampleSearch.Text, _gallerySourceUrl, _includePrerelease));
                 }
                 else if (lblPackageCategory.Text == "Nuget")
                 {
-                    searchResults.AddRange(await NugetPackageManagerV2.SearchPackages(txtSampleSearch.Text, _nugetSourceUrl));
+                    searchResults.AddRange(await NugetPackageManagerV2.SearchPackages(txtSampleSearch.Text, _nugetSourceUrl, _includePrerelease));
                 }
                
                 PopulateListBox(searchResults);
@@ -324,14 +346,27 @@ namespace OpenBots.UI.Forms
         {
             if (btnInstall.Text == "Install")
                 DownloadAndOpenPackage(_catalog.Identity.Id, _catalog.Identity.Version.ToString());
-            else if (btnInstall.Text == "Uninstall")
-                UninstallPackage(_catalog.Identity.Id, _catalog.Identity.Version.ToString());
+            else if (btnInstall.Text == "Update")
+            {
+                UninstallPackage(_catalog.Identity.Id, txtInstalled.Text);
+                DownloadAndOpenPackage(_catalog.Identity.Id, _catalog.Identity.Version.ToString());
+            }
+        }
+
+        private void btnUninstall_Click(object sender, EventArgs e)
+        {
+            UninstallPackage(_catalog.Identity.Id, txtInstalled.Text);
         }
 
         private void UninstallPackage(string packageId, string version)
         {
             _projectDependenciesDict.Remove(packageId);
             DialogResult = DialogResult.OK;
+        }
+
+        private void chbxIncludePrerelease_CheckedChanged(object sender, EventArgs e)
+        {
+            _includePrerelease = chbxIncludePrerelease.Checked;
         }
     }
 }

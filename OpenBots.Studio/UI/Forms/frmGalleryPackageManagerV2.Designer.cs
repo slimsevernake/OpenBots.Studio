@@ -59,7 +59,8 @@ namespace OpenBots.UI.Forms
             this.lblVersionTitleLabel = new System.Windows.Forms.Label();
             this.lblTitle = new System.Windows.Forms.Label();
             this.pnlProjectSearch = new OpenBots.UI.CustomControls.CustomUIControls.UIPanel();
-            this.pbxOBGallery = new System.Windows.Forms.PictureBox();
+            this.chbxIncludePrerelease = new System.Windows.Forms.CheckBox();
+            this.pbxPackageCategory = new System.Windows.Forms.PictureBox();
             this.lblSearch = new System.Windows.Forms.Label();
             this.lblPackageCategory = new System.Windows.Forms.Label();
             this.txtSampleSearch = new System.Windows.Forms.TextBox();
@@ -93,7 +94,7 @@ namespace OpenBots.UI.Forms
             this.pnlProjectVersion.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbxOBStudio)).BeginInit();
             this.pnlProjectSearch.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pbxOBGallery)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbxPackageCategory)).BeginInit();
             this.pnlProjectDetails.SuspendLayout();
             this.pnlFinishButtons.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.uiBtnOpen)).BeginInit();
@@ -203,6 +204,7 @@ namespace OpenBots.UI.Forms
             this.txtInstalled.Name = "txtInstalled";
             this.txtInstalled.Size = new System.Drawing.Size(292, 34);
             this.txtInstalled.TabIndex = 48;
+            this.txtInstalled.Visible = false;
             // 
             // btnUninstall
             // 
@@ -213,6 +215,8 @@ namespace OpenBots.UI.Forms
             this.btnUninstall.TabIndex = 47;
             this.btnUninstall.Text = "Uninstall";
             this.btnUninstall.UseVisualStyleBackColor = true;
+            this.btnUninstall.Visible = false;
+            this.btnUninstall.Click += new System.EventHandler(this.btnUninstall_Click);
             // 
             // lblInstalled
             // 
@@ -224,6 +228,7 @@ namespace OpenBots.UI.Forms
             this.lblInstalled.Size = new System.Drawing.Size(113, 32);
             this.lblInstalled.TabIndex = 45;
             this.lblInstalled.Text = "Installed:";
+            this.lblInstalled.Visible = false;
             // 
             // btnInstall
             // 
@@ -272,18 +277,19 @@ namespace OpenBots.UI.Forms
             // 
             // lblTitle
             // 
-            this.lblTitle.AutoSize = true;
+            this.lblTitle.AutoEllipsis = true;
             this.lblTitle.Font = new System.Drawing.Font("Segoe UI Semilight", 20F);
             this.lblTitle.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.lblTitle.Location = new System.Drawing.Point(70, 17);
             this.lblTitle.Name = "lblTitle";
-            this.lblTitle.Size = new System.Drawing.Size(75, 46);
+            this.lblTitle.Size = new System.Drawing.Size(445, 46);
             this.lblTitle.TabIndex = 1;
             this.lblTitle.Text = "title";
             // 
             // pnlProjectSearch
             // 
-            this.pnlProjectSearch.Controls.Add(this.pbxOBGallery);
+            this.pnlProjectSearch.Controls.Add(this.chbxIncludePrerelease);
+            this.pnlProjectSearch.Controls.Add(this.pbxPackageCategory);
             this.pnlProjectSearch.Controls.Add(this.lblSearch);
             this.pnlProjectSearch.Controls.Add(this.lblPackageCategory);
             this.pnlProjectSearch.Controls.Add(this.txtSampleSearch);
@@ -296,15 +302,28 @@ namespace OpenBots.UI.Forms
             theme3.BgGradientStartColor = System.Drawing.Color.FromArgb(((int)(((byte)(49)))), ((int)(((byte)(49)))), ((int)(((byte)(49)))));
             this.pnlProjectSearch.Theme = theme3;
             // 
-            // pbxOBGallery
+            // chbxIncludePrerelease
             // 
-            this.pbxOBGallery.Image = ((System.Drawing.Image)(resources.GetObject("pbxOBGallery.Image")));
-            this.pbxOBGallery.Location = new System.Drawing.Point(13, 13);
-            this.pbxOBGallery.Name = "pbxOBGallery";
-            this.pbxOBGallery.Size = new System.Drawing.Size(50, 50);
-            this.pbxOBGallery.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pbxOBGallery.TabIndex = 44;
-            this.pbxOBGallery.TabStop = false;
+            this.chbxIncludePrerelease.AutoSize = true;
+            this.chbxIncludePrerelease.Font = new System.Drawing.Font("Segoe UI Semibold", 14F);
+            this.chbxIncludePrerelease.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.chbxIncludePrerelease.Location = new System.Drawing.Point(13, 68);
+            this.chbxIncludePrerelease.Name = "chbxIncludePrerelease";
+            this.chbxIncludePrerelease.Size = new System.Drawing.Size(236, 36);
+            this.chbxIncludePrerelease.TabIndex = 46;
+            this.chbxIncludePrerelease.Text = "Include Prerelease";
+            this.chbxIncludePrerelease.UseVisualStyleBackColor = true;
+            this.chbxIncludePrerelease.CheckedChanged += new System.EventHandler(this.chbxIncludePrerelease_CheckedChanged);
+            // 
+            // pbxPackageCategory
+            // 
+            this.pbxPackageCategory.Image = ((System.Drawing.Image)(resources.GetObject("pbxPackageCategory.Image")));
+            this.pbxPackageCategory.Location = new System.Drawing.Point(13, 13);
+            this.pbxPackageCategory.Name = "pbxPackageCategory";
+            this.pbxPackageCategory.Size = new System.Drawing.Size(50, 50);
+            this.pbxPackageCategory.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pbxPackageCategory.TabIndex = 44;
+            this.pbxPackageCategory.TabStop = false;
             // 
             // lblSearch
             // 
@@ -326,9 +345,9 @@ namespace OpenBots.UI.Forms
             this.lblPackageCategory.Location = new System.Drawing.Point(70, 9);
             this.lblPackageCategory.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblPackageCategory.Name = "lblPackageCategory";
-            this.lblPackageCategory.Size = new System.Drawing.Size(231, 54);
+            this.lblPackageCategory.Size = new System.Drawing.Size(398, 54);
             this.lblPackageCategory.TabIndex = 33;
-            this.lblPackageCategory.Text = "all packages";
+            this.lblPackageCategory.Text = "Project Dependencies";
             // 
             // txtSampleSearch
             // 
@@ -433,12 +452,12 @@ namespace OpenBots.UI.Forms
             // 
             // lblAuthors
             // 
-            this.lblAuthors.AutoSize = true;
+            this.lblAuthors.AutoEllipsis = true;
             this.lblAuthors.Font = new System.Drawing.Font("Segoe UI Semilight", 12F);
             this.lblAuthors.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.lblAuthors.Location = new System.Drawing.Point(161, 193);
             this.lblAuthors.Name = "lblAuthors";
-            this.lblAuthors.Size = new System.Drawing.Size(76, 28);
+            this.lblAuthors.Size = new System.Drawing.Size(351, 28);
             this.lblAuthors.TabIndex = 56;
             this.lblAuthors.Text = "authors";
             // 
@@ -455,6 +474,7 @@ namespace OpenBots.UI.Forms
             // 
             // lblDescription
             // 
+            this.lblDescription.AutoEllipsis = true;
             this.lblDescription.Font = new System.Drawing.Font("Segoe UI Semilight", 12F);
             this.lblDescription.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.lblDescription.Location = new System.Drawing.Point(9, 30);
@@ -684,7 +704,7 @@ namespace OpenBots.UI.Forms
             ((System.ComponentModel.ISupportInitialize)(this.pbxOBStudio)).EndInit();
             this.pnlProjectSearch.ResumeLayout(false);
             this.pnlProjectSearch.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pbxOBGallery)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbxPackageCategory)).EndInit();
             this.pnlProjectDetails.ResumeLayout(false);
             this.pnlProjectDetails.PerformLayout();
             this.pnlFinishButtons.ResumeLayout(false);
@@ -727,7 +747,7 @@ namespace OpenBots.UI.Forms
         private Core.UI.Controls.UIPictureButton uiBtnOpen;
         private Core.UI.Controls.UIPictureButton uiBtnCancel;
         private System.Windows.Forms.Label lblSearch;
-        private System.Windows.Forms.PictureBox pbxOBGallery;
+        private System.Windows.Forms.PictureBox pbxPackageCategory;
         public System.Windows.Forms.Label lblError;
         private UITreeView tvPackageFeeds;
         private System.Windows.Forms.ImageList imlNodes;
@@ -738,5 +758,6 @@ namespace OpenBots.UI.Forms
         public System.Windows.Forms.TextBox txtInstalled;
         private System.Windows.Forms.Button btnUninstall;
         private System.Windows.Forms.Label lblInstalled;
+        private System.Windows.Forms.CheckBox chbxIncludePrerelease;
     }
 }

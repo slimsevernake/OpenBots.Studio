@@ -24,7 +24,7 @@ namespace OpenBots.Core.Gallery
 {
     public class NugetPackageManagerV2
     {
-        public static async Task<List<NuGetVersion>> GetPackageVersions(string packageId, string source)
+        public static async Task<List<NuGetVersion>> GetPackageVersions(string packageId, string source, bool includePrerelease)
         {
             ILogger logger = NullLogger.Instance;
             CancellationToken cancellationToken = CancellationToken.None;
@@ -39,17 +39,17 @@ namespace OpenBots.Core.Gallery
                 logger,
                 cancellationToken);
 
-            return versions.Where(x => x.IsPrerelease == false).ToList();
+            return versions.Where(x => x.IsPrerelease == includePrerelease).ToList();
         }
 
-        public static async Task<List<IPackageSearchMetadata>> SearchPackages(string packageKeyword, string source)
+        public static async Task<List<IPackageSearchMetadata>> SearchPackages(string packageKeyword, string source, bool includePrerelease)
         {
             ILogger logger = NullLogger.Instance;
             CancellationToken cancellationToken = CancellationToken.None;
 
             SourceRepository repository = Repository.Factory.GetCoreV3(source);
             PackageSearchResource resource = await repository.GetResourceAsync<PackageSearchResource>();
-            SearchFilter searchFilter = new SearchFilter(includePrerelease: false);
+            SearchFilter searchFilter = new SearchFilter(includePrerelease: includePrerelease);
 
             IEnumerable<IPackageSearchMetadata> results = await resource.SearchAsync(
                 packageKeyword,
@@ -62,7 +62,7 @@ namespace OpenBots.Core.Gallery
             return results.ToList();
         }
 
-        public static async Task<List<IPackageSearchMetadata>> GetPackageMetadata(string packageId, string source)
+        public static async Task<List<IPackageSearchMetadata>> GetPackageMetadata(string packageId, string source, bool includePrerelease)
         {
             ILogger logger = NullLogger.Instance;
             CancellationToken cancellationToken = CancellationToken.None;
@@ -73,7 +73,7 @@ namespace OpenBots.Core.Gallery
 
             IEnumerable<IPackageSearchMetadata> packages = await resource.GetMetadataAsync(
                 packageId,
-                includePrerelease: false,
+                includePrerelease: includePrerelease,
                 includeUnlisted: false,
                 cache,
                 logger,
