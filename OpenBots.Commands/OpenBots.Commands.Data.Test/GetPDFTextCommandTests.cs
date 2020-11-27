@@ -38,5 +38,21 @@ namespace OpenBots.Commands.Data.Test
 
             Assert.Equal("Dummy PDF file", "{outputText}".ConvertUserVariableToString(_engine));
         }
+
+        [Fact]
+        public void HandlesInvalidFilepath()
+        {
+            _getPDFText = new GetPDFTextCommand();
+            _engine = new AutomationEngineInstance(null);
+            string filepath = "";
+
+            filepath.StoreInUserVariable(_engine, "{filepath}");
+
+            _getPDFText.v_FileSourceType = "File Path";
+            _getPDFText.v_FilePath = "{filepath}";
+            _getPDFText.v_OutputUserVariableName = "{outputText}";
+
+            Assert.Throws<FileNotFoundException>(() => _getPDFText.RunCommand(_engine));
+        }
     }
 }

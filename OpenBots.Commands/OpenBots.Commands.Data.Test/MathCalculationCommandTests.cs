@@ -35,9 +35,9 @@ namespace OpenBots.Commands.Data.Test
         {
             _mathCalculation = new MathCalculationCommand();
             _engine = new AutomationEngineInstance(null);
-            string num1 = "10,000";
-            string num2 = "1,000";
-            string thouSeparator = ",";
+            string num1 = "10.000";
+            string num2 = "1.000";
+            string thouSeparator = ".";
             num1.StoreInUserVariable(_engine, "{num1}");
             num2.StoreInUserVariable(_engine, "{num2}");
             thouSeparator.StoreInUserVariable(_engine, "{thouSeparator}");
@@ -49,7 +49,7 @@ namespace OpenBots.Commands.Data.Test
 
             _mathCalculation.RunCommand(_engine);
 
-            Assert.Equal("11,000.00", _mathCalculation.v_OutputUserVariableName.ConvertUserVariableToString(_engine));
+            Assert.Equal("11.000.00", _mathCalculation.v_OutputUserVariableName.ConvertUserVariableToString(_engine));
         }
 
         [Fact]
@@ -58,9 +58,9 @@ namespace OpenBots.Commands.Data.Test
             _mathCalculation = new MathCalculationCommand();
             _engine = new AutomationEngineInstance(null);
 
-            string num1 = "1.10";
-            string num2 = "0.50";
-            string decSeparator = ".";
+            string num1 = "1:10";
+            string num2 = "0:50";
+            string decSeparator = ":";
             num1.StoreInUserVariable(_engine, "{num1}");
             num2.StoreInUserVariable(_engine, "{num2}");
             decSeparator.StoreInUserVariable(_engine, "{decSeparator}");
@@ -72,7 +72,7 @@ namespace OpenBots.Commands.Data.Test
 
             _mathCalculation.RunCommand(_engine);
 
-            Assert.Equal("1.60", _mathCalculation.v_OutputUserVariableName.ConvertUserVariableToString(_engine));
+            Assert.Equal("1:60", _mathCalculation.v_OutputUserVariableName.ConvertUserVariableToString(_engine));
         }
     }
 }

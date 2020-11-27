@@ -6,9 +6,9 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("OpenBots.Commands.TextFile.Test")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("The project contains common data command tests.")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("Accelirate Inc.")]
 [assembly: AssemblyProduct("OpenBots.Commands.TextFile.Test")]
 [assembly: AssemblyCopyright("Copyright ©  2020")]
 [assembly: AssemblyTrademark("")]
