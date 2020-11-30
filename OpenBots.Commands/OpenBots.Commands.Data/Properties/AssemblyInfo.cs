@@ -8,7 +8,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("OpenBots.Commands.Data")]
 [assembly: AssemblyDescription("The project contains common data commands required for automation.")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Accelirate Inc.")]
+[assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("OpenBots.Commands.Data")]
 [assembly: AssemblyCopyright("Copyright © 2020")]
 [assembly: AssemblyTrademark("")]

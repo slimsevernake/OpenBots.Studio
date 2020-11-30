@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("OpenBots.Commands.Dictionary.Test")]
+[assembly: AssemblyTitle("OpenBots.Commands.Data.Test")]
 [assembly: AssemblyDescription("The project contains common data command tests.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("OpenBots.Commands.Dictionary.Test")]
+[assembly: AssemblyProduct("OpenBots.Commands.Data.Test")]
 [assembly: AssemblyCopyright("Copyright ©  2020")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("a5766e61-556e-4a5a-aca0-7fce0f64bbae")]
+[assembly: Guid("e0861c10-62b7-4f43-987d-238a55b5c6d1")]
 
 // Version information for an assembly consists of the following four values:
 //
