@@ -85,7 +85,7 @@ namespace OpenBots.UI.Forms
                 }
                 catch (Exception)
                 {
-                    img = Resources.OpenBots_icon;
+                    img = Resources.nuget_icon;
                 }
 
                 lbxNugetPackages.Add(result.Identity.Id, result.Identity.Id, result.Description, img, result.Identity.Version.ToString());               
@@ -154,34 +154,63 @@ namespace OpenBots.UI.Forms
         {
             _catalog = _selectedPackageMetaData.Where(x => x.Identity.Version.ToString() == version).SingleOrDefault();
 
-            try
+            if (_catalog != null)
             {
-                WebClient wc = new WebClient();
-                byte[] bytes = wc.DownloadData(_catalog.IconUrl);
-                MemoryStream ms = new MemoryStream(bytes);
-                pbxOBStudio.Image = Image.FromStream(ms);
+                try
+                {
+                    WebClient wc = new WebClient();
+                    byte[] bytes = wc.DownloadData(_catalog.IconUrl);
+                    MemoryStream ms = new MemoryStream(bytes);
+                    pbxOBStudio.Image = Image.FromStream(ms);
+                }
+                catch (Exception)
+                {
+                    pbxOBStudio.Image = Resources.nuget_icon;
+                }
+
+                lblTitle.Text = _catalog.Title;
+                lblAuthors.Text = _catalog.Authors;
+                lblDescription.Text = _catalog.Description;
+                lblDownloads.Text = _catalog.DownloadCount.ToString();
+                lblVersion.Text = _catalog.Identity.Version.ToString();
+                lblPublishDate.Text = DateTime.Parse(_catalog.Published.ToString()).ToString("g");
+                llblProjectURL.LinkVisited = false;
+                llblLicenseURL.LinkVisited = false;
+
+                lvDependencies.Items.Clear();
+                if (_catalog.DependencySets.ToList().Count > 0)
+                {
+                    foreach (var dependency in _catalog.DependencySets.FirstOrDefault().Packages)
+                        lvDependencies.Items.Add(new ListViewItem(new string[] { dependency.Id, dependency.VersionRange.ToString() }));
+                }
             }
-            catch (Exception)
+            else
             {
-                pbxOBStudio.Image = Resources.OpenBots_icon;
+                _catalog = _selectedPackageMetaData.Last();
+                try
+                {
+                    WebClient wc = new WebClient();
+                    byte[] bytes = wc.DownloadData(_catalog.IconUrl);
+                    MemoryStream ms = new MemoryStream(bytes);
+                    pbxOBStudio.Image = Image.FromStream(ms);
+                }
+                catch (Exception)
+                {
+                    pbxOBStudio.Image = Resources.nuget_icon;
+                }
+
+                lblTitle.Text = _catalog.Title;
+                lblAuthors.Text = "Unknown";
+                lblDescription.Text = "Unknown";
+                lblDownloads.Text = "Unknown";
+                lblVersion.Text = version;
+                lblPublishDate.Text = "Unknown";
+                llblProjectURL.LinkVisited = false;
+                llblLicenseURL.LinkVisited = false;
+
+                lvDependencies.Items.Clear();
             }
-
-            lblTitle.Text = _catalog.Title;
-            lblAuthors.Text = _catalog.Authors;
-            lblDescription.Text = _catalog.Description;
-            lblDownloads.Text = _catalog.DownloadCount.ToString();
-            lblVersion.Text = _catalog.Identity.Version.ToString();
-            lblPublishDate.Text = DateTime.Parse(_catalog.Published.ToString()).ToString("g");
-            llblProjectURL.LinkVisited = false;
-            llblLicenseURL.LinkVisited = false;
-
-            lvDependencies.Items.Clear();
-            if (_catalog.DependencySets.ToList().Count > 0)
-            {
-                foreach (var dependency in _catalog.DependencySets.FirstOrDefault().Packages)
-                    lvDependencies.Items.Add(new ListViewItem(new string[] { dependency.Id, dependency.VersionRange.ToString() }));
-            }
-
+            
             if (_isInstalled)
             {
                 btnInstall.Text = "Update";
@@ -312,6 +341,7 @@ namespace OpenBots.UI.Forms
         private async void txtSampleSearch_KeyDown(object sender, KeyEventArgs e)
         {
             var searchResults = new List<IPackageSearchMetadata>();
+
             if (e.KeyCode == Keys.Enter)
             {               
                 if (lblPackageCategory.Text == "Project Dependencies")
@@ -334,7 +364,14 @@ namespace OpenBots.UI.Forms
                 }
                
                 PopulateListBox(searchResults);
+                e.Handled = true;
             }
+        }
+
+        private void txtSampleSearch_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)Keys.Return)
+                e.Handled = true;
         }
 
         private void tvPackageFeeds_BeforeCollapse(object sender, TreeViewCancelEventArgs e)
@@ -345,22 +382,17 @@ namespace OpenBots.UI.Forms
         private void btnInstall_Click(object sender, EventArgs e)
         {
             if (btnInstall.Text == "Install")
-                DownloadAndOpenPackage(_catalog.Identity.Id, _catalog.Identity.Version.ToString());
+                DownloadAndOpenPackage(_catalog.Identity.Id, cbxVersion.SelectedItem.ToString());
             else if (btnInstall.Text == "Update")
             {
-                UninstallPackage(_catalog.Identity.Id, txtInstalled.Text);
-                DownloadAndOpenPackage(_catalog.Identity.Id, _catalog.Identity.Version.ToString());
+                _projectDependenciesDict.Remove(_catalog.Identity.Id);
+                DownloadAndOpenPackage(_catalog.Identity.Id, cbxVersion.SelectedItem.ToString());
             }
         }
 
         private void btnUninstall_Click(object sender, EventArgs e)
         {
-            UninstallPackage(_catalog.Identity.Id, txtInstalled.Text);
-        }
-
-        private void UninstallPackage(string packageId, string version)
-        {
-            _projectDependenciesDict.Remove(packageId);
+            _projectDependenciesDict.Remove(_catalog.Identity.Id);
             DialogResult = DialogResult.OK;
         }
 

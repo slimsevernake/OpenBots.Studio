@@ -10,13 +10,10 @@ using NuGet.Protocol;
 using NuGet.Protocol.Core.Types;
 using NuGet.Resolver;
 using NuGet.Versioning;
-using OpenBots.Core.Command;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Reflection;
-using System.Security.Policy;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -39,7 +36,10 @@ namespace OpenBots.Core.Gallery
                 logger,
                 cancellationToken);
 
-            return versions.Where(x => x.IsPrerelease == includePrerelease).ToList();
+            if (includePrerelease)
+                return versions.ToList();
+            else
+                return versions.Where(x => x.IsPrerelease == false).ToList();
         }
 
         public static async Task<List<IPackageSearchMetadata>> SearchPackages(string packageKeyword, string source, bool includePrerelease)
@@ -74,7 +74,7 @@ namespace OpenBots.Core.Gallery
             IEnumerable<IPackageSearchMetadata> packages = await resource.GetMetadataAsync(
                 packageId,
                 includePrerelease: includePrerelease,
-                includeUnlisted: false,
+                includeUnlisted: true,
                 cache,
                 logger,
                 cancellationToken);

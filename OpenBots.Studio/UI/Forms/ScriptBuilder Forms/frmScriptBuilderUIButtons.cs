@@ -696,8 +696,7 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
                 File.WriteAllText(configPath, JsonConvert.SerializeObject(ScriptProject));
 
                 var assemblyList = await NugetPackageManagerV2.LoadProjectAssemblies(configPath);
-                AppDomainSetupManager.LoadDomain(assemblyList, _scriptAssemblies);
-                _builder = AppDomainSetupManager.LoadBuilder(_scriptAssemblies);
+                _builder = AppDomainSetupManager.LoadBuilder(assemblyList);
                 _container = _builder.Build();
                 
                 LoadCommands();

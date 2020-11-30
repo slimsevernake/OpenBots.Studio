@@ -156,10 +156,10 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
         private string _txtCommandWatermark = "Type Here to Search";   
         public string HTMLElementRecorderURL { get; set; }
         private bool _isSequence;
+
         private IContainer _container;
         private ContainerBuilder _builder;
         private string _packagesPath;
-        private List<Assembly> _scriptAssemblies;
         #endregion
 
         #region Form Events
@@ -188,7 +188,6 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
             if (!Directory.Exists(_packagesPath))
                 Directory.CreateDirectory(_packagesPath);
 
-            _scriptAssemblies = new List<Assembly>();
             _builder = new ContainerBuilder();
             
             //set controls double buffered

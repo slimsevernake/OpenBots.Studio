@@ -54,11 +54,13 @@ namespace OpenBots.Utilities
                 form.WindowState = FormWindowState.Minimized;
         }
 
-        public static List<AutomationCommand> GenerateCommandsandControls(Autofac.IContainer container = null)// List<Assembly> dependencyAssemblies = null) 
+        public static List<AutomationCommand> GenerateCommandsandControls(Autofac.IContainer container = null)
         {
             var commandList = new List<AutomationCommand>();
-
-            var commandClasses = Assembly.GetExecutingAssembly().GetTypes()
+            var commandClasses = new List<Type>();
+           
+            //TODO delete query when commands are fully removed from studio
+            commandClasses = Assembly.GetExecutingAssembly().GetTypes()
                                  .Where(t => t.Namespace == "OpenBots.Commands")
                                  .Where(t => t.Name != "ScriptCommand")
                                  .Where(t => t.IsAbstract == false)

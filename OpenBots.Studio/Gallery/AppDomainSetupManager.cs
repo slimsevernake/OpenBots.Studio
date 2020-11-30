@@ -6,8 +6,6 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Security.Policy;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace OpenBots.Gallery
 {
@@ -36,44 +34,42 @@ namespace OpenBots.Gallery
 
         }
 
-        public static void LoadDomain(List<string> assemblyPaths, List<Assembly> existingAssemblies)
+        public static ContainerBuilder LoadBuilder(List<string> assemblyPaths)
         {
-            List<string> retryPaths = new List<string>();
-            assemblyPaths.Reverse();
-            while (assemblyPaths.Count > 0)
+            List<Assembly> existingAssemblies = new List<Assembly>();
+            foreach (var path in assemblyPaths)
             {
-                foreach (var path in assemblyPaths)
+                try
                 {
-                    try
-                    {
-                        var name = AssemblyName.GetAssemblyName(path).ToString();
+                    var assemblyinfo = AssemblyName.GetAssemblyName(path);
+                    var name = assemblyinfo.Name;
+                    var version = assemblyinfo.Version.ToString();
+                    var publicKey = assemblyinfo.GetPublicKeyToken().GetHashCode();
 
-                        var assemblies = AppDomain.CurrentDomain.GetAssemblies();
-                        var existingAssembly = assemblies.Where(x => x.GetName().ToString() == name).FirstOrDefault();
-                        if (existingAssembly == null)
-                        {
-                            var assembly = Assembly.Load(File.ReadAllBytes(path));
-                            existingAssemblies.Add(assembly);
-                        }
-                    }
-                    catch (Exception ex)
+                    var assemblies = AppDomain.CurrentDomain.GetAssemblies();
+                    var existingAssembly = assemblies.Where(x => x.GetName().Name == name && 
+                                                                 x.GetName().Version.ToString() == version //&& 
+                                                                 //x.GetName().GetPublicKeyToken().GetHashCode() == publicKey)
+                                                                 ).FirstOrDefault();
+
+                    if (existingAssembly == null)
                     {
-                        Console.WriteLine(ex);
-                        retryPaths.Add(path);
+                        var assembly = Assembly.Load(File.ReadAllBytes(path));
+                        var assemblies2 = AppDomain.CurrentDomain.GetAssemblies();
+                        existingAssemblies.Add(assembly);
                     }
+                    else
+                        existingAssemblies.Add(existingAssembly);
                 }
-                assemblyPaths.Clear();
-                assemblyPaths.AddRange(retryPaths);
-                assemblyPaths.Reverse();
-                retryPaths.Clear();
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex);
+                }
             }
-        }
 
-        public static ContainerBuilder LoadBuilder(List<Assembly> assemblies)
-        {
             ContainerBuilder builder = new ContainerBuilder();
 
-            builder.RegisterAssemblyTypes(assemblies.ToArray())
+            builder.RegisterAssemblyTypes(existingAssemblies.ToArray())
                                                    .Where(t => t.IsAssignableTo<ScriptCommand>())
                                                    .Named<ScriptCommand>(t => t.Name)
                                                    .AsImplementedInterfaces();

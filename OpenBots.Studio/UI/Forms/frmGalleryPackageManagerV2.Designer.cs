@@ -359,6 +359,7 @@ namespace OpenBots.UI.Forms
             this.txtSampleSearch.Size = new System.Drawing.Size(411, 34);
             this.txtSampleSearch.TabIndex = 34;
             this.txtSampleSearch.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtSampleSearch_KeyDown);
+            this.txtSampleSearch.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtSampleSearch_KeyPress);
             // 
             // pnlProjectDetails
             // 
