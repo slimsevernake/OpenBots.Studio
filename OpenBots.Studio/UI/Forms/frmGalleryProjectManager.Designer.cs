@@ -36,8 +36,9 @@ namespace OpenBots.UI.Forms
             OpenBots.Core.Utilities.FormsUtilities.Theme theme2 = new OpenBots.Core.Utilities.FormsUtilities.Theme();
             OpenBots.Core.Utilities.FormsUtilities.Theme theme3 = new OpenBots.Core.Utilities.FormsUtilities.Theme();
             OpenBots.Core.Utilities.FormsUtilities.Theme theme4 = new OpenBots.Core.Utilities.FormsUtilities.Theme();
+            OpenBots.Core.Utilities.FormsUtilities.Theme theme5 = new OpenBots.Core.Utilities.FormsUtilities.Theme();
             this.tlpProjectLayout = new System.Windows.Forms.TableLayoutPanel();
-            this.lbxGalleryProjects = new OpenBots.UI.CustomControls.CustomUIControls.UIListBox();
+            this.lblError = new System.Windows.Forms.Label();
             this.pnlProjectVersion = new OpenBots.UI.CustomControls.CustomUIControls.UIPanel();
             this.pbxOBStudio = new System.Windows.Forms.PictureBox();
             this.cbxVersion = new System.Windows.Forms.ComboBox();
@@ -70,7 +71,9 @@ namespace OpenBots.UI.Forms
             this.pnlFinishButtons = new OpenBots.UI.CustomControls.CustomUIControls.UIPanel();
             this.uiBtnOpen = new OpenBots.Core.UI.Controls.UIPictureButton();
             this.uiBtnCancel = new OpenBots.Core.UI.Controls.UIPictureButton();
-            this.lblError = new System.Windows.Forms.Label();
+            this.pnlGalleryProjects = new OpenBots.UI.CustomControls.CustomUIControls.UIPanel();
+            this.tpbLoadingSpinner = new OpenBots.UI.CustomControls.CustomUIControls.UITransparentPictureBox();
+            this.lbxGalleryProjects = new OpenBots.UI.CustomControls.CustomUIControls.UIListBox();
             this.tlpProjectLayout.SuspendLayout();
             this.pnlProjectVersion.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbxOBStudio)).BeginInit();
@@ -80,6 +83,8 @@ namespace OpenBots.UI.Forms
             this.pnlFinishButtons.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.uiBtnOpen)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.uiBtnCancel)).BeginInit();
+            this.pnlGalleryProjects.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.tpbLoadingSpinner)).BeginInit();
             this.SuspendLayout();
             // 
             // tlpProjectLayout
@@ -89,11 +94,11 @@ namespace OpenBots.UI.Forms
             this.tlpProjectLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tlpProjectLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tlpProjectLayout.Controls.Add(this.lblError, 0, 2);
-            this.tlpProjectLayout.Controls.Add(this.lbxGalleryProjects, 0, 1);
             this.tlpProjectLayout.Controls.Add(this.pnlProjectVersion, 1, 0);
             this.tlpProjectLayout.Controls.Add(this.pnlProjectSearch, 0, 0);
             this.tlpProjectLayout.Controls.Add(this.pnlProjectDetails, 1, 1);
             this.tlpProjectLayout.Controls.Add(this.pnlFinishButtons, 1, 2);
+            this.tlpProjectLayout.Controls.Add(this.pnlGalleryProjects, 0, 1);
             this.tlpProjectLayout.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tlpProjectLayout.Location = new System.Drawing.Point(0, 0);
             this.tlpProjectLayout.Name = "tlpProjectLayout";
@@ -101,19 +106,20 @@ namespace OpenBots.UI.Forms
             this.tlpProjectLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 110F));
             this.tlpProjectLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tlpProjectLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 82F));
+            this.tlpProjectLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tlpProjectLayout.Size = new System.Drawing.Size(1057, 859);
             this.tlpProjectLayout.TabIndex = 36;
             // 
-            // lbxGalleryProjects
+            // lblError
             // 
-            this.lbxGalleryProjects.AutoScroll = true;
-            this.lbxGalleryProjects.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.lbxGalleryProjects.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lbxGalleryProjects.Location = new System.Drawing.Point(3, 113);
-            this.lbxGalleryProjects.Name = "lbxGalleryProjects";
-            this.lbxGalleryProjects.Size = new System.Drawing.Size(522, 661);
-            this.lbxGalleryProjects.TabIndex = 36;
-            this.lbxGalleryProjects.ItemClick += new OpenBots.UI.CustomControls.CustomUIControls.UIListBox.ItemClickEventHandler(this.lbxGalleryProjects_ItemClick);
+            this.lblError.BackColor = System.Drawing.Color.Transparent;
+            this.lblError.Font = new System.Drawing.Font("Segoe UI Light", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblError.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.lblError.Location = new System.Drawing.Point(4, 777);
+            this.lblError.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblError.Name = "lblError";
+            this.lblError.Size = new System.Drawing.Size(520, 28);
+            this.lblError.TabIndex = 39;
             // 
             // pnlProjectVersion
             // 
@@ -513,18 +519,46 @@ namespace OpenBots.UI.Forms
             this.uiBtnCancel.Text = "Cancel";
             this.uiBtnCancel.Click += new System.EventHandler(this.uiBtnCancel_Click);
             // 
-            // lblError
+            // pnlGalleryProjects
             // 
-            this.lblError.BackColor = System.Drawing.Color.Transparent;
-            this.lblError.Font = new System.Drawing.Font("Segoe UI Light", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblError.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.lblError.Location = new System.Drawing.Point(4, 777);
-            this.lblError.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.lblError.Name = "lblError";
-            this.lblError.Size = new System.Drawing.Size(520, 28);
-            this.lblError.TabIndex = 39;
+            this.pnlGalleryProjects.Controls.Add(this.tpbLoadingSpinner);
+            this.pnlGalleryProjects.Controls.Add(this.lbxGalleryProjects);
+            this.pnlGalleryProjects.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnlGalleryProjects.Location = new System.Drawing.Point(3, 113);
+            this.pnlGalleryProjects.Name = "pnlGalleryProjects";
+            this.pnlGalleryProjects.Size = new System.Drawing.Size(522, 661);
+            this.pnlGalleryProjects.TabIndex = 40;
+            theme5.BgGradientEndColor = System.Drawing.Color.FromArgb(((int)(((byte)(49)))), ((int)(((byte)(49)))), ((int)(((byte)(49)))));
+            theme5.BgGradientStartColor = System.Drawing.Color.FromArgb(((int)(((byte)(49)))), ((int)(((byte)(49)))), ((int)(((byte)(49)))));
+            this.pnlGalleryProjects.Theme = theme5;
             // 
-            // frmGalleryProject
+            // tpbLoadingSpinner
+            // 
+            this.tpbLoadingSpinner.BackColor = System.Drawing.Color.Transparent;
+            this.tpbLoadingSpinner.ErrorImage = ((System.Drawing.Image)(resources.GetObject("tpbLoadingSpinner.ErrorImage")));
+            this.tpbLoadingSpinner.Image = ((System.Drawing.Image)(resources.GetObject("tpbLoadingSpinner.Image")));
+            this.tpbLoadingSpinner.InitialImage = ((System.Drawing.Image)(resources.GetObject("tpbLoadingSpinner.InitialImage")));
+            this.tpbLoadingSpinner.Location = new System.Drawing.Point(108, 194);
+            this.tpbLoadingSpinner.Name = "tpbLoadingSpinner";
+            this.tpbLoadingSpinner.Size = new System.Drawing.Size(306, 252);
+            this.tpbLoadingSpinner.TabIndex = 42;
+            this.tpbLoadingSpinner.TabStop = false;
+            // 
+            // lbxGalleryProjects
+            // 
+            this.lbxGalleryProjects.AutoScroll = true;
+            this.lbxGalleryProjects.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lbxGalleryProjects.ClickedItem = null;
+            this.lbxGalleryProjects.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lbxGalleryProjects.DoubleClickedItem = null;
+            this.lbxGalleryProjects.LastSelectedItem = null;
+            this.lbxGalleryProjects.Location = new System.Drawing.Point(0, 0);
+            this.lbxGalleryProjects.Name = "lbxGalleryProjects";
+            this.lbxGalleryProjects.Size = new System.Drawing.Size(522, 661);
+            this.lbxGalleryProjects.TabIndex = 41;
+            this.lbxGalleryProjects.ItemClick += new OpenBots.UI.CustomControls.CustomUIControls.UIListBox.ItemClickEventHandler(this.lbxGalleryProjects_ItemClick);
+            // 
+            // frmGalleryProjectManager
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -534,7 +568,7 @@ namespace OpenBots.UI.Forms
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(5);
-            this.Name = "frmGalleryProject";
+            this.Name = "frmGalleryProjectManager";
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show;
             this.Text = "Gallery Project Manager";
             this.Load += new System.EventHandler(this.frmGalleryProject_LoadAsync);
@@ -550,6 +584,8 @@ namespace OpenBots.UI.Forms
             this.pnlFinishButtons.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.uiBtnOpen)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.uiBtnCancel)).EndInit();
+            this.pnlGalleryProjects.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.tpbLoadingSpinner)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -559,7 +595,6 @@ namespace OpenBots.UI.Forms
         private System.Windows.Forms.Label lblGalleryProjects;
         private System.Windows.Forms.TableLayoutPanel tlpProjectLayout;
         private UIPanel pnlProjectSearch;
-        private UIListBox lbxGalleryProjects;
         private UIPanel pnlProjectVersion;
         private System.Windows.Forms.Label lblDependenciesLabel;
         private System.Windows.Forms.Label lblAuthorsLabel;
@@ -590,5 +625,8 @@ namespace OpenBots.UI.Forms
         private System.Windows.Forms.Label lblSearch;
         private System.Windows.Forms.PictureBox pbxOBGallery;
         public System.Windows.Forms.Label lblError;
+        private UIPanel pnlGalleryProjects;
+        private UIListBox lbxGalleryProjects;
+        private UITransparentPictureBox tpbLoadingSpinner;
     }
 }

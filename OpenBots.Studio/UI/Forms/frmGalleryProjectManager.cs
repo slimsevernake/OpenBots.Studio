@@ -70,7 +70,7 @@ namespace OpenBots.UI.Forms
         private void PopulateListBox(List<IPackageSearchMetadata> searchresults)
         {
             lbxGalleryProjects.Visible = false;
-            //tpbLoadingSpinner.Visible = true;
+            tpbLoadingSpinner.Visible = true;
 
             lbxGalleryProjects.Clear();
             foreach (var result in searchresults)
@@ -92,7 +92,7 @@ namespace OpenBots.UI.Forms
                 lbxGalleryProjects.Add(result.Identity.Id, result.Identity.Id, result.Description, img, result.Identity.Version.ToString());
             }
 
-            //tpbLoadingSpinner.Visible = false;
+            tpbLoadingSpinner.Visible = false;
             lbxGalleryProjects.Visible = true;
         }
 
