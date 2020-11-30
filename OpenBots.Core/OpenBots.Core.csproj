@@ -206,7 +206,6 @@
     <Compile Include="Gallery\Models\Search\SearchResult.cs" />
     <Compile Include="Gallery\Models\Search\SearchResultPackage.cs" />
     <Compile Include="Gallery\NugetPackageManager.cs" />
-    <Compile Include="Gallery\NugetPackageManagerV2.cs" />
     <Compile Include="Interfaces\ICommandControls.cs" />
     <Compile Include="Interfaces\IfrmCommandEditor.cs" />
     <Compile Include="Interfaces\IfrmDialog.cs" />

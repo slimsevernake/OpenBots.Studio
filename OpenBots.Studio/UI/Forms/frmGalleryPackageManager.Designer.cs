@@ -84,7 +84,6 @@ namespace OpenBots.UI.Forms
             this.lblVersionLabel = new System.Windows.Forms.Label();
             this.lblDownloadsLabel = new System.Windows.Forms.Label();
             this.pnlFinishButtons = new OpenBots.UI.CustomControls.CustomUIControls.UIPanel();
-            this.uiBtnOpen = new OpenBots.Core.UI.Controls.UIPictureButton();
             this.uiBtnCancel = new OpenBots.Core.UI.Controls.UIPictureButton();
             this.tvPackageFeeds = new OpenBots.UI.CustomControls.CustomUIControls.UITreeView();
             this.imlNodes = new System.Windows.Forms.ImageList(this.components);
@@ -97,7 +96,6 @@ namespace OpenBots.UI.Forms
             ((System.ComponentModel.ISupportInitialize)(this.pbxPackageCategory)).BeginInit();
             this.pnlProjectDetails.SuspendLayout();
             this.pnlFinishButtons.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.uiBtnOpen)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.uiBtnCancel)).BeginInit();
             this.SuspendLayout();
             // 
@@ -593,7 +591,6 @@ namespace OpenBots.UI.Forms
             // 
             // pnlFinishButtons
             // 
-            this.pnlFinishButtons.Controls.Add(this.uiBtnOpen);
             this.pnlFinishButtons.Controls.Add(this.uiBtnCancel);
             this.pnlFinishButtons.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlFinishButtons.Location = new System.Drawing.Point(779, 780);
@@ -603,24 +600,6 @@ namespace OpenBots.UI.Forms
             theme5.BgGradientEndColor = System.Drawing.Color.FromArgb(((int)(((byte)(49)))), ((int)(((byte)(49)))), ((int)(((byte)(49)))));
             theme5.BgGradientStartColor = System.Drawing.Color.FromArgb(((int)(((byte)(49)))), ((int)(((byte)(49)))), ((int)(((byte)(49)))));
             this.pnlFinishButtons.Theme = theme5;
-            // 
-            // uiBtnOpen
-            // 
-            this.uiBtnOpen.BackColor = System.Drawing.Color.Transparent;
-            this.uiBtnOpen.Cursor = System.Windows.Forms.Cursors.Arrow;
-            this.uiBtnOpen.DisplayText = "Open";
-            this.uiBtnOpen.DisplayTextBrush = System.Drawing.Color.White;
-            this.uiBtnOpen.Font = new System.Drawing.Font("Segoe UI", 8F);
-            this.uiBtnOpen.Image = ((System.Drawing.Image)(resources.GetObject("uiBtnOpen.Image")));
-            this.uiBtnOpen.IsMouseOver = false;
-            this.uiBtnOpen.Location = new System.Drawing.Point(395, 12);
-            this.uiBtnOpen.Margin = new System.Windows.Forms.Padding(8, 6, 8, 6);
-            this.uiBtnOpen.Name = "uiBtnOpen";
-            this.uiBtnOpen.Size = new System.Drawing.Size(60, 58);
-            this.uiBtnOpen.TabIndex = 39;
-            this.uiBtnOpen.TabStop = false;
-            this.uiBtnOpen.Text = "Open";
-            this.uiBtnOpen.Click += new System.EventHandler(this.uiBtnOpen_Click);
             // 
             // uiBtnCancel
             // 
@@ -683,7 +662,7 @@ namespace OpenBots.UI.Forms
             this.imlNodes.Images.SetKeyName(1, "galleryIcon");
             this.imlNodes.Images.SetKeyName(2, "nugetIcon");
             // 
-            // frmGalleryPackageManagerV2
+            // frmGalleryPackageManager
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -693,7 +672,7 @@ namespace OpenBots.UI.Forms
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(5);
-            this.Name = "frmGalleryPackageManagerV2";
+            this.Name = "frmGalleryPackageManager";
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show;
             this.Text = "Gallery Project Manager";
             this.Load += new System.EventHandler(this.frmGalleryProject_LoadAsync);
@@ -709,7 +688,6 @@ namespace OpenBots.UI.Forms
             this.pnlProjectDetails.ResumeLayout(false);
             this.pnlProjectDetails.PerformLayout();
             this.pnlFinishButtons.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.uiBtnOpen)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.uiBtnCancel)).EndInit();
             this.ResumeLayout(false);
 
@@ -745,7 +723,6 @@ namespace OpenBots.UI.Forms
         private System.Windows.Forms.Label lblPublishDate;
         private System.Windows.Forms.Label lblPublishDateLabel;
         private UIPanel pnlFinishButtons;
-        private Core.UI.Controls.UIPictureButton uiBtnOpen;
         private Core.UI.Controls.UIPictureButton uiBtnCancel;
         private System.Windows.Forms.Label lblSearch;
         private System.Windows.Forms.PictureBox pbxPackageCategory;

@@ -49,11 +49,11 @@ namespace OpenBots.UI.Forms
             tvPackageFeeds.ExpandAll();
             pnlProjectVersion.Hide();
             pnlProjectDetails.Hide();
-            uiBtnOpen.Enabled = false;
+
             try
             {
-                _allGalleryResults = await NugetPackageManagerV2.SearchPackages("", _gallerySourceUrl, _includePrerelease);
-                _allNugetResults = await NugetPackageManagerV2.SearchPackages("", _nugetSourceUrl, _includePrerelease);
+                _allGalleryResults = await NugetPackageManager.SearchPackages("", _gallerySourceUrl, _includePrerelease);
+                _allNugetResults = await NugetPackageManager.SearchPackages("", _nugetSourceUrl, _includePrerelease);
                 _allResults.AddRange(_allGalleryResults);
                 _allResults.AddRange(_allNugetResults);
                 await GetCurrentDepencies();
@@ -102,14 +102,14 @@ namespace OpenBots.UI.Forms
                 string projectId = lbxNugetPackages.ClickedItem.Id;
                 List<IPackageSearchMetadata> metadata = new List<IPackageSearchMetadata>();
 
-                metadata.AddRange(await NugetPackageManagerV2.GetPackageMetadata(projectId, _gallerySourceUrl, _includePrerelease));
-                metadata.AddRange(await NugetPackageManagerV2.GetPackageMetadata(projectId, _nugetSourceUrl, _includePrerelease));
+                metadata.AddRange(await NugetPackageManager.GetPackageMetadata(projectId, _gallerySourceUrl, _includePrerelease));
+                metadata.AddRange(await NugetPackageManager.GetPackageMetadata(projectId, _nugetSourceUrl, _includePrerelease));
 
                 string latestVersion = metadata.LastOrDefault().Identity.Version.ToString();
 
                 _projectVersions.Clear();
-                _projectVersions.AddRange(await NugetPackageManagerV2.GetPackageVersions(projectId, _gallerySourceUrl, _includePrerelease));
-                _projectVersions.AddRange(await NugetPackageManagerV2.GetPackageVersions(projectId, _nugetSourceUrl, _includePrerelease));
+                _projectVersions.AddRange(await NugetPackageManager.GetPackageVersions(projectId, _gallerySourceUrl, _includePrerelease));
+                _projectVersions.AddRange(await NugetPackageManager.GetPackageVersions(projectId, _nugetSourceUrl, _includePrerelease));
 
                 List<string> versionList = _projectVersions.Select(x => x.ToString()).ToList();
                 versionList.Reverse();
@@ -139,13 +139,11 @@ namespace OpenBots.UI.Forms
 
                 pnlProjectVersion.Show();
                 pnlProjectDetails.Show();
-                uiBtnOpen.Enabled = true;
             }
             catch (Exception)
             {
                 pnlProjectVersion.Hide();
                 pnlProjectDetails.Hide();
-                uiBtnOpen.Enabled = false;
             }
             
         }
@@ -266,7 +264,7 @@ namespace OpenBots.UI.Forms
                 Cursor.Current = Cursors.WaitCursor;
                 lblError.Text = $"Installing {packageName}";
 
-                await NugetPackageManagerV2.InstallPackage(packageId, version, _projectDependenciesDict);                   
+                await NugetPackageManager.InstallPackage(packageId, version, _projectDependenciesDict);                   
 
                 lblError.Text = string.Empty;
                 DialogResult = DialogResult.OK;
@@ -279,7 +277,7 @@ namespace OpenBots.UI.Forms
 
         private void uiBtnOpen_Click(object sender, EventArgs e)
         {
-            DownloadAndOpenPackage(_catalog.Identity.Id, _catalog.Identity.Version.ToString());
+            DownloadAndOpenPackage(_catalog.Identity.Id, cbxVersion.SelectedItem.ToString());
         }
 
         private void uiBtnCancel_Click(object sender, EventArgs e)
@@ -326,11 +324,11 @@ namespace OpenBots.UI.Forms
             _projectDependencies.Clear();
             foreach(var pair in _projectDependenciesDict)
             {
-                var galleryDependency = (await NugetPackageManagerV2.GetPackageMetadata(pair.Key, _gallerySourceUrl, _includePrerelease))
+                var galleryDependency = (await NugetPackageManager.GetPackageMetadata(pair.Key, _gallerySourceUrl, _includePrerelease))
                     .Where(x => x.Identity.Version.ToString() == pair.Value).FirstOrDefault();
                 if (galleryDependency != null && nugetDirectoryList.Where(x => x.EndsWith($"{pair.Key}.{pair.Value}")).FirstOrDefault() != null)
                     _projectDependencies.Add(galleryDependency);
-                var nugetDependency = (await NugetPackageManagerV2.GetPackageMetadata(pair.Key, _nugetSourceUrl, _includePrerelease))
+                var nugetDependency = (await NugetPackageManager.GetPackageMetadata(pair.Key, _nugetSourceUrl, _includePrerelease))
                     .Where(x => x.Identity.Version.ToString() == pair.Value).FirstOrDefault();
                 if (nugetDependency != null && nugetDirectoryList.Where(x => x.EndsWith($"{pair.Key}.{pair.Value}")).FirstOrDefault() != null)
                     _projectDependencies.Add(nugetDependency);
@@ -351,16 +349,16 @@ namespace OpenBots.UI.Forms
                 }
                 else if (lblPackageCategory.Text == "All Packages")
                 {
-                    searchResults.AddRange(await NugetPackageManagerV2.SearchPackages(txtSampleSearch.Text, _gallerySourceUrl, _includePrerelease));
-                    searchResults.AddRange(await NugetPackageManagerV2.SearchPackages(txtSampleSearch.Text, _nugetSourceUrl, _includePrerelease));
+                    searchResults.AddRange(await NugetPackageManager.SearchPackages(txtSampleSearch.Text, _gallerySourceUrl, _includePrerelease));
+                    searchResults.AddRange(await NugetPackageManager.SearchPackages(txtSampleSearch.Text, _nugetSourceUrl, _includePrerelease));
                 }
                 else if (lblPackageCategory.Text == "Gallery")
                 {
-                    searchResults.AddRange(await NugetPackageManagerV2.SearchPackages(txtSampleSearch.Text, _gallerySourceUrl, _includePrerelease));
+                    searchResults.AddRange(await NugetPackageManager.SearchPackages(txtSampleSearch.Text, _gallerySourceUrl, _includePrerelease));
                 }
                 else if (lblPackageCategory.Text == "Nuget")
                 {
-                    searchResults.AddRange(await NugetPackageManagerV2.SearchPackages(txtSampleSearch.Text, _nugetSourceUrl, _includePrerelease));
+                    searchResults.AddRange(await NugetPackageManager.SearchPackages(txtSampleSearch.Text, _nugetSourceUrl, _includePrerelease));
                 }
                
                 PopulateListBox(searchResults);

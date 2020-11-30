@@ -1,6 +1,6 @@
-﻿using NuGet;
+﻿using NuGet.Protocol.Core.Types;
+using NuGet.Versioning;
 using OpenBots.Core.Gallery;
-using OpenBots.Core.Gallery.Models;
 using OpenBots.Core.Properties;
 using OpenBots.Core.UI.Forms;
 using System;
@@ -18,17 +18,20 @@ namespace OpenBots.UI.Forms
     {
         private string _projectLocation;
         private string _projectName;
-        private List<SearchResultPackage> _searchresults;
-        private CatalogEntry _catalog;
-        private List<RegistrationItemVersion> _projectVersions;
-        private NugetPackageManager _manager;
+
+        private List<IPackageSearchMetadata> _searchresults;
+        private IPackageSearchMetadata _catalog;
+        private List<NuGetVersion> _projectVersions;
+        private List<IPackageSearchMetadata> _selectedPackageMetaData;
+        private string _gallerySourceUrl = "https://dev.gallery.openbots.io/v3/index.json";
 
         public frmGalleryProjectManager(string projectLocation, string projectName)
         {
             InitializeComponent();
             _projectLocation = projectLocation;
             _projectName = projectName;
-            _manager = new NugetPackageManager();
+            _searchresults = new List<IPackageSearchMetadata>();
+            _projectVersions = new List<NuGetVersion>();
         }
 
         private async void frmGalleryProject_LoadAsync(object sender, EventArgs e)
@@ -38,7 +41,7 @@ namespace OpenBots.UI.Forms
             uiBtnOpen.Enabled = false;
             try
             {           
-                _searchresults = await _manager.GetAllPackagesAsync(NugetPackageManager.PackageType.Automation.ToString());
+                _searchresults = await NugetPackageManager.SearchPackages("", _gallerySourceUrl, true);
                 PopulateListBox(_searchresults);
             }
             catch (Exception ex)
@@ -64,8 +67,12 @@ namespace OpenBots.UI.Forms
             }                                          
         }  
         
-        private void PopulateListBox(List<SearchResultPackage> searchresults)
+        private void PopulateListBox(List<IPackageSearchMetadata> searchresults)
         {
+            lbxGalleryProjects.Visible = false;
+            //tpbLoadingSpinner.Visible = true;
+
+            lbxGalleryProjects.Clear();
             foreach (var result in searchresults)
             {
                 Image img;
@@ -79,86 +86,130 @@ namespace OpenBots.UI.Forms
                 }
                 catch (Exception)
                 {
-                    img = Resources.OpenBots_icon;
+                    img = Resources.nuget_icon;
                 }
 
-                lbxGalleryProjects.Add(result.Id, result.Title, result.Description, img, result.Version);
+                lbxGalleryProjects.Add(result.Identity.Id, result.Identity.Id, result.Description, img, result.Identity.Version.ToString());
             }
-        }
 
-        private async void lbxGalleryProjects_ItemDoubleClick(object sender, int Index)
-        {
-            string projectId = lbxGalleryProjects.DoubleClickedItem.Id;
-            var version = await _manager.GetLatestPackageVersionAsync(projectId);
-            DownloadAndOpenProject(projectId, version);
+            //tpbLoadingSpinner.Visible = false;
+            lbxGalleryProjects.Visible = true;
         }
 
         private async void lbxGalleryProjects_ItemClick(object sender, int index)
         {
-            string projectId = lbxGalleryProjects.ClickedItem.Id;
-            List<RegistrationItem> registration = await _manager.GetPackageRegistrationAsync(projectId);
-            string latestVersion = registration.FirstOrDefault().Upper;
-            _projectVersions = registration.FirstOrDefault().Items;
-            List<string> versionList = _projectVersions.Select(x => x.Catalog.Version).OrderByDescending(x => x).ToList();
+            try
+            {
+                string projectId = lbxGalleryProjects.ClickedItem.Id;
+                List<IPackageSearchMetadata> metadata = new List<IPackageSearchMetadata>();
 
-            cbxVersion.Items.Clear();
-            foreach (var version in versionList)
-                cbxVersion.Items.Add(version);
+                metadata.AddRange(await NugetPackageManager.GetPackageMetadata(projectId, _gallerySourceUrl, true));
 
-            cbxVersion.SelectedIndex = 0;
+                string latestVersion = metadata.LastOrDefault().Identity.Version.ToString();
 
-            PopulateProjectDetails(latestVersion);
+                _projectVersions.Clear();
+                _projectVersions.AddRange(await NugetPackageManager.GetPackageVersions(projectId, _gallerySourceUrl, true));
 
-            pnlProjectVersion.Show();
-            pnlProjectDetails.Show();
-            uiBtnOpen.Enabled = true;
+
+                List<string> versionList = _projectVersions.Select(x => x.ToString()).ToList();
+                versionList.Reverse();
+
+                cbxVersion.Items.Clear();
+                foreach (var version in versionList)
+                    cbxVersion.Items.Add(version);
+              
+                _selectedPackageMetaData = metadata;
+
+                pnlProjectVersion.Show();
+                pnlProjectDetails.Show();
+                uiBtnOpen.Enabled = true;
+                cbxVersion.SelectedItem = latestVersion;
+            }
+            catch (Exception)
+            {
+                pnlProjectVersion.Hide();
+                pnlProjectDetails.Hide();
+                uiBtnOpen.Enabled = false;
+            }
         }
 
         private void PopulateProjectDetails(string version)
         {
-            _catalog = _projectVersions.Where(x => x.Catalog.Version == version).SingleOrDefault().Catalog;
+            _catalog = _selectedPackageMetaData.Where(x => x.Identity.Version.ToString() == version).SingleOrDefault();
 
-            try
+            if (_catalog != null)
             {
-                WebClient wc = new WebClient();
-                byte[] bytes = wc.DownloadData(_catalog.IconUrl);
-                MemoryStream ms = new MemoryStream(bytes);
-                pbxOBStudio.Image = Image.FromStream(ms);
+                try
+                {
+                    WebClient wc = new WebClient();
+                    byte[] bytes = wc.DownloadData(_catalog.IconUrl);
+                    MemoryStream ms = new MemoryStream(bytes);
+                    pbxOBStudio.Image = Image.FromStream(ms);
+                }
+                catch (Exception)
+                {
+                    pbxOBStudio.Image = Resources.nuget_icon;
+                }
+
+                lblTitle.Text = _catalog.Title;
+                lblAuthors.Text = _catalog.Authors;
+                lblDescription.Text = _catalog.Description;
+                lblDownloads.Text = _catalog.DownloadCount.ToString();
+                lblVersion.Text = _catalog.Identity.Version.ToString();
+                lblPublishDate.Text = DateTime.Parse(_catalog.Published.ToString()).ToString("g");
+                llblProjectURL.LinkVisited = false;
+                llblLicenseURL.LinkVisited = false;
+
+                lvDependencies.Items.Clear();
+                if (_catalog.DependencySets.ToList().Count > 0)
+                {
+                    foreach (var dependency in _catalog.DependencySets.FirstOrDefault().Packages)
+                        lvDependencies.Items.Add(new ListViewItem(new string[] { dependency.Id, dependency.VersionRange.ToString() }));
+                }
             }
-            catch (Exception)
+            else
             {
-                pbxOBStudio.Image = Resources.OpenBots_icon;
+                _catalog = _selectedPackageMetaData.Last();
+                try
+                {
+                    WebClient wc = new WebClient();
+                    byte[] bytes = wc.DownloadData(_catalog.IconUrl);
+                    MemoryStream ms = new MemoryStream(bytes);
+                    pbxOBStudio.Image = Image.FromStream(ms);
+                }
+                catch (Exception)
+                {
+                    pbxOBStudio.Image = Resources.nuget_icon;
+                }
+
+                lblTitle.Text = _catalog.Title;
+                lblAuthors.Text = "Unknown";
+                lblDescription.Text = "Unknown";
+                lblDownloads.Text = "Unknown";
+                lblVersion.Text = version;
+                lblPublishDate.Text = "Unknown";
+                llblProjectURL.LinkVisited = false;
+                llblLicenseURL.LinkVisited = false;
+
+                lvDependencies.Items.Clear();
             }
-
-            lblTitle.Text = _catalog.Title;
-            lblAuthors.Text = _catalog.Authors;
-            lblDescription.Text = _catalog.Description;
-            lblDownloads.Text = _catalog.Downloads.ToString();
-            lblVersion.Text = _catalog.Version;
-            lblPublishDate.Text = DateTime.Parse(_catalog.Published).ToString("g");
-            llblProjectURL.LinkVisited = false;
-            llblLicenseURL.LinkVisited = false;
-
-            lvDependencies.Items.Clear();
-            foreach (var dependency in _catalog.DependencyGroups.FirstOrDefault().ProjectDependencies)
-                lvDependencies.Items.Add(new ListViewItem(new string[] { dependency.Id, dependency.Range }));
         }
 
         private void llblLicense_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            if (!string.IsNullOrEmpty(_catalog.LicenseUrl))
+            if (_catalog.LicenseUrl != null)
             {
                 llblLicenseURL.LinkVisited = true;
-                Process.Start(_catalog.LicenseUrl);
+                Process.Start(_catalog.LicenseUrl.ToString());
             }
         }
 
         private void llblProjectURL_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            if (!string.IsNullOrEmpty(_catalog.ProjectUrl))
+            if (_catalog.ProjectUrl != null)
             {
                 llblProjectURL.LinkVisited = true;
-                Process.Start(_catalog.ProjectUrl);
+                Process.Start(_catalog.ProjectUrl.ToString());
             }
         }
 
@@ -167,15 +218,28 @@ namespace OpenBots.UI.Forms
             PopulateProjectDetails(cbxVersion.SelectedItem.ToString());
         }
 
-        private async void DownloadAndOpenProject(string projectId, SemanticVersion version)
+        private async void DownloadAndOpenProject(string projectId, string version)
         {
-            await _manager.DownloadPackageAsync(projectId, version, _projectLocation, _projectName);
-            DialogResult = DialogResult.OK;
+            try
+            {
+                string packageName = $"{projectId}.{version}";
+                Cursor.Current = Cursors.WaitCursor;
+                lblError.Text = $"Downloading {packageName}";
+
+                await NugetPackageManager.DownloadPackage(projectId, version, _projectLocation, _projectName, _gallerySourceUrl);
+
+                lblError.Text = string.Empty;
+                DialogResult = DialogResult.OK;
+            }
+            catch (Exception ex)
+            {
+                lblError.Text = "Error: " + ex.Message;
+            }
         }
 
         private void uiBtnOpen_Click(object sender, EventArgs e)
         {
-            DownloadAndOpenProject(_catalog.Id, SemanticVersion.Parse(_catalog.Version));
+            DownloadAndOpenProject(_catalog.Identity.Id, cbxVersion.SelectedItem.ToString());
         }
 
         private void uiBtnCancel_Click(object sender, EventArgs e)

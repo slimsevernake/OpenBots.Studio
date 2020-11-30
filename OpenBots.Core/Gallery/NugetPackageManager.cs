@@ -1,131 +1,299 @@
-﻿using System;
+﻿using Autofac;
+using Newtonsoft.Json;
+using NuGet.Common;
+using NuGet.Configuration;
+using NuGet.Frameworks;
+using NuGet.Packaging;
+using NuGet.Packaging.Core;
+using NuGet.Packaging.Signing;
+using NuGet.Protocol;
+using NuGet.Protocol.Core.Types;
+using NuGet.Resolver;
+using NuGet.Versioning;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
-using Newtonsoft.Json;
-using NuGet;
-using OpenBots.Core.Gallery.Models;
-using HttpClient = System.Net.Http.HttpClient;
 
 namespace OpenBots.Core.Gallery
 {
     public class NugetPackageManager
     {
-        private Uri _nugetV3FeedUri;
-        private Feed _feed;
-
-        public enum PackageType
+        public static async Task<List<NuGetVersion>> GetPackageVersions(string packageId, string source, bool includePrerelease)
         {
-            Automation,
-            Command
+            ILogger logger = NullLogger.Instance;
+            CancellationToken cancellationToken = CancellationToken.None;
+
+            SourceCacheContext cache = new SourceCacheContext();
+            SourceRepository repository = Repository.Factory.GetCoreV3(source);
+            FindPackageByIdResource resource = await repository.GetResourceAsync<FindPackageByIdResource>();
+
+            IEnumerable<NuGetVersion> versions = await resource.GetAllVersionsAsync(
+                packageId,
+                cache,
+                logger,
+                cancellationToken);
+
+            if (includePrerelease)
+                return versions.ToList();
+            else
+                return versions.Where(x => x.IsPrerelease == false).ToList();
         }
 
-        public NugetPackageManager(Uri nugetV3FeedUri = null)
+        public static async Task<List<IPackageSearchMetadata>> SearchPackages(string packageKeyword, string source, bool includePrerelease)
         {
-            if (nugetV3FeedUri == null)
-            {
-                nugetV3FeedUri = new Uri("https://dev.gallery.openbots.io/v3/index.json"); //https://azuresearch-usnc.nuget.org/query?q={name}
-            }
-            _nugetV3FeedUri = nugetV3FeedUri;
+            ILogger logger = NullLogger.Instance;
+            CancellationToken cancellationToken = CancellationToken.None;
 
-            ServicePointManager.SecurityProtocol |= (SecurityProtocolType.Ssl3 |
-                SecurityProtocolType.Tls12 | SecurityProtocolType.Tls11 |
-                                             SecurityProtocolType.Tls);
-            ServicePointManager.DefaultConnectionLimit = 10;
+            SourceRepository repository = Repository.Factory.GetCoreV3(source);
+            PackageSearchResource resource = await repository.GetResourceAsync<PackageSearchResource>();
+            SearchFilter searchFilter = new SearchFilter(includePrerelease: includePrerelease);
+
+            IEnumerable<IPackageSearchMetadata> results = await resource.SearchAsync(
+                packageKeyword,
+                searchFilter,
+                skip: 0,
+                take: 20,
+                logger,
+                cancellationToken);
+
+            return results.ToList();
         }
 
-        public async Task<SemanticVersion> GetLatestPackageVersionAsync(string packageId, CancellationToken token = default)
+        public static async Task<List<IPackageSearchMetadata>> GetPackageMetadata(string packageId, string source, bool includePrerelease)
         {
-            using (var httpClient = new HttpClient())
-            {
-                _feed = await GetJson<Feed>(_nugetV3FeedUri, httpClient, token);
-                var searchQueryService = _feed.Resources.FirstOrDefault(x => x.Type == "SearchQueryService");
+            ILogger logger = NullLogger.Instance;
+            CancellationToken cancellationToken = CancellationToken.None;
 
-                var searchPackageUri = new Uri($"{searchQueryService.Url}/?q={packageId}");
-                var searchResult = await GetJson<SearchResult>(searchPackageUri, httpClient, token);
-                var searchResultPackage = searchResult.Data.FirstOrDefault();
-                return new SemanticVersion(searchResultPackage.Version);
-            }
+            SourceCacheContext cache = new SourceCacheContext();
+            SourceRepository repository = Repository.Factory.GetCoreV3(source);
+            PackageMetadataResource resource = await repository.GetResourceAsync<PackageMetadataResource>();
+
+            IEnumerable<IPackageSearchMetadata> packages = await resource.GetMetadataAsync(
+                packageId,
+                includePrerelease: includePrerelease,
+                includeUnlisted: true,
+                cache,
+                logger,
+                cancellationToken);
+
+            return packages.ToList();
         }
 
-        public async Task<List<SearchResultPackage>> GetAllPackagesAsync(string type = "", CancellationToken token = default)
+        public static async Task DownloadPackage(string packageId, string version, string packageLocation, string packageName, string feed)
         {
-            using (var httpClient = new HttpClient())
-            {
-                _feed = await GetJson<Feed>(_nugetV3FeedUri, httpClient, token);
-                var searchQueryService = _feed.Resources.FirstOrDefault(x => x.Type == "SearchQueryService");
+            ILogger logger = NullLogger.Instance;
+            CancellationToken cancellationToken = CancellationToken.None;
 
-                var searchPackageUri = new Uri($"{searchQueryService.Url}/{type}");
-                var searchResult = await GetJson<SearchResult>(searchPackageUri, httpClient, token);
-                return searchResult.Data;
-            }
-        }
+            SourceCacheContext cache = new SourceCacheContext();
+            SourceRepository repository = Repository.Factory.GetCoreV3(feed);
+            FindPackageByIdResource resource = await repository.GetResourceAsync<FindPackageByIdResource>();
 
-        public async Task<List<SearchResultPackage>> GetPackagesByIdAsync(string keyword, CancellationToken token = default)
-        {
-            using (var httpClient = new HttpClient())
-            {
-                _feed = await GetJson<Feed>(_nugetV3FeedUri, httpClient, token);
-                var searchQueryService = _feed.Resources.FirstOrDefault(x => x.Type == "SearchQueryService");
+            NuGetVersion packageVersion = new NuGetVersion(version);
+            using (MemoryStream packageStream = new MemoryStream()) {
 
-                var searchPackageUri = new Uri($"{searchQueryService.Url}/?q={keyword}");
-                var searchResult = await GetJson<SearchResult>(searchPackageUri, httpClient, token);
-                return searchResult.Data;
-            }
-        }
+                bool success = await resource.CopyNupkgToStreamAsync(
+                packageId,
+                packageVersion,
+                packageStream,
+                cache,
+                logger,
+                cancellationToken);
 
-        public async Task<List<RegistrationItem>> GetPackageRegistrationAsync(string packageId, CancellationToken token = default)
-        {
-            using (var httpClient = new HttpClient())
-            {
-                _feed = await GetJson<Feed>(_nugetV3FeedUri, httpClient, token);
-                var registrationService = _feed.Resources.FirstOrDefault(x => x.Type == "RegistrationsBaseUrl");
-
-                var registrationUri = new Uri($"{registrationService.Url.TrimEnd('/')}/{packageId.ToLower()}/index.json");
-                var registration = await GetJson<Registration>(registrationUri, httpClient, token);
-                return registration.Items;
-            }
-        }
-
-        public async Task DownloadPackageAsync(string packageId, SemanticVersion version, string destinationPath, string packageFileName, CancellationToken token = default)
-        {
-            using (var httpClient = new HttpClient())
-            {
-                if (_feed == null)
-                    _feed = await GetJson<Feed>(_nugetV3FeedUri, httpClient, token);
-
-                var packageBaseAddress = _feed.Resources.FirstOrDefault(x => x.Type.StartsWith("PackageBaseAddress"));
-                var packageBaseAddressUri = new Uri($"{packageBaseAddress.Url.TrimEnd('/')}/{packageId.ToLower()}/{version}/{packageId.ToLower()}.{version}.nupkg");
-
-                var response = await httpClient.GetAsync(packageBaseAddressUri, token).ConfigureAwait(false);
-                response.EnsureSuccessStatusCode();
-
-                var fileExtension = Path.GetExtension(packageBaseAddressUri.Segments.Last());
-
-                var path = Path.Combine(destinationPath, packageFileName + fileExtension);
+                var path = Path.Combine(packageLocation, packageName + ".nupkg");
                 using (var fileStream = new FileStream(path, FileMode.Create, FileAccess.Write, FileShare.None))
                 {
-                    await response.Content.CopyToAsync(fileStream).ConfigureAwait(false);
+                    packageStream.WriteTo(fileStream);
                 }
             }
         }
 
-        private async Task<T> GetJson<T>(Uri uri, HttpClient httpClient, CancellationToken token)
+        public static async Task InstallPackage(string packageId, string version, Dictionary<string, string> projectDependenciesDict)
         {
-            var response = await httpClient.GetAsync(uri, token).ConfigureAwait(false);
-            response.EnsureSuccessStatusCode();
-            var stream = await response.Content.ReadAsStreamAsync();
-            using (var streamReader = new StreamReader(stream))
+            var packageVersion = NuGetVersion.Parse(version);
+            var nuGetFramework = NuGetFramework.ParseFolder("net48");
+            var settings = NuGet.Configuration.Settings.LoadDefaultSettings(root: null);
+            var sourceRepositoryProvider = new SourceRepositoryProvider(settings, Repository.Provider.GetCoreV3());
+
+            using (var cacheContext = new SourceCacheContext())
             {
-                using (var jsonTextReader = new JsonTextReader(streamReader))
+                var repositories = sourceRepositoryProvider.GetRepositories();
+                var availablePackages = new HashSet<SourcePackageDependencyInfo>(PackageIdentityComparer.Default);
+                await GetPackageDependencies(
+                    new PackageIdentity(packageId, packageVersion),
+                    nuGetFramework, cacheContext, NullLogger.Instance, repositories, availablePackages);
+
+                var resolverContext = new PackageResolverContext(
+                    DependencyBehavior.Lowest,
+                    new[] { packageId },
+                    Enumerable.Empty<string>(),
+                    Enumerable.Empty<PackageReference>(),
+                    Enumerable.Empty<PackageIdentity>(),
+                    availablePackages,
+                    sourceRepositoryProvider.GetRepositories().Select(s => s.PackageSource),
+                    NullLogger.Instance);
+
+                var resolver = new PackageResolver();
+                var packagesToInstall = resolver.Resolve(resolverContext, CancellationToken.None)
+                    .Select(p => availablePackages.Single(x => PackageIdentityComparer.Default.Equals(x, p)));
+                string appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+                var packagePathResolver = new PackagePathResolver(Path.Combine(appDataPath, "OpenBots Inc", "packages"));
+                var packageExtractionContext = new PackageExtractionContext(
+                    PackageSaveMode.Defaultv3,
+                    XmlDocFileSaveMode.None,
+                    ClientPolicyContext.GetClientPolicy(settings, NullLogger.Instance),
+                    NullLogger.Instance);
+
+                var frameworkReducer = new FrameworkReducer();
+
+                foreach (var packageToInstall in packagesToInstall)
                 {
-                    var serializer = new JsonSerializer();
-                    return serializer.Deserialize<T>(jsonTextReader);
+                    PackageReaderBase packageReader;
+                    var installedPath = packagePathResolver.GetInstalledPath(packageToInstall);
+                    if (installedPath == null)
+                    {
+                        var downloadResource = await packageToInstall.Source.GetResourceAsync<DownloadResource>(CancellationToken.None);
+                        var downloadResult = await downloadResource.GetDownloadResourceResultAsync(
+                            packageToInstall,
+                            new PackageDownloadContext(cacheContext),
+                            SettingsUtility.GetGlobalPackagesFolder(settings),
+                            NullLogger.Instance, CancellationToken.None);
+
+                        await PackageExtractor.ExtractPackageAsync(
+                            downloadResult.PackageSource,
+                            downloadResult.PackageStream,
+                            packagePathResolver,
+                            packageExtractionContext,
+                            CancellationToken.None);
+
+                        packageReader = downloadResult.PackageReader;
+                    }
+                    else
+                    {
+                        packageReader = new PackageFolderReader(installedPath);
+                    }
+
+                    var libItems = packageReader.GetLibItems();
+                    var nearest = frameworkReducer.GetNearest(nuGetFramework, libItems.Select(x => x.TargetFramework));                            
+
+                    if (packageToInstall.Id == packageId)
+                    {
+                        string packageListAssemblyPath = libItems
+                        .Where(x => x.TargetFramework.Equals(nearest))
+                        .SelectMany(x => x.Items.Where(i => i.EndsWith(".dll"))).FirstOrDefault();
+
+                        var existingPackage = projectDependenciesDict.Where(x => x.Key == packageToInstall.Id)
+                                                                     .Select(e => (KeyValuePair<string, string>?)e)
+                                                                     .FirstOrDefault();
+                        if (existingPackage != null)
+                            projectDependenciesDict.Remove(((KeyValuePair<string, string>)existingPackage).Key);
+
+                        projectDependenciesDict.Add(packageToInstall.Id, packageToInstall.Version.ToString());
+                    }
+                }
+            }            
+        }
+
+        public static async Task GetPackageDependencies(PackageIdentity package,
+                NuGetFramework framework,
+                SourceCacheContext cacheContext,
+                ILogger logger,
+                IEnumerable<SourceRepository> repositories,
+                ISet<SourcePackageDependencyInfo> availablePackages)
+        {
+            if (availablePackages.Contains(package)) return;
+
+            foreach (var sourceRepository in repositories)
+            {
+                var dependencyInfoResource = await sourceRepository.GetResourceAsync<DependencyInfoResource>();
+                var dependencyInfo = await dependencyInfoResource.ResolvePackage(
+                    package, framework, cacheContext, logger, CancellationToken.None);
+
+                if (dependencyInfo == null) continue;
+
+                availablePackages.Add(dependencyInfo);
+                foreach (var dependency in dependencyInfo.Dependencies)
+                {
+                    await GetPackageDependencies(
+                        new PackageIdentity(dependency.Id, dependency.VersionRange.MinVersion),
+                        framework, cacheContext, logger, repositories, availablePackages);
                 }
             }
         }
+
+        public static async Task<List<string>> LoadProjectAssemblies(string configPath)
+        {
+            List<string> assemblyPaths = new List<string>();
+            var dependencies = JsonConvert.DeserializeObject<Project.Project>(File.ReadAllText(configPath)).Dependencies;
+
+            string appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+            string packagePath = Path.Combine(appDataPath, "OpenBots Inc", "packages");
+
+            foreach (var dependency in dependencies)
+            {
+                var packageId = dependency.Key;
+                var packageVersion = NuGetVersion.Parse(dependency.Value);
+                var nuGetFramework = NuGetFramework.ParseFolder("net48");
+                var settings = NuGet.Configuration.Settings.LoadDefaultSettings(root: null);
+
+                var sourceRepositoryProvider = new SourceRepositoryProvider(settings, Repository.Provider.GetCoreV3());
+
+                using (var cacheContext = new SourceCacheContext())
+                {
+                    var repositories = sourceRepositoryProvider.GetRepositories();
+                    var availablePackages = new HashSet<SourcePackageDependencyInfo>(PackageIdentityComparer.Default);
+                    await GetPackageDependencies(
+                        new PackageIdentity(packageId, packageVersion),
+                        nuGetFramework, cacheContext, NullLogger.Instance, repositories, availablePackages);
+
+                    var resolverContext = new PackageResolverContext(
+                        DependencyBehavior.Lowest,
+                        new[] { packageId },
+                        Enumerable.Empty<string>(),
+                        Enumerable.Empty<PackageReference>(),
+                        Enumerable.Empty<PackageIdentity>(),
+                        availablePackages,
+                        sourceRepositoryProvider.GetRepositories().Select(s => s.PackageSource),
+                        NullLogger.Instance);
+
+                    var resolver = new PackageResolver();
+                    var packagesToInstall = resolver.Resolve(resolverContext, CancellationToken.None)
+                        .Select(p => availablePackages.Single(x => PackageIdentityComparer.Default.Equals(x, p)));
+
+                    var packagePathResolver = new PackagePathResolver(packagePath);//Path.GetFullPath("packages"));
+                    var packageExtractionContext = new PackageExtractionContext(
+                        PackageSaveMode.Defaultv3,
+                        XmlDocFileSaveMode.None,
+                        ClientPolicyContext.GetClientPolicy(settings, NullLogger.Instance),
+                        NullLogger.Instance);
+
+                    var frameworkReducer = new FrameworkReducer();
+
+                    foreach (var packageToInstall in packagesToInstall)
+                    {
+                        PackageReaderBase packageReader;
+                        var installedPath = packagePathResolver.GetInstalledPath(packageToInstall);
+
+                        packageReader = new PackageFolderReader(installedPath);
+
+                        var libItems = packageReader.GetLibItems();
+                        var nearest = frameworkReducer.GetNearest(nuGetFramework, libItems.Select(x => x.TargetFramework));
+
+                        string packageListAssemblyPath = libItems
+                            .Where(x => x.TargetFramework.Equals(nearest))
+                            .SelectMany(x => x.Items.Where(i => i.EndsWith(".dll"))).FirstOrDefault();
+
+                        var dependencyPath = Path.Combine(packagePath, $"{packageToInstall.Id}.{packageToInstall.Version}", packageListAssemblyPath);
+
+                        if (!assemblyPaths.Contains(dependencyPath))
+                            assemblyPaths.Add(dependencyPath);
+                    }
+                }
+            }
+
+            return assemblyPaths;
+        }        
     }
 }
