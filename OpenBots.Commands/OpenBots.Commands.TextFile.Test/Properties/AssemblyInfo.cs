@@ -8,7 +8,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("OpenBots.Commands.TextFile.Test")]
 [assembly: AssemblyDescription("The project contains common data command tests.")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Accelirate Inc.")]
+[assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("OpenBots.Commands.TextFile.Test")]
 [assembly: AssemblyCopyright("Copyright ©  2020")]
 [assembly: AssemblyTrademark("")]
