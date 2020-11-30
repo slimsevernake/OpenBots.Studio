@@ -688,7 +688,7 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
             string appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
             string packagePath = Path.Combine(appDataPath, "OpenBots Inc", "packages");
             string configPath = Path.Combine(ScriptProjectPath, "project.config");
-            frmGalleryPackageManagerV2 frmManager = new frmGalleryPackageManagerV2(ScriptProject.Dependencies, packagePath);
+            frmGalleryPackageManager frmManager = new frmGalleryPackageManager(ScriptProject.Dependencies, packagePath);
             frmManager.ShowDialog();
 
             if (frmManager.DialogResult == DialogResult.OK)
