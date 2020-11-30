@@ -119,7 +119,10 @@ namespace OpenBots.Core.Gallery
 
             using (var cacheContext = new SourceCacheContext())
             {
-                var repositories = sourceRepositoryProvider.GetRepositories();
+                var galleryRepo = sourceRepositoryProvider.CreateRepository(new PackageSource("https://dev.gallery.openbots.io/v3/index.json", "OpenBots Gallery", true));
+                var repositories = sourceRepositoryProvider.GetRepositories().ToList();
+                repositories.Add(galleryRepo);
+
                 var availablePackages = new HashSet<SourcePackageDependencyInfo>(PackageIdentityComparer.Default);
                 await GetPackageDependencies(
                     new PackageIdentity(packageId, packageVersion),
@@ -242,7 +245,10 @@ namespace OpenBots.Core.Gallery
 
                 using (var cacheContext = new SourceCacheContext())
                 {
-                    var repositories = sourceRepositoryProvider.GetRepositories();
+                    var galleryRepo = sourceRepositoryProvider.CreateRepository(new PackageSource("https://dev.gallery.openbots.io/v3/index.json", "OpenBots Gallery", true));
+                    var repositories = sourceRepositoryProvider.GetRepositories().ToList();
+                    repositories.Add(galleryRepo);
+
                     var availablePackages = new HashSet<SourcePackageDependencyInfo>(PackageIdentityComparer.Default);
                     await GetPackageDependencies(
                         new PackageIdentity(packageId, packageVersion),
