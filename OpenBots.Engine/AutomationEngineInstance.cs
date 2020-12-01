@@ -389,7 +389,7 @@ namespace OpenBots.Engine
                 {
                     //sleep required time
                     Thread.Sleep(EngineSettings.DelayBetweenCommands);
-
+                    
                     //run the command
                     parentCommand.RunCommand(this);
 

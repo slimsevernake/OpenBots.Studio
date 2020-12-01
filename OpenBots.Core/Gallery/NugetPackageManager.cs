@@ -183,10 +183,6 @@ namespace OpenBots.Core.Gallery
 
                     if (packageToInstall.Id == packageId)
                     {
-                        string packageListAssemblyPath = libItems
-                        .Where(x => x.TargetFramework.Equals(nearest))
-                        .SelectMany(x => x.Items.Where(i => i.EndsWith(".dll"))).FirstOrDefault();
-
                         var existingPackage = projectDependenciesDict.Where(x => x.Key == packageToInstall.Id)
                                                                      .Select(e => (KeyValuePair<string, string>?)e)
                                                                      .FirstOrDefault();
@@ -287,14 +283,20 @@ namespace OpenBots.Core.Gallery
                         var libItems = packageReader.GetLibItems();
                         var nearest = frameworkReducer.GetNearest(nuGetFramework, libItems.Select(x => x.TargetFramework));
 
-                        string packageListAssemblyPath = libItems
+                        var packageListAssemblyPaths = libItems
                             .Where(x => x.TargetFramework.Equals(nearest))
-                            .SelectMany(x => x.Items.Where(i => i.EndsWith(".dll"))).FirstOrDefault();
+                            .SelectMany(x => x.Items.Where(i => i.EndsWith(".dll"))).ToList();
 
-                        var dependencyPath = Path.Combine(packagePath, $"{packageToInstall.Id}.{packageToInstall.Version}", packageListAssemblyPath);
+                        if (packageListAssemblyPaths != null)
+                        {
+                            foreach(string path in packageListAssemblyPaths)
+                            {
+                                var dependencyPath = Path.Combine(packagePath, $"{packageToInstall.Id}.{packageToInstall.Version}", path);
 
-                        if (!assemblyPaths.Contains(dependencyPath))
-                            assemblyPaths.Add(dependencyPath);
+                                if (!assemblyPaths.Contains(dependencyPath))
+                                    assemblyPaths.Add(dependencyPath);
+                            }                            
+                        }                       
                     }
                 }
             }

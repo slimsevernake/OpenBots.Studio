@@ -44,18 +44,15 @@ namespace OpenBots.Gallery
                     var assemblyinfo = AssemblyName.GetAssemblyName(path);
                     var name = assemblyinfo.Name;
                     var version = assemblyinfo.Version.ToString();
-                    var publicKey = assemblyinfo.GetPublicKeyToken().GetHashCode();
 
                     var assemblies = AppDomain.CurrentDomain.GetAssemblies();
                     var existingAssembly = assemblies.Where(x => x.GetName().Name == name && 
-                                                                 x.GetName().Version.ToString() == version //&& 
-                                                                 //x.GetName().GetPublicKeyToken().GetHashCode() == publicKey)
-                                                                 ).FirstOrDefault();
+                                                                 x.GetName().Version.ToString() == version)
+                                                     .FirstOrDefault();
 
                     if (existingAssembly == null)
                     {
-                        var assembly = Assembly.Load(File.ReadAllBytes(path));
-                        var assemblies2 = AppDomain.CurrentDomain.GetAssemblies();
+                        var assembly = Assembly.LoadFrom(path);
                         existingAssemblies.Add(assembly);
                     }
                     else
