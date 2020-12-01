@@ -13,7 +13,7 @@
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>API Commands for OpenBots Studio</description>
     <releaseNotes>https://openbots.ai/category/release-notes/</releaseNotes>
-    <copyright>OpenBots Inc</copyright>
+    <copyright>(C) OpenBots Inc 2020-2021</copyright>
     <tags>OpenBotsStudio</tags>
     <dependencies>
       <group targetFramework="net48">
