@@ -16,7 +16,7 @@ namespace OpenBots.Commands.Input
 	[Serializable]
 	[Category("Input Commands")]
 	[Description("This command simulates a mouse movement to a specified position.")]
-	public class SendMouseMoveCommand : ScriptCommand
+	public class SendMouseMoveCommand : ScriptCommand, ISendMouseMoveCommand
 	{
 
 		[Required]

@@ -1,10 +1,9 @@
-﻿using OpenBots.Commands;
-using OpenBots.Commands.Switch;
-using OpenBots.Core.Enums;
+﻿using OpenBots.Core.Enums;
 using OpenBots.Core.IO;
 using OpenBots.Core.Script;
 using OpenBots.Core.Settings;
 using OpenBots.Core.Utilities.CommonUtilities;
+using OpenBots.Studio.Utilities;
 using OpenBots.UI.CustomControls.CustomUIControls;
 using OpenBots.UI.Forms.Supplement_Forms;
 using OpenBots.UI.Supplement_Forms;
@@ -223,50 +222,50 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
 
             foreach (ListViewItem item in _selectedTabScriptActions.Items)
             {
-                if(item.Tag is BrokenCodeCommentCommand)
+                if(item.Tag.GetType().Name == "BrokenCodeCommentCommand")
                 {
                     Notify("Please verify that all broken code has been removed or replaced.", Color.Yellow);
                     return;
                 }
-                else if ((item.Tag is LoopCollectionCommand) || (item.Tag is LoopContinuouslyCommand) ||
-                    (item.Tag is LoopNumberOfTimesCommand) || (item.Tag is BeginLoopCommand) ||
-                    (item.Tag is BeginMultiLoopCommand))
+                else if ((item.Tag.GetType().Name == "LoopCollectionCommand") || (item.Tag.GetType().Name == "LoopContinuouslyCommand") ||
+                    (item.Tag.GetType().Name == "LoopNumberOfTimesCommand") || (item.Tag.GetType().Name == "BeginLoopCommand") ||
+                    (item.Tag.GetType().Name == "BeginMultiLoopCommand"))
                 {
                     beginLoopValidationCount++;
                 }
-                else if (item.Tag is EndLoopCommand)
+                else if (item.Tag.GetType().Name == "EndLoopCommand")
                 {
                     beginLoopValidationCount--;
                 }
-                else if ((item.Tag is BeginIfCommand) || (item.Tag is BeginMultiIfCommand))
+                else if ((item.Tag.GetType().Name == "BeginIfCommand") || (item.Tag.GetType().Name == "BeginMultiIfCommand"))
                 {
                     beginIfValidationCount++;
                 }
-                else if (item.Tag is EndIfCommand)
+                else if (item.Tag.GetType().Name == "EndIfCommand")
                 {
                     beginIfValidationCount--;
                 }
-                else if (item.Tag is BeginTryCommand)
+                else if (item.Tag.GetType().Name == "BeginTryCommand")
                 {
                     tryCatchValidationCount++;
                 }
-                else if (item.Tag is EndTryCommand)
+                else if (item.Tag.GetType().Name == "EndTryCommand")
                 {
                     tryCatchValidationCount--;
                 }
-                else if (item.Tag is BeginRetryCommand)
+                else if (item.Tag.GetType().Name == "BeginRetryCommand")
                 {
                     retryValidationCount++;
                 }
-                else if (item.Tag is EndRetryCommand)
+                else if (item.Tag.GetType().Name == "EndRetryCommand")
                 {
                     retryValidationCount--;
                 }
-                else if(item.Tag is BeginSwitchCommand)
+                else if(item.Tag.GetType().Name == "BeginSwitchCommand")
                 {
                     beginSwitchValidationCount++;
                 }
-                else if (item.Tag is EndSwitchCommand)
+                else if (item.Tag.GetType().Name == "EndSwitchCommand")
                 {
                     beginSwitchValidationCount--;
                 }
@@ -479,10 +478,9 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
                 var dateTimeNow = DateTime.Now.ToString();
 
                 //comment
-                _selectedTabScriptActions.Items.Add(CreateScriptCommandListViewItem(new AddCodeCommentCommand()
-                {
-                    v_Comment = "Imported From " + fileName + " @ " + dateTimeNow
-                }));
+                dynamic addCodeCommentCommand = TypeMethods.CreateTypeInstance(AppDomain.CurrentDomain, "AddCodeCommentCommand");
+                addCodeCommentCommand.v_Comment = "Imported From " + fileName + " @ " + dateTimeNow;
+                _selectedTabScriptActions.Items.Add(CreateScriptCommandListViewItem(addCodeCommentCommand));
 
                 //import
                 PopulateExecutionCommands(deserializedScript.Commands);
@@ -503,7 +501,9 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
                 }
 
                 //comment
-                _selectedTabScriptActions.Items.Add(CreateScriptCommandListViewItem(new AddCodeCommentCommand() { v_Comment = "End Import From " + fileName + " @ " + dateTimeNow }));
+                dynamic codeCommentCommand = TypeMethods.CreateTypeInstance(AppDomain.CurrentDomain, "AddCodeCommentCommand");
+                codeCommentCommand.v_Comment = "End Import From " + fileName + " @ " + dateTimeNow;
+                _selectedTabScriptActions.Items.Add(CreateScriptCommandListViewItem(codeCommentCommand));
 
                 //format listview
                 //notify
@@ -524,7 +524,11 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
                 if (item.ScriptCommand != null)
                     _selectedTabScriptActions.Items.Add(CreateScriptCommandListViewItem(item.ScriptCommand));
                 else
-                    _selectedTabScriptActions.Items.Add(CreateScriptCommandListViewItem(new BrokenCodeCommentCommand{ v_Comment = item.SerializationError}));
+                {
+                    dynamic brokenCodeCommentCommand = TypeMethods.CreateTypeInstance(AppDomain.CurrentDomain, "BrokenCodeCommentCommand");
+                    brokenCodeCommentCommand.v_Comment = item.SerializationError;
+                    _selectedTabScriptActions.Items.Add(CreateScriptCommandListViewItem(brokenCodeCommentCommand));
+                }
                 if (item.AdditionalScriptCommands?.Count > 0)
                     PopulateExecutionCommands(item.AdditionalScriptCommands);
             }

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package>
+  <metadata>
+    <id>OpenBots.Commands.Task</id>
+    <version>1.1.0</version>
+    <title>Task Commands</title>
+    <authors>OpenBots Inc</authors>
+    <owners>OpenBots Inc</owners>
+    <licenseUrl>https://github.com/OpenBotsAI/OpenBots.Studio/blob/develop/LICENSE</licenseUrl>
+    <projectUrl>https://openbots.ai</projectUrl>
+    <iconUrl>https://openbots.ai/wp-content/uploads/2020/11/OpenBots-Logo-512.png</iconUrl>
+    <repository type="git" url="https://github.com/OpenBotsAI/OpenBots.Studio" branch="master" />
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Task Commands</description>
+    <releaseNotes>https://openbots.ai/category/release-notes/</releaseNotes>
+    <copyright>OpenBots Inc</copyright>
+    <tags>OpenBotsStudio</tags>
+    <dependencies>
+      <group targetFramework="net48">
+      </group>
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="bin\Debug\*.dll" target="lib" />
+	<file src="bin\Debug\*.pdb" target="lib" />
+  </files>
+</package>

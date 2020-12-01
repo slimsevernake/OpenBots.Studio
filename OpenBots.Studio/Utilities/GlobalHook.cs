@@ -1,10 +1,9 @@
-﻿using OpenBots.Commands.Engine;
-using OpenBots.Commands.Input;
-using OpenBots.Commands.Window;
-using OpenBots.Core.Command;
+﻿using OpenBots.Core.Command;
 using OpenBots.Core.Common;
 using OpenBots.Core.Enums;
+using OpenBots.Core.Infrastructure;
 using OpenBots.Core.User32;
+using OpenBots.Studio.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -301,9 +300,9 @@ namespace OpenBots.Utilities
             }
 
             //generate sendkeys together
-            if ((GeneratedCommands.Count > 1) && (GeneratedCommands[GeneratedCommands.Count - 1] is SendKeystrokesCommand))
+            if ((GeneratedCommands.Count > 1) && (GeneratedCommands[GeneratedCommands.Count - 1] is ISendKeystrokesCommand))
             {
-                var lastCreatedSendKeysCommand = (SendKeystrokesCommand)GeneratedCommands[GeneratedCommands.Count - 1];
+                var lastCreatedSendKeysCommand = (ISendKeystrokesCommand)GeneratedCommands[GeneratedCommands.Count - 1];
              
                 //append chars to previously created command
                 //this makes editing easier for the user because only 1 command is issued rather than multiples
@@ -316,21 +315,19 @@ namespace OpenBots.Utilities
                 BuildPauseCommand();
 
                 //build keyboard command
-                var keyboardCommand = new SendKeystrokesCommand
-                {
-                    v_TextToSend = selectedKey,
-                    v_WindowName = "Current Window"
-                };
+                dynamic keyboardCommand = TypeMethods.CreateTypeInstance(AppDomain.CurrentDomain, "SendKeystrokesCommand");
+                keyboardCommand.v_TextToSend = selectedKey;
+                keyboardCommand.v_WindowName = "Current Window";
                 GeneratedCommands.Add(keyboardCommand);
             }
         }
 
         public static bool BuildSendAdvancedKeystrokesCommand(Keys key, List<ScriptCommand> commandList, string windowName, bool isOnlyKeyDown = false)
         {
-            if ((commandList.Count > 1) && (commandList[commandList.Count - 1] is SendAdvancedKeystrokesCommand)
-                && (commandList[commandList.Count - 1] as SendAdvancedKeystrokesCommand).v_KeyActions.Rows.Count > 0 && !isOnlyKeyDown)
+            if ((commandList.Count > 1) && (commandList[commandList.Count - 1] is ISendAdvancedKeystrokesCommand)
+                && (commandList[commandList.Count - 1] as ISendAdvancedKeystrokesCommand).v_KeyActions.Rows.Count > 0 && !isOnlyKeyDown)
             {
-                DataTable previousKeyActionsDT = (commandList[commandList.Count - 1] as SendAdvancedKeystrokesCommand).v_KeyActions;
+                DataTable previousKeyActionsDT = (commandList[commandList.Count - 1] as ISendAdvancedKeystrokesCommand).v_KeyActions;
                 int keyCount = previousKeyActionsDT.Rows.Count;
                 var lastPressedKeyName = previousKeyActionsDT.Rows[keyCount - 1].ItemArray[0].ToString().Split('[', ']')[1];
                 Keys lastPressedKey = (Keys)Enum.Parse(typeof(Keys), lastPressedKeyName);
@@ -353,11 +350,10 @@ namespace OpenBots.Utilities
             }
             else if (key.ToString().Length > 1)
             {
-                var sendAdvancedKeystrokesCommand = new SendAdvancedKeystrokesCommand
-                {
-                    v_WindowName = windowName,
-                    v_KeyUpDefault = "Yes"
-                };
+                dynamic sendAdvancedKeystrokesCommand = TypeMethods.CreateTypeInstance(AppDomain.CurrentDomain, "SendAdvancedKeystrokesCommand");
+                sendAdvancedKeystrokesCommand.v_WindowName = windowName;
+                sendAdvancedKeystrokesCommand.v_KeyUpDefault = "Yes";
+                
                 DataTable newkeyActionaDT = sendAdvancedKeystrokesCommand.v_KeyActions;
                 DataRow newKeyStrokeRow = newkeyActionaDT.NewRow();
                 newKeyStrokeRow["Key"] = $"{Common.GetKeyDescription(key)} [{key}]";
@@ -418,13 +414,13 @@ namespace OpenBots.Utilities
             if ((!_performMouseClickCapture) && (mouseEventClickType != "None"))
                 return;
 
-            if ((GeneratedCommands.Count > 1) && (GeneratedCommands[GeneratedCommands.Count - 1] is SendMouseMoveCommand) 
+            if ((GeneratedCommands.Count > 1) && (GeneratedCommands[GeneratedCommands.Count - 1] is ISendMouseMoveCommand) 
                 && mouseEventClickType != "None" && _stopWatch.ElapsedMilliseconds <= 500 
                 && hookStruct.Pt.X == _lastClickHookStruct.Pt.X && hookStruct.Pt.Y == _lastClickHookStruct.Pt.Y)
             {
-                var lastCreatedMouseCommand = (SendMouseMoveCommand)GeneratedCommands[GeneratedCommands.Count - 1];
+                var lastCreatedMouseCommand = (ISendMouseMoveCommand)GeneratedCommands[GeneratedCommands.Count - 1];
 
-                switch ((GeneratedCommands[GeneratedCommands.Count - 1] as SendMouseMoveCommand).v_MouseClick)
+                switch ((GeneratedCommands[GeneratedCommands.Count - 1] as ISendMouseMoveCommand).v_MouseClick)
                 {
                     case "Left Down":
                         if (mouseEventClickType == "Left Up")
@@ -452,13 +448,11 @@ namespace OpenBots.Utilities
                 BuildPauseCommand();
 
                 //define new mouse command                
-                var mouseMove = new SendMouseMoveCommand
-                {
-                    v_XMousePosition = hookStruct.Pt.X.ToString(),
-                    v_YMousePosition = hookStruct.Pt.Y.ToString(),
-                    v_MouseClick = mouseEventClickType
-                };
-
+                dynamic mouseMove = TypeMethods.CreateTypeInstance(AppDomain.CurrentDomain, "SendMouseMoveCommand");
+                mouseMove.v_XMousePosition = hookStruct.Pt.X.ToString();
+                mouseMove.v_YMousePosition = hookStruct.Pt.Y.ToString();
+                mouseMove.v_MouseClick = mouseEventClickType;
+                
                 if (mouseEventClickType != "None")
                 {
                     IntPtr winHandle = WindowFromPoint(hookStruct.Pt);
@@ -508,12 +502,9 @@ namespace OpenBots.Utilities
                 //System.Threading.Thread.Sleep(250);
                 windowName = _buffer.ToString();
 
-                ActivateWindowCommand activateWindowCommand = new ActivateWindowCommand
-                {
-                    v_WindowName = windowName,
-                    v_Comment = "Generated by Screen Recorder @ " + DateTime.Now.ToString()
-                };
-
+                dynamic activateWindowCommand = TypeMethods.CreateTypeInstance(AppDomain.CurrentDomain, "ActivateWindowCommand");
+                activateWindowCommand.v_WindowName = windowName;
+                activateWindowCommand.v_Comment = "Generated by Screen Recorder @ " + DateTime.Now.ToString();
                 GeneratedCommands.Add(activateWindowCommand);
 
                 //detect if tracking window open location or activate windows to top left
@@ -521,27 +512,20 @@ namespace OpenBots.Utilities
                 {
                     User32Functions.GetWindowRect(hwnd, out Rect windowRect);
 
-                    MoveWindowCommand moveWindowCommand = new MoveWindowCommand
-                    {
-                        v_WindowName = windowName,
-                        v_XMousePosition = windowRect.left.ToString(),
-                        v_YMousePosition = windowRect.top.ToString(),
-                        v_Comment = "Generated by Screen Recorder @ " + DateTime.Now.ToString()
-                    };
-
+                    dynamic moveWindowCommand = TypeMethods.CreateTypeInstance(AppDomain.CurrentDomain, "MoveWindowCommand");
+                    moveWindowCommand.v_WindowName = windowName;
+                    moveWindowCommand.v_XMousePosition = windowRect.left.ToString();
+                    moveWindowCommand.v_YMousePosition = windowRect.top.ToString();
+                    moveWindowCommand.v_Comment = "Generated by Screen Recorder @ " + DateTime.Now.ToString();
                     GeneratedCommands.Add(moveWindowCommand);
                 }
                 else if (_activateWindowTopLeft)
                 {
-                    //generate command to set window position
-                    MoveWindowCommand moveWindowCommand = new MoveWindowCommand
-                    {
-                        v_WindowName = windowName,
-                        v_XMousePosition = "0",
-                        v_YMousePosition = "0",
-                        v_Comment = "Generated by Screen Recorder @ " + DateTime.Now.ToString()
-                    };
-
+                    dynamic moveWindowCommand = TypeMethods.CreateTypeInstance(AppDomain.CurrentDomain, "MoveWindowCommand");
+                    moveWindowCommand.v_WindowName = windowName;
+                    moveWindowCommand.v_XMousePosition = "0";
+                    moveWindowCommand.v_YMousePosition = "0";
+                    moveWindowCommand.v_Comment = "Generated by Screen Recorder @ " + DateTime.Now.ToString();
                     User32Functions.SetWindowPosition(hwnd, 0, 0);
                     GeneratedCommands.Add(moveWindowCommand);
                 }
@@ -557,16 +541,14 @@ namespace OpenBots.Utilities
                     var height = windowRect.bottom - windowRect.top;
 
                     //generate command to set window position
-                    ResizeWindowCommand reszWindowCommand = new ResizeWindowCommand
-                    {
-                        v_WindowName = windowName,
-                        v_XWindowSize = width.ToString(),
-                        v_YWindowSize = height.ToString(),
-                        v_Comment = "Generated by Screen Recorder @ " + DateTime.Now.ToString()
-                    };
+                    dynamic resizeWindowCommand = TypeMethods.CreateTypeInstance(AppDomain.CurrentDomain, "ResizeWindowCommand");
+                    resizeWindowCommand.v_WindowName = windowName;
+                    resizeWindowCommand.v_XWindowSize = width.ToString();
+                    resizeWindowCommand.v_YWindowSize = height.ToString();
+                    resizeWindowCommand.v_Comment = "Generated by Screen Recorder @ " + DateTime.Now.ToString();
 
                     //add to list
-                    GeneratedCommands.Add(reszWindowCommand);
+                    GeneratedCommands.Add(resizeWindowCommand);
                 }
             }
         }
@@ -579,11 +561,9 @@ namespace OpenBots.Utilities
 
             _stopWatch.Stop();
             var pauseTime = _stopWatch.ElapsedMilliseconds;
-            var pauseCommand = new PauseScriptCommand
-            {
-                v_PauseLength = pauseTime.ToString()
-            };
 
+            dynamic pauseCommand = TypeMethods.CreateTypeInstance(AppDomain.CurrentDomain, "PauseScriptCommand");
+            pauseCommand.v_PauseLength = pauseTime.ToString();
             GeneratedCommands.Add(pauseCommand);
             _stopWatch.Restart();
         }

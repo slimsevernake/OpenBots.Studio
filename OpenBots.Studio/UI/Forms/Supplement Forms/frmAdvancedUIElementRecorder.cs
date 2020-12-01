@@ -1,11 +1,11 @@
-﻿using OpenBots.Commands;
-using OpenBots.Commands.Window;
-using OpenBots.Core.Command;
+﻿using OpenBots.Core.Command;
 using OpenBots.Core.Common;
 using OpenBots.Core.Enums;
+using OpenBots.Core.Infrastructure;
 using OpenBots.Core.Settings;
 using OpenBots.Core.UI.Forms;
 using OpenBots.Core.User32;
+using OpenBots.Studio.Utilities;
 using OpenBots.UI.Forms.ScriptBuilder_Forms;
 using OpenBots.UI.Supplement_Forms;
 using OpenBots.Utilities;
@@ -18,14 +18,13 @@ using System.Text;
 using System.Windows;
 using System.Windows.Automation;
 using System.Windows.Forms;
-using Enums = OpenBots.Core.Enums;
 
 namespace OpenBots.UI.Forms.Supplement_Forms
 {
-    public partial class frmAdvancedUIElementRecorder : UIForm
+    public partial class frmAdvancedUIElementRecorder : UIForm, IfrmAdvancedUIElementRecorder
     {
-        public DataTable SearchParameters;
-        public string LastItemClicked;
+        public DataTable SearchParameters { get; set; }
+        public string LastItemClicked { get; set; }
         public bool IsRecordingSequence { get; set; }
         public bool IsCommandItemSelected { get; set; }
         public frmScriptBuilder CallBackForm { get; set; }
@@ -56,7 +55,7 @@ namespace OpenBots.UI.Forms.Supplement_Forms
             _stopwatch = new Stopwatch();
             _stopwatch.Start();
         }
-        
+
         private void frmThickAppElementRecorder_Load(object sender, EventArgs e)
         {
             //create data source from windows
@@ -97,7 +96,7 @@ namespace OpenBots.UI.Forms.Supplement_Forms
                         _isFirstRecordClick = true;
 
                         lblDescription.Text = "Instructions: Select the target window name from the drop-down " +
-                                              "list and click the record button. Once recording has started, click "+
+                                              "list and click the record button. Once recording has started, click " +
                                               "the element in the target application that you want to capture.";
 
                         //remove wait for left mouse down event
@@ -108,10 +107,8 @@ namespace OpenBots.UI.Forms.Supplement_Forms
                         return;
                     }
 
-                    ActivateWindowCommand activateWindowCommand = new ActivateWindowCommand
-                    {
-                        v_WindowName = _windowName
-                    };
+                    dynamic activateWindowCommand = TypeMethods.CreateTypeInstance(AppDomain.CurrentDomain, "ActivateWindowCommand");
+                    activateWindowCommand.v_WindowName = _windowName;
                     _sequenceCommandList.Add(activateWindowCommand);
                 }
 
@@ -144,7 +141,7 @@ namespace OpenBots.UI.Forms.Supplement_Forms
                 _isRecording = false;
                 if (!chkStopOnClick.Checked)
                     lblDescription.Text = "Recording has stopped. Press F2 to save and close.";
-            }          
+            }
         }
 
         private void GlobalHook_HookStopped(object sender, EventArgs e)
@@ -157,7 +154,7 @@ namespace OpenBots.UI.Forms.Supplement_Forms
         {
             //mouse down has occured
             if (e != null)
-            {               
+            {
                 //invoke UIA
                 try
                 {
@@ -182,7 +179,7 @@ namespace OpenBots.UI.Forms.Supplement_Forms
                                     _sequenceCommandList.RemoveAt(_sequenceCommandList.Count - 1);
 
                                 clickType = "Double Left Click";
-                            }                              
+                            }
                             else
                                 clickType = "Left Click";
                             break;
@@ -207,9 +204,9 @@ namespace OpenBots.UI.Forms.Supplement_Forms
                     lblDescription.Text = _errorMessage;
                 }
             }
-            
+
             if (chkStopOnClick.Checked)
-                Close();     
+                Close();
         }
 
         private void GlobalHook_KeyDownEvent(object sender, KeyDownEventArgs e)
@@ -260,7 +257,7 @@ namespace OpenBots.UI.Forms.Supplement_Forms
             if (IsRecordingSequence)
             {
                 //loop through each property and get value from the element
-                foreach (DataRow row in _parameterSettings.Rows) 
+                foreach (DataRow row in _parameterSettings.Rows)
                 {
                     foreach (PropertyInfo property in properties)
                     {
@@ -281,7 +278,7 @@ namespace OpenBots.UI.Forms.Supplement_Forms
                 }
             }
             else
-            {                
+            {
                 //loop through each property and get value from the element
                 foreach (PropertyInfo property in properties)
                 {
@@ -309,7 +306,7 @@ namespace OpenBots.UI.Forms.Supplement_Forms
         }
 
         private void uiBtnOk_Click(object sender, EventArgs e)
-        {       
+        {
             DialogResult = DialogResult.OK;
         }
 
@@ -322,12 +319,10 @@ namespace OpenBots.UI.Forms.Supplement_Forms
         {
             BuildWaitForElementActionCommand();
 
-            var clickElementActionCommand = new UIAutomationCommand
-            {
-                v_WindowName = _windowName,
-                v_UIASearchParameters = SearchParameters,
-                v_AutomationType = "Click Element"
-            };
+            dynamic clickElementActionCommand = TypeMethods.CreateTypeInstance(AppDomain.CurrentDomain, "UIAutomationCommand");
+            clickElementActionCommand.v_WindowName = _windowName;
+            clickElementActionCommand.v_UIASearchParameters = SearchParameters;
+            clickElementActionCommand.v_AutomationType = "Click Element";
 
             DataTable webActionDT = clickElementActionCommand.v_UIAActionParameters;
             DataRow clickTypeRow = webActionDT.NewRow();
@@ -342,13 +337,11 @@ namespace OpenBots.UI.Forms.Supplement_Forms
 
         private void BuildWaitForElementActionCommand()
         {
-            var waitElementActionCommand = new UIAutomationCommand
-            {
-                v_WindowName = _windowName,
-                v_UIASearchParameters = SearchParameters,
-                v_AutomationType = "Wait For Element To Exist"
-            };
-
+            dynamic waitElementActionCommand = TypeMethods.CreateTypeInstance(AppDomain.CurrentDomain, "UIAutomationCommand");
+            waitElementActionCommand.v_WindowName = _windowName;
+            waitElementActionCommand.v_UIASearchParameters = SearchParameters;
+            waitElementActionCommand.v_AutomationType = "Wait For Element To Exist";
+            
             DataTable webActionDT = waitElementActionCommand.v_UIAActionParameters;
             DataRow timeoutRow = webActionDT.NewRow();
             timeoutRow["Parameter Name"] = "Timeout (Seconds)";
@@ -398,28 +391,26 @@ namespace OpenBots.UI.Forms.Supplement_Forms
             }
 
             //generate sendkeys together
-            if ((_sequenceCommandList.Count > 1) && (_sequenceCommandList[_sequenceCommandList.Count - 1] is UIAutomationCommand)
-                && (_sequenceCommandList[_sequenceCommandList.Count - 1] as UIAutomationCommand).v_AutomationType == "Set Text")
+            if ((_sequenceCommandList.Count > 1) && (_sequenceCommandList[_sequenceCommandList.Count - 1] is IUIAutomationCommand)
+                && (_sequenceCommandList[_sequenceCommandList.Count - 1] as IUIAutomationCommand).v_AutomationType == "Set Text")
             {
-                var lastCreatedSendKeysCommand = (UIAutomationCommand)_sequenceCommandList[_sequenceCommandList.Count - 1];
-   
+                var lastCreatedSendKeysCommand = (IUIAutomationCommand)_sequenceCommandList[_sequenceCommandList.Count - 1];
+
                 //append chars to previously created command
                 //this makes editing easier for the user because only 1 command is issued rather than multiples
                 var previouslyInputChars = lastCreatedSendKeysCommand.v_UIAActionParameters.Rows[0][1].ToString();
-                lastCreatedSendKeysCommand.v_UIAActionParameters.Rows[0][1] = previouslyInputChars + selectedKey;              
+                lastCreatedSendKeysCommand.v_UIAActionParameters.Rows[0][1] = previouslyInputChars + selectedKey;
             }
             else
             {
                 BuildWaitForElementActionCommand();
 
                 //build keyboard command
-                var setTextElementActionCommand = new UIAutomationCommand
-                {
-                    v_WindowName = _windowName,
-                    v_UIASearchParameters = SearchParameters,
-                    v_AutomationType = "Set Text"
-                };
-
+                dynamic setTextElementActionCommand = TypeMethods.CreateTypeInstance(AppDomain.CurrentDomain, "UIAutomationCommand");
+                setTextElementActionCommand.v_WindowName = _windowName;
+                setTextElementActionCommand.v_UIASearchParameters = SearchParameters;
+                setTextElementActionCommand.v_AutomationType = "Set Text";
+                
                 DataTable webActionDT = setTextElementActionCommand.v_UIAActionParameters;
                 DataRow textToSetRow = webActionDT.NewRow();
                 textToSetRow["Parameter Name"] = "Text To Set";
@@ -434,16 +425,12 @@ namespace OpenBots.UI.Forms.Supplement_Forms
         {
             string sequenceComment = $"Advanced UI Sequence Recorded {DateTime.Now}";
 
-            var commentCommand = new AddCodeCommentCommand
-            {
-                v_Comment = sequenceComment
-            };
-
-            var sequenceCommand = new SequenceCommand
-            {
-                ScriptActions = _sequenceCommandList,
-                v_Comment = sequenceComment
-            };
+            dynamic commentCommand = TypeMethods.CreateTypeInstance(AppDomain.CurrentDomain, "AddCodeCommentCommand");
+            commentCommand.v_Comment = sequenceComment;
+            
+            dynamic sequenceCommand = TypeMethods.CreateTypeInstance(AppDomain.CurrentDomain, "SequenceCommand");
+            sequenceCommand.ScriptActions = _sequenceCommandList;
+            sequenceCommand.v_Comment = sequenceComment;
 
             CallBackForm.AddCommandToListView(commentCommand);
             CallBackForm.AddCommandToListView(sequenceCommand);
@@ -468,6 +455,16 @@ namespace OpenBots.UI.Forms.Supplement_Forms
             searchParameters.Columns.Add("Parameter Value");
             searchParameters.TableName = DateTime.Now.ToString("UIASearchParamTable" + DateTime.Now.ToString("MMddyy.hhmmss"));
             return searchParameters;
+        }
+
+        public void SetWindowTitle(string title)
+        {
+            cboWindowTitle.Text = title;
+        }
+
+        public string GetWindowTitle()
+        {
+            return cboWindowTitle.Text;
         }
     }
 }

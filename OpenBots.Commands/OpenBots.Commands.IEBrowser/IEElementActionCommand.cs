@@ -498,7 +498,7 @@ namespace OpenBots.Commands.IEBrowser
             return curtop;
         }
 
-        private Boolean InspectFrame(IHTMLElementCollection elementCollection, EnumerableRowCollection<DataRow> elementSearchProperties, object sender, SHDocVw.InternetExplorer browserInstance)
+        private Boolean InspectFrame(IHTMLElementCollection elementCollection, EnumerableRowCollection<DataRow> elementSearchProperties, object sender, InternetExplorer browserInstance)
         {
             bool qualifyingElementFound = false;
             foreach (IHTMLElement element in elementCollection)

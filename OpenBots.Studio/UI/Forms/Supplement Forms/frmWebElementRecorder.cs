@@ -1,10 +1,11 @@
 ﻿using Gecko;
 using HtmlAgilityPack;
-using OpenBots.Commands;
 using OpenBots.Core.Command;
+using OpenBots.Core.Infrastructure;
 using OpenBots.Core.Script;
 using OpenBots.Core.Settings;
 using OpenBots.Core.UI.Forms;
+using OpenBots.Studio.Utilities;
 using OpenBots.UI.Forms.ScriptBuilder_Forms;
 using OpenBots.UI.Supplement_Forms;
 using OpenBots.Utilities;
@@ -19,7 +20,7 @@ using System.Windows.Forms;
 
 namespace OpenBots.UI.Forms.Supplement_Forms
 {
-    public partial class frmWebElementRecorder : UIForm
+    public partial class frmWebElementRecorder : UIForm, IfrmWebElementRecorder
     {
         public List<ScriptElement> ScriptElements { get; set; }
         public DataTable SearchParameters { get; set; }
@@ -45,7 +46,7 @@ namespace OpenBots.UI.Forms.Supplement_Forms
         private List<string> _cssSelectors;
         private bool _isRecording;
         private bool _isHookStopped;
-        private SeleniumCreateBrowserCommand _createBrowserCommand;
+        private ISeleniumCreateBrowserCommand _createBrowserCommand;
         private ApplicationSettings _appSettings;
         private Point _lastSavedPoint;
 
@@ -115,11 +116,11 @@ namespace OpenBots.UI.Forms.Supplement_Forms
                         _parameterSettings = settingsForm.ParameterSettingsDT;
                     }
                     else
-                    {                       
+                    {
                         _isRecording = false;
                         _isFirstRecordClick = true;
 
-                        lblDescription.Text = "Instructions: navigate to the target URL and click the record button. " + 
+                        lblDescription.Text = "Instructions: navigate to the target URL and click the record button. " +
                                               "Once recording has started, click the element that you want to capture.";
 
                         //remove wait for left mouse down event
@@ -133,13 +134,12 @@ namespace OpenBots.UI.Forms.Supplement_Forms
 
                     if (_browserEngineType != "None")
                     {
-                        _createBrowserCommand = new SeleniumCreateBrowserCommand
-                        {
-                            v_InstanceName = _browserInstanceName,
-                            v_EngineType = _browserEngineType,
-                            v_URL = wbElementRecorder.Url.ToString()
-                        };
-                    }                  
+                        dynamic seleniumCreateBrowserCommand = TypeMethods.CreateTypeInstance(AppDomain.CurrentDomain, "SeleniumCreateBrowserCommand");
+                        seleniumCreateBrowserCommand.v_InstanceName = _browserInstanceName;
+                        seleniumCreateBrowserCommand.v_EngineType = _browserEngineType;
+                        seleniumCreateBrowserCommand.v_URL = wbElementRecorder.Url.ToString();
+                        _createBrowserCommand = seleniumCreateBrowserCommand;
+                    }
                 }
             }
             else
@@ -157,7 +157,7 @@ namespace OpenBots.UI.Forms.Supplement_Forms
         }
 
         private void wbElementRecorder_DomClick(object sender, DomMouseEventArgs e)
-        {            
+        {
             //mouse down has occured
             if (e != null)
             {
@@ -169,7 +169,7 @@ namespace OpenBots.UI.Forms.Supplement_Forms
                         LoadSearchParameters(_lastSavedPoint);
                         lblDescription.Text = _recordingMessage;
                     }
-                        
+
                     string clickType;
                     switch (e.Button)
                     {
@@ -217,7 +217,7 @@ namespace OpenBots.UI.Forms.Supplement_Forms
                     if (IsRecordingSequence && _isRecording)
                     {
                         //remove previous commands generated from two single clicks
-                        for(int i = 0; i < 4; i++)
+                        for (int i = 0; i < 4; i++)
                             _sequenceCommandList.RemoveAt(_sequenceCommandList.Count - 1);
 
                         BuildElementClickActionCommand("Double Left Click");
@@ -242,7 +242,7 @@ namespace OpenBots.UI.Forms.Supplement_Forms
                         LoadSearchParameters(_lastSavedPoint);
                         lblDescription.Text = _recordingMessage;
                     }
-                    
+
                     if (IsRecordingSequence && _isRecording)
                         BuildElementSetTextActionCommand(e.KeyCode);
                     else if (((Keys)Enum.ToObject(typeof(Keys), e.KeyCode)).ToString() == GlobalHook.StopHookKey)
@@ -288,7 +288,7 @@ namespace OpenBots.UI.Forms.Supplement_Forms
 
             SearchParameters = NewSearchParameterDataTable();
             if (IsRecordingSequence)
-            {                
+            {
                 foreach (DataRow row in _parameterSettings.Rows)
                 {
                     switch (row[1].ToString())
@@ -316,7 +316,7 @@ namespace OpenBots.UI.Forms.Supplement_Forms
                                 SearchParameters.Rows.Add(row[0], $"CSS Selector {i + 1}", _cssSelectors[i]);
                             break;
                     }
-                }               
+                }
             }
             else
             {
@@ -343,10 +343,8 @@ namespace OpenBots.UI.Forms.Supplement_Forms
             wbElementRecorder.Reload();
             if (IsRecordingSequence && _isRecording)
             {
-                var refreshBrowserCommand = new SeleniumRefreshCommand
-                {
-                    v_InstanceName = _browserInstanceName
-                };
+                dynamic refreshBrowserCommand = TypeMethods.CreateTypeInstance(AppDomain.CurrentDomain, "SeleniumRefreshCommand");
+                refreshBrowserCommand.v_InstanceName = _browserInstanceName;
                 _sequenceCommandList.Add(refreshBrowserCommand);
             }
         }
@@ -373,10 +371,8 @@ namespace OpenBots.UI.Forms.Supplement_Forms
             wbElementRecorder.GoBack();
             if (IsRecordingSequence && _isRecording)
             {
-                var navigateBackBrowserCommand = new SeleniumNavigateBackCommand
-                {
-                    v_InstanceName = _browserInstanceName
-                };
+                dynamic navigateBackBrowserCommand = TypeMethods.CreateTypeInstance(AppDomain.CurrentDomain, "SeleniumNavigateBackCommand");
+                navigateBackBrowserCommand.v_InstanceName = _browserInstanceName;
                 _sequenceCommandList.Add(navigateBackBrowserCommand);
             }
         }
@@ -386,10 +382,8 @@ namespace OpenBots.UI.Forms.Supplement_Forms
             wbElementRecorder.GoForward();
             if (IsRecordingSequence && _isRecording)
             {
-                var navigateForwardBrowserCommand = new SeleniumNavigateForwardCommand
-                {
-                    v_InstanceName = _browserInstanceName
-                };
+                dynamic navigateForwardBrowserCommand = TypeMethods.CreateTypeInstance(AppDomain.CurrentDomain, "SeleniumNavigateForwardCommand");
+                navigateForwardBrowserCommand.v_InstanceName = _browserInstanceName;
                 _sequenceCommandList.Add(navigateForwardBrowserCommand);
             }
         }
@@ -424,7 +418,7 @@ namespace OpenBots.UI.Forms.Supplement_Forms
 
         private void tbURL_KeyDown(object sender, KeyEventArgs e)
         {
-            if(e.KeyCode == Keys.Enter)
+            if (e.KeyCode == Keys.Enter)
             {
                 pbGo_Click(null, null);
                 e.Handled = true;
@@ -442,7 +436,7 @@ namespace OpenBots.UI.Forms.Supplement_Forms
 
                 if (IsRecordingSequence && _isHookStopped)
                     FinalizeRecording();
-            }   
+            }
             DialogResult = DialogResult.Cancel;
         }
 
@@ -469,14 +463,12 @@ namespace OpenBots.UI.Forms.Supplement_Forms
 
             return attributeList;
         }
-        
+
         private void BuildNavigateToURLCommand(string url)
         {
-            var navigateToURLCommand = new SeleniumNavigateToURLCommand
-            {
-                v_InstanceName = _browserInstanceName,
-                v_URL = url
-            };
+            dynamic navigateToURLCommand = TypeMethods.CreateTypeInstance(AppDomain.CurrentDomain, "SeleniumNavigateToURLCommand");
+            navigateToURLCommand.v_InstanceName = _browserInstanceName;
+            navigateToURLCommand.v_URL = url;
             _sequenceCommandList.Add(navigateToURLCommand);
         }
 
@@ -484,24 +476,20 @@ namespace OpenBots.UI.Forms.Supplement_Forms
         {
             BuildWaitForElementActionCommand();
 
-            var clickElementActionCommand = new SeleniumElementActionCommand
-            {
-                v_InstanceName = _browserInstanceName,
-                v_SeleniumSearchParameters = SearchParameters,
-                v_SeleniumElementAction = clickType
-            };
-            _sequenceCommandList.Add(clickElementActionCommand);          
+            dynamic clickElementActionCommand = TypeMethods.CreateTypeInstance(AppDomain.CurrentDomain, "SeleniumElementActionCommand");
+            clickElementActionCommand.v_InstanceName = _browserInstanceName;
+            clickElementActionCommand.v_SeleniumSearchParameters = SearchParameters;
+            clickElementActionCommand.v_SeleniumElementAction = clickType;
+            _sequenceCommandList.Add(clickElementActionCommand);
         }
 
         private void BuildWaitForElementActionCommand()
         {
-            var waitElementActionCommand = new SeleniumElementActionCommand
-            {
-                v_InstanceName = _browserInstanceName,
-                v_SeleniumSearchParameters = SearchParameters,
-                v_SeleniumElementAction = "Wait For Element To Exist"
-            };
-
+            dynamic waitElementActionCommand = TypeMethods.CreateTypeInstance(AppDomain.CurrentDomain, "SeleniumElementActionCommand");
+            waitElementActionCommand.v_InstanceName = _browserInstanceName;
+            waitElementActionCommand.v_SeleniumSearchParameters = SearchParameters;
+            waitElementActionCommand.v_SeleniumElementAction = "Wait For Element To Exist";
+            
             DataTable webActionDT = waitElementActionCommand.v_WebActionParameterTable;
             DataRow timeoutRow = webActionDT.NewRow();
             timeoutRow["Parameter Name"] = "Timeout (Seconds)";
@@ -550,27 +538,24 @@ namespace OpenBots.UI.Forms.Supplement_Forms
                 return;
 
             //generate sendkeys together
-            if ((_sequenceCommandList.Count > 1) && (_sequenceCommandList[_sequenceCommandList.Count - 1] is SeleniumElementActionCommand) 
-                && (_sequenceCommandList[_sequenceCommandList.Count - 1] as SeleniumElementActionCommand).v_SeleniumElementAction == "Set Text")
+            if ((_sequenceCommandList.Count > 1) && (_sequenceCommandList[_sequenceCommandList.Count - 1] is ISeleniumElementActionCommand)
+                && (_sequenceCommandList[_sequenceCommandList.Count - 1] as ISeleniumElementActionCommand).v_SeleniumElementAction == "Set Text")
             {
-                var lastCreatedSendKeysCommand = (SeleniumElementActionCommand)_sequenceCommandList[_sequenceCommandList.Count - 1];
+                var lastCreatedSendKeysCommand = (ISeleniumElementActionCommand)_sequenceCommandList[_sequenceCommandList.Count - 1];
 
                 //append chars to previously created command
                 //this makes editing easier for the user because only 1 command is issued rather than multiples
                 var previouslyInputChars = lastCreatedSendKeysCommand.v_WebActionParameterTable.Rows[0][1].ToString();
-                lastCreatedSendKeysCommand.v_WebActionParameterTable.Rows[0][1] = previouslyInputChars + selectedKey;               
+                lastCreatedSendKeysCommand.v_WebActionParameterTable.Rows[0][1] = previouslyInputChars + selectedKey;
             }
             else
             {
                 BuildWaitForElementActionCommand();
 
-                //build keyboard command
-                var setTextElementActionCommand = new SeleniumElementActionCommand
-                {
-                    v_InstanceName = _browserInstanceName,
-                    v_SeleniumSearchParameters = SearchParameters,
-                    v_SeleniumElementAction = "Set Text"
-                };
+                dynamic setTextElementActionCommand = TypeMethods.CreateTypeInstance(AppDomain.CurrentDomain, "SeleniumElementActionCommand");
+                setTextElementActionCommand.v_InstanceName = _browserInstanceName;
+                setTextElementActionCommand.v_SeleniumSearchParameters = SearchParameters;
+                setTextElementActionCommand.v_SeleniumElementAction = "Set Text";
 
                 DataTable webActionDT = setTextElementActionCommand.v_WebActionParameterTable;
                 DataRow textToSetRow = webActionDT.NewRow();
@@ -580,37 +565,31 @@ namespace OpenBots.UI.Forms.Supplement_Forms
 
                 _sequenceCommandList.Add(setTextElementActionCommand);
             }
-        }       
+        }
 
         private void FinalizeRecording()
         {
             string sequenceComment = $"Web Sequence Recorded {DateTime.Now}";
 
-            var commentCommand = new AddCodeCommentCommand
-            {
-                v_Comment = sequenceComment
-            };
+            dynamic commentCommand = TypeMethods.CreateTypeInstance(AppDomain.CurrentDomain, "AddCodeCommentCommand");
+            commentCommand.v_Comment = sequenceComment;
 
-            var closeBrowserCommand = new SeleniumCloseBrowserCommand
-            {
-                v_InstanceName = _browserInstanceName
-            };
-          
-            var sequenceCommand = new SequenceCommand 
-            { 
-                ScriptActions = _sequenceCommandList,
-                v_Comment = sequenceComment
-            };
-
+            dynamic closeBrowserCommand = TypeMethods.CreateTypeInstance(AppDomain.CurrentDomain, "SeleniumCloseBrowserCommand");
+            closeBrowserCommand.v_InstanceName = _browserInstanceName;
+            
+            dynamic sequenceCommand = TypeMethods.CreateTypeInstance(AppDomain.CurrentDomain, "SequenceCommand");
+            sequenceCommand.ScriptActions = _sequenceCommandList;
+            sequenceCommand.v_Comment = sequenceComment;
+            
             CallBackForm.AddCommandToListView(commentCommand);
 
             if (_browserEngineType != "None")
-                CallBackForm.AddCommandToListView(_createBrowserCommand);
+                CallBackForm.AddCommandToListView((ScriptCommand)_createBrowserCommand);
 
             CallBackForm.AddCommandToListView(sequenceCommand);
 
             if (_browserEngineType != "None")
-                CallBackForm.AddCommandToListView(closeBrowserCommand);                    
+                CallBackForm.AddCommandToListView(closeBrowserCommand);
         }
 
         private DataTable NewSearchParameterDataTable()
@@ -648,7 +627,7 @@ namespace OpenBots.UI.Forms.Supplement_Forms
             {35, "End"},
             {36, "Home"},
             {45, "Insert"},
-            {46, "Delete"},          
+            {46, "Delete"},
             {112, "F1"},
             {113, "F2"},
             {114, "F3"},
@@ -663,5 +642,10 @@ namespace OpenBots.UI.Forms.Supplement_Forms
             {123, "F12"},
             {110, "Delete"},
         };
+
+        public void CheckBox_StopOnClick(bool check)
+        {
+            chkStopOnClick.Checked = check;
+        }
     }
 }

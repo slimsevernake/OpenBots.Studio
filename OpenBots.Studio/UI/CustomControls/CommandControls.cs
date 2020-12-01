@@ -1,17 +1,21 @@
-﻿using OpenBots.Commands;
-using OpenBots.Commands.API;
+﻿using Newtonsoft.Json;
 using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
 using OpenBots.Core.Common;
 using OpenBots.Core.Enums;
 using OpenBots.Core.Infrastructure;
 using OpenBots.Core.Properties;
+using OpenBots.Core.Script;
 using OpenBots.Core.Settings;
 using OpenBots.Core.UI.Controls;
+using OpenBots.Core.UI.Controls.CustomControls;
 using OpenBots.Core.Utilities.CommandUtilities;
-using OpenBots.UI.CustomControls.CustomUIControls;
+using OpenBots.Studio.Utilities;
 using OpenBots.UI.Forms;
+using OpenBots.UI.Forms.ScriptBuilder_Forms;
 using OpenBots.UI.Forms.Supplement_Forms;
+using OpenBots.UI.SupplementForms;
+using OpenBots.UI.Utilities;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -43,7 +47,7 @@ namespace OpenBots.UI.CustomControls
             var controlList = new List<Control>();
             var label = CreateDefaultLabelFor(parameterName, parent);
             var input = CreateDefaultInputFor(parameterName, parent, height, width);
-            var helpers = CreateUIHelpersFor(parameterName, parent, new Control[] { input }, (frmCommandEditor)editor);
+            var helpers = CreateUIHelpersFor(parameterName, parent, new Control[] { input }, editor);
 
             controlList.Add(label);
             controlList.AddRange(helpers);
@@ -57,7 +61,7 @@ namespace OpenBots.UI.CustomControls
             var controlList = new List<Control>();
             var label = CreateDefaultLabelFor(parameterName, parent);
             var passwordInput = CreateDefaultInputFor(parameterName, parent);
-            var helpers = CreateUIHelpersFor(parameterName, parent, new Control[] { passwordInput }, (frmCommandEditor)editor);
+            var helpers = CreateUIHelpersFor(parameterName, parent, new Control[] { passwordInput }, editor);
 
             controlList.Add(label);
             controlList.AddRange(helpers);
@@ -86,7 +90,7 @@ namespace OpenBots.UI.CustomControls
             var controlList = new List<Control>();
             var label = CreateDefaultLabelFor(parameterName, parent);
             var input = CreateDropdownFor(parameterName, parent);
-            var helpers = CreateUIHelpersFor(parameterName, parent, new Control[] { input }, (frmCommandEditor)editor);
+            var helpers = CreateUIHelpersFor(parameterName, parent, new Control[] { input }, editor);
 
             controlList.Add(label);
             controlList.AddRange(helpers);
@@ -100,7 +104,7 @@ namespace OpenBots.UI.CustomControls
             var controlList = new List<Control>();
             var label = CreateDefaultLabelFor(parameterName, parent);
             var gridview = CreateDataGridView(parent, parameterName);
-            var helpers = CreateUIHelpersFor(parameterName, parent, new Control[] { gridview }, (frmCommandEditor)editor);
+            var helpers = CreateUIHelpersFor(parameterName, parent, new Control[] { gridview }, editor);
 
             controlList.Add(label);
             controlList.AddRange(helpers);
@@ -114,7 +118,7 @@ namespace OpenBots.UI.CustomControls
             var controlList = new List<Control>();
             var label = CreateDefaultLabelFor(parameterName, parent);
             var windowNameControl = AddWindowNames(CreateStandardComboboxFor(parameterName, parent));
-            var helpers = CreateUIHelpersFor(parameterName, parent, new Control[] { windowNameControl }, (frmCommandEditor)editor);
+            var helpers = CreateUIHelpersFor(parameterName, parent, new Control[] { windowNameControl }, editor);
 
             controlList.Add(label);
             controlList.AddRange(helpers);
@@ -203,6 +207,34 @@ namespace OpenBots.UI.CustomControls
             if (parameterName == "v_Comment")
                 inputBox.Margin = new Padding(0, 0, 0, 20);
             return inputBox;
+        }
+
+        private void DataGridView_KeyDown(object sender, KeyEventArgs e)
+        {
+            DataGridView dataGridView = (DataGridView)sender;
+            if (e.Control && e.KeyCode == Keys.K)
+            {
+                frmScriptVariables scriptVariableEditor = new frmScriptVariables
+                {
+                    ScriptVariables = _currentEditor.ScriptVariables
+                };
+
+                if (scriptVariableEditor.ShowDialog() == DialogResult.OK)
+                {
+                    _currentEditor.ScriptVariables = scriptVariableEditor.ScriptVariables;
+                    dataGridView.CurrentCell.Value = scriptVariableEditor.LastModifiedVariableName;
+                }
+            }
+            else if (e.Modifiers == Keys.Shift && e.KeyCode == Keys.Enter)
+                return;
+            else if (e.KeyCode == Keys.Enter)
+                _currentEditor.uiBtnAdd_Click(null, null);
+        }
+        private void DataGridView_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            //Control + K
+            if (e.KeyChar == '\v')
+                e.Handled = true;
         }
 
         private void InputBox_KeyDown(object sender, KeyEventArgs e)
@@ -347,8 +379,7 @@ namespace OpenBots.UI.CustomControls
             ((HandledMouseEventArgs)e).Handled = true;
         }
 
-        public List<Control> CreateUIHelpersFor(string parameterName, ScriptCommand parent, Control[] targetControls,
-            IfrmCommandEditor editor)
+        public List<Control> CreateUIHelpersFor(string parameterName, ScriptCommand parent, Control[] targetControls, IfrmCommandEditor editor)
         {
             var variableProperties = parent.GetType().GetProperties().Where(f => f.Name == parameterName).FirstOrDefault();
             var propertyUIHelpers = variableProperties.GetCustomAttributes(typeof(EditorAttribute), true);
@@ -389,14 +420,14 @@ namespace OpenBots.UI.CustomControls
                         //show file selector
                         helperControl.CommandImage = Resources.command_files;
                         helperControl.CommandDisplay = "Select a File";
-                        helperControl.Click += (sender, e) => ShowFileSelector(sender, e, (frmCommandEditor)editor);
+                        helperControl.Click += (sender, e) => ShowFileSelector(sender, e);
                         break;
 
                     case UIAdditionalHelperType.ShowFolderSelectionHelper:
                         //show file selector
                         helperControl.CommandImage = Resources.command_folders;
                         helperControl.CommandDisplay = "Select a Folder";
-                        helperControl.Click += (sender, e) => ShowFolderSelector(sender, e, (frmCommandEditor)editor);
+                        helperControl.Click += (sender, e) => ShowFolderSelector(sender, e);
                         break;
 
                     case UIAdditionalHelperType.ShowImageCaptureHelper:
@@ -422,7 +453,7 @@ namespace OpenBots.UI.CustomControls
                         //show variable selector
                         helperControl.CommandImage = Resources.command_script;
                         helperControl.CommandDisplay = "Code Builder";
-                        helperControl.Click += (sender, e) => ShowCodeBuilder(sender, e, (frmCommandEditor)editor);
+                        helperControl.Click += (sender, e) => ShowCodeBuilder(sender, e);
                         break;
 
                     case UIAdditionalHelperType.ShowMouseCaptureHelper:
@@ -453,7 +484,7 @@ namespace OpenBots.UI.CustomControls
                         //show variable selector
                         helperControl.CommandImage = Resources.command_run_code;
                         helperControl.CommandDisplay = "Add Input Parameter";
-                        helperControl.Click += (sender, e) => AddInputParameter(sender, e, (frmCommandEditor)editor);
+                        helperControl.Click += (sender, e) => AddInputParameter(sender, e);
                         break;
                     case UIAdditionalHelperType.ShowHTMLBuilder:
                         helperControl.CommandImage = Resources.command_web;
@@ -485,6 +516,12 @@ namespace OpenBots.UI.CustomControls
                 controlList.Add(helperControl);
             }
 
+            if(targetControls.FirstOrDefault() is DataGridView)
+            {
+                targetControls.FirstOrDefault().KeyDown += DataGridView_KeyDown;
+                targetControls.FirstOrDefault().KeyPress += DataGridView_KeyPress;
+            }
+
             return controlList;
         }
 
@@ -501,7 +538,7 @@ namespace OpenBots.UI.CustomControls
             return gridView;
         }
 
-        private void ShowCodeBuilder(object sender, EventArgs e, IfrmCommandEditor editor)
+        private void ShowCodeBuilder(object sender, EventArgs e)
         {
             //get textbox text
             CommandItemControl commandItem = (CommandItemControl)sender;
@@ -635,7 +672,7 @@ namespace OpenBots.UI.CustomControls
                 }
             }
         }
-        private void ShowFileSelector(object sender, EventArgs e, IfrmCommandEditor editor)
+        private void ShowFileSelector(object sender, EventArgs e)
         {
             OpenFileDialog ofd = new OpenFileDialog();
 
@@ -649,7 +686,7 @@ namespace OpenBots.UI.CustomControls
             }
         }
 
-        private void ShowFolderSelector(object sender, EventArgs e, IfrmCommandEditor editor)
+        private void ShowFolderSelector(object sender, EventArgs e)
         {
             FolderBrowserDialog fbd = new FolderBrowserDialog();
 
@@ -722,11 +759,7 @@ namespace OpenBots.UI.CustomControls
 
             try
             {
-                //run image recognition
-                SurfaceAutomationCommand surfaceAutomationCommand = new SurfaceAutomationCommand();
-                surfaceAutomationCommand.v_ImageCapture = imageSource;
-                surfaceAutomationCommand.TestMode = true;
-                surfaceAutomationCommand.RunCommand(null);
+                UICommandsHelper.FindImageElement(new Bitmap(Common.Base64ToImage(imageSource)), 0.8, true);
             }
             catch (Exception ex)
             {
@@ -736,10 +769,24 @@ namespace OpenBots.UI.CustomControls
             ShowAllForms();
         }
 
+        public string ShowCommandsElementRecorder(object sender, EventArgs e, IfrmCommandEditor editor)
+        {
+            IUIAutomationCommand cmd = (IUIAutomationCommand)editor.SelectedCommand;
+
+            //create recorder
+            frmAdvancedUIElementRecorder newElementRecorder = new frmAdvancedUIElementRecorder();
+            newElementRecorder.SearchParameters = cmd.v_UIASearchParameters;
+
+            //show form
+            newElementRecorder.ShowDialog();
+
+            return newElementRecorder.cboWindowTitle.Text;
+        }
+
         private void ShowElementRecorder(object sender, EventArgs e, IfrmCommandEditor editor)
         {
             //get command reference
-            UIAutomationCommand cmd = (UIAutomationCommand)((frmCommandEditor)editor).SelectedCommand;
+            IUIAutomationCommand cmd = (IUIAutomationCommand)editor.SelectedCommand;
 
             //create recorder
             frmAdvancedUIElementRecorder newElementRecorder = new frmAdvancedUIElementRecorder();
@@ -757,7 +804,7 @@ namespace OpenBots.UI.CustomControls
 
         private void GenerateDLLParameters(object sender, EventArgs e)
         {
-            ExecuteDLLCommand cmd = (ExecuteDLLCommand)_currentEditor.SelectedCommand;
+            IExecuteDLLCommand cmd = (IExecuteDLLCommand)_currentEditor.SelectedCommand;
 
             var filePath = _currentEditor.flw_InputVariables.Controls["v_FilePath"].Text;
             var className = _currentEditor.flw_InputVariables.Controls["v_ClassName"].Text;
@@ -828,7 +875,7 @@ namespace OpenBots.UI.CustomControls
             {
                 //user accepted the selections
                 //declare command
-                ExecuteDLLCommand cmd = (ExecuteDLLCommand)_currentEditor.SelectedCommand;
+                IExecuteDLLCommand cmd = (IExecuteDLLCommand)_currentEditor.SelectedCommand;
 
                 //add file name
                 if (!string.IsNullOrEmpty(dllExplorer.FileName))
@@ -862,7 +909,7 @@ namespace OpenBots.UI.CustomControls
             }
         }
 
-        private void AddInputParameter(object sender, EventArgs e, IfrmCommandEditor editor)
+        private void AddInputParameter(object sender, EventArgs e)
         {
             DataGridView inputControl = (DataGridView)_currentEditor.flw_InputVariables.Controls["v_UserInputConfig"];
             var inputTable = (DataTable)inputControl.DataSource;
@@ -993,6 +1040,51 @@ namespace OpenBots.UI.CustomControls
                     cbo.Items.Add("<" + element.ElementName + ">");
             }
             return cbo;
+        }
+
+        public IfrmScriptEngine CreateScriptEngineForm(string pathToFile, string projectPath, IfrmScriptBuilder builderForm, 
+            List<ScriptVariable> variables, List<ScriptElement> elements,
+            Dictionary<string, object> appInstances, bool blnCloseWhenDone, bool isDebugMode)
+        {
+            return new frmScriptEngine(pathToFile, projectPath, (frmScriptBuilder)builderForm, 
+                ((frmScriptBuilder)builderForm).EngineLogger,
+                variables, null, appInstances, false, isDebugMode);
+        }
+
+        public IfrmWebElementRecorder CreateWebElementRecorderForm(string startURL)
+        {
+            return new frmWebElementRecorder(startURL);
+        }
+
+        public IfrmAdvancedUIElementRecorder CreateAdvancedUIElementRecorderForm()
+        {
+            return new frmAdvancedUIElementRecorder();
+        }
+
+        public IfrmCommandEditor CreateCommandEditorForm(List<AutomationCommand> commands, List<ScriptCommand> existingCommands)
+        {
+            return new frmCommandEditor(commands, existingCommands);
+        }
+
+        public ScriptCommand CreateBeginIfCommand(string commandData)
+        {
+            if(string.IsNullOrEmpty(commandData))
+                return (dynamic)TypeMethods.CreateTypeInstance(AppDomain.CurrentDomain, "BeginIfCommand");
+            else
+            {
+                Type ifCommandType = TypeMethods.GetTypeByName(AppDomain.CurrentDomain, "BeginIfCommand");
+                return (dynamic) JsonConvert.DeserializeObject(commandData, ifCommandType);
+                //return JsonConvert.DeserializeObject<typeof(ifCommand)> (commandData);
+            }
+        }
+
+        public Type GetCommandType(string commandName)
+        {
+            Type type = null;
+            if (commandName == "BeginIfCommand")
+                type = TypeMethods.GetTypeByName(AppDomain.CurrentDomain, "BeginIfCommand");
+
+            return type;
         }
     }
 }

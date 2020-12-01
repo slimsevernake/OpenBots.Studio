@@ -10,6 +10,7 @@ namespace OpenBots.Core.Infrastructure
     public interface IfrmScriptEngine
     {
         string FilePath { get; set; }
+        string ProjectPath { get; set; }
         string JsonData { get; set; }
         bool ServerExecution { get; set; }
         IfrmScriptBuilder CallBackForm { get; set; }
@@ -25,6 +26,7 @@ namespace OpenBots.Core.Infrastructure
         bool ClosingAllEngines { get; set; }
         bool IsChildEngine { get; set; }
         Logger ScriptEngineLogger { get; set; }
+        ICommandControls CommandControls { get; set; }
 
         void ShowMessage(string message, string title, DialogType dialogType, int closeAfter);
         void ShowEngineContext(string context, int closeAfter);
@@ -33,5 +35,9 @@ namespace OpenBots.Core.Infrastructure
         List<ScriptVariable> ShowHTMLInput(string htmlTemplate);
         void AddStatus(string text, Color? statusColor = null);
         void uiBtnPause_Click(object sender, EventArgs e);
+        void uiBtnCancel_Click(object sender, EventArgs e);
+        void UpdateLineNumber(int lineNumber);
+        void ResumeParentTask();
+        void UpdateCurrentEngineContext(IEngine currentEngine, IfrmScriptEngine newScriptEngine, List<ScriptVariable> variableReturnList);
     }
 }

@@ -51,6 +51,8 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
+    <Reference Include="UIAutomationClient" />
+    <Reference Include="UIAutomationTypes" />
     <Reference Include="xunit.abstractions, Version=2.0.0.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c, processorArchitecture=MSIL">
       <HintPath>..\..\packages\xunit.abstractions.2.0.3\lib\net35\xunit.abstractions.dll</HintPath>
     </Reference>
@@ -78,6 +80,7 @@
     <Compile Include="SendKeystrokesCommand.cs" />
     <Compile Include="SendMouseClickCommand.cs" />
     <Compile Include="SendMouseMoveCommand.cs" />
+    <Compile Include="UIAutomationCommand.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\OpenBots.Core\OpenBots.Core.csproj">

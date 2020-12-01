@@ -1,4 +1,8 @@
 ﻿using OpenBots.Core.Command;
+using OpenBots.Core.Script;
+using OpenBots.Core.UI.Controls.CustomControls;
+using Serilog.Core;
+using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
 
@@ -22,5 +26,14 @@ namespace OpenBots.Core.Infrastructure
         ComboBox CreateStandardComboboxFor(string parameterName, ScriptCommand parent);
         List<Control> CreateUIHelpersFor(string parameterName, ScriptCommand parent, Control[] targetControls, IfrmCommandEditor editor);
 
+        string ShowCommandsElementRecorder(object sender, EventArgs e, IfrmCommandEditor editor);
+
+        IfrmScriptEngine CreateScriptEngineForm(string pathToFile, string projectPath, IfrmScriptBuilder builderForm, List<ScriptVariable> variables, List<ScriptElement> elements, 
+            Dictionary<string, object> appInstances, bool blnCloseWhenDone, bool isDebugMode);
+        IfrmWebElementRecorder CreateWebElementRecorderForm(string startURL);
+        IfrmAdvancedUIElementRecorder CreateAdvancedUIElementRecorderForm();
+        IfrmCommandEditor CreateCommandEditorForm(List<AutomationCommand> commands, List<ScriptCommand> existingCommands);
+        ScriptCommand CreateBeginIfCommand(string commandData = null);
+        Type GetCommandType(string commandName);
     }
 }
