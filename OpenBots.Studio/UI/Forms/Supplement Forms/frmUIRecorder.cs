@@ -1,9 +1,9 @@
-﻿using OpenBots.Commands;
-using OpenBots.Commands.Input;
-using OpenBots.Core.Command;
+﻿using OpenBots.Core.Command;
+using OpenBots.Core.Infrastructure;
 using OpenBots.Core.Properties;
 using OpenBots.Core.Settings;
 using OpenBots.Core.UI.Forms;
+using OpenBots.Studio.Utilities;
 using OpenBots.UI.Forms.ScriptBuilder_Forms;
 using OpenBots.Utilities;
 using System;
@@ -111,7 +111,7 @@ namespace OpenBots.UI.Supplement_Forms
 
             if (chkGroupIntoSequence.Checked)
             {
-                var newSequence = new SequenceCommand();
+                dynamic newSequence = TypeMethods.CreateTypeInstance(AppDomain.CurrentDomain, "SequenceCommand");
 
                 foreach (ScriptCommand cmd in _scriptCommandList)
                     newSequence.ScriptActions.Add(cmd);
@@ -121,29 +121,29 @@ namespace OpenBots.UI.Supplement_Forms
             }
             else if (chkGroupMovesIntoSequences.Checked)
             {
-                var newSequence = new SequenceCommand();
+                dynamic newSequence = TypeMethods.CreateTypeInstance(AppDomain.CurrentDomain, "SequenceCommand");
                 newSequence.v_Comment = sequenceComment;
 
                 foreach (ScriptCommand cmd in _scriptCommandList)
                 {
 
-                    if (cmd is SendMouseMoveCommand)
+                    if (cmd.CommandName == "SendMouseMoveCommand")
                     {
-                        var sendMouseCmd = (SendMouseMoveCommand)cmd;
+                        var sendMouseCmd = (ISendMouseMoveCommand)cmd;
                         if (sendMouseCmd.v_MouseClick != "None")
                         {
                             outputList.Add(newSequence);
-                            newSequence = new SequenceCommand();
+                            newSequence = TypeMethods.CreateTypeInstance(AppDomain.CurrentDomain, "SequenceCommand");
                             newSequence.v_Comment = sequenceComment;
                             outputList.Add(cmd);
                         }
                         else
                             newSequence.ScriptActions.Add(cmd);
                     }
-                    else if (cmd is SendKeystrokesCommand)
+                    else if (cmd.CommandName == "SendKeystrokesCommand")
                     {
                         outputList.Add(newSequence);
-                        newSequence = new SequenceCommand();
+                        newSequence = TypeMethods.CreateTypeInstance(AppDomain.CurrentDomain, "SequenceCommand");
                         newSequence.v_Comment = sequenceComment;
                         outputList.Add(cmd);
                     }
@@ -158,10 +158,8 @@ namespace OpenBots.UI.Supplement_Forms
             else
                 outputList = _scriptCommandList;
 
-            var commentCommand = new AddCodeCommentCommand
-            {
-                v_Comment = sequenceComment
-            };
+            dynamic commentCommand = TypeMethods.CreateTypeInstance(AppDomain.CurrentDomain, "AddCodeCommentCommand");
+            commentCommand.v_Comment = sequenceComment;
             outputList.Insert(0, commentCommand);
 
             foreach (var cmd in outputList)

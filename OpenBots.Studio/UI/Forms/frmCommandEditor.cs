@@ -12,15 +12,15 @@
 //WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 //See the License for the specific language governing permissions and
 //limitations under the License.
-using OpenBots.Commands;
 using OpenBots.Core.Command;
 using OpenBots.Core.Common;
 using OpenBots.Core.Enums;
 using OpenBots.Core.Infrastructure;
 using OpenBots.Core.Script;
+using OpenBots.Core.UI.Controls;
+using OpenBots.Core.UI.Controls.CustomControls;
 using OpenBots.Core.UI.Forms;
 using OpenBots.UI.CustomControls;
-using OpenBots.UI.CustomControls.CustomUIControls;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -34,7 +34,7 @@ namespace OpenBots.UI.Forms
     public partial class frmCommandEditor : UIForm, IfrmCommandEditor
     {
         //list of available commands
-        private List<AutomationCommand> _commandList = new List<AutomationCommand>();
+        public List<AutomationCommand> CommandList { get; set; } = new List<AutomationCommand>();
         //list of variables, assigned from frmScriptBuilder
         public List<ScriptVariable> ScriptVariables { get; set; }
         //list of elements, assigned from frmScriptBuilder
@@ -55,7 +55,7 @@ namespace OpenBots.UI.Forms
         public List<ScriptCommand> ConfiguredCommands { get; set; }
         public string HTMLElementRecorderURL { get; set; }
 
-        private CommandControls _commandControls;
+        private ICommandControls _commandControls;
 
         #region Form Events
         //handle events for the form
@@ -63,7 +63,7 @@ namespace OpenBots.UI.Forms
         public frmCommandEditor(List<AutomationCommand> commands, List<ScriptCommand> existingCommands)
         {
             InitializeComponent();
-            _commandList = commands;
+            CommandList = commands;
             ConfiguredCommands = existingCommands;
         }
 
@@ -73,15 +73,15 @@ namespace OpenBots.UI.Forms
             _commandControls = new CommandControls(this);
 
             //order list
-            _commandList = _commandList.OrderBy(itm => itm.FullName).ToList();
+            CommandList = CommandList.OrderBy(itm => itm.FullName).ToList();
 
             //set command list
-            cboSelectedCommand.DataSource = _commandList;
+            cboSelectedCommand.DataSource = CommandList;
 
             //Set DisplayMember to track DisplayValue from the class
             cboSelectedCommand.DisplayMember = "FullName";
 
-            if ((CreationModeInstance == CreationMode.Add) && (DefaultStartupCommand != null) && (_commandList.Where(x => x.FullName == DefaultStartupCommand).Count() > 0))
+            if ((CreationModeInstance == CreationMode.Add) && (DefaultStartupCommand != null) && (CommandList.Where(x => x.FullName == DefaultStartupCommand).Count() > 0))
             {
                 cboSelectedCommand.SelectedIndex = cboSelectedCommand.FindStringExact(DefaultStartupCommand);
             }
@@ -89,7 +89,7 @@ namespace OpenBots.UI.Forms
             {
                 // var requiredCommand = commandList.Where(x => x.FullName.Contains(defaultStartupCommand)).FirstOrDefault(); //&& x.CommandClass.Name == originalCommand.CommandName).FirstOrDefault();
 
-                var requiredCommand = _commandList.Where(x => x.Command.ToString() == EditingCommand.ToString()).FirstOrDefault();
+                var requiredCommand = CommandList.Where(x => x.Command.ToString() == EditingCommand.ToString()).FirstOrDefault();
 
                 if (requiredCommand == null)
                 {
@@ -130,13 +130,13 @@ namespace OpenBots.UI.Forms
                         dynamic cmd;
                         if (SelectedCommand.CommandName == "SurfaceAutomationCommand")
                         {
-                            cmd = (SurfaceAutomationCommand)SelectedCommand;
+                            cmd = (IImageCommands)SelectedCommand;
                             if (!string.IsNullOrEmpty(cmd.v_ImageCapture))
                                 typedControl.Image = Common.Base64ToImage(cmd.v_ImageCapture);
                         }
                         else if (SelectedCommand.CommandName == "CaptureImageCommand")
                         {
-                            cmd = (CaptureImageCommand)SelectedCommand;
+                            cmd = (IImageCommands)SelectedCommand;
                             if (!string.IsNullOrEmpty(cmd.v_ImageCapture))
                                 typedControl.Image = Common.Base64ToImage(cmd.v_ImageCapture);
                         }
@@ -171,7 +171,7 @@ namespace OpenBots.UI.Forms
             var selectedCommandItem = cboSelectedCommand.Text;
 
             //get command
-            var userSelectedCommand = _commandList.Where(itm => itm.FullName == selectedCommandItem).FirstOrDefault();
+            var userSelectedCommand = CommandList.Where(itm => itm.FullName == selectedCommandItem).FirstOrDefault();
 
             //create new command for binding
             SelectedCommand = (ScriptCommand)Activator.CreateInstance(userSelectedCommand.CommandClass);
@@ -264,12 +264,12 @@ namespace OpenBots.UI.Forms
                     dynamic cmd;
                     if (SelectedCommand.CommandName == "SurfaceAutomationCommand")
                     {
-                        cmd = (SurfaceAutomationCommand)SelectedCommand;
+                        cmd = (IImageCommands)SelectedCommand;
                         cmd.v_ImageCapture = typedControl.EncodedImage;
                     }
                     else if (SelectedCommand.CommandName == "CaptureImageCommand")
                     {
-                        cmd = (CaptureImageCommand)SelectedCommand;
+                        cmd = (IImageCommands)SelectedCommand;
                         cmd.v_ImageCapture = typedControl.EncodedImage;
                     }
                 }

@@ -4,7 +4,7 @@ using OpenBots.Commands;
 using OpenBots.Core.Gallery;
 using OpenBots.Core.Project;
 using OpenBots.Core.Script;
-using OpenBots.Gallery;
+using OpenBots.Studio.Utilities;
 using OpenBots.UI.CustomControls.CustomUIControls;
 using OpenBots.UI.Forms.Supplement_Forms;
 using System;
@@ -62,7 +62,7 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
                 UIListView mainScriptActions = NewLstScriptActions(mainScriptName);
                 List<ScriptVariable> mainScriptVariables = new List<ScriptVariable>();
                 List<ScriptElement> mainScriptElements = new List<ScriptElement>();
-                ShowMessageCommand helloWorldCommand = new ShowMessageCommand();
+                dynamic helloWorldCommand = TypeMethods.CreateTypeInstance(AppDomain.CurrentDomain, "ShowMessageCommand");
 
                 helloWorldCommand.v_Message = "Hello World";
                 mainScriptActions.Items.Insert(0, CreateScriptCommandListViewItem(helloWorldCommand));
@@ -504,7 +504,7 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
                 UIListView newScriptActions = NewLstScriptActions();
                 List<ScriptVariable> newScripVariables = new List<ScriptVariable>();
                 List<ScriptElement> newScriptElements = new List<ScriptElement>();
-                var helloWorldCommand = new ShowMessageCommand();
+                dynamic helloWorldCommand = TypeMethods.CreateTypeInstance(AppDomain.CurrentDomain, "ShowMessageCommand");
                 helloWorldCommand.v_Message = "Hello World";
                 newScriptActions.Items.Insert(0, CreateScriptCommandListViewItem(helloWorldCommand));
 

@@ -19,7 +19,7 @@ namespace OpenBots.Commands.Input
 	[Serializable]
 	[Category("Input Commands")]
 	[Description("This command sends advanced keystrokes to a targeted window.")]
-	public class SendAdvancedKeystrokesCommand : ScriptCommand
+	public class SendAdvancedKeystrokesCommand : ScriptCommand, ISendAdvancedKeystrokesCommand
 	{
 
 		[Required]

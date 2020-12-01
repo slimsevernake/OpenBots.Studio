@@ -22,6 +22,7 @@ using OpenBots.Core.IO;
 using OpenBots.Core.Project;
 using OpenBots.Core.Script;
 using OpenBots.Core.Settings;
+using OpenBots.Core.UI.Controls.CustomControls;
 using OpenBots.Core.Utilities.CommonUtilities;
 using OpenBots.Gallery;
 using OpenBots.UI.CustomControls;
@@ -521,11 +522,6 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
         private void PerformAntiIdle()
         {
             _lastAntiIdleEvent = DateTime.Now;
-            var mouseMove = new SendMouseMoveCommand
-            {
-                v_XMousePosition = (Cursor.Position.X + 1).ToString(),
-                v_YMousePosition = (Cursor.Position.Y + 1).ToString()
-            };
             Notify("Anti-Idle Triggered", Color.White);
         }
 
@@ -736,7 +732,14 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
             LinkLabel senderLink = (LinkLabel)sender;
             OpenFile(Path.Combine(Folders.GetFolder(FolderType.ScriptsFolder), senderLink.Text));
         }
-        #endregion      
+        #endregion
+
+        #region Helper Methods
+        public void OpenScriptFile(string scriptFilePath)
+        {
+            OpenFile(scriptFilePath);
+        }
+        #endregion Helper Methods
     }
 }
 

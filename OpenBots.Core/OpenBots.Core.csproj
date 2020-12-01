@@ -184,9 +184,14 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="UIAutomationClient" />
+    <Reference Include="UIAutomationTypes" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="WebDriver, Version=3.141.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Selenium.WebDriver.3.141.0\lib\net45\WebDriver.dll</HintPath>
+    </Reference>
+    <Reference Include="WebDriver.Support, Version=3.141.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Selenium.Support.3.141.0\lib\net45\WebDriver.Support.dll</HintPath>
     </Reference>
     <Reference Include="WindowsBase" />
     <Reference Include="xunit.abstractions, Version=2.0.0.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c, processorArchitecture=MSIL">
@@ -210,6 +215,16 @@
     <Compile Include="Command\ScriptCommand.cs" />
     <Compile Include="Common\Common.cs" />
     <Compile Include="Enums\Enums.cs" />
+    <Compile Include="Interfaces\Commands\IBeginIfCommand.cs" />
+    <Compile Include="Interfaces\Commands\IExecuteDLLCommand.cs" />
+    <Compile Include="Interfaces\Commands\IImageCommands.cs" />
+    <Compile Include="Interfaces\Commands\ISeleniumCreateBrowserCommand.cs" />
+    <Compile Include="Interfaces\Commands\ISeleniumElementActionCommand.cs" />
+    <Compile Include="Interfaces\Commands\ISendAdvancedKeystrokesCommand.cs" />
+    <Compile Include="Interfaces\Commands\ISendKeystrokesCommand.cs" />
+    <Compile Include="Interfaces\Commands\ISendMouseMoveCommand.cs" />
+    <Compile Include="Interfaces\Commands\ISequenceCommand.cs" />
+    <Compile Include="Interfaces\Commands\IUIAutomationCommand.cs" />
     <Compile Include="Gallery\Models\Registration\CatalogEntry.cs" />
     <Compile Include="Gallery\Models\Registration\ProjectDependency.cs" />
     <Compile Include="Gallery\Models\Feed.cs" />
@@ -222,11 +237,13 @@
     <Compile Include="Gallery\Models\Search\SearchResultPackage.cs" />
     <Compile Include="Gallery\NugetPackageManager.cs" />
     <Compile Include="Interfaces\ICommandControls.cs" />
+    <Compile Include="Interfaces\IfrmAdvancedUIElementRecorder.cs" />
     <Compile Include="Interfaces\IfrmCommandEditor.cs" />
     <Compile Include="Interfaces\IfrmDialog.cs" />
     <Compile Include="Interfaces\IfrmScriptBuilder.cs" />
     <Compile Include="Interfaces\IfrmScriptEngine.cs" />
     <Compile Include="Interfaces\IEngine.cs" />
+    <Compile Include="Interfaces\IfrmWebElementRecorder.cs" />
     <Compile Include="IO\Folders.cs" />
     <Compile Include="Metrics\ExecutionMetric.cs" />
     <Compile Include="Metrics\Metric.cs" />
@@ -279,9 +296,14 @@
     <Compile Include="UI\Controls\CommandItemControl.Designer.cs">
       <DependentUpon>CommandItemControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\Controls\CustomControls\AutomationCommand.cs" />
+    <Compile Include="UI\Controls\UIPictureBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="UI\Controls\UIPictureButton.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Utilities\FormsUtilities\FormsHelper.cs" />
     <Compile Include="UI\DTOs\Class.cs" />
     <Compile Include="UI\DTOs\MachineConfiguration.cs" />
     <Compile Include="UI\DTOs\Method.cs" />
@@ -298,6 +320,7 @@
     <Compile Include="User32\WindowHandleInfo.cs" />
     <Compile Include="Utilities\CommandUtilities\CompilerServices.cs" />
     <Compile Include="Utilities\CommandUtilities\EncryptionServices.cs" />
+    <Compile Include="Utilities\CommandUtilities\CommandsHelper.cs" />
     <Compile Include="Utilities\CommandUtilities\ImageElement.cs" />
     <Compile Include="Utilities\CommonUtilities\ImageMethods.cs" />
     <Compile Include="Utilities\CommonUtilities\InstanceMethods.cs" />

@@ -21,7 +21,7 @@ namespace OpenBots.Commands.API
 	[Serializable]
 	[Category("API Commands")]
 	[Description("This command invokes a method of a specific class from a DLL.")]
-	public class ExecuteDLLCommand : ScriptCommand
+	public class ExecuteDLLCommand : ScriptCommand, IExecuteDLLCommand
 	{
 		[Required]
 		[DisplayName("DLL File Path")]

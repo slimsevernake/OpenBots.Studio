@@ -1,14 +1,14 @@
 ﻿using Autofac;
 using OpenBots.Core.Command;
 using OpenBots.Core.Settings;
-using OpenBots.UI.CustomControls;
+using OpenBots.Core.UI.Controls.CustomControls;
+using OpenBots.Core.Utilities.CommandUtilities;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Threading;
-using System.Windows.Forms;
 
 namespace OpenBots.Utilities
 {
@@ -81,48 +81,14 @@ namespace OpenBots.Utilities
             //Loop through each class
             foreach (var commandClass in commandClasses)
             {
-                var groupingAttribute = commandClass.GetCustomAttributes(typeof(CategoryAttribute), true);
-                string groupAttribute = "";
-                if (groupingAttribute.Length > 0)
-                {
-                    var attributeFound = (CategoryAttribute)groupingAttribute[0];
-                    groupAttribute = attributeFound.Category;
-                }
-
-                //Instantiate Class
-                ScriptCommand newCommand = (ScriptCommand)Activator.CreateInstance(commandClass);
+                var newAutomationCommand = CommandsHelper.ConvertToAutomationCommand(commandClass);
 
                 //If command is enabled, pull for display and configuration
-                if (newCommand.CommandEnabled)
-                {
-                    var newAutomationCommand = new AutomationCommand();
-                    newAutomationCommand.CommandClass = commandClass;
-                    newAutomationCommand.Command = newCommand;
-                    newAutomationCommand.DisplayGroup = groupAttribute;
-                    newAutomationCommand.FullName = string.Join(" - ", groupAttribute, newCommand.SelectionName);
-                    newAutomationCommand.ShortName = newCommand.SelectionName;
-                    newAutomationCommand.Description = GetDescription(commandClass);
-
-                    if (userPrefs.ClientSettings.PreloadBuilderCommands)
-                    {
-                        //newAutomationCommand.RenderUIComponents();
-                    }
-
-                    //call RenderUIComponents to render UI controls
+                if (newAutomationCommand != null)
                     commandList.Add(newAutomationCommand);
-                }
             }
 
             return commandList;
-        }
-
-        static string GetDescription(Type type)
-        {
-            var descriptions = (DescriptionAttribute[])type.GetCustomAttributes(typeof(DescriptionAttribute), true);
-
-            if (descriptions.Length == 0)
-                return string.Empty;
-            return descriptions[0].Description;
         }
     }
 }

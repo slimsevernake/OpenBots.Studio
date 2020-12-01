@@ -23,6 +23,7 @@ using OpenBots.Core.UI.DTOs;
 using OpenBots.Core.UI.Forms;
 using OpenBots.Core.Utilities.CommonUtilities;
 using OpenBots.Engine;
+using OpenBots.UI.CustomControls;
 using OpenBots.UI.Forms.ScriptBuilder_Forms;
 using OpenBots.UI.Forms.Supplement_Forms;
 using OpenBots.Utilities;
@@ -62,6 +63,7 @@ namespace OpenBots.UI.Forms
         public bool ClosingAllEngines { get; set; }
         public bool IsChildEngine { get; set; }
         public Logger ScriptEngineLogger { get; set; }
+        public ICommandControls CommandControls { get; set; }
         #endregion
 
         private const int CP_NOCLOSE_BUTTON = 0x200;
@@ -217,6 +219,8 @@ namespace OpenBots.UI.Forms
                 MoveFormToBottomRight(this);
             }
 
+            CommandControls = new CommandControls();
+
             //start running
             EngineInstance = new AutomationEngineInstance(ScriptEngineLogger);
 
@@ -268,7 +272,7 @@ namespace OpenBots.UI.Forms
         }
         #endregion
 
-        //engine event handlers
+        //engine event handlers and methods
         #region Engine Event Handlers
         /// <summary>
         /// Handles Progress Updates raised by Automation Engine
@@ -357,6 +361,45 @@ namespace OpenBots.UI.Forms
                                               e.Bounds);
                     }
                     e.DrawFocusRectangle();
+                }
+            }
+        }
+
+        public void UpdateCurrentEngineContext(IEngine currentEngine, IfrmScriptEngine newScriptEngine, List<ScriptVariable> variableReturnList)
+        {
+            //get new variable list from the new task engine after it finishes running
+            var newEngine = ((frmScriptEngine)newScriptEngine).EngineInstance;
+            var newVariableList = newEngine.VariableList;
+            foreach (var variable in variableReturnList)
+            {
+                //check if the variables we wish to return are in the new variable list
+                if (newVariableList.Exists(x => x.VariableName == variable.VariableName))
+                {
+                    //if yes, get that variable from the new list
+                    ScriptVariable newTemp = newVariableList.Where(x => x.VariableName == variable.VariableName).FirstOrDefault();
+                    //check if that variable previously existed in the current engine
+                    if (currentEngine.VariableList.Exists(x => x.VariableName == newTemp.VariableName))
+                    {
+                        //if yes, overwrite it
+                        ScriptVariable currentTemp = currentEngine.VariableList.Where(x => x.VariableName == newTemp.VariableName).FirstOrDefault();
+                        currentEngine.VariableList.Remove(currentTemp);
+                    }
+                    //Add to current engine variable list
+                    currentEngine.VariableList.Add(newTemp);
+                }
+            }
+
+            //get updated app instance dictionary after the new engine finishes running
+            currentEngine.AppInstances = newEngine.AppInstances;
+
+            //get errors from new engine (if any)
+            var newEngineErrors = newEngine.ErrorsOccured;
+            if (newEngineErrors.Count > 0)
+            {
+                currentEngine.ChildScriptFailed = true;
+                foreach (var error in newEngineErrors)
+                {
+                    currentEngine.ErrorsOccured.Add(error);
                 }
             }
         }
