@@ -74,17 +74,17 @@ namespace OpenBots.Commands.DataTable
 
 			// (Null Check)
 			if (v_SourceDTVariable is null)
-				throw new Exception("Source DataTable Variable '" + v_SourceDataTable + "' is not initialized.");
+				throw new ArgumentNullException("Source DataTable Variable '" + v_SourceDataTable + "' is not initialized.");
 
 			if (v_DestinationDTVariable is null)
-				throw new Exception("Destination DataTable Variable '" + v_DestinationDataTable + "' is not initialized.");
+				throw new ArgumentNullException("Destination DataTable Variable '" + v_DestinationDataTable + "' is not initialized.");
 
 			// (Data Type Check)
 			if (!(v_SourceDTVariable is Data.DataTable))
-				throw new Exception("Type of Source DataTable Variable '" + v_SourceDataTable + "' is not DataTable.");
+				throw new ArgumentException("Type of Source DataTable Variable '" + v_SourceDataTable + "' is not DataTable.");
 
 			if (!(v_DestinationDTVariable is Data.DataTable))
-				throw new Exception("Type of Destination DataTable Variable '" + v_DestinationDataTable + "' is not DataTable.");
+				throw new ArgumentException("Type of Destination DataTable Variable '" + v_DestinationDataTable + "' is not DataTable.");
 
 			// Same Variable Check
 			if (v_SourceDataTable != v_DestinationDataTable)

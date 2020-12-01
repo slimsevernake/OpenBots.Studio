@@ -50,6 +50,10 @@ namespace OpenBots.Commands.Data
 
 		public GetPDFTextCommand()
 		{
+			ServicePointManager.Expect100Continue = true;
+			ServicePointManager.SecurityProtocol |= (SecurityProtocolType.Ssl3 |
+				SecurityProtocolType.Tls12 | SecurityProtocolType.Tls11 |
+											 SecurityProtocolType.Tls);
 			CommandName = "GetPDFTextCommand";
 			SelectionName = "Get PDF Text";
 			CommandEnabled = true;
