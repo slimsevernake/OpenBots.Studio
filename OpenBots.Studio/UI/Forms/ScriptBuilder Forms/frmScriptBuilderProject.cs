@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualBasic;
 using Newtonsoft.Json;
+using OpenBots.Core.Command;
 using OpenBots.Core.Gallery;
 using OpenBots.Core.Project;
 using OpenBots.Core.Script;
@@ -62,11 +63,20 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
                 UIListView mainScriptActions = NewLstScriptActions(mainScriptName);
                 List<ScriptVariable> mainScriptVariables = new List<ScriptVariable>();
                 List<ScriptElement> mainScriptElements = new List<ScriptElement>();
-                dynamic helloWorldCommand = TypeMethods.CreateTypeInstance(AppDomain.CurrentDomain, "ShowMessageCommand");
 
-                helloWorldCommand.v_Message = "Hello World";
-                mainScriptActions.Items.Insert(0, CreateScriptCommandListViewItem(helloWorldCommand));
-
+                try
+                {
+                    dynamic helloWorldCommand = TypeMethods.CreateTypeInstance(AppDomain.CurrentDomain, "ShowMessageCommand");
+                    helloWorldCommand.v_Message = "Hello World";
+                    mainScriptActions.Items.Insert(0, CreateScriptCommandListViewItem(helloWorldCommand));
+                }
+                catch (Exception)
+                {
+                    var brokenHelloWorldCommand = new BrokenCodeCommentCommand();
+                    brokenHelloWorldCommand.v_Comment = "Hello World";
+                    mainScriptActions.Items.Insert(0, CreateScriptCommandListViewItem(brokenHelloWorldCommand));
+                }
+                
                 //Begin saving as main.xml
                 ClearSelectedListViewItems();
 

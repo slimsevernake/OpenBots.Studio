@@ -212,6 +212,7 @@
     <Compile Include="Attributes\PropertyAttributes\PropertyUISelectionOption.cs" />
     <Compile Include="Attributes\PropertyAttributes\Remarks.cs" />
     <Compile Include="Attributes\PropertyAttributes\SampleUsage.cs" />
+    <Compile Include="Command\BrokenCodeCommentCommand.cs" />
     <Compile Include="Command\ScriptCommand.cs" />
     <Compile Include="Common\Common.cs" />
     <Compile Include="Enums\Enums.cs" />

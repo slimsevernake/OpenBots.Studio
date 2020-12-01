@@ -1,5 +1,6 @@
 ﻿using Autofac;
 using Newtonsoft.Json;
+using OpenBots.Core.Command;
 using OpenBots.Core.Enums;
 using OpenBots.Core.Gallery;
 using OpenBots.Core.IO;
@@ -226,7 +227,7 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
 
             foreach (ListViewItem item in _selectedTabScriptActions.Items)
             {
-                if(item.Tag.GetType().Name == "BrokenCodeCommentCommand")
+                if(item.Tag is BrokenCodeCommentCommand)
                 {
                     Notify("Please verify that all broken code has been removed or replaced.", Color.Yellow);
                     return;
@@ -529,7 +530,7 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
                     _selectedTabScriptActions.Items.Add(CreateScriptCommandListViewItem(item.ScriptCommand));
                 else
                 {
-                    dynamic brokenCodeCommentCommand = TypeMethods.CreateTypeInstance(AppDomain.CurrentDomain, "BrokenCodeCommentCommand");
+                    var brokenCodeCommentCommand = new BrokenCodeCommentCommand();
                     brokenCodeCommentCommand.v_Comment = item.SerializationError;
                     _selectedTabScriptActions.Items.Add(CreateScriptCommandListViewItem(brokenCodeCommentCommand));
                 }
