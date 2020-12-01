@@ -8,7 +8,7 @@
     <owners>OpenBots Inc</owners>
     <licenseUrl>https://github.com/OpenBotsAI/OpenBots.Studio/blob/develop/LICENSE</licenseUrl>
     <projectUrl>https://openbots.ai</projectUrl>
-    <iconUrl>https://openbots.ai/wp-content/uploads/2020/11/OpenBots-Logo-512.png</iconUrl>
+    <iconUrl>https://openbots.ai/wp-content/uploads/2020/11/Studio-Icon-256px.png</iconUrl>
     <repository type="git" url="https://github.com/OpenBotsAI/OpenBots.Studio" branch="master" />
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Dictionary Commands for OpenBots Studio</description>
