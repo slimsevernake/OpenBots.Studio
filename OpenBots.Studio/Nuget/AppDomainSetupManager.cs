@@ -7,7 +7,7 @@ using System.Linq;
 using System.Reflection;
 using System.Security.Policy;
 
-namespace OpenBots.Gallery
+namespace OpenBots.Nuget
 {
     public class AppDomainSetupManager
     {

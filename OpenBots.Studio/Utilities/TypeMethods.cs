@@ -19,8 +19,8 @@ namespace OpenBots.Studio.Utilities
             {
                 var packageName = GetPackageName(typeName);
                 ShowErrorDialog($"Missing {packageName}, please download the package from Package Manager and retry.");
-                Application.Restart();
-                Environment.Exit(0);
+                //Application.Restart();
+                //Environment.Exit(0);
                 // TODO
                 // Cancel Execution 
                 // Show Nuget Package Manager Window

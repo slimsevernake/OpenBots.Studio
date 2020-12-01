@@ -13,10 +13,8 @@
 //See the License for the specific language governing permissions and
 //limitations under the License.
 using Autofac;
-using OpenBots.Commands.Input;
 using OpenBots.Core.Command;
 using OpenBots.Core.Enums;
-using OpenBots.Core.Gallery;
 using OpenBots.Core.Infrastructure;
 using OpenBots.Core.IO;
 using OpenBots.Core.Project;
@@ -24,8 +22,6 @@ using OpenBots.Core.Script;
 using OpenBots.Core.Settings;
 using OpenBots.Core.UI.Controls.CustomControls;
 using OpenBots.Core.Utilities.CommonUtilities;
-using OpenBots.Gallery;
-using OpenBots.UI.CustomControls;
 using OpenBots.UI.CustomControls.CustomUIControls;
 using OpenBots.UI.Forms.Supplement_Forms;
 using OpenBots.Utilities;
@@ -38,7 +34,6 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Security.Policy;
 using System.Windows.Forms;
 using Point = System.Drawing.Point;
 

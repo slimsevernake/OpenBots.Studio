@@ -1,15 +1,13 @@
 ﻿using Autofac;
 using Newtonsoft.Json;
-using OpenBots.Commands;
-using OpenBots.Commands.Switch;
 using OpenBots.Core.Enums;
 using OpenBots.Core.Gallery;
 using OpenBots.Core.IO;
 using OpenBots.Core.Script;
 using OpenBots.Core.Settings;
 using OpenBots.Core.Utilities.CommonUtilities;
+using OpenBots.Nuget;
 using OpenBots.Studio.Utilities;
-using OpenBots.Gallery;
 using OpenBots.UI.CustomControls.CustomUIControls;
 using OpenBots.UI.Forms.Supplement_Forms;
 using OpenBots.UI.Supplement_Forms;
