@@ -2,7 +2,7 @@
 <package>
   <metadata>
     <id>OpenBots.Commands.File</id>
-    <version>1.1.0</version>
+    <version>1.1.0.0</version>
     <title>File Commands</title>
     <authors>OpenBots Inc</authors>
     <owners>OpenBots Inc</owners>
