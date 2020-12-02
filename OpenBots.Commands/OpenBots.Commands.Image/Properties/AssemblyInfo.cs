@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("OpenBots.Commands.Image")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("OpenBots commands for interacting with and processing images on screen. Supports image capture, OCR, and UI interactions against on-screen images.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("OpenBots Inc")]
 [assembly: AssemblyProduct("OpenBots.Commands.Image")]

@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("OpenBots.Commands.If")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("OpenBots commands for adding if statements to a script. Supports if and else blocks.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("OpenBots Inc")]
 [assembly: AssemblyProduct("OpenBots.Commands.If")]

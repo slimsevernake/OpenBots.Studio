@@ -11,7 +11,7 @@
     <iconUrl>https://openbots.ai/wp-content/uploads/2020/11/Studio-Icon-256px.png</iconUrl>
     <repository type="git" url="https://github.com/OpenBotsAI/OpenBots.Studio" branch="master" />
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>IEBrowser Commands for OpenBots Studio</description>
+    <description>OpenBots commands for interacting with web pages via a local instance of the Internet Explorer browser. Supports standard browser operations and web page element interactions.</description>
     <releaseNotes>https://openbots.ai/category/release-notes/</releaseNotes>
     <copyright>(C) OpenBots Inc 2020-2021</copyright>
     <tags>OpenBots Studio Commands</tags>
