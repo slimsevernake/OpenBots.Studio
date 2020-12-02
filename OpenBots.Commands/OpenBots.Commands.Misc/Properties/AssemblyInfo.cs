@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("OpenBots.Commands.Misc")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("Miscellaneous OpenBots commands that do not fit in other categories. Includes code comments, encryption, sequence grouping, show message, and clipboard interactions.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("OpenBots Inc")]
 [assembly: AssemblyProduct("OpenBots.Commands.Misc")]

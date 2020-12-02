@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("OpenBots.Commands.SecureData")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("OpenBots commands for creating SecureString objects. Supports creating a SecureString object from a string.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("OpenBots Inc")]
 [assembly: AssemblyProduct("OpenBots.Commands.SecureData")]

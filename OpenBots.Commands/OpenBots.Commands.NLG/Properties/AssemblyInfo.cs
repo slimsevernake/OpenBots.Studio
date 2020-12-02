@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("OpenBots.Commands.NLG")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("OpenBots commands for Natural Language Generation. Allows instantiation of an NLG application with custom parameters, which can then be used to generate phrases.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("OpenBots Inc")]
 [assembly: AssemblyProduct("OpenBots.Commands.NLG")]

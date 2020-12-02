@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("OpenBots.Commands.Switch")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("OpenBots commands for adding switch logic to a script. Supports the creation of a standard case-based switch.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("OpenBots Inc")]
 [assembly: AssemblyProduct("OpenBots.Commands.Switch")]
