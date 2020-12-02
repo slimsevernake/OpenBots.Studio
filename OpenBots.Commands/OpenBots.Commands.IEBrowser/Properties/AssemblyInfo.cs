@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("OpenBots.Commands.IEBrowser")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("OpenBots commands for interacting with web pages via a local instance of the Internet Explorer browser. Supports standard browser operations and web page element interactions.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("OpenBots Inc")]
 [assembly: AssemblyProduct("OpenBots.Commands.IEBrowser")]

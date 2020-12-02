@@ -11,7 +11,7 @@
     <iconUrl>https://openbots.ai/wp-content/uploads/2020/11/Studio-Icon-256px.png</iconUrl>
     <repository type="git" url="https://github.com/OpenBotsAI/OpenBots.Studio" branch="master" />
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>SecureData Commands for OpenBots Studio</description>
+    <description>OpenBots commands for creating SecureString objects. Supports creating a SecureString object from a string.</description>
     <releaseNotes>https://openbots.ai/category/release-notes/</releaseNotes>
     <copyright>(C) OpenBots Inc 2020-2021</copyright>
     <tags>OpenBots Studio SecureData Commands NewSecureString</tags>

@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("OpenBots.Commands.Window")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("OpenBots commands for interacting with application windows. Supports activating, closing, moving, resizing, waiting for a window to exist, and setting a window's state.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("OpenBots Inc")]
 [assembly: AssemblyProduct("OpenBots.Commands.Window")]

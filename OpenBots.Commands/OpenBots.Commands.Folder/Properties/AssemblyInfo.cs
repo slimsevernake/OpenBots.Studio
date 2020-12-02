@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("OpenBots.Commands.Folder")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("OpenBots commands for interacting with folders within the local file system. Allows for standard folder operations such as creation, deletion, moving, and renaming.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("OpenBots Inc")]
 [assembly: AssemblyProduct("OpenBots.Commands.Folder")]

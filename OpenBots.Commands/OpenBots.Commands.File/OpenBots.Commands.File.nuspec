@@ -11,7 +11,7 @@
     <iconUrl>https://openbots.ai/wp-content/uploads/2020/11/Studio-Icon-256px.png</iconUrl>
     <repository type="git" url="https://github.com/OpenBotsAI/OpenBots.Studio" branch="master" />
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>File Commands for OpenBots Studio</description>
+    <description>OpenBots commands for interacting with file within the local file system. Allows for standard file operations such as moving, renaming, compression, and copying.</description>
     <releaseNotes>https://openbots.ai/category/release-notes/</releaseNotes>
     <copyright>(C) OpenBots Inc 2020-2021</copyright>
     <tags>OpenBots Studio File Commands CompressFiles DeleteFile ExtractFiles GetFiles MoveCopyFile RenameFile WaitForFile</tags>

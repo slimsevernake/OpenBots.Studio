@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("OpenBots.Commands.TextFile")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("OpenBots commands for interacting with Queues on the OpenBots Server. Supports adding items, extending item lifetime, and updating item status.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("OpenBots Inc")]
 [assembly: AssemblyProduct("OpenBots.Commands.TextFile")]

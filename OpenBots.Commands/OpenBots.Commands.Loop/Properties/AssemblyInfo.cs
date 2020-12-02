@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("OpenBots.Commands.Loop")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("OpenBots commands for adding loop logic to a script. Supports conditional loops, as well as looping through collections.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("OpenBots Inc")]
 [assembly: AssemblyProduct("OpenBots.Commands.Loop")]

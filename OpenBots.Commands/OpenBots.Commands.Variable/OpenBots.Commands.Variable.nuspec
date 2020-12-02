@@ -11,7 +11,7 @@
     <iconUrl>https://openbots.ai/wp-content/uploads/2020/11/Studio-Icon-256px.png</iconUrl>
     <repository type="git" url="https://github.com/OpenBotsAI/OpenBots.Studio" branch="master" />
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>Variable Commands for OpenBots Studio</description>
+    <description>OpenBots commands for manipulating script variables. Supports creating new variables and updating existing variables.</description>
     <releaseNotes>https://openbots.ai/category/release-notes/</releaseNotes>
     <copyright>(C) OpenBots Inc 2020-2021</copyright>
     <tags>OpenBots Studio Variable Commands NewVariable SetVariable</tags>

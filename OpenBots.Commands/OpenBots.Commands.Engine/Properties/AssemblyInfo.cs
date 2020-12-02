@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("OpenBots.Commands.Engine")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("OpenBots commands for manipulating command execution by the engine, as well as changing engine settings dynamically. Example uses include adding an execution pause to a script, measuring execution time of a process, defining default error handling behavior, etc.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("OpenBots Inc")]
 [assembly: AssemblyProduct("OpenBots.Commands.Engine")]

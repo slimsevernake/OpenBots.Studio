@@ -11,7 +11,7 @@
     <iconUrl>https://openbots.ai/wp-content/uploads/2020/11/Studio-Icon-256px.png</iconUrl>
     <repository type="git" url="https://github.com/OpenBotsAI/OpenBots.Studio" branch="master" />
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>List Commands for OpenBots Studio</description>
+    <description>OpenBots commands for manipulating List objects. Supports creating new Lists, as well as adding, retrieving, and updating items.</description>
     <releaseNotes>https://openbots.ai/category/release-notes/</releaseNotes>
     <copyright>(C) OpenBots Inc 2020-2021</copyright>
     <tags>OpenBots Studio List Commands AddListItem CreateList GetListCount GetListItem RemoveListItem UpdateListItem</tags>
