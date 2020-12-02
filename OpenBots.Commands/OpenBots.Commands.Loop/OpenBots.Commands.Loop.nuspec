@@ -14,7 +14,8 @@
     <description>Loop Commands for OpenBots Studio</description>
     <releaseNotes>https://openbots.ai/category/release-notes/</releaseNotes>
     <copyright>(C) OpenBots Inc 2020-2021</copyright>
-    <tags>OpenBots Studio Commands</tags>
+    <tags>OpenBots Studio Loop Commands BeginLoop BeginMultiLoop EndLoop ExitLoop LoopCollection LoopContinuously
+          LoopNumberOfTimes NextLoop</tags>
     <dependencies>
       <group targetFramework="net48">
       </group>

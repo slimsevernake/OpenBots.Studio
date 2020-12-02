@@ -51,7 +51,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AddCodeCommentCommand.cs" />
-    <Compile Include="BrokenCodeCommentCommand.cs" />
     <Compile Include="EncryptionCommand.cs" />
     <Compile Include="GetClipboardTextCommand.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

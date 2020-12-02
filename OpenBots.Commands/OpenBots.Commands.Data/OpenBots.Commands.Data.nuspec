@@ -14,7 +14,7 @@
     <description>Data Commands for OpenBots Studio</description>
     <releaseNotes>https://openbots.ai/category/release-notes/</releaseNotes>
     <copyright>(C) OpenBots Inc 2020-2021</copyright>
-    <tags>OpenBots Studio Commands CreateDateTime DateCalculation FormatDate GetPDFText GetTextLength 
+    <tags>OpenBots Studio Data Commands CreateDateTime DateCalculation FormatDate GetPDFText GetTextLength 
           GetWordCount MathCalculation ModifyString ParseJSONArray ParseJSONModel ReplaceText SplitText 
           Substring TextExtraction</tags>
     <dependencies>

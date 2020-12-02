@@ -14,7 +14,8 @@
     <description>DataTable Commands for OpenBots Studio</description>
     <releaseNotes>https://openbots.ai/category/release-notes/</releaseNotes>
     <copyright>(C) OpenBots Inc 2020-2021</copyright>
-    <tags>OpenBots Studio Commands</tags>
+    <tags>OpenBots Studio DataTable Commands AddDataRow CreateDataTable FilterDataTable GetDataRow GetDataRowValue
+          MergeDataTable RemoveDataRow UpdateDataRowValue</tags>
     <dependencies>
       <group targetFramework="net48">
       </group>

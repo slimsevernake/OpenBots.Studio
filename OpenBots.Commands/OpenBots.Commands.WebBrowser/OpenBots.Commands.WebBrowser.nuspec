@@ -14,7 +14,8 @@
     <description>Web Browser Commands for OpenBots Studio</description>
     <releaseNotes>https://openbots.ai/category/release-notes/</releaseNotes>
     <copyright>(C) OpenBots Inc 2020-2021</copyright>
-    <tags>OpenBots Studio Commands</tags>
+    <tags>OpenBots Studio WebBrowser Commands GetHTMLSource QueryHTMLSource CloseBrowser CreateBrowser ElementAction
+          ExecuteScript GetBrowserInfo NavigateBack NavigateForward NavigateToURL Refresh SwitchBrowserFrame SwitchBrowserWindow</tags>
     <dependencies>
       <group targetFramework="net48">
       </group>

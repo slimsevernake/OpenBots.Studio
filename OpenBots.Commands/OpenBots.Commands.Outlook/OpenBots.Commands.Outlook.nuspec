@@ -14,7 +14,8 @@
     <description>Outlook Commands for OpenBots Studio</description>
     <releaseNotes>https://openbots.ai/category/release-notes/</releaseNotes>
     <copyright>(C) OpenBots Inc 2020-2021</copyright>
-    <tags>OpenBots Studio Commands</tags>
+    <tags>OpenBots Studio Outlook Commands DeleteOutlookEmail ForwardOutlookEmail GetOutlookEmails MoveCopyOutlookEmail
+          ReplyToOutlookEmail SendOutlookEmail</tags>
     <dependencies>
       <group targetFramework="net48">
       </group>
