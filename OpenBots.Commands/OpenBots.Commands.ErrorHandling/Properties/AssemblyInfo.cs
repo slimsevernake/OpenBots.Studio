@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("OpenBots.Commands.ErrorHandling")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("OpenBots commands for adding error handling behavior to a script. Supports defining try, catch, and finally blocks, as well as throwing and rethrowing exceptions.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("OpenBots Inc")]
 [assembly: AssemblyProduct("OpenBots.Commands.ErrorHandling")]
