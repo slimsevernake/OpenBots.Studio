@@ -1,4 +1,5 @@
-﻿using OpenBots.Core.Command;
+﻿using Autofac;
+using OpenBots.Core.Command;
 using OpenBots.Core.Infrastructure;
 using OpenBots.Core.Properties;
 using OpenBots.Core.Settings;
@@ -18,11 +19,13 @@ namespace OpenBots.UI.Supplement_Forms
         private List<ScriptCommand> _scriptCommandList;
         public bool IsCommandItemSelected { get; set; }
         private ApplicationSettings _appSettings;
+        private IContainer _container;
 
-        public frmScreenRecorder()
+        public frmScreenRecorder(IContainer container)
         {
             _appSettings = new ApplicationSettings();
             _appSettings = _appSettings.GetOrCreateApplicationSettings();
+            _container = container;
 
             InitializeComponent();
         }
@@ -77,7 +80,7 @@ namespace OpenBots.UI.Supplement_Forms
                 GlobalHook.StartScreenRecordingHook(chkCaptureClicks.Checked, chkCaptureMouse.Checked,
                     chkGroupMovesIntoSequences.Checked, chkCaptureKeyboard.Checked, chkCaptureWindowEvents.Checked,
                     chkActivateTopLeft.Checked, chkTrackWindowSize.Checked, chkTrackWindowsOpenLocation.Checked,
-                    samplingResolution, txtHookStop.Text);
+                    samplingResolution, txtHookStop.Text, _container);
                 lblRecording.Text = "Press '" + txtHookStop.Text + "' key to stop recording!";
                 // WindowHook.StartHook();
 
@@ -111,7 +114,7 @@ namespace OpenBots.UI.Supplement_Forms
 
             if (chkGroupIntoSequence.Checked)
             {
-                dynamic newSequence = TypeMethods.CreateTypeInstance(AppDomain.CurrentDomain, "SequenceCommand");
+                dynamic newSequence = TypeMethods.CreateTypeInstance(_container, "SequenceCommand");
 
                 foreach (ScriptCommand cmd in _scriptCommandList)
                     newSequence.ScriptActions.Add(cmd);
@@ -121,7 +124,7 @@ namespace OpenBots.UI.Supplement_Forms
             }
             else if (chkGroupMovesIntoSequences.Checked)
             {
-                dynamic newSequence = TypeMethods.CreateTypeInstance(AppDomain.CurrentDomain, "SequenceCommand");
+                dynamic newSequence = TypeMethods.CreateTypeInstance(_container, "SequenceCommand");
                 newSequence.v_Comment = sequenceComment;
 
                 foreach (ScriptCommand cmd in _scriptCommandList)
@@ -133,7 +136,7 @@ namespace OpenBots.UI.Supplement_Forms
                         if (sendMouseCmd.v_MouseClick != "None")
                         {
                             outputList.Add(newSequence);
-                            newSequence = TypeMethods.CreateTypeInstance(AppDomain.CurrentDomain, "SequenceCommand");
+                            newSequence = TypeMethods.CreateTypeInstance(_container, "SequenceCommand");
                             newSequence.v_Comment = sequenceComment;
                             outputList.Add(cmd);
                         }
@@ -143,7 +146,7 @@ namespace OpenBots.UI.Supplement_Forms
                     else if (cmd.CommandName == "SendKeystrokesCommand")
                     {
                         outputList.Add(newSequence);
-                        newSequence = TypeMethods.CreateTypeInstance(AppDomain.CurrentDomain, "SequenceCommand");
+                        newSequence = TypeMethods.CreateTypeInstance(_container, "SequenceCommand");
                         newSequence.v_Comment = sequenceComment;
                         outputList.Add(cmd);
                     }
@@ -158,7 +161,7 @@ namespace OpenBots.UI.Supplement_Forms
             else
                 outputList = _scriptCommandList;
 
-            dynamic commentCommand = TypeMethods.CreateTypeInstance(AppDomain.CurrentDomain, "AddCodeCommentCommand");
+            dynamic commentCommand = TypeMethods.CreateTypeInstance(_container, "AddCodeCommentCommand");
             commentCommand.v_Comment = sequenceComment;
             outputList.Insert(0, commentCommand);
 

@@ -483,7 +483,7 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
                 var dateTimeNow = DateTime.Now.ToString();
 
                 //comment
-                dynamic addCodeCommentCommand = TypeMethods.CreateTypeInstance(AppDomain.CurrentDomain, "AddCodeCommentCommand");
+                dynamic addCodeCommentCommand = TypeMethods.CreateTypeInstance(_container, "AddCodeCommentCommand");
                 addCodeCommentCommand.v_Comment = "Imported From " + fileName + " @ " + dateTimeNow;
                 _selectedTabScriptActions.Items.Add(CreateScriptCommandListViewItem(addCodeCommentCommand));
 
@@ -506,7 +506,7 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
                 }
 
                 //comment
-                dynamic codeCommentCommand = TypeMethods.CreateTypeInstance(AppDomain.CurrentDomain, "AddCodeCommentCommand");
+                dynamic codeCommentCommand = TypeMethods.CreateTypeInstance(_container, "AddCodeCommentCommand");
                 codeCommentCommand.v_Comment = "End Import From " + fileName + " @ " + dateTimeNow;
                 _selectedTabScriptActions.Items.Add(CreateScriptCommandListViewItem(codeCommentCommand));
 
@@ -822,7 +822,7 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
         #region Recorder Buttons
         private void elementRecorderToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            frmWebElementRecorder elementRecorder = new frmWebElementRecorder(HTMLElementRecorderURL)
+            frmWebElementRecorder elementRecorder = new frmWebElementRecorder(_container, HTMLElementRecorderURL)
             {
                 CallBackForm = this,
                 IsRecordingSequence = true,
@@ -857,10 +857,10 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
         private void RecordSequence()
         {
             Hide();
-            frmScreenRecorder sequenceRecorder = new frmScreenRecorder
+            frmScreenRecorder sequenceRecorder = new frmScreenRecorder(_container)
             {
                 CallBackForm = this,
-                IsCommandItemSelected = _selectedTabScriptActions.SelectedItems.Count > 0
+                IsCommandItemSelected = _selectedTabScriptActions.SelectedItems.Count > 0,               
             };
 
             sequenceRecorder.ShowDialog();
@@ -875,7 +875,7 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
         {
             Hide();
 
-            frmAdvancedUIElementRecorder appElementRecorder = new frmAdvancedUIElementRecorder
+            frmAdvancedUIElementRecorder appElementRecorder = new frmAdvancedUIElementRecorder(_container)
             {
                 CallBackForm = this,
                 IsRecordingSequence = true

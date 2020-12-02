@@ -12,6 +12,7 @@
 //WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 //See the License for the specific language governing permissions and
 //limitations under the License.
+using Autofac;
 using OpenBots.Core.Command;
 using OpenBots.Core.Common;
 using OpenBots.Core.Enums;
@@ -54,6 +55,7 @@ namespace OpenBots.UI.Forms
         //track existing commands for visibility
         public List<ScriptCommand> ConfiguredCommands { get; set; }
         public string HTMLElementRecorderURL { get; set; }
+        public new IContainer Container { get; set; }
 
         private ICommandControls _commandControls;
 
@@ -70,7 +72,7 @@ namespace OpenBots.UI.Forms
         private void frmNewCommand_Load(object sender, EventArgs e)
         {
             // Initialize CommandControls with Current Editor
-            _commandControls = new CommandControls(this);
+            _commandControls = new CommandControls(this, Container);
 
             //order list
             CommandList = CommandList.OrderBy(itm => itm.FullName).ToList();

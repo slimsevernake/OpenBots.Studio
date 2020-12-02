@@ -1,4 +1,5 @@
-﻿using Gecko;
+﻿using Autofac;
+using Gecko;
 using HtmlAgilityPack;
 using OpenBots.Core.Command;
 using OpenBots.Core.Infrastructure;
@@ -49,12 +50,14 @@ namespace OpenBots.UI.Forms.Supplement_Forms
         private ISeleniumCreateBrowserCommand _createBrowserCommand;
         private ApplicationSettings _appSettings;
         private Point _lastSavedPoint;
+        private IContainer _container;
 
         private string _recordingMessage = "Recording. Press F2 to save and close.";
         private string _errorMessage = "Error cloning element. Please Try Again.";
 
-        public frmWebElementRecorder(string startURL)
+        public frmWebElementRecorder(IContainer container, string startURL)
         {
+            _container = container;
             _appSettings = new ApplicationSettings();
             _appSettings = _appSettings.GetOrCreateApplicationSettings();
 
@@ -134,7 +137,7 @@ namespace OpenBots.UI.Forms.Supplement_Forms
 
                     if (_browserEngineType != "None")
                     {
-                        dynamic seleniumCreateBrowserCommand = TypeMethods.CreateTypeInstance(AppDomain.CurrentDomain, "SeleniumCreateBrowserCommand");
+                        dynamic seleniumCreateBrowserCommand = TypeMethods.CreateTypeInstance(_container, "SeleniumCreateBrowserCommand");
                         seleniumCreateBrowserCommand.v_InstanceName = _browserInstanceName;
                         seleniumCreateBrowserCommand.v_EngineType = _browserEngineType;
                         seleniumCreateBrowserCommand.v_URL = wbElementRecorder.Url.ToString();
@@ -343,7 +346,7 @@ namespace OpenBots.UI.Forms.Supplement_Forms
             wbElementRecorder.Reload();
             if (IsRecordingSequence && _isRecording)
             {
-                dynamic refreshBrowserCommand = TypeMethods.CreateTypeInstance(AppDomain.CurrentDomain, "SeleniumRefreshCommand");
+                dynamic refreshBrowserCommand = TypeMethods.CreateTypeInstance(_container, "SeleniumRefreshCommand");
                 refreshBrowserCommand.v_InstanceName = _browserInstanceName;
                 _sequenceCommandList.Add(refreshBrowserCommand);
             }
@@ -371,7 +374,7 @@ namespace OpenBots.UI.Forms.Supplement_Forms
             wbElementRecorder.GoBack();
             if (IsRecordingSequence && _isRecording)
             {
-                dynamic navigateBackBrowserCommand = TypeMethods.CreateTypeInstance(AppDomain.CurrentDomain, "SeleniumNavigateBackCommand");
+                dynamic navigateBackBrowserCommand = TypeMethods.CreateTypeInstance(_container, "SeleniumNavigateBackCommand");
                 navigateBackBrowserCommand.v_InstanceName = _browserInstanceName;
                 _sequenceCommandList.Add(navigateBackBrowserCommand);
             }
@@ -382,7 +385,7 @@ namespace OpenBots.UI.Forms.Supplement_Forms
             wbElementRecorder.GoForward();
             if (IsRecordingSequence && _isRecording)
             {
-                dynamic navigateForwardBrowserCommand = TypeMethods.CreateTypeInstance(AppDomain.CurrentDomain, "SeleniumNavigateForwardCommand");
+                dynamic navigateForwardBrowserCommand = TypeMethods.CreateTypeInstance(_container, "SeleniumNavigateForwardCommand");
                 navigateForwardBrowserCommand.v_InstanceName = _browserInstanceName;
                 _sequenceCommandList.Add(navigateForwardBrowserCommand);
             }
@@ -466,7 +469,7 @@ namespace OpenBots.UI.Forms.Supplement_Forms
 
         private void BuildNavigateToURLCommand(string url)
         {
-            dynamic navigateToURLCommand = TypeMethods.CreateTypeInstance(AppDomain.CurrentDomain, "SeleniumNavigateToURLCommand");
+            dynamic navigateToURLCommand = TypeMethods.CreateTypeInstance(_container, "SeleniumNavigateToURLCommand");
             navigateToURLCommand.v_InstanceName = _browserInstanceName;
             navigateToURLCommand.v_URL = url;
             _sequenceCommandList.Add(navigateToURLCommand);
@@ -476,7 +479,7 @@ namespace OpenBots.UI.Forms.Supplement_Forms
         {
             BuildWaitForElementActionCommand();
 
-            dynamic clickElementActionCommand = TypeMethods.CreateTypeInstance(AppDomain.CurrentDomain, "SeleniumElementActionCommand");
+            dynamic clickElementActionCommand = TypeMethods.CreateTypeInstance(_container, "SeleniumElementActionCommand");
             clickElementActionCommand.v_InstanceName = _browserInstanceName;
             clickElementActionCommand.v_SeleniumSearchParameters = SearchParameters;
             clickElementActionCommand.v_SeleniumElementAction = clickType;
@@ -485,7 +488,7 @@ namespace OpenBots.UI.Forms.Supplement_Forms
 
         private void BuildWaitForElementActionCommand()
         {
-            dynamic waitElementActionCommand = TypeMethods.CreateTypeInstance(AppDomain.CurrentDomain, "SeleniumElementActionCommand");
+            dynamic waitElementActionCommand = TypeMethods.CreateTypeInstance(_container, "SeleniumElementActionCommand");
             waitElementActionCommand.v_InstanceName = _browserInstanceName;
             waitElementActionCommand.v_SeleniumSearchParameters = SearchParameters;
             waitElementActionCommand.v_SeleniumElementAction = "Wait For Element To Exist";
@@ -552,7 +555,7 @@ namespace OpenBots.UI.Forms.Supplement_Forms
             {
                 BuildWaitForElementActionCommand();
 
-                dynamic setTextElementActionCommand = TypeMethods.CreateTypeInstance(AppDomain.CurrentDomain, "SeleniumElementActionCommand");
+                dynamic setTextElementActionCommand = TypeMethods.CreateTypeInstance(_container, "SeleniumElementActionCommand");
                 setTextElementActionCommand.v_InstanceName = _browserInstanceName;
                 setTextElementActionCommand.v_SeleniumSearchParameters = SearchParameters;
                 setTextElementActionCommand.v_SeleniumElementAction = "Set Text";
@@ -571,13 +574,13 @@ namespace OpenBots.UI.Forms.Supplement_Forms
         {
             string sequenceComment = $"Web Sequence Recorded {DateTime.Now}";
 
-            dynamic commentCommand = TypeMethods.CreateTypeInstance(AppDomain.CurrentDomain, "AddCodeCommentCommand");
+            dynamic commentCommand = TypeMethods.CreateTypeInstance(_container, "AddCodeCommentCommand");
             commentCommand.v_Comment = sequenceComment;
 
-            dynamic closeBrowserCommand = TypeMethods.CreateTypeInstance(AppDomain.CurrentDomain, "SeleniumCloseBrowserCommand");
+            dynamic closeBrowserCommand = TypeMethods.CreateTypeInstance(_container, "SeleniumCloseBrowserCommand");
             closeBrowserCommand.v_InstanceName = _browserInstanceName;
             
-            dynamic sequenceCommand = TypeMethods.CreateTypeInstance(AppDomain.CurrentDomain, "SequenceCommand");
+            dynamic sequenceCommand = TypeMethods.CreateTypeInstance(_container, "SequenceCommand");
             sequenceCommand.ScriptActions = _sequenceCommandList;
             sequenceCommand.v_Comment = sequenceComment;
             

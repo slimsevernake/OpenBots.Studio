@@ -22,6 +22,7 @@ using OpenBots.Core.Script;
 using OpenBots.Core.Settings;
 using OpenBots.Core.UI.Controls.CustomControls;
 using OpenBots.Core.Utilities.CommonUtilities;
+using OpenBots.Studio.Utilities;
 using OpenBots.UI.CustomControls.CustomUIControls;
 using OpenBots.UI.Forms.Supplement_Forms;
 using OpenBots.Utilities;
@@ -276,7 +277,7 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
         private void LoadCommands()
         {
             //load all commands           
-            _automationCommands = UIControlsHelper.GenerateCommandsandControls(_container);
+            _automationCommands = TypeMethods.GenerateCommands(_container);
             var groupedCommands = _automationCommands.GroupBy(f => f.DisplayGroup);
 
             tvCommands.Nodes.Clear();
@@ -539,7 +540,8 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
             {
                 CreationModeInstance = CreationMode.Add,
                 ScriptVariables = _scriptVariables,
-                ScriptElements = _scriptElements
+                ScriptElements = _scriptElements,
+                Container = _container
             };
 
             if (specificCommand != "")

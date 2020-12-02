@@ -57,7 +57,17 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
                 uiScriptTabControl.TabPages.Clear();
                 ScriptProjectPath = projectBuilder.NewProjectPath;
 
-                string configPath = Path.Combine(ScriptProjectPath, "project.config");           
+                //Create new project
+                ScriptProject = new Project(projectBuilder.NewProjectName);
+                string configPath = Path.Combine(ScriptProjectPath, "project.config");
+
+                //create config file
+                File.WriteAllText(configPath, JsonConvert.SerializeObject(ScriptProject));
+
+                var assemblyList = await NugetPackageManager.LoadProjectAssemblies(configPath);
+                _builder = AppDomainSetupManager.LoadBuilder(assemblyList);
+                _container = _builder.Build();
+                         
                 string mainScriptPath = Path.Combine(ScriptProjectPath, "Main.json");
                 string mainScriptName = Path.GetFileNameWithoutExtension(mainScriptPath);
                 UIListView mainScriptActions = NewLstScriptActions(mainScriptName);
@@ -66,7 +76,7 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
 
                 try
                 {
-                    dynamic helloWorldCommand = TypeMethods.CreateTypeInstance(AppDomain.CurrentDomain, "ShowMessageCommand");
+                    dynamic helloWorldCommand = TypeMethods.CreateTypeInstance(_container, "ShowMessageCommand");
                     helloWorldCommand.v_Message = "Hello World";
                     mainScriptActions.Items.Insert(0, CreateScriptCommandListViewItem(helloWorldCommand));
                 }
@@ -85,17 +95,9 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
                     //Serialize main script
                     var mainScript = Script.SerializeScript(mainScriptActions.Items, mainScriptVariables, mainScriptElements,
                                                             mainScriptPath);
-                    //Create new project
-                    ScriptProject = new Project(projectBuilder.NewProjectName);
+                    
                     _mainFileName = ScriptProject.Main;
-
-                    //create config file
-                    File.WriteAllText(configPath, JsonConvert.SerializeObject(ScriptProject));
-
-                    var assemblyList = await NugetPackageManager.LoadProjectAssemblies(configPath);
-                    _builder = AppDomainSetupManager.LoadBuilder(assemblyList);
-                    _container = _builder.Build();
-
+                   
                     OpenFile(mainScriptPath);
                     ScriptFilePath = mainScriptPath;
 
@@ -514,7 +516,7 @@ namespace OpenBots.UI.Forms.ScriptBuilder_Forms
                 UIListView newScriptActions = NewLstScriptActions();
                 List<ScriptVariable> newScripVariables = new List<ScriptVariable>();
                 List<ScriptElement> newScriptElements = new List<ScriptElement>();
-                dynamic helloWorldCommand = TypeMethods.CreateTypeInstance(AppDomain.CurrentDomain, "ShowMessageCommand");
+                dynamic helloWorldCommand = TypeMethods.CreateTypeInstance(_container, "ShowMessageCommand");
                 helloWorldCommand.v_Message = "Hello World";
                 newScriptActions.Items.Insert(0, CreateScriptCommandListViewItem(helloWorldCommand));
 

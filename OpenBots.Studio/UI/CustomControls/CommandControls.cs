@@ -26,20 +26,23 @@ using System.Linq;
 using System.Reflection;
 using System.Threading;
 using System.Windows.Forms;
+using IContainer = Autofac.IContainer;
 
 namespace OpenBots.UI.CustomControls
 {
     public class CommandControls : ICommandControls
     {
         private frmCommandEditor _currentEditor;
+        private IContainer _container;
 
         public CommandControls()
         {
-
         }
-        public CommandControls(frmCommandEditor editor)
+
+        public CommandControls(frmCommandEditor editor, IContainer container)
         {
             _currentEditor = editor;
+            _container = container;
         }
 
         public List<Control> CreateDefaultInputGroupFor(string parameterName, ScriptCommand parent, IfrmCommandEditor editor, int height = 30, int width = 300)
@@ -774,7 +777,7 @@ namespace OpenBots.UI.CustomControls
             IUIAutomationCommand cmd = (IUIAutomationCommand)editor.SelectedCommand;
 
             //create recorder
-            frmAdvancedUIElementRecorder newElementRecorder = new frmAdvancedUIElementRecorder();
+            frmAdvancedUIElementRecorder newElementRecorder = new frmAdvancedUIElementRecorder(_container);
             newElementRecorder.SearchParameters = cmd.v_UIASearchParameters;
 
             //show form
@@ -789,7 +792,7 @@ namespace OpenBots.UI.CustomControls
             IUIAutomationCommand cmd = (IUIAutomationCommand)editor.SelectedCommand;
 
             //create recorder
-            frmAdvancedUIElementRecorder newElementRecorder = new frmAdvancedUIElementRecorder();
+            frmAdvancedUIElementRecorder newElementRecorder = new frmAdvancedUIElementRecorder(_container);
             newElementRecorder.SearchParameters = cmd.v_UIASearchParameters;
 
             //show form
@@ -1053,26 +1056,29 @@ namespace OpenBots.UI.CustomControls
 
         public IfrmWebElementRecorder CreateWebElementRecorderForm(string startURL)
         {
-            return new frmWebElementRecorder(startURL);
+            return new frmWebElementRecorder(_container, startURL);
         }
 
         public IfrmAdvancedUIElementRecorder CreateAdvancedUIElementRecorderForm()
         {
-            return new frmAdvancedUIElementRecorder();
+            return new frmAdvancedUIElementRecorder(_container);
         }
 
         public IfrmCommandEditor CreateCommandEditorForm(List<AutomationCommand> commands, List<ScriptCommand> existingCommands)
         {
-            return new frmCommandEditor(commands, existingCommands);
+            return new frmCommandEditor(commands, existingCommands)
+            {
+                Container = _container
+            };
         }
 
         public ScriptCommand CreateBeginIfCommand(string commandData)
         {
             if(string.IsNullOrEmpty(commandData))
-                return (dynamic)TypeMethods.CreateTypeInstance(AppDomain.CurrentDomain, "BeginIfCommand");
+                return (dynamic)TypeMethods.CreateTypeInstance(_container, "BeginIfCommand");
             else
             {
-                Type ifCommandType = TypeMethods.GetTypeByName(AppDomain.CurrentDomain, "BeginIfCommand");
+                Type ifCommandType = TypeMethods.GetTypeByName(_container, "BeginIfCommand");
                 return (dynamic) JsonConvert.DeserializeObject(commandData, ifCommandType);
                 //return JsonConvert.DeserializeObject<typeof(ifCommand)> (commandData);
             }
@@ -1082,7 +1088,7 @@ namespace OpenBots.UI.CustomControls
         {
             Type type = null;
             if (commandName == "BeginIfCommand")
-                type = TypeMethods.GetTypeByName(AppDomain.CurrentDomain, "BeginIfCommand");
+                type = TypeMethods.GetTypeByName(_container, "BeginIfCommand");
 
             return type;
         }

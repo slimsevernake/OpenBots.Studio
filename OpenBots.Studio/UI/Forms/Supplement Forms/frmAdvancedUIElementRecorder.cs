@@ -1,4 +1,5 @@
-﻿using OpenBots.Core.Command;
+﻿using Autofac;
+using OpenBots.Core.Command;
 using OpenBots.Core.Common;
 using OpenBots.Core.Enums;
 using OpenBots.Core.Infrastructure;
@@ -43,9 +44,11 @@ namespace OpenBots.UI.Forms.Supplement_Forms
         private string _errorMessage = "Error cloning element. Please Try Again.";
 
         private Point _lastClickedMouseCoordinates;
+        private IContainer _container;
 
-        public frmAdvancedUIElementRecorder()
+        public frmAdvancedUIElementRecorder(IContainer container)
         {
+            _container = container;
             _appSettings = new ApplicationSettings();
             _appSettings = _appSettings.GetOrCreateApplicationSettings();
             _isFirstRecordClick = true;
@@ -107,7 +110,7 @@ namespace OpenBots.UI.Forms.Supplement_Forms
                         return;
                     }
 
-                    dynamic activateWindowCommand = TypeMethods.CreateTypeInstance(AppDomain.CurrentDomain, "ActivateWindowCommand");
+                    dynamic activateWindowCommand = TypeMethods.CreateTypeInstance(_container, "ActivateWindowCommand");
                     activateWindowCommand.v_WindowName = _windowName;
                     _sequenceCommandList.Add(activateWindowCommand);
                 }
@@ -319,7 +322,7 @@ namespace OpenBots.UI.Forms.Supplement_Forms
         {
             BuildWaitForElementActionCommand();
 
-            dynamic clickElementActionCommand = TypeMethods.CreateTypeInstance(AppDomain.CurrentDomain, "UIAutomationCommand");
+            dynamic clickElementActionCommand = TypeMethods.CreateTypeInstance(_container, "UIAutomationCommand");
             clickElementActionCommand.v_WindowName = _windowName;
             clickElementActionCommand.v_UIASearchParameters = SearchParameters;
             clickElementActionCommand.v_AutomationType = "Click Element";
@@ -337,7 +340,7 @@ namespace OpenBots.UI.Forms.Supplement_Forms
 
         private void BuildWaitForElementActionCommand()
         {
-            dynamic waitElementActionCommand = TypeMethods.CreateTypeInstance(AppDomain.CurrentDomain, "UIAutomationCommand");
+            dynamic waitElementActionCommand = TypeMethods.CreateTypeInstance(_container, "UIAutomationCommand");
             waitElementActionCommand.v_WindowName = _windowName;
             waitElementActionCommand.v_UIASearchParameters = SearchParameters;
             waitElementActionCommand.v_AutomationType = "Wait For Element To Exist";
@@ -406,7 +409,7 @@ namespace OpenBots.UI.Forms.Supplement_Forms
                 BuildWaitForElementActionCommand();
 
                 //build keyboard command
-                dynamic setTextElementActionCommand = TypeMethods.CreateTypeInstance(AppDomain.CurrentDomain, "UIAutomationCommand");
+                dynamic setTextElementActionCommand = TypeMethods.CreateTypeInstance(_container, "UIAutomationCommand");
                 setTextElementActionCommand.v_WindowName = _windowName;
                 setTextElementActionCommand.v_UIASearchParameters = SearchParameters;
                 setTextElementActionCommand.v_AutomationType = "Set Text";
@@ -425,10 +428,10 @@ namespace OpenBots.UI.Forms.Supplement_Forms
         {
             string sequenceComment = $"Advanced UI Sequence Recorded {DateTime.Now}";
 
-            dynamic commentCommand = TypeMethods.CreateTypeInstance(AppDomain.CurrentDomain, "AddCodeCommentCommand");
+            dynamic commentCommand = TypeMethods.CreateTypeInstance(_container, "AddCodeCommentCommand");
             commentCommand.v_Comment = sequenceComment;
             
-            dynamic sequenceCommand = TypeMethods.CreateTypeInstance(AppDomain.CurrentDomain, "SequenceCommand");
+            dynamic sequenceCommand = TypeMethods.CreateTypeInstance(_container, "SequenceCommand");
             sequenceCommand.ScriptActions = _sequenceCommandList;
             sequenceCommand.v_Comment = sequenceComment;
 

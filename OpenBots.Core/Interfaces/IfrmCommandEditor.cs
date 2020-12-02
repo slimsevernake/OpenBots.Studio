@@ -1,4 +1,5 @@
-﻿using OpenBots.Core.Command;
+﻿using Autofac;
+using OpenBots.Core.Command;
 using OpenBots.Core.Enums;
 using OpenBots.Core.Script;
 using OpenBots.Core.UI.Controls.CustomControls;
@@ -19,5 +20,6 @@ namespace OpenBots.Core.Infrastructure
         ScriptCommand EditingCommand { get; set; }
         List<ScriptCommand> ConfiguredCommands { get; set; }
         string HTMLElementRecorderURL { get; set; }
+        IContainer Container { get; set; }
     }
 }

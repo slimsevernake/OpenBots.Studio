@@ -27,12 +27,15 @@ namespace OpenBots.Core.Project
             //"DataTable",
             //"Dictionary",
             //"Email",
-            //"Engine",
+            "Engine",
             //"Excel",
             //"File",
             //"Folder",
-            //"Input",
+            "If",
+            "Input",
             //"List",
+            //"Loop",
+            "Misc",
             //"Process",
             //"RegEx",
             //"SecureData",
@@ -40,7 +43,8 @@ namespace OpenBots.Core.Project
             //"System",
             //"TextFile",
             //"Variable",
-            //"Window",
+            "WebBrowser",
+            "Window",
         };
 
         public Project(string projectName)
@@ -52,7 +56,7 @@ namespace OpenBots.Core.Project
             Dependencies = new Dictionary<string, string>();
 
             foreach (string commandSet in DefaultCommands)
-                Dependencies.Add($"OpenBots.Commands.{commandSet}", Application.ProductVersion.ToString());
+                Dependencies.Add($"OpenBots.Commands.{commandSet}", "1.1.0");
         }
 
         public void SaveProject(string scriptPath)
