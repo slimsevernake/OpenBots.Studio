@@ -354,7 +354,7 @@ namespace OpenBots.UI.Forms
             this.txtSampleSearch.Location = new System.Drawing.Point(105, 106);
             this.txtSampleSearch.Margin = new System.Windows.Forms.Padding(4);
             this.txtSampleSearch.Name = "txtSampleSearch";
-            this.txtSampleSearch.Size = new System.Drawing.Size(411, 34);
+            this.txtSampleSearch.Size = new System.Drawing.Size(449, 34);
             this.txtSampleSearch.TabIndex = 34;
             this.txtSampleSearch.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtSampleSearch_KeyDown);
             this.txtSampleSearch.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtSampleSearch_KeyPress);

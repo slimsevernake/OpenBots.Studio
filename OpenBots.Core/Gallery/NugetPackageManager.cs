@@ -222,7 +222,7 @@ namespace OpenBots.Core.Gallery
             }
         }
 
-        public static async Task<List<string>> LoadProjectAssemblies(string configPath)
+        public static async Task<List<string>> LoadPackageAssemblies(string configPath)
         {
             List<string> assemblyPaths = new List<string>();
             var dependencies = JsonConvert.DeserializeObject<Project.Project>(File.ReadAllText(configPath)).Dependencies;
@@ -241,9 +241,9 @@ namespace OpenBots.Core.Gallery
 
                 using (var cacheContext = new SourceCacheContext())
                 {
-                    var galleryRepo = sourceRepositoryProvider.CreateRepository(new PackageSource("https://dev.gallery.openbots.io/v3/index.json", "OpenBots Gallery", true));
-                    var repositories = sourceRepositoryProvider.GetRepositories().ToList();
-                    repositories.Add(galleryRepo);
+                    var localRepo = sourceRepositoryProvider.CreateRepository(new PackageSource(packagePath, "Local OpenBots Repo", true));
+                    var repositories = new List<SourceRepository>();
+                    repositories.Add(localRepo);
 
                     var availablePackages = new HashSet<SourcePackageDependencyInfo>(PackageIdentityComparer.Default);
                     await GetPackageDependencies(
@@ -264,7 +264,7 @@ namespace OpenBots.Core.Gallery
                     var packagesToInstall = resolver.Resolve(resolverContext, CancellationToken.None)
                         .Select(p => availablePackages.Single(x => PackageIdentityComparer.Default.Equals(x, p)));
 
-                    var packagePathResolver = new PackagePathResolver(packagePath);//Path.GetFullPath("packages"));
+                    var packagePathResolver = new PackagePathResolver(packagePath);
                     var packageExtractionContext = new PackageExtractionContext(
                         PackageSaveMode.Defaultv3,
                         XmlDocFileSaveMode.None,

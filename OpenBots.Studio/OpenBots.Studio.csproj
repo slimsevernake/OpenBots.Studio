@@ -407,6 +407,12 @@
     <Compile Include="UI\Forms\frmGalleryProjectManager.Designer.cs">
       <DependentUpon>frmGalleryProjectManager.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\Forms\Supplement Forms\frmAddPackageSource.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Forms\Supplement Forms\frmAddPackageSource.Designer.cs">
+      <DependentUpon>frmAddPackageSource.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\Forms\Supplement Forms\frmShortcutMenu.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -696,6 +702,9 @@
     <EmbeddedResource Include="UI\Forms\frmScriptElements.resx">
       <DependentUpon>frmScriptElements.cs</DependentUpon>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Forms\Supplement Forms\frmAddPackageSource.resx">
+      <DependentUpon>frmAddPackageSource.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Forms\Supplement Forms\frmShortcutMenu.resx">
       <DependentUpon>frmShortcutMenu.cs</DependentUpon>

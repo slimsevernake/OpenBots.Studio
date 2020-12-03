@@ -5,6 +5,7 @@ using OpenBots.Core.Properties;
 using OpenBots.Core.UI.Forms;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
@@ -29,6 +30,7 @@ namespace OpenBots.UI.Forms
         private bool _isInstalled;
         private string _installedVersion;
         private bool _includePrerelease;
+        public DataTable PackageSourceDT { get; set; }
 
         private string _gallerySourceUrl = "https://dev.gallery.openbots.io/v3/index.json";
         private string _nugetSourceUrl = "https://api.nuget.org/v3/index.json";
@@ -37,6 +39,14 @@ namespace OpenBots.UI.Forms
             string packageLocation = "")
         {
             InitializeComponent();
+            PackageSourceDT = new DataTable();
+            PackageSourceDT.Columns.Add("Enabled");
+            PackageSourceDT.Columns.Add("Package Name");
+            PackageSourceDT.Columns.Add("Package Source");
+            PackageSourceDT.TableName = DateTime.Now.ToString("PackageSourceDT" + DateTime.Now.ToString("MMddyy.hhmmss"));
+            PackageSourceDT.Rows.Add(true, "OpenBots Gallery", "https://dev.gallery.openbots.io/v3/index.json");
+            PackageSourceDT.Rows.Add(true, "Nuget.org", "https://api.nuget.org/v3/index.json");
+
             _projectDependenciesDict = projectDependenciesDict;
             _packageLocation = packageLocation;
             _allResults = new List<IPackageSearchMetadata>();
