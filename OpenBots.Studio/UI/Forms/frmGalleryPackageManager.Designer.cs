@@ -103,7 +103,7 @@ namespace OpenBots.UI.Forms
             // 
             this.tlpPackageLayout.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(49)))), ((int)(((byte)(49)))), ((int)(((byte)(49)))));
             this.tlpPackageLayout.ColumnCount = 3;
-            this.tlpPackageLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 250F));
+            this.tlpPackageLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 300F));
             this.tlpPackageLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tlpPackageLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tlpPackageLayout.Controls.Add(this.pnlNugetPackages, 1, 1);
@@ -120,7 +120,7 @@ namespace OpenBots.UI.Forms
             this.tlpPackageLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 153F));
             this.tlpPackageLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tlpPackageLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 82F));
-            this.tlpPackageLayout.Size = new System.Drawing.Size(1303, 859);
+            this.tlpPackageLayout.Size = new System.Drawing.Size(1429, 859);
             this.tlpPackageLayout.TabIndex = 36;
             // 
             // pnlNugetPackages
@@ -128,9 +128,9 @@ namespace OpenBots.UI.Forms
             this.pnlNugetPackages.Controls.Add(this.tpbLoadingSpinner);
             this.pnlNugetPackages.Controls.Add(this.lbxNugetPackages);
             this.pnlNugetPackages.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlNugetPackages.Location = new System.Drawing.Point(253, 156);
+            this.pnlNugetPackages.Location = new System.Drawing.Point(303, 156);
             this.pnlNugetPackages.Name = "pnlNugetPackages";
-            this.pnlNugetPackages.Size = new System.Drawing.Size(520, 618);
+            this.pnlNugetPackages.Size = new System.Drawing.Size(558, 618);
             this.pnlNugetPackages.TabIndex = 37;
             theme1.BgGradientEndColor = System.Drawing.Color.FromArgb(((int)(((byte)(49)))), ((int)(((byte)(49)))), ((int)(((byte)(49)))));
             theme1.BgGradientStartColor = System.Drawing.Color.FromArgb(((int)(((byte)(49)))), ((int)(((byte)(49)))), ((int)(((byte)(49)))));
@@ -142,9 +142,9 @@ namespace OpenBots.UI.Forms
             this.tpbLoadingSpinner.ErrorImage = ((System.Drawing.Image)(resources.GetObject("tpbLoadingSpinner.ErrorImage")));
             this.tpbLoadingSpinner.Image = ((System.Drawing.Image)(resources.GetObject("tpbLoadingSpinner.Image")));
             this.tpbLoadingSpinner.InitialImage = ((System.Drawing.Image)(resources.GetObject("tpbLoadingSpinner.InitialImage")));
-            this.tpbLoadingSpinner.Location = new System.Drawing.Point(101, 165);
+            this.tpbLoadingSpinner.Location = new System.Drawing.Point(131, 168);
             this.tpbLoadingSpinner.Name = "tpbLoadingSpinner";
-            this.tpbLoadingSpinner.Size = new System.Drawing.Size(306, 252);
+            this.tpbLoadingSpinner.Size = new System.Drawing.Size(301, 252);
             this.tpbLoadingSpinner.TabIndex = 41;
             this.tpbLoadingSpinner.TabStop = false;
             // 
@@ -158,7 +158,7 @@ namespace OpenBots.UI.Forms
             this.lbxNugetPackages.LastSelectedItem = null;
             this.lbxNugetPackages.Location = new System.Drawing.Point(0, 0);
             this.lbxNugetPackages.Name = "lbxNugetPackages";
-            this.lbxNugetPackages.Size = new System.Drawing.Size(520, 618);
+            this.lbxNugetPackages.Size = new System.Drawing.Size(558, 618);
             this.lbxNugetPackages.TabIndex = 37;
             this.lbxNugetPackages.ItemClick += new OpenBots.UI.CustomControls.CustomUIControls.UIListBox.ItemClickEventHandler(this.lbxNugetPackages_ItemClick);
             // 
@@ -167,7 +167,7 @@ namespace OpenBots.UI.Forms
             this.lblError.BackColor = System.Drawing.Color.Transparent;
             this.lblError.Font = new System.Drawing.Font("Segoe UI Light", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblError.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.lblError.Location = new System.Drawing.Point(254, 777);
+            this.lblError.Location = new System.Drawing.Point(304, 777);
             this.lblError.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblError.Name = "lblError";
             this.lblError.Size = new System.Drawing.Size(518, 28);
@@ -184,9 +184,9 @@ namespace OpenBots.UI.Forms
             this.pnlProjectVersion.Controls.Add(this.lblVersionTitleLabel);
             this.pnlProjectVersion.Controls.Add(this.lblTitle);
             this.pnlProjectVersion.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlProjectVersion.Location = new System.Drawing.Point(779, 3);
+            this.pnlProjectVersion.Location = new System.Drawing.Point(867, 3);
             this.pnlProjectVersion.Name = "pnlProjectVersion";
-            this.pnlProjectVersion.Size = new System.Drawing.Size(521, 147);
+            this.pnlProjectVersion.Size = new System.Drawing.Size(559, 147);
             this.pnlProjectVersion.TabIndex = 2;
             theme2.BgGradientEndColor = System.Drawing.Color.FromArgb(((int)(((byte)(49)))), ((int)(((byte)(49)))), ((int)(((byte)(49)))));
             theme2.BgGradientStartColor = System.Drawing.Color.FromArgb(((int)(((byte)(49)))), ((int)(((byte)(49)))), ((int)(((byte)(49)))));
@@ -200,14 +200,14 @@ namespace OpenBots.UI.Forms
             this.txtInstalled.Location = new System.Drawing.Point(121, 68);
             this.txtInstalled.Margin = new System.Windows.Forms.Padding(4);
             this.txtInstalled.Name = "txtInstalled";
-            this.txtInstalled.Size = new System.Drawing.Size(292, 34);
+            this.txtInstalled.Size = new System.Drawing.Size(333, 34);
             this.txtInstalled.TabIndex = 48;
             this.txtInstalled.Visible = false;
             // 
             // btnUninstall
             // 
             this.btnUninstall.Font = new System.Drawing.Font("Segoe UI Semibold", 12F);
-            this.btnUninstall.Location = new System.Drawing.Point(414, 67);
+            this.btnUninstall.Location = new System.Drawing.Point(455, 68);
             this.btnUninstall.Name = "btnUninstall";
             this.btnUninstall.Size = new System.Drawing.Size(104, 35);
             this.btnUninstall.TabIndex = 47;
@@ -231,7 +231,7 @@ namespace OpenBots.UI.Forms
             // btnInstall
             // 
             this.btnInstall.Font = new System.Drawing.Font("Segoe UI Semibold", 12F);
-            this.btnInstall.Location = new System.Drawing.Point(414, 106);
+            this.btnInstall.Location = new System.Drawing.Point(455, 106);
             this.btnInstall.Name = "btnInstall";
             this.btnInstall.Size = new System.Drawing.Size(104, 35);
             this.btnInstall.TabIndex = 44;
@@ -258,7 +258,7 @@ namespace OpenBots.UI.Forms
             this.cbxVersion.Location = new System.Drawing.Point(121, 106);
             this.cbxVersion.Margin = new System.Windows.Forms.Padding(4);
             this.cbxVersion.Name = "cbxVersion";
-            this.cbxVersion.Size = new System.Drawing.Size(292, 36);
+            this.cbxVersion.Size = new System.Drawing.Size(333, 36);
             this.cbxVersion.TabIndex = 42;
             this.cbxVersion.SelectedIndexChanged += new System.EventHandler(this.cbxVersion_SelectedIndexChanged);
             // 
@@ -292,9 +292,9 @@ namespace OpenBots.UI.Forms
             this.pnlProjectSearch.Controls.Add(this.lblPackageCategory);
             this.pnlProjectSearch.Controls.Add(this.txtSampleSearch);
             this.pnlProjectSearch.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlProjectSearch.Location = new System.Drawing.Point(253, 3);
+            this.pnlProjectSearch.Location = new System.Drawing.Point(303, 3);
             this.pnlProjectSearch.Name = "pnlProjectSearch";
-            this.pnlProjectSearch.Size = new System.Drawing.Size(520, 147);
+            this.pnlProjectSearch.Size = new System.Drawing.Size(558, 147);
             this.pnlProjectSearch.TabIndex = 0;
             theme3.BgGradientEndColor = System.Drawing.Color.FromArgb(((int)(((byte)(49)))), ((int)(((byte)(49)))), ((int)(((byte)(49)))));
             theme3.BgGradientStartColor = System.Drawing.Color.FromArgb(((int)(((byte)(49)))), ((int)(((byte)(49)))), ((int)(((byte)(49)))));
@@ -378,9 +378,9 @@ namespace OpenBots.UI.Forms
             this.pnlProjectDetails.Controls.Add(this.lblVersionLabel);
             this.pnlProjectDetails.Controls.Add(this.lblDownloadsLabel);
             this.pnlProjectDetails.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlProjectDetails.Location = new System.Drawing.Point(779, 156);
+            this.pnlProjectDetails.Location = new System.Drawing.Point(867, 156);
             this.pnlProjectDetails.Name = "pnlProjectDetails";
-            this.pnlProjectDetails.Size = new System.Drawing.Size(521, 618);
+            this.pnlProjectDetails.Size = new System.Drawing.Size(559, 618);
             this.pnlProjectDetails.TabIndex = 37;
             theme4.BgGradientEndColor = System.Drawing.Color.FromArgb(((int)(((byte)(49)))), ((int)(((byte)(49)))), ((int)(((byte)(49)))));
             theme4.BgGradientStartColor = System.Drawing.Color.FromArgb(((int)(((byte)(49)))), ((int)(((byte)(49)))), ((int)(((byte)(49)))));
@@ -423,7 +423,7 @@ namespace OpenBots.UI.Forms
             this.lvDependencies.HideSelection = false;
             this.lvDependencies.Location = new System.Drawing.Point(0, 364);
             this.lvDependencies.Name = "lvDependencies";
-            this.lvDependencies.Size = new System.Drawing.Size(521, 254);
+            this.lvDependencies.Size = new System.Drawing.Size(559, 254);
             this.lvDependencies.TabIndex = 58;
             this.lvDependencies.UseCompatibleStateImageBehavior = false;
             this.lvDependencies.View = System.Windows.Forms.View.Details;
@@ -431,7 +431,7 @@ namespace OpenBots.UI.Forms
             // DependencyName
             // 
             this.DependencyName.Text = "Name";
-            this.DependencyName.Width = 312;
+            this.DependencyName.Width = 345;
             // 
             // Range
             // 
@@ -456,7 +456,7 @@ namespace OpenBots.UI.Forms
             this.lblAuthors.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.lblAuthors.Location = new System.Drawing.Point(161, 193);
             this.lblAuthors.Name = "lblAuthors";
-            this.lblAuthors.Size = new System.Drawing.Size(351, 28);
+            this.lblAuthors.Size = new System.Drawing.Size(414, 28);
             this.lblAuthors.TabIndex = 56;
             this.lblAuthors.Text = "authors";
             // 
@@ -478,7 +478,7 @@ namespace OpenBots.UI.Forms
             this.lblDescription.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.lblDescription.Location = new System.Drawing.Point(9, 30);
             this.lblDescription.Name = "lblDescription";
-            this.lblDescription.Size = new System.Drawing.Size(505, 135);
+            this.lblDescription.Size = new System.Drawing.Size(566, 135);
             this.lblDescription.TabIndex = 53;
             this.lblDescription.Text = "description";
             // 
@@ -593,9 +593,9 @@ namespace OpenBots.UI.Forms
             // 
             this.pnlFinishButtons.Controls.Add(this.uiBtnCancel);
             this.pnlFinishButtons.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlFinishButtons.Location = new System.Drawing.Point(779, 780);
+            this.pnlFinishButtons.Location = new System.Drawing.Point(867, 780);
             this.pnlFinishButtons.Name = "pnlFinishButtons";
-            this.pnlFinishButtons.Size = new System.Drawing.Size(521, 76);
+            this.pnlFinishButtons.Size = new System.Drawing.Size(559, 76);
             this.pnlFinishButtons.TabIndex = 38;
             theme5.BgGradientEndColor = System.Drawing.Color.FromArgb(((int)(((byte)(49)))), ((int)(((byte)(49)))), ((int)(((byte)(49)))));
             theme5.BgGradientStartColor = System.Drawing.Color.FromArgb(((int)(((byte)(49)))), ((int)(((byte)(49)))), ((int)(((byte)(49)))));
@@ -610,7 +610,7 @@ namespace OpenBots.UI.Forms
             this.uiBtnCancel.Font = new System.Drawing.Font("Segoe UI", 8F);
             this.uiBtnCancel.Image = ((System.Drawing.Image)(resources.GetObject("uiBtnCancel.Image")));
             this.uiBtnCancel.IsMouseOver = false;
-            this.uiBtnCancel.Location = new System.Drawing.Point(455, 12);
+            this.uiBtnCancel.Location = new System.Drawing.Point(491, 12);
             this.uiBtnCancel.Margin = new System.Windows.Forms.Padding(8, 6, 8, 6);
             this.uiBtnCancel.Name = "uiBtnCancel";
             this.uiBtnCancel.Size = new System.Drawing.Size(60, 58);
@@ -649,7 +649,7 @@ namespace OpenBots.UI.Forms
             treeNode1,
             treeNode4});
             this.tvPackageFeeds.SelectedImageIndex = 0;
-            this.tvPackageFeeds.Size = new System.Drawing.Size(244, 618);
+            this.tvPackageFeeds.Size = new System.Drawing.Size(294, 618);
             this.tvPackageFeeds.TabIndex = 40;
             this.tvPackageFeeds.BeforeCollapse += new System.Windows.Forms.TreeViewCancelEventHandler(this.tvPackageFeeds_BeforeCollapse);
             this.tvPackageFeeds.NodeMouseDoubleClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.tvPackageFeeds_NodeMouseDoubleClick);
@@ -667,7 +667,7 @@ namespace OpenBots.UI.Forms
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoValidate = System.Windows.Forms.AutoValidate.EnablePreventFocusChange;
-            this.ClientSize = new System.Drawing.Size(1303, 859);
+            this.ClientSize = new System.Drawing.Size(1429, 859);
             this.Controls.Add(this.tlpPackageLayout);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
