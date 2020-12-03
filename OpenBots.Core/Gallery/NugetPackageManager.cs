@@ -241,75 +241,81 @@ namespace OpenBots.Core.Gallery
 
             foreach (var dependency in dependencies)
             {
-                var packageId = dependency.Key;
-                var packageVersion = NuGetVersion.Parse(dependency.Value);
-                var nuGetFramework = NuGetFramework.ParseFolder("net48");
-                var settings = NuGet.Configuration.Settings.LoadDefaultSettings(root: null);
-
-                var sourceRepositoryProvider = new SourceRepositoryProvider(settings, Repository.Provider.GetCoreV3());
-
-                using (var cacheContext = new SourceCacheContext())
+                try
                 {
-                    var localRepo = sourceRepositoryProvider.CreateRepository(new PackageSource(packagePath, "Local OpenBots Repo", true));
-                    var repositories = new List<SourceRepository>();
-                    repositories.Add(localRepo);
+                    var packageId = dependency.Key;
+                    var packageVersion = NuGetVersion.Parse(dependency.Value);
+                    var nuGetFramework = NuGetFramework.ParseFolder("net48");
+                    var settings = NuGet.Configuration.Settings.LoadDefaultSettings(root: null);
 
-                    var availablePackages = new HashSet<SourcePackageDependencyInfo>(PackageIdentityComparer.Default);
-                    await GetPackageDependencies(
-                        new PackageIdentity(packageId, packageVersion),
-                        nuGetFramework, cacheContext, NullLogger.Instance, repositories, availablePackages);
+                    var sourceRepositoryProvider = new SourceRepositoryProvider(settings, Repository.Provider.GetCoreV3());
 
-                    var resolverContext = new PackageResolverContext(
-                        DependencyBehavior.Lowest,
-                        new[] { packageId },
-                        Enumerable.Empty<string>(),
-                        Enumerable.Empty<PackageReference>(),
-                        Enumerable.Empty<PackageIdentity>(),
-                        availablePackages,
-                        sourceRepositoryProvider.GetRepositories().Select(s => s.PackageSource),
-                        NullLogger.Instance);
-
-                    var resolver = new PackageResolver();
-                    var packagesToInstall = resolver.Resolve(resolverContext, CancellationToken.None)
-                        .Select(p => availablePackages.Single(x => PackageIdentityComparer.Default.Equals(x, p)));
-
-                    var packagePathResolver = new PackagePathResolver(packagePath);
-                    var packageExtractionContext = new PackageExtractionContext(
-                        PackageSaveMode.Defaultv3,
-                        XmlDocFileSaveMode.None,
-                        ClientPolicyContext.GetClientPolicy(settings, NullLogger.Instance),
-                        NullLogger.Instance);
-
-                    var frameworkReducer = new FrameworkReducer();
-
-                    foreach (var packageToInstall in packagesToInstall)
+                    using (var cacheContext = new SourceCacheContext())
                     {
-                        PackageReaderBase packageReader;
-                        var installedPath = packagePathResolver.GetInstalledPath(packageToInstall);
+                        var localRepo = sourceRepositoryProvider.CreateRepository(new PackageSource(packagePath, "Local OpenBots Repo", true));
+                        var repositories = new List<SourceRepository>();
+                        repositories.Add(localRepo);
 
-                        packageReader = new PackageFolderReader(installedPath);
+                        var availablePackages = new HashSet<SourcePackageDependencyInfo>(PackageIdentityComparer.Default);
+                        await GetPackageDependencies(
+                            new PackageIdentity(packageId, packageVersion),
+                            nuGetFramework, cacheContext, NullLogger.Instance, repositories, availablePackages);
 
-                        var libItems = packageReader.GetLibItems();
-                        var nearest = frameworkReducer.GetNearest(nuGetFramework, libItems.Select(x => x.TargetFramework));
+                        var resolverContext = new PackageResolverContext(
+                            DependencyBehavior.Lowest,
+                            new[] { packageId },
+                            Enumerable.Empty<string>(),
+                            Enumerable.Empty<PackageReference>(),
+                            Enumerable.Empty<PackageIdentity>(),
+                            availablePackages,
+                            sourceRepositoryProvider.GetRepositories().Select(s => s.PackageSource),
+                            NullLogger.Instance);
 
-                        var packageListAssemblyPaths = libItems
-                            .Where(x => x.TargetFramework.Equals(nearest))
-                            .SelectMany(x => x.Items.Where(i => i.EndsWith(".dll"))).ToList();
+                        var resolver = new PackageResolver();
+                        var packagesToInstall = resolver.Resolve(resolverContext, CancellationToken.None)
+                            .Select(p => availablePackages.Single(x => PackageIdentityComparer.Default.Equals(x, p)));
 
-                        if (packageListAssemblyPaths != null)
+                        var packagePathResolver = new PackagePathResolver(packagePath);
+                        var packageExtractionContext = new PackageExtractionContext(
+                            PackageSaveMode.Defaultv3,
+                            XmlDocFileSaveMode.None,
+                            ClientPolicyContext.GetClientPolicy(settings, NullLogger.Instance),
+                            NullLogger.Instance);
+
+                        var frameworkReducer = new FrameworkReducer();
+
+                        foreach (var packageToInstall in packagesToInstall)
                         {
-                            foreach(string path in packageListAssemblyPaths)
-                            {
-                                var dependencyPath = Path.Combine(packagePath, $"{packageToInstall.Id}.{packageToInstall.Version}", path);
+                            PackageReaderBase packageReader;
+                            var installedPath = packagePathResolver.GetInstalledPath(packageToInstall);
 
-                                if (!assemblyPaths.Contains(dependencyPath))
-                                    assemblyPaths.Add(dependencyPath);
-                            }                            
-                        }                       
+                            packageReader = new PackageFolderReader(installedPath);
+
+                            var libItems = packageReader.GetLibItems();
+                            var nearest = frameworkReducer.GetNearest(nuGetFramework, libItems.Select(x => x.TargetFramework));
+
+                            var packageListAssemblyPaths = libItems
+                                .Where(x => x.TargetFramework.Equals(nearest))
+                                .SelectMany(x => x.Items.Where(i => i.EndsWith(".dll"))).ToList();
+
+                            if (packageListAssemblyPaths != null)
+                            {
+                                foreach (string path in packageListAssemblyPaths)
+                                {
+                                    var dependencyPath = Path.Combine(packagePath, $"{packageToInstall.Id}.{packageToInstall.Version}", path);
+
+                                    if (!assemblyPaths.Contains(dependencyPath))
+                                        assemblyPaths.Add(dependencyPath);
+                                }
+                            }
+                        }
                     }
                 }
-            }
+                catch (Exception)
+                {
 
+                }                
+            }
             return assemblyPaths;
         }        
     }
