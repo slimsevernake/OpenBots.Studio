@@ -3,6 +3,7 @@ using OpenBots.Core.Attributes.PropertyAttributes;
 using OpenBots.Core.Command;
 using OpenBots.Core.Enums;
 using OpenBots.Core.Infrastructure;
+using OpenBots.Core.Common;
 using OpenBots.Core.Server.API_Methods;
 using OpenBots.Core.Server.Models;
 using OpenBots.Core.Utilities.CommonUtilities;
@@ -66,6 +67,7 @@ namespace OpenBots.Commands.Asset
 
 		public GetAssetCommand()
 		{
+			Common.InitializeDefaultWebProtocol();
 			CommandName = "GetAssetCommand";
 			SelectionName = "Get Asset";
 			CommandEnabled = true;           

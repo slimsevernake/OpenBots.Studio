@@ -20,10 +20,14 @@ namespace OpenBots.Commands.Asset.Tests
             _engine = new AutomationEngineInstance(null);
             _getAsset = new GetAssetCommand();
 
-            _getAsset.v_AssetName = "name";
+            _getAsset.v_AssetName = "testTextAsset";
             _getAsset.v_AssetType = "Text";
             _getAsset.v_OutputDirectoryPath = "";
-            _getAsset.v_OutputUserVariableName = "";
+            _getAsset.v_OutputUserVariableName = "{output}";
+
+            _getAsset.RunCommand(_engine);
+
+            Assert.Equal("testText", "{output}".ConvertUserVariableToString(_engine));
         }
     }
 }
