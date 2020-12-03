@@ -15,7 +15,7 @@ namespace OpenBots.Core.Command
         {
             CommandName = "BrokenCodeCommentCommand";
             SelectionName = "Broken Code Comment";
-            CommandEnabled = true;
+            CommandEnabled = false;
         }
 
         public override List<Control> Render(IfrmCommandEditor editor, ICommandControls commandControls)

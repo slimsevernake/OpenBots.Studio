@@ -484,7 +484,7 @@ namespace OpenBots.UI.Forms
                                 try
                                 {
                                     searchResults.AddRange(await NugetPackageManager.SearchPackages(txtSampleSearch.Text, row[2].ToString(), _includePrerelease));
-                                }
+                                } 
                                 catch (Exception ex)
                                 {
                                     lblError.Text = "Error: " + ex.Message;
