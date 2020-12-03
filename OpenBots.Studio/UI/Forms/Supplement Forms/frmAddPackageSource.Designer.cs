@@ -34,13 +34,13 @@ namespace OpenBots.UI.Forms.Supplement_Forms
             this.lblHeader = new System.Windows.Forms.Label();
             this.uiBtnOk = new OpenBots.Core.UI.Controls.UIPictureButton();
             this.uiBtnCancel = new OpenBots.Core.UI.Controls.UIPictureButton();
-            this.dgvDefaultValue = new System.Windows.Forms.DataGridView();
+            this.dgvPackageSources = new System.Windows.Forms.DataGridView();
             this.enabled = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.packageName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.packageSource = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.uiBtnOk)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.uiBtnCancel)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvDefaultValue)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvPackageSources)).BeginInit();
             this.SuspendLayout();
             // 
             // lblHeader
@@ -94,22 +94,22 @@ namespace OpenBots.UI.Forms.Supplement_Forms
             this.uiBtnCancel.Text = "Cancel";
             this.uiBtnCancel.Click += new System.EventHandler(this.uiBtnCancel_Click);
             // 
-            // dgvDefaultValue
+            // dgvPackageSources
             // 
-            this.dgvDefaultValue.AllowUserToResizeRows = false;
-            this.dgvDefaultValue.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dgvDefaultValue.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvDefaultValue.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dgvPackageSources.AllowUserToResizeRows = false;
+            this.dgvPackageSources.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dgvPackageSources.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvPackageSources.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.enabled,
             this.packageName,
             this.packageSource});
-            this.dgvDefaultValue.DataBindings.Add(new System.Windows.Forms.Binding("DataSource", this, "PackageSourceDT", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.dgvDefaultValue.Location = new System.Drawing.Point(17, 75);
-            this.dgvDefaultValue.Name = "dgvDefaultValue";
-            this.dgvDefaultValue.RowHeadersWidth = 51;
-            this.dgvDefaultValue.RowTemplate.Height = 24;
-            this.dgvDefaultValue.Size = new System.Drawing.Size(684, 410);
-            this.dgvDefaultValue.TabIndex = 28;
+            this.dgvPackageSources.DataBindings.Add(new System.Windows.Forms.Binding("DataSource", this, "PackageSourceDT", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.dgvPackageSources.Location = new System.Drawing.Point(17, 75);
+            this.dgvPackageSources.Name = "dgvPackageSources";
+            this.dgvPackageSources.RowHeadersWidth = 51;
+            this.dgvPackageSources.RowTemplate.Height = 24;
+            this.dgvPackageSources.Size = new System.Drawing.Size(684, 410);
+            this.dgvPackageSources.TabIndex = 28;
             // 
             // enabled
             // 
@@ -143,7 +143,7 @@ namespace OpenBots.UI.Forms.Supplement_Forms
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(713, 583);
-            this.Controls.Add(this.dgvDefaultValue);
+            this.Controls.Add(this.dgvPackageSources);
             this.Controls.Add(this.uiBtnOk);
             this.Controls.Add(this.uiBtnCancel);
             this.Controls.Add(this.lblHeader);
@@ -151,12 +151,12 @@ namespace OpenBots.UI.Forms.Supplement_Forms
             this.Margin = new System.Windows.Forms.Padding(5);
             this.MinimumSize = new System.Drawing.Size(627, 630);
             this.Name = "frmAddPackageSource";
-            this.Text = "Add Element";
+            this.Text = "Add Package Source";
             this.TopMost = true;
             this.Load += new System.EventHandler(this.frmAddElement_Load);
             ((System.ComponentModel.ISupportInitialize)(this.uiBtnOk)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.uiBtnCancel)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvDefaultValue)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvPackageSources)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -166,7 +166,7 @@ namespace OpenBots.UI.Forms.Supplement_Forms
         private System.Windows.Forms.Label lblHeader;
         private OpenBots.Core.UI.Controls.UIPictureButton uiBtnOk;
         private OpenBots.Core.UI.Controls.UIPictureButton uiBtnCancel;
-        private System.Windows.Forms.DataGridView dgvDefaultValue;
+        private System.Windows.Forms.DataGridView dgvPackageSources;
         private DataGridViewCheckBoxColumn enabled;
         private DataGridViewTextBoxColumn packageName;
         private DataGridViewTextBoxColumn packageSource;

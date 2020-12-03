@@ -2,7 +2,9 @@
 using NuGet.Versioning;
 using OpenBots.Core.Gallery;
 using OpenBots.Core.Properties;
+using OpenBots.Core.Settings;
 using OpenBots.Core.UI.Forms;
+using OpenBots.UI.Forms.Supplement_Forms;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -20,8 +22,6 @@ namespace OpenBots.UI.Forms
     {
         private string _packageLocation;
         private List<IPackageSearchMetadata> _allResults;
-        private List<IPackageSearchMetadata> _allGalleryResults;
-        private List<IPackageSearchMetadata> _allNugetResults;
         private List<IPackageSearchMetadata> _projectDependencies;
         private Dictionary<string, string> _projectDependenciesDict;
         private IPackageSearchMetadata _catalog;
@@ -30,22 +30,21 @@ namespace OpenBots.UI.Forms
         private bool _isInstalled;
         private string _installedVersion;
         private bool _includePrerelease;
-        public DataTable PackageSourceDT { get; set; }
+        private DataTable _packageSourceDT { get; set; }
+        private string _appDataPackagePath;
 
-        private string _gallerySourceUrl = "https://dev.gallery.openbots.io/v3/index.json";
-        private string _nugetSourceUrl = "https://api.nuget.org/v3/index.json";
+        private ApplicationSettings _settings;
 
         public frmGalleryPackageManager(Dictionary<string, string> projectDependenciesDict, 
             string packageLocation = "")
         {
             InitializeComponent();
-            PackageSourceDT = new DataTable();
-            PackageSourceDT.Columns.Add("Enabled");
-            PackageSourceDT.Columns.Add("Package Name");
-            PackageSourceDT.Columns.Add("Package Source");
-            PackageSourceDT.TableName = DateTime.Now.ToString("PackageSourceDT" + DateTime.Now.ToString("MMddyy.hhmmss"));
-            PackageSourceDT.Rows.Add(true, "OpenBots Gallery", "https://dev.gallery.openbots.io/v3/index.json");
-            PackageSourceDT.Rows.Add(true, "Nuget.org", "https://api.nuget.org/v3/index.json");
+
+            string appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+            _appDataPackagePath = Path.Combine(appDataPath, "OpenBots Inc", "packages");
+
+            _settings = new ApplicationSettings().GetOrCreateApplicationSettings();
+            _packageSourceDT = _settings.EngineSettings.PackageSourceDT;
 
             _projectDependenciesDict = projectDependenciesDict;
             _packageLocation = packageLocation;
@@ -55,17 +54,29 @@ namespace OpenBots.UI.Forms
         }
 
         private async void frmGalleryProject_LoadAsync(object sender, EventArgs e)
-        {            
-            tvPackageFeeds.ExpandAll();
+        {
+            PopulatetvPackageFeeds();
             pnlProjectVersion.Hide();
             pnlProjectDetails.Hide();
 
             try
             {
-                _allGalleryResults = await NugetPackageManager.SearchPackages("", _gallerySourceUrl, _includePrerelease);
-                _allNugetResults = await NugetPackageManager.SearchPackages("", _nugetSourceUrl, _includePrerelease);
-                _allResults.AddRange(_allGalleryResults);
-                _allResults.AddRange(_allNugetResults);
+                foreach (DataRow row in _packageSourceDT.Rows)
+                {
+                    if (row[0].ToString() == "True")
+                    {
+                        try
+                        {
+                            _allResults.AddRange(await NugetPackageManager.SearchPackages("", row[2].ToString(), _includePrerelease));
+                        }
+                        catch (Exception ex)
+                        {
+                            //invalid source
+                            lblError.Text = "Error: " + ex.Message;
+                        }                        
+                    }
+                }
+
                 await GetCurrentDepencies();
                 PopulateListBox(_projectDependencies);
             }
@@ -107,19 +118,57 @@ namespace OpenBots.UI.Forms
 
         private async void lbxNugetPackages_ItemClick(object sender, int index)
         {
+            lblError.Text = "";
             try
             {
                 string projectId = lbxNugetPackages.ClickedItem.Id;
                 List<IPackageSearchMetadata> metadata = new List<IPackageSearchMetadata>();
 
-                metadata.AddRange(await NugetPackageManager.GetPackageMetadata(projectId, _gallerySourceUrl, _includePrerelease));
-                metadata.AddRange(await NugetPackageManager.GetPackageMetadata(projectId, _nugetSourceUrl, _includePrerelease));
+                if (lblPackageCategory.Text == "Project Dependencies")
+                {
+                    metadata.AddRange(await NugetPackageManager.GetPackageMetadata(projectId, _appDataPackagePath, _includePrerelease));
+                }
+                else if (lblPackageCategory.Text == "All Packages")
+                {
+                    foreach (DataRow row in _packageSourceDT.Rows)
+                    {
+                        if (row[0].ToString() == "True")
+                        {
+                            metadata.AddRange(await NugetPackageManager.GetPackageMetadata(projectId, row[2].ToString(), _includePrerelease));
+                        }
+                    }
+                }
+                else
+                {
+                    var sourceURL = _packageSourceDT.AsEnumerable().Where(r => r.Field<string>("Enabled") == "True" && r.Field<string>("Package Name") == lblPackageCategory.Text)
+                        .Select(r => r.Field<string>("Package Source")).FirstOrDefault();
+                    metadata.AddRange(await NugetPackageManager.GetPackageMetadata(projectId, sourceURL, _includePrerelease));
+                }              
 
                 string latestVersion = metadata.LastOrDefault().Identity.Version.ToString();
 
                 _projectVersions.Clear();
-                _projectVersions.AddRange(await NugetPackageManager.GetPackageVersions(projectId, _gallerySourceUrl, _includePrerelease));
-                _projectVersions.AddRange(await NugetPackageManager.GetPackageVersions(projectId, _nugetSourceUrl, _includePrerelease));
+
+                if (lblPackageCategory.Text == "Project Dependencies")
+                {
+                    _projectVersions.AddRange(await NugetPackageManager.GetPackageVersions(projectId, _appDataPackagePath, _includePrerelease));
+                }
+                else if (lblPackageCategory.Text == "All Packages")
+                {
+                    foreach (DataRow row in _packageSourceDT.Rows)
+                    {
+                        if (row[0].ToString() == "True")
+                        {
+                            _projectVersions.AddRange(await NugetPackageManager.GetPackageVersions(projectId, row[2].ToString(), _includePrerelease));
+                        }
+                    }
+                }
+                else
+                {
+                    var sourceURL = _packageSourceDT.AsEnumerable().Where(r => r.Field<string>("Enabled") == "True" && r.Field<string>("Package Name") == lblPackageCategory.Text)
+                        .Select(r => r.Field<string>("Package Source")).FirstOrDefault();
+                    _projectVersions.AddRange(await NugetPackageManager.GetPackageVersions(projectId, sourceURL, _includePrerelease));
+                }
 
                 List<string> versionList = _projectVersions.Select(x => x.ToString()).ToList();
                 versionList.Reverse();
@@ -154,8 +203,7 @@ namespace OpenBots.UI.Forms
             {
                 pnlProjectVersion.Hide();
                 pnlProjectDetails.Hide();
-            }
-            
+            }            
         }
 
         private void PopulateProjectDetails(string version)
@@ -245,6 +293,7 @@ namespace OpenBots.UI.Forms
 
         private void llblLicense_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
+            lblError.Text = "";
             if (!string.IsNullOrEmpty(_catalog.LicenseUrl.ToString()))
             {
                 llblLicenseURL.LinkVisited = true;
@@ -254,6 +303,7 @@ namespace OpenBots.UI.Forms
 
         private void llblProjectURL_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
+            lblError.Text = "";
             if (!string.IsNullOrEmpty(_catalog.ProjectUrl.ToString()))
             {
                 llblProjectURL.LinkVisited = true;
@@ -285,92 +335,175 @@ namespace OpenBots.UI.Forms
             }
         }
 
-        private void uiBtnOpen_Click(object sender, EventArgs e)
-        {
-            DownloadAndOpenPackage(_catalog.Identity.Id, cbxVersion.SelectedItem.ToString());
-        }
-
         private void uiBtnCancel_Click(object sender, EventArgs e)
         {
             DialogResult = DialogResult.Cancel;
         }
 
+        private void PopulatetvPackageFeeds()
+        {
+            tvPackageFeeds.Nodes.Clear();
+
+            TreeNode settingsNode = new TreeNode("Settings");
+            settingsNode.Name = "Settings";
+            settingsNode.ImageIndex = 3;
+            settingsNode.SelectedImageIndex = 3;
+            tvPackageFeeds.Nodes.Add(settingsNode);
+
+            TreeNode projectDepNode = new TreeNode("Project Dependencies");
+            projectDepNode.Name = "ProjectDependencies";
+            tvPackageFeeds.Nodes.Add(projectDepNode);
+
+            TreeNode allPackagesNode = new TreeNode("All Packages");
+            allPackagesNode.Name = "AllPackages";
+            tvPackageFeeds.Nodes.Add(allPackagesNode);
+
+            foreach(DataRow row in _packageSourceDT.Rows)
+            {
+                if (row[0].ToString() == "True")
+                {
+                    string sourceName = row[1].ToString();
+                    TreeNode sourceNode = new TreeNode(sourceName);
+                    sourceNode.Name = sourceName.Replace(" ", "");
+                    sourceNode.ToolTipText = row[2].ToString();
+                    switch (sourceName)
+                    {
+                        case "Gallery":
+                            sourceNode.ImageIndex = 1;
+                            sourceNode.SelectedImageIndex = 1;
+                            break;
+                        case "Nuget":
+                            sourceNode.ImageIndex = 2;
+                            sourceNode.SelectedImageIndex = 2;
+                            break;
+                        default:
+                            sourceNode.ImageIndex = 2;
+                            sourceNode.SelectedImageIndex = 2;
+                            break;
+                    }
+                    allPackagesNode.Nodes.Add(sourceNode);
+                }                
+            }
+            tvPackageFeeds.ExpandAll();
+        }
 
         private async void tvPackageFeeds_NodeMouseDoubleClick(object sender, TreeNodeMouseClickEventArgs e)
         {
-            if (tvPackageFeeds.SelectedNode != null)
+            lblError.Text = "";
+            try
             {
-                if (tvPackageFeeds.SelectedNode.Name == "projectDependencies")
+                if (tvPackageFeeds.SelectedNode != null)
                 {
-                    lblPackageCategory.Text = "Project Dependencies";
-                    pbxPackageCategory.Image = Resources.OpenBots_icon;
-                    await GetCurrentDepencies();
-                    PopulateListBox(_projectDependencies);
-                }
-                else if (tvPackageFeeds.SelectedNode.Name == "allPackages")
-                {
-                    lblPackageCategory.Text = "All Packages";
-                    pbxPackageCategory.Image = Resources.OpenBots_icon;
-                    PopulateListBox(_allResults);
-                }
-                else if (tvPackageFeeds.SelectedNode.Name == "gallery")
-                {
-                    lblPackageCategory.Text = "Gallery";
-                    pbxPackageCategory.Image = Resources.openbots_gallery_icon;
-                    PopulateListBox(_allGalleryResults);
-                }
-                else if (tvPackageFeeds.SelectedNode.Name == "nuget")
-                {
-                    lblPackageCategory.Text = "Nuget";
-                    pbxPackageCategory.Image = Resources.nuget_icon;
-                    PopulateListBox(_allNugetResults);
+                    lbxNugetPackages.Clear();
+                    lbxNugetPackages.Visible = false;
+                    tpbLoadingSpinner.Visible = true;
+
+                    if (tvPackageFeeds.SelectedNode.Name == "Settings")
+                    {
+                        var addPackageSource = new frmAddPackageSource(_packageSourceDT);
+                        addPackageSource.ShowDialog();
+                        if (addPackageSource.DialogResult == DialogResult.OK)
+                        {
+                            _packageSourceDT = addPackageSource.PackageSourceDT;
+                            PopulatetvPackageFeeds();
+                            _settings.Save(_settings);                           
+                        }
+                        tpbLoadingSpinner.Visible = false;
+                    }
+                    else if (tvPackageFeeds.SelectedNode.Name == "ProjectDependencies")
+                    {
+                        lblPackageCategory.Text = "Project Dependencies";
+                        pbxPackageCategory.Image = Resources.OpenBots_icon;
+                        await GetCurrentDepencies();
+                        PopulateListBox(_projectDependencies);
+                    }
+                    else if (tvPackageFeeds.SelectedNode.Name == "AllPackages")
+                    {
+                        lblPackageCategory.Text = "All Packages";
+                        pbxPackageCategory.Image = Resources.OpenBots_icon;
+                        PopulateListBox(_allResults);
+                    }
+                    else if (tvPackageFeeds.SelectedNode.Name == "Gallery")
+                    {
+                        lblPackageCategory.Text = "Gallery";
+                        pbxPackageCategory.Image = Resources.openbots_gallery_icon;
+                        var sourceResults = await NugetPackageManager.SearchPackages("", tvPackageFeeds.SelectedNode.ToolTipText, _includePrerelease);
+                        PopulateListBox(sourceResults);
+                    }
+                    else
+                    {
+                        lblPackageCategory.Text = tvPackageFeeds.SelectedNode.Text;
+                        pbxPackageCategory.Image = Resources.nuget_icon;
+                        var sourceResults = await NugetPackageManager.SearchPackages("", tvPackageFeeds.SelectedNode.ToolTipText, _includePrerelease);
+                        PopulateListBox(sourceResults);
+                    }
                 }
             }
+            catch (Exception)
+            {
+                lblPackageCategory.Text = "Source Not Found";
+                tpbLoadingSpinner.Visible = false;
+            }           
         }
 
         private async Task GetCurrentDepencies()
         {
             List<string> nugetDirectoryList = Directory.GetDirectories(_packageLocation).ToList();
+            
             _projectDependencies.Clear();
             foreach(var pair in _projectDependenciesDict)
             {
-                var galleryDependency = (await NugetPackageManager.GetPackageMetadata(pair.Key, _gallerySourceUrl, _includePrerelease))
+                var dependency = (await NugetPackageManager.GetPackageMetadata(pair.Key, _appDataPackagePath, _includePrerelease))
                     .Where(x => x.Identity.Version.ToString() == pair.Value).FirstOrDefault();
-                if (galleryDependency != null && nugetDirectoryList.Where(x => x.EndsWith($"{pair.Key}.{pair.Value}")).FirstOrDefault() != null)
-                    _projectDependencies.Add(galleryDependency);
-                var nugetDependency = (await NugetPackageManager.GetPackageMetadata(pair.Key, _nugetSourceUrl, _includePrerelease))
-                    .Where(x => x.Identity.Version.ToString() == pair.Value).FirstOrDefault();
-                if (nugetDependency != null && nugetDirectoryList.Where(x => x.EndsWith($"{pair.Key}.{pair.Value}")).FirstOrDefault() != null)
-                    _projectDependencies.Add(nugetDependency);
+                if (dependency != null && nugetDirectoryList.Where(x => x.EndsWith($"{pair.Key}.{pair.Value}")).FirstOrDefault() != null)
+                    _projectDependencies.Add(dependency);
+
             }
-            //string pattern = @"^(.*?)\.(?=(?:[0-9]+\.){2,}[0-9]+(?:-[a-z]+)?)(.*?)$";
         }
 
         private async void txtSampleSearch_KeyDown(object sender, KeyEventArgs e)
         {
+            lblError.Text = "";
             var searchResults = new List<IPackageSearchMetadata>();
 
             if (e.KeyCode == Keys.Enter)
-            {               
-                if (lblPackageCategory.Text == "Project Dependencies")
+            {
+                try
                 {
-                    await GetCurrentDepencies();
-                    searchResults.AddRange(_projectDependencies.Where(x => x.Title.ToLower().Contains(txtSampleSearch.Text.ToLower())));
+                    if (lblPackageCategory.Text == "Project Dependencies")
+                    {
+                        await GetCurrentDepencies();
+                        searchResults.AddRange(_projectDependencies.Where(x => x.Title.ToLower().Contains(txtSampleSearch.Text.ToLower())));
+                    }
+                    else if (lblPackageCategory.Text == "All Packages")
+                    {
+                        foreach (DataRow row in _packageSourceDT.Rows)
+                        {
+                            if (row[0].ToString() == "True")
+                            {
+                                try
+                                {
+                                    searchResults.AddRange(await NugetPackageManager.SearchPackages(txtSampleSearch.Text, row[2].ToString(), _includePrerelease));
+                                }
+                                catch (Exception ex)
+                                {
+                                    lblError.Text = "Error: " + ex.Message;
+                                }                                                           
+                            }
+                        }
+                    }
+                    else
+                    {
+                        var sourceURL = _packageSourceDT.AsEnumerable().Where(r => r.Field<string>("Enabled") == "True" && r.Field<string>("Package Name") == lblPackageCategory.Text)
+                            .Select(r => r.Field<string>("Package Source")).FirstOrDefault();
+                        searchResults.AddRange(await NugetPackageManager.SearchPackages(txtSampleSearch.Text, sourceURL, _includePrerelease));
+                    }
                 }
-                else if (lblPackageCategory.Text == "All Packages")
+                catch (Exception ex)
                 {
-                    searchResults.AddRange(await NugetPackageManager.SearchPackages(txtSampleSearch.Text, _gallerySourceUrl, _includePrerelease));
-                    searchResults.AddRange(await NugetPackageManager.SearchPackages(txtSampleSearch.Text, _nugetSourceUrl, _includePrerelease));
+                    lblError.Text = "Error: " + ex.Message;
                 }
-                else if (lblPackageCategory.Text == "Gallery")
-                {
-                    searchResults.AddRange(await NugetPackageManager.SearchPackages(txtSampleSearch.Text, _gallerySourceUrl, _includePrerelease));
-                }
-                else if (lblPackageCategory.Text == "Nuget")
-                {
-                    searchResults.AddRange(await NugetPackageManager.SearchPackages(txtSampleSearch.Text, _nugetSourceUrl, _includePrerelease));
-                }
-               
+
                 PopulateListBox(searchResults);
                 e.Handled = true;
             }
@@ -389,6 +522,7 @@ namespace OpenBots.UI.Forms
 
         private void btnInstall_Click(object sender, EventArgs e)
         {
+            lblError.Text = "";
             if (btnInstall.Text == "Install")
                 DownloadAndOpenPackage(_catalog.Identity.Id, cbxVersion.SelectedItem.ToString());
             else if (btnInstall.Text == "Update")
@@ -400,6 +534,7 @@ namespace OpenBots.UI.Forms
 
         private void btnUninstall_Click(object sender, EventArgs e)
         {
+            lblError.Text = "";
             _projectDependenciesDict.Remove(_catalog.Identity.Id);
             DialogResult = DialogResult.OK;
         }

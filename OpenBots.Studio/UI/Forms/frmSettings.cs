@@ -43,8 +43,7 @@ namespace OpenBots.UI.Forms
 
         private void frmSettings_Load(object sender, EventArgs e)
         {
-            newAppSettings = new ApplicationSettings();
-            newAppSettings = newAppSettings.GetOrCreateApplicationSettings();
+            newAppSettings = new ApplicationSettings().GetOrCreateApplicationSettings();
 
             var engineSettings = newAppSettings.EngineSettings;
             chkShowDebug.DataBindings.Add("Checked", engineSettings, "ShowDebugWindow", false, DataSourceUpdateMode.OnPropertyChanged);

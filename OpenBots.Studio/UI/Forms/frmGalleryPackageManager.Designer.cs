@@ -38,17 +38,12 @@ namespace OpenBots.UI.Forms
             OpenBots.Core.Utilities.FormsUtilities.Theme theme3 = new OpenBots.Core.Utilities.FormsUtilities.Theme();
             OpenBots.Core.Utilities.FormsUtilities.Theme theme4 = new OpenBots.Core.Utilities.FormsUtilities.Theme();
             OpenBots.Core.Utilities.FormsUtilities.Theme theme5 = new OpenBots.Core.Utilities.FormsUtilities.Theme();
-            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("Project Dependencies", 0, 0);
-            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("Gallery", 1, 1);
-            System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("Nuget.org", 2, 2);
-            System.Windows.Forms.TreeNode treeNode4 = new System.Windows.Forms.TreeNode("All Packages", 0, 0, new System.Windows.Forms.TreeNode[] {
-            treeNode2,
-            treeNode3});
             this.tlpPackageLayout = new System.Windows.Forms.TableLayoutPanel();
+            this.lblError = new System.Windows.Forms.Label();
+            this.imlNodes = new System.Windows.Forms.ImageList(this.components);
             this.pnlNugetPackages = new OpenBots.UI.CustomControls.CustomUIControls.UIPanel();
             this.tpbLoadingSpinner = new OpenBots.UI.CustomControls.CustomUIControls.UITransparentPictureBox();
             this.lbxNugetPackages = new OpenBots.UI.CustomControls.CustomUIControls.UIListBox();
-            this.lblError = new System.Windows.Forms.Label();
             this.pnlProjectVersion = new OpenBots.UI.CustomControls.CustomUIControls.UIPanel();
             this.txtInstalled = new System.Windows.Forms.TextBox();
             this.btnUninstall = new System.Windows.Forms.Button();
@@ -86,7 +81,6 @@ namespace OpenBots.UI.Forms
             this.pnlFinishButtons = new OpenBots.UI.CustomControls.CustomUIControls.UIPanel();
             this.uiBtnCancel = new OpenBots.Core.UI.Controls.UIPictureButton();
             this.tvPackageFeeds = new OpenBots.UI.CustomControls.CustomUIControls.UITreeView();
-            this.imlNodes = new System.Windows.Forms.ImageList(this.components);
             this.tlpPackageLayout.SuspendLayout();
             this.pnlNugetPackages.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tpbLoadingSpinner)).BeginInit();
@@ -122,6 +116,27 @@ namespace OpenBots.UI.Forms
             this.tlpPackageLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 82F));
             this.tlpPackageLayout.Size = new System.Drawing.Size(1429, 859);
             this.tlpPackageLayout.TabIndex = 36;
+            // 
+            // lblError
+            // 
+            this.lblError.BackColor = System.Drawing.Color.Transparent;
+            this.lblError.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lblError.Font = new System.Drawing.Font("Segoe UI Light", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblError.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.lblError.Location = new System.Drawing.Point(304, 777);
+            this.lblError.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblError.Name = "lblError";
+            this.lblError.Size = new System.Drawing.Size(695, 103);
+            this.lblError.TabIndex = 39;
+            // 
+            // imlNodes
+            // 
+            this.imlNodes.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imlNodes.ImageStream")));
+            this.imlNodes.TransparentColor = System.Drawing.Color.Transparent;
+            this.imlNodes.Images.SetKeyName(0, "studioIcon");
+            this.imlNodes.Images.SetKeyName(1, "galleryIcon");
+            this.imlNodes.Images.SetKeyName(2, "nugetIcon");
+            this.imlNodes.Images.SetKeyName(3, "settings.png");
             // 
             // pnlNugetPackages
             // 
@@ -161,17 +176,6 @@ namespace OpenBots.UI.Forms
             this.lbxNugetPackages.Size = new System.Drawing.Size(558, 618);
             this.lbxNugetPackages.TabIndex = 37;
             this.lbxNugetPackages.ItemClick += new OpenBots.UI.CustomControls.CustomUIControls.UIListBox.ItemClickEventHandler(this.lbxNugetPackages_ItemClick);
-            // 
-            // lblError
-            // 
-            this.lblError.BackColor = System.Drawing.Color.Transparent;
-            this.lblError.Font = new System.Drawing.Font("Segoe UI Light", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblError.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.lblError.Location = new System.Drawing.Point(304, 777);
-            this.lblError.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.lblError.Name = "lblError";
-            this.lblError.Size = new System.Drawing.Size(518, 28);
-            this.lblError.TabIndex = 39;
             // 
             // pnlProjectVersion
             // 
@@ -629,38 +633,11 @@ namespace OpenBots.UI.Forms
             this.tvPackageFeeds.ImageList = this.imlNodes;
             this.tvPackageFeeds.Location = new System.Drawing.Point(3, 156);
             this.tvPackageFeeds.Name = "tvPackageFeeds";
-            treeNode1.ImageIndex = 0;
-            treeNode1.Name = "projectDependencies";
-            treeNode1.SelectedImageIndex = 0;
-            treeNode1.Text = "Project Dependencies";
-            treeNode2.ImageIndex = 1;
-            treeNode2.Name = "gallery";
-            treeNode2.SelectedImageIndex = 1;
-            treeNode2.Text = "Gallery";
-            treeNode3.ImageIndex = 2;
-            treeNode3.Name = "nuget";
-            treeNode3.SelectedImageIndex = 2;
-            treeNode3.Text = "Nuget.org";
-            treeNode4.ImageIndex = 0;
-            treeNode4.Name = "allPackages";
-            treeNode4.SelectedImageIndex = 0;
-            treeNode4.Text = "All Packages";
-            this.tvPackageFeeds.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode1,
-            treeNode4});
             this.tvPackageFeeds.SelectedImageIndex = 0;
             this.tvPackageFeeds.Size = new System.Drawing.Size(294, 618);
             this.tvPackageFeeds.TabIndex = 40;
             this.tvPackageFeeds.BeforeCollapse += new System.Windows.Forms.TreeViewCancelEventHandler(this.tvPackageFeeds_BeforeCollapse);
             this.tvPackageFeeds.NodeMouseDoubleClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.tvPackageFeeds_NodeMouseDoubleClick);
-            // 
-            // imlNodes
-            // 
-            this.imlNodes.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imlNodes.ImageStream")));
-            this.imlNodes.TransparentColor = System.Drawing.Color.Transparent;
-            this.imlNodes.Images.SetKeyName(0, "studioIcon");
-            this.imlNodes.Images.SetKeyName(1, "galleryIcon");
-            this.imlNodes.Images.SetKeyName(2, "nugetIcon");
             // 
             // frmGalleryPackageManager
             // 

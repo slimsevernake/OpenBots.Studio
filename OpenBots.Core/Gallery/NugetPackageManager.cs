@@ -10,8 +10,10 @@ using NuGet.Protocol;
 using NuGet.Protocol.Core.Types;
 using NuGet.Resolver;
 using NuGet.Versioning;
+using OpenBots.Core.Settings;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.IO;
 using System.Linq;
 using System.Threading;
@@ -112,6 +114,7 @@ namespace OpenBots.Core.Gallery
 
         public static async Task InstallPackage(string packageId, string version, Dictionary<string, string> projectDependenciesDict)
         {
+            var packageSources = new ApplicationSettings().GetOrCreateApplicationSettings().EngineSettings.PackageSourceDT;
             var packageVersion = NuGetVersion.Parse(version);
             var nuGetFramework = NuGetFramework.ParseFolder("net48");
             var settings = NuGet.Configuration.Settings.LoadDefaultSettings(root: null);
@@ -119,9 +122,15 @@ namespace OpenBots.Core.Gallery
 
             using (var cacheContext = new SourceCacheContext())
             {
-                var galleryRepo = sourceRepositoryProvider.CreateRepository(new PackageSource("https://dev.gallery.openbots.io/v3/index.json", "OpenBots Gallery", true));
-                var repositories = sourceRepositoryProvider.GetRepositories().ToList();
-                repositories.Add(galleryRepo);
+                var repositories = new List<SourceRepository>();
+                foreach (DataRow row in packageSources.Rows)
+                {
+                    if (row[0].ToString() == "True")
+                    {
+                        var sourceRepo = sourceRepositoryProvider.CreateRepository(new PackageSource(row[2].ToString(), row[1].ToString(), true));
+                        repositories.Add(sourceRepo);
+                    }
+                }
 
                 var availablePackages = new HashSet<SourcePackageDependencyInfo>(PackageIdentityComparer.Default);
                 await GetPackageDependencies(

@@ -2,6 +2,7 @@
 using OpenBots.Core.Enums;
 using OpenBots.Core.IO;
 using System;
+using System.Data;
 using System.IO;
 
 namespace OpenBots.Core.Settings
@@ -67,7 +68,7 @@ namespace OpenBots.Core.Settings
                     {
                         var serializerSettings = new JsonSerializerSettings()
                         {
-                            TypeNameHandling = TypeNameHandling.Objects
+                            TypeNameHandling = TypeNameHandling.Objects                            
                         };
 
                         JsonSerializer serializer = JsonSerializer.Create(serializerSettings);
@@ -77,14 +78,29 @@ namespace OpenBots.Core.Settings
                 catch (Exception)
                 {
                     appSettings = new ApplicationSettings();
+                    appSettings.EngineSettings.PackageSourceDT = DefaultPackageSourceDT();
                 }
             }
             else
             {
                 appSettings = new ApplicationSettings();
+                appSettings.EngineSettings.PackageSourceDT = DefaultPackageSourceDT();
             }
 
             return appSettings;
+        }
+
+        private DataTable DefaultPackageSourceDT()
+        {
+            DataTable packageSourceDT = new DataTable();
+            packageSourceDT.Columns.Add("Enabled");
+            packageSourceDT.Columns.Add("Package Name");
+            packageSourceDT.Columns.Add("Package Source");
+            packageSourceDT.TableName = DateTime.Now.ToString("PackageSourceDT" + DateTime.Now.ToString("MMddyy.hhmmss"));
+            packageSourceDT.Rows.Add(true, "Gallery", "https://dev.gallery.openbots.io/v3/index.json");
+            packageSourceDT.Rows.Add(true, "Nuget", "https://api.nuget.org/v3/index.json");
+
+            return packageSourceDT;
         }
     }
 }

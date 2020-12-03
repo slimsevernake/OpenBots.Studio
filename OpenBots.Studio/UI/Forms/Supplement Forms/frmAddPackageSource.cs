@@ -1,9 +1,6 @@
-﻿using OpenBots.Core.Script;
-using OpenBots.Core.UI.Forms;
+﻿using OpenBots.Core.UI.Forms;
 using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Linq;
 using System.Windows.Forms;
 
 namespace OpenBots.UI.Forms.Supplement_Forms
@@ -25,7 +22,6 @@ namespace OpenBots.UI.Forms.Supplement_Forms
         public frmAddPackageSource(DataTable packageSourceDT)
         {
             InitializeComponent();
-
             PackageSourceDT = packageSourceDT;        
         }
 
@@ -35,9 +31,8 @@ namespace OpenBots.UI.Forms.Supplement_Forms
 
         private void uiBtnOk_Click(object sender, EventArgs e)
         {
-
-
-            dgvDefaultValue.EndEdit();
+            dgvPackageSources.EndEdit();
+            dgvPackageSources.CurrentCell = null;
             DialogResult = DialogResult.OK;
         }
 
