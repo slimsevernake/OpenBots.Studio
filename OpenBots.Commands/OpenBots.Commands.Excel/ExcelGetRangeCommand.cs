@@ -47,6 +47,15 @@ namespace OpenBots.Commands.Excel
 		public string v_AddHeaders { get; set; }
 
 		[Required]
+		[DisplayName("Read Formulas")]
+		[PropertyUISelectionOption("Yes")]
+		[PropertyUISelectionOption("No")]
+		[Description("When selected, formulas will be extracted rather than their calculated values.")]
+		[SampleUsage("")]
+		[Remarks("")]
+		public string v_Formulas { get; set; }
+
+		[Required]
 		[Editable(false)]
 		[DisplayName("Output DataTable Variable")]
 		[Description("Create a new variable or select a variable from the list.")]
@@ -62,6 +71,7 @@ namespace OpenBots.Commands.Excel
 			
 			v_InstanceName = "DefaultExcel";
 			v_AddHeaders = "Yes";
+			v_Formulas = "No";
 			v_Range = "A1:";
 		}
 
@@ -76,26 +86,33 @@ namespace OpenBots.Commands.Excel
 			//Extract a range of cells
 			var splitRange = vRange.Split(':');
 			Range cellRange;
+			Range sourceRange = excelSheet.UsedRange;
+			
 
-			try
-			{
-				Range last = excelSheet.Cells.SpecialCells(XlCellType.xlCellTypeLastCell, Type.Missing);
-				if (splitRange[1] == "")
-					cellRange = excelSheet.Range[splitRange[0], last];
-				else
-					cellRange = excelSheet.Range[splitRange[0], splitRange[1]];
-			}
 			//Attempt to extract a single cell
-			catch (Exception)
-			{
-				throw new Exception("Selected range is invalid");
-			}              
+
+			if (splitRange[1] == "")
+            {
+				var cell = GetLastIndexOfNonEmptyCell(excelInstance, sourceRange, sourceRange.Range["A1"]);
+				if (cell == "")
+					throw new Exception("No data found in sheet.");
+				cellRange = excelSheet.Range[splitRange[0], cell];
+			}
+			else
+            {
+				cellRange = excelSheet.Range[splitRange[0], splitRange[1]];
+			}
 
 			int rw = cellRange.Rows.Count;
 			int cl = cellRange.Columns.Count;
-			int rCnt;
-			int cCnt;
-			string cName;
+
+			object[,] rangeData;
+			if (v_Formulas == "Yes")
+				rangeData = cellRange.Formula;
+			else
+				rangeData = cellRange.Value;
+
+			int rCnt, cCnt;
 			DataTable DT = new DataTable();
 
 			int startRow;
@@ -113,10 +130,12 @@ namespace OpenBots.Commands.Excel
 					if (!DT.Columns.Contains(colName))
 						DT.Columns.Add(colName);
 
-					if (((cellRange.Cells[rCnt, cCnt] as Range).Value2) == null)
+					var cellValue = rangeData[rCnt, cCnt];
+
+					if (cellValue == null)
 						newRow[colName] = "";
 					else
-						newRow[colName] = (cellRange.Cells[rCnt, cCnt] as Range).Value2.ToString();
+						newRow[colName] = cellValue.ToString();
 				}
 				DT.Rows.Add(newRow);
 			}
@@ -126,8 +145,9 @@ namespace OpenBots.Commands.Excel
 				//Set column names
 				for (cCnt = 1; cCnt <= cl; cCnt++)
 				{
-					cName = ((cellRange.Cells[1, cCnt] as Range).Value2).ToString();
-					DT.Columns[cCnt - 1].ColumnName = cName;
+					var cellValue = rangeData[1, cCnt];
+					if (cellValue != null)
+						DT.Columns[cCnt - 1].ColumnName = cellValue.ToString();
 				}
 			}
 
@@ -141,9 +161,24 @@ namespace OpenBots.Commands.Excel
 			RenderedControls.AddRange(commandControls.CreateDefaultInputGroupFor("v_InstanceName", this, editor));
 			RenderedControls.AddRange(commandControls.CreateDefaultInputGroupFor("v_Range", this, editor));
 			RenderedControls.AddRange(commandControls.CreateDefaultDropdownGroupFor("v_AddHeaders", this, editor));
+			RenderedControls.AddRange(commandControls.CreateDefaultDropdownGroupFor("v_Formulas", this, editor));
 			RenderedControls.AddRange(commandControls.CreateDefaultOutputGroupFor("v_OutputUserVariableName", this, editor));
 
 			return RenderedControls;
+		}
+
+		private static string GetLastIndexOfNonEmptyCell(Application app, Range sourceRange, Range startPoint)
+		{
+			Range rng = sourceRange.Cells.Find(
+				What: "*",
+				After: startPoint,
+				LookIn: XlFindLookIn.xlFormulas,
+				LookAt: XlLookAt.xlPart,
+				SearchDirection: XlSearchDirection.xlPrevious,
+				MatchCase: false);
+			if (rng == null)
+				return "";
+			return rng.Address[false, false, XlReferenceStyle.xlA1, Type.Missing, Type.Missing];
 		}
 
 		public override string GetDisplayValue()
