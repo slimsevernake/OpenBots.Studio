@@ -25,6 +25,7 @@ using System.Drawing.Imaging;
 using System.IO;
 using System.Reflection;
 using System.Windows.Forms;
+using System.Net;
 
 namespace OpenBots.Core.Common
 {
@@ -455,6 +456,14 @@ namespace OpenBots.Core.Common
             }
 
             return keyDescriptionList;
+        }
+
+        public static void InitializeDefaultWebProtocol()
+        {
+            ServicePointManager.Expect100Continue = true;
+            ServicePointManager.SecurityProtocol |= (SecurityProtocolType.Ssl3 |
+                SecurityProtocolType.Tls12 | SecurityProtocolType.Tls11 |
+                                             SecurityProtocolType.Tls);
         }
     }
 }
