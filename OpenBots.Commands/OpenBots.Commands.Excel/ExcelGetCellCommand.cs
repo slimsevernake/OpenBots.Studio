@@ -35,6 +35,15 @@ namespace OpenBots.Commands.Excel
 		public string v_CellLocation { get; set; }
 
 		[Required]
+		[DisplayName("Read Formulas")]
+		[PropertyUISelectionOption("Yes")]
+		[PropertyUISelectionOption("No")]
+		[Description("When selected, formulas will be extracted rather than their calculated values.")]
+		[SampleUsage("")]
+		[Remarks("")]
+		public string v_Formulas { get; set; }
+
+		[Required]
 		[Editable(false)]
 		[DisplayName("Output Cell Value Variable")]
 		[Description("Create a new variable or select a variable from the list.")]
@@ -49,6 +58,7 @@ namespace OpenBots.Commands.Excel
 			CommandEnabled = true;
 			
 			v_InstanceName = "DefaultExcel";
+			v_Formulas = "No";
 		}
 
 		public override void RunCommand(object sender)
@@ -58,8 +68,13 @@ namespace OpenBots.Commands.Excel
 			var vTargetAddress = v_CellLocation.ConvertUserVariableToString(engine);
 			var excelInstance = (Application)excelObject;
 			Worksheet excelSheet = excelInstance.ActiveSheet;
+            string cellValue;
 
-			var cellValue = (string)excelSheet.Range[vTargetAddress].Text;
+            if (v_Formulas == "Yes")
+				cellValue = (string)excelSheet.Range[vTargetAddress].Formula;
+			else
+				cellValue = (string)excelSheet.Range[vTargetAddress].Value.ToString();
+
 			cellValue.StoreInUserVariable(engine, v_OutputUserVariableName);          
 		}
 
@@ -69,6 +84,7 @@ namespace OpenBots.Commands.Excel
 
 			RenderedControls.AddRange(commandControls.CreateDefaultInputGroupFor("v_InstanceName", this, editor));
 			RenderedControls.AddRange(commandControls.CreateDefaultInputGroupFor("v_CellLocation", this, editor));
+			RenderedControls.AddRange(commandControls.CreateDefaultDropdownGroupFor("v_Formulas", this, editor));
 			RenderedControls.AddRange(commandControls.CreateDefaultOutputGroupFor("v_OutputUserVariableName", this, editor));
 
 			return RenderedControls;
