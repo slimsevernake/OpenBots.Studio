@@ -110,7 +110,7 @@ namespace OpenBots.Commands.WebBrowser
 					if (!string.IsNullOrEmpty(convertedOptions.Trim()))
 						chromeOptions.AddArguments(convertedOptions);
 
-					webDriver = new ChromeDriver(chromeOptions);
+					webDriver = new ChromeDriver(Environment.CurrentDirectory, chromeOptions);
 					break;
 
 				case "Firefox":
@@ -121,14 +121,14 @@ namespace OpenBots.Commands.WebBrowser
 					FirefoxOptions firefoxOptions = new FirefoxOptions();
 					firefoxOptions.BrowserExecutableLocation = firefoxExecutablePath;
 
-					webDriver = new FirefoxDriver(firefoxOptions);
+					webDriver = new FirefoxDriver(Environment.CurrentDirectory, firefoxOptions);
 					break;
 
 				case "Internet Explorer":
 					InternetExplorerOptions ieOptions = new InternetExplorerOptions();
 					ieOptions.IgnoreZoomLevel = true;
 
-					webDriver = new InternetExplorerDriver(ieOptions);
+					webDriver = new InternetExplorerDriver(Environment.CurrentDirectory, ieOptions);
 					break;
 
 				default:
