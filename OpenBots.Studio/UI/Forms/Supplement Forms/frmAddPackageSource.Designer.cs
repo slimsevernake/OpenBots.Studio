@@ -66,7 +66,7 @@ namespace OpenBots.UI.Forms.Supplement_Forms
             this.uiBtnOk.Font = new System.Drawing.Font("Segoe UI", 8F);
             this.uiBtnOk.Image = ((System.Drawing.Image)(resources.GetObject("uiBtnOk.Image")));
             this.uiBtnOk.IsMouseOver = false;
-            this.uiBtnOk.Location = new System.Drawing.Point(20, 507);
+            this.uiBtnOk.Location = new System.Drawing.Point(20, 274);
             this.uiBtnOk.Margin = new System.Windows.Forms.Padding(8, 6, 8, 6);
             this.uiBtnOk.Name = "uiBtnOk";
             this.uiBtnOk.Size = new System.Drawing.Size(60, 60);
@@ -85,7 +85,7 @@ namespace OpenBots.UI.Forms.Supplement_Forms
             this.uiBtnCancel.Font = new System.Drawing.Font("Segoe UI", 8F);
             this.uiBtnCancel.Image = ((System.Drawing.Image)(resources.GetObject("uiBtnCancel.Image")));
             this.uiBtnCancel.IsMouseOver = false;
-            this.uiBtnCancel.Location = new System.Drawing.Point(80, 507);
+            this.uiBtnCancel.Location = new System.Drawing.Point(80, 274);
             this.uiBtnCancel.Margin = new System.Windows.Forms.Padding(8, 6, 8, 6);
             this.uiBtnCancel.Name = "uiBtnCancel";
             this.uiBtnCancel.Size = new System.Drawing.Size(60, 60);
@@ -97,6 +97,9 @@ namespace OpenBots.UI.Forms.Supplement_Forms
             // dgvPackageSources
             // 
             this.dgvPackageSources.AllowUserToResizeRows = false;
+            this.dgvPackageSources.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.dgvPackageSources.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvPackageSources.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvPackageSources.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -104,11 +107,11 @@ namespace OpenBots.UI.Forms.Supplement_Forms
             this.packageName,
             this.packageSource});
             this.dgvPackageSources.DataBindings.Add(new System.Windows.Forms.Binding("DataSource", this, "PackageSourceDT", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.dgvPackageSources.Location = new System.Drawing.Point(17, 75);
+            this.dgvPackageSources.Location = new System.Drawing.Point(17, 61);
             this.dgvPackageSources.Name = "dgvPackageSources";
             this.dgvPackageSources.RowHeadersWidth = 51;
             this.dgvPackageSources.RowTemplate.Height = 24;
-            this.dgvPackageSources.Size = new System.Drawing.Size(684, 410);
+            this.dgvPackageSources.Size = new System.Drawing.Size(861, 204);
             this.dgvPackageSources.TabIndex = 28;
             // 
             // enabled
@@ -142,14 +145,14 @@ namespace OpenBots.UI.Forms.Supplement_Forms
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(713, 583);
+            this.ClientSize = new System.Drawing.Size(890, 350);
             this.Controls.Add(this.dgvPackageSources);
             this.Controls.Add(this.uiBtnOk);
             this.Controls.Add(this.uiBtnCancel);
             this.Controls.Add(this.lblHeader);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(5);
-            this.MinimumSize = new System.Drawing.Size(627, 630);
+            this.MinimumSize = new System.Drawing.Size(627, 330);
             this.Name = "frmAddPackageSource";
             this.Text = "Add Package Source";
             this.TopMost = true;
