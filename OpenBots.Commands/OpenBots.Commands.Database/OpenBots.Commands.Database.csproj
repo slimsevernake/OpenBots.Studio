@@ -93,4 +93,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>nuget pack $(ProjectPath) -Properties Configuration=$(ConfigurationName) -IncludeReferencedProjects -OutputDirectory $(ProjectDir)..\..\OpenBots.Packages</PostBuildEvent>
+  </PropertyGroup>
 </Project>

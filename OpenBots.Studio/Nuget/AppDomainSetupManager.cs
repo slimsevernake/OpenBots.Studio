@@ -45,17 +45,23 @@ namespace OpenBots.Nuget
                     var name = assemblyinfo.Name;
                     var version = assemblyinfo.Version.ToString();
 
+                    if (name.Contains("OpenBots.Core") || name.Contains("OpenBots.Engine") || name.Contains("RestSharp"))
+                    {
+                        //pause
+                    }
+
                     var assemblies = AppDomain.CurrentDomain.GetAssemblies();
-                    var existingAssembly = assemblies.Where(x => x.GetName().Name == name && 
+                    var existingAssembly = assemblies.Where(x => x.GetName().Name == name &&
                                                                  x.GetName().Version.ToString() == version)
                                                      .FirstOrDefault();
 
-                    if (existingAssembly == null)
+                    if ((existingAssembly == null && name != "OpenBots.Engine"))// || name == "RestSharp")
                     {
                         var assembly = Assembly.LoadFrom(path);
-                        existingAssemblies.Add(assembly);
+                        //if (name != "OpenBots.Core")
+                            existingAssemblies.Add(assembly);
                     }
-                    else
+                    else if (name != "OpenBots.Engine")
                         existingAssemblies.Add(existingAssembly);
                 }
                 catch (Exception ex)
